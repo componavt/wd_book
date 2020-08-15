@@ -1,0 +1,184 @@
+\chapter{База данных Google Fusion Tables, она же ДинамиТ}
+\label{ch:dynamite}
+
+
+\newthought{По-английски эта база данных} в App Inventor называется ``FusiontablesControl'', 
+в книге Камриани и Роя\cite{KamrianiAndRoy2016} её называют ``Google Fusion Tables''. 
+В русском интерфейсе среды App Inventor эта база называется предлинно: 
+<<УправлениеДинамическимиТаблицами>>, а мы эту базу данных назовём кратко <<ДинамиТ>>, 
+где заглавная буква Т указывает на <<\textbf{Т}аблицы>>.
+
+Программы, работающие с ДинамиТом, должны получить разрешение у сервера Гугл, то есть должны указать логин и пароль. Есть два варианта:
+\begin{itemize}
+    \item Разработчик приложения получает секретный ключ (API Key) и использует его в программе. 
+        В этом случае пользователю программы тоже нужно залогиниться в Google для доступа к ДинамиТу. 
+
+    \item Можно использовать Service Account. Тогда нужно создать 
+        файл с логином и паролем (это наш секретный ключик) и получить 
+        мейл ``Service Account Email Address'' из Google APIs Console. 
+        Затем сообщаем ДинамиТу мейл ``Service Account Email Address'' 
+        и загружаем файл с секретным ключиком в своё приложение, 
+        и связываем свойство KeyFile с этим файлом. 
+        Наконец, в Дизайнере ставим галочку на пункт ``UseServiceAuthentication''. 
+        В случае использования Service Account 
+        пользователям не нужно заботиться о логине в ДинамиТе, 
+        все эти заботы берёт на себя приложение.
+\end{itemize}
+
+
+
+
+\section{Приготовление ДинамиТа}
+
+
+Откройте веб-страницу Google Диска (https://drive.google.com).\marginnote[-0cm]{
+    Чтобы получить доступ к Google Диску, достаточно зарегистрироваться на сайте \href{https://www.google.com/}{Google.com}.
+}
+Нажмите последовательно 
+кнопки меню: <<Создать>>, <<Ещё>> и~кнопку <<+ Подключить другие приложения>> 
+(рис.~\ref{fig:google_drive_connect_more_apps}). В новом окне будет множество 
+приложений, которые можно подключить к~Google Диску. 
+
+\begin{figure}
+{%
+\setlength{\fboxsep}{0pt}%
+\setlength{\fboxrule}{1pt}%
+\fcolorbox{gray}{gray}{\includegraphics{./lessons/db_google_fusion/020_google_drive_connect_more_apps_with_new-button_ru.png}}%
+}%
+    \caption[Подключения приложения к Google Диску.][56pt]{Подключения 
+            приложения к Google Диску.
+    }
+  \label{fig:google_drive_connect_more_apps}
+\end{figure}
+
+В строке поиска нового окна наберите слово ``Fusion''. Нажмите кнопку поиска. 
+Из списка приложений выберите ``Fusion Tables'' и нажмите кнопку <<Подключить>> 
+(рис.~\ref{fig:add_fusion_to_drive}).
+
+\begin{figure}
+{%
+\setlength{\fboxsep}{0pt}%
+\setlength{\fboxrule}{1pt}%
+\fcolorbox{gray}{gray}{\includegraphics{./lessons/db_google_fusion/030_add_fusion_to_drive_ru.png}}%
+}%
+    \caption[Выбор приложения в Google Диск.][-0pt]{Выбор приложения 
+            ``Fusion Tables'' в Google Диск. У кнопки <<Подключить>> 
+            на экране поместились первые полторы буквы.
+
+        { Если даже у Гугля на картинке есть опечатки, то какой может быть 
+        спрос с авторов этой книги $\ddot\smile$
+        }
+    }
+  \label{fig:add_fusion_to_drive}
+\end{figure}
+
+Теперь, если снова нажать кнопки <<Создать>> и <<Ещё>>, в~списке меню будут 
+<<Google Сводные таблицы>> (рис.~\ref{fig:fusion_is_available_at_drive}).
+Щёлкнем по кнопке <<Google Сводные таблицы>>, чтобы создать новую таблицу.
+
+\begin{figure}
+{%
+\setlength{\fboxsep}{0pt}%
+\setlength{\fboxrule}{1pt}%
+\fcolorbox{gray}{gray}{\includegraphics{./lessons/db_google_fusion/040_GoogleFusionTables_avail_ru.png}}%
+}%
+    \caption[Google Сводные таблицы доступны в Google Диск.][56pt]{Google Сводные таблицы 
+            (по-нашему ДинамиТ) доступны в Google Диск.
+    }
+  \label{fig:fusion_is_available_at_drive}
+\end{figure}
+
+Откроется новое окно (рис.~\ref{fig:fusion_create_empty_table}). Выберите пункт 
+``Create empty table'' для создания новой пустой таблицы.
+
+\begin{figure}
+{
+\setlength{\fboxsep}{0pt}%
+\setlength{\fboxrule}{1pt}%
+\fcolorbox{gray}{gray}{\includegraphics{./lessons/db_google_fusion/050_create_empty_table.png}}%
+}
+    \caption[Создание новой Google Сводной таблицы.][0pt]{Создание новой 
+            Google Сводной таблицы (Fusion Table).
+
+            { 
+                Интерфейс Fusion Tables на русский пока не переведён, 
+                но для нас это не беда. 
+            }
+
+            {
+                Обратите внимание, что внизу иллюстрации есть ссылка на учебник 
+                по Fusion Tables: \url{https://support.google.com/fusiontables}.
+            }
+    }
+  \label{fig:fusion_create_empty_table}
+\end{figure}
+
+
+
+
+\section{Закладка (данных) ДинамиТа}
+
+Ну вот, наконец, мы добрались до табличной формы, 
+где можно вводить данные в ДинамиТ или Google Сводные таблицы.
+
+Первым делом дадим таблице название и описание (рис.~\ref{fig:fusion_table_name}). 
+Таблицу назовём ``FlagColor Table''. После ввода текста нажмите кнопку ``Save'', 
+чтобы сохранения данных.
+
+\begin{marginfigure}[0.0cm]
+{
+\setlength{\fboxsep}{0pt}%
+\setlength{\fboxrule}{1pt}%
+\fcolorbox{gray}{gray}{\includegraphics{./lessons/db_google_fusion/060_table_name.png}}
+}
+    \caption{Переименование новой Google Сводной таблицы (Fusion Table).}
+  \label{fig:fusion_table_name}
+\end{marginfigure}
+
+
+\newthought{О пустоте}. Нужна ещё пара штрихов, прежде чем мы сможем использовать эту таблицу в нашем приложении. 
+Изначально, при создании таблицы, в неё вставляется одна пустая строка, а нам нужна совершенно пустая таблицу. Как очистить таблицу? 
+Для этого выберите пункт меню ``Edit'', затем ``Delete all rows'' (рис.~\ref{fig:fusion_table_delete_all_rows}). 
+На вопрос -- уверены ли вы, что нужно всё удалить? -- ответьте утвердительно (рис.~\ref{fig:fusion_table_yes_delete_all_rows}).
+
+\begin{figure}
+{
+\setlength{\fboxsep}{0pt}%
+\setlength{\fboxrule}{1pt}%
+\fcolorbox{gray}{gray}{\includegraphics{./lessons/db_google_fusion/070_Edit_delete_all_rows_to_clear_table.png}}
+}
+    \caption[Очистка Сводной таблицы.][0pt]{Удаление всех строк для очистки таблицы.
+            {
+                Пункты меню ``Edit'', затем ``Delete all rows''.
+            }
+    }
+  \label{fig:fusion_table_delete_all_rows}
+\end{figure}
+
+
+\begin{marginfigure}[0.0cm]
+{%
+\setlength{\fboxsep}{0pt}%
+\setlength{\fboxrule}{1pt}%
+\fcolorbox{gray}{gray}{\includegraphics{./lessons/db_google_fusion/080_yes_delete_all_rows.png}}%
+}%
+%\includegraphics{./commons/Flag_of_Republika_Srpska.png}
+    \caption{Подтверждение удаления всех строк таблицы.}
+\label{fig:fusion_table_yes_delete_all_rows}
+\end{marginfigure}
+
+
+\newthought{К вводу данных} можно уже и приступить. 
+Определим для себя, какие столбцы нам нужны для использования таблицы 
+в главе \ref{ch:draughts-moves} <<Превращение флагов>> (с.~\pageref{ch:draughts-moves}). 
+Нужны четыре столбца:
+
+\begin{description}
+    \item[country] -- текстовое поле для названия страны (например, ``Russia'', ``Gabon''),
+    \item[row] -- числовое поле для указания номера полоски цвета, считаем сверху вниз, отсчёт начинаем с единицы,
+    \item[hex-triple?] -- числовое? поле для указания RGB-цвета,
+    \item[color-name] -- текстовое поле для названия цвета, служит human-readable комментарием к RGB-коду!
+\end{description}
+
+
+
