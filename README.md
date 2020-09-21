@@ -11,17 +11,17 @@ See our course [Research in programming Wikidata](https://ru.wikiversity.org/wik
 
 ## Quick Start
 
-The Wikidata book (file `wd_book/s1book.tex`) can be compiled with the following:
+The Wikidata book (file `wd_book/ru/wd_book.tex`) can be compiled with the following:
 
-    pdflatex s1book
-    bibtex s1book
-    makeindex s1book.idx
-    # or texindy --language english s1book.idx
-    pdflatex s1book
-    pdflatex s1book
-    pdflatex s1book
+    pdflatex wd_book_ru
+    bibtex wd_book_ru
+    makeindex wd_book_ru.idx
+    # or texindy --language english wd_book.idx
+    pdflatex wd_book_ru
+    pdflatex wd_book_ru
+    pdflatex wd_book_ru
 
-The result should look like `s1book.pdf`.
+The result should look like `wd_book_ru.pdf`.
 
 ## Troubleshooting
 
