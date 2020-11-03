@@ -14,27 +14,30 @@
 точнее экземляров объекта  
 \wdqName{city}{515}.
 
+% escapebegin=ы,escapeend=я>
+%                    escapechar=ы
+% # после знака # (то есть в комментариях) можно ставить \footnote в lstlisting
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/jcE}{Список городов}},
-                    label=lst:cities, 
-                    escapebegin=ку,escapeend=ку-ку>
+                    caption={\href{https://w.wiki/jcE}{Список городов}\protect\footnotemark},
+                    label=lst:cities,
+                    texcl 
                     ]
-SELECT ?city ?cityLabel WHERE {
+SELECT ?city ?cityLabel WHERE { 
   ?city wdt:P31 wd:Q515.       # instance of city
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
-\end{lstlisting}
+\end{lstlisting}%
+\footnotetext{Получено \num{20800} городов в 2017 году, \num{9260} городов в 2020 году.}
 
 
 Мы будем регулярно ссылаться на объекты Викиданных. 
 Например, \wdqName{city}{515}\footnote[][0cm]{%
 %    
-    В электронной версии книги имена объектов Викиданных --- 
-    это гиперссылки на соответствующие страницы Викиданных.
+    В электронной версии книги имена объектов Викиданных включают гиперссылки на соответствующие страницы Викиданных.
 } 
 --- это имя объекта Викиданных. 
 Здесь ``city'' имя метки объекта (Label), 
-a ``Q515`` -- это уникальный идентификатор объекта 
+a ``Q515'' -- это уникальный идентификатор объекта 
 и название страницы Викиданных с описанием этого объекта.
 \href{https://en.wikipedia.org/wiki/Rule_of_thumb}{Rule of thumb}\footnote[][0cm]{%
 %
