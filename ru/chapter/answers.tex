@@ -11,21 +11,27 @@
 \newthought{Задачи рассеяны} по всей книге, а ответы на них собраны в этом разделе.
 
 \begin{task}
-    \label{answer:Tricolor-flags}
-    \newthought{Меняя порядок и толщину} горизонтальных полосок 
-    сербского флага (с.~\pageref{fig:Srpska}), можно получить флаг России 
-    или флаг Крыма (рис.~\ref{fig:FlagCrimea}). 
-\end{task}
+    \label{answer:instance-in-OOP-vs-Wikidata}
+    \newthought{Экземпляр объекта}\footnote[][0cm]{См. статью 
+            \href{https://en.wikipedia.org/wiki/Instance\_(computer\_science)}{Instance (computer science)} в Английской Википедии.
+            }
+    в Викиданных 
+    и в объектно-ориентированном программировании (ООП) сходны в сути, а именно:
+    есть модель базового объекта $D$, создаётся новая единица $I$, обладающая 
+    свойствами той же модели $D$. Говорят, что модель (класс) $D$ проинициализирована 
+    и получен объект $I$\footnote[][0cm]{$I$ is instance of $D$}.
 
-\begin{marginfigure}[0cm]
-{%
-\setlength{\fboxsep}{0pt}%
-\setlength{\fboxrule}{1pt}%
-\fcolorbox{gray}{gray}{\includegraphics{./commons/Flag_of_Crimea.png}}%
-}%
-\caption{Флаг Крыма}
-\label{fig:FlagCrimea}
-\end{marginfigure}
+    В чём разница? 
+    В ООП в исходном коде программы мы видим как во времени последовательно 
+    (в разных строках программы) происходит 
+    объявление переменной, инициализация класса, 
+    присвоение значений экземплярам класса.
+    В Викиданных в тот момент, когда выполняется скрипт и происходит обращение 
+    к данным, объекты, являющиеся экземплярами других объектов уже представлены 
+    и обычно не происходит их изменение, связанное с работой SPARQL-скриптов.
+
+    \small{Вопрос на с.~\pageref{question:instance-in-OOP-vs-Wikidata}.}
+\end{task}
 
 \begin{task}
     \label{answer:Pobeda-beda}
