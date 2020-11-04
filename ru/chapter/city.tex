@@ -286,7 +286,7 @@ ORDER BY DESC(?sisterCount)
 \footnotetext{Получено \num{4046} записей в 2020 году.}         
 
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{}{Упорядоченный список городов России по числу побратимов}\protect\footnotemark},
+                    caption={\href{https://w.wiki/k7D}{Упорядоченный список городов России по числу побратимов}\protect\footnotemark},
                     label=lst:ordered_by_sister_cities_Russia, 
                     escapebegin=ку,escapeend=ку-ку>
                     ]
@@ -320,7 +320,7 @@ ORDER BY DESC(?sisterCount)
 Ниже представлены SPARQL-запросы для получения числа городов (N) с определенным числом побратимов (S), для всех городов, известных Викиданным (листинг \ref{lst:city_relation_S_N}), и для городов России (листинг \ref{lst:city_relation_Russia_S_N}).
 
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{}{Число городов с определенным числом побратимов}\protect\footnotemark},
+                    caption={\href{https://w.wiki/k7C}{Число городов с определенным числом побратимов}\protect\footnotemark},
                     label=lst:city_relation_S_N, 
                     escapebegin=ку,escapeend=ку-ку>
                     ]
@@ -386,7 +386,7 @@ ORDER BY DESC(?sisterCount)
 На основании построенного тренда можно сделать предположение, что зависимость числа городов от числа имеющихся у этих городов побратимов имеет распределение, близкое к степенному.
 
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{}{Число городов России с определенным числом побратимов}\protect\footnotemark},
+                    caption={\href{https://w.wiki/k7H}{Число городов России с определенным числом побратимов}\protect\footnotemark},
                     label=lst:city_relation_Russia_S_N, 
                     escapebegin=ку,escapeend=ку-ку>
                     ]
@@ -439,7 +439,7 @@ ORDER BY DESC(?sisterCount)
 Ниже представлен SPARQL-запрос для получения списка стран, упорядоченного по числу побратимов (листинг \ref{lst:countries_sister_cities}).
 
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{}{Упорядоченный список стран по числу побратимов}\protect\footnotemark},
+                    caption={\href{https://w.wiki/k7R}{Упорядоченный список стран по числу побратимов}\protect\footnotemark},
                     label=lst:countries_sister_cities, 
                     escapebegin=ку,escapeend=ку-ку>
                     ]
@@ -482,7 +482,7 @@ ORDER BY DESC(?sisterCount)
 На 2020 год больше всего побратимов имела Германия (\num{1375} городов). В таблице~\ref{tab:germany_sister_cities} приведен список из 10 стран, имеющих наибольшее количество побратимов с городами Германии (2020). Получить полный список стран, с которыми Германия имеет города-побратимы, можно выполнив SPARQL-запрос, представленный ниже (листинг \ref{lst:sister_cities_with_Germany}).
 
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{}{Список стран, имеющих побратимы с городами Германии}\protect\footnotemark},
+                    caption={\href{https://w.wiki/k7T}{Список стран, имеющих побратимы с городами Германии}\protect\footnotemark},
                     label=lst:sister_cities_with_Germany, 
                     escapebegin=ку,escapeend=ку-ку>
                     ]
@@ -548,7 +548,7 @@ ORDER BY DESC(?sisterCount)\end{lstlisting}
 \end{marginfigure}
 
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{}{Ближайшие соседи России}\protect\footnotemark},
+                    caption={\href{https://w.wiki/k7W}{Ближайшие соседи России}\protect\footnotemark},
                     label=lst:countries_sister_cities_with_Russia, 
                     escapebegin=ку,escapeend=ку-ку>
                     ]
@@ -591,9 +591,9 @@ ORDER BY DESC(?sisterCount)
 
 Городом принято называть крупный населённый пункт, жители которого, как правило, не заняты сельским хозяйством. При этом разные страны используют различные критерии при наделении поселений статусом города, основным из которых является численность населения. Некоторые страны и вовсе не применяют понятие города. Так, во Франции используется только одна географическая единица подобного рода - коммуна, вне зависимости от количества проживающих в ней людей и рода их деятельности. Поэтому чётко определить, какой населенный пункт относить к городам, а какой нет, может быть затруднительно.
 
-На практике некоторые объекты Викиданных могут одновременно являться экземплярами городов разных типов. Например, \wdqName{Shanghai}{8686} отнесен к трем исследуемым объектам: \wdqName{city}{515}, \wdqName{big city}{1549591}, \wdqName{city with millions of inhabitants}{1637706}. Нетрудно догадаться, что такое множественное присваивание сказывается на результатах SPARQL-запросов, в частности, с использованием конструкции UNION. Это несложно проверить, выполнив, например, SPARQL-запрос по нахождению городов разных типов (линстинг \ref{lst:different_city_types}). \wdqName{Shanghai}{8686} встречается в результатах три раза. 
+На практике некоторые объекты Викиданных могут одновременно являться экземплярами городов разных типов. Например, \wdqName{Шанхай}{8686} отнесен к трем исследуемым объектам: \wdqName{city}{515}, \wdqName{big city}{1549591}, \wdqName{city with millions of inhabitants}{1637706}. Нетрудно догадаться, что такое множественное присваивание сказывается на результатах SPARQL-запросов, в частности, с использованием конструкции UNION. Это несложно проверить, выполнив, например, SPARQL-запрос по нахождению городов разных типов (линстинг \ref{lst:different_city_types}). \wdqName{Шанхай}{8686} встречается в результатах три раза. 
 
-Викиданные имеют механизм наследования, выражающийся в свойстве \href{https://www.wikidata.org/wiki/Property:P279}{subclass of}. Заключается этот механизм в том, что если объект является экземпляром \wdqName{big city}{1549591}, то он является и экземпляром  \wdqName{city}{515}, так как \wdqName{big city}{1549591} - подкласс  \wdqName{city}{515}. Таким образом, описанную выше ситуацию с \wdqName{Shanghai}{8686} можно разрешить, оставив только один класс \wdqName{city with millions of inhabitants}{1637706}. Стоит отметить, что замена конструкции с использованием UNION (листинг \ref{lst:example_union_city}) на конструкцию с учетом подклассов неэквивалентна (листинг \ref{lst:example_subclasses_city}). Рассмотренный ранее \wdqName{Shanghai}{8686} встречается в новой выборке даже четыре раза. Дело в том, что помимо части исследуемых классов есть и другие наследуемые от \wdqName{city}{515}. Например, \wdqName{lost city}{2974842}, \wdqName{free imperial city}{57318}, \wdqName{autonomous city}{1094397} и даже \wdqName{ideal city}{1656724}.
+Викиданные имеют механизм наследования, выражающийся в свойстве \href{https://www.wikidata.org/wiki/Property:P279}{subclass of}. Заключается этот механизм в том, что если объект является экземпляром \wdqName{big city}{1549591}, то он является и экземпляром  \wdqName{city}{515}, так как \wdqName{big city}{1549591} - подкласс  \wdqName{city}{515}. Таким образом, описанную выше ситуацию с \wdqName{Шанхай}{8686} можно разрешить, оставив только один класс \wdqName{city with millions of inhabitants}{1637706}. Стоит отметить, что замена конструкции с использованием UNION (листинг \ref{lst:example_union_city}) на конструкцию с учетом подклассов неэквивалентна (листинг \ref{lst:example_subclasses_city}). Рассмотренный ранее \wdqName{Шанхай}{8686} встречается в новой выборке даже четыре раза. Дело в том, что помимо части исследуемых классов есть и другие наследуемые от \wdqName{city}{515}. Например, \wdqName{lost city}{2974842}, \wdqName{free imperial city}{57318}, \wdqName{autonomous city}{1094397} и даже \wdqName{ideal city}{1656724}.
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/k5T}{Пример использования конструкции UNION}},
