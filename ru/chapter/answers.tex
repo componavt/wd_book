@@ -52,7 +52,7 @@
 %%%%%%%%%%%%%% City chapter %%%%%%%%%%%%%%
 \begin{task}
     \label{answer:cities_geographic_objects}
-    \newthought{В честь географических объектов} были названы Тула (\href{https://ru.wikipedia.org/wiki/Тулица}{река Тулица}), Курильск (\href{https://ru.wikipedia.org/wiki/Курильские_острова}{Курильские острова}) и Вологда (\href{https://ru.wikipedia.org/wiki/Вологда_(река)}{река Вологда}). Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:cities_geographic_objects}). 
+    \newthought{В честь географических объектов} были названы Тула (\href{https://ru.wikipedia.org/wiki/Тулица}{река Тулица}), Курильск (\href{https://ru.wikipedia.org/wiki/Курильские_острова}{Курильские острова}) и Вологда (\href{https://ru.wikipedia.org/wiki/Вологда_(река)}{река Вологда}). Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:cities_geographic_objects}). Значение свойства \href{https://www.wikidata.org/wiki/Property:P138}{named after} показывает, в честь какого объекта Викиданных был назван город.
     \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/jiu}{Города, названные в честь географических объектов}},
                     label=lst:cities_geographic_objects, 
@@ -72,7 +72,7 @@ SELECT ?city ?cityLabel ?namedAfterLabel ?whatIsItLabel WHERE {
 
 \begin{task}
     \label{answer:cities_over_400_age}
-    \newthought{Более 400 лет назад} были основаны Москва (1147 г.), Воронеж (1586 г.), Самара (1586 г.), Казань (1005 г.) и Астрахань (1558 г.). Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:cities_over_400_age}). 
+    \newthought{Более 400 лет назад} были основаны Москва (1147 г.), Воронеж (1586 г.), Самара (1586 г.), Казань (1005 г.) и Астрахань (1558 г.). Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:cities_over_400_age}). Значение свойства \href{https://www.wikidata.org/wiki/Property:P571}{inception} содержит дату основания города.
     \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/jnv}{Города, основанные более 400 лет назад}},
                     label=lst:cities_over_400_age, 
