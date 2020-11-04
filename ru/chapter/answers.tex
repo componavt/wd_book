@@ -48,3 +48,56 @@
 
     \small{Вопрос на с.~\pageref{fig:block:proc:swap:colors}.}
 \end{task}
+
+%%%%%%%%%%%%%% City chapter %%%%%%%%%%%%%%
+\begin{task}
+    \label{answer:cities_geographic_objects}
+    \newthought{В честь географических объектов} были названы Тула (\href{https://ru.wikipedia.org/wiki/Тулица}{река Тулица}), Курильск (\href{https://ru.wikipedia.org/wiki/Курильские_острова}{Курильские острова}) и Вологда (\href{https://ru.wikipedia.org/wiki/Вологда_(река)}{река Вологда}). Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:cities_geographic_objects}). 
+    \begin{lstlisting}[ language=SPARQL, 
+                    caption={\href{https://w.wiki/jiu}{Города, названные в честь географических объектов}},
+                    label=lst:cities_geographic_objects, 
+                    escapebegin=ку,escapeend=ку-ку>
+                    ]
+SELECT ?city ?cityLabel ?namedAfterLabel ?whatIsItLabel WHERE {
+	?city wdt:P31/wdt:P279* wd:Q7930989.
+	?city wdt:P138 ?namedAfter.
+	?namedAfter wdt:P31 ?whatIsIt.
+	FILTER(?city = wd:Q1341 || ?city = wd:Q2770 || ?city = wd:Q5655 ||
+		?city = wd:Q156046 || ?city = wd:Q1957 || ?city = wd:Q175651)
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
+}
+    \end{lstlisting}
+    \small{Вопрос на с.~\pageref{lst:population_town}.}
+\end{task}
+
+\begin{task}
+    \label{answer:cities_over_400_age}
+    \newthought{Более 400 лет назад} были основаны Москва (1147 г.), Воронеж (1586 г.), Самара (1586 г.), Казань (1005 г.) и Астрахань (1558 г.). Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:cities_over_400_age}). 
+    \begin{lstlisting}[ language=SPARQL, 
+                    caption={\href{https://w.wiki/jnv}{Города, основанные более 400 лет назад}},
+                    label=lst:cities_over_400_age, 
+                    escapebegin=ку,escapeend=ку-ку>
+                    ]
+SELECT ?city ?cityLabel ?inceptionDate WHERE {
+	?city wdt:P31/wdt:P279* wd:Q7930989.
+	?city wdt:P17 wd:Q159.
+	?city wdt:P571 ?inceptionDate.
+	FILTER(BOUND(?inceptionDate) && 
+					DATATYPE(?inceptionDate) = xsd:dateTime).
+	BIND(NOW() - ?inceptionDate AS ?distance).
+	FILTER(0 <= ?distance && ?distance > 146000). # = 400 * 365
+	FILTER(?city = wd:Q649 || ?city = wd:Q193522 || ?city = wd:Q900 ||
+		?city = wd:Q3927 || ?city = wd:Q894 || ?city = wd:Q3426)
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
+}
+GROUP BY ?city ?cityLabel ?inceptionDate    
+\end{lstlisting}
+
+    \small{Вопрос на с.~\pageref{lst:population_city_millions}.}
+\end{task}
+
+%\begin{task}
+%    \label{answer:cities_flags}
+%    \newthought{Флаг, изображенный на рис. } принадлежит .  
+%    \small{Вопрос на с.~\pageref{fig:Pobeda-beda}.}
+%\end{task}
