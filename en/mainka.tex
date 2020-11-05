@@ -179,7 +179,7 @@
 %	PREFACE
 %----------------------------------------------------------------------------------------
 
-%\input{chapters/preface.tex}
+%\input{chapters.source/preface.tex}
 
 %----------------------------------------------------------------------------------------
 %	TABLE OF CONTENTS & LIST OF FIGURES/TABLES
@@ -216,22 +216,33 @@
 \setchapterstyle{kao} % Choose the default chapter heading style
 
 \input{chapters/introduction.tex}
+\input{chapters/aircraft.tex}
+
+\input{chapters/city.tex}
+\input{chapters/country.tex}
+\input{chapters/operating_system.tex}
+\input{chapters/programming_language.tex}
+\input{chapters/ship.tex}
+ 
+% template and help LaTeX chapters
+
+\input{chapters.source/introduction.tex}
 
 \pagelayout{wide} % No margins
 \addpart{Class Options, Commands and Environments}
 \pagelayout{margin} % Restore margins
 
-\input{chapters/options.tex}
-\input{chapters/textnotes.tex}
-\input{chapters/figsntabs.tex}
-\input{chapters/references.tex}
+\input{chapters.source/options.tex}
+\input{chapters.source/textnotes.tex}
+\input{chapters.source/figsntabs.tex}
+\input{chapters.source/references.tex}
 
 \pagelayout{wide} % No margins
 \addpart{Design and Additional Features}
 \pagelayout{margin} % Restore margins
 
-\input{chapters/layout.tex}
-\input{chapters/mathematics.tex}
+\input{chapters.source/layout.tex}
+\input{chapters.source/mathematics.tex}
 
 \appendix % From here onwards, chapters are numbered with letters, as is the appendix convention
 
@@ -239,7 +250,7 @@
 \addpart{Appendix}
 \pagelayout{margin} % Restore margins
 
-\input{chapters/appendix.tex}
+\input{chapters.source/appendix.tex}
 
 %----------------------------------------------------------------------------------------
 
