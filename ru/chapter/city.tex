@@ -61,8 +61,7 @@ SELECT ?city ?cityLabel WHERE {
                     escapebegin=ку,escapeend=ку-ку>
                     ]
 SELECT ?city ?cityLabel WHERE {
-	# instances of "city with millions of inhabitants" 
-	?city wdt:P31 wd:Q1637706.
+	?city wdt:P31 wd:Q1637706. # instances of "city 1000000+" 
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
 \end{lstlisting}
@@ -73,16 +72,11 @@ SELECT ?city ?cityLabel WHERE {
                     label=lst:different_city_types, 
                     escapebegin=ку,escapeend=ку-ку>
                     ]
-# Selecting items which are ...
-SELECT ?city ?cityLabel WHERE {
-	# ... instances of "town" ...                                    
-	{ ?city wdt:P31 wd:Q3957 } UNION
-	# ... instances of "city" ...                                
-	{ ?city wdt:P31 wd:Q515 } UNION
-	# ... instances of "big city" ..                                   
-	{ ?city wdt:P31 wd:Q1549591 } UNION
-	# ... instances of "city with millions of inhabitants"                              .
-	{ ?city wdt:P31 wd:Q1637706 }                                     
+SELECT ?city ?cityLabel WHERE { # Selecting items which are ...
+	{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"
+	{ ?city wdt:P31 wd:Q515 } UNION # instances of "city"
+	{ ?city wdt:P31 wd:Q1549591 } UNION # instances of "big city"
+	{ ?city wdt:P31 wd:Q1637706 } # instances of "city 1000000+"                                
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
 }
 \end{lstlisting}
@@ -100,6 +94,22 @@ SELECT ?city ?cityLabel WHERE {
 	\item <<Города-миллионеры>> или \wdqName{city with millions of inhabitants}{1637706}, листинг~\ref{lst:population_city_millions}.
 \end{itemize}
 
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={\href{https://w.wiki/jgX}{Численность населения <<Малых городов>>}},
+                    label=lst:population_town, 
+                    escapebegin=ку,escapeend=ку-ку>
+                    ]
+# Selecting total population of items which are ...
+SELECT (SUM(?population_city) as ?sum) WHERE {                    
+	SELECT (MAX(xsd:integer(REPLACE(STR(?population),"\\.",""))) 
+						as ?population_city) ?city WHERE {
+		?city wdt:P31 wd:Q3957.	# instances of "town"
+		?city wdt:P1082 ?population # with filled property "population"                                  
+	}
+	GROUP BY ?city
+}
+\end{lstlisting}
+
 %%%%%%%%%%%%%%%% Упражнение 1 %%%%%%%%%%%%%%%% 
 \marginnote{
 Какие города были названы в честь географических объектов?
@@ -115,24 +125,6 @@ SELECT ?city ?cityLabel WHERE {
 }
 
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/jgX}{Численность населения <<Малых городов>>}},
-                    label=lst:population_town, 
-                    escapebegin=ку,escapeend=ку-ку>
-                    ]
-# Selecting total population of items which are ...
-SELECT (SUM(?population_city) as ?sum) WHERE {                    
-	SELECT (MAX(xsd:integer(REPLACE(STR(?population),"\\.",""))) 
-						as ?population_city) ?city WHERE {
-		# ... instances of "town" ...
-		?city wdt:P31 wd:Q3957.
-		# ... with filled property "population"                                       
-		?city wdt:P1082 ?population                                   
-	}
-	GROUP BY ?city
-}
-\end{lstlisting}
-
-\begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/jgY}{Численность населения <<Городов>>}},
                     label=lst:population_city, 
                     escapebegin=ку,escapeend=ку-ку>
@@ -141,10 +133,8 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
 SELECT (SUM(?population_city) as ?sum) WHERE {                    
 	SELECT (MAX(xsd:integer(REPLACE(STR(?population),"\\.",""))) 
 						as ?population_city) ?city WHERE {
-		# ... instances of "city" ...
-		?city wdt:P31 wd:Q515.
-		# ... with filled property "population"
-		?city wdt:P1082 ?population
+		?city wdt:P31 wd:Q515. # instances of "city"
+		?city wdt:P1082 ?population # with filled property "population"
 	}
 	GROUP BY ?city
 }\end{lstlisting}
@@ -158,28 +148,14 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
 SELECT (SUM(?population_city) as ?sum) WHERE {                    
 	SELECT (MAX(xsd:integer(REPLACE(STR(?population),"\\.",""))) 
 						as ?population_city) ?city WHERE {
-		# ... instances of "big city" ...
-		?city wdt:P31 wd:Q1549591.
-		# ... with filled property "population"                                    
-		?city wdt:P1082 ?population
+		?city wdt:P31 wd:Q1549591. # instances of "big city"
+		?city wdt:P1082 ?population # with filled property "population"
 	}
 	GROUP BY ?city
 }
 \end{lstlisting}
 
-%%%%%%%%%%%%%%%% Упражнение 3 %%%%%%%%%%%%%%%%
-\marginnote{
-Какие из этих городов были основаны более 400 лет назад?
-\begin{itemize}
-\item \href{https://ru.wikipedia.org/wiki/Москва}{Москва}
-\item \href{https://ru.wikipedia.org/wiki/Саров}{Саров}
-\item \href{https://ru.wikipedia.org/wiki/Казань}{Казань}
-\item \href{https://ru.wikipedia.org/wiki/Астрахань}{Астрахань}
-\item \href{https://ru.wikipedia.org/wiki/Самара}{Самара}
-\item \href{https://ru.wikipedia.org/wiki/Воронеж}{Воронеж}
-\end{itemize}
-См. ответ~\ref{answer:cities_over_400_age} на с.~\pageref{answer:cities_over_400_age}.
-}
+\newpage % Fix: Остается одна строчка от листинга на странице
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/jgb}{Численность населения <<Городов-миллионеров>>}},
@@ -190,10 +166,8 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
 SELECT (SUM(?population_city) as ?sum) WHERE {
 	SELECT (MAX(xsd:integer(REPLACE(STR(?population),"\\.",""))) 
 						as ?population_city) ?city WHERE {
-		# ... instances of "city with millions of inhabitants" ...
-		?city wdt:P31 wd:Q1637706.
-		# ... with filled property "population"
-		?city wdt:P1082 ?population
+		?city wdt:P31 wd:Q1637706. # instances of "city 1000000+"
+		?city wdt:P1082 ?population # with filled property "population"
 	}
 	GROUP BY ?city
 }
@@ -239,16 +213,11 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
                     ]
 # Counting items which are ... 
 SELECT (COUNT(?city) as ?count) WHERE {                             
-	# ... instances of "town" ...
-	{ ?city wdt:P31 wd:Q3957 } UNION 
-	# ... OR instances of "city" ...                                 
-	{ ?city wdt:P31 wd:Q515 } UNION    
-	# ... OR instances of "big city" ...                               
-	{ ?city wdt:P31 wd:Q1549591 } UNION   
-	# ... OR instances of "city with millions of inhabitants"                            
-	{ ?city wdt:P31 wd:Q1637706 } 
-	# ... with unfilled property "sister city"                                    
-	FILTER NOT EXISTS { ?city wdt:P190 [] }                           
+	{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"          
+	{ ?city wdt:P31 wd:Q515 } UNION # OR instances of "city"                 
+	{ ?city wdt:P31 wd:Q1549591 } UNION # OR instances of "big city"                       
+	{ ?city wdt:P31 wd:Q1637706 } 	# OR instances of "city 1000000+"              
+	FILTER NOT EXISTS { ?city wdt:P190 [] } # with unfilled "sister city"
 }
 \end{lstlisting}
 \footnotetext{Получено \num{21479} городов в 2020 году.}
@@ -266,22 +235,15 @@ SELECT (COUNT(?city) as ?count) WHERE {
                     ]
 # Counting sister cities of cities which are ...
 SELECT ?cityLabel (COUNT(?sister) AS ?sisterCount) WHERE {           
-	# ... instances of "town" ...
-	{ ?city wdt:P31 wd:Q3957 } UNION
-	# ... OR instances of "city" ...                                   
-	{ ?city wdt:P31 wd:Q515 } UNION
-	# ... OR instances of "big city" ...                                   
-	{ ?city wdt:P31 wd:Q1549591 } UNION 
-	# ... OR instances of "city with millions of inhabitants"                               
-	{ ?city wdt:P31 wd:Q1637706 }
-	# ... with filled property "sister city"                                     
-	?city wdt:P190 ?sister.                                            
+	{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"
+	{ ?city wdt:P31 wd:Q515 } UNION # OR instances of "city"
+	{ ?city wdt:P31 wd:Q1549591 } UNION # OR instances of "big city"
+	{ ?city wdt:P31 wd:Q1637706 }	# OR instances of "city 1000000+"
+	?city wdt:P190 ?sister. # with filled property "sister city"
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
 }
-# Grouping by city
-GROUP BY ?city ?cityLabel
-# Sorting by number of sister cities (descending)                                   
-ORDER BY DESC(?sisterCount)                                          
+GROUP BY ?city ?cityLabel # Grouping by city                                   
+ORDER BY DESC(?sisterCount) # Sorting by number of sister cities
 \end{lstlisting}
 \footnotetext{Получено \num{4046} записей в 2020 году.}         
 
@@ -292,24 +254,16 @@ ORDER BY DESC(?sisterCount)
                     ]
 # Counting sister cities of cities which are ...
 SELECT ?cityLabel (COUNT(?sister) AS ?sisterCount) WHERE {           
-	# ... instances of "town" ...
-	{ ?city wdt:P31 wd:Q3957 } UNION 
-	# ... OR instances of "city" ...                                  
-	{ ?city wdt:P31 wd:Q515 } UNION   
-	# ... OR instances of "big city" ...                                 
-	{ ?city wdt:P31 wd:Q1549591 } UNION   
-	# ... OR instances of "city with millions of inhabitants"                             
-	{ ?city wdt:P31 wd:Q1637706 }     
-	# ... belonging to Russia ...                                 
-	?city wdt:P17 wd:Q159.   
-	# ... with filled property "sister city"                                          
-	?city wdt:P190 ?sister.                                            
+	{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"
+	{ ?city wdt:P31 wd:Q515 } UNION # OR instances of "city"
+	{ ?city wdt:P31 wd:Q1549591 } UNION # OR instances of "big city"
+	{ ?city wdt:P31 wd:Q1637706 } # OR instances of "city 1000000+"      
+	?city wdt:P17 wd:Q159. # belonging to Russia
+	?city wdt:P190 ?sister. # with filled property "sister city"
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
 }
-# Grouping by city
-GROUP BY ?city ?cityLabel  
-# Sorting by number of sister cities (descending)                                          
-ORDER BY DESC(?sisterCount)                                          
+GROUP BY ?city ?cityLabel # Grouping by city
+ORDER BY DESC(?sisterCount) # Sorting by number of sister cities
 \end{lstlisting}
 \footnotetext{Получено 82 записи в 2020 году.}  
 
@@ -325,32 +279,22 @@ ORDER BY DESC(?sisterCount)
                     escapebegin=ку,escapeend=ку-ку>
                     ]
 #defaultView:LineChart
-# Do line chart as result representation
 # Count No. of cities having sisterCount sister cities 
 # and number of sister cities themselves
-SELECT ?sisterCount (COUNT(?sisterCount) AS ?FreqNSister) WHERE {                                                                                                                                                       
-	{
-	# Count sister cities of cities which are ...
-	SELECT (COUNT(?sister) AS ?sisterCount) WHERE {
-		# ... instances of "town" ...                     
-		{ ?city wdt:P31 wd:Q3957 } UNION    
-		# ... OR instances of "city" ...                              
-		{ ?city wdt:P31 wd:Q515 } UNION        
-		# ... OR instances of "big city" ...                           
-		{ ?city wdt:P31 wd:Q1549591 } UNION      
-		# ... OR instances of "city with millions of inhabitants"                         
-		{ ?city wdt:P31 wd:Q1637706 }                
-		# ... with filled property "sister city"                     
-		?city wdt:P190 ?sister.                                           
-	}
-	# Group list by city
-	GROUP BY ?city                                                      
+SELECT ?sisterCount (COUNT(?sisterCount) AS ?FreqNSister) WHERE {                                                                         
+	{ # Count sister cities of cities which are ...
+		SELECT (COUNT(?sister) AS ?sisterCount) WHERE {        
+			{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"
+			{ ?city wdt:P31 wd:Q515 } UNION # OR instances of "city"
+			{ ?city wdt:P31 wd:Q1549591 } UNION # OR instances of "big city"
+			{ ?city wdt:P31 wd:Q1637706 } # OR instances of "city 1000000+"
+			?city wdt:P190 ?sister. # with filled property "sister city"
+		}
+		GROUP BY ?city # Group list by city
 	}
 }
-# Group by number of sister cities
-GROUP BY ?sisterCount         
-# Order by number of sister cities (descending)                                           
-ORDER BY DESC(?sisterCount)                                             
+GROUP BY ?sisterCount # Group by number of sister cities                                     
+ORDER BY DESC(?sisterCount) # Order by number of sister cities   
 \end{lstlisting}
 \footnotetext{Получено 90 записей в 2020 году.}  
 
@@ -391,34 +335,23 @@ ORDER BY DESC(?sisterCount)
                     escapebegin=ку,escapeend=ку-ку>
                     ]
 #defaultView:LineChart                                                   
-# Do line chart as result representation
 # Count No. of cities having sisterCount sister cities  
 # and number of sister cities themselves
 SELECT ?sisterCount (COUNT(?sisterCount) AS ?FreqNSister) WHERE {                                                                                  
-	{
-	# Count sister cities of cities which are ...
-	SELECT (COUNT(?sister) AS ?sisterCount) WHERE {    
-		# ... instances of "town" ...                 
-		{ ?city wdt:P31 wd:Q3957 } UNION    
-		# ... OR instances of "city" ...                              
-		{ ?city wdt:P31 wd:Q515 } UNION     
-		# ... OR instances of "big city" ...                              
-		{ ?city wdt:P31 wd:Q1549591 } UNION     
-		# ... OR instances of "city with millions of inhabitants"                          
-		{ ?city wdt:P31 wd:Q1637706 }                 
-		# ... belonging to Russia ...                    
-		?city wdt:P17 wd:Q159. 
-		# ... with filled property "sister city"                                           
-		?city wdt:P190 ?sister.                                           
-	}
-	# Group list by city
-	GROUP BY ?city                                                      
+	{ # Count sister cities of cities which are ...
+		SELECT (COUNT(?sister) AS ?sisterCount) WHERE {    
+			{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"
+			{ ?city wdt:P31 wd:Q515 } UNION # OR instances of "city"
+			{ ?city wdt:P31 wd:Q1549591 } UNION # OR instances of "big city"
+			{ ?city wdt:P31 wd:Q1637706 } # OR instances of "city 1000000+"
+			?city wdt:P17 wd:Q159. # belonging to Russia
+			?city wdt:P190 ?sister. # with filled property "sister city"
+		}
+		GROUP BY ?city # Group list by city                             
 	}
 }
-# Group by number of sister cities
-GROUP BY ?sisterCount       
-# Order by number of sister cities (descending)                                             
-ORDER BY DESC(?sisterCount)                                             
+GROUP BY ?sisterCount # Group by number of sister cities
+ORDER BY DESC(?sisterCount) # Order by number of sister cities                                  
 \end{lstlisting}
 \footnotetext{Получено 24 записи в 2020 году.}  
 
@@ -436,6 +369,20 @@ ORDER BY DESC(?sisterCount)
 
 \subsection{У какой страны больше всего побратимов?}
 
+%%%%%%%%%%%%%%%% Упражнение 3 %%%%%%%%%%%%%%%%
+\marginnote{
+Какие из этих городов были основаны более 400 лет назад?
+\begin{itemize}
+\item \href{https://ru.wikipedia.org/wiki/Москва}{Москва}
+\item \href{https://ru.wikipedia.org/wiki/Саров}{Саров}
+\item \href{https://ru.wikipedia.org/wiki/Казань}{Казань}
+\item \href{https://ru.wikipedia.org/wiki/Астрахань}{Астрахань}
+\item \href{https://ru.wikipedia.org/wiki/Самара}{Самара}
+\item \href{https://ru.wikipedia.org/wiki/Воронеж}{Воронеж}
+\end{itemize}
+См. ответ~\ref{answer:cities_over_400_age} на с.~\pageref{answer:cities_over_400_age}.
+}
+
 Ниже представлен SPARQL-запрос для получения списка стран, упорядоченного по числу побратимов (листинг \ref{lst:countries_sister_cities}).
 
 \begin{lstlisting}[ language=SPARQL, 
@@ -448,18 +395,12 @@ ORDER BY DESC(?sisterCount)
 # which are ... 
 SELECT ?countryLabel (COUNT(?sister) as ?sisterCount) WHERE { 
 	SELECT DISTINCT ?countryLabel ?sister WHERE {
-		# ... instances of "town" ...                          
-		{ ?city wdt:P31 wd:Q3957 } UNION
-		# ... OR instances of "city" ...
-		{ ?city wdt:P31 wd:Q515 } UNION
-		# ... OR instances of "big city" ...                                 
-		{ ?city wdt:P31 wd:Q1549591 } UNION
-		# ... OR instances of "city with millions of inhabitants"                            
-		{ ?city wdt:P31 wd:Q1637706 }.
-		# ... with filled property "country" ...                                 
-		?city wdt:P17 ?country.
-		# ... with filled property "sister city"                                        
-		?city wdt:P190 ?sister.                                         
+		{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"
+		{ ?city wdt:P31 wd:Q515 } UNION # OR instances of "city"
+		{ ?city wdt:P31 wd:Q1549591 } UNION # OR instances of "big city"
+		{ ?city wdt:P31 wd:Q1637706 }.	 # OR instances of "city 1000000+"
+		?city wdt:P17 ?country. # with filled property "country"
+		?city wdt:P190 ?sister. # with filled property "sister city"
 		SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
 	}                                 
 }
@@ -489,21 +430,14 @@ ORDER BY DESC(?sisterCount)
 # Selecting number of distinct particular country sister cities of cities 
 # which are ...
 SELECT ?country ?countryLabel 
-				(COUNT(DISTINCT ?sister) as ?sisterCount) WHERE {  
-	# ... instances of "town" ...                                                                    
-	{ ?city wdt:P31 wd:Q3957 } UNION   
-	# ... OR instances of "city" ...                                  
-	{ ?city wdt:P31 wd:Q515 } UNION   
-	# ... OR instances of "big city" ...                                   
-	{ ?city wdt:P31 wd:Q1549591 } UNION  
-	# ... OR instances of "city with millions of inhabitants"                                
-	{ ?city wdt:P31 wd:Q1637706 }.    
-	# ... belonging to Germany ...                                  
-	?city wdt:P17 wd:Q183. 
-	# ... with filled property "sister city" which are ...                                               
-	?city wdt:P190 ?sister.    
-	# ... with filled property "country" ...                                         
-	?sister wdt:P17 ?country.                                            
+				(COUNT(DISTINCT ?sister) as ?sisterCount) WHERE {                                                          
+	{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"
+	{ ?city wdt:P31 wd:Q515 } UNION # OR instances of "city"
+	{ ?city wdt:P31 wd:Q1549591 } UNION # OR instances of "big city" ...      
+	{ ?city wdt:P31 wd:Q1637706 }. # OR instances of "city 1000000+"
+	?city wdt:P17 wd:Q183. # belonging to Germany  
+	?city wdt:P190 ?sister. # with filled property "sister city" which are
+	?sister wdt:P17 ?country. # with filled property "country"
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
 }
 GROUP BY ?country ?countryLabel
@@ -556,21 +490,14 @@ ORDER BY DESC(?sisterCount)\end{lstlisting}
 # Selecting number of distinct particular country sister cities of cities 
 # which are ...
 SELECT ?country ?countryLabel 
-				(COUNT(DISTINCT ?sister) as ?sisterCount) WHERE {  
-	# ... instances of "town" ...                                                                
-	{ ?city wdt:P31 wd:Q3957 } UNION
-	# ... OR instances of "city" ...                                     
-	{ ?city wdt:P31 wd:Q515 } UNION 
-	# ... OR instances of "big city" ...                                     
-	{ ?city wdt:P31 wd:Q1549591 } UNION 
-	# ... OR instances of "city with millions of inhabitants"                                 
-	{ ?city wdt:P31 wd:Q1637706 }.    
-	# ... belonging to Russia ...                                   
-	?city wdt:P17 wd:Q159.  
-	# ... with filled property "sister city" which are ...                                            
-	?city wdt:P190 ?sister.   
-	# ... with filled property "country" ...                                           
-	?sister wdt:P17 ?country.                                            
+				(COUNT(DISTINCT ?sister) as ?sisterCount) WHERE {                                                
+	{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"
+	{ ?city wdt:P31 wd:Q515 } UNION # OR instances of "city"
+	{ ?city wdt:P31 wd:Q1549591 } UNION # OR instances of "big city"
+	{ ?city wdt:P31 wd:Q1637706 }. # OR instances of "city 1000000+"                                 
+	?city wdt:P17 wd:Q159. # belonging to Russia
+	?city wdt:P190 ?sister. # with filled property "sister city" which are
+	?sister wdt:P17 ?country. # with filled property "country"
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
 }
 GROUP BY ?country ?countryLabel
@@ -583,53 +510,57 @@ ORDER BY DESC(?sisterCount)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Полнота и недостатки Викиданных}
 
-%%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%%
-%\marginnote{
-%Какие из этих флагов принадлежат таким российским городам, как \href{https://ru.wikipedia.org/wiki/Нижневартовск}{Нижневартовск}, \href{https://ru.wikipedia.org/wiki/Петропавловск-Камчатский}{Петропавловск-Камчатский}, \href{https://ru.wikipedia.org/wiki/Нефтекамск}{Нефтекамск} и \href{https://ru.wikipedia.org/wiki/Карабулак}{Карабулак}?
-%См. ответ~\ref{answer:cities_flags} на с.~\pageref{answer:cities_flags}.
-%}
-
-Городом принято называть крупный населённый пункт, жители которого, как правило, не заняты сельским хозяйством. При этом разные страны используют различные критерии при наделении поселений статусом города, основным из которых является численность населения. Некоторые страны и вовсе не применяют понятие города. Так, во Франции используется только одна географическая единица подобного рода - коммуна, вне зависимости от количества проживающих в ней людей и рода их деятельности. Поэтому чётко определить, какой населенный пункт относить к городам, а какой нет, может быть затруднительно.
+Городом принято называть крупный населённый пункт, жители которого, как правило, не заняты сельским хозяйством. При этом разные страны используют различные критерии при наделении поселений статусом города, основным из которых является численность населения. Некоторые страны и вовсе не применяют понятие города. Так, во Франции используется только одна географическая единица подобного рода -- коммуна, вне зависимости от количества проживающих в ней людей и рода их деятельности. Поэтому чётко определить, какой населенный пункт относить к городам, а какой нет, может быть затруднительно.
 
 На практике некоторые объекты Викиданных могут одновременно являться экземплярами городов разных типов. Например, \wdqName{Шанхай}{8686} отнесен к трем исследуемым объектам: \wdqName{city}{515}, \wdqName{big city}{1549591}, \wdqName{city with millions of inhabitants}{1637706}. Нетрудно догадаться, что такое множественное присваивание сказывается на результатах SPARQL-запросов, в частности, с использованием конструкции UNION. Это несложно проверить, выполнив, например, SPARQL-запрос по нахождению городов разных типов (линстинг \ref{lst:different_city_types}). \wdqName{Шанхай}{8686} встречается в результатах три раза. 
 
-Викиданные имеют механизм наследования, выражающийся в свойстве \href{https://www.wikidata.org/wiki/Property:P279}{subclass of}. Заключается этот механизм в том, что если объект является экземпляром \wdqName{big city}{1549591}, то он является и экземпляром  \wdqName{city}{515}, так как \wdqName{big city}{1549591} - подкласс  \wdqName{city}{515}. Таким образом, описанную выше ситуацию с \wdqName{Шанхай}{8686} можно разрешить, оставив только один класс \wdqName{city with millions of inhabitants}{1637706}. Стоит отметить, что замена конструкции с использованием UNION (листинг \ref{lst:example_union_city}) на конструкцию с учетом подклассов неэквивалентна (листинг \ref{lst:example_subclasses_city}). Рассмотренный ранее \wdqName{Шанхай}{8686} встречается в новой выборке даже четыре раза. Дело в том, что помимо части исследуемых классов есть и другие наследуемые от \wdqName{city}{515}. Например, \wdqName{lost city}{2974842}, \wdqName{free imperial city}{57318}, \wdqName{autonomous city}{1094397} и даже \wdqName{ideal city}{1656724}.
+Викиданные имеют механизм наследования, выражающийся в свойстве \href{https://www.wikidata.org/wiki/Property:P279}{subclass of}. Заключается этот механизм в том, что если объект является экземпляром \wdqName{big city}{1549591}, то он является и экземпляром  \wdqName{city}{515}, так как \wdqName{big city}{1549591} -- подкласс  \wdqName{city}{515}. Таким образом, описанную выше ситуацию с \wdqName{Шанхаем}{8686} можно разрешить, оставив только один класс \wdqName{city with millions of inhabitants}{1637706}. Стоит отметить, что замена конструкции с использованием UNION (листинг \ref{lst:example_union_city}) на конструкцию с учетом подклассов неэквивалентна (листинг \ref{lst:example_subclasses_city}). Рассмотренный ранее \wdqName{Шанхай}{8686} встречается в новой выборке даже четыре раза. Дело в том, что помимо части исследуемых классов есть и другие наследуемые от \wdqName{city}{515}. Например, \wdqName{lost city}{2974842}, \wdqName{free imperial city}{57318}, \wdqName{autonomous city}{1094397} и даже \wdqName{ideal city}{1656724}.
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/k5T}{Пример использования конструкции UNION}},
                     label=lst:example_union_city, 
                     escapebegin=ку,escapeend=ку-ку>
                     ]
-# Selecting items which are ...
-SELECT ?city ?cityLabel WHERE {
-	# ... instances of "city" ...                  
-	{ ?city wdt:P31 wd:Q515 } UNION    
-	# ... instances of "big city" ...                               
-	{ ?city wdt:P31 wd:Q1549591 } UNION     
-	# ... instances of "city with millions of inhabitans"                          
-	{ ?city wdt:P31 wd:Q1637706 }                                     
+SELECT ?city ?cityLabel WHERE { # Selecting items which are ...
+	{ ?city wdt:P31 wd:Q515 } UNION # instances of "city"            
+	{ ?city wdt:P31 wd:Q1549591 } UNION # instances of "big city"               
+	{ ?city wdt:P31 wd:Q1637706 } 	# instances of "city 1000000+"
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
 }
 \end{lstlisting}
+
+%%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%%
+\marginnote{
+Какому городу принадлежит флаг, изображенный на рис. \ref{fig:flag_question_city}?
+См. ответ~\ref{answer:cities_flags} на с.~\pageref{answer:cities_flags}.
+}
+
+\begin{marginfigure}[0.0cm]
+{
+\setlength{\fboxsep}{0pt}%
+\setlength{\fboxrule}{1pt}%
+\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/city/Flag_of_Karabulak_(Ingushetia).png}}%
+}
+  \caption{Флаг одного из городов России.}%
+  \label{fig:flag_question_city}%
+\end{marginfigure}
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/jyB}{Пример использования конструкции с подклассами}},
                     label=lst:example_subclasses_city, 
                     escapebegin=ку,escapeend=ку-ку>
                     ]
-# Selecting items which are ...
-SELECT ?city ?cityLabel WHERE {
-	# ... instances of "city" subclasses 
-	?city wdt:P31/wdt:P279* wd:Q515
+SELECT ?city ?cityLabel WHERE { # Selecting items which are ...
+	?city wdt:P31/wdt:P279* wd:Q515 # instances of "city" subclasses
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
 }
 \end{lstlisting}
 
-Также, вероятно с неоднозначностью критериев присвоения статуса города, были созданы подклассы для конкретных стран - \wdqName{city in Chile}{25412763}, \wdqName{city in Cyprus}{29556224}, \wdqName{city of Japan}{494721} и так далее. Не обошла стороной эта тенденция и города России, что можно было заметить при сравнении результатов SPARQL-запроса для нахождения экземпляров объекта <<Город>> (листинг \ref{lst:city}). На данный момент большинство из них принадлежат классу \wdqName{city/town}{7930989}.
+Также, вероятно с неоднозначностью критериев присвоения статуса города, были созданы подклассы для конкретных стран -- \wdqName{city in Chile}{25412763}, \wdqName{city in Cyprus}{29556224}, \wdqName{city of Japan}{494721} и так далее. Не обошла стороной эта тенденция и города России, что можно было заметить при сравнении результатов SPARQL-запроса для нахождения экземпляров объекта <<Город>> (листинг \ref{lst:city}). На данный момент большинство из них принадлежат классу \wdqName{city/town}{7930989}.
 
 По данным \href{http://www.gks.ru/free_doc/new_site/perepis2010/croc/Documents/Vol1/pub-01-03.pdf}{всероссийской переписи населения (2010)} и \href{https://rosstat.gov.ru/free_doc/new_site/population/demo/perepis_krim/KRUM_2015.pdf}{переписи населения в Крымском федеральном округе (2014)} суммарное число городов России составило \num{1117} на 2014 год. Все \href{https://ru.m.wikipedia.org/wiki/Список_городов_России}{города России} имеют страницу как в русской, так и в английской Википедии.
 
-Число элементов Викиданных, являющихся российскими городами - \href{https://w.wiki/jyP}{1126} . Можно предположить, что Викиданные полностью покрывают, как минимум, российские города. 
+Число элементов Викиданных, являющихся российскими городами -- \href{https://w.wiki/jyP}{1126} . Можно предположить, что Викиданные полностью покрывают, как минимум, российские города. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Упражнения}

@@ -93,11 +93,27 @@ SELECT ?city ?cityLabel ?inceptionDate WHERE {
 GROUP BY ?city ?cityLabel ?inceptionDate    
 \end{lstlisting}
 
-    \small{Вопрос на с.~\pageref{lst:population_city_millions}.}
+    \small{Вопрос на с.~\pageref{fig:city_relation_Russia_S_N}.}
 \end{task}
 
-%\begin{task}
-%    \label{answer:cities_flags}
-%    \newthought{Флаг, изображенный на рис. } принадлежит .  
-%    \small{Вопрос на с.~\pageref{fig:Pobeda-beda}.}
-%\end{task}
+\begin{task}
+    \label{answer:cities_flags}
+    \newthought{Флаг, изображенный на рис. \ref{fig:flag_question_city}} принадлежит городу \href{https://ru.wikipedia.org/wiki/Карабулак_(город)}{Карабулак}. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:cities_flags}). Значение свойства \href{https://www.wikidata.org/wiki/Property:P41}{flag image} содержит изображение флага города.
+    
+    \begin{lstlisting}[ language=SPARQL, 
+                    caption={\href{https://w.wiki/kBM}{Флаги городов}},
+                    label=lst:cities_flags, 
+                    escapebegin=ку,escapeend=ку-ку>
+                    ]
+#defaultView:ImageGrid
+SELECT ?city ?cityLabel ?flag ?countryLabel WHERE {
+	?city wdt:P31/wdt:P279* wd:Q7930989.
+	?city wdt:P17 ?country.
+	?city wdt:P41 ?flag.
+	FILTER(?city = wd:Q144969)
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
+}
+\end{lstlisting}
+    
+    \small{Вопрос на с.~\pageref{lst:example_union_city}.}
+\end{task}
