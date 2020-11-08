@@ -251,7 +251,64 @@ WHERE
     \small{Вопрос на с.~\pageref{prog_lang_questions}}.
 \end{task}
 
+\begin{task}
+    \label{answer:prog_langs_4}
+    \newthought{Получить список языков программирования со свойством \href{https://www.wikidata.org/wiki/Property:P822}{"персонаж-талисман"} можно выполнив следующий SPARQL-запрос (листинг \ref{lst:prog_lang_answer_4})}. 
+	\begin{lstlisting}[language=SPARQL, caption={{"Персонажи-талисманы" языков программирования}\protect\footnotemark}, label=lst:prog_lang_answer_4]
+		#Select programming languages with mascot
+		SELECT DISTINCT ?lang_name ?mascot_name
+		WHERE
+		{
+		    ?lang wdt:P31 wd:Q9143 .
+		    ?lang wdt:P822 ?mascot .
+		    ?lang rdfs:label ?lang_name filter (lang(?lang_name) = "en").
+		    ?mascot rdfs:label ?mascot_name filter (lang(?mascot_name) = "en").
+		}
+	\end{lstlisting}
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/kfj}{https://w.wiki/kfj} }
+    
+    \small{Вопрос на с.~\pageref{prog_lang_questions}.}
+\end{task}
 
+\begin{task}
+    \label{answer:prog_langs_5}
+    \newthought{Получить список языков программирования, основанных ранее 1992 года можно выполнив следующий SPARQL-запрос (листинг \ref{lst:prog_lang_answer_5})}. 
+	\begin{lstlisting}[language=SPARQL, caption={{Языки программирования, старше 1992 года}\protect\footnotemark}, label=lst:prog_lang_answer_5]
+		#Select langeages older than 1992
+		SELECT DISTINCT ?lang_name ?age
+		WHERE
+		{
+		    ?lang wdt:P31 wd:Q9143 .
+		    ?lang wdt:P571 ?age .
+		    ?lang rdfs:label ?lang_name filter (lang(?lang_name) = "en").
+		    FILTER(year(?age) < 1992)
+		}
+	\end{lstlisting}
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/kfn}{https://w.wiki/kfn} }
+    
+    \small{Вопрос на с.~\pageref{prog_lang_questions}.}
+\end{task}
+
+\begin{task}
+    \label{answer:prog_langs_6}
+    \newthought{Построить столбчатую диаграмму, отражающую количество известных хештегов в Твиттере для каждого языка программирования можно выполнив следующий SPARQL-запрос (листинг \ref{lst:prog_lang_answer_6})}. 
+	\begin{lstlisting}[language=SPARQL, caption={{Хештеги языков программирования в Твиттере}\protect\footnotemark}, label=lst:prog_lang_answer_6]
+		#defaultView:BarChart
+		#Twitter tags for programming language
+		SELECT DISTINCT ?lang_name (count(*) as ?count)
+		WHERE
+		{
+		    ?lang wdt:P31 wd:Q9143 .
+		    ?lang wdt:P2572 ?count .
+		    ?lang rdfs:label ?lang_name filter (lang(?lang_name) = "en"). 
+		} 
+		GROUP BY ?lang_name 
+		ORDER BY DESC(?count)
+	\end{lstlisting}
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/kfo}{https://w.wiki/kfo} }
+    
+    \small{Вопрос на с.~\pageref{prog_lang_questions}.}
+\end{task}
 
 
 
