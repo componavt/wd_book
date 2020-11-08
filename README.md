@@ -5,6 +5,15 @@ Computer science book about Wikidata programming.
 
 [Petrozavodsk State University](https://en.wikipedia.org/wiki/Petrozavodsk_State_University) (PetrSU), Internet-mathematics course.
 
+
+# Wikidata programming book (in English)
+
+See our course [Research in programming Wikidata](https://en.wikiversity.org/wiki/Research_in_programming_Wikidata) in English Wikiversity.
+
+We are using the LaTeX template [https://github.com/fmarotta/kaobook fmarotta / kaobook].
+Read the template tutorial online in the file [https://github.com/fmarotta/kaobook/blob/master/examples/documentation/main_with_bibtex.pdf main_with_bibtex.pdf]
+
+
 # Wikidata programming book (in Russian)
 
 See our course [Research in programming Wikidata](https://ru.wikiversity.org/wiki/Программирование_Викиданных) in Russian Wikiversity.
