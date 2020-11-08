@@ -20,8 +20,8 @@ The Wikidata book in English (file `wd_book/en/mainka.tex`) can be compiled with
     pdflatex mainka # Compile template
     makeindex mainka.nlo -s nomencl.ist -o mainka.nls # Compile nomenclature
     makeindex mainka # Compile index
-    biber mainka # Compile bibliography
-    makeglossaries main # Compile glossary
+    bibtex mainka # Compile bibliography
+    makeglossaries mainka # Compile glossary (install xindy)
     pdflatex mainka # Compile template again
     pdflatex mainka # Compile template again
 
