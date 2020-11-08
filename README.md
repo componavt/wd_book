@@ -17,13 +17,15 @@ Read [the template tutorial online](https://github.com/fmarotta/kaobook/blob/mas
 
 The Wikidata book in English (file `wd_book/en/mainka.tex`) can be compiled with the following:
 
-pdflatex mainka # Compile template
-makeindex mainka.nlo -s nomencl.ist -o mainka.nls # Compile nomenclature
-makeindex mainka # Compile index
-biber mainka # Compile bibliography
-makeglossaries main # Compile glossary
-pdflatex mainka # Compile template again
-pdflatex mainka # Compile template again
+    pdflatex mainka # Compile template
+    makeindex mainka.nlo -s nomencl.ist -o mainka.nls # Compile nomenclature
+    makeindex mainka # Compile index
+    biber mainka # Compile bibliography
+    makeglossaries main # Compile glossary
+    pdflatex mainka # Compile template again
+    pdflatex mainka # Compile template again
+
+The result should look like `mainka.pdf`.
 
 # Wikidata programming book (in Russian)
 
