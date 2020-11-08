@@ -1,7 +1,31 @@
 \chapter{Где учатся и кем работают изобретатели языков программирования}
 \label{ch:programming languages}
 
-В статье исследуются свойства языков программирования на основе базы знаний международного проекта Викиданные. С помощью SPARQL-запросов, вычисляемых на объектах типа "язык программирования" в Викиданных, решен ряд задач. Получены перечени всех языков программирования под пермиссивными лицензиями и языков с закрытыми лицензиями и рассчитано их процентное соотношение. Построена пузырьковая диаграмма по количеству форматов файлов исходного кода. Получены карты, отображающие месторасположение учебных заведений и компаний, в которых учились или работали люди, связанные с созданием языков программирования. Построена пузырьковая диаграмма, отображающая профессии людей, причастных к созданию и разработке языков программирования. Получен список всех объектно-ориентированных языков программирования и сделан вывод об исчерпывающей полноте Викиданных относительно них. Проведено сравнение и анализ результатов SPARQL-запросов 2017 года и 2020 года, отмечены основные изменения. 
+\footnotetext{
+Используемые в SPARQL-запросах объекты:
+\begin{itemize}
+	\item\href{https://www.wikidata.org/wiki/Q9143}{programming language}
+	\item\href{https://www.wikidata.org/wiki/Q899523}{object-based language}
+\end{itemize}
+}
+\footnotetext{
+Используемые в SPARQL-запросах свойства:
+\begin{itemize}
+	\item\href{https://www.wikidata.org/wiki/Property:P737}{influenced by}
+	\item\href{https://www.wikidata.org/wiki/Property:P178}{developer}
+	\item\href{https://www.wikidata.org/wiki/Property:P275}{copyright license}
+	\item\href{https://www.wikidata.org/wiki/Property:P31}{instance of}
+	\item\href{https://www.wikidata.org/wiki/Property:P1195}{file extension}
+	\item\href{https://www.wikidata.org/wiki/Property:P159}{headquarters location}
+	\item\href{https://www.wikidata.org/wiki/Property:P625}{coordinate location}
+	\item\href{https://www.wikidata.org/wiki/Property:P69}{educated at}
+	\item\href{https://www.wikidata.org/wiki/Property:P19}{place of birth}
+	\item\href{https://www.wikidata.org/wiki/Property:P106}{occupation}
+\end{itemize}
+}
+
+
+В статье исследуются свойства языков программирования на основе базы знаний международного проекта Викиданные. С помощью SPARQL-запросов, вычисляемых на объектах типа "язык программирования"\  в Викиданных, решен ряд задач. Получены перечени всех языков программирования под пермиссивными лицензиями и языков с закрытыми лицензиями и рассчитано их процентное соотношение. Построена пузырьковая диаграмма по количеству форматов файлов исходного кода. Получены карты, отображающие месторасположение учебных заведений и компаний, в которых учились или работали люди, связанные с созданием языков программирования. Построена пузырьковая диаграмма, отображающая профессии людей, причастных к созданию и разработке языков программирования. Получен список всех объектно-ориентированных языков программирования и сделан вывод об исчерпывающей полноте Викиданных относительно них. Проведено сравнение и анализ результатов SPARQL-запросов 2017 года и 2020 года, отмечены основные изменения. 
 
 %%
 % Постановка задачи
@@ -12,14 +36,11 @@
 \begin{enumerate} 
   \itemПостроить упорядоченный список языков программирования по числу интервик.
   \itemПостроить список языков по числу посещений статей в Русской Википедии.
-  \itemПостроить направленный ациклический граф зависимостей языков программирования друг от друга (или найти циклы в зависимостях, если такой граф нельзя построить). См. свойство "influenced by"\  в Java.
+  \itemПостроить \href{https://en.wikipedia.org/wiki/Directed_acyclic_graph}{направленный ациклический граф} зависимостей языков программирования друг от друга (или найти циклы в зависимостях, если такой граф нельзя построить). См. свойство "\href{https://www.wikidata.org/wiki/Property:P737}{influenced by}
+"\  в \href{https://www.wikidata.org/wiki/Q251}{Java}.
 \end{enumerate}
 
-\textbf{Экземпляры объекта "Язык программирования"}
-\begin{itemize}
-\itemОбъекты: язык программирования (Q9143).
-\itemСвойства: instance of (P31).
-\end{itemize}
+Экземпляры объекта "Язык программирования"
 
 \begin{lstlisting}[
 	language=SPARQL,
@@ -27,7 +48,6 @@
 	caption={\href{https://w.wiki/kCe}{Список языков программирования}\protect\footnotemark},
 	texcl 
 ]
-#added 2016-10
 #List of `instances of` "programming language" 
 SELECT ?lang ?langLabel
 WHERE
@@ -38,9 +58,8 @@ WHERE
 \end{lstlisting}
 \footnotetext{Результатом запроса~\ref{lst:prog_langs} является список всех языков прогрмаммирования. На 2017 год список содержал 732 записи, а на 2020 год число языков программирования увеличилось до \num{1422} записи.}
 
-
-Наиболее полными и проработанными языками программирования на Викиданных на 2017 год являются: Java, Python, C. На 2020 год наиболее проработанными на Викиданных языками программирования являются: C++ (26 свойств), Java (26 свойств), JavaScript (25 свойств), R (25 свойств).
-Почти пустыми и малоинформативными языками на 2017 год оказались: CLIPS, Dylan, Go!.
+Наиболее полными и проработанными языками программирования на Викиданных на 2017 год являются: \href{https://www.wikidata.org/wiki/Q251}{Java}, \href{https://www.wikidata.org/wiki/Q28865}{Python}, \href{https://www.wikidata.org/wiki/Q15777}{C}. На 2020 год наиболее проработанными на Викиданных языками программирования являются: \href{https://www.wikidata.org/wiki/Q2407}{C++} (26 свойств), \href{https://www.wikidata.org/wiki/Q251}{Java} (26 свойств), \href{https://www.wikidata.org/wiki/Q2005}{JavaScript} (25 свойств), \href{https://www.wikidata.org/wiki/Q206904}{R} (25 свойств).
+Почти пустыми и малоинформативными языками на 2017 год оказались: \href{https://www.wikidata.org/wiki/Q165372}{CLIPS}, \href{https://www.wikidata.org/wiki/Q1268744}{Dylan}, \href{https://www.wikidata.org/wiki/Q3109515}{Go!}.
 Недостаток полученного списка в том, что ряд объектов получился безымянным на Викиданных (No label defined). Попробуем получить список языков, у которых поле "label"\  будет непустым.
 
 \begin{lstlisting}[
@@ -64,14 +83,9 @@ WHERE
 %%
 % Демонстрация работы с операциями над множества в SPARQL
 %%
-Вывести все языки программирования, являющиеся открытым программным обеспечением (free software) и/или испытавшие на себе влияние, хотя бы одного из следующих языков программирования: Си, Python, Java. При этом разработанные какой-либо из фирм, кроме: Sun Microsystems, Космический центр имени Линдона Джонсона.
+Вывести все языки программирования, являющиеся открытым программным обеспечением (free software) и/или испытавшие на себе влияние, хотя бы одного из следующих языков программирования: \href{https://en.wikipedia.org/wiki/C_(programming_language)}{Си}, \href{https://ru.wikipedia.org/wiki/Python}{Python}, \href{https://ru.wikipedia.org/wiki/Java}{Java}. При этом разработанные какой-либо из фирм, кроме: \href{https://ru.wikipedia.org/wiki/Sun_Microsystems}{Sun Microsystems}, \href{https://en.wikipedia.org/wiki/Johnson_Space_Center}{Космический центр имени Линдона Джонсона}.
 
-Используются:
-\begin{itemize}
-\itemОбъект: programming language (Q9143).
-\itemСвойство: influenced by (P737).
-\itemСвойство: developer (P178).
-\end{itemize}
+\pagebreak
 
 \begin{lstlisting}[
 	language=SPARQL,
@@ -79,7 +93,6 @@ WHERE
 	caption={\href{https://w.wiki/kCh}{Пример более сложного SPARQL-запроса}\protect\footnotemark},
 	texcl
 ]
-#2017-02
 SELECT DISTINCT ?item ?item_label
 WHERE
 {
@@ -106,13 +119,7 @@ WHERE
 %%
 % Пермессивные лицензии
 %%
-Выведем все языки программирования находящиеся под пермиссивными лицензиями (практически не ограничивают свободу действий пользователей ПО и разработчиков).
-
-Используются:
-\begin{itemize}
-\itemОбъект: programming language (Q9143).
-\itemСвойство: license (P275).
-\end{itemize}
+Выведем все языки программирования находящиеся под \href{https://en.wikipedia.org/wiki/Permissive_software_license}{пермиссивными лицензиями} (практически не ограничивают свободу действий пользователей ПО и разработчиков).
 
 \begin{lstlisting}[
 	language=SPARQL,
@@ -134,16 +141,19 @@ WHERE
       { ?item wdt:P275 wd:Q6905323 }         # license CC
 }
 \end{lstlisting}
-\footnotetext{Результатом работы запроса~\ref{lst:permessive_license} является список языков программирования, находящихся под пермиссивными лицензиями. На 2017 год список содержал 37 записей, на 2020 год в списке 82 записи. В этот список из 82 "свободных"\  языков попали, например CoffeeScript, Go, Haml.}
+\footnotetext{Результатом работы запроса~\ref{lst:permessive_license} является список языков программирования, находящихся под пермиссивными лицензиями. На 2017 год список содержал 37 записей, на 2020 год в списке 82 записи. В этот список из 82 "свободных"\  языков попали, например \href{https://ru.wikipedia.org/wiki/CoffeeScript}{CoffeeScript}, \href{https://ru.wikipedia.org/wiki/Go}{Go}, \href{https://ru.wikipedia.org/wiki/Haml}{Haml}.}
 
 Рассмотрим соотношение языков с пермиссивной лицензией и языков с проприетарной или закрытыми лицензиями.
+
+\pagebreak
+
+\footnotetext{Рeзультатом запроса~\ref{lst:license_compare} будет значение отношения числа языков программирования со свободной лицензией к числу языков с закрытой лицензией. На 2020 год это значение равно 20\%.}
 \begin{lstlisting}[
 	language=SPARQL,
 	label=lst:license_compare,
 	caption={\href{https://w.wiki/kD6}{Рассчёт отношения "свободных"\ языков к "закрытым".}\protect\footnotemark},
 	texcl
 ]
-#2020-10-07
 #The script calculates the percentage of programming languages 
 #with a free license in relation to languages with a closed license
 SELECT (COUNT(?not_free)* 100 / (COUNT(?free)) as ?total) WHERE
@@ -179,7 +189,6 @@ UNION
 }
 }
 \end{lstlisting}
-\footnotetext{Рeзультатом запроса~\ref{lst:license_compare} будет значение отношения числа языков программирования со свободной лицензией к числу языков с закрытой лицензией. На 2020 год это значение равно 20\%.}
 
 %%
 % Количество форматов файлов исходного кода
@@ -187,51 +196,61 @@ UNION
 \section{Количество форматов файлов исходного кода}
 В зависимости от языка программирования, файлы с исходным кодом программ могут иметь разные расширения. Построим пузырьковую диаграмму по количеству допустимых форматов файлов исходного кода и сравним с аналогичной диаграммой, построенноый в 2017 году.
 
-На рисунке рис. ~\ref{fig:source_file_formats_2017} видно, что на 2017 год самыми исторически богатыми на форматы и расширения файлов являлись такие языки программирования, как: C++ (10 форматов), Geometric Description Language (8), Racket (7). Причем стоит заметить, что соотношение один язык программирования - один формат файлов исходного кода не является верниы. Например, файлы с программой на языке Racket могут иметь расширения rkt, rktl, rktd, scrbl, plt, ss или scm.
+\pagebreak
 
-\begin{figure}[h]
+\begin{lstlisting}[
+	language=SPARQL,
+	label=lst:source_formats,
+	caption={\href{https://w.wiki/kf7}{Количество форматов файлов исходного кода.}\protect\footnotemark},
+	texcl
+]
+#defaultView:BubbleChart
+SELECT ?lang_name (count(*) as ?count)
+WHERE
+{
+    ?lang wdt:P31 wd:Q9143. # instance of programming language
+  	?lang wdt:P1195 ?count. # file extension
+  	?lang rdfs:label ?lang_name.
+    filter (lang(?lang_name) = "ru").
+}
+
+GROUP BY ?lang_name 
+ORDER BY DESC(?count)
+\end{lstlisting}
+
+На рисунке рис.~\ref{fig:source_format_2017} видно, что на 2017 год самыми исторически богатыми на форматы и расширения файлов являлись такие языки программирования, как: \href{https://en.wikipedia.org/wiki/C++}{C++} (10 форматов), \href{https://en.wikipedia.org/wiki/Geometric_Description_Language}{Geometric Description Language} (8 форматов), \href{https://en.wikipedia.org/wiki/Racket_(programming_language)}{Racket} (7 форматов). Причем стоит заметить, что соотношение один язык программирования - один формат файлов исходного кода не является верным. Например, файлы с программой на языке \href{https://en.wikipedia.org/wiki/Racket_(programming_language)}{Racket} могут иметь расширения rkt, rktl, rktd, scrbl, plt, ss или scm.
+
+\begin{figure}
 \centering
-	\includegraphics[width=0.7\textwidth]{./chapter/programming_language/File_extensions_quantity_of_source_code_2017.png}
+	\includegraphics[width=0.8\linewidth]{./chapter/programming_language/File_extensions_quantity_of_source_code_2017.png}
+	\label{fig:source_format_2017}
 	\caption{Пузырьковая диаграмма по количеству форматов файлов исходного кода на 2017 год.}
-	\label{fig:source_file_formats_2017}
 \end{figure}
-
-К 2020 году (рис. ~\ref{fig:source_file_formats_2020}) C++ и Geometric Description Language (GDL) остались на лидирующем месте (10 и 8 форматов-расширений). За три года подтянулись и вошли в первую восьмёрку также такие языки, как Raku (9 форматов), REXX и Scratch (по 6 форматов), Java и Wolfram Language (по 5 форматов).
-
-\begin{figure}[h]
+К 2020 году (рис.~\ref{fig:source_format_2020}) \href{https://en.wikipedia.org/wiki/C++}{C++} и \href{https://en.wikipedia.org/wiki/Geometric_Description_Language}{Geometric Description Language (GDL)} остались на лидирующем месте (10 и 8 форматов-расширений). За три года подтянулись и вошли в первую восьмёрку также такие языки, как \href{https://en.wikipedia.org/wiki/Raku_(programming_language)}{Raku} (9 форматов), \href{https://en.wikipedia.org/wiki/Rexx}{REXX} и \href{https://en.wikipedia.org/wiki/Scratch_(programming_language)}{Scratch} (по 6 форматов), \href{https://ru.wikipedia.org/wiki/Java}{Java} и \href{https://en.wikipedia.org/wiki/Wolfram_Language}{Wolfram Language} (по 5 форматов).
+\begin{figure}
 \centering
-	\includegraphics[width=0.7\textwidth]{./chapter/programming_language/File_extensions_quantity_of_source_code_2020.png}
+	\includegraphics[width=0.8\linewidth]{./chapter/programming_language/File_extensions_quantity_of_source_code_2020.png}
+	\label{fig:source_format_2020}
 	\caption{Пузырьковая диаграмма по количеству форматов файлов исходного кода на 2020 год.}
-	\label{fig:source_file_formats_2020}
 \end{figure}
 
-Из этого можно сделать вывод, что развитие языков программирвоание продолжается непрерывно, постоянно возникают новые форматы файлов исходного кода, но лидеры в этой области не спешат сдавать свои позиции.
+\footnotetext{Рисунки~\ref{fig:source_format_2017} и ~\ref{fig:source_format_2020} построены при при помощи запроса~\ref{lst:source_formats}.}
+Из этого можно сделать вывод, что развитие языков программирвоания продолжается непрерывно, постоянно возникают новые форматы файлов исходного кода, но лидеры в этой области не спешат сдавать свои позиции.
 
 %%
 % Страны, в которых живут люди и располагаются организации, связанные с созданием языков программирования
 %%
 \section{Страны, в которых живут люди и располагаются организации, связанные с созданием языков программирования}
 
-Отобразим на карте страны, в которых живут люди и располагаются организации, связанные с созданием языков программирования. Заметим, что разработчиком языка может выступать как организация, так и отдельных человек. Для определения месторасположения (свойство: coordinate location) организации будем использовать координаты её штаб-квартиры (свойство: headquarters location), для человека - координаты места его рождения (свойство: place of birth).
+Отобразим на карте страны, в которых живут люди и располагаются организации, связанные с созданием языков программирования. Заметим, что разработчиком языка может выступать как организация, так и отдельных человек. Для определения месторасположения (свойство: \href{https://www.wikidata.org/wiki/Property:P625}{coordinate location}) организации будем использовать координаты её штаб-квартиры (свойство: \href{https://www.wikidata.org/wiki/Property:P159}{headquarters location}), для человека - координаты места его рождения (свойство: \href{https://www.wikidata.org/wiki/Property:P19}{place of birth}).
 
-Используются:
-\begin{itemize}
-\itemОбъект: programming language (Q9143).
-\itemСвойство: instance of (P31).
-\itemСвойство: developer (P178).
-\itemСвойство: headquarters location (P159).
-\itemСвойство: place of birth (P19).
-\itemСвойство: coordinate location (P625).
-\end{itemize}
-
-\footnotetext{Результатом запроса ~\ref{lst:countries_map} является карта, где красными точками указаны места проживания людей, причастных к разработке языков программирования. На рисунке рис. ~\ref{fig:countries_2017} изображен результат запроса на 2017 год, а на рис. ~\ref{fig:countries_2020} показаны аналогичные данные на 2020 год.}
+\footnotetext{Результатом запроса~\ref{lst:countries_map} является карта, где красными точками указаны места проживания людей, причастных к разработке языков программирования. На рисунке рис.~\ref{fig:countries_2017} изображен результат запроса на 2017 год, а на рис. ~\ref{fig:countries_2020} показаны аналогичные данные на 2020 год.}
 \begin{lstlisting}[
 	language=SPARQL,
 	label=lst:countries_map,
 	caption={\href{https://w.wiki/kD9}{Карта с указанием места жительства или работы разработчиков языков программирования}\protect\footnotemark},
 	texcl
 ]
-#2017-05
 #defaultView:Map
 SELECT ?item_label ?developer_label ?location_label ?coord
 WHERE
@@ -270,18 +289,20 @@ WHERE
 	\label{fig:countries_2020}
 \end{figure}
 
+\pagebreak
+
 \begin{marginfigure}
 {
 \setlength{\fboxsep}{0pt}%
 \setlength{\fboxrule}{1pt}%
-\fcolorbox{white}{white}{\includegraphics[width=\linewidth]{./chapter/programming_language/The_most_favorable_countries_for_the_emergence_of_people_capable_of_developing_programming_languages_2020_RU.png}}%
+\fcolorbox{white}{white}{\includegraphics[width=\linewidth]{./chapter/programming_language/The_most_favorable_countries_for_the_emergence_of_people_capable_of_developing_programming_languages_2020_RU.png}}
 }
   \caption{Наиболее благоприятные страны для появления людей, способных к разработке языков программирования на 2020 год.}%
   \label{fig:countries_2_2020}%
 \end{marginfigure}
-По  рис. ~\ref{fig:countries_2017} и рис. ~\ref{fig:countries_2020} можно сделать вывод, что наиболее благоприятными местами жительства для людей, разрабатывающих языки программирования являются восточное побережье США, центральная европа и Великобритания.
+По  рис. ~\ref{fig:countries_2017} и рис. ~\ref{fig:countries_2020} можно сделать вывод, что наиболее благоприятными местами жительства для людей, разрабатывающих языки программирования являются восточное побережье \href{https://en.wikipedia.org/wiki/USA}{США}, центральная европа и Великобритания.
 
-Построим также пузырьковую диаграмму, чтобы выявить наиболее благоприятные страны для появления людей, способных к разработке языков программирования и размещению в этих странах штаб-квартир. Видим на рисунке, что наиболее благоприятными странами оказались США (159 человек и штаб квартир) и Великобритания (15). В России было разработано только два языка программирования: РЕФАЛ и Встроенный язык программирования 1С:Предприятие.
+Построим также пузырьковую диаграмму, чтобы выявить наиболее благоприятные страны для появления людей, способных к разработке языков программирования и размещению в этих странах штаб-квартир. Видим на рисунке, что наиболее благоприятными странами оказались \href{https://en.wikipedia.org/wiki/USA}{США} (159 человек и штаб квартир) и \href{https://ru.wikipedia.org/wiki/Великобритания}{Великобритания} (15). В \href{https://en.wikipedia.org/wiki/Russia}{России} было разработано только два языка программирования: \href{https://www.wikidata.org/wiki/Q2626418}{РЕФАЛ} и \href{https://www.wikidata.org/wiki/Q65065977}{Встроенный язык программирования 1С:Предприятие}.
 
 На 2020 год (рис. ~\ref{fig:countries_2_2020}) число штаб-квартир в США равно 241, в Великобритании — 24, в Франции — 18, а в России — 5.
 
@@ -291,16 +312,6 @@ WHERE
 \section{Университеты, в которых учились люди, разрабатывавшие языки программирования}
 Отобразим на карте учебные заведения, в которых учились студенты, впоследствии разработавшие языки программирования.
 
-Используются:
-\begin{itemize}
-\itemОбъект: programming language (Q9143).
-\itemСвойство: instance of (P31).
-\itemСвойство: developer (P178).
-\itemСвойство: educated at (P69).
-\itemСвойство: coordinate location (P625).
-\end{itemize}
-
-
 \footnotetext{Результатом запроса~\ref{lst:developer_university} будет карта, на которой красными точками отмечены места расположения университетов, в которых учились люди, создавшие языки программирования. На 2017 год получено 142 записи, к 2020 число записей увеличилось до 282.}
 \begin{lstlisting}[
 	language=SPARQL,
@@ -308,7 +319,6 @@ WHERE
 	caption={\href{https://w.wiki/kDY}{Карта с указанием университетов, в которых учились разработчики языков программирования}\protect\footnotemark},
 	texcl
 ]
-#2017-05
 #defaultView:Map
 SELECT ?item_label ?developer_label ?educational_institution_label ?coord
 WHERE
@@ -349,7 +359,7 @@ WHERE
 
 По картам~\ref{fig:universities_2017} и~\ref{fig:universities_2020} видно, что большая часть людей, причастных к созданию языков программирования, учились в Европе или в США и динамика не сильно изменилась за 3 года.
 
-Построим также пузырьковую-диаграмму (запрос~\ref{lst:developer_universities_bubble}) по самым популярным учебным заведениям, среди будущих создателей языков программирования. Видим на рисунке, что на первых местах оказались: Принстонский университет (8 студентов) и Стэнфордский университет (8). МГУ оказался в конце списка, в нем учился Энтони Ричард Хоар, разработавший ALGOL60, и Валентин Фёдорович Турчин, разработавший РЕФАЛ. МГУ попал в этот список, включающий 142 вуза мира.
+Построим также пузырьковую-диаграмму (запрос~\ref{lst:developer_universities_bubble}) по самым популярным учебным заведениям, среди будущих создателей языков программирования. На первых местах оказались: \href{https://www.wikidata.org/wiki/Q21578}{Принстонский университет} (8 студентов) и \href{https://www.wikidata.org/wiki/Q41506}{Стэнфордский университет} (8). МГУ оказался в конце списка, в нем учился \href{https://www.wikidata.org/wiki/Q92602}{Энтони Ричард Хоар}, разработавший \href{https://www.wikidata.org/wiki/Q188436}{ALGOL60}, и \href{https://www.wikidata.org/wiki/Q4466506}{Валентин Фёдорович Турчин}, разработавший \href{https://www.wikidata.org/wiki/Q2626418}{РЕФАЛ}. \href{https://www.wikidata.org/wiki/Q13164}{МГУ} попал в этот список, включающий 142 вуза мира.
 
 \begin{lstlisting}[
 	language=SPARQL,
@@ -357,7 +367,6 @@ WHERE
 	caption={\href{https://w.wiki/kDb}{Университеты, у которых учились разработчики языков программирования}\protect\footnotemark},
 	texcl
 ]
-#2017-05
 #defaultView:BubbleChart
 SELECT ?educational_institution_label (count(*) as ?count)
 WHERE
@@ -388,15 +397,26 @@ ORDER BY DESC(?count)
 % Профессии создателей языков программирования
 %%
 \section{Профессии создателей языков программирования}
-Построим пузырьковую диаграмму (~\ref{lst:developer_profession}), отображающую какие профессии преобладают среди людей, разрабатывающих языки программирования.
 
-Используются:
-\begin{itemize}
-\itemОбъект: programming language (Q9143).
-\itemСвойство: instance of (P31).
-\itemСвойство: developer (P178).
-\itemСвойство: occupation (P106).
-\end{itemize}
+\begin{marginfigure}[-302pt]
+{
+\setlength{\fboxsep}{0pt}
+\setlength{\fboxrule}{1pt}
+\fcolorbox{white}{white}{\includegraphics[width=\linewidth]{./chapter/programming_language/Bubble_chart_showing_the_quantity_of_professions_people_,creating_programming_languages,_have_2017.png}}
+}
+  \caption{Профессии людей, которые разрабатывают языки программирования (2017).}
+  \label{fig:2017_profession}
+\end{marginfigure}
+\begin{marginfigure}[-52pt]
+{
+\setlength{\fboxsep}{0pt}
+\setlength{\fboxrule}{1pt}
+\fcolorbox{white}{white}{\includegraphics[width=\linewidth]{./chapter/programming_language/Bubble_chart_showing_the_quantity_of_professions_people,_creating_programming_languages_RU_2020.png}}
+}
+  \caption{Профессии людей, которые разрабатывают языки программирования (2020).}
+  \label{fig:2020_profession}
+\end{marginfigure}
+Построим пузырьковую диаграмму (запрос~\ref{lst:developer_profession}), отображающую какие профессии преобладают среди людей, разрабатывающих языки программирования.
 
 \begin{lstlisting}[
 	language=SPARQL,
@@ -404,7 +424,6 @@ ORDER BY DESC(?count)
 	caption={\href{https://w.wiki/kDc}{Профессии создателей языков программирования}\protect\footnotemark},
 	texcl
 ]
-#2017-05
 #defaultView:BubbleChart
 SELECT ?occupation_label (count(*) as ?occupation)
 WHERE
@@ -419,28 +438,11 @@ GROUP BY ?occupation_label
 ORDER BY DESC(?count)
 \end{lstlisting}
 
-\begin{marginfigure}
-{
-\setlength{\fboxsep}{0pt}%
-\setlength{\fboxrule}{1pt}%
-\fcolorbox{white}{white}{\includegraphics[width=\linewidth]{./chapter/programming_language/Bubble_chart_showing_the_quantity_of_professions_people_,creating_programming_languages,_have_2017.png}}%
-}
-  \caption{Профессии людей, которые разрабатывают языки программирования (2017).}%
-  \label{fig:profession_2017}%
-\end{marginfigure}
-\begin{marginfigure}
-{
-\setlength{\fboxsep}{0pt}%
-\setlength{\fboxrule}{1pt}%
-\fcolorbox{white}{white}{\includegraphics[width=\linewidth]{./chapter/programming_language/Bubble_chart_showing_the_quantity_of_professions_people,_creating_programming_languages_RU_2020.png}}%
-}
-  \caption{Профессии людей, которые разрабатывают языки программирования (2020).}%
-  \label{fig:profession_2020}%
-\end{marginfigure}
+
 \footnotetext{Результатом запроса~\ref{lst:developer_profession} в 2017 году является 48 записей, к 2020 году их число увеличилось до 74.}
 
-Результаты запросов можно выдеть на рисунках~\ref{fig:profession_2017} и~\ref{fig:profession_2020}.
-Наиболее распространенными профессиями оказались: специалист в области компьютерных наук, инженер, учитель. Интересно заметить, что встречаются такие профессии как: джазовый музыкант, политик (Герберт Александер Саймон). На 2020 год среди разработчиков языков программирования оказалось больше всего специалистов в области компьютерных наук (172 человека), а также 96 инженеров, 57 учителей, 56 программистов и 43 математика.
+Результаты запросов можно выдеть на рисунках~\ref{fig:2017_profession} и~\ref{fig:2020_profession}.
+Наиболее распространенными профессиями оказались: специалист в области \href{https://www.wikidata.org/wiki/Q21198}{компьютерных наук}, \href{https://www.wikidata.org/wiki/Q81096}{инженер}, \href{https://www.wikidata.org/wiki/Q37226}{учитель}. Интересно заметить, что встречаются такие профессии как: джазовый музыкант, политик (\href{https://www.wikidata.org/wiki/Q181529}{Герберт Александер Саймон}). На 2020 год среди разработчиков языков программирования оказалось больше всего специалистов в области компьютерных наук (172 человека), а также 96 инженеров, 57 учителей, 56 программистов и 43 математика.
 
 %%
 % Объектно-ориентированные языки программирования
@@ -448,19 +450,12 @@ ORDER BY DESC(?count)
 \section{Объектно-ориентированные языки программирования}
 Вывести список всех объектно-ориентированных языков программирования.
 
-Используются:
-\begin{itemize}
-\itemОбъект: object-oriented programming language (Q899523).
-\itemСвойство: instance of (P31).
-\end{itemize}
-
 \begin{lstlisting}[
 	language=SPARQL,
 	label=lst:oopl,
 	caption={\href{https://w.wiki/kDe}{Список объектно-ориентированных языков программирования}\protect\footnotemark},
 	texcl
 ]
-#2017-4
 SELECT DISTINCT ?item ?item_label
 WHERE
 {
@@ -478,7 +473,7 @@ WHERE
 %%
 % Полнота викиданных
 %%
-\section{Полнота викиданных}
+\section{Полнота Викиданных}
 По данным Боровского исследовательского университета существует как минимум 26 языков программирования, которые поддерживают объектно-ориентированную парадигму. В статьях посвященных объектно-ориентированному программированию к этому списку добавляются ещё 4 и 3 языка программирования. 
 
 \begin{lstlisting}[
@@ -502,9 +497,9 @@ WHERE
 Судить о полноте данных в трех приведенных выше источниках сложно, так как большое количество малоизвестных, устаревших и узконаправленных языков, которые не освещаются в авторитетных источниках. Из этого можно сделать вывод, Викиданные предоставляют достаточно полный список объектно-ориентированных языков программирования.
 
 %%
-% Заполнение объектов
+% Степень заполненности объектов
 %%
-\section{Заполнение объектов}
+\section{Степень заполненности объектов}
 Выведем список всех людей, которые связаны с разработкой языков программирования и у объектов которых заполнено поле "label"\  на английском языке:
 
 \begin{lstlisting}[
@@ -551,3 +546,30 @@ WHERE
 }
 \end{lstlisting}
 \footnotetext{В 2017 году запрос~\ref{lst:filling_label} вернул 133 значения, в 2020 году выполнение запроса дало 183 записи.}
+
+\section{Упражнения}
+\label{prog_lang_questions}
+\begin{enumerate}
+	\itemСоотнесите язык программирования и его разработчика.
+\begin{table}
+		\begin{tabular}{p{100pt} p{100pt}}
+			Разработчик & Язык\\
+			\hline
+			J. Ichbiah & \href{https://www.wikidata.org/wiki/Q154755}{Ада}\\
+			C. Moore & \href{https://www.wikidata.org/wiki/Q275472}{Форт}\\
+			J. Armstrong & \href{https://www.wikidata.org/wiki/Q334879}{Erlang}\\
+		\end{tabular}
+\end{table}
+	\itemВыберите логотип языка программирования \href{https://www.wikidata.org/wiki/Q513238}{LOLCODE}:
+
+\begin{table}
+		\begin{tabular}{c c c c}
+			\includegraphics[width=3cm]{./chapter/programming_language/task_2_logo_1.PNG} & \includegraphics[width=3cm]{./chapter/programming_language/task_2_logo_2.PNG} & \includegraphics[width=3cm]{./chapter/programming_language/task_2_logo_3.PNG} & \includegraphics[width=3cm]{./chapter/programming_language/task_2_logo_4.PNG}\\
+		\end{tabular}
+\end{table}
+
+	\itemЗаполните пропуски.
+\href{https://www.wikidata.org/wiki/Q83303}{Фортран} находится на первом месте по количеству своих диалектов. Их число достигает порядка \underline{\hspace{1cm}}. На втором месте \href{https://www.wikidata.org/wiki/Q132874}{Лисп} - \underline{\hspace{1cm}} диалектов. Третье место делят между собой \href{https://www.wikidata.org/wiki/Q597330}{Standard ML} и \href{https://www.wikidata.org/wiki/Q633894}{Object Pascal} с \underline{\hspace{1cm}} диалектами.
+\end{enumerate}
+
+Ответы можно найти на странице~\pageref{answer:prog_langs_1}.

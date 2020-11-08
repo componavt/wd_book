@@ -202,3 +202,57 @@ WHERE
     
     \small{Вопрос на с.~\pageref{aircraft_question_5}.}
 \end{task}
+
+\begin{task}
+    \label{answer:prog_langs_1}
+    \newthought{Язык программирования Ада был разработан Jean Ichbiah, Форт разработал Charles H. Moore, а создателем языка Erlang считается Joe Armstrong. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:prog_lang_answer_1})}. 
+	\begin{lstlisting}[language=SPARQL, caption={{Создатели языков программирования}\protect\footnotemark}, label=lst:prog_lang_answer_1]
+		SELECT ?item_label ?developer_label
+		WHERE
+		{
+		 ?item wdt:P31 wd:Q9143
+		 ; rdfs:label ?item_label. 
+		 ?item wdt:P178 ?developer.
+		 ?developer rdfs:label ?developer_label.
+		 
+		 FILTER (LANG(?item_label) = "en"). 
+		 FILTER (LANG(?developer_label) = "en"). 
+		}
+		ORDER BY DESC (?item_label)
+	\end{lstlisting}
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/kfZ}{https://w.wiki/kfZ} }
+    
+    \small{Вопрос на с.~\pageref{prog_lang_questions}.}
+\end{task}
+
+\begin{task}
+    \label{answer:prog_langs_2}
+    \newthought{Логотипом языка программирования LOLCODE является третья картинка. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:prog_lang_answer_1})}. 
+	\begin{lstlisting}[language=SPARQL, caption={{Логотипы языков программирования}\protect\footnotemark}, label=lst:prog_lang_answer_1]
+		#defaultView:ImageGrid
+		SELECT ?item_label ?image
+		WHERE
+		{
+		 ?item wdt:P31 wd:Q9143 # instances of programming language
+		 ; rdfs:label ?item_label. 
+		 ?item wdt:P154 ?image. # image
+		 	
+		 	FILTER (lang(?item_label) = "en")
+}
+	\end{lstlisting}
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/kfd}{https://w.wiki/kfd} }
+    
+    \small{Вопрос на с.~\pageref{prog_lang_questions}.}
+\end{task}
+
+\begin{task}
+    \label{answer:prog_langs_3}
+    \newthought{Считается, что Фортран имеет от 8 до 12 диалектов, Лисп - 6 диалектов, а Standart ML и Object Pascal по 3 диалекта.}
+    \small{Вопрос на с.~\pageref{prog_lang_questions}}.
+\end{task}
+
+
+
+
+
+
