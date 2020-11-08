@@ -5,13 +5,35 @@ Computer science book about Wikidata programming.
 
 [Petrozavodsk State University](https://en.wikipedia.org/wiki/Petrozavodsk_State_University) (PetrSU), Internet-mathematics course.
 
+
+# Wikidata programming book (in English)
+
+See our course [Research in programming Wikidata](https://en.wikiversity.org/wiki/Research_in_programming_Wikidata) in English Wikiversity.
+
+We are using the LaTeX template [https://github.com/fmarotta/kaobook fmarotta / kaobook].
+Read [the template tutorial online](https://github.com/fmarotta/kaobook/blob/master/examples/documentation/main_with_bibtex.pdf).
+
+## Quick Start
+
+The Wikidata book in English (file `wd_book/en/mainka.tex`) can be compiled with the following:
+
+    pdflatex mainka # Compile template
+    makeindex mainka.nlo -s nomencl.ist -o mainka.nls # Compile nomenclature
+    makeindex mainka # Compile index
+    bibtex mainka # Compile bibliography
+    makeglossaries mainka # Compile glossary (install xindy)
+    pdflatex mainka # Compile template again
+    pdflatex mainka # Compile template again
+
+The result should look like `mainka.pdf`.
+
 # Wikidata programming book (in Russian)
 
 See our course [Research in programming Wikidata](https://ru.wikiversity.org/wiki/Программирование_Викиданных) in Russian Wikiversity.
 
 ## Quick Start
 
-The Wikidata book (file `wd_book/ru/wd_book.tex`) can be compiled with the following:
+The Wikidata book in Russian (file `wd_book/ru/wd_book.tex`) can be compiled with the following:
 
     pdflatex wd_book_ru
     bibtex wd_book_ru
