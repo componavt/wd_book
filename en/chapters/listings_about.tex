@@ -1,0 +1,24 @@
+
+\section{About listings}
+\labsec{section:listings}
+
+Todo...
+
+An example of sidenote.\sidenote{This also means that 
+understanding and contributing to the class development is made easier. 
+Indeed, many things still need to be improved, so if you are interested, 
+check out the repository on github!}
+
+
+
+\begin{lstlisting}[style=kaolstplain,linewidth=1.5\textwidth]
+pdflatex main # Compile template
+makeindex main.nlo -s nomencl.ist -o main.nls # Compile nomenclature
+makeindex main # Compile index
+biber main # Compile bibliography
+makeglossaries main # Compile glossary
+pdflatex main # Compile template again
+pdflatex main # Compile template again
+\end{lstlisting}
+
+
