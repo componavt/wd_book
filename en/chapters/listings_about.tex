@@ -1,24 +1,41 @@
 
 \section{About listings}
-\labsec{section:listings}
+\labsec{section:listing-about}
 
-Todo...
+This book contains listings in SPARQL scripts.
+These scripts retrieve and process data from Wikidata.
 
 An example of sidenote.\sidenote{This also means that 
 understanding and contributing to the class development is made easier. 
 Indeed, many things still need to be improved, so if you are interested, 
 check out the repository on github!}
 
+An example SPARQL script is shown in (Listing~\ref{lst:cities}). 
+This script gets a list of cities from Wikidata, 
+namely: instances of object \wdqName{city}{515}.
 
+%точнее экземляров объекта\footnote{\label{question:instance-in-OOP-vs-Wikidata}Что такое экземпляр объекта? 
+%    Какая разница между экземпляром объекта 
+%    в объектно-ориентированном программировании и в Викиданных?
+%    См. ответ~\ref{answer:instance-in-OOP-vs-Wikidata} на с.~\pageref{answer:instance-in-OOP-vs-Wikidata}.
+%    }
+%\wdqName{city}{515}.
 
-\begin{lstlisting}[style=kaolstplain,linewidth=1.5\textwidth]
-pdflatex main # Compile template
-makeindex main.nlo -s nomencl.ist -o main.nls # Compile nomenclature
-makeindex main # Compile index
-biber main # Compile bibliography
-makeglossaries main # Compile glossary
-pdflatex main # Compile template again
-pdflatex main # Compile template again
-\end{lstlisting}
+%       escapebegin=ы,escapeend=я>
+%       escapechar=ы
+% # после знака # (то есть в комментариях) можно ставить \footnote в lstlisting
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={\href{https://w.wiki/jcE}{List of cities}\protect\footnotemark},
+                    label=lst:cities,
+                    texcl 
+                    ]
+SELECT ?city ?cityLabel WHERE { 
+  ?city wdt:P31 wd:Q515.       # instance of city\sidenote{This also means that}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+\end{lstlisting}%
+\footnotetext{The result contains \num{20 800} cities in 2017 year, 
+    \num{9 260} cities in 2020.}
+
 
 

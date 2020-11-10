@@ -80,6 +80,62 @@
 }
 \lstset{style=kaolst}
 
+
+
+% source: https://gist.github.com/vsimko/fcc84e1e4f8e750746caa34b802db5a7
+\definecolor{LightGray}{rgb}{0.97,0.97,0.97}
+\usepackage{listings} % syntax highlighting
+\lstdefinelanguage{SPARQL}{%
+  basicstyle=\small\ttfamily,
+  backgroundcolor=\color{LightGray},
+  columns=fullflexible,
+  breaklines=false,
+  sensitive=true,
+  % --------------------------
+  frame=bt,
+  aboveskip=1em,
+  belowskip=1em,
+  xleftmargin=.5em,
+  xrightmargin=.5em,
+  framexleftmargin=.5em,
+  framextopmargin=.5em,
+  framexbottommargin=.5em,
+  framexrightmargin=.5em,
+  % --------------------------
+  tabsize = 2,
+  showstringspaces=false,
+  morecomment=[l][\color{gray}]{\#},       % comments
+  morecomment=[n][\color{blue}]{<http}{>}, % uris
+  morestring=[b][\color{OliveGreen}]{\"},  % strings
+  % -------------------------- variables
+  keywordsprefix=?,
+  classoffset=0,
+  keywordstyle=\color{Sepia},
+  morekeywords={},
+  % -------------------------- prefixes
+  classoffset=1,
+  keywordstyle=\color{Purple},
+  morekeywords={rdf,rdfs,owl,xsd,purl},
+  % -------------------------- keywords
+  classoffset=2,
+  keywordstyle=\color{MidnightBlue},
+  morekeywords={
+    SELECT,CONSTRUCT,DESCRIBE,ASK,WHERE,FROM,NAMED,PREFIX,BASE,OPTIONAL,
+    FILTER,GRAPH,LIMIT,OFFSET,SERVICE,UNION,EXISTS,NOT,BINDINGS,MINUS,a
+  }
+}
+
+% see https://tex.stackexchange.com/a/79985/99685
+\usepackage{siunitx} % \num{12345,67890}
+
+% Wikidata object hyperlink in the form: QID, e.g. Q312154
+\newcommand{\wdq}[1]{\href{https://www.wikidata.org/wiki/Q#1}{Q#1}}
+% Wikidata object hyperlink in the form: Name (QID), e.g. Drosophila (Q312154)
+\newcommand{\wdqName}[2]{\href{https://www.wikidata.org/wiki/Q#2}{#1~(Q#2)}}
+
+
+
+
 % Verbatim
 %\RequirePackage{fancyvrb} % Customization of verbatim environments
 %\fvset{fontsize=\normalsize} % Change here the font size of all 
