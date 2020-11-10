@@ -133,6 +133,14 @@
 % Wikidata object hyperlink in the form: Name (QID), e.g. Drosophila (Q312154)
 \newcommand{\wdqName}[2]{\href{https://www.wikidata.org/wiki/Q#2}{#1~(Q#2)}}
 
+% blind footnote (without asterisk), see https://tex.stackexchange.com/a/30726/99685
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
+
 
 
 

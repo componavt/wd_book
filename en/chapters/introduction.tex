@@ -1,6 +1,10 @@
+\setchapterimage[6cm]{Petrozavodsk-University.jpg}
 \setchapterpreamble[u]{\margintoc}
 \chapter{Introduction}
 \labch{intro-wd}
+\blfootnote{Main building of Petrozavodsk State University, 
+where the students writing this book study. 
+The photo author: \href{https://commons.wikimedia.org/wiki/File:Petrozavodsk\_06-2017\_img34\_University.jpg}{A. Savin, WikiCommons / 2017 / Free Art License}.}
 
 \section{Section about ProWD}
 \labsec{does}
@@ -9,26 +13,11 @@ Todo...
 
 
 
-\section{What This Class Does Not Do}
-\labsec{doesnot}
-
-Todo...
-
-\marginnote[2mm]{The audacious users might feel tempted to edit some of 
-these packages. I'd be immensely happy if they sent me examples of what 
-they have been able to do!}
+%\marginnote[2mm]{The audacious users might feel tempted to edit some of 
+%these packages. I'd be immensely happy if they sent me examples of what 
+%they have been able to do!}
 
 
-\section{How to Use This Class}
 
-\begin{lstlisting}[style=kaolstplain,linewidth=1.5\textwidth]
-pdflatex main # Compile template
-makeindex main.nlo -s nomencl.ist -o main.nls # Compile nomenclature
-makeindex main # Compile index
-biber main # Compile bibliography
-makeglossaries main # Compile glossary
-pdflatex main # Compile template again
-pdflatex main # Compile template again
-\end{lstlisting}
 
 
