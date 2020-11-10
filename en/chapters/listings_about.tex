@@ -7,7 +7,7 @@ These scripts extract and process data from Wikidata.%\todo{To add screenshot to
 
 An example SPARQL script is shown in (Listing~\ref{lst:cities}). 
 This script gets a list of cities from Wikidata, 
-namely: instances of object \wdqName{city}{515}.
+namely: instances of the object \wdqName{city}{515}.
 The colored text in the listing title (\href{https://w.wiki/ktn}{List of cities}) 
 is the link to the corresponding SPARQL script online, 
 which is available online: 
@@ -20,10 +20,14 @@ which is available online:
 %    См. ответ~\ref{answer:instance-in-OOP-vs-Wikidata} на с.~\pageref{answer:instance-in-OOP-vs-Wikidata}.
 %    }
 
+% newline in the caption due to: \\\hspace{\textwidth}
+% see https://tex.stackexchange.com/a/101624/99685
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/ktn}{List of cities}\\\hspace{\textwidth}
+                    caption={List of cities\\\hspace{\textwidth}
                         The result contains \num{20 800} cities in 2017, 
-                        \num{9 260} cities in 2020.},
+                        \num{9 260} cities in 2020.\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/ktn}{w.wiki/ktn}
+                        },
                     label=lst:cities,
                     texcl 
                     ]
