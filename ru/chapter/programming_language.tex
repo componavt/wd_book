@@ -1,26 +1,23 @@
 \chapter{Где учатся и кем работают изобретатели языков программирования}
 \label{ch:programming languages}
 
-\footnotetext{
-Используемые в SPARQL-запросах объекты:
+\footnotetext{Используемые в SPARQL-запросах объекты:
 \begin{itemize}
-	\item\href{https://www.wikidata.org/wiki/Q9143}{programming language}
-	\item\href{https://www.wikidata.org/wiki/Q899523}{object-based language}
+	\item\href{https://www.wikidata.org/wiki/Q9143}{programming language} - язык программирования
+	\item\href{https://www.wikidata.org/wiki/Q899523}{object-based language} - объектно ориентированный язык программирования
 \end{itemize}
-}
-\footnotetext{
 Используемые в SPARQL-запросах свойства:
 \begin{itemize}
-	\item\href{https://www.wikidata.org/wiki/Property:P737}{influenced by}
-	\item\href{https://www.wikidata.org/wiki/Property:P178}{developer}
-	\item\href{https://www.wikidata.org/wiki/Property:P275}{copyright license}
-	\item\href{https://www.wikidata.org/wiki/Property:P31}{instance of}
-	\item\href{https://www.wikidata.org/wiki/Property:P1195}{file extension}
-	\item\href{https://www.wikidata.org/wiki/Property:P159}{headquarters location}
-	\item\href{https://www.wikidata.org/wiki/Property:P625}{coordinate location}
-	\item\href{https://www.wikidata.org/wiki/Property:P69}{educated at}
-	\item\href{https://www.wikidata.org/wiki/Property:P19}{place of birth}
-	\item\href{https://www.wikidata.org/wiki/Property:P106}{occupation}
+	\item\href{https://www.wikidata.org/wiki/Property:P737}{influenced by} - создан под влиянием каких языков программирования
+	\item\href{https://www.wikidata.org/wiki/Property:P178}{developer} - кто разработал язык программирования
+	\item\href{https://www.wikidata.org/wiki/Property:P275}{copyright license} - какая лицензия распространения и использования
+	\item\href{https://www.wikidata.org/wiki/Property:P31}{instance of} - сущность какого объекта
+	\item\href{https://www.wikidata.org/wiki/Property:P1195}{file extension} - расширение файлов
+	\item\href{https://www.wikidata.org/wiki/Property:P159}{headquarters location} - место расположения штаб-квартиры
+	\item\href{https://www.wikidata.org/wiki/Property:P625}{coordinate location} - геокоординаты объекта
+	\item\href{https://www.wikidata.org/wiki/Property:P69}{educated at} - где учился объект
+	\item\href{https://www.wikidata.org/wiki/Property:P19}{place of birth} - где родился объект
+	\item\href{https://www.wikidata.org/wiki/Property:P106}{occupation} - род занятий объекта (профессия)
 \end{itemize}
 }
 
@@ -547,7 +544,10 @@ WHERE
 \end{lstlisting}
 \footnotetext{В 2017 году запрос~\ref{lst:filling_label} вернул 133 значения, в 2020 году выполнение запроса дало 183 записи.}
 
-\section{Упражнения}
+%%
+% Задачи, вопросы и ответы
+%%
+\section{Задачи, вопросы и ответы}
 \label{prog_lang_questions}
 \begin{enumerate}
 	\itemСоотнесите язык программирования и его разработчика.
@@ -570,7 +570,15 @@ WHERE
 
 	\itemЗаполните пропуски.
 \href{https://www.wikidata.org/wiki/Q83303}{Фортран} находится на первом месте по количеству своих диалектов. Их число достигает порядка \underline{\hspace{1cm}}. На втором месте \href{https://www.wikidata.org/wiki/Q132874}{Лисп} - \underline{\hspace{1cm}} диалектов. Третье место делят между собой \href{https://www.wikidata.org/wiki/Q597330}{Standard ML} и \href{https://www.wikidata.org/wiki/Q633894}{Object Pascal} с \underline{\hspace{1cm}} диалектами.
+\end{enumerate}
 
+Ответы можно найти на странице~\pageref{answer:prog_langs_1}.
+%%
+% Упражнения
+%%
+\section{Упражнения}
+\label{prog_lang_test}
+\begin{enumerate}
 	\itemВывести все языки программирования с свойством "\href{https://www.wikidata.org/wiki/Property:P822}{персонаж-талисман}".
 	\itemПосчитать количество языков программирования основанных раньше 1992 года (свойство: "\href{https://www.wikidata.org/wiki/Property:P571}{дата-основания/создания}").
 	\itemПостроить столбчатую диаграмму, отражающую количество известных хештегов в Твиттере для каждого языка программирования (свойство: "\href{https://www.wikidata.org/wiki/Property:P2572}{хештег Твиттера}").
