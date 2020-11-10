@@ -52,9 +52,9 @@
 %%%%%%%%%%%%%% City chapter %%%%%%%%%%%%%%
 \begin{task}
     \label{answer:cities_geographic_objects}
-    \newthought{В честь географических объектов} были названы Тула (\href{https://ru.wikipedia.org/wiki/Тулица}{река Тулица}), Курильск (\href{https://ru.wikipedia.org/wiki/Курильские_острова}{Курильские острова}) и Вологда (\href{https://ru.wikipedia.org/wiki/Вологда_(река)}{река Вологда}). Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:cities_geographic_objects}). Значение свойства \href{https://www.wikidata.org/wiki/Property:P138}{named after} показывает, в честь какого объекта Викиданных был назван город.
+    \newthought{В честь географических объектов} были названы Тула (\href{https://bit.ly/36pMqht}{река Тулица}), Курильск (\href{https://bit.ly/3pbEr0p}{Курильские острова}) и Вологда (\href{https://bit.ly/3lipZB3}{река Вологда}). Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:cities_geographic_objects}). Значение свойства \href{https://www.wikidata.org/wiki/Property:P138}{named after} показывает, в честь какого объекта Викиданных был назван город.
     \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/jiu}{Города, названные в честь географических объектов}},
+                    caption={\href{https://w.wiki/jiu}{Города, названные в честь географических объектов}\protect\footnotemark},
                     label=lst:cities_geographic_objects, 
                     escapebegin=ку,escapeend=ку-ку>
                     ]
@@ -67,6 +67,7 @@ SELECT ?city ?cityLabel ?namedAfterLabel ?whatIsItLabel WHERE {
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
     \end{lstlisting}
+    \footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/jiu}{https://w.wiki/jiu}}  
     \small{Вопрос на с.~\pageref{lst:population_town}.}
 \end{task}
 
@@ -74,7 +75,7 @@ SELECT ?city ?cityLabel ?namedAfterLabel ?whatIsItLabel WHERE {
     \label{answer:cities_over_400_age}
     \newthought{Более 400 лет назад} были основаны Москва (1147 г.), Воронеж (1586 г.), Самара (1586 г.), Казань (1005 г.) и Астрахань (1558 г.). Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:cities_over_400_age}). Значение свойства \href{https://www.wikidata.org/wiki/Property:P571}{inception} содержит дату основания города.
     \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/jnv}{Города, основанные более 400 лет назад}},
+                    caption={\href{https://w.wiki/jnv}{Города, основанные более 400 лет назад}\protect\footnotemark},
                     label=lst:cities_over_400_age, 
                     escapebegin=ку,escapeend=ку-ку>
                     ]
@@ -92,16 +93,17 @@ SELECT ?city ?cityLabel ?inceptionDate WHERE {
 }
 GROUP BY ?city ?cityLabel ?inceptionDate    
 \end{lstlisting}
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/jnv}{https://w.wiki/jnv}}  
 
     \small{Вопрос на с.~\pageref{fig:city_relation_Russia_S_N}.}
 \end{task}
 
 \begin{task}
     \label{answer:cities_flags}
-    \newthought{Флаг, изображенный на рис. \ref{fig:flag_question_city}} принадлежит городу \href{https://ru.wikipedia.org/wiki/Карабулак_(город)}{Карабулак}. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:cities_flags}). Значение свойства \href{https://www.wikidata.org/wiki/Property:P41}{flag image} содержит изображение флага города.
+    \newthought{Флаг, изображенный на рис. \ref{fig:flag_question_city}} принадлежит городу \href{https://bit.ly/2IqZivr}{Карабулак}. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:cities_flags}). Значение свойства \href{https://www.wikidata.org/wiki/Property:P41}{flag image} содержит изображение флага города.
     
     \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/kBM}{Флаги городов}},
+                    caption={\href{https://w.wiki/kBM}{Флаги городов}\protect\footnotemark},
                     label=lst:cities_flags, 
                     escapebegin=ку,escapeend=ку-ку>
                     ]
@@ -114,8 +116,9 @@ SELECT ?city ?cityLabel ?flag ?countryLabel WHERE {
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
 \end{lstlisting}
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/kBM}{https://w.wiki/kBM}}  
     
-    \small{Вопрос на с.~\pageref{lst:example_union_city}.}
+    \small{Вопрос на с.~\pageref{lst:countries_sister_cities_with_Russia}.}
 \end{task}
 
 %%%%%%%%%%%%%% Aircraft chapter %%%%%%%%%%%%%%
