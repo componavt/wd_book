@@ -5,11 +5,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Экземпляры}
 
-Используются следующие эксемпляры объекта <<Страна>>:
-\begin{itemize}
-	\item Объект: страна или \wdqName{country}{6256}, листинг~\ref{lst:country}
-	\item Свойство: экземпляр \href{https://www.wikidata.org/wiki/Property:P31}{instance of (P31)}.
-\end{itemize}
+%Используются следующие эксемпляры объекта <<Страна>>:
+%\begin{itemize}
+%	\item Объект: страна или \wdqName{country}{6256}, листинг~\ref{lst:country}
+%	\item Свойство: экземпляр \href{https://www.wikidata.org/wiki/Property:P31}{instance of (P31)}.
+%\end{itemize}
 
 Построим список всех стран на английском и русском языках.
 
@@ -18,10 +18,11 @@ caption={\href{https://w.wiki/k6L}{Экземпляры объекта <<Стр�
 label=lst:country, 
 escapebegin=ку,escapeend=ку-ку>
 ]
+#List of countries in English and Russian
 SELECT ?country ?label_en ?label_ru
 WHERE
 {
-		?country wdt:P31 wd:Q6256.
+		?country wdt:P31 wd:Q6256. # country
 		?country rdfs:label ?label_en filter (lang(?label_en) = "en").
 		?country rdfs:label ?label_ru filter (lang(?label_ru) = "ru").
 }
@@ -38,12 +39,12 @@ SPARQL-запрос (листинг ~\ref{lst:country}) имеет 205 запи�
 
 Построим список стран, отсортированных по дате основания страны (первом упоминании о стране).
 
-Используются:
+%Используются:
 
-\begin{itemize}
-	\item Объект: страна или \wdqName{country}{6256}, листинг~\ref{lst:age_of_country}
-	\item Свойство: дата основания или \href{https://www.wikidata.org/wiki/Property:P571}{inception (P571)}.
-\end{itemize}
+%\begin{itemize}
+%	\item Объект: страна или \wdqName{country}{6256}, листинг~\ref{lst:age_of_country}
+%	\item Свойство: дата основания или \href{https://www.wikidata.org/wiki/Property:P571}{inception (P571)}.
+%\end{itemize}
 
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/k6M}{Даты основания стран}},
@@ -53,8 +54,8 @@ escapebegin=ку,escapeend=ку-ку>
 SELECT ?country ?countryLabel ?inception
 WHERE
 {
-		?country wdt:P31 wd:Q6256.
-		?country wdt:P571 ?inception .
+		?country wdt:P31 wd:Q6256. # country
+		?country wdt:P571 ?inception. # inception
 		
 		SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
@@ -87,12 +88,12 @@ SPARQL-запрос (листинг ~\ref{lst:age_of_country}) имеет 112 з
 
 Выведем список стран с пустым свойством <<дата основания>>:
 
-Используются:
+%Используются:
 
-\begin{itemize}
-	\item Объект: страна или \wdqName{country}{6256}, листинг~\ref{lst:without_inception}
-	\item Свойство: дата основания или \href{https://www.wikidata.org/wiki/Property:P571}{inception (P571)}.
-\end{itemize}
+%\begin{itemize}
+%	\item Объект: страна или \wdqName{country}{6256}, листинг~\ref{lst:without_inception}
+%	\item Свойство: дата основания или \href{https://www.wikidata.org/wiki/Property:P571}{inception (P571)}.
+%\end{itemize}
 
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/k6q}{Страны с незаполненной датой основания}},
@@ -104,7 +105,7 @@ WHERE
 {
 		?country wdt:P31 wd:Q6256. # country
 		
-		MINUS { ?country wdt:P571 [] } . #inception of country is empty
+		MINUS { ?country wdt:P571 [] } . # inception of country is empty
 		SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
 }
@@ -124,12 +125,12 @@ SPARQL-запрос (листинг ~\ref{lst:without_inception}) имеет 100
 
 Выведем список стран с пустым свойством <<дата основания>>:
 
-Используются:
+%Используются:
 
-\begin{itemize}
-	\item Объект: страна или \wdqName{country}{6256}, листинг~\ref{lst:demonym}
-	\item Свойство: этнохороним или \href{https://www.wikidata.org/wiki/Property:P1549}{demonym (P1549)}.
-\end{itemize}
+%\begin{itemize}
+%	\item Объект: страна или \wdqName{country}{6256}, листинг~\ref{lst:demonym}
+%	\item Свойство: этнохороним или \href{https://www.wikidata.org/wiki/Property:P1549}{demonym (P1549)}.
+%\end{itemize}
 
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/k72}{Этнохоронимы на русском языке}},
@@ -139,8 +140,8 @@ escapebegin=ку,escapeend=ку-ку>
 SELECT ?country ?countryLabel 
 WHERE
 {
-		?country wdt:P31 wd:Q6256.       #country
-		?country wdt:P1549 ?demonym .    #demonym
+		?country wdt:P31 wd:Q6256.       # country
+		?country wdt:P1549 ?demonym .    # demonym
 		FILTER((LANG(?demonym)) = "ru")
 		SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
@@ -162,8 +163,8 @@ escapebegin=ку,escapeend=ку-ку>
 SELECT ?country ?countryLabel ?demonym
 WHERE
 {
-		?country wdt:P31 wd:Q6256.      #country
-		?country wdt:P1549 ?demonym .   #demonym
+		?country wdt:P31 wd:Q6256.      # country
+		?country wdt:P1549 ?demonym .   # demonym
 		FILTER((LANG(?demonym)) = "ru")
 		SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
@@ -207,8 +208,8 @@ escapebegin=ку,escapeend=ку-ку>
 SELECT  ?country ?countryLabel (count(*) as ?count)
 WHERE
 {
-		?country wdt:P31 wd:Q6256.      #country
-		?country wdt:P1549 ?demonym .   #demonym
+		?country wdt:P31 wd:Q6256.      # country
+		?country wdt:P1549 ?demonym .   # demonym
 		SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
 GROUP BY ?country ?countryLabel 
@@ -223,11 +224,11 @@ SPARQL-запрос (листинг ~\ref{lst:count_demonym}) имеет 199 з�
 
 Построим пузырьковую диаграмму форм правления стран.
 
-Используются:
-\begin{itemize}
-	\item Объект: страна или \wdqName{country}{6256}, листинг~\ref{lst:form_of_government}
-	\item Свойство: форма правления или \href{https://www.wikidata.org/wiki/Property:P122}{subject's government (P122)}.
-\end{itemize}
+%Используются:
+%\begin{itemize}
+%	\item Объект: страна или \wdqName{country}{6256}, листинг~\ref{lst:form_of_government}
+%	\item Свойство: форма правления или \href{https://www.wikidata.org/wiki/Property:P122}{subject's government (P122)}.
+%\end{itemize}
 
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/k7M}{Формы правления стран}},
@@ -237,8 +238,8 @@ escapebegin=ку,escapeend=ку-ку>
 SELECT ?bfog ?form (count(*) as ?count)
 WHERE 
 {
-	?country wdt:P31 wd:Q6256.
-	?country wdt:P122 ?bfog .
+	?country wdt:P31 wd:Q6256. # country
+	?country wdt:P122 ?bfog. # subject's government
 	OPTIONAL {
 		?bfog rdfs:label ?form
 		filter (lang(?form) = "ru")
@@ -282,11 +283,11 @@ ORDER BY DESC(?count) ASC(?form)
 
 Построим граф соседних стран.
 
-Используются:
-\begin{itemize}
-	\item Объект: страна или \wdqName{country}{6256}, листинг~\ref{lst:neighboring_countries}
-	\item Свойство: имеет границы с  или \href{https://www.wikidata.org/wiki/Property:P47}{shares border with (P47)}.
-\end{itemize}
+%Используются:
+%\begin{itemize}
+%	\item Объект: страна или \wdqName{country}{6256}, листинг~\ref{lst:neighboring_countries}
+%	\item Свойство: имеет границы с  или \href{https://www.wikidata.org/wiki/Property:P47}{shares border with (P47)}.
+%\end{itemize}
 
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/k7P}{Соседние страны}},
@@ -296,7 +297,7 @@ escapebegin=ку,escapeend=ку-ку>
 SELECT ?country ?countryLabel ?sharesBorderWith ?sharesBorderWithLabel
 WHERE
 {
-		?country wdt:P31 wd:Q6256.	
+		?country wdt:P31 wd:Q6256.	# country
 		SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 		OPTIONAL { ?country wdt:P47 ?sharesBorderWith . }
 }
@@ -332,9 +333,9 @@ SPARQL-запрос (листинг ~\ref{lst:neighboring_countries}) имеет
 \section{Упражнения}
 
 \begin{enumerate}
-	\item Какие из двухсот существующих сегодня стран возникли в самые "урожайные" годы по количеству образованных стран?
-	\item У Латвии их 119, у Таиланда 77, у Дании 5, а у России 81. О чём идет речь?
-	\item Площадь Израиля 20770 квадратных километров, население 8463400 человек, площадь Монголии 1566000 квадратных километров, население 2953190 человек, площадь Республики Кореи 100295 квадратных километров, население 50219669 человек, а площадь Сингапура 719.1 квадратных километров, население 5781728 человек.
-	Расположите флаги этих стран Азии в порядке возрастания плотности населения.
-	\item Какие из этих языков являются официальными в России?
+	\item Для каждой страны выведите на экран список, включающий флаг и девиз страны.
+	\item Выведите карту с отмеченными на ней столицами всех ныне существующих стран.
+	\item В каждой части света вычислите первые пять стран с наибольшей плотностью населения.
+	\item Построить столбчатую диаграмму демонстрирующую распределение количества стран по формам правления. Оцените, является ли это распределение тяжелым хвостом.
+	\item Вывести список стран упорядоченных по числу соседей. У каких стран максимальное и минимальное количество соседей, какое среднее число соседей? Есть ли корреляция между этим показателем и каким-либо другим параметром стран?
 \end{enumerate}
