@@ -437,7 +437,7 @@ SELECT ?country ?countryLabel
 				(COUNT(DISTINCT ?sister) as ?sisterCount) WHERE {                                                          
 	{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"
 	{ ?city wdt:P31 wd:Q515 } UNION # OR instances of "city"
-	{ ?city wdt:P31 wd:Q1549591 } UNION # OR instances of "big city" ...      
+	{ ?city wdt:P31 wd:Q1549591 } UNION # OR instances of "big city"      
 	{ ?city wdt:P31 wd:Q1637706 }. # OR instances of "city 1000000+"
 	?city wdt:P17 wd:Q183. # belonging to Germany  
 	?city wdt:P190 ?sister. # with filled property "sister city" which are
