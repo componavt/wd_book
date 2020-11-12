@@ -1,26 +1,407 @@
+\setchapterimage[6cm]{chapter/city/SanFrancisco_from_TwinPeaks_dusk_MC.jpg}
 \setchapterpreamble[u]{\margintoc}
-\chapter{From towns to cities with millions of inhabitants}
+\chapter{From towns to cities with millions of inhabitants\protect\footnotemark}
 \labch{city}
 
-The chapter is devoted to the study of different types of cities corresponding to the four objects of Wikidata — <<Town>>, <<City>>, <<Big city>> and <<City with millions of inhabitants>>. Using SPARQL-queries to Wikidata, data on the number of instances of the objects under study were obtained and issues related to the <<population>> and <<sister city>> properties of these Wikidata objects were considered. The following tasks have been solved: calculation and analysis of the population of different types of cities; determination of the number of cities without sister cities; construction a list of cities ordered by the number of sister cities; finding the number of cities with a certain amount of sister cities; determination of the country with most sister cities; finding the closest neighbours of Russia. In conclusion, an assessment of the completeness of the data presented in Wikipedia and Wikidata is given, and the problems and difficulties that have arisen when studying objects of different types of cities are listed.
+\footnotetext{\href{https://en.wikipedia.org/wiki/San_Francisco}{San Francisco} panorama from \href{https://en.wikipedia.org/wiki/Twin\_Peaks\_(San\_Francisco)}{Twin Peaks}. San Francisco is the city in \href{https://en.wikipedia.org/wiki/Northern\_California}{Northern California (United States of America)} where the \href{https://en.wikipedia.org/wiki/Wikimedia\_Foundation}{Wikimedia Foundation} is headquartered.
+Author: \href{https://commons.wikimedia.org/wiki/File:SanFrancisco\_from\_TwinPeaks\_dusk\_MC.jpg}{Christian Mehlführer, WikiCommons / 2006 / Creative Commons Attribution License}. Presented part of original file. }
+
+The chapter is devoted to the study of different types of cities corresponding to the four objects of Wikidata — "Town", "City", "Big city" and "City with millions of inhabitants". Using SPARQL queries to Wikidata, data on the number of instances of the objects under study were obtained and issues related to the "population" and "sister city" properties of these Wikidata objects were considered. The following tasks have been solved: calculation and analysis of the population of different types of cities; determination of the number of cities without sister cities; construction a list of cities ordered by the number of sister cities; finding the number of cities with a certain amount of sister cities; determination of the country with most sister cities; finding the closest neighbours of Russia. In conclusion, an assessment of the completeness of the data presented in Wikipedia and Wikidata is given, and the problems and difficulties that have arisen when studying objects of different types of cities are listed.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Instances}
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={Instances of "Town"\\\hspace{\textwidth}
+                        The result contains \num{13 800} "Towns" in 2020.\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/m3d}{w.wiki/m3d}
+                        },
+                    label=lst:town,
+                    texcl 
+                    ]
+SELECT ?city ?cityLabel WHERE {
+	?city wdt:P31 wd:Q3957. # instances of "town"
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+\end{lstlisting}%
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={Instances of "City"\\\hspace{\textwidth}
+                        The result contains \num{20 800} "Cities" in 2017, 
+                        \num{9 260} "Cities" in 2020.\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/m3c}{w.wiki/m3c}
+                        },
+                    label=lst:city,
+                    texcl 
+                    ]
+SELECT ?city ?cityLabel WHERE {
+	?city wdt:P31 wd:Q515. # instances of "city"
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+\end{lstlisting}%
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={Instances of "Big city"\\\hspace{\textwidth}
+                        The result contains 198 "Big cities" in 2017, 
+                        \num{3075} "Big cities" in 2020.\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/m3b}{w.wiki/m3b}
+                        },
+                    label=lst:big_city,
+                    texcl 
+                    ]
+SELECT ?city ?cityLabel WHERE {
+	?city wdt:P31 wd:Q1549591. # instances of "big city"    
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+\end{lstlisting}%
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={Instances of "City with millions of inhabitants"\\\hspace{\textwidth}
+                        The result contains 616 "Cities with millions of inhabitants" in 2020.\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/m3a}{w.wiki/m3a}
+                        },
+                    label=lst:city_million,
+                    texcl 
+                    ]
+SELECT ?city ?cityLabel WHERE {
+	?city wdt:P31 wd:Q1637706. # instances of "city 1000000+" 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+\end{lstlisting}%
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={Instances of different types of cities\\\hspace{\textwidth}
+                        The result contains \num{26 751} instances of different types of cities in 2020.\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/m3Y}{w.wiki/m3Y}
+                        },
+                    label=lst:different_city_types,
+                    texcl 
+                    ]
+SELECT ?city ?cityLabel WHERE { # Selecting items which are ...
+	{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"
+	{ ?city wdt:P31 wd:Q515 } UNION # instances of "city"
+	{ ?city wdt:P31 wd:Q1549591 } UNION # instances of "big city"
+	{ ?city wdt:P31 wd:Q1637706 } # instances of "city 1000000+"                                
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+\end{lstlisting}%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Population}
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={Population of "Towns"\\\hspace{\textwidth}
+                        The result contains \num{53304439} people in 2020.\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/m3V}{w.wiki/m3V}
+                        },
+                    label=lst:population_town,
+                    texcl 
+                    ]
+# Selecting total population of items which are ...
+SELECT (SUM(?population_city) as ?sum) WHERE {                    
+	SELECT (MAX(xsd:integer(REPLACE(STR(?population),"\\.",""))) 
+						as ?population_city) ?city WHERE {
+		?city wdt:P31 wd:Q3957.	# instances of "town"
+		?city wdt:P1082 ?population # with filled property "population"                                  
+	}
+	GROUP BY ?city
+}
+\end{lstlisting}%
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={Population of "Cities"\\\hspace{\textwidth}
+                        The result contains \num{1 133 560 167} people in 2020.\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/m3T}{w.wiki/m3T}
+                        },
+                    label=lst:population_city,
+                    texcl 
+                    ]
+# Selecting total population of items which are ...
+SELECT (SUM(?population_city) as ?sum) WHERE {                    
+	SELECT (MAX(xsd:integer(REPLACE(STR(?population),"\\.",""))) 
+						as ?population_city) ?city WHERE {
+		?city wdt:P31 wd:Q515. # instances of "city"
+		?city wdt:P1082 ?population # with filled property "population"
+	}
+	GROUP BY ?city
+}
+\end{lstlisting}%
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={Population of "Big cities"\\\hspace{\textwidth}
+                        The result contains \num{2 538 491 725} people in 2020.\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/m3S}{w.wiki/m3S}
+                        },
+                    label=lst:population_big_city,
+                    texcl 
+                    ]
+# Selecting total population of items which are ...
+SELECT (SUM(?population_city) as ?sum) WHERE {                    
+	SELECT (MAX(xsd:integer(REPLACE(STR(?population),"\\.",""))) 
+						as ?population_city) ?city WHERE {
+		?city wdt:P31 wd:Q1549591. # instances of "big city"
+		?city wdt:P1082 ?population # with filled property "population"
+	}
+	GROUP BY ?city
+}
+\end{lstlisting}%
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={Population of "Cities with millions of inhabitants"\\\hspace{\textwidth}
+                        The result contains \num{2 118 385 113} people in 2020.\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/m3R}{w.wiki/m3R}
+                        },
+                    label=lst:population_city_millions,
+                    texcl 
+                    ]
+# Selecting total population of items which are ...
+SELECT (SUM(?population_city) as ?sum) WHERE {
+	SELECT (MAX(xsd:integer(REPLACE(STR(?population),"\\.",""))) 
+						as ?population_city) ?city WHERE {
+		?city wdt:P31 wd:Q1637706. # instances of "city 1000000+"
+		?city wdt:P1082 ?population # with filled property "population"
+	}
+	GROUP BY ?city
+}
+\end{lstlisting}%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Sister cities}
 
 \subsection{How many cities don't have a single sister city?}
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={Number of cities without sister cities\\\hspace{\textwidth}
+                        The result contains \num{21479} cities in 2020.\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/m3P}{w.wiki/m3P}
+                        },
+                    label=lst:without_sister_cities,
+                    texcl 
+                    ]
+# Counting items which are ... 
+SELECT (COUNT(?city) as ?count) WHERE {                             
+	{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"          
+	{ ?city wdt:P31 wd:Q515 } UNION # OR instances of "city"                 
+	{ ?city wdt:P31 wd:Q1549591 } UNION # OR instances of "big city"                       
+	{ ?city wdt:P31 wd:Q1637706 } # OR instances of "city 1000000+"              
+	FILTER NOT EXISTS { ?city wdt:P190 [] } # without "sister city"
+}
+\end{lstlisting}%
+
 \subsection{List of cities ordered by number of sister cities}
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={List of cities ordered by number of sister cities\\\hspace{\textwidth}
+                        The result contains \num{4046} records in 2020.\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/m3M}{w.wiki/m3M}
+                        },
+                    label=lst:ordered_by_sister_cities,
+                    texcl 
+                    ]
+# Counting sister cities of cities which are ...
+SELECT ?cityLabel (COUNT(?sister) AS ?sisterCount) WHERE {           
+	{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"
+	{ ?city wdt:P31 wd:Q515 } UNION # OR instances of "city"
+	{ ?city wdt:P31 wd:Q1549591 } UNION # OR instances of "big city"
+	{ ?city wdt:P31 wd:Q1637706 }	# OR instances of "city 1000000+"
+	?city wdt:P190 ?sister. # with filled property "sister city"
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?city ?cityLabel # Grouping by city                                   
+ORDER BY DESC(?sisterCount) # Sorting by number of sister cities
+\end{lstlisting}%
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={List of Russian cities ordered by number of sister cities\\\hspace{\textwidth}
+                        The result contains 82 records in 2020.\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/m3K}{w.wiki/m3K}
+                        },
+                    label=lst:ordered_by_sister_cities_Russia,
+                    texcl 
+                    ]
+# Counting sister cities of cities which are ...
+SELECT ?cityLabel (COUNT(?sister) AS ?sisterCount) WHERE {           
+	{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"
+	{ ?city wdt:P31 wd:Q515 } UNION # OR instances of "city"
+	{ ?city wdt:P31 wd:Q1549591 } UNION # OR instances of "big city"
+	{ ?city wdt:P31 wd:Q1637706 } # OR instances of "city 1000000+"      
+	?city wdt:P17 wd:Q159. # belonging to Russia
+	?city wdt:P190 ?sister. # with filled property "sister city"
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?city ?cityLabel # Grouping by city
+ORDER BY DESC(?sisterCount) # Sorting by number of sister cities
+\end{lstlisting}%
+
 \subsection{Number of cities with certain amount of sister cities}
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={Number of cities with certain amount of sister cities\\\hspace{\textwidth}
+                        The result contains 90 records in 2020.\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/m3J}{w.wiki/m3J}
+                        },
+                    label=lst:city_relation_S_N,
+                    texcl 
+                    ]
+#defaultView:LineChart
+# Count No. of cities having sisterCount sister cities 
+# and number of sister cities themselves
+SELECT ?sisterCount (COUNT(?sisterCount) AS ?FreqNSister) WHERE {                                                                         
+	{ # Count sister cities of cities which are ...
+		SELECT (COUNT(?sister) AS ?sisterCount) WHERE {        
+			{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"
+			{ ?city wdt:P31 wd:Q515 } UNION # OR instances of "city"
+			{ ?city wdt:P31 wd:Q1549591 } UNION # OR instances of "big city"
+			{ ?city wdt:P31 wd:Q1637706 } # OR instances of "city 1000000+"
+			?city wdt:P190 ?sister. # with filled property "sister city"
+		}
+		GROUP BY ?city # Group list by city
+	}
+}
+GROUP BY ?sisterCount # Group by number of sister cities                                     
+ORDER BY DESC(?sisterCount) # Order by number of sister cities 
+\end{lstlisting}%
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={Number of Russian cities with certain amount of sister cities\\\hspace{\textwidth}
+                        The result contains 24 records in 2020.\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/m3H}{w.wiki/m3H}
+                        },
+                    label=lst:city_relation_Russia_S_N,
+                    texcl 
+                    ]
+#defaultView:LineChart                                                   
+# Count No. of cities having sisterCount sister cities  
+# and number of sister cities themselves
+SELECT ?sisterCount (COUNT(?sisterCount) AS ?FreqNSister) WHERE {                                                                                  
+	{ # Count sister cities of cities which are ...
+		SELECT (COUNT(?sister) AS ?sisterCount) WHERE {    
+			{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"
+			{ ?city wdt:P31 wd:Q515 } UNION # OR instances of "city"
+			{ ?city wdt:P31 wd:Q1549591 } UNION # OR instances of "big city"
+			{ ?city wdt:P31 wd:Q1637706 } # OR instances of "city 1000000+"
+			?city wdt:P17 wd:Q159. # belonging to Russia
+			?city wdt:P190 ?sister. # with filled property "sister city"
+		}
+		GROUP BY ?city # Group list by city                             
+	}
+}
+GROUP BY ?sisterCount # Group by number of sister cities
+ORDER BY DESC(?sisterCount) # Order by number of sister cities
+\end{lstlisting}%
+
 \subsection{Which country has the most sister cities?}
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={List of countries ordered by number of sister cities\\\hspace{\textwidth}
+                        The result contains 208 records in 2020.\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/m3E}{w.wiki/m3E}
+                        },
+                    label=lst:countries_sister_cities,
+                    texcl 
+                    ]
+#defaultView:BubbleChart
+# Selecting number of distinct sister cities of particular  
+# country cities which are ... 
+SELECT ?countryLabel (COUNT(?sister) as ?sisterCount) WHERE { 
+	SELECT DISTINCT ?countryLabel ?sister WHERE {
+		{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"
+		{ ?city wdt:P31 wd:Q515 } UNION # OR instances of "city"
+		{ ?city wdt:P31 wd:Q1549591 } UNION # OR instances of "big city"
+		{ ?city wdt:P31 wd:Q1637706 }. # OR instances of "city 1000000+"
+		?city wdt:P17 ?country. # with filled property "country"
+		?city wdt:P190 ?sister. # with filled property "sister city"
+		SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+	}                                 
+}
+GROUP BY ?countryLabel
+ORDER BY DESC(?sisterCount)
+\end{lstlisting}%
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={List of countries having sister cities with Germany cities \\\hspace{\textwidth}
+                        The result contains 93 records in 2020.\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/m3A}{w.wiki/m3A}
+                        },
+                    label=lst:sister_cities_with_Germany,
+                    texcl 
+                    ]
+# Selecting number of distinct particular country sister cities  
+# of cities which are ...
+SELECT ?country ?countryLabel 
+				(COUNT(DISTINCT ?sister) as ?sisterCount) WHERE {                                                          
+	{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"
+	{ ?city wdt:P31 wd:Q515 } UNION # OR instances of "city"
+	{ ?city wdt:P31 wd:Q1549591 } UNION # OR instances of "big city"      
+	{ ?city wdt:P31 wd:Q1637706 }. # OR instances of "city 1000000+"
+	?city wdt:P17 wd:Q183. # belonging to Germany  
+	?city wdt:P190 ?sister. # with filled property "sister city"
+	?sister wdt:P17 ?country. # with filled property "country"
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?country ?countryLabel
+ORDER BY DESC(?sisterCount)
+\end{lstlisting}%
+
 \subsection{Closest neighbours of Russia}
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={Closest neighbours of Russia\\\hspace{\textwidth}
+                        The result contains 96 records in 2020.\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/m37}{w.wiki/m37}
+                        },
+                    label=lst:countries_sister_cities_with_Russia,
+                    texcl 
+                    ]
+#defaultView:BubbleChart
+# Selecting number of distinct particular country sister cities 
+# of cities which are ...
+SELECT ?country ?countryLabel 
+				(COUNT(DISTINCT ?sister) as ?sisterCount) WHERE {                                                
+	{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"
+	{ ?city wdt:P31 wd:Q515 } UNION # OR instances of "city"
+	{ ?city wdt:P31 wd:Q1549591 } UNION # OR instances of "big city"
+	{ ?city wdt:P31 wd:Q1637706 }. # OR instances of "city 1000000+"                                 
+	?city wdt:P17 wd:Q159. # belonging to Russia
+	?city wdt:P190 ?sister. # with filled property "sister city"
+	?sister wdt:P17 ?country. # with filled property "country"
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?country ?countryLabel
+ORDER BY DESC(?sisterCount)
+\end{lstlisting}%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Wikidata completeness and disadvantages}
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={Example of UNION construction\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/m34}{w.wiki/m34}
+                        },
+                    label=lst:example_union_city,
+                    texcl 
+                    ]
+SELECT ?city ?cityLabel WHERE { # Selecting items which are ...
+	{ ?city wdt:P31 wd:Q515 } UNION # instances of "city"            
+	{ ?city wdt:P31 wd:Q1549591 } UNION # instances of "big city"               
+	{ ?city wdt:P31 wd:Q1637706 } 	# instances of "city 1000000+"
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+\end{lstlisting}%
+
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={Example of construction with subclasses\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/m32}{w.wiki/m32}
+                        },
+                    label=lst:example_subclasses_city,
+                    texcl 
+                    ]
+SELECT ?city ?cityLabel WHERE { # Selecting items which are ...
+	?city wdt:P31/wdt:P279* wd:Q515 # instances of "city" subclasses
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+\end{lstlisting}%
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Tasks}
