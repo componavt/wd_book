@@ -12,13 +12,15 @@
 
 Построим список всех экземпляров объекта <<Воздушные суда>>.
 
-\begin{itemize}
-\itemОбъект: Воздушное судно (Q11436).
-\itemСвойство: Экземпляр (P31).
-\end{itemize}
+%\begin{itemize}
+%\itemОбъект: Воздушное судно (Q11436).
+%\itemСвойство: Экземпляр (P31).
+%\end{itemize}
 
-\begin{lstlisting}[ language=SPARQL, caption={{Список воздушных судов}\protect\footnotemark}, label=lst:lang1, ]
+\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/kYD}{Список воздушных судов}\protect\footnotemark}, label=lst:lang1, ]
 #List of `instances of` "aircraft"
+#Q11436 - object aircraft
+#P31 - property instance
 SELECT ?item ?itemLabel
 WHERE
 {
@@ -31,14 +33,14 @@ WHERE
 %Результатом запроса ~\ref{lst:lang1} (на английском языке) является список всех воздушных судов. На 2017 год список содержал \num{1564} записи, а к 2020 году число записей увеличилось до \num{3325}.
 %На руском языке на 2017 год результат запроса ~\ref{lst:lang1} содержал 153 записи, а к 2020 году их число увиличилось до 299 записей.
 
-Наиболее полными и проработанными воздушными судами на Викиданных на 2017 год являются: МиГ-3, Як-36, Mitsubishi A5M. На 2020 год наиболее полными и проработанными воздушными судами на Викиданных на 2017 год являются: Sopwith Triplane (18 свойств), Ил-103 (14 свойств), Martin 2-0-2 (14 свойств).
-Почти пустыми и малоинформативными воздушными судами на 2017 год оказались: МиГ-1, Су-6, Ил-103.
+Наиболее полными и проработанными воздушными судами на Викиданных на 2017 год являются: \href{https://www.wikidata.org/wiki/Q271446}{МиГ-3}, \href{https://www.wikidata.org/wiki/Q1349098}{Як-36}, \href{https://www.wikidata.org/wiki/Q429839}{Mitsubishi A5M}. На 2020 год наиболее полными и проработанными воздушными судами на Викиданных являются: \href{https://www.wikidata.org/wiki/Q770863}{Sopwith Triplane} (18 свойств), \href{https://www.wikidata.org/wiki/Q1658673}{Ил-103} (14 свойств), \href{https://www.wikidata.org/wiki/Q665071}{Martin 2-0-2} (14 свойств).
+Почти пустыми и малоинформативными воздушными судами на 2017 год оказались: \href{https://www.wikidata.org/wiki/Q464247}{МиГ-1}, \href{https://www.wikidata.org/wiki/Q2296502}{Су-6}, \href{https://www.wikidata.org/wiki/Q1658673}{Ил-103}.
 
 \section{Производители воздушных судов}
 
 Построим список производителей воздушных судов.
 
-\begin{lstlisting}[ language=SPARQL, caption={{Производители воздушных судов}\protect\footnotemark}, label=lst:lang2, ]
+\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/kYF}{Производители воздушных судов}\protect\footnotemark}, label=lst:lang2, ]
 # Count aircraft having property manufacture
 # Group by manufacture
 SELECT ?manufactureLabel (COUNT(?item) AS ?count) 
@@ -72,7 +74,7 @@ GROUP BY ?manufacture ?manufactureLabel # group by manufacture
 Для того чтобы оценить, какие модели воздушных судов являются самыми массовыми, 
 мы построим диаграмму по количеству выпущенных судов различных моделей.
 
-\begin{lstlisting}[ language=SPARQL, caption={{Список самолётов и их произведенного количества}\protect\footnotemark}, label=lst:lang3, ]
+\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/kYG}{Список самолётов и их произведенного количества}\protect\footnotemark}, label=lst:lang3, ]
 SELECT ?itemLabel ?count WHERE {
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
   ?item wdt:P31 wd:Q11436. # instance of aircraft
@@ -85,7 +87,7 @@ SELECT ?itemLabel ?count WHERE {
 
 Некоторые модели воздушных судов были выпущены в незначительных количествах, поэтому для повышения читабельности диаграммы их можно исключить. Для получения нового списка добавим фильтр в запрос.
 
-\begin{lstlisting}[ language=SPARQL, caption={{Список самолётов произведённых больше 10 штук}\protect\footnotemark}, label=lst:lang3_1, ]
+\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/kYH}{Список самолётов, произведённых больше 10 штук}\protect\footnotemark}, label=lst:lang3_1, ]
 SELECT ?itemLabel ?count WHERE {
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
   ?item wdt:P31 wd:Q11436.
@@ -99,7 +101,7 @@ SELECT ?itemLabel ?count WHERE {
 
 %Итого, результатом запроса ~\ref{lst:lang3_1} уже будет 86 записей, а не 177.
 
-На рисунке рис.~\ref{fig:Number_of_aircraft_produced_ru_2020} видно, что на 2020 год больше всего было выпущено воздушных судов следующих моделей: Piper PA-32 (\num{7842} штук), Piper PA-24 Comanche (\num{4857}), Junkers W 34 (\num{3000}), Piper J-4 (\num{1251}).
+На рисунке рис.~\ref{fig:Number_of_aircraft_produced_ru_2020} видно, что на 2020 год больше всего было выпущено воздушных судов следующих моделей: \href{https://www.wikidata.org/wiki/Q2096452}{Piper PA-32} (\num{7842} штук), \href{https://www.wikidata.org/wiki/Q1860367}{Piper PA-24 Comanche} (\num{4857}), \href{https://www.wikidata.org/wiki/Q694521}{Junkers W 34} (\num{3000}), \href{https://www.wikidata.org/wiki/Q4046989}{Piper J-4} (\num{1251}).
 
 
 %\clearpage
@@ -114,15 +116,15 @@ SELECT ?itemLabel ?count WHERE {
     \label{fig:Number_of_aircraft_produced_ru_2020}%
 \end{figure*}
 
-По диаграмме видно, что больше всего было выпущено воздушных судов следующих моделей: Piper PA-32 (\num{7842} штук), Piper PA-24 Comanche (\num{4857}), Junkers W 34 (\num{3000}), Piper J-4 (\num{1251}).
+%По диаграмме видно, что больше всего было выпущено воздушных судов следующих моделей: Piper PA-32 (\num{7842} штук), Piper PA-24 Comanche (\num{4857}), Junkers W 34 (\num{3000}), Piper J-4 (\num{1251}).
 
-Теперь попытаемся ответить на вопрос: <<Выполняется ли Закон Парето относительно числа моделей самолётов>>?
+Теперь попытаемся ответить на вопрос: <<Выполняется ли \href{https://clck.ru/JvaaU}{Закон Парето} относительно числа моделей самолётов>>?
 
 Для того чтобы построить график необходимо выполнить следующие шаги:
 
 \label{aircraft_question_2}
 \marginnote{
-Совместите дату основания и компанию.
+Найдите соответствие между датой основания и компанией.
 \\
 \begin{tabular}{ l | l }
 Компания & Дата основания \\ \hline
@@ -138,7 +140,7 @@ SELECT ?itemLabel ?count WHERE {
 \begin{enumerate} 
   \item Подсчитать общее число самолётов по всем моделям. Для выполнения этой задачи был написан следующий скрипт:
   
-  \begin{lstlisting}[ language=SPARQL, caption={{Общее число произведённых самолётов}\protect\footnotemark}, label=lst:lang3_2, ]
+  \begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/k36}{Общее число произведённых самолётов}\protect\footnotemark}, label=lst:lang3_2, ]
   SELECT (SUM(?count) as ?sum) WHERE {
     SELECT ?count WHERE {
       SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
@@ -151,7 +153,7 @@ SELECT ?itemLabel ?count WHERE {
   
   %В результате выполнения запроса ~\ref{lst:lang3_2} мы получили общее число выпущенных самолётов на 2020 год = \num{33177}.
   
-  \item По оси Х - число рассматриваемых моделей самолётов (т.е. 1 - количество выпущенных самолётов 1-ой модели, 2 - сумма выпущенных самолётов 1-ой и 2-ой модели и т.д.). По оси Y будем откладывать процентное соотношение количества выпущенных моделей самолётов к общему числу выпущенных самолётов за всё время. Также по оси Х откладываем вторую шкалу от 0 до 100%, чтобы легче было определить параметры для закона Парето.
+  \item По оси Х - число рассматриваемых моделей самолётов (то есть 1 - количество выпущенных самолётов 1-ой модели, 2 - сумма выпущенных самолётов 1-ой и 2-ой модели и т.д.). По оси Y будем откладывать процентное соотношение количества выпущенных моделей самолётов к общему числу выпущенных самолётов за всё время. Также по оси Х откладываем вторую шкалу от 0 до 100%, чтобы легче было определить параметры для закона Парето.
 \end{enumerate}
 
 \begin{figure*}[h]
@@ -165,7 +167,7 @@ SELECT ?itemLabel ?count WHERE {
     \label{fig:Pareto_principle_diargam}%
 \end{figure*}
 
-По графику видно, что 80\% всех выпущенных самолётов приходится на 16 различных моделей самолётов, что составляет 9,2\% от общего числа моделей. Закон Парето утверждает, что: «20\% усилий дают 80\% результата, а остальные 80\% усилий — лишь 20\% результата». В целом можно сделать вывод, что в какой-то степени принцип Парето выполняется относительно числа моделей самолётов.
+По графику видно, что 80\% всех выпущенных самолётов приходится на 16 различных моделей самолётов, что составляет 9,2\% от общего числа моделей. Закон Парето утверждает, что: «20\% усилий дают 80\% результата, а остальные 80\% усилий — лишь 20\% результата». Можно сделать вывод, что выполняется более сильный закон, чем принцип Парето относительно числа моделей самолётов.
 
 
 \section{Страны происхождения производителей воздушных судов}
@@ -174,7 +176,7 @@ SELECT ?itemLabel ?count WHERE {
 
 \label{aircraft_question_3}
 \marginnote{
-Совместите расположение штаб-квартиры компании с компанией.
+Найдите соответствие между расположением штаб-квартирой компании и компанией.
 \\
 \begin{tabular}{ l | l }
 Компания & Штаб-квартира \\ \hline
@@ -188,7 +190,7 @@ SELECT ?itemLabel ?count WHERE {
 См. ответ~\ref{answer:aircraft_company_headquarters} на с.~\pageref{answer:aircraft_company_headquarters}.
 }
 
-\begin{lstlisting}[ language=SPARQL, caption={{Список соотношения количества производителей воздушных судов по странам}\protect\footnotemark}, label=lst:lang4, ]
+\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/kYJ}{Список соотношения количества производителей воздушных судов по странам}\protect\footnotemark}, label=lst:lang4, ]
 # Count manufacture having property country
 # group by country
 SELECT ?countryLabel (count(?item) as ?count)
@@ -206,7 +208,7 @@ GROUP BY ?country ?countryLabel # group by country
 
 Получив общий список количества производств по странам, мы можем для наглядности построить пузырьковую диаграмму. Для её построения выполняем следующий запрос:
 
-\begin{lstlisting}[ language=SPARQL, caption={{Пузырьковая диаграмма}}, label=lst:lang5, ]
+\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/kYL}{Пузырьковая диаграмма}}, label=lst:lang5, ]
 #defaultView:BubbleChart
 SELECT ?countryLabel (count(?item) as ?count)
 WHERE
@@ -251,9 +253,8 @@ GROUP BY ?country ?countryLabel
 \label{aircraft_question_5}
 \marginnote{
 Какое воздушное судно изображено на рис. \ref{fig:airship_question_aircraft}?
-\\
-См. ответ~\ref{answer:aircraft_question_airship_2} на с.~\pageref{answer:aircraft_question_airship_2}.
 }
+
 
 \begin{marginfigure}[0.0cm]
 {
@@ -265,9 +266,13 @@ GROUP BY ?country ?countryLabel
   \label{fig:airship_question_aircraft}%
 \end{marginfigure}
 
-Согласно сайту aviationfanatic.com существует около \num{1700} производителей воздушных судов, но SPARQL-запрос ~\ref{lst:lang2} вернул всего 300 записей. Из этого можно сделать вывод о неполноте Викиданных. Скорее всего, оставшиеся полторы тысячи производителей сделали слишком мало самолетов или не сделали их вовсе, поэтому из-за недостатка информации они не были включены в Викиданные.
+\marginnote{
+См. ответ~\ref{answer:aircraft_question_airship_2} на с.~\pageref{answer:aircraft_question_airship_2}.
+}
 
-В категории Авиастроительные компании России указано наличие в России 58 авиастроительных компании, но в то же время на сайте aviationfanatic.com указано наличие 61 завода, например такие компании как Иркут, МиГ, Туполев.
+Согласно сайту \href{https://www.aviationfanatic.com/}{aviationfanatic.com} существует около \num{1700} производителей воздушных судов, но SPARQL-запрос ~\ref{lst:lang2} вернул всего 300 записей. Из этого можно сделать вывод о неполноте Викиданных. Скорее всего, оставшиеся полторы тысячи производителей сделали слишком мало самолетов или не сделали их вовсе, поэтому из-за недостатка информации они не были включены в Викиданные.
+
+В категории Авиастроительные компании России указано наличие в России 58 авиастроительных компании, но в то же время на сайте aviationfanatic.com указано наличие 61 завода, например такие компании как \href{https://clck.ru/RxFCs}{Иркут}, \href{https://clck.ru/QR6qZ}{МиГ}, \href{https://clck.ru/RxFG3}{Туполев}.
 
 %\section{Степень заполненности Викиданных}
 
@@ -306,6 +311,6 @@ GROUP BY ?country ?countryLabel
 \section{Упражнения}
 \begin{enumerate}
 \item Найти самолет с максимальным радиусом полета.
-\item Отметить на политической карте главные офисы компаний.
+\item Отметить на политической карте главные офисы компаний авиапроизводителей.
 \item Найти производителя с максимальным числом изготовленных самолетов, используя свойство manufacturer у воздушных судов.
 \end{enumerate}
