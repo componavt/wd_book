@@ -1,7 +1,161 @@
-\setchapterstyle{kao}
+\setchapterimage[6cm]{chapter/country/Political_Map_of_the_World_2013.png}
+%\setchapterstyle{kao}
 \setchapterpreamble[u]{\margintoc}
-\chapter{Analysis of three aspects of modern countries: age, forms of government and ethno-horonyms}
+\chapter{Analysis of aspects of modern countries\protect\footnotemark}
 \labch{country}
 
+\footnotetext{\href{https://en.wikipedia.org/wiki/World_map}{Political map of the world}. 
+	Author: \href{https://commons.wikimedia.org/wiki/File:Political_Map_of_the_World,_2013.png}{Central Intelligence Agency / 2015 /  Creative Commons Attribution License}.}
 
 The chapter is devoted to the study of countries based on the knowledge base of the Wikidata international project. SPARQL queries were used in order to analyse and compare <<countries>> objects in Wikidata. A list of all currently existing countries, a list of countries ordered by date of creation, a list of demonyms of countries were generated. A bubble chart with the forms of government of countries and a graph of neighboring countries were constructed. In addition, conclusions were drawn regarding the completeness of the Wikidata for this topic.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Instances}
+
+\begin{lstlisting}[ language=SPARQL, 
+caption={\href{https://w.wiki/k6L}{List of countries in English and Russian}},
+label=lst:country]
+#List of countries in English and Russian
+SELECT ?country ?label_en ?label_ru
+WHERE
+{
+?country wdt:P31 wd:Q6256. # country
+?country rdfs:label ?label_en filter (lang(?label_en) = "en").
+?country rdfs:label ?label_ru filter (lang(?label_ru) = "ru").
+}
+\end{lstlisting}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Age of countries}
+
+\begin{lstlisting}[ language=SPARQL, 
+caption={\href{https://w.wiki/k6M}{List of `instances of` "countries sorted by inception" }},
+label=lst:age_of_country, 					
+]
+SELECT ?country ?countryLabel ?inception
+WHERE
+{
+?country wdt:P31 wd:Q6256. # country
+?country wdt:P571 ?inception. # inception
+
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+
+ORDER BY (?inception)
+}
+\end{lstlisting}
+
+\subsection{Completeness of Wikidata}
+
+\subsection{Countries with an unfilled inception}
+
+\begin{lstlisting}[ language=SPARQL, 
+caption={\href{https://w.wiki/k6q}{List of `instances of` "countries without a inception" }},
+label=lst:without_inception
+]
+SELECT ?country ?countryLabel 
+WHERE
+{
+?country wdt:P31 wd:Q6256. # country
+
+MINUS { ?country wdt:P571 [] } . # inception of country is empty
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+}
+\end{lstlisting}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{List of demonyms in English}
+
+\subsection{List of demonyms}
+
+\begin{lstlisting}[ language=SPARQL, 
+caption={\href{https://w.wiki/mrp}{List of demonyms in English}},
+label=lst:demonym, 
+]
+SELECT ?country ?countryLabel ?demonym
+WHERE
+{
+?country wdt:P31 wd:Q6256.      #country
+?country wdt:P1549 ?demonym .   #demonym
+FILTER((LANG(?demonym)) = "en")
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+\end{lstlisting}
+
+\subsection{Countries with unfilled demonyms}
+
+\begin{lstlisting}[ language=SPARQL, 
+caption={\href{https://w.wiki/mro}{List of countries with demonyms in English}},
+label=lst:demonym, 
+]
+SELECT ?country ?countryLabel 
+WHERE
+{
+?country wdt:P31 wd:Q6256.       #country
+?country wdt:P1549 ?demonym .    #demonym
+FILTER((LANG(?demonym)) = "en")
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+
+GROUP BY ?country ?countryLabel
+\end{lstlisting}
+
+\subsection{Number of completed demonyms in countries}
+
+\begin{lstlisting}[ language=SPARQL, 
+caption={\href{https://w.wiki/mrq}{Count of demonyms in countries}},
+label=lst:demonym, 
+]
+SELECT  ?country ?countryLabel (count(*) as ?count)
+WHERE
+{
+?country wdt:P31 wd:Q6256.      #country
+?country wdt:P1549 ?demonym .   #demonym
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+
+GROUP BY ?country ?countryLabel 
+ORDER BY DESC(?count)
+\end{lstlisting}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Basic forms of government}
+
+\begin{lstlisting}[ language=SPARQL, 
+caption={\href{https://w.wiki/mrr}{Basic form of government ranking}},
+label=lst:demonym
+]
+SELECT ?bfog ?form (count(*) as ?count)
+WHERE 
+{
+?country wdt:P31 wd:Q6256.
+?country wdt:P122 ?bfog .
+OPTIONAL {
+?bfog rdfs:label ?form
+filter (lang(?form) = "ru")
+}
+}
+GROUP BY ?bfog ?form
+ORDER BY DESC(?count) ASC(?form)
+\end{lstlisting}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Neighboring countries}
+
+\begin{lstlisting}[ language=SPARQL, 
+caption={\href{https://w.wiki/mrs}{Neighboring countries graph}},
+label=lst:demonym
+]
+SELECT ?country ?countryLabel ?sharesBorderWith ?sharesBorderWithLabel
+WHERE
+{
+?country wdt:P31 wd:Q6256.
+
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+OPTIONAL { ?country wdt:P47 ?sharesBorderWith . }
+}
+\end{lstlisting}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Tasks}
