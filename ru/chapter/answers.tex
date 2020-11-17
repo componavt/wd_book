@@ -121,6 +121,85 @@ SELECT ?city ?cityLabel ?flag ?countryLabel WHERE {
     \small{Вопрос на с.~\pageref{lst:countries_sister_cities_with_Russia}.}
 \end{task}
 
+%%%%%%%%%%%%%% Country chapter %%%%%%%%%%%%%%
+
+\begin{task}
+	\label{answer:administrative_territorial}
+	\newthought{ Речь идет о количестве административных единиц в каждой из стран. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:administrative_territorial_entity}).}
+	
+	\begin{lstlisting}[ language=SPARQL, 
+	caption={\href{https://w.wiki/mzU}{
+	Содержание административно-территориальных единиц в стране}\protect\footnotemark},
+	label=lst:administrative_territorial_entity
+	]
+	SELECT ?countryLabel  (count(*) as ?count)
+	WHERE
+	{
+		?country wdt:P31 wd:Q6256.              # country
+		?country wdt:P150 ?ATentity.    # contains administrative territorial entity
+		
+		
+		SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
+	}
+	Group by (?countryLabel)
+	ORDER BY DESC(?count)
+	\end{lstlisting}
+	\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/mzU}{https://w.wiki/mzU}}  
+	
+	\small{Вопрос на с.~\pageref{lst:age_of_country}.}
+\end{task}
+
+\begin{task}
+	\label{answer:population_density}
+	\newthought{  Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:administrative_territorial_entity}).}
+	
+	\begin{lstlisting}[ language=SPARQL, 
+	caption={\href{https://w.wiki/mzj}{
+	Плотность населения в азиатских странах}\protect\footnotemark},
+	label=lst:population_density
+	]
+	SELECT ?country ?countryLabel ?flag ?area  ?population (?population / ?area as ?populationDensity)
+	{
+		?country wdt:P31 wd:Q6256.       #country
+		?country wdt:P30 wd:Q48 .        #Asian
+		?country wdt:P41 ?flag .         #flag
+		?country wdt:P2046 ?area .       #area
+		?country wdt:P1082 ?population . #population
+		
+		SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
+	}
+	order by DESC(?populationDensity)
+	\end{lstlisting}
+	\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/mzj}{https://w.wiki/mzj}}  
+	
+	\small{Вопрос на с.~\pageref{lst:without_inception}.}
+\end{task}
+
+\begin{task}
+	\label{answer:official_language}
+	\newthought{Официальными языками \href{https://w.wiki/myt}{России} являются абазинский, мокшанский и эрзянский языки.  Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:official_languages}).}
+	
+	\begin{lstlisting}[ language=SPARQL, 
+	caption={\href{https://w.wiki/mzF}{Официальные языки в России}\protect\footnotemark},
+	label=lst:official_languages
+	]
+	SELECT ?lanquage ?lanquageLabel
+	WHERE
+	{
+	
+		?country wdt:P31 wd:Q6256 .# country
+		
+		?country wdt:P37 ?lanquage .
+		FILTER(?country = wd:Q159) . 
+		
+		SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
+	}
+	\end{lstlisting}
+	\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/mzF}{https://w.wiki/mzF}}  
+	
+	\small{Вопрос на с.~\pageref{lst:without_inception}.}
+\end{task}
+
 %%%%%%%%%%%%%% Aircraft chapter %%%%%%%%%%%%%%
 
 \begin{task}

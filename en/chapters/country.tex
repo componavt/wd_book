@@ -15,13 +15,12 @@ The chapter is devoted to the study of countries based on the knowledge base of 
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/k6L}{List of countries in English and Russian}},
 label=lst:country]
-#List of countries in English and Russian
 SELECT ?country ?label_en ?label_ru
 WHERE
 {
-?country wdt:P31 wd:Q6256. # country
-?country rdfs:label ?label_en filter (lang(?label_en) = "en").
-?country rdfs:label ?label_ru filter (lang(?label_ru) = "ru").
+	?country wdt:P31 wd:Q6256. # country
+	?country rdfs:label ?label_en filter (lang(?label_en) = "en").
+	?country rdfs:label ?label_ru filter (lang(?label_ru) = "ru").
 }
 \end{lstlisting}
 
@@ -35,10 +34,10 @@ label=lst:age_of_country,
 SELECT ?country ?countryLabel ?inception
 WHERE
 {
-?country wdt:P31 wd:Q6256. # country
-?country wdt:P571 ?inception. # inception
-
-SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+	?country wdt:P31 wd:Q6256. # country
+	?country wdt:P571 ?inception. # inception
+	
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
 
 ORDER BY (?inception)
@@ -56,16 +55,32 @@ label=lst:without_inception
 SELECT ?country ?countryLabel 
 WHERE
 {
-?country wdt:P31 wd:Q6256. # country
-
-MINUS { ?country wdt:P571 [] } . # inception of country is empty
-SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
-}
+	?country wdt:P31 wd:Q6256. # country
+	
+	MINUS { ?country wdt:P571 [] } . # inception of country is empty
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
 \end{lstlisting}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{List of demonyms in English}
+
+\begin{lstlisting}[ language=SPARQL, 
+caption={\href{https://w.wiki/mro}{List of countries with demonyms in English}},
+label=lst:demonym, 
+]
+SELECT ?country ?countryLabel 
+WHERE
+{
+	?country wdt:P31 wd:Q6256.       #country
+	?country wdt:P1549 ?demonym .    #demonym
+	
+	FILTER((LANG(?demonym)) = "en")
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+
+GROUP BY ?country ?countryLabel
+\end{lstlisting}
 
 \subsection{List of demonyms}
 
@@ -76,28 +91,30 @@ label=lst:demonym,
 SELECT ?country ?countryLabel ?demonym
 WHERE
 {
-?country wdt:P31 wd:Q6256.      #country
-?country wdt:P1549 ?demonym .   #demonym
-FILTER((LANG(?demonym)) = "en")
-SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+	?country wdt:P31 wd:Q6256.      #country
+	?country wdt:P1549 ?demonym .   #demonym
+	
+	FILTER((LANG(?demonym)) = "en")
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
 \end{lstlisting}
 
 \subsection{Countries with unfilled demonyms}
 
 \begin{lstlisting}[ language=SPARQL, 
-caption={\href{https://w.wiki/mro}{List of countries with demonyms in English}},
+caption={\href{https://w.wiki/myi}{List of countries without demonyms in English}},
 label=lst:demonym, 
 ]
 SELECT ?country ?countryLabel 
 WHERE
 {
-?country wdt:P31 wd:Q6256.       #country
-?country wdt:P1549 ?demonym .    #demonym
-FILTER((LANG(?demonym)) = "en")
-SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+	?country wdt:P31 wd:Q6256.              # country
+	MINUS { ?country wdt:P1549 ?demonym.    # except with demonyms
+		FILTER((LANG(?demonym)) = "en") # in English
+	}    
+	
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
-
 GROUP BY ?country ?countryLabel
 \end{lstlisting}
 
@@ -110,9 +127,9 @@ label=lst:demonym,
 SELECT  ?country ?countryLabel (count(*) as ?count)
 WHERE
 {
-?country wdt:P31 wd:Q6256.      #country
-?country wdt:P1549 ?demonym .   #demonym
-SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+	?country wdt:P31 wd:Q6256.      #country
+	?country wdt:P1549 ?demonym .   #demonym
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
 
 GROUP BY ?country ?countryLabel 
@@ -129,12 +146,13 @@ label=lst:demonym
 SELECT ?bfog ?form (count(*) as ?count)
 WHERE 
 {
-?country wdt:P31 wd:Q6256.
-?country wdt:P122 ?bfog .
-OPTIONAL {
-?bfog rdfs:label ?form
-filter (lang(?form) = "ru")
-}
+	?country wdt:P31 wd:Q6256.
+	?country wdt:P122 ?bfog .
+	
+	OPTIONAL {
+		?bfog rdfs:label ?form
+		filter (lang(?form) = "ru")
+	}
 }
 GROUP BY ?bfog ?form
 ORDER BY DESC(?count) ASC(?form)
@@ -150,10 +168,10 @@ label=lst:demonym
 SELECT ?country ?countryLabel ?sharesBorderWith ?sharesBorderWithLabel
 WHERE
 {
-?country wdt:P31 wd:Q6256.
-
-SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
-OPTIONAL { ?country wdt:P47 ?sharesBorderWith . }
+	?country wdt:P31 wd:Q6256.
+	
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+	OPTIONAL { ?country wdt:P47 ?sharesBorderWith . }
 }
 \end{lstlisting}
 
