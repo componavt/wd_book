@@ -151,7 +151,20 @@ SELECT ?city ?cityLabel ?flag ?countryLabel WHERE {
 
 \begin{task}
 	\label{answer:population_density}
-	\newthought{  Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:administrative_territorial_entity}).}
+	\newthought{ Площадь Израиля  \num{20770} квадратных километров, население  \num{8463400} человек, площадь Монголии  \num{1566000} квадратных километров, население  \num{2953190} человек, площадь Республики Кореи  \num{100295} квадратных километров, население  \num{50219669} человек, а площадь Сингапура  \num{719.1} квадратных километров, население  \num{5781728} человек. Таким образом получается:
+	}
+	\begin{table}
+		\begin{tabular}{c c}
+			%\hline
+			1 место: Монголия (плотность населения  \num{1.96} человек на квадратный километр)  & \includegraphics[width=3cm]{./chapter/country/256px-Flag_of_Mongolia.png} \\ \\  
+			2 место: Израиль (плотность населения  \num{437.79} человек на квадратный километр) & \includegraphics[width=3cm]{./chapter/country/256px-Flag_of_Israel.png} \\ \\
+			3 место: Корея (плотность населения  \num{513.14} человек на квадратный километр) & \includegraphics[width=3cm]{./chapter/country/256px-Flag_of_South_Korea.png} \\ \\  
+			4 место: Сингапур (плотность населения  \num{8189.30} человек на квадратный километр) & \includegraphics[width=3cm]{./chapter/country/256px-Flag_of_Singapore.png}\\ 
+		\end{tabular}
+	\end{table}
+
+	
+	\newthought{  Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:population_density}).}
 	
 	\begin{lstlisting}[ language=SPARQL, 
 	caption={\href{https://w.wiki/mzj}{
