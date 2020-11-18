@@ -213,6 +213,50 @@ SELECT ?city ?cityLabel ?flag ?countryLabel WHERE {
 	\small{Вопрос на с.~\pageref{lst:without_inception}.}
 \end{task}
 
+%%%%%%%%%%%%%% Operating system chapter %%%%%%%%%%%%%%
+
+\begin{task}
+	\label{answer:os_base}
+	\newthought{На основе \href{https://w.wiki/n8W}{Ubuntu} разработано больше всего ОС. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:os_base}).}
+	
+	\begin{lstlisting}[ language=SPARQL, caption={
+	\href{https://w.wiki/n8F}{Список основ опрационных систем}\protect\footnotemark},
+	label=lst:os_base
+	]
+	SELECT ?baseLabel (count(*) as ?count)
+	WHERE
+	{
+		?os wdt:P31 wd:Q9135. # instace of operating system
+		?os wdt:P144 ?base. # os is base for
+		SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en"}
+	}
+	GROUP BY ?baseLabel
+	ORDER BY DESC(?count) ASC(?baseLabel)
+	\end{lstlisting}
+	\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/n8F}{https://w.wiki/n8F}}
+	
+	\small{Вопрос на с.~\pageref{lst:base_of_operating_systems}.}
+\end{task}
+
+\begin{task}
+	\label{answer:what_system_created}
+	\newthought{Компания \href{https://w.wiki/n8S}{Apple} разработала ОС  \href{https://w.wiki/n8P}{Newton OS}. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:os_creators}).}
+	
+	\begin{lstlisting}[ language=SPARQL, caption={
+	\href{https://w.wiki/n8a}{Разработчики ОС}\protect\footnotemark},
+	label=lst:os_creators
+	]
+	SELECT ?os ?osLabel ?developer ?developerLabel WHERE {
+	  ?os wdt:P31 wd:Q9135. # instance of operating system
+	  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en"}
+	  OPTIONAL { ?os wdt:P178 ?developer. }
+	}
+	\end{lstlisting}
+	\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/n8a}{https://w.wiki/n8a}}
+	
+	\small{Вопрос на с.~\pageref{lst:inception_time_of_operating_systems}.}
+\end{task}
+
 %%%%%%%%%%%%%% Aircraft chapter %%%%%%%%%%%%%%
 
 \begin{task}

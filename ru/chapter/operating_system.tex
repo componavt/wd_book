@@ -8,7 +8,7 @@
 Ниже представлен SPARQL-запрос для получения списка всех операционных систем (листинг \ref{lst:all_operating_systems}).
 
 \begin{lstlisting}[ language=SPARQL, 
-caption={\href{https://w.wiki/jgv}{Список всех опрационных систем}\protect\footnotemark},
+caption={\href{https://w.wiki/n89}{Список всех опрационных систем}\protect\footnotemark},
 label=lst:all_operating_systems, 
 escapebegin=ку,escapeend=ку-ку>
 ]
@@ -19,7 +19,7 @@ WHERE
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
 }
 \end{lstlisting}
-\footnotetext{Получено \num{510} операционных систем в 2017 году, и \num{1086} в 2020 году.}
+\footnotetext{Получено \num{510} операционных систем в 2017 году, и \num{1086} в 2020 году.  Ссылка на SPARQL-запрос: \href{https://w.wiki/n89}{https://w.wiki/n89}}
 
 [+] Наиболее полными и проработанными операционными системами на Викиданных являются: \wdqName{Linux}{388}, \wdqName{Microsoft Windows}{1406}, \wdqName{Windows 8}{5046}
 
@@ -31,8 +31,20 @@ WHERE
 \section{На чем основаны ОС}
 Ниже представлен SPARQL-запрос для получения списка основы операционных систем (листинг \ref{lst:base_of_operating_systems}).
 
+
+\marginnote{
+	Выберите ОС, на основе которой создано больше всего других ОС:
+	\begin{itemize}
+		\item \href{https://w.wiki/n8U}{Debian}
+		\item \href{https://w.wiki/n8V}{Android}
+		\item \href{https://w.wiki/n8W}{Ubuntu}
+		\item \href{https://w.wiki/n8X}{Linux kernel}
+	\end{itemize}
+	См. ответ~\ref{answer:what_system_created} на с.~\pageref{answer:what_system_created}.
+}
+
 \begin{lstlisting}[ language=SPARQL, 
-caption={\href{https://w.wiki/jgv}{Список основ опрационных систем}\protect\footnotemark},
+caption={\href{https://w.wiki/n8F}{Список основ опрационных систем}\protect\footnotemark},
 label=lst:base_of_operating_systems, 
 escapebegin=ку,escapeend=ку-ку>
 ]
@@ -45,15 +57,25 @@ WHERE
 }
 GROUP BY ?osLabel ?baseLabel
 \end{lstlisting}
-\footnotetext{Получено \num{47} результатов в 2017 году, и \num{118} в 2020 году.}
+\footnotetext{Получено \num{47} результатов в 2017 году, и \num{118} в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/n8F}{https://w.wiki/n8F}}
 
 Данный запрос показывает соответствие между <<Операционной Системой>> и ее <<предком>>, на котором она основана.
 
 
 \section{Время выпуска ОС}
+\marginnote{
+	Какую из этих операционных систем разработала компания \href{https://w.wiki/n8S}{Apple}?
+	\begin{itemize}
+		\item \href{https://w.wiki/n8P}{Newton OS}
+		\item \href{https://w.wiki/n8Q}{Ubuntu Touch}
+		\item \href{https://w.wiki/n8R}{JavaOS}
+	\end{itemize}
+	См. ответ~\ref{answer:what_system_created} на с.~\pageref{answer:what_system_created}.
+}
+
 Ниже представлен SPARQL-запрос для получения списка операционных систем с датой их создания (листинг \ref{lst:inception_time_of_operating_systems}).
 \begin{lstlisting}[ language=SPARQL, 
-caption={\href{https://w.wiki/jgv}{Список операционных систем с датой их создания}\protect\footnotemark},
+caption={\href{https://w.wiki/n8A}{Список операционных систем с датой их создания}\protect\footnotemark},
 label=lst:inception_time_of_operating_systems, 
 escapebegin=ку,escapeend=ку-ку>
 ]
@@ -67,7 +89,7 @@ WHERE
 GROUP BY ?osLabel ?time
 ORDER BY DESC(?time)
 \end{lstlisting}
-\footnotetext{Получено \num{30} результатов в 2017 году, и \num{238} в 2020 году.}
+\footnotetext{Получено \num{30} результатов в 2017 году, и \num{238} в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/n8A}{https://w.wiki/n8A}}
 
 Данный запрос показывает в красивой графической оболочке таймлайн создания(на самом деле выпуска) операционных систем. А еще так-же он показывает насколько плохо заполнены викиданные, так как в запросах выводится только 238 результатов. Что в свою очередь обозначает что у других <<объектов>> это поле попросту не заполнено. Хотя информация о <<дате выпуска>> не такая уж и секретная.
 
@@ -75,7 +97,7 @@ ORDER BY DESC(?time)
 Ниже представлен SPARQL-запрос для получения списка языков программирования с количеством написанных на них ОС (листинг \ref{lst:count_os_on_languages}).
 
 \begin{lstlisting}[ language=SPARQL, 
-caption={\href{https://w.wiki/jgv}{Список языков программирования с количеством написанных на них ОС}\protect\footnotemark},
+caption={\href{https://w.wiki/n8B}{Список языков программирования с количеством написанных на них ОС}\protect\footnotemark},
 label=lst:count_os_on_languages, 
 escapebegin=ку,escapeend=ку-ку>
 ]
@@ -92,7 +114,7 @@ WHERE
 GROUP BY ?lang
 ORDER BY DESC(?count) ASC(?lang)
 \end{lstlisting}
-\footnotetext{Получено \num{24} результатов в 2017 году, и \num{37} в 2020 году.}
+\footnotetext{Получено \num{24} результатов в 2017 году, и \num{37} в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/n8B}{https://w.wiki/n8B}}
 
 Данный запрос показывает (только на основе заполненых викиданных, поэтому не факт что это правда) что преимущественно ОС пишут на языке Ассемблер, что несомненно является правдой, потому что это самый быстрый, но при этом удобный язык программирования. На втором и третьем месте разместились Си и C++, которые в свою очередь являются не худшим аналогом, так как несмотря на свою (относительно Ассемблера) <<медленность>>, они наиболее удобные и понятные ЯП.
 
@@ -115,7 +137,7 @@ ORDER BY DESC(?count) ASC(?lang)
 Ниже представлен SPARQL-запрос показывающий для каждого софта под каждую ОС на скольких языках он написан (листинг \ref{lst:count_soft_on_os}).
 
 \begin{lstlisting}[ language=SPARQL, 
-caption={\href{https://w.wiki/jgv}{Список ос с количеством сфота для него}\protect\footnotemark},
+caption={\href{https://w.wiki/n8C}{Список ос с количеством сфота для него}\protect\footnotemark},
 label=lst:count_soft_on_os, 
 escapebegin=ку,escapeend=ку-ку>
 ]
@@ -129,29 +151,30 @@ WHERE
 GROUP BY ?soft ?softLabel ?os ?osLabel
 ORDER BY DESC(?count) ASC(?lang)
 \end{lstlisting}
-\footnotetext{Получено \num{2259} результатов в 2017 году, и \num{6883} в 2020 году.}
+\footnotetext{Получено \num{2259} результатов в 2017 году, и \num{6883} в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/n8C}{https://w.wiki/n8C}}
 
 
 \section{Сколько ПО было написано под ОС с использованием того или иного языка}
 Ниже представлен SPARQL-запрос показывающий для каждого софта под каждую ОС на скольких языках он написан (листинг \ref{lst:count_soft_on_os}).
 
 \begin{lstlisting}[ language=SPARQL, 
-caption={\href{https://w.wiki/jgv}{Список языков программирования с количеством написанного для него ПО}\protect\footnotemark},
+caption={\href{https://w.wiki/n8D}{Список языков программирования с количеством написанного для него ПО}\protect\footnotemark},
 label=lst:count_soft_on_os, 
 escapebegin=ку,escapeend=ку-ку>
 ]
-SELECT ?osLabel ?lang1Label (count(*) as ?count)
+SELECT ?osLabel ?softwareLanguageLabel (count(*) as ?count)
 WHERE
 {
-	?soft wdt:P306 ?os. # operating system on which a software works
-	?soft wdt:P277 ?lang1. # programming language in which soft is developed
-	?os wdt:P277 ?lang2. # programming language in which OS is developed
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
+	?software wdt:P306 ?os. # software works on os
+	?software wdt:P277 ?softwareLanguage. # software is written 
+                                          # by parogramming language
+	?os wdt:P277 ?osLanguage. # os is written by parogramming language
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en"}
 }
-GROUP BY ?os ?osLabel ?lang1Label
+GROUP BY ?osLabel ?softwareLanguageLabel
 ORDER BY DESC(?count) DESC(?osLabel)
 \end{lstlisting}
-\footnotetext{Получено \num{2259} результатов в 2017 году, и \num{6883} в 2020 году.}
+\footnotetext{Получено \num{2259} результатов в 2017 году, и \num{6883} в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/n8D}{https://w.wiki/n8D}}
 
  Данный запрос отлично показывает, что большая часть ПО, написанного под \wdqName{macOS}{14116}, написано на \wdqName{C++}{2407}, \wdqName{Си}{15777}, \wdqName{Python}{28865}. Под \wdqName{Android}{94} - \wdqName{C++}{2407} и \wdqName{Java}{251}. Под \wdqName{iOS}{48493} - \wdqName{C++}{2407}.
 
