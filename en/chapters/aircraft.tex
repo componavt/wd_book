@@ -1,6 +1,10 @@
+\setchapterimage[6cm]{chapter/aircraft/aircraft_title_photo2.jpg}
 \setchapterpreamble[u]{\margintoc}
-\chapter{Aircraft from small to large}
+\chapter{Aircraft from small to large\protect\footnotemark}
 \labch{aircraft-chapter_en}
+
+\footnotetext{\href{https://ca.wikipedia.org/wiki/Piper_PA-32_Cherokee_Six}{Piper PA-32-300 Cherokee Six} it is one of the most massive aircraft in the world, more than 7000 of them were manufactured.
+Author: \href{https://commons.wikimedia.org/wiki/File:Piper.pa32.cherokee.six.g-bxwp.arp.jpg}{Arpingstone, WikiCommons / 2006 / public domain}. }
 
 The chapter is devoted to the study of various properties of aircraft
 based on the knowledge base of the international project Wikidata.
@@ -13,17 +17,148 @@ In the conclusion of the work, an assessment of the completeness of the data pre
 
 \section{Instances of the object <<Aircraft>>}
 
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={List of aircrafts\\\hspace{\textwidth}
+                        The result contains \num{1564} aircrafts in 2017, 
+                        \num{3324} aircrafts in 2020.\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/n7B}{w.wiki/n7B}
+                        },
+                    label=lst:aircraft_listing_1,
+                    texcl 
+                    ]
+#List of `instances of` "aircraft"
+#Q11436 - object aircraft 
+#P31 - properties instance of
+SELECT ?item ?itemLabel
+WHERE
+{
+    ?item wdt:P31 wd:Q11436.
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+\end{lstlisting}
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Aircraft manufacturers}
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={Aircraft manufacturers\\\hspace{\textwidth}
+                        The result contains \num{300} manufacturers in 2017, 
+                        \num{597} manufacturers in 2020.\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/kYF}{w.wiki/kYF}
+                        },
+                    label=lst:aircraft_listing_2,
+                    texcl 
+                    ]
+# Count aircraft having property manufacture
+# Group by manufacture
+SELECT ?manufactureLabel (COUNT(?item) AS ?count) 
+WHERE {
+  ?item wdt:P31 wd:Q11436.     # instance of aircraft
+  ?item wdt:P176 ?manufacture. # show manufacture
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+GROUP BY ?manufacture ?manufactureLabel # group by manufacture
+\end{lstlisting}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Number of aircraft produced}
 
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={List of aircraft and their number produced\\\hspace{\textwidth}
+                        The result contains \num{177} records in 2020. 
+                        SPARQL query: \href{https://w.wiki/fei}{w.wiki/fei}
+                        },
+                    label=lst:aircraft_listing_3,
+                    texcl 
+                    ]
+SELECT ?itemLabel ?count WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  ?item wdt:P31 wd:Q11436. # instance of aircraft
+  ?item wdt:P1092 ?count.  # show total produced
+}
+\end{lstlisting}
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={List of aircraft manufactured over 10 pieces\\\hspace{\textwidth}
+                        The result contains \num{86} records in 2020.
+                        SPARQL query: \href{https://w.wiki/n5Q}{w.wiki/n5Q}
+                        },
+                    label=lst:aircraft_listing_4,
+                    texcl 
+                    ]
+SELECT ?itemLabel ?count WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  ?item wdt:P31 wd:Q11436.
+  ?item wdt:P1092 ?count.
+  
+  FILTER (?count > 10)
+}
+\end{lstlisting}
+
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={Total number of aircraft produced\\\hspace{\textwidth}
+                        The result contains \num{33 178} aircrafts in 2020.
+                        SPARQL query: \href{https://w.wiki/n5Z}{w.wiki/n5Z}
+                        },
+                    label=lst:aircraft_listing_5,
+                    texcl 
+                    ]
+SELECT (SUM(?count) as ?sum) WHERE {
+  SELECT ?count WHERE {
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+    ?item wdt:P31 wd:Q11436;
+      wdt:P1092 ?count.
+  }
+}
+\end{lstlisting}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Countries of origin of aircraft manufacturers}
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={List of the ratio of the number of manufacturers aircraft by country\\\hspace{\textwidth}
+                        The result contains \num{39} records in 2017, 
+                        \num{46} records in 2020.\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/kYJ}{w.wiki/kYJ}
+                        },
+                    label=lst:aircraft_listing_6,
+                    texcl 
+                    ]
+# Count manufacture having property country
+# group by country
+SELECT ?countryLabel (count(?item) as ?count)
+WHERE
+{
+    ?item wdt:P31 wd:Q936518.   # instance of manufacture
+    ?item wdt:P17 ?country.     # show country
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?country ?countryLabel # group by country
+\end{lstlisting}
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={Bubble chart\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/n7E}{w.wiki/n7E}
+                        },
+                    label=lst:aircraft_listing_7,
+                    texcl 
+                    ]
+#defaultView:BubbleChart
+SELECT ?countryLabel (count(?item) as ?count)
+WHERE
+{
+    ?item wdt:P31 wd:Q936518.
+  	?item wdt:P17 ?country.
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?country ?countryLabel
+\end{lstlisting}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
