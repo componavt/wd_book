@@ -15,10 +15,10 @@ Tasks:
 \begin{enumerate}
 \item Construct an ordered list of programming languages by the number of interlinks.
 \item Construct a list of languages by the number of visits of articles in Russian Wikipedia.
-\item Construct a directed acyclic graph of dependencies of programming languages from each other (or find cycles in dependencies, if such a graph can not be constructed). See the "influenced by" property in Java.
+\item Construct a directed acyclic graph of dependencies of programming languages from each other (or find cycles in dependencies, if such a graph can not be constructed). See the "influenced by"\  property in Java.
 \end{enumerate}
 
-\textbf{Instances of the "Programming Language" object}\newline
+\textbf{Instances of the "Programming Language"\  object}\newline
 Let's build a list of all languages.
 \begin{lstlisting}[ language=SPARQL, 
                     caption={List of programming languages.\\\hspace{\textwidth}
@@ -43,7 +43,7 @@ The most complete and well-developed programming languages on Wikidata for 2017 
 
 Almost empty and uninformative languages for 2017 were: CLIPS, Dylan, Go!.
 
-The disadvantage of the resulting list is that a number of objects turned out to be nameless on the Wikidata (No label defined). Let's try to get a list of languages, which "label" field will be non-empty.
+The disadvantage of the resulting list is that a number of objects turned out to be nameless on the Wikidata (No label defined). Let's try to get a list of languages, which "label"\  field will be non-empty.
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={List of programming languages with label.\\\hspace{\textwidth}
@@ -54,7 +54,7 @@ The disadvantage of the resulting list is that a number of objects turned out to
                     label=lst:labled_prog_languages,
                     texcl 
                     ]
-#List of `instances of` "programming language" only with a label.
+#List of `instances of` "programming language"\  only with a label.
 SELECT ?item ?item_label
 WHERE
 {
@@ -127,7 +127,7 @@ WHERE
 }
 \end{lstlisting}%
 
-There were, for example, CoffeeScript, Go, Haml, in this list of 82 "free" languages.
+There were, for example, CoffeeScript, Go, Haml, in this list of 82 "free"\  languages.
 
 Consider the relationship between permissive and proprietary or closed-licensed languages.
 
