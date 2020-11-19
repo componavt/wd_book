@@ -37,7 +37,7 @@
     SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
   }
 \end{lstlisting}
-\footnotetext{\href{https://w.wiki/koL}{SPARQL-запрос}, 19 820 записей (2017), 50 681 записей (2020).}
+\footnotetext{\href{https://w.wiki/koL}{SPARQL-запрос}, \num{19820} записей (2017), \num{50681} записей (2020).}
 
 По данным ProWD больше всего свойств имеет \href{https://www.wikidata.org/wiki/Q281147}{Красин (ледокол, 1916)}.
 
@@ -117,4 +117,45 @@
     SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
   }
 \end{lstlisting}
-\footnotetext{\href{https://w.wiki/koW}{SPARQL-запрос} - было 105 результатов, 07:38, 6 ноября 2017; 86 записей (2020).}
+\footnotetext{\href{https://w.wiki/koW}{SPARQL-запрос} - было \num{105} результатов, 07:38, 6 ноября 2017; \num{86} записей (2020).}
+
+
+\section{Будущая работа}
+
+\begin{enumerate}
+  \item Найти "корабль Гиннесса" (на выбор: самый большой, самый длинный, самый вместительный).
+  \item Вывести фотографии тех кораблей, про которые снимали кино. Если таких не найдётся, тогда те корабли, о которых писали в книгах.
+  \item Вывести \href{https://ru.wikipedia.org/wiki/Список_кораблей-музеев}{корабли-музеи}.
+\end{enumerate}
+
+
+\section{Упражнения}
+
+\begin{enumerate}
+  \item Исходя из графика зависимости кораблей и военных действий, на какую страну приходится больше всего значений войн, с которыми связаны корабли?
+  \begin{itemize}
+    \item СССР
+    \item Россия
+    \item Российская Империя
+  \end{itemize}
+
+  \item Исходя из этого же графика, на какую войну приходится больше всего значений кораблей?
+  \begin{itemize}
+    \item \href{https://www.wikidata.org/wiki/Q159950}{Русско-японская война}
+    \item \href{https://www.wikidata.org/wiki/Q362}{Вторая мировая война}
+    \item \href{https://www.wikidata.org/wiki/Q254106}{Крымская война}
+  \end{itemize}
+
+  \item На рисунке \ref{fig:quiz_question_ship} представлен самый известный советский \href{https://ru.wikipedia.org/wiki/Эскадренный_миноносец}{эскадренный миноносец} \href{https://ru.wikipedia.org/wiki/Эскадренные_миноносцы_проекта_7}{проекта 7}, удостоенный звания "гвардейский", назовите его.
+  
+  \begin{marginfigure}[0.0cm]
+    {
+      \setlength{\fboxsep}{0pt}%
+      \setlength{\fboxrule}{1pt}%
+      \fcolorbox{gray}{gray}{\includegraphics{../graphics/chapter/ship/Secret_Grem_ship.jpg}}
+    }
+    \caption{ Известный советский эскадренный миноносец проекта 7.
+     }%
+      \label{fig:quiz_question_ship}%
+    \end{marginfigure}
+\end{enumerate}

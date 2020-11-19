@@ -7,3 +7,62 @@
 
 This chapter focuses on ships in Russia and the world. Ships may have different purposes: military, or civil. Civilian ships are used in a variety of tasks: trucking, fishing, tourism, mineral exploration, rescue work, as well as sports, cultural and other activities. To store a large amount of information about all ships, it is necessary to maintain knowledge bases. One of those knolange bases is Wikidata. This work is aimed at studying the stord in Wikidata objects describing ships and at evaluating the quality and completeness of their properties and descriptions.
 
+
+\section{Instances of the object "ship"}
+
+
+\begin{lstlisting}[ language=SPARQL, caption={{List of ship in English}\protect\footnotemark}, label=lst:list_of_ship_en, ]
+    SELECT ?ship ?shipLabel
+    WHERE
+    {
+      ?ship wdt:P31 wd:Q11446. # instance of ship
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+    }
+  \end{lstlisting}
+  \footnotetext{\href{https://w.wiki/nDi}{SPARQL-query}, \num{19820}results (2017), \num{50681} results (2020).}
+
+  
+\begin{lstlisting}[ language=SPARQL, caption={{List of ship from Russia, Soviet Union and Russian Empire}\protect\footnotemark}, label=lst:list_of_ship_ussr_rf_re_en, ]
+    SELECT ?ship ?shipLabel
+    WHERE
+    {
+      ?ship wdt:P31 wd:Q11446. # instance of ship
+                                         # ships belongs to:
+      { ?ship wdt:P137/wdt:P17 wd:Q34266 } UNION  # Russian Empire
+      { ?ship wdt:P137/wdt:P17 wd:Q15180 } UNION  # Soviet Union
+      { ?ship wdt:P137/wdt:P17 wd:Q159 }.         # Russia
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+    }
+  \end{lstlisting}
+  \footnotetext{\href{https://w.wiki/nDk}{SPARQL-query}, \num{107}results (2017), \num{579} results (2020).}
+
+    
+\section{Filling the properties of warships}
+\begin{lstlisting}[ language=SPARQL, caption={{List of ships with countries and war conflicts in English}\protect\footnotemark}, label=lst:ships_in_conflict_en, ]
+    SELECT ?ship ?shipLabel ?countryLabel ?conflict ?conflictLabel
+    WHERE
+    {
+      ?ship wdt:P31 wd:Q11446;        # instance of ship
+            wdt:P137/wdt:P17 ?country;         # belongs to country
+            wdt:P607 ?conflict.       # engaged in some conflict
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+    }
+  \end{lstlisting}
+  \footnotetext{\href{https://w.wiki/nDo}{SPARQL-query}, \num{1400}results (2017), \num{3586} results (2020).}
+
+  \begin{lstlisting}[ language=SPARQL, caption={{List of ship with countries and war conflicts in English}\protect\footnotemark}, label=lst:ships_in_conflict_2_en, ]
+    SELECT ?ship ?shipLabel ?countryLabel ?conflict ?conflictLabel
+    WHERE
+    {
+      ?ship wdt:P31 wd:Q11446;        # instance of ship
+            wdt:P137/wdt:P17 ?country;        # belongs to operator
+            wdt:P607 ?conflict.       # engaged in some conflict
+      
+      { ?country wdt:P17 wd:Q34266 } UNION  # Russian Empire
+      { ?country wdt:P17 wd:Q15180 } UNION  # Soviet Union
+      { ?country wdt:P17 wd:Q159 }.         # Russia
+      
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+    }
+  \end{lstlisting}
+  \footnotetext{\href{https://w.wiki/nDn}{SPARQL-query}, \num{105}results (2017), \num{86} results (2020).}
