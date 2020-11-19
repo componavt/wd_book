@@ -20,6 +20,7 @@
 \usepackage{paratype}
 
 \usepackage{setspace} % see https://tex.stackexchange.com/a/77910/99685
+%\doublespacing
 % \begin{spacing}{2.5} ... \end{spacing}
 
 \usepackage[colorinlistoftodos,prependcaption,textsize=large]{todonotes} %see https://tex.stackexchange.com/a/178806/99685
@@ -364,31 +365,7 @@ and \mbox{Donald E.~Knuth}.
 
 % r.9 introduction
 \cleardoublepage
-\chapter*{Введение}
-
-\newthought{Эта книга} предназначена для детей, родителей и учителей. 
-Она познакомит вас с основами программирования, современными словами и понятиями в информатике\marginnote{
-todo about Computer science and Informatics
-}. 
-Прочитав книгу вы сможете написать компьютерную программу и запустить её на своём телефоне с Андроидом\marginnote{
-todo about Android На телефонах бывают разные операционные системы: ...
-}.
-
-\newthought{Первая часть} книги включает в себя 10 уроков, описывающих среду визуального программирования (todo about visual progr) App Inventor 2.
-
-\newthought{Вторая часть} содержит рецепты для решения самых разных практических задач, возникающих при написании программы в среде App Inventor.
-
-\newthought{В третьей части} описано несколько компьютерных игровых программ: дизайн программы, логика игры, особенности разработки. 
-Все эти программы опубликованы в галерее App Inventor 2 (todo about open-source and link to page) и на сайте Google Play (todo about Google Play). 
-Вы можете бесплатно скачать эти программы себе на телефон, поиграть в них и прочитать в книге об их устройстве.
-
-\newthought{На сайте Русского Викиверситета} есть курс App Inventor (todo link, + about Викиверситет). 
-Этот курс растёт и пишется вместе с этой книгой. Кроме материала книги этот курс содержит учебное видео и интерактивные опросники, позволяющие проверить усвоение материала.
-
-\newthought{Книга научит} вас делать игры и анимацию. Предлагаемые задачи посильны детям с 8 лет.
-Желаем вам увлечься этим простым и весёлым языком программирования!
-
-
+\input{./chapter/intro.tex}
 
 %%
 % Start the main matter (normal chapters)
