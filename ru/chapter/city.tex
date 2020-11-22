@@ -1,22 +1,22 @@
 \chapter{От малых городов до городов-миллионеров}
 \label{ch:city}
 
-Глава посвящена исследованию различных типов городов, соответствующих четырем объектам Викиданных — <<Малый город>>, <<Город>>, <<Большой город>> и <<Города-миллионеры>>. В ходе исследования с использованием SPARQL-запросов получены данные о количестве экземпляров исследуемых объектов, а также рассмотрены вопросы, связанные со свойствами population (численность населения) и sister city (город-побратим) этих объектов Викиданных. В том числе решены следующие задачи: подсчет и анализ численности населения разных типов городов; определение числа городов, не имеющих побратимов; построение списка городов, упорядоченных по числу побратимов; нахождение числа городов с определённым числом побратимов; определение страны с наибольшим числом побратимов; нахождение ближайших соседей России. В заключении главы дана оценка полноты данных, представленных в Википедии и Викиданных, и перечислены проблемы и сложности, возникшие при изучении разных типов городов в этих проектах.
+Глава посвящена исследованию различных типов городов, соответствующих четырем объектам Викиданных — <<малый город>>, <<город>>, <<большой город>> и <<города-миллионеры>>. В ходе исследования с использованием SPARQL-запросов получены данные о количестве экземпляров исследуемых объектов, а также рассмотрены вопросы, связанные со свойствами population (численность населения) и sister city (город-побратим) этих объектов Викиданных. В том числе решены следующие задачи: подсчет и анализ численности населения разных типов городов; определение числа городов, не имеющих побратимов; построение списка городов, упорядоченных по числу побратимов; нахождение числа городов с определённым числом побратимов; определение страны с наибольшим числом побратимов; нахождение ближайших соседей России. В заключении главы дана оценка полноты данных, представленных в Википедии и Викиданных, и перечислены проблемы и сложности, возникшие при изучении разных типов городов в этих проектах.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Экземпляры}
 
 Ниже представлены SPARQL-запросы для нахождения экземпляров исследуемых объектов: 
 \begin{itemize}
-	\item <<Малый город>> или \wdqName{town}{3957}, листинг~\ref{lst:town};
-	\item <<Город>> или \wdqName{city}{515}, листинг~\ref{lst:city};
-	\item <<Большой город>> или \wdqName{big city}{1549591}, листинг~\ref{lst:big_city};
-	\item <<Города-миллионеры>> или \wdqName{city with millions of inhabitants}{1637706}, листинг~\ref{lst:city_million}.
+	\item <<малый город>> или \wdqName{town}{3957}, листинг~\ref{lst:town};
+	\item <<город>> или \wdqName{city}{515}, листинг~\ref{lst:city};
+	\item <<большой город>> или \wdqName{big city}{1549591}, листинг~\ref{lst:big_city};
+	\item <<города-миллионеры>> или \wdqName{city with millions of inhabitants}{1637706}, листинг~\ref{lst:city_million}.
 \end{itemize}
 
 Дополнительно составлен запрос для нахождения списка экземпляров объектов разных типов городов (листинг~\ref{lst:different_city_types}).
 
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/jfn}{Экземпляры объекта <<Малый город>>}\protect\footnotemark},
+                    caption={\href{https://w.wiki/jfn}{Экземпляры объекта <<малый город>>}\protect\footnotemark},
                     label=lst:town, 
                     escapebegin=ку,escapeend=ку-ку>
                     ]
@@ -25,12 +25,12 @@ SELECT ?city ?cityLabel WHERE {
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
 \end{lstlisting}
-\footnotetext{Получено \num{13800} <<Малых городов>> в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/jfn}{https://w.wiki/jfn}}
+\footnotetext{Получено \num{13800} <<малых городов>> в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/jfn}{https://w.wiki/jfn}}
 
-\marginnote[0.0cm]{Среди отечественных <<Городов>> в Викиданных больше всего свойств по данным \href{https://prowd.id/dashboards/fa0470eaf5f5/profile}{ProWD} у \wdqName{Новороссийска}{15760} (31 свойство). Лидером по <<Городам>> всего мира является \wdqName{Сингапур}{334} (104 свойства).}
+\marginnote[0.0cm]{Среди отечественных <<городов>> в Викиданных больше всего свойств по данным \href{https://prowd.id/dashboards/fa0470eaf5f5/profile}{ProWD} у \wdqName{Новороссийска}{15760} (31 свойство). Лидером по <<городам>> всего мира является \wdqName{Сингапур}{334} (104 свойства).}
 
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/jft}{Экземпляры объекта <<Город>>}\protect\footnotemark},
+                    caption={\href{https://w.wiki/jft}{Экземпляры объекта <<город>>}\protect\footnotemark},
                     label=lst:city, 
                     escapebegin=ку,escapeend=ку-ку>
                     ]
@@ -39,12 +39,12 @@ SELECT ?city ?cityLabel WHERE {
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
 \end{lstlisting}
-\footnotetext{Получено \num{20800} <<Городов>> в 2017 году, \num{9260} <<Городов>> в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/jft}{https://w.wiki/jft}}
+\footnotetext{Получено \num{20800} <<городов>> в 2017 году, \num{9260} <<городов>> в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/jft}{https://w.wiki/jft}}
 
-\marginnote[0.0cm]{Среди отечественных <<Больших городов>> в Викиданных больше всего свойств по данным \href{https://prowd.id/dashboards/bd326207c820/profile}{ProWD} у \wdqName{Москвы}{649}  (76 свойств). Лидером по <<Большим городам>> всего мира является \wdqName{Сингапур}{334} (104 свойства).}
+\marginnote[0.0cm]{Среди отечественных <<больших городов>> в Викиданных больше всего свойств по данным \href{https://prowd.id/dashboards/bd326207c820/profile}{ProWD} у \wdqName{Москвы}{649}  (76 свойств). Лидером по <<большим городам>> всего мира является \wdqName{Сингапур}{334} (104 свойства).}
 
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/jfu}{Экземпляры объекта <<Большой город>>}\protect\footnotemark},
+                    caption={\href{https://w.wiki/jfu}{Экземпляры объекта <<большой город>>}\protect\footnotemark},
                     label=lst:big_city, 
                     escapebegin=ку,escapeend=ку-ку>
                     ]
@@ -53,10 +53,10 @@ SELECT ?city ?cityLabel WHERE {
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
 \end{lstlisting}
-\footnotetext{Получено 198 <<Больших городов>> в 2017 году, \num{3075} <<Больших городов>> в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/jfu}{https://w.wiki/jfu}}
+\footnotetext{Получено 198 <<больших городов>> в 2017 году, \num{3075} <<больших городов>> в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/jfu}{https://w.wiki/jfu}}
 
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/jfx}{Экземпляры объекта <<Города-миллионеры>>}\protect\footnotemark},
+                    caption={\href{https://w.wiki/jfx}{Экземпляры объекта <<города-миллионеры>>}\protect\footnotemark},
                     label=lst:city_million, 
                     escapebegin=ку,escapeend=ку-ку>
                     ]
@@ -65,7 +65,7 @@ SELECT ?city ?cityLabel WHERE {
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
 \end{lstlisting}
-\footnotetext{Получено 616 <<Городов-миллионеров>> в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/jfx}{https://w.wiki/jfx}}
+\footnotetext{Получено 616 <<городов-миллионеров>> в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/jfx}{https://w.wiki/jfx}}
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/jfy}{Экземпляры объектов разных типов городов}\protect\footnotemark},
@@ -88,10 +88,10 @@ SELECT ?city ?cityLabel WHERE { # Selecting items which are ...
 
 Ниже представлены SPARQL-запросы для нахождения суммарной численности населения экземпляров каждого из исследуемых объектов: 
 \begin{itemize}
-	\item <<Малый город>> или \wdqName{town}{3957}, листинг~\ref{lst:population_town};
-	\item <<Город>> или \wdqName{city}{515}, листинг~\ref{lst:population_city};
-	\item <<Большой город>> или \wdqName{big city}{1549591}, листинг~\ref{lst:population_big_city};
-	\item <<Города-миллионеры>> или \wdqName{city with millions of inhabitants}{1637706}, листинг~\ref{lst:population_city_millions}.
+	\item <<малый город>> или \wdqName{town}{3957}, листинг~\ref{lst:population_town};
+	\item <<город>> или \wdqName{city}{515}, листинг~\ref{lst:population_city};
+	\item <<большой город>> или \wdqName{big city}{1549591}, листинг~\ref{lst:population_big_city};
+	\item <<города-миллионеры>> или \wdqName{city with millions of inhabitants}{1637706}, листинг~\ref{lst:population_city_millions}.
 \end{itemize}
 
 %%%%%%%%%%%%%%%% Упражнение 1 %%%%%%%%%%%%%%%% 
@@ -109,7 +109,7 @@ SELECT ?city ?cityLabel WHERE { # Selecting items which are ...
 }
 
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/jgX}{Численность населения <<Малых городов>>}\protect\footnotemark},
+                    caption={\href{https://w.wiki/jgX}{Численность населения <<малых городов>>}\protect\footnotemark},
                     label=lst:population_town, 
                     escapebegin=ку,escapeend=ку-ку>
                     ]
@@ -126,7 +126,7 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
 \footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/jgX}{https://w.wiki/jgX}}
 
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/jgY}{Численность населения <<Городов>>}\protect\footnotemark},
+                    caption={\href{https://w.wiki/jgY}{Численность населения <<городов>>}\protect\footnotemark},
                     label=lst:population_city, 
                     escapebegin=ку,escapeend=ку-ку>
                     ]
@@ -142,7 +142,7 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
 \footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/jgY}{https://w.wiki/jgY}}
 
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/jga}{Численность населения <<Больших городов>>}\protect\footnotemark},
+                    caption={\href{https://w.wiki/jga}{Численность населения <<больших городов>>}\protect\footnotemark},
                     label=lst:population_big_city, 
                     escapebegin=ку,escapeend=ку-ку>
                     ]
@@ -159,7 +159,7 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
 \footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/jga}{https://w.wiki/jga}}
 
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/jgb}{Численность населения <<Городов-миллионеров>>}\protect\footnotemark},
+                    caption={\href{https://w.wiki/jgb}{Численность населения <<городов-миллионеров>>}\protect\footnotemark},
                     label=lst:population_city_millions, 
                     escapebegin=ку,escapeend=ку-ку>
                     ]
@@ -186,10 +186,10 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
     \toprule
    \multicolumn{1}{| c |}{Тип города} & \multicolumn{1}{p{0.32\textwidth} |}{\centering Численность населения (млн чел.)} & \multicolumn{1}{p{0.25\textwidth} |}{\centering \% от общего населения Земли} \\
     \midrule
-    <<Малый город>> & \num{53,30} & \num{0,7}\% \\
-    <<Город>> & \num{1133,56} & \num{14,5}\% \\
-    <<Большой город>> & \num{2538,49} & \num{32,5}\% \\
-    <<Города-миллионеры>> & \num{2118,39} & \num{27,1}\% \\
+    <<малый город>> & \num{53,30} & \num{0,7}\% \\
+    <<город>> & \num{1133,56} & \num{14,5}\% \\
+    <<большой город>> & \num{2538,49} & \num{32,5}\% \\
+    <<города-миллионеры>> & \num{2118,39} & \num{27,1}\% \\
     \midrule
     \multicolumn{1}{| c |}{Всего} & \num{5843,74} & \num{74,8}\% \\
     \bottomrule
@@ -564,7 +564,7 @@ SELECT ?city ?cityLabel WHERE { # Selecting items which are ...
 \end{lstlisting}
 \footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/jyB}{https://w.wiki/jyB}}
 
-Также, вероятно с неоднозначностью критериев присвоения статуса города, были созданы подклассы для конкретных стран -- \wdqName{city in Chile}{25412763}, \wdqName{city in Cyprus}{29556224}, \wdqName{city of Japan}{494721} и так далее. Не обошла стороной эта тенденция и города России, что можно было заметить при сравнении результатов SPARQL-запроса для нахождения экземпляров объекта <<Город>> (листинг \ref{lst:city}). На данный момент большинство из них принадлежат классу \wdqName{city/town}{7930989}.
+Также, вероятно с неоднозначностью критериев присвоения статуса города, были созданы подклассы для конкретных стран -- \wdqName{city in Chile}{25412763}, \wdqName{city in Cyprus}{29556224}, \wdqName{city of Japan}{494721} и так далее. Не обошла стороной эта тенденция и города России, что можно было заметить при сравнении результатов SPARQL-запроса для нахождения экземпляров объекта <<город>> (листинг \ref{lst:city}). На данный момент большинство из них принадлежат классу \wdqName{city/town}{7930989}.
 
 По данным \href{http://www.gks.ru/free\_doc/new\_site/perepis2010/croc/Documents/Vol1/pub-01-03.pdf}{всероссийской переписи населения (2010)} и \href{https://rosstat.gov.ru/free\_doc/new\_site/population/demo/perepis\_krim/KRUM\_2015.pdf}{переписи населения в Крымском федеральном округе (2014)} суммарное число городов России составило \num{1117} на 2014 год. Все \href{https://bit.ly/32yqpw5}{города России} имеют страницу как в русской, так и в английской Википедии.
 
