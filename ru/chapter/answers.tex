@@ -53,6 +53,11 @@
 \begin{task}
     \label{answer:cities_geographic_objects}
     \newthought{В честь географических объектов} были названы Тула (\href{https://bit.ly/36pMqht}{река Тулица}), Курильск (\href{https://bit.ly/3pbEr0p}{Курильские острова}) и Вологда (\href{https://bit.ly/3lipZB3}{река Вологда}). Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:cities_geographic_objects}). Значение свойства \href{https://www.wikidata.org/wiki/Property:P138}{named after} показывает, в честь какого объекта Викиданных был назван город.
+    
+    \marginnote{
+    Если не имеет значения к какому конкретно типу городов относится объект Викиданных можно использовать конструкцию с подклассами, указав при этом единственный класс, относительно которого будет выполняться поиск. Более подробно данная конструкция рассматривается в разделе <<Полнота и недостатки Викиданных>> на с. \pageref{lst:countries_sister_cities_with_Russia}.
+    }
+    
     \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/jiu}{Города, названные в честь географических объектов}\protect\footnotemark},
                     label=lst:cities_geographic_objects, 

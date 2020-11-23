@@ -125,6 +125,10 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
 \end{lstlisting}
 \footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/jgX}{https://w.wiki/jgX}}
 
+\marginnote[1cm]{
+Для приведения значений свойства \href{https://www.wikidata.org/wiki/Property:P1082}{population} к единообразному виду можно использовать различные функции обработки строк, например, \href{https://en.wikibooks.org/wiki/SPARQL/Expressions\_and\_Functions\#REPLACE}{REPLACE}. Так, после обработки, применяемой в SPARQL-запросе, строка <<1.000.000>> примет вид <<1000000>>.
+}
+
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/jgY}{Численность населения <<городов>>}\protect\footnotemark},
                     label=lst:population_city, 
@@ -140,6 +144,10 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
 	GROUP BY ?city
 }\end{lstlisting}
 \footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/jgY}{https://w.wiki/jgY}}
+
+\marginnote[1cm]{
+Численность населения постоянно изменяется, поэтому город может иметь несколько значений свойства \href{https://www.wikidata.org/wiki/Property:P1082}{population}, соответствующих различным годам. Для выбора одного из значений свойства можно использовать агрегирующие функции, например, \href{https://en.wikibooks.org/wiki/SPARQL/Expressions\_and\_Functions\#COUNT,\_MIN,\_MAX,\_AVG\_and\_SUM}{MIN, MAX, AVG}.
+}
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/jga}{Численность населения <<больших городов>>}\protect\footnotemark},
@@ -231,6 +239,10 @@ SELECT (COUNT(?city) as ?count) WHERE {
 \subsection{Упорядоченный список городов по числу побратимов}
 
 Ниже представлены SPARQL-запросы для получения списков всех городов (листинг \ref{lst:ordered_by_sister_cities}) и городов России (листинг \ref{lst:ordered_by_sister_cities_Russia}), упорядоченных по числу побратимов.
+
+\marginnote[2cm]{
+Обратите внимание на то, что части конструкции \href{https://en.wikibooks.org/wiki/SPARQL/UNION}{UNION} должны быть заключены в фигурные скобки. В противном случае, SPARQL-запрос не будет скомпилирован.
+}
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/jg$}{Упорядоченный список городов по числу побратимов}\protect\footnotemark},
@@ -534,9 +546,9 @@ ORDER BY DESC(?sisterCount)
 
 Городом принято называть крупный населённый пункт, жители которого, как правило, не заняты сельским хозяйством. При этом разные страны используют различные критерии при наделении поселений статусом города, основным из которых является численность населения. Некоторые страны и вовсе не применяют понятие города. Так, во Франции используется только одна географическая единица подобного рода -- коммуна, вне зависимости от количества проживающих в ней людей и рода их деятельности. Поэтому чётко определить, какой населенный пункт относить к городам, а какой нет, может быть затруднительно.
 
-На практике некоторые объекты Викиданных могут одновременно являться экземплярами городов разных типов. Например, \wdqName{Шанхай}{8686} отнесен к трем исследуемым объектам: \wdqName{city}{515}, \wdqName{big city}{1549591}, \wdqName{city with millions of inhabitants}{1637706}. Нетрудно догадаться, что такое множественное присваивание сказывается на результатах SPARQL-запросов, в частности, с использованием конструкции UNION. Это несложно проверить, выполнив, например, SPARQL-запрос по нахождению городов разных типов (линстинг \ref{lst:different_city_types}). \wdqName{Шанхай}{8686} встречается в результатах три раза. 
+На практике некоторые объекты Викиданных могут одновременно являться экземплярами городов разных типов. Например, \wdqName{Шанхай}{8686} отнесен к трем исследуемым объектам: \wdqName{city}{515}, \wdqName{big city}{1549591}, \wdqName{city with millions of inhabitants}{1637706}. Нетрудно догадаться, что такое множественное присваивание сказывается на результатах SPARQL-запросов, в частности, с использованием конструкции \href{https://en.wikibooks.org/wiki/SPARQL/UNION}{UNION}. Это несложно проверить, выполнив, например, SPARQL-запрос по нахождению городов разных типов (линстинг \ref{lst:different_city_types}). \wdqName{Шанхай}{8686} встречается в результатах три раза. 
 
-Викиданные имеют механизм наследования, выражающийся в свойстве \href{https://www.wikidata.org/wiki/Property:P279}{subclass of}. Заключается этот механизм в том, что если объект является экземпляром \wdqName{big city}{1549591}, то он является и экземпляром  \wdqName{city}{515}, так как \wdqName{big city}{1549591} -- подкласс  \wdqName{city}{515}. Таким образом, описанную выше ситуацию с \wdqName{Шанхаем}{8686} можно разрешить, оставив только один класс \wdqName{city with millions of inhabitants}{1637706}. Стоит отметить, что замена конструкции с использованием UNION (листинг \ref{lst:example_union_city}) на конструкцию с учетом подклассов неэквивалентна (листинг \ref{lst:example_subclasses_city}). Рассмотренный ранее \wdqName{Шанхай}{8686} встречается в новой выборке даже четыре раза. Дело в том, что помимо части исследуемых классов есть и другие наследуемые от \wdqName{city}{515}. Например, \wdqName{lost city}{2974842}, \wdqName{free imperial city}{57318}, \wdqName{autonomous city}{1094397} и даже \wdqName{ideal city}{1656724}.
+Викиданные имеют механизм наследования, выражающийся в свойстве \href{https://www.wikidata.org/wiki/Property:P279}{subclass of}. Заключается этот механизм в том, что если объект является экземпляром \wdqName{big city}{1549591}, то он является и экземпляром  \wdqName{city}{515}, так как \wdqName{big city}{1549591} -- подкласс  \wdqName{city}{515}. Таким образом, описанную выше ситуацию с \wdqName{Шанхаем}{8686} можно разрешить, оставив только один класс \wdqName{city with millions of inhabitants}{1637706}. Стоит отметить, что замена конструкции с использованием \href{https://en.wikibooks.org/wiki/SPARQL/UNION}{UNION} (листинг \ref{lst:example_union_city}) на конструкцию с учетом подклассов неэквивалентна (листинг \ref{lst:example_subclasses_city}). Рассмотренный ранее \wdqName{Шанхай}{8686} встречается в новой выборке даже четыре раза. Дело в том, что помимо части исследуемых классов есть и другие наследуемые от \wdqName{city}{515}. Например, \wdqName{lost city}{2974842}, \wdqName{free imperial city}{57318}, \wdqName{autonomous city}{1094397} и даже \wdqName{ideal city}{1656724}.
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/k5T}{Пример использования конструкции UNION}\protect\footnotemark},
@@ -568,7 +580,7 @@ SELECT ?city ?cityLabel WHERE { # Selecting items which are ...
 
 По данным \href{http://www.gks.ru/free\_doc/new\_site/perepis2010/croc/Documents/Vol1/pub-01-03.pdf}{всероссийской переписи населения (2010)}\cite{city_perepis_2010} и \href{https://rosstat.gov.ru/free\_doc/new\_site/population/demo/perepis\_krim/KRUM\_2015.pdf}{переписи населения в Крымском федеральном округе (2014)}\cite{city_perepis_2014} суммарное число городов России составило \num{1117} на 2014 год. Все \href{https://bit.ly/32yqpw5}{города России} имеют страницу как в русской, так и в английской Википедии.
 
-Число элементов Викиданных, являющихся российскими городами -- \href{https://w.wiki/jyP}{1126} . Можно предположить, что Викиданные полностью покрывают, как минимум, российские города. 
+Число элементов Викиданных, являющихся российскими городами -- \href{https://w.wiki/jyP}{\num{1126}} . Можно предположить, что Викиданные полностью покрывают, как минимум, российские города. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Упражнения}
