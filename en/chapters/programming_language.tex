@@ -199,14 +199,24 @@ GROUP BY ?lang_name
 ORDER BY DESC(?count)
 \end{lstlisting}%
 
-The figure shows that the most historically rich in formats and file extensions programming languages are C++ (10 formats), Geometric Description Language (8), Racket (7). For example, files with a program in the Racket language can have the extensions rkt, rktl, rktd, scrbl, plt, ss or scm.
+\begin{marginfigure}[-15cm]
+	\includegraphics[width=\linewidth]{./chapter/programming_language/File_extensions_quantity_of_source_code_2017.png}
+	\caption{Bubble chart by the number of formats of source code files (2017).}
+	\label{fig:source_types_2017}
+\end{marginfigure}
+\begin{marginfigure}[-3cm]
+	\includegraphics[width=\linewidth]{./chapter/programming_language/File_extensions_quantity_of_source_code_2020.png}
+	\caption{Bubble chart by the number of formats of source code files (2020).}
+	\label{fig:source_types_2020}
+\end{marginfigure}
 
-By 2020, languages such as REXX (6 formats), Java (5 formats), Wolfram Language (5 formats), Raku (9 formats), Geometric description language (8 formats) have also started to take the lead.
+The figure~\ref{fig:source_types_2017} shows that the most historically rich in formats and file extensions programming languages are C++ (10 formats), Geometric Description Language (8), Racket (7). For example, files with a program in the Racket language can have the extensions rkt, rktl, rktd, scrbl, plt, ss or scm.
+
+By 2020 (fig.~\ref{fig:source_types_2020}), languages such as REXX (6 formats), Java (5 formats), Wolfram Language (5 formats), Raku (9 formats), Geometric description language (8 formats) have also started to take the lead.
 
 \section{Countries in which people and organizations, associated with the creation of programming languages, live}
 
-Let's map the countries in which people and organizations, connected with the creation of programming languages, live. Noticing that the developer of the language can act both as an organization and as individuals. To determine the location (property: coordinate location) of the organization, we will use the coordinates of its headquarters (property: headquarters location), for the person - the coordinates of the place of his birth (property: place of birth).
-
+Let's map (figures~\ref{fig:organizations_2017} \& ~\ref{fig:organizations_2020}) the countries in which people and organizations, connected with the creation of programming languages, live. Noticing that the developer of the language can act both as an organization and as individuals. To determine the location (property: coordinate location) of the organization, we will use the coordinates of its headquarters (property: headquarters location), for the person - the coordinates of the place of his birth (property: place of birth).
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Map of the countries in which people and organizations, connected with the creation of programming languages, live.\\\hspace{\textwidth}
@@ -240,7 +250,27 @@ WHERE
 }
 \end{lstlisting}%
 
-We will also construct a bubble chart to identify the most favorable countries for the emergence of people capable of developing programming languages and locating headquarters in these countries. We see in the figure that the most favorable countries were the United States (159 people and the headquarters of the apartments) and the United Kingdom (15). In Russia, only two programming languages were developed: Refal and the Embedded Programming Language 1C: Enterprise.
+\begin{figure}[h]
+\centering
+	\includegraphics[width=1\textwidth]{./chapter/programming_language/Organizations_map_2017.png}
+	\caption{Countries in which people and organizations live, associated with the creation of programming languages (2017).}
+	\label{fig:organizations_2017}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+	\includegraphics[width=1\textwidth]{./chapter/programming_language/Organizations_map_2020.png}
+	\caption{Countries in which people and organizations live, associated with the creation of programming languages (2020)}
+	\label{fig:organizations_2020}
+\end{figure}
+
+We will also construct a bubble chart (fig.~\ref{fig:emergence_2020}) to identify the most favorable countries for the emergence of people capable of developing programming languages and locating headquarters in these countries. We see in the figure that the most favorable countries were the United States (159 people and the headquarters of the apartments) and the United Kingdom (15). In Russia, only two programming languages were developed: Refal and the Embedded Programming Language 1C: Enterprise.
+
+\begin{marginfigure}[7cm]
+	\includegraphics[width=\linewidth]{./chapter/programming_language/The_most_favorable_countries_for_the_emergence_of_people_capable_of_developing_programming_languages_2020.png}
+	\caption{Bubble chart of the most favorable countries for the emergence people capable of developing programming languages (2020).}
+	\label{fig:emergence_2020}
+\end{marginfigure}
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Bubble chart of the most favorable countries for the emergence of people capable of developing programming languages and locating headquarters in these countries.\\\hspace{\textwidth}
@@ -281,8 +311,8 @@ ORDER BY DESC(?count)
 
 
 \section{Universities where people who developed programming languages studied}
-Let's display on the map educational institutions, in which students, who subsequently developed programming languages, studied.
-
+Let's display on the map educational institutions, in which students, who subsequently developed programming languages, studied (figures~\ref{fig:institutes_2017} \&~\ref{fig:institutes_2020}).
+\newpage
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Map of educational institutions, in which students, who subsequently developed programming languages, studied.\\\hspace{\textwidth}
 			The map shows that most of the people involved in the creation of programming languages studied in Europe or the United States.\\\hspace{\textwidth}
@@ -292,7 +322,8 @@ Let's display on the map educational institutions, in which students, who subseq
                     texcl 
                     ]
 #defaultView:Map
-SELECT ?item_label ?developer_label ?educational_institution_label ?coord
+SELECT ?item_label ?developer_label 
+	?educational_institution_label ?coord
 WHERE
 {
  	?item wdt:P31 wd:Q9143 # instances of programming language
@@ -315,7 +346,21 @@ WHERE
 }
 \end{lstlisting}%
 
-Let's construct a bubble chart for the most popular educational institutions, among future developers of programming languages. 
+\begin{figure}[h]
+\centering
+	\includegraphics[width=1\textwidth]{./chapter/programming_language/Institutes_2017.png}
+	\caption{Educational institutes , where those people , who creates programming languages were studying. (2017).}
+	\label{fig:institutes_2017}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+	\includegraphics[width=1\textwidth]{./chapter/programming_language/Institutes_2020.png}
+	\caption{Educational institutes , where those people , who creates programming languages were studying. (2020).}
+	\label{fig:institutes_2020}
+\end{figure}
+
+Let's construct a bubble chart for the most popular educational institutions, among future developers of programming languages (fig.~\ref{fig:universities_2020}). 
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Bubble chart of the most popular educational institutions, among future developers of programming languages.\\\hspace{\textwidth}
@@ -350,9 +395,21 @@ GROUP BY ?educational_institution_label
 ORDER BY DESC(?count)
 \end{lstlisting}%
 
-You can see in the figure that the first places were: Princeton University (8) and Stanford University (8). MSU was at the end of the list, Tony Hoare, who developed ALGOL60, and Valentin Turchin, who developed Refal, studied there. Moscow State University was included in this list, which includes 142 universities of the world.
+\begin{marginfigure}[-7cm]
+	\includegraphics[width=\linewidth]{./chapter/programming_language/Universities_2020.png}
+	\caption{Bubble chart of the most favorable universities among future developers of programming languages (2020).}
+	\label{fig:universities_2020}
+\end{marginfigure}
+
+You can see in the figure~\ref{fig:universities_2020} that the first places were: Berkeley (19), Massachusetts Institute of Technology (17), Princeton University (9) and Stanford University (12). MSU was at the end of the list, Tony Hoare, who developed ALGOL60, and Valentin Turchin, who developed Refal, studied there. Moscow State University was included in this list, which includes 142 universities of the world.
 
 \section{Professions of the creators of programming languages}
+
+\begin{marginfigure}[-5cm]
+	\includegraphics[width=\linewidth]{./chapter/programming_language/Professions_2017.png}
+	\caption{Which professions prevail among people developing programming languages (2017).}
+	\label{fig:Professions_2017}
+\end{marginfigure}
 
 Let's construct a bubble diagram showing which professions prevail among people who develop programming languages.
 
@@ -379,7 +436,13 @@ GROUP BY ?occupation_label
 ORDER BY DESC(?count)
 \end{lstlisting}%
 
-The most common professions were: a specialist in computer science, an engineer, a teacher. It is interesting to note that there are such professions as: jazz musician, politician (Herbert A. Simon). In 2020, among the developers of programming languages, there were the most specialists in the field of computer science (172 people), as well as 96 engineers, 57 teachers, 56 programmers and 43 mathematicians.
+\begin{marginfigure}
+	\includegraphics[width=\linewidth]{./chapter/programming_language/Professions_2020.png}
+	\caption{Which professions prevail among people developing programming languages (2020).}
+	\label{fig:Professions_2020}
+\end{marginfigure}
+
+The most common professions (fig.~\ref{fig:Professions_2017}) were: a specialist in computer science, an engineer, a teacher. It is interesting to note that there are such professions as: jazz musician, politician (Herbert A. Simon). In 2020 (fig.~\ref{fig:Professions_2020}), among the developers of programming languages, there were the most specialists in the field of computer science (172 people), as well as 96 engineers, 57 teachers, 56 programmers and 43 mathematicians.
 
 \section{Object-oriented programming languages}
 
@@ -397,7 +460,7 @@ List all object-oriented programming languages.
 SELECT DISTINCT ?item ?item_label
 WHERE
 {
-    ?item wdt:P31 wd:Q899523 # instances of object-oriented programming language
+    ?item wdt:P31 wd:Q899523 # instances of object-oriented prog. language
     ; rdfs:label ?item_label . 
 
     FILTER (LANG(?item_label) = "en") . 
@@ -459,3 +522,10 @@ WHERE
     FILTER (LANG(?developer_label) = "en").  
 }
 \end{lstlisting}%
+
+\section{Exersises}
+\begin{enumerate}
+\item Output all programming languages with the "mascot character" property.
+\item Calculate the number of programming languages founded before 1992 (property: "inception").
+\item Construct a bar chart that shows the number of known hashtags in Twitter for each programming language (property: "Twitter hashtag").
+\end{enumerate}
