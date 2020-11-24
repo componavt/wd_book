@@ -18,7 +18,7 @@ Tasks:
 \item Construct a directed acyclic graph of dependencies of programming languages from each other (or find cycles in dependencies, if such a graph can not be constructed). See the "influenced by"\  property in Java.
 \end{enumerate}
 
-\textbf{Instances of the "Programming Language"\  object}\newline
+Instances of the ``Programming Language''\  object\newline
 Let's build a list of all languages.
 \begin{lstlisting}[ language=SPARQL, 
                     caption={List of programming languages.\\\hspace{\textwidth}
@@ -94,8 +94,8 @@ WHERE
       { ?item wdt:P31  wd:Q341   }
     } MINUS 
   	{ 
-      { ?item wdt:P178 wd:Q14647  } UNION # developer Sun Microsystems
-      { ?item wdt:P178 wd:Q208371 }       # developer Johnson Space Center
+      { ?item wdt:P178 wd:Q14647  } UNION # dev Sun Microsystems
+      { ?item wdt:P178 wd:Q208371 }       # Johnson Space Center
     }  
 }
 \end{lstlisting}%
@@ -120,10 +120,10 @@ WHERE
 
     FILTER (LANG(?item_label) = "en") . 
   
-      { ?item wdt:P275 wd:Q308915  }  UNION  # license Mozzila Public
-      { ?item wdt:P275 wd:Q334661  }  UNION  # license MIT
-      { ?item wdt:P275 wd:Q191307  }  UNION  # license BSD
-      { ?item wdt:P275 wd:Q6905323 }         # license CC
+      { ?item wdt:P275 wd:Q308915  }  UNION  # Mozzila Public
+      { ?item wdt:P275 wd:Q334661  }  UNION  # MIT
+      { ?item wdt:P275 wd:Q191307  }  UNION  # BSD
+      { ?item wdt:P275 wd:Q6905323 }         # CC
 }
 \end{lstlisting}%
 
@@ -139,13 +139,14 @@ Consider the relationship between permissive and proprietary or closed-licensed 
                     label=lst:prog_lang_relationship,
                     texcl 
                     ]
-#The script calculates the percentage of programming languages with a free license in relation to languages with a closed license
+#The script calculates the percentage of programming languages 
+# with a free license in relation to languages with a closed license
 SELECT (COUNT(?not_free)* 100 / (COUNT(?free)) as ?total) WHERE
 { 
 {
     SELECT ?free WHERE 
     {
-         ?free wdt:P31 wd:Q9143 # instances of programming language
+         ?free wdt:P31 wd:Q9143 # instance of prog. language
          ; rdfs:label ?item_label . 
 
          FILTER (LANG(?item_label) = "en") . 
@@ -164,11 +165,11 @@ UNION
       ; rdfs:label ?lang_label . 
       FILTER (LANG(?lang_label) = "en") .
   
-      { ?not_free wdt:P275 wd:Q6165015 } UNION # Java Research License
-      { ?not_free wdt:P275 wd:Q218616 } UNION # proprietary software
-      { ?not_free wdt:P275 wd:Q3238057 } UNION # proprietary license 
-      { ?not_free wdt:P275 wd:Q31202214 } UNION # proprietary software license 
-      { ?not_free wdt:P275 wd:Q979794 } # Aladdin Free Public License
+      { ?not_free wdt:P275 wd:Q6165015 } UNION # Java Research
+      { ?not_free wdt:P275 wd:Q218616 } UNION # propr. software
+      { ?not_free wdt:P275 wd:Q3238057 } UNION # propr. license 
+      { ?not_free wdt:P275 wd:Q31202214 } UNION # propr. software 
+      { ?not_free wdt:P275 wd:Q979794 } # Aladdin Free Public
     }
 }
 }
@@ -214,7 +215,7 @@ The figure~\ref{fig:source_types_2017} shows that the most historically rich in 
 
 By 2020 (fig.~\ref{fig:source_types_2020}), languages such as  \href{https://en.wikipedia.org/wiki/REXX}{REXX} (6 formats), \href{https://en.wikipedia.org/wiki/Java_(programming_language)}{Java} (5 formats), \href{https://en.wikipedia.org/wiki/Wolfram_Language}{Wolfram Language} (5 formats), \href{https://en.wikipedia.org/wiki/Raku_(programming_language)}{Raku} (9 formats), \href{https://en.wikipedia.org/wiki/Geometric_Description_Language}{Geometric description language} (8 formats) have also started to take the lead.
 
-\section{Countries in which people and organizations, associated with the creation of programming languages, live}
+\section{Where located people and organizations associated with the creation of programming languages}
 
 Let's map (figures~\ref{fig:organizations_2017} \& ~\ref{fig:organizations_2020}) the countries in which people and organizations, connected with the creation of programming languages, live. Noticing that the developer of the language can act both as an organization and as individuals. To determine the location (property: coordinate location) of the organization, we will use the coordinates of its headquarters (property: headquarters location), for the person - the coordinates of the place of his birth (property: place of birth).
 
@@ -237,7 +238,7 @@ WHERE
     ?developer rdfs:label ?developer_label. 
     FILTER (LANG(?developer_label) = "en"). 
       		
-    { ?developer wdt:P159 ?location. } UNION # headquarters location
+    { ?developer wdt:P159 ?location. } UNION # headquarters loc.
     { ?developer wdt:P19  ?location  }       # place of birth
     ?location rdfs:label ?location_label. 
     FILTER (LANG(?location_label) = "en").
@@ -349,14 +350,14 @@ WHERE
 \begin{figure}[h]
 \centering
 	\includegraphics[width=1\textwidth]{./chapter/programming_language/Institutes_2017.png}
-	\caption{Educational institutes , where those people , who creates programming languages were studying. (2017).}
+	\caption{Educational institutions where developers of programming languages studied. (2017).}
 	\label{fig:institutes_2017}
 \end{figure}
 
 \begin{figure}[h]
 \centering
 	\includegraphics[width=1\textwidth]{./chapter/programming_language/Institutes_2020.png}
-	\caption{Educational institutes , where those people , who creates programming languages were studying. (2020).}
+	\caption{Educational institutions where developers of programming languages studied. (2020).}
 	\label{fig:institutes_2020}
 \end{figure}
 
