@@ -39,9 +39,9 @@ WHERE
 }
 \end{lstlisting}%
 
-The most complete and well-developed programming languages on Wikidata for 2017 were: Java, Python, C. For 2020 the most well-developed programming languages on Wikidata are: C++ (26 properties), Java (26 properties), JavaScript (25 properties), R (25 properties).
+The most complete and well-developed programming languages on Wikidata for 2017 were: \wdqName{Java}{251}, \wdqName{Python}{28865}, \wdqName{C}{15777}. For 2020 the most well-developed programming languages on Wikidata are: \wdqName{C++}{2407} (26 properties), \wdqName{Java}{251} (26 properties), \wdqName{JavaScript}{2005} (25 properties), \wdqName{R}{206904} (25 properties).
 
-Almost empty and uninformative languages for 2017 were: CLIPS, Dylan, Go!.
+Almost empty and uninformative languages for 2017 were: \wdqName{CLIPS}{165372}, \wdqName{Dylan}{1268744}, \wdqName{Go!}{3109515}.
 
 The disadvantage of the resulting list is that a number of objects turned out to be nameless on the Wikidata (No label defined). Let's try to get a list of languages, which "label"\  field will be non-empty.
 
@@ -68,7 +68,7 @@ For 2020, all languages in the list have a filled label field.
 
 \section{Demonstration of work with operations on sets in SPARQL}
 
-Output all programming languages that are open (free) software and / or experienced the influence of at least one of the following programming languages: C, Python, Java. At the same time, developed by any of the companies, except: Sun Microsystems, Johnson Space Center.
+Output all programming languages that are open (free) software and / or experienced the influence of at least one of the following programming languages: \wdqName{C}{15777}, \wdqName{Python}{28865}, \wdqName{Java}{251}. At the same time, developed by any of the companies, except: \href{https://en.wikipedia.org/wiki/Sun_Microsystems}{Sun Microsystems}, \href{https://en.wikipedia.org/wiki/Johnson_Space_Center}{Johnson Space Center}.
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={An example of working with sets.\\\hspace{\textwidth}
@@ -127,7 +127,7 @@ WHERE
 }
 \end{lstlisting}%
 
-There were, for example, CoffeeScript, Go, Haml, in this list of 82 "free"\  languages.
+There were, for example, \href{https://en.wikipedia.org/wiki/CoffeeScript}{CoffeeScript}, \href{https://en.wikipedia.org/wiki/Go}{Go}, \href{https://en.wikipedia.org/wiki/Haml}{Haml}, in this list of 82 "free"\  languages.
 
 Consider the relationship between permissive and proprietary or closed-licensed languages.
 
@@ -210,9 +210,9 @@ ORDER BY DESC(?count)
 	\label{fig:source_types_2020}
 \end{marginfigure}
 
-The figure~\ref{fig:source_types_2017} shows that the most historically rich in formats and file extensions programming languages are C++ (10 formats), Geometric Description Language (8), Racket (7). For example, files with a program in the Racket language can have the extensions rkt, rktl, rktd, scrbl, plt, ss or scm.
+The figure~\ref{fig:source_types_2017} shows that the most historically rich in formats and file extensions programming languages are \href{https://en.wikipedia.org/wiki/C\%2B\%2B}{C++} (10 formats), \href{https://en.wikipedia.org/wiki/Geometric_Description_Language}{Geometric Description Language} (8), \href{https://en.wikipedia.org/wiki/Racket}{Racket} (7). For example, files with a program in the Racket language can have the extensions rkt, rktl, rktd, scrbl, plt, ss or scm.
 
-By 2020 (fig.~\ref{fig:source_types_2020}), languages such as REXX (6 formats), Java (5 formats), Wolfram Language (5 formats), Raku (9 formats), Geometric description language (8 formats) have also started to take the lead.
+By 2020 (fig.~\ref{fig:source_types_2020}), languages such as  \href{https://en.wikipedia.org/wiki/REXX}{REXX} (6 formats), \href{https://en.wikipedia.org/wiki/Java_(programming_language)}{Java} (5 formats), \href{https://en.wikipedia.org/wiki/Wolfram_Language}{Wolfram Language} (5 formats), \href{https://en.wikipedia.org/wiki/Raku_(programming_language)}{Raku} (9 formats), \href{https://en.wikipedia.org/wiki/Geometric_Description_Language}{Geometric description language} (8 formats) have also started to take the lead.
 
 \section{Countries in which people and organizations, associated with the creation of programming languages, live}
 
@@ -264,7 +264,7 @@ WHERE
 	\label{fig:organizations_2020}
 \end{figure}
 
-We will also construct a bubble chart (fig.~\ref{fig:emergence_2020}) to identify the most favorable countries for the emergence of people capable of developing programming languages and locating headquarters in these countries. We see in the figure that the most favorable countries were the United States (159 people and the headquarters of the apartments) and the United Kingdom (15). In Russia, only two programming languages were developed: Refal and the Embedded Programming Language 1C: Enterprise.
+We will also construct a bubble chart (fig.~\ref{fig:emergence_2020}) to identify the most favorable countries for the emergence of people capable of developing programming languages and locating headquarters in these countries. We see in the figure that the most favorable countries were the \href{https://en.wikipedia.org/wiki/United_States}{United States} (159 people and the headquarters of the apartments) and the \href{https://en.wikipedia.org/wiki/United_Kingdom}{United Kingdom} (15). In \href{https://en.wikipedia.org/wiki/Russia}{Russia}, only two programming languages were developed: Refal and the Embedded Programming Language 1C: Enterprise.
 
 \begin{marginfigure}[7cm]
 	\includegraphics[width=\linewidth]{./chapter/programming_language/The_most_favorable_countries_for_the_emergence_of_people_capable_of_developing_programming_languages_2020.png}
@@ -401,7 +401,7 @@ ORDER BY DESC(?count)
 	\label{fig:universities_2020}
 \end{marginfigure}
 
-You can see in the figure~\ref{fig:universities_2020} that the first places were: Berkeley (19), Massachusetts Institute of Technology (17), Princeton University (9) and Stanford University (12). MSU was at the end of the list, Tony Hoare, who developed ALGOL60, and Valentin Turchin, who developed Refal, studied there. Moscow State University was included in this list, which includes 142 universities of the world.
+You can see in the figure~\ref{fig:universities_2020} that the first places were: Berkeley (19), Massachusetts Institute of Technology (17), \href{https://en.wikipedia.org/wiki/Princeton_University}{Princeton University} (9) and \href{https://en.wikipedia.org/wiki/Stanford_University}{Stanford University} (12). MSU was at the end of the list, \href{https://en.wikipedia.org/wiki/Tony_Hoare}{Tony Hoare}, who developed \href{https://en.wikipedia.org/wiki/ALGOL}{ALGOL60}, and \href{https://en.wikipedia.org/wiki/Valentin_Turchin}{Valentin Turchin}, who developed Refal, studied there. Moscow State University was included in this list, which includes 142 universities of the world.
 
 \section{Professions of the creators of programming languages}
 
@@ -525,7 +525,7 @@ WHERE
 
 \section{Exersises}
 \begin{enumerate}
-\item Output all programming languages with the "mascot character" property.
-\item Calculate the number of programming languages founded before 1992 (property: "inception").
-\item Construct a bar chart that shows the number of known hashtags in Twitter for each programming language (property: "Twitter hashtag").
+\item Output all programming languages with the "\href{https://www.wikidata.org/wiki/Property:P822}{mascot character}" property.
+\item Calculate the number of programming languages founded before 1992 (property: "\href{https://www.wikidata.org/wiki/Property:P571}{inception}").
+\item Construct a bar chart that shows the number of known hashtags in Twitter for each programming language (property: "\href{https://www.wikidata.org/wiki/Property:P2572}{Twitter hashtag}").
 \end{enumerate}
