@@ -130,23 +130,20 @@ SELECT ?city ?cityLabel ?flag ?countryLabel WHERE {
 
 \begin{task}
 	\label{answer:administrative_territorial}
-	\newthought{ Речь идет о количестве административных единиц в каждой из стран. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:administrative_territorial_entity}).}
+	\newthought{ Количество административно-территориальных единиц у \href{https://w.wiki/mzN}{Латвии} составляет 119, у \href{https://w.wiki/mzP}{Таиланда} 77, у \href{https://w.wiki/mzR}{Дании} 5, а у \href{https://w.wiki/myt}{России} 81. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:administrative_territorial_entity}).}
 	
 	\begin{lstlisting}[ language=SPARQL, 
 	caption={\href{https://w.wiki/mzU}{
-	Содержание административно-территориальных единиц в стране}\protect\footnotemark},
-	label=lst:administrative_territorial_entity
-	]
+	Количество административно-территориальных единиц в стране}\protect\footnotemark},
+	label=lst:administrative_territorial_entity	]
 	SELECT ?countryLabel  (count(*) as ?count)
 	WHERE
 	{
-		?country wdt:P31 wd:Q6256.              # country
+		?country wdt:P31 wd:Q6256.      # country
 		?country wdt:P150 ?ATentity.    # contains administrative territorial entity
-		
-		
 		SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 	}
-	Group by (?countryLabel)
+	GROUP BY (?countryLabel)
 	ORDER BY DESC(?count)
 	\end{lstlisting}
 	\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/mzU}{https://w.wiki/mzU}}  
@@ -156,37 +153,74 @@ SELECT ?city ?cityLabel ?flag ?countryLabel WHERE {
 
 \begin{task}
 	\label{answer:population_density}
-	\newthought{ Площадь Израиля  \num{20770} квадратных километров, население  \num{8463400} человек, площадь Монголии  \num{1566000} квадратных километров, население  \num{2953190} человек, площадь Республики Кореи  \num{100295} квадратных километров, население  \num{50219669} человек, а площадь Сингапура  \num{719.1} квадратных километров, население  \num{5781728} человек. Таким образом получается:
+	\newthought{ Площадь Израиля составляет \num{20770} квадратных километров, население  \num{8.46} млн человек, площадь Монголии составляет  \num{1566000} квадратных километров, население  \num{2.95} млн человек, площадь Республики Кореи составляет \num{100295} квадратных километров, население  \num{50219669} человек, а площадь Сингапура  \num{719.1} квадратных километров, население  \num{5.78} млн человек. Таким образом, по возрастанию плотности населения страны будут упорядочены так:
+	\begin{enumerate}
+		\item Монголия (\num{1.96} человек на квадратный километр), (рис. ~\ref{fig:flag_mongolia});
+		\item Израиль (\num{437.79} человек на квадратный километр), (рис. ~\ref{fig:flag_israel});
+		\item Корея (\num{513.14} человек на квадратный километр), (рис. ~\ref{fig:flag_kor});
+		\item Сингапур (\num{8189.30} человек на квадратный километр), (рис. ~\ref{fig:flag_singapore}).
+	\end{enumerate}	
 	}
-	\begin{table}
-		\begin{tabular}{c c}
-			%\hline
-			1 место: Монголия (плотность населения  \num{1.96} человек на квадратный километр)  & \includegraphics[width=3cm]{./chapter/country/256px-Flag_of_Mongolia.png} \\ \\  
-			2 место: Израиль (плотность населения  \num{437.79} человек на квадратный километр) & \includegraphics[width=3cm]{./chapter/country/256px-Flag_of_Israel.png} \\ \\
-			3 место: Корея (плотность населения  \num{513.14} человек на квадратный километр) & \includegraphics[width=3cm]{./chapter/country/256px-Flag_of_South_Korea.png} \\ \\  
-			4 место: Сингапур (плотность населения  \num{8189.30} человек на квадратный километр) & \includegraphics[width=3cm]{./chapter/country/256px-Flag_of_Singapore.png}\\ 
-		\end{tabular}
-	\end{table}
+
+\begin{marginfigure}[0.0cm]
+	{
+		\setlength{\fboxsep}{0pt}%
+		\setlength{\fboxrule}{1pt}%
+		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/256px-Flag_of_Mongolia.png}}%
+	}
+	\caption{Флаг \href{https://w.wiki/mze}{Монголии}.}%
+	\label{fig:flag_mongolia}%
+\end{marginfigure}
+\begin{marginfigure}[0.0cm]
+	{
+		\setlength{\fboxsep}{0pt}%
+		\setlength{\fboxrule}{1pt}%
+		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/256px-Flag_of_Israel.png}}%
+	}
+	\caption{Флаг \href{https://w.wiki/mzh}{Израиля}.}%
+	\label{fig:flag_israel}%
+\end{marginfigure}
+\begin{marginfigure}[0.0cm]
+	{
+		\setlength{\fboxsep}{0pt}%
+		\setlength{\fboxrule}{1pt}%
+		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/256px-Flag_of_South_Korea.png}}%
+	}
+	\caption{Флаг \href{https://w.wiki/mzc}{Республики Кореи}.}%
+	\label{fig:flag_kor}%
+\end{marginfigure}
+\begin{marginfigure}[0.0cm]
+	{
+		\setlength{\fboxsep}{0pt}%
+		\setlength{\fboxrule}{1pt}%
+		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/256px-Flag_of_Singapore.png}}%
+	}
+	\caption{Флаг \href{https://w.wiki/mzd}{Cингапура}.}%
+	\label{fig:flag_singapore}%
+\end{marginfigure}
+\marginnote{
+	См. ответ~\ref{answer:population_density} на с.~\pageref{answer:population_density}.
+}
 
 	
 	\newthought{  Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:population_density}).}
 	
 	\begin{lstlisting}[ language=SPARQL, 
 	caption={\href{https://w.wiki/mzj}{
-	Плотность населения в азиатских странах}\protect\footnotemark},
+	Плотность населения в странах Азии}\protect\footnotemark},
 	label=lst:population_density
 	]
 	SELECT ?country ?countryLabel ?flag ?area  ?population (?population / ?area as ?populationDensity)
 	{
-		?country wdt:P31 wd:Q6256.       #country
-		?country wdt:P30 wd:Q48 .        #Asian
-		?country wdt:P41 ?flag .         #flag
-		?country wdt:P2046 ?area .       #area
-		?country wdt:P1082 ?population . #population
+		?country wdt:P31 wd:Q6256.       # country
+		?country wdt:P30 wd:Q48 .        # on the continent of Asia
+		?country wdt:P41 ?flag .         # has a flag (image)
+		?country wdt:P2046 ?area .       # has an area
+		?country wdt:P1082 ?population . # has a population
 		
 		SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 	}
-	order by DESC(?populationDensity)
+	ORDER BY DESC(?populationDensity)
 	\end{lstlisting}
 	\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/mzj}{https://w.wiki/mzj}}  
 	
@@ -195,7 +229,7 @@ SELECT ?city ?cityLabel ?flag ?countryLabel WHERE {
 
 \begin{task}
 	\label{answer:official_language}
-	\newthought{Официальными языками \href{https://w.wiki/myt}{России} являются абазинский, мокшанский и эрзянский языки.  Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:official_languages}).}
+	\newthought{Официальными языками \href{https://w.wiki/myt}{России} являются \href{https://w.wiki/myv}{абазинский}, \href{https://w.wiki/myx}{мокшанский} и \href{https://w.wiki/myy}{эрзянский} языки.  Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:official_languages}).}
 	
 	\begin{lstlisting}[ language=SPARQL, 
 	caption={\href{https://w.wiki/mzF}{Официальные языки в России}\protect\footnotemark},
@@ -205,11 +239,9 @@ SELECT ?city ?cityLabel ?flag ?countryLabel WHERE {
 	WHERE
 	{
 	
-		?country wdt:P31 wd:Q6256 .# country
-		
-		?country wdt:P37 ?lanquage .
-		FILTER(?country = wd:Q159) . 
-		
+		?country wdt:P31 wd:Q6256.  # country
+		?country wdt:P37 ?lanquage. # has an official language
+		FILTER(?country = wd:Q159). 
 		SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 	}
 	\end{lstlisting}
