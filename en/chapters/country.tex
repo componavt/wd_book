@@ -12,10 +12,12 @@ The chapter is devoted to the study of countries based on the knowledge base of 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Instances}
 
-Let's build a list of all countries in English and Russian.
+Let's build a list of all countries in English and Russian (Listing \ref{lst:country}).
 
 \begin{lstlisting}[ language=SPARQL, 
-caption={\href{https://w.wiki/k6L}{List of countries in English and Russian}},
+caption={List of countries in English and Russian. The result contains \num{205} countries in 2017 and \num{175} countries in 2020.\\\hspace{\textwidth}
+SPARQL query: \href{https://w.wiki/k6L}{https://w.wiki/k6L}
+									},
 label=lst:country]
 SELECT ?country ?label_en ?label_ru
 WHERE
@@ -26,7 +28,7 @@ WHERE
 }
 \end{lstlisting}
 
-SPARQL query (listing ~\ref{lst:country}), 205 results (2017), 175 results (2020).
+%SPARQL query (listing ~\ref{lst:country}), 205 results (2017), 175 results (2020).
 
 Examples of the most complete and well-developed countries on the Wikidata include \wdqName{United States of America}{30}, \wdqName{Canada}{16}, \wdqName{Spain}{29}.
 
@@ -39,7 +41,9 @@ Almost empty and uninformative countries include \wdqName{Sahrawi Arab Democrati
 Let's build a list of countries sorted by the date of the country's foundation (the first mention of the country).
 
 \begin{lstlisting}[ language=SPARQL, 
-caption={\href{https://w.wiki/k6M}{List of `instances of` "countries sorted by inception" }},
+caption={List of `instances of` "countries sorted by inception". The result contains \num{112} countries in 2017 and \num{199} countries in 2020.\\\hspace{\textwidth}
+SPARQL query: \href{https://w.wiki/k6M}{https://w.wiki/k6M}
+},
 label=lst:age_of_country, 					
 ]
 SELECT ?country ?countryLabel ?inception
@@ -50,14 +54,13 @@ WHERE
 	
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
-
 ORDER BY (?inception)
 }
 \end{lstlisting}
 
 SPARQL query (listing ~\ref{lst:age_of_country}), 112 results (2017), 199 results (2020).
 
-As a result of the query, a list of countries with the dates of their creation was received. For example: \wdqName{Russia}{159} - Jan 1 0862, \wdqName{Kosovo}{1246} - Feb 17 2008, \wdqName{South Sudan}{958} - Jul 9 2011.
+As a result of the query, a list of countries with the dates of their creation was received. For example: \wdqName{Russia}{159} --- Jan 1 0862, \wdqName{Kosovo}{1246} --- Feb 17 2008, \wdqName{South Sudan}{958} --- Jul 9 2011.
 
 According to ProWD \wdqName{France}{142} and \wdqName{Israel}{801} are the leaders in the number of objects (127 objects) among all countries. \wdqName{Land of Nod}{1929769} and \wdqName{Polska Ludowa}{11165755} have the least number of objects (3 objects).
 
@@ -89,7 +92,7 @@ WHERE
 {
 	?country wdt:P31 wd:Q6256. # country
 	
-	MINUS { ?country wdt:P571 [] } . # inception of country is empty
+	MINUS { ?country wdt:P571 [] }. # inception of country is empty
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
 \end{lstlisting}
@@ -111,7 +114,7 @@ SELECT ?country ?countryLabel
 WHERE
 {
 	?country wdt:P31 wd:Q6256.       #country
-	?country wdt:P1549 ?demonym .    #demonym
+	?country wdt:P1549 ?demonym.    #demonym
 	
 	FILTER((LANG(?demonym)) = "en")
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
@@ -136,7 +139,7 @@ SELECT ?country ?countryLabel ?demonym
 WHERE
 {
 	?country wdt:P31 wd:Q6256.      #country
-	?country wdt:P1549 ?demonym .   #demonym
+	?country wdt:P1549 ?demonym.   #demonym
 	
 	FILTER((LANG(?demonym)) = "en")
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
@@ -162,7 +165,6 @@ WHERE
 	MINUS { ?country wdt:P1549 ?demonym.    # except with demonyms
 		FILTER((LANG(?demonym)) = "en") # in English
 	}    
-	
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
 GROUP BY ?country ?countryLabel
@@ -184,17 +186,16 @@ SELECT  ?country ?countryLabel (count(*) as ?count)
 WHERE
 {
 	?country wdt:P31 wd:Q6256.      #country
-	?country wdt:P1549 ?demonym .   #demonym
+	?country wdt:P1549 ?demonym.    #demonym
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
-
 GROUP BY ?country ?countryLabel 
 ORDER BY DESC(?count)
 \end{lstlisting}
 
 SPARQL query (listing ~\ref{lst:count_demonym}),199 results (2017), 167 results (2020).
 
-The United States of America object contains the maximum number of demonyms - 41, Great Britain - 40, Germany -40, Canada - 36 and Russia - 34.
+The United States of America object contains the maximum number of demonyms --- 41, Great Britain --- 40, Germany --- 40, Canada --- 36 and Russia --- 34.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Basic forms of government}
@@ -208,9 +209,8 @@ label=lst:form_of_government
 SELECT ?bfog ?form (count(*) as ?count)
 WHERE 
 {
-	?country wdt:P31 wd:Q6256.
-	?country wdt:P122 ?bfog .
-	
+	?country wdt:P31 wd:Q6256. # country
+	?country wdt:P122 ?bfog.   # subject's government
 	OPTIONAL {
 		?bfog rdfs:label ?form
 		filter (lang(?form) = "ru")
@@ -258,19 +258,20 @@ We will construct a graph of neighboring countries.
 caption={\href{https://w.wiki/mrs}{Neighboring countries graph}},
 label=lst:neighboring_countries
 ]
-SELECT ?country ?countryLabel ?sharesBorderWith ?sharesBorderWithLabel
+SELECT ?country ?countryLabel ?sharesBorderWith 
+?sharesBorderWithLabel
 WHERE
 {
 	?country wdt:P31 wd:Q6256.
 	
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
-	OPTIONAL { ?country wdt:P47 ?sharesBorderWith . }
+	OPTIONAL { ?country wdt:P47 ?sharesBorderWith. }
 }
 \end{lstlisting}
 
 SPARQL query (listing ~\ref{lst:neighboring_countries}), 795 results (2017), 698 results (2020).
 
-\begin{figure}
+\begin{figure*}
 	{
 		\setlength{\fboxsep}{0pt}%
 		\setlength{\fboxrule}{1pt}%
@@ -279,9 +280,9 @@ SPARQL query (listing ~\ref{lst:neighboring_countries}), 795 results (2017), 698
 	\caption{Neighboring countries graph, 2017.
 	}%
 	\label{fig:neighboring_countries_2017}%
-\end{figure}
+\end{figure*}
 
-\begin{figure}
+\begin{figure*}
 	{
 		\setlength{\fboxsep}{0pt}%
 		\setlength{\fboxrule}{1pt}%
@@ -290,7 +291,7 @@ SPARQL query (listing ~\ref{lst:neighboring_countries}), 795 results (2017), 698
 	\caption{Neighboring countries graph, 2020.
 	}%
 	\label{fig:neighboring_countries_2020}%
-\end{figure}
+\end{figure*}
 
 As a result of the query, we get a graph with 787 edges on 2017 (fig. ~\ref{fig:neighboring_countries_2017}) and 698 edges on 2020 (fig. ~\ref{fig:neighboring_countries_2020}), where the edge is a neighborhood between the two countries. The graph represents several connected components, since there are island countries that do not have neighbors (for example, Mauritius, Maldives, Madagascar).
 

@@ -294,7 +294,7 @@ SELECT ?bfog ?form (count(*) as ?count)
 WHERE 
 {
 	?country wdt:P31 wd:Q6256. # country
-	?country wdt:P122 ?bfog. # subject's government
+	?country wdt:P122 ?bfog.   # subject's government
 	OPTIONAL {
 		?bfog rdfs:label ?form
 		filter (lang(?form) = "ru")
