@@ -27,6 +27,8 @@ SELECT ?city ?cityLabel WHERE {
 }
 \end{lstlisting}%
 
+\newpage
+
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Instances of \wdqName{city}{515}\\\hspace{\textwidth}
                         The result contains \num{20 800} cities in 2017, 
@@ -42,7 +44,9 @@ SELECT ?city ?cityLabel WHERE {
 }
 \end{lstlisting}%
 
-According to ProWD \wdqName{Singapore}{334} is the leader in terms of the number of properties (104 properties) among cities around the world. \wdqName{Novorossiysk}{15760} contains 31 properties. This is the maximum number of properties for Russian cities.
+%\marginnote[-1.0cm]{
+\wdqName{Singapore}{334} is the leader in terms of the number of properties (104 properties) among cities and big cities around the world. %\wdqName{Novorossiysk}{15760} contains 31 properties which is the maximum number of properties for Russian cities.
+%}
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Instances of \wdqName{big city}{1549591}\\\hspace{\textwidth}
@@ -59,7 +63,9 @@ SELECT ?city ?cityLabel WHERE {
 }
 \end{lstlisting}%
 
-According to ProWD \wdqName{Singapore}{334} is the leader in terms of the number of properties (104 properties) among big cities around the world. \wdqName{Moscow}{649} contains 76 properties which is the maximum number for Russian big cities.
+%\marginnote[-0.7cm]{
+\wdqName{Moscow}{649} contains 76 properties which is the maximum number for Russian big cities.
+%}
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Instances of \wdqName{city with millions of inhabitants}{1637706}\\\hspace{\textwidth}
@@ -95,7 +101,7 @@ SELECT ?city ?cityLabel WHERE { # Selecting items which are ...
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Population}
 
-SPARQL queries for finding total population of objects under study instances are presented below: \wdqName{town}{3957} (Listing \ref{lst:population_town}), \wdqName{city}{515} (Listing \ref{lst:population_city}), \wdqName{big city}{1549591} (Listing \ref{lst:population_big_city}), \wdqName{city with millions of inhabitants}{1637706} (Listing \ref{lst:population_city_millions}).
+SPARQL queries for finding total population of the objects under study instances are presented below: \wdqName{town}{3957} (Listing \ref{lst:population_town}), \wdqName{city}{515} (Listing \ref{lst:population_city}), \wdqName{big city}{1549591} (Listing \ref{lst:population_big_city}), \wdqName{city with millions of inhabitants}{1637706} (Listing \ref{lst:population_city_millions}).
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Population of towns\\\hspace{\textwidth}
@@ -116,6 +122,12 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
 }
 \end{lstlisting}%
 
+\marginnote[-2.5cm]{
+You can use various string processing functions, such as \href{https://en.wikibooks.org/wiki/SPARQL/Expressions\_and\_Functions\#REPLACE}{REPLACE}, to make the \href{https://www.wikidata.org/wiki/Property:P1082}{population} values uniform. So, after the processing used in the SPARQL query, the string "1.000.000" will look like "1000000".
+}
+
+\newpage
+
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Population of cities\\\hspace{\textwidth}
                         The result contains \num{1 133 560 167} people in 2020.\\\hspace{\textwidth}
@@ -134,6 +146,10 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
 	GROUP BY ?city
 }
 \end{lstlisting}%
+
+\marginnote[-2.5cm]{
+The population is always changing, so a city can have several \href{https://www.wikidata.org/wiki/Property:P1082}{population} values corresponding to different years. To select one of the property values, you can use aggregating functions, for example, \href{https://en.wikibooks.org/wiki/SPARQL/Expressions\_and\_Functions\#COUNT,\_MIN,\_MAX,\_AVG\_and\_SUM}{MIN, MAX, AVG}.
+}
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Population of big cities\\\hspace{\textwidth}
@@ -250,6 +266,12 @@ GROUP BY ?city ?cityLabel # Grouping by city
 ORDER BY DESC(?sisterCount) # Sorting by number of sister cities
 \end{lstlisting}%
 
+\marginnote[-3.0cm]{
+Note that parts of the \href{https://en.wikibooks.org/wiki/SPARQL/UNION}{UNION} clause must be enclosed in curly braces. Otherwise, the SPARQL query will not be compiled.
+}
+
+There were more cities wishing to be friends with the cultural capital of Russia (230 sister cities) than with the official capital (134 sister cities) for 2020. Omsk (58), Volgograd (56) and Kaliningrad (54) had almost the same number of sister cities. Petrozavodsk, Perm, Vladimir and Belgorod each had 14 sister cities.
+
 \begin{lstlisting}[ language=SPARQL, 
                     caption={List of Russian cities ordered by number of sister cities\\\hspace{\textwidth}
                         The result contains 82 records in 2020.\\\hspace{\textwidth}
@@ -271,8 +293,6 @@ SELECT ?cityLabel (COUNT(?sister) AS ?sisterCount) WHERE {
 GROUP BY ?city ?cityLabel # Grouping by city
 ORDER BY DESC(?sisterCount) # Sorting by number of sister cities
 \end{lstlisting}%
-
-There were more cities wishing to be friends with the cultural capital of Russia (230 sister cities) than with the official capital (134 sister cities) for 2020. Omsk (58), Volgograd (56) and Kaliningrad (54) had almost the same number of sister cities. Petrozavodsk, Perm, Vladimir and Belgorod each had 14 sister cities.
 
 \subsection{Number of cities with certain amount of sister cities}
 
@@ -364,7 +384,9 @@ GROUP BY ?sisterCount # Group by number of sister cities
 ORDER BY DESC(?sisterCount) # Order by number of sister cities
 \end{lstlisting}%
 
-\begin{marginfigure}[-2cm]
+The situation with Russian cities is shown in \reffig{fig:city_relation_Russia_S_N}. A little less than a hundred Russian cities (82 cities) have at least one sister city, of which only 48\% (39 cities) are connected with over than five cities.
+
+\begin{figure}[H]
 {
 \setlength{\fboxsep}{0pt}%
 \setlength{\fboxrule}{1pt}%
@@ -372,9 +394,7 @@ ORDER BY DESC(?sisterCount) # Order by number of sister cities
 }
   \caption{Relation between number of sister cities the Russian city have (S) and number of Russian cities which have this amount of sister cities (N), 2020.}%
   \labfig{fig:city_relation_Russia_S_N}%
-\end{marginfigure}
-
-The situation with Russian cities is shown in \reffig{fig:city_relation_Russia_S_N}. A little less than a hundred Russian cities (82 cities) have at least one sister city, of which only 48\% (39 cities) are connected with over than five cities.
+\end{figure}
 
 \subsection{Which country has the most sister cities?}
 
