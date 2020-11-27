@@ -23,7 +23,7 @@ SPARQL queries for getting instances of the objects under study are presented be
                     ]
 SELECT ?city ?cityLabel WHERE {
 	?city wdt:P31 wd:Q3957. # instances of "town"
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+	SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}%
 
@@ -38,7 +38,7 @@ SELECT ?city ?cityLabel WHERE {
                     ]
 SELECT ?city ?cityLabel WHERE {
 	?city wdt:P31 wd:Q515. # instances of "city"
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+	SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}%
 
@@ -55,7 +55,7 @@ According to ProWD \wdqName{Singapore}{334} is the leader in terms of the number
                     ]
 SELECT ?city ?cityLabel WHERE {
 	?city wdt:P31 wd:Q1549591. # instances of "big city"    
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+	SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}%
 
@@ -71,7 +71,7 @@ According to ProWD \wdqName{Singapore}{334} is the leader in terms of the number
                     ]
 SELECT ?city ?cityLabel WHERE {
 	?city wdt:P31 wd:Q1637706. # instances of "city 1000000+" 
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+	SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}%
 
@@ -85,10 +85,10 @@ SELECT ?city ?cityLabel WHERE {
                     ]
 SELECT ?city ?cityLabel WHERE { # Selecting items which are ...
 	{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"
-	{ ?city wdt:P31 wd:Q515 } UNION # instances of "city"
-	{ ?city wdt:P31 wd:Q1549591 } UNION # instances of "big city"
-	{ ?city wdt:P31 wd:Q1637706 } # instances of "city 1000000+"                                
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+	{ ?city wdt:P31 wd:Q515 } UNION # OR "city"
+	{ ?city wdt:P31 wd:Q1549591 } UNION # OR "big city"
+	{ ?city wdt:P31 wd:Q1637706 } # OR "city 1000000+"                                
+	SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}%
 
@@ -110,7 +110,7 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
 	SELECT (MAX(xsd:integer(REPLACE(STR(?population),"\\.",""))) 
 						as ?population_city) ?city WHERE {
 		?city wdt:P31 wd:Q3957.	# instances of "town"
-		?city wdt:P1082 ?population # with filled property "population"                                  
+		?city wdt:P1082 ?population # with property "population"                                  
 	}
 	GROUP BY ?city
 }
@@ -129,7 +129,7 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
 	SELECT (MAX(xsd:integer(REPLACE(STR(?population),"\\.",""))) 
 						as ?population_city) ?city WHERE {
 		?city wdt:P31 wd:Q515. # instances of "city"
-		?city wdt:P1082 ?population # with filled property "population"
+		?city wdt:P1082 ?population # with property "population"
 	}
 	GROUP BY ?city
 }
@@ -148,7 +148,7 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
 	SELECT (MAX(xsd:integer(REPLACE(STR(?population),"\\.",""))) 
 						as ?population_city) ?city WHERE {
 		?city wdt:P31 wd:Q1549591. # instances of "big city"
-		?city wdt:P1082 ?population # with filled property "population"
+		?city wdt:P1082 ?population # with property "population"
 	}
 	GROUP BY ?city
 }
@@ -167,7 +167,7 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
 	SELECT (MAX(xsd:integer(REPLACE(STR(?population),"\\.",""))) 
 						as ?population_city) ?city WHERE {
 		?city wdt:P31 wd:Q1637706. # instances of "city 1000000+"
-		?city wdt:P1082 ?population # with filled property "population"
+		?city wdt:P1082 ?population # with property "population"
 	}
 	GROUP BY ?city
 }
@@ -216,9 +216,9 @@ The SPARQL query for determination of the number of cities without sister cities
 # Counting items which are ... 
 SELECT (COUNT(?city) as ?count) WHERE {                             
 	{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"          
-	{ ?city wdt:P31 wd:Q515 } UNION # OR instances of "city"                 
-	{ ?city wdt:P31 wd:Q1549591 } UNION # OR instances of "big city"                       
-	{ ?city wdt:P31 wd:Q1637706 } # OR instances of "city 1000000+"              
+	{ ?city wdt:P31 wd:Q515 } UNION # OR "city"                 
+	{ ?city wdt:P31 wd:Q1549591 } UNION # OR "big city"                       
+	{ ?city wdt:P31 wd:Q1637706 } # OR "city 1000000+"              
 	FILTER NOT EXISTS { ?city wdt:P190 [] } # without "sister city"
 }
 \end{lstlisting}%
@@ -240,11 +240,11 @@ SPARQL queries for construction lists of all cities (Listing \ref{lst:ordered_by
 # Counting sister cities of cities which are ...
 SELECT ?cityLabel (COUNT(?sister) AS ?sisterCount) WHERE {           
 	{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"
-	{ ?city wdt:P31 wd:Q515 } UNION # OR instances of "city"
-	{ ?city wdt:P31 wd:Q1549591 } UNION # OR instances of "big city"
-	{ ?city wdt:P31 wd:Q1637706 }	# OR instances of "city 1000000+"
-	?city wdt:P190 ?sister. # with filled property "sister city"
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+	{ ?city wdt:P31 wd:Q515 } UNION # OR "city"
+	{ ?city wdt:P31 wd:Q1549591 } UNION # OR "big city"
+	{ ?city wdt:P31 wd:Q1637706 }	# OR "city 1000000+"
+	?city wdt:P190 ?sister. # with property "sister city"
+	SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 GROUP BY ?city ?cityLabel # Grouping by city                                   
 ORDER BY DESC(?sisterCount) # Sorting by number of sister cities
@@ -261,12 +261,12 @@ ORDER BY DESC(?sisterCount) # Sorting by number of sister cities
 # Counting sister cities of cities which are ...
 SELECT ?cityLabel (COUNT(?sister) AS ?sisterCount) WHERE {           
 	{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"
-	{ ?city wdt:P31 wd:Q515 } UNION # OR instances of "city"
-	{ ?city wdt:P31 wd:Q1549591 } UNION # OR instances of "big city"
-	{ ?city wdt:P31 wd:Q1637706 } # OR instances of "city 1000000+"      
+	{ ?city wdt:P31 wd:Q515 } UNION # OR "city"
+	{ ?city wdt:P31 wd:Q1549591 } UNION # OR "big city"
+	{ ?city wdt:P31 wd:Q1637706 } # OR "city 1000000+"      
 	?city wdt:P17 wd:Q159. # belonging to Russia
-	?city wdt:P190 ?sister. # with filled property "sister city"
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+	?city wdt:P190 ?sister. # with property "sister city"
+	SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 GROUP BY ?city ?cityLabel # Grouping by city
 ORDER BY DESC(?sisterCount) # Sorting by number of sister cities
@@ -293,10 +293,10 @@ SELECT ?sisterCount (COUNT(?sisterCount) AS ?FreqNSister) WHERE {
 	{ # Count sister cities of cities which are ...
 		SELECT (COUNT(?sister) AS ?sisterCount) WHERE {        
 			{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"
-			{ ?city wdt:P31 wd:Q515 } UNION # OR instances of "city"
-			{ ?city wdt:P31 wd:Q1549591 } UNION # OR instances of "big city"
-			{ ?city wdt:P31 wd:Q1637706 } # OR instances of "city 1000000+"
-			?city wdt:P190 ?sister. # with filled property "sister city"
+			{ ?city wdt:P31 wd:Q515 } UNION # OR "city"
+			{ ?city wdt:P31 wd:Q1549591 } UNION # OR "big city"
+			{ ?city wdt:P31 wd:Q1637706 } # OR "city 1000000+"
+			?city wdt:P190 ?sister. # with property "sister city"
 		}
 		GROUP BY ?city # Group list by city
 	}
@@ -351,11 +351,11 @@ SELECT ?sisterCount (COUNT(?sisterCount) AS ?FreqNSister) WHERE {
 	{ # Count sister cities of cities which are ...
 		SELECT (COUNT(?sister) AS ?sisterCount) WHERE {    
 			{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"
-			{ ?city wdt:P31 wd:Q515 } UNION # OR instances of "city"
-			{ ?city wdt:P31 wd:Q1549591 } UNION # OR instances of "big city"
-			{ ?city wdt:P31 wd:Q1637706 } # OR instances of "city 1000000+"
+			{ ?city wdt:P31 wd:Q515 } UNION # OR "city"
+			{ ?city wdt:P31 wd:Q1549591 } UNION # OR "big city"
+			{ ?city wdt:P31 wd:Q1637706 } # OR "city 1000000+"
 			?city wdt:P17 wd:Q159. # belonging to Russia
-			?city wdt:P190 ?sister. # with filled property "sister city"
+			?city wdt:P190 ?sister. # with property "sister city"
 		}
 		GROUP BY ?city # Group list by city                             
 	}
@@ -404,12 +404,12 @@ The SPARQL query for construction a list of countries ordered by number of siste
 SELECT ?countryLabel (COUNT(?sister) as ?sisterCount) WHERE { 
 	SELECT DISTINCT ?countryLabel ?sister WHERE {
 		{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"
-		{ ?city wdt:P31 wd:Q515 } UNION # OR instances of "city"
-		{ ?city wdt:P31 wd:Q1549591 } UNION # OR instances of "big city"
-		{ ?city wdt:P31 wd:Q1637706 }. # OR instances of "city 1000000+"
-		?city wdt:P17 ?country. # with filled property "country"
-		?city wdt:P190 ?sister. # with filled property "sister city"
-		SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+		{ ?city wdt:P31 wd:Q515 } UNION # OR "city"
+		{ ?city wdt:P31 wd:Q1549591 } UNION # OR "big city"
+		{ ?city wdt:P31 wd:Q1637706 }. # OR "city 1000000+"
+		?city wdt:P17 ?country. # with property "country"
+		?city wdt:P190 ?sister. # with property "sister city"
+		SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 	}                                 
 }
 GROUP BY ?countryLabel
@@ -454,13 +454,13 @@ Germany had the largest number of sister cities (1375 cities) for 2020. The \ref
 SELECT ?country ?countryLabel 
 				(COUNT(DISTINCT ?sister) as ?sisterCount) WHERE {                                                          
 	{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"
-	{ ?city wdt:P31 wd:Q515 } UNION # OR instances of "city"
-	{ ?city wdt:P31 wd:Q1549591 } UNION # OR instances of "big city"      
-	{ ?city wdt:P31 wd:Q1637706 }. # OR instances of "city 1000000+"
+	{ ?city wdt:P31 wd:Q515 } UNION # OR "city"
+	{ ?city wdt:P31 wd:Q1549591 } UNION # OR "big city"      
+	{ ?city wdt:P31 wd:Q1637706 }. # OR "city 1000000+"
 	?city wdt:P17 wd:Q183. # belonging to Germany  
-	?city wdt:P190 ?sister. # with filled property "sister city"
-	?sister wdt:P17 ?country. # with filled property "country"
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+	?city wdt:P190 ?sister. # with property "sister city"
+	?sister wdt:P17 ?country. # with property "country"
+	SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 GROUP BY ?country ?countryLabel
 ORDER BY DESC(?sisterCount)
@@ -494,13 +494,13 @@ The SPARQL query for construction a list of countries with which Russia has sist
 SELECT ?country ?countryLabel 
 				(COUNT(DISTINCT ?sister) as ?sisterCount) WHERE {                                                
 	{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"
-	{ ?city wdt:P31 wd:Q515 } UNION # OR instances of "city"
-	{ ?city wdt:P31 wd:Q1549591 } UNION # OR instances of "big city"
-	{ ?city wdt:P31 wd:Q1637706 }. # OR instances of "city 1000000+"                                 
+	{ ?city wdt:P31 wd:Q515 } UNION # OR "city"
+	{ ?city wdt:P31 wd:Q1549591 } UNION # OR "big city"
+	{ ?city wdt:P31 wd:Q1637706 }. # OR "city 1000000+"                                 
 	?city wdt:P17 wd:Q159. # belonging to Russia
-	?city wdt:P190 ?sister. # with filled property "sister city"
-	?sister wdt:P17 ?country. # with filled property "country"
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+	?city wdt:P190 ?sister. # with property "sister city"
+	?sister wdt:P17 ?country. # with property "country"
+	SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 GROUP BY ?country ?countryLabel
 ORDER BY DESC(?sisterCount)
@@ -527,9 +527,9 @@ Wikidata has an inheritance mechanism expressed in the  \href{https://www.wikida
                     ]
 SELECT ?city ?cityLabel WHERE { # Selecting items which are ...
 	{ ?city wdt:P31 wd:Q515 } UNION # instances of "city"            
-	{ ?city wdt:P31 wd:Q1549591 } UNION # instances of "big city"               
-	{ ?city wdt:P31 wd:Q1637706 } 	# instances of "city 1000000+"
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+	{ ?city wdt:P31 wd:Q1549591 } UNION # OR "big city"               
+	{ ?city wdt:P31 wd:Q1637706 } 	# OR "city 1000000+"
+	SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}%
 
@@ -543,7 +543,7 @@ SELECT ?city ?cityLabel WHERE { # Selecting items which are ...
                     ]
 SELECT ?city ?cityLabel WHERE { # Selecting items which are ...
 	?city wdt:P31/wdt:P279* wd:Q515 # instances of "city" subclasses
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+	SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}%
 
@@ -557,6 +557,6 @@ Number of Wikidata elements which are Russian cities equals to \href{https://w.w
 \section{Tasks}
 \begin{enumerate}
 \item Construct a graph of Russian sister cities.
-\item Get list of Russian cities situated beyond the Arctic circle.
+\item Get a list of Russian cities situated beyond the Arctic circle.
 \item On which river in Russia is the largest number of cities located?
 \end{enumerate}

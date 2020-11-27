@@ -74,9 +74,9 @@ SELECT ?city ?cityLabel WHERE {
                     ]
 SELECT ?city ?cityLabel WHERE { # Selecting items which are ...
 	{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"
-	{ ?city wdt:P31 wd:Q515 } UNION # instances of "city"
-	{ ?city wdt:P31 wd:Q1549591 } UNION # instances of "big city"
-	{ ?city wdt:P31 wd:Q1637706 } # instances of "city 1000000+"                                
+	{ ?city wdt:P31 wd:Q515 } UNION # OR instances of "city"
+	{ ?city wdt:P31 wd:Q1549591 } UNION # OR instances of "big city"
+	{ ?city wdt:P31 wd:Q1637706 } # OR instances of "city 1000000+"                                
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
 }
 \end{lstlisting}
@@ -557,8 +557,8 @@ ORDER BY DESC(?sisterCount)
                     ]
 SELECT ?city ?cityLabel WHERE { # Selecting items which are ...
 	{ ?city wdt:P31 wd:Q515 } UNION # instances of "city"            
-	{ ?city wdt:P31 wd:Q1549591 } UNION # instances of "big city"               
-	{ ?city wdt:P31 wd:Q1637706 } 	# instances of "city 1000000+"
+	{ ?city wdt:P31 wd:Q1549591 } UNION # OR instances of "big city"               
+	{ ?city wdt:P31 wd:Q1637706 } # OR instances of "city 1000000+"
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
 }
 \end{lstlisting}
