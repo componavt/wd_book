@@ -15,16 +15,16 @@ The chapter is devoted to the study of countries based on the knowledge base of 
 Let's build a list of all countries in English and Russian (Listing \ref{lst:country}).
 
 \begin{lstlisting}[ language=SPARQL, 
-caption={List of countries in English and Russian. The result contains \num{205} countries in 2017 and \num{175} countries in 2020.\\\hspace{\textwidth}
+caption={List of countries in English and Russian. The result contains \num{205} countries in 2017 and \num{175} in 2020.\\\hspace{\textwidth}
 SPARQL query: \href{https://w.wiki/k6L}{https://w.wiki/k6L}
-									},
+},
 label=lst:country]
 SELECT ?country ?label_en ?label_ru
 WHERE
 {
-	?country wdt:P31 wd:Q6256. # country
-	?country rdfs:label ?label_en filter (lang(?label_en) = "en").
-	?country rdfs:label ?label_ru filter (lang(?label_ru) = "ru").
+?country wdt:P31 wd:Q6256. # country
+?country rdfs:label ?label_en filter (lang(?label_en) = "en").
+?country rdfs:label ?label_ru filter (lang(?label_ru) = "ru").
 }
 \end{lstlisting}
 
@@ -38,10 +38,10 @@ Almost empty and uninformative countries include \wdqName{Sahrawi Arab Democrati
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Age of countries}
 
-Let's build a list of countries sorted by the date of the country's foundation (the first mention of the country).
+Let's build a list of countries sorted by the date of the country's foundation (the first mention of the country) (Listing \ref{lst:age_of_country}).
 
 \begin{lstlisting}[ language=SPARQL, 
-caption={List of `instances of` "countries sorted by inception". The result contains \num{112} countries in 2017 and \num{199} countries in 2020.\\\hspace{\textwidth}
+caption={List of `instances of` "countries sorted by inception". The result contains \num{112} countries with completed date of foundation in 2017 and \num{199} in 2020.\\\hspace{\textwidth}
 SPARQL query: \href{https://w.wiki/k6M}{https://w.wiki/k6M}
 },
 label=lst:age_of_country, 					
@@ -49,16 +49,16 @@ label=lst:age_of_country,
 SELECT ?country ?countryLabel ?inception
 WHERE
 {
-	?country wdt:P31 wd:Q6256. # country
-	?country wdt:P571 ?inception. # inception
-	
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+?country wdt:P31 wd:Q6256. # country
+?country wdt:P571 ?inception. # inception
+
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
 ORDER BY (?inception)
 }
 \end{lstlisting}
 
-SPARQL query (listing ~\ref{lst:age_of_country}), 112 results (2017), 199 results (2020).
+%SPARQL query (listing ~\ref{lst:age_of_country}), 112 results (2017), 199 results (2020).
 
 As a result of the query, a list of countries with the dates of their creation was received. For example: \wdqName{Russia}{159} --- Jan 1 0862, \wdqName{Kosovo}{1246} --- Feb 17 2008, \wdqName{South Sudan}{958} --- Jul 9 2011.
 
@@ -81,146 +81,152 @@ It is not always possible to specify the exact date of the country's foundation 
 
 \subsection{Countries with an unfilled inception}
 
-Let's display a list of countries with an empty "inception of" property.
+Let's display a list of countries with an empty "inception of" property (Listing \ref{lst:without_inception}).
 
 \begin{lstlisting}[ language=SPARQL, 
-caption={\href{https://w.wiki/k6q}{List of `instances of` "countries without a inception" }},
+caption={List of `instances of` "countries without a inception". The result contains \num{100} countries without completed date of foundation in 2017 and \num{7} in 2020.\\\hspace{\textwidth}
+SPARQL query: \href{https://w.wiki/k6q}{https://w.wiki/k6q}},
 label=lst:without_inception
 ]
 SELECT ?country ?countryLabel 
 WHERE
 {
-	?country wdt:P31 wd:Q6256. # country
-	
-	MINUS { ?country wdt:P571 [] }. # inception of country is empty
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+?country wdt:P31 wd:Q6256. # country
+
+MINUS { ?country wdt:P571 [] }. # inception of country is empty
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
 \end{lstlisting}
 
-SPARQL query (listing ~\ref{lst:without_inception}), 100 results (2017), 7 results (2020).
+%SPARQL query (listing ~\ref{lst:without_inception}), 100 results (2017), 7 results (2020).
 
 So, on March 6 2017, the Wikidata contains 100 out of 198 entries about the currently existing countries with an unknown year of the country's foundation.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{List of demonyms in English}
 
-Let's build a list of countries that have demonyms in English.
+Let's build a list of countries that have demonyms in English (Listing \ref{lst:demonym}).
 
 \begin{lstlisting}[ language=SPARQL, 
-caption={\href{https://w.wiki/mro}{List of countries with demonyms in English}},
+caption={List of countries with demonyms in English. The result contains \num{197} countries with demonyms in 2017 and \num{162} in 2020.\\\hspace{\textwidth}
+SPARQL query: \href{https://w.wiki/mro}{https://w.wiki/mro}},
 label=lst:demonym, 
 ]
 SELECT ?country ?countryLabel 
 WHERE
 {
-	?country wdt:P31 wd:Q6256.       #country
-	?country wdt:P1549 ?demonym.    #demonym
-	
-	FILTER((LANG(?demonym)) = "en")
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+?country wdt:P31 wd:Q6256.       #country
+?country wdt:P1549 ?demonym.     #demonym
+
+FILTER((LANG(?demonym)) = "en")
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
 
 GROUP BY ?country ?countryLabel
 \end{lstlisting}
 
-SPARQL query (listing ~\ref{lst:demonym}), 197 results (2017), 162 results (2020).
+%SPARQL query (listing ~\ref{lst:demonym}), 197 results (2017), 162 results (2020).
 
 As of April 26 2017, the Wikidata contains 197 of the 202 countries with demonyms.
 
 \subsection{List of demonyms}
 
-Let's build a list of all demonyms in English.
+Let's build a list of all demonyms in English (Listing \ref{lst:list_demonym}).
 
 \begin{lstlisting}[ language=SPARQL, 
-caption={\href{https://w.wiki/mrp}{List of demonyms in English}},
+caption={List of demonyms in English. The result contains \num{237} demonyms in 2017 and \num{213} in 2020.\\\hspace{\textwidth}
+SPARQL query: \href{https://w.wiki/mrp}{https://w.wiki/mrp}},
 label=lst:list_demonym, 
 ]
 SELECT ?country ?countryLabel ?demonym
 WHERE
 {
-	?country wdt:P31 wd:Q6256.      #country
-	?country wdt:P1549 ?demonym.   #demonym
-	
-	FILTER((LANG(?demonym)) = "en")
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+?country wdt:P31 wd:Q6256.      #country
+?country wdt:P1549 ?demonym.    #demonym
+
+FILTER((LANG(?demonym)) = "en")
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
 \end{lstlisting}
 
-SPARQL query (listing ~\ref{lst:list_demonym}), 237 results (2017), 213 results (2020).
+%SPARQL query (listing ~\ref{lst:list_demonym}), 237 results (2017), 213 results (2020).
 
 On April 27 2017, the Wikidata contains 237 filled demonyms.
 
 \subsection{Countries with unfilled demonyms}
 
-Let's build a list of countries which do not have demonyms in English.
+Let's build a list of countries which do not have demonyms in English (Listing \ref{lst:without_demonym}).
 
 \begin{lstlisting}[ language=SPARQL, 
-caption={\href{https://w.wiki/myi}{List of countries without demonyms in English}},
+caption={List of countries without demonyms in English. The result contains \num{5} countries without demonyms in 2017 and \num{20} in 2020.\\\hspace{\textwidth}
+SPARQL query: \href{https://w.wiki/myi}{https://w.wiki/myi}},
 label=lst:without_demonym, 
 ]
 SELECT ?country ?countryLabel 
 WHERE
 {
-	?country wdt:P31 wd:Q6256.              # country
-	MINUS { ?country wdt:P1549 ?demonym.    # except with demonyms
-		FILTER((LANG(?demonym)) = "en") # in English
-	}    
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+?country wdt:P31 wd:Q6256.              # country
+MINUS { ?country wdt:P1549 ?demonym.    # except with demonyms
+FILTER((LANG(?demonym)) = "en") # in English
+}    
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
 GROUP BY ?country ?countryLabel
 \end{lstlisting}
 
-SPARQL query (listing ~\ref{lst:without_demonym}), 5 results (2017), 20 results (2020).
+%SPARQL query (listing ~\ref{lst:without_demonym}), 5 results (2017), 20 results (2020).
 
 On April 27 2017, the Wikidata comprise 5 of the 202 countries with unfilled demonyms.
 
 \subsection{Number of completed demonyms in countries}
 
-Let`s display the list of countries, ordered by the number of demonyms filled in Wikidata.
+Let`s display the list of countries, ordered by the number of demonyms filled in Wikidata (Listing \ref{lst:count_demonym}).
 
 \begin{lstlisting}[ language=SPARQL, 
-caption={\href{https://w.wiki/mrq}{Count of demonyms in countries}},
+caption={Count of demonyms in countries. The result contains \num{199} count of demonyms in countries in 2017 and \num{167} in 2020.\\\hspace{\textwidth}
+SPARQL query: \href{https://w.wiki/mrq}{https://w.wiki/mrq}},
 label=lst:count_demonym, 
 ]
 SELECT  ?country ?countryLabel (count(*) as ?count)
 WHERE
 {
-	?country wdt:P31 wd:Q6256.      #country
-	?country wdt:P1549 ?demonym.    #demonym
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+?country wdt:P31 wd:Q6256.      #country
+?country wdt:P1549 ?demonym.    #demonym
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
 GROUP BY ?country ?countryLabel 
 ORDER BY DESC(?count)
 \end{lstlisting}
 
-SPARQL query (listing ~\ref{lst:count_demonym}),199 results (2017), 167 results (2020).
+%SPARQL query (listing ~\ref{lst:count_demonym}),199 results (2017), 167 results (2020).
 
 The United States of America object contains the maximum number of demonyms --- 41, Great Britain --- 40, Germany --- 40, Canada --- 36 and Russia --- 34.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Basic forms of government}
 
-Let`s construct a bubble diagram of the forms of government of countries.
+Let`s construct a bubble diagram of the forms of government of countries (Listing \ref{lst:form_of_government}).
 
 \begin{lstlisting}[ language=SPARQL, 
-caption={\href{https://w.wiki/mrr}{Basic form of government ranking}},
+caption={Basic form of government ranking. The result contains \num{30} basic forms of government in 2017 and \num{29} in 2020.\\\hspace{\textwidth}
+SPARQL query: \href{https://w.wiki/mrr}{https://w.wiki/mrr}},
 label=lst:form_of_government
 ]
 SELECT ?bfog ?form (count(*) as ?count)
 WHERE 
 {
-	?country wdt:P31 wd:Q6256. # country
-	?country wdt:P122 ?bfog.   # subject's government
-	OPTIONAL {
-		?bfog rdfs:label ?form
-		filter (lang(?form) = "ru")
-	}
+?country wdt:P31 wd:Q6256. # country
+?country wdt:P122 ?bfog.   # subject's government
+OPTIONAL {
+?bfog rdfs:label ?form
+filter (lang(?form) = "ru")
+}
 }
 GROUP BY ?bfog ?form
 ORDER BY DESC(?count) ASC(?form)
 \end{lstlisting}
 
-SPARQL query (listing ~\ref{lst:form_of_government}),199 results (2017), 30 results (2017), 29 results (2020).
+%SPARQL query (listing ~\ref{lst:form_of_government}),199 results (2017), 30 results (2017), 29 results (2020).
 
 As a result of the query, we get a bubble chart with the most popular forms of government in countries.
 
@@ -231,8 +237,8 @@ As a result of the query, we get a bubble chart with the most popular forms of g
 		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/Bubble_chart_forms_of_government_countries_according_to_Wikidata.png}}%
 	}
 	\caption{Bubble chart forms of government countries, 2017
-	\\ The popular forms of government of the countries are the republic (in 20 countries), the constitutional monarchy (in 18 countries), the federal republic (in 18 countries), the parliamentary republic (in 17 countries) and the presidential system (in 11 countries) for 2017.
-}%
+		\\ The popular forms of government of the countries are the republic (in 20 countries), the constitutional monarchy (in 18 countries), the federal republic (in 18 countries), the parliamentary republic (in 17 countries) and the presidential system (in 11 countries) for 2017.
+	}%
 	\label{fig:bubble_chart_forms_of_government_countries_2017}%
 \end{figure}
 
@@ -243,33 +249,34 @@ As a result of the query, we get a bubble chart with the most popular forms of g
 		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/Bubble_chart_forms_of_government_countries_according_to_Wikidata_2020.PNG}}%
 	}
 	\caption{Bubble chart forms of government countries, 2020
-	\\ 
-	The popular forms of government of the countries are the republic (in 27 countries), the constitutional monarchy (in 18 countries), the federal republic (in 16 countries), the parliamentary republic (in 13 countries) and the presidential system (in 12 countries) for 2020.
-}%
+		\\ 
+		The popular forms of government of the countries are the republic (in 27 countries), the constitutional monarchy (in 18 countries), the federal republic (in 16 countries), the parliamentary republic (in 13 countries) and the presidential system (in 12 countries) for 2020.
+	}%
 	\label{fig:bubble_chart_forms_of_government_countries_2020}%
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Neighboring countries}
 
-We will construct a graph of neighboring countries.
+We will construct a graph of neighboring countries (Listing \ref{lst:neighboring_countries}).
 
 \begin{lstlisting}[ language=SPARQL, 
-caption={\href{https://w.wiki/mrs}{Neighboring countries graph}},
+caption={Neighboring countries graph. The result contains \num{795} neighboring countries in 2017 and \num{698} in 2020.\\\hspace{\textwidth}
+SPARQL query: \href{https://w.wiki/mrs}{https://w.wiki/mrs}},
 label=lst:neighboring_countries
 ]
 SELECT ?country ?countryLabel ?sharesBorderWith 
 ?sharesBorderWithLabel
 WHERE
 {
-	?country wdt:P31 wd:Q6256.
-	
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
-	OPTIONAL { ?country wdt:P47 ?sharesBorderWith. }
+?country wdt:P31 wd:Q6256.
+
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+OPTIONAL { ?country wdt:P47 ?sharesBorderWith. }
 }
 \end{lstlisting}
 
-SPARQL query (listing ~\ref{lst:neighboring_countries}), 795 results (2017), 698 results (2020).
+%SPARQL query (listing ~\ref{lst:neighboring_countries}), 795 results (2017), 698 results (2020).
 
 \begin{figure*}
 	{
