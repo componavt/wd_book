@@ -6,7 +6,7 @@
 \footnotetext{\href{https://en.wikipedia.org/wiki/San_Francisco}{San Francisco} panorama from \href{https://en.wikipedia.org/wiki/Twin\_Peaks\_(San\_Francisco)}{Twin Peaks}. San Francisco is the city in \href{https://en.wikipedia.org/wiki/Northern\_California}{Northern California (United States of America)} where the \href{https://en.wikipedia.org/wiki/Wikimedia\_Foundation}{Wikimedia Foundation} is headquartered.
 Author: \href{https://commons.wikimedia.org/wiki/File:SanFrancisco\_from\_TwinPeaks\_dusk\_MC.jpg}{Christian Mehlführer, WikiCommons / 2006 / Creative Commons Attribution License}. A part of the original file is presented. }
 
-The chapter is devoted to the study of different types of cities corresponding to the four objects of Wikidata — "town", "city", "big city" and "city with millions of inhabitants". Using SPARQL queries to Wikidata, data on the number of instances of the objects under study were obtained and issues related to the "population" and "sister city" properties of these Wikidata objects were considered. The following tasks have been solved: calculation and analysis of the population of different types of cities; determination of the number of cities without sister cities; construction a list of cities ordered by the number of sister cities; finding the number of cities with a certain amount of sister cities; determination of the country with most sister cities; finding the closest neighbours of Russia. In conclusion, an assessment of the completeness of the data presented in Wikipedia and Wikidata is given, and the problems and difficulties that have arisen when studying objects of different types of cities are listed.
+The chapter is devoted to the study of different types of cities corresponding to the four objects of Wikidata — ``town'', ``city'', ``big city'' and ``city with millions of inhabitants''. Using SPARQL queries to Wikidata, data on the number of instances of the objects under study were obtained and issues related to the ``population'' and ``sister city'' properties of these Wikidata objects were considered. The following tasks have been solved: calculation and analysis of the population of different types of cities; determination of the number of cities without sister cities; construction a list of cities ordered by the number of sister cities; finding the number of cities with a certain amount of sister cities; determination of the country with most sister cities; finding the closest neighbours of Russia. In conclusion, an assessment of the completeness of the data presented in Wikipedia and Wikidata is given, and the problems and difficulties that have arisen when studying objects of different types of cities are listed.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Instances}
@@ -32,7 +32,7 @@ SELECT ?city ?cityLabel WHERE {
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Instances of \wdqName{city}{515}\\\hspace{\textwidth}
                         The result contains \num{20 800} cities in 2017, 
-                        \num{9 260} "Cities" in 2020.\\\hspace{\textwidth}
+                        \num{9 260} cities in 2020.\\\hspace{\textwidth}
                         SPARQL query: \href{https://w.wiki/m3c}{w.wiki/m3c}
                         },
                     label=lst:city,
@@ -123,7 +123,7 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
 \end{lstlisting}%
 
 \marginnote[-2.5cm]{
-You can use various string processing functions, such as \href{https://en.wikibooks.org/wiki/SPARQL/Expressions\_and\_Functions\#REPLACE}{REPLACE}, to make the \href{https://www.wikidata.org/wiki/Property:P1082}{population} values uniform. So, after the processing used in the SPARQL query, the string "1.000.000" will look like "1000000".
+You can use various string processing functions, such as \href{https://en.wikibooks.org/wiki/SPARQL/Expressions\_and\_Functions\#REPLACE}{REPLACE}, to make the \href{https://www.wikidata.org/wiki/Property:P1082}{population} values uniform. So, after the processing used in the SPARQL query, the string ``1.000.000'' will look like ``1000000''.
 }
 
 \newpage
@@ -531,7 +531,7 @@ Russia has more than twenty sister cities with countries such as United States o
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Wikidata completeness and disadvantages}
 
-City is a type of human settlement with people not occupied with agriculture. At the same time, different countries use different criteria when assigning city status to settlements, the main of which is population. Some countries don't define a term "city" at all. So, in France, only one geographic unit of this kind is used — a commune, regardless of the number of people living in it and the type of their activity. Therefore, it can be difficult to clearly determine which settlement is classified as a city and which is not.
+City is a type of human settlement with people not occupied with agriculture. At the same time, different countries use different criteria when assigning city status to settlements, the main of which is population. Some countries don't define a term ``city'' at all. So, in France, only one geographic unit of this kind is used — a commune, regardless of the number of people living in it and the type of their activity. Therefore, it can be difficult to clearly determine which settlement is classified as a city and which is not.
 
 In practice, some Wikidata objects can simultaneously be instances of different types of cities. For example, \wdqName{Shanghai}{8686} is assigned to three objects under study:  \wdqName{city}{515}, \wdqName{big city}{1549591}, \wdqName{city with millions of inhabitants}{1637706}. It is easy to guess that such multiple assignment affects the results of SPARQL queries, in particular, using the \href{https://en.wikibooks.org/wiki/SPARQL/UNION}{UNION} construction. This can be verified by running, for example, SPARQL query for finding instances of different types of cities (Listing \ref{lst:different_city_types}). \wdqName{Shanghai}{8686} is found in the results for three times.
 
@@ -567,7 +567,7 @@ SELECT ?city ?cityLabel WHERE { # Selecting items which are ...
 }
 \end{lstlisting}%
 
-Also, probably with ambiguity in the criteria for assigning city status, subclasses were created for specific countries — \wdqName{city in Chile}{25412763}, \wdqName{city in Cyprus}{29556224}, \wdqName{city of Japan}{494721} and so on. This tendency was not spared by the cities of Russia, which could be noticed when comparing the results of a SPARQL query to find instances of the "city" object (Listing \ref{lst:city}). At the moment, most of them belong to the \wdqName{city/town}{7930989} class.
+Also, probably with ambiguity in the criteria for assigning city status, subclasses were created for specific countries — \wdqName{city in Chile}{25412763}, \wdqName{city in Cyprus}{29556224}, \wdqName{city of Japan}{494721} and so on. This tendency was not spared by the cities of Russia, which could be noticed when comparing the results of a SPARQL query to find instances of  \wdqName{city}{515} (Listing \ref{lst:city}). At the moment, most of them belong to the \wdqName{city/town}{7930989} class.
 
 According to the \href{http://www.gks.ru/free\_doc/new\_site/perepis2010/croc/Documents/Vol1/pub-01-03.pdf}{Russian Census (2010)} and the \href{https://rosstat.gov.ru/free\_doc/new\_site/population/demo/perepis\_krim/KRUM\_2015.pdf}{Crimean Federal District Census (2014)}, the total number of Russian cities was \num{1117} in 2014. All cities in Russia have an article in both Russian and English Wikipedia.
 
