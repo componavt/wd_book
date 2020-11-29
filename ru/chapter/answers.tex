@@ -254,7 +254,7 @@ SELECT ?city ?cityLabel ?flag ?countryLabel WHERE {
 
 \begin{task}
 	\label{answer:os_base}
-	\newthought{На основе \href{https://w.wiki/n8W}{Ubuntu} разработано больше всего ОС. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:os_base}).}
+	\newthought{На основе \href{https://w.wiki/n8W}{Ubuntu} разработано больше всего ОС, а именно 11. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:os_base}).}
 	
 	\begin{lstlisting}[ language=SPARQL, caption={
 	\href{https://w.wiki/n8F}{Список основ опрационных систем}\protect\footnotemark},
@@ -270,7 +270,7 @@ SELECT ?city ?cityLabel ?flag ?countryLabel WHERE {
 	GROUP BY ?baseLabel
 	ORDER BY DESC(?count) ASC(?baseLabel)
 	\end{lstlisting}
-	\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/n8F}{https://w.wiki/n8F}}
+	\footnotetext{118 результатов на 2020год. Ссылка на SPARQL-запрос: \href{https://w.wiki/n8F}{https://w.wiki/n8F}}
 	
 	\small{Вопрос на с.~\pageref{lst:base_of_operating_systems}.}
 \end{task}
@@ -289,7 +289,7 @@ SELECT ?city ?cityLabel ?flag ?countryLabel WHERE {
 	  OPTIONAL { ?os wdt:P178 ?developer. }
 	}
 	\end{lstlisting}
-	\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/n8a}{https://w.wiki/n8a}}
+	\footnotetext{1115 результатов на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/n8a}{https://w.wiki/n8a}}
 	
 	\small{Вопрос на с.~\pageref{lst:inception_time_of_operating_systems}.}
 \end{task}
