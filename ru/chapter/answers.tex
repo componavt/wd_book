@@ -55,39 +55,39 @@
     \newthought{В честь географических объектов} были названы Тула (\href{https://w.wiki/oLJ}{река Тулица}), Курильск (\href{https://w.wiki/oLH}{Курильские острова}) и Вологда (\href{https://w.wiki/oLG}{река Вологда}). Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:cities_geographic_objects}). Значение свойства \href{https://www.wikidata.org/wiki/Property:P138}{named after} показывает, в честь какого объекта Викиданных был назван город.
     
     \marginnote{
-    Если не имеет значения к какому конкретно типу городов относится объект Викиданных можно использовать конструкцию с подклассами, указав при этом единственный класс, относительно которого будет выполняться поиск. Более подробно данная конструкция рассматривается в разделе <<Полнота и недостатки Викиданных>> на с. \pageref{lst:countries_sister_cities_with_Russia}.
+    Если не имеет значения к какому конкретно типу городов относится объект Викиданных, то можно использовать конструкцию с подклассами, указав при этом единственный класс, относительно которого будет выполняться поиск. Более подробно данная конструкция рассматривается в разделе <<Полнота и недостатки Викиданных>> на с. \pageref{lst:countries_sister_cities_with_Russia}.
     }
     
     \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/jiu}{Города, названные в честь географических объектов}\protect\footnotemark},
+                    caption={\href{https://w.wiki/otj}{Города, названные в честь географических объектов}\protect\footnotemark},
                     label=lst:cities_geographic_objects, 
                     escapebegin=ку,escapeend=ку-ку>
                     ]
 SELECT ?city ?cityLabel ?namedAfterLabel ?whatIsItLabel WHERE {
-	?city wdt:P31/wdt:P279* wd:Q7930989.
-	?city wdt:P138 ?namedAfter.
-	?namedAfter wdt:P31 ?whatIsIt.
+	?city wdt:P31/wdt:P279* wd:Q7930989. # "city/town" subclasses
+	?city wdt:P138 ?namedAfter. # with filled property "named after"
+	?namedAfter wdt:P31 ?whatIsIt. # which is instance of
 	FILTER(?city = wd:Q1341 || ?city = wd:Q2770 || ?city = wd:Q5655 ||
 		?city = wd:Q156046 || ?city = wd:Q1957 || ?city = wd:Q175651)
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
     \end{lstlisting}
-    \footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/jiu}{https://w.wiki/jiu}}  
+    \footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/otj}{https://w.wiki/otj}}  
     \small{Вопрос на с.~\pageref{lst:population_town}.}
 \end{task}
 
 \begin{task}
     \label{answer:cities_over_400_age}
-    \newthought{Более 400 лет назад} были основаны Москва (1147 г.), Воронеж (1586 г.), Самара (1586 г.), Казань (1005 г.) и Астрахань (1558 г.). Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:cities_over_400_age}). Значение свойства \href{https://www.wikidata.org/wiki/Property:P571}{inception} содержит дату основания города.
+    \newthought{Более 400 лет назад} были основаны Москва (1147 год), Воронеж (1586), Самара (1586), Казань (1005) и Астрахань (1558). Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:cities_over_400_age}). Значение свойства \href{https://www.wikidata.org/wiki/Property:P571}{inception} содержит дату основания города.
     \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/jnv}{Города, основанные более 400 лет назад}\protect\footnotemark},
+                    caption={\href{https://w.wiki/oti}{Города, основанные более 400 лет назад}\protect\footnotemark},
                     label=lst:cities_over_400_age, 
                     escapebegin=ку,escapeend=ку-ку>
                     ]
 SELECT ?city ?cityLabel ?inceptionDate WHERE {
-	?city wdt:P31/wdt:P279* wd:Q7930989.
-	?city wdt:P17 wd:Q159.
-	?city wdt:P571 ?inceptionDate.
+	?city wdt:P31/wdt:P279* wd:Q7930989. # "city/town" subclasses
+	?city wdt:P17 wd:Q159. # belonging to Russia
+	?city wdt:P571 ?inceptionDate. # with filled property "inception"
 	FILTER(BOUND(?inceptionDate) && 
 					DATATYPE(?inceptionDate) = xsd:dateTime).
 	BIND(NOW() - ?inceptionDate AS ?distance).
@@ -98,7 +98,7 @@ SELECT ?city ?cityLabel ?inceptionDate WHERE {
 }
 GROUP BY ?city ?cityLabel ?inceptionDate    
 \end{lstlisting}
-\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/jnv}{https://w.wiki/jnv}}  
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/oti}{https://w.wiki/oti}}  
 
     \small{Вопрос на с.~\pageref{fig:city_relation_Russia_S_N}.}
 \end{task}
@@ -108,20 +108,20 @@ GROUP BY ?city ?cityLabel ?inceptionDate
     \newthought{Флаг, изображенный на рис. \ref{fig:flag_question_city}} принадлежит городу \href{https://w.wiki/oLF}{Карабулак}. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:cities_flags}). Значение свойства \href{https://www.wikidata.org/wiki/Property:P41}{flag image} содержит изображение флага города.
     
     \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/kBM}{Флаги городов}\protect\footnotemark},
+                    caption={\href{https://w.wiki/otf}{Флаги городов}\protect\footnotemark},
                     label=lst:cities_flags, 
                     escapebegin=ку,escapeend=ку-ку>
                     ]
 #defaultView:ImageGrid
 SELECT ?city ?cityLabel ?flag ?countryLabel WHERE {
-	?city wdt:P31/wdt:P279* wd:Q7930989.
-	?city wdt:P17 ?country.
-	?city wdt:P41 ?flag.
-	FILTER(?city = wd:Q144969)
+	?city wdt:P31/wdt:P279* wd:Q7930989. # "city/town" subclasses
+	?city wdt:P17 ?country. # with filled property "country"
+	?city wdt:P41 ?flag. # with filled property "flag"
+	FILTER(?city = wd:Q144969) # for Karabulak only
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
 \end{lstlisting}
-\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/kBM}{https://w.wiki/kBM}}  
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/otf}{https://w.wiki/otf}}  
     
     \small{Вопрос на с.~\pageref{lst:countries_sister_cities_with_Russia}.}
 \end{task}
