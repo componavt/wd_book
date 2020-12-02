@@ -8,7 +8,7 @@ Author: \href{https://commons.wikimedia.org/wiki/File:X43a2_nasa_scramjet.jpg}{N
 
 The chapter is devoted to the study of various properties of aircraft
 based on Wikidata.
-In the course of research using SPARQL queries calculated on objects of the type <<Aircraft>>,
+In the course of research using SPARQL queries calculated on objects of the type ``Aircraft",
 received information about all aircraft and their number,
 also a diagram showing the ratio of the total number of aircraft manufacturers by country was obtained.
 The chapter concludes with an estimate of the completeness of the data presented in Wikipedia and Wikidata. According to her, Wikidata contains only
@@ -16,11 +16,11 @@ The chapter concludes with an estimate of the completeness of the data presented
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Instances of the object <<Aircraft>>}
+\section{Instances of the object ``Aircraft"}
 
-Let's build a list of all instances of the object <<Aircraft>> \href{https://www.wikidata.org/wiki/Q11436}{Q11436}.
+Let's build a list of all instances of the object ``Aircraft" \href{https://www.wikidata.org/wiki/Q11436}{Q11436}.
 
-\begin{lstlisting}[ language=SPARQL, 
+\begin{lstlisting}[ language=SPARQL, breaklines=true, 
                     caption={List of aircrafts\\\hspace{\textwidth}
                         The result contains \num{1564} aircrafts in 2017, 
                         \num{3324} aircrafts in 2020.\\\hspace{\textwidth}
@@ -55,7 +55,7 @@ For 2020, uninformative aircraft are: \href{https://www.wikidata.org/wiki/Q82060
 
 Let's make a list of aircraft manufacturers.
 
-\begin{lstlisting}[ language=SPARQL, 
+\begin{lstlisting}[ language=SPARQL, breaklines=true, 
                     caption={Aircraft manufacturers\\\hspace{\textwidth}
                         The result contains \num{300} manufacturers in 2017, 
                         \num{597} manufacturers in 2020.\\\hspace{\textwidth}
@@ -84,7 +84,7 @@ The aviation industry is one of the largest mechanical engineering industries in
 and production of various aerial vehicles. In order to assess which aircraft models are the most widespread, we will build a diagram 
 of the produced aircraft of various models.
 
-\begin{lstlisting}[ language=SPARQL, 
+\begin{lstlisting}[ language=SPARQL, breaklines=true, 
                     caption={List of aircraft and their number produced\\\hspace{\textwidth}
                         The result contains \num{177} records in 2020. 
                         SPARQL query: \href{https://w.wiki/nZF}{w.wiki/nZF}
@@ -102,7 +102,7 @@ SELECT ?itemLabel ?count WHERE {
 Some aircraft models were produced in small numbers, so they can be excluded to improve the readability of the diagram. 
 To get a new list, let's add a filter to the request.
 
-\begin{lstlisting}[ language=SPARQL, 
+\begin{lstlisting}[ language=SPARQL, breaklines=true, 
                     caption={List of aircraft manufactured over 10 pieces\\\hspace{\textwidth}
                         The result contains \num{86} records in 2020.
                         SPARQL query: \href{https://w.wiki/nZb}{w.wiki/nZb}
@@ -134,15 +134,15 @@ The figure in Fig.~\ref{fig:Number_of_aircraft_produced_en_2020} shows that the 
     \label{fig:Number_of_aircraft_produced_en_2020}%
 \end{figure*}
 
-Now let's try to answer the question: <<Does \href{https://en.wikipedia.org/wiki/Pareto_principle}{Pareto principle} hold with respect to the 
-number of aircraft models>>?
+Now let's try to answer the question: ``Does \href{https://en.wikipedia.org/wiki/Pareto_principle}{Pareto principle} hold with respect to the 
+number of aircraft models"?
 
 In order to build a graph, you must perform the following steps:
 
 \begin{enumerate} 
   \item Calculate the total number of aircraft for all models using the script shown in the listing~\ref{lst:aircraft_listing_5}.
 
-  \begin{lstlisting}[ language=SPARQL, 
+  \begin{lstlisting}[ language=SPARQL, breaklines=true,  
                       caption={Total number of aircraft produced\\\hspace{\textwidth}
                           The result contains \num{33 178} aircrafts in 2020.
                           SPARQL query: \href{https://w.wiki/nZi}{w.wiki/nZi}
@@ -177,8 +177,8 @@ In order to build a graph, you must perform the following steps:
 \end{figure*}
 
 According to the graph~\ref{fig:Pareto_principle_diargam_en}, it can be seen that 80\% of all aircraft produced belong to 16 different aircraft 
-models, which is 9.2\% of the total number of models. Pareto's law states that: <<20\% of the efforts give 80\% of the result, and the remaining 80\%
- of the efforts - only 20\% of the result.>> It can be concluded that a stronger law is fulfilled than the Pareto principle regarding the number 
+models, which is 9.2\% of the total number of models. Pareto's law states that: ``20\% of the efforts give 80\% of the result, and the remaining 80\%
+ of the efforts - only 20\% of the result." It can be concluded that a stronger law is fulfilled than the Pareto principle regarding the number 
  of aircraft models.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -186,10 +186,11 @@ models, which is 9.2\% of the total number of models. Pareto's law states that: 
 \section{Countries of origin of aircraft manufacturers}
 
 Let's build a list of the number of aircraft manufacturers by country. To execute the query~\ref{lst:aircraft_listing_6}, we use the grouping 
-by country (GROUP BY) and use the <<Count>> function to count the number of productions for each country.
+by country (GROUP BY) and use the ``Count" function to count the number of productions for each country.
 
-\begin{lstlisting}[ language=SPARQL, 
-                    caption={List of the ratio of the number of manufacturers aircraft by country\\\hspace{\textwidth}
+\begin{lstlisting}[ language=SPARQL, breaklines=true, 
+                    caption={List of the ratio of the \\\hspace{\textwidth} 
+						number of manufacturers aircraft by country\\\hspace{\textwidth}
                         The result contains \num{39} records in 2017, 
                         \num{46} records in 2020.\\\hspace{\textwidth}
                         SPARQL query: \href{https://w.wiki/nZu}{w.wiki/nZu}
@@ -209,9 +210,9 @@ GROUP BY ?country ?countryLabel
 \end{lstlisting}
 
 Having received a list of countries by the number of aircraft manufacturing plants, we can construct a bubble chart 
-<<The ratio of the number of aircraft manufacturers by country>>~\ref{} for clarity. To build it, we execute the request ~\ref{lst:aircraft_listing_7}.
+``The ratio of the number of aircraft manufacturers by country"~\ref{} for clarity. To build it, we execute the request ~\ref{lst:aircraft_listing_7}.
 
-\begin{lstlisting}[ language=SPARQL, 
+\begin{lstlisting}[ language=SPARQL, breaklines=true, 
                     caption={Bubble chart\\\hspace{\textwidth}
                         SPARQL query: \href{https://w.wiki/n7E}{w.wiki/n7E}
                         },
@@ -272,7 +273,7 @@ manufacturers was entered into Wikidata, that is, about 98 new entries are added
 aircraft manufacturers in Wikidata. Assuming a fixed number of new aircraft manufacturers appear annually and the number of Wikidata entries 
 entered annually remains unchanged, we can assume that in about 75 years (i.e. 2095) Wikidata will contain records of all aircraft manufacturers.
 
-The category \href{https://cutt.ly/NhrKnWn}{<<Russian Aircraft Companies>>} indicates the presence in Russia of 58 aircraft companies in 2017 and 
+The category \href{https://cutt.ly/NhrKnWn}{``Russian Aircraft Companies"} indicates the presence in Russia of 58 aircraft companies in 2017 and 
 62 companies in 2020, but at the same time on the website \href{https://www.aviationfanatic.com/}{Aviationfanatic.com} there are 61 
 plants in 2017 and 71 in 2020. Among the aircraft building companies in Russia, there are such companies as: \href{https://en.wikipedia.org/wiki/Irkut_Corporation}{Irkut Corporation}, 
 \href{https://en.wikipedia.org/wiki/Russian_Aircraft_Corporation_MiG}{Russian Aircraft Corporation MiG}, 
@@ -285,7 +286,7 @@ plants in 2017 and 71 in 2020. Among the aircraft building companies in Russia, 
 \begin{enumerate}
 \item Find the plane with the maximum flight radius.
 \item Mark on the political map of the world the location of the main offices of aircraft manufacturers.
-\item Find the manufacturer with the most aircraft manufactured using the aircraft manufacturer property.
+\item Find the manufacturer with the most aircraft manufactured using the aircraft manufacturer property \href{https://www.wikidata.org/wiki/Property:P176}{P176}.
 \item When was the first aircraft built?
 \item Which firms were the first to produce 10, 100 and a thousand aircraft?
 \item Draw a chart of the number of aircraft produced by year.
