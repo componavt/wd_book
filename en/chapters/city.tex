@@ -6,12 +6,12 @@
 \footnotetext{\href{https://en.wikipedia.org/wiki/San_Francisco}{San Francisco} panorama from \href{https://en.wikipedia.org/wiki/Twin\_Peaks\_(San\_Francisco)}{Twin Peaks}. San Francisco is the city in \href{https://en.wikipedia.org/wiki/Northern\_California}{Northern California (United States of America)} where the \href{https://en.wikipedia.org/wiki/Wikimedia\_Foundation}{Wikimedia Foundation} is headquartered.
 Author: \href{https://commons.wikimedia.org/wiki/File:SanFrancisco\_from\_TwinPeaks\_dusk\_MC.jpg}{Christian Mehlführer, WikiCommons / 2006 / Creative Commons Attribution License}. A part of the original file is presented. }
 
-The chapter is devoted to the study of different types of cities corresponding to the four objects of Wikidata — ``town'', ``city'', ``big city'' and ``city with millions of inhabitants''. Using SPARQL queries to Wikidata, data on the number of instances of the objects under study were obtained and issues related to the ``population'' and ``sister city'' properties of these Wikidata objects were considered. The following tasks have been solved: calculation and analysis of the population of different types of cities; determination of the number of cities without sister cities; construction a list of cities ordered by the number of sister cities; finding the number of cities with a certain amount of sister cities; determination of the country with most sister cities; finding the closest neighbours of Russia. In conclusion, an assessment of the completeness of the data presented in Wikipedia and Wikidata is given, and the problems and difficulties that have arisen when studying objects of different types of cities are listed.
+The chapter is devoted to the study of different types of cities corresponding to the four objects of Wikidata — ``town'', ``city'', ``big city'' and ``city with millions of inhabitants''. Using SPARQL queries to Wikidata, data on the number of instances of the objects under study were obtained and issues related to the ``population'' and ``sister city'' properties of these Wikidata objects were considered. The following tasks have been solved: calculation and analysis of the population of different types of cities; determination of the number of cities without sister cities; construction a list of cities ordered by the number of sister cities; finding the number of cities with a certain amount of sister cities; determination of the country with most sister cities; finding the closest neighbours of Russia by the number of sister cities. In conclusion, an assessment of the completeness of the data presented in Wikipedia and Wikidata is given, and the problems and difficulties that have arisen when studying objects of different types of cities are listed.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Instances}
+\section{Lists of different types of cities}
 
-SPARQL queries for getting instances of the objects under study are presented below: \wdqName{town}{3957} (Listing \ref{lst:town}), \wdqName{city}{515} (Listing \ref{lst:city}), \wdqName{big city}{1549591} (Listing \ref{lst:big_city}), \wdqName{city with millions of inhabitants}{1637706} (Listing \ref{lst:city_million}). Additionally SPARQL query for getting instances of different types of cities have been constructed (Listing \ref{lst:different_city_types}).
+Objects under study and SPARQL queries for getting lists of their intances are presented below: \wdqName{town}{3957} (Listing \ref{lst:town}), \wdqName{city}{515} (Listing \ref{lst:city}), \wdqName{big city}{1549591} (Listing \ref{lst:big_city}), \wdqName{city with millions of inhabitants}{1637706} (Listing \ref{lst:city_million}). Additionally SPARQL query for getting instances of different types of cities have been constructed (Listing \ref{lst:different_city_types}).
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Instances of \wdqName{town}{3957}\\\hspace{\textwidth}
@@ -101,11 +101,11 @@ SELECT ?city ?cityLabel WHERE { # Selecting items which are ...
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Population}
 
-SPARQL queries for finding total population of the objects under study instances are presented below: \wdqName{town}{3957} (Listing \ref{lst:population_town}), \wdqName{city}{515} (Listing \ref{lst:population_city}), \wdqName{big city}{1549591} (Listing \ref{lst:population_big_city}), \wdqName{city with millions of inhabitants}{1637706} (Listing \ref{lst:population_city_millions}).
+SPARQL queries for finding total population of different types of cities are presented below: \wdqName{town}{3957} (Listing \ref{lst:population_town}), \wdqName{city}{515} (Listing \ref{lst:population_city}), \wdqName{big city}{1549591} (Listing \ref{lst:population_big_city}), \wdqName{city with millions of inhabitants}{1637706} (Listing \ref{lst:population_city_millions}).
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Population of towns\\\hspace{\textwidth}
-                        The result contains \num{53304439} people in 2020.\\\hspace{\textwidth}
+                        The result contains \num{53,3} million people in 2020.\\\hspace{\textwidth}
                         SPARQL query: \href{https://w.wiki/m3V}{w.wiki/m3V}
                         },
                     label=lst:population_town,
@@ -130,7 +130,7 @@ You can use various string processing functions, such as \href{https://en.wikibo
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Population of cities\\\hspace{\textwidth}
-                        The result contains \num{1 133 560 167} people in 2020.\\\hspace{\textwidth}
+                        The result contains \num{1 133,56} million people in 2020.\\\hspace{\textwidth}
                         SPARQL query: \href{https://w.wiki/m3T}{w.wiki/m3T}
                         },
                     label=lst:population_city,
@@ -153,7 +153,7 @@ The population is always changing, so a city can have several \href{https://www.
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Population of big cities\\\hspace{\textwidth}
-                        The result contains \num{2 538 491 725} people in 2020.\\\hspace{\textwidth}
+                        The result contains \num{2 538,49} million people in 2020.\\\hspace{\textwidth}
                         SPARQL query: \href{https://w.wiki/m3S}{w.wiki/m3S}
                         },
                     label=lst:population_big_city,
@@ -172,7 +172,7 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Population of cities with millions of inhabitants\\\hspace{\textwidth}
-                        The result contains \num{2 118 385 113} people in 2020.\\\hspace{\textwidth}
+                        The result contains \num{2 118,39} million people in 2020.\\\hspace{\textwidth}
                         SPARQL query: \href{https://w.wiki/m3R}{w.wiki/m3R}
                         },
                     label=lst:population_city_millions,
@@ -191,7 +191,7 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
 
 Different countries use different characters as separators, such as point, comma, or space. As a result, the variants of representing the value of the \href{https://www.wikidata.org/wiki/Property:P1082}{population} property can also be different. Problems arise when using a point, because in Wikidata this character is the separator between the integer and decimal parts of a number. To disambiguate, \href{https://en.wikibooks.org/wiki/SPARQL/Expressions\_and\_Functions\#REPLACE}{REPLACE} function to remove the specified character should be used (Listings \ref{lst:population_town},   \ref{lst:population_city}, \ref{lst:population_big_city}, \ref{lst:population_city_millions}). This conversion does not affect the value itself, since the population is an integer, and the separators are used solely for ease of reading.
 
-The \reftab{tab:population} shows a summary of the population of different types of cities, as well as the proportion of the population per type of city of the \href{https://en.wikipedia.org/wiki/World\_population}{world population}, which reached approximately 7,8 billion people in 2020.
+The \reftab{tab:population} shows a summary of the population of different types of cities, as well as the proportion of the population per type of city of the \href{https://en.wikipedia.org/wiki/World\_population}{world population}, which reached approximately 7,8 billion people in 2020. According to Wikidata, almost three quarters of the world's population live in cities.
 
 \begin{table}[h]
   \centering
@@ -216,6 +216,8 @@ The \reftab{tab:population} shows a summary of the population of different types
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Sister cities}
+
+\href{https://en.wikipedia.org/wiki/Sister_city}{Sister cities} are cities of different states that have established permanent friendly relations with each other in order to strengthen international relationship in the fields of culture, economics, creation and management of urban infrastructure, the functioning of civil society, and so on.
 
 \subsection{How many cities don't have a single sister city?}
 
@@ -245,9 +247,13 @@ There are 26751 cities of four types known by Wikidata for 2020. Thus, sister ci
 
 SPARQL queries for construction lists of all cities (Listing \ref{lst:ordered_by_sister_cities}) and Russian cities (Listing \ref{lst:ordered_by_sister_cities_Russia}) ordered by the number of sister cities are presented below.
 
+\marginnote[3.0cm]{
+Note that parts of the \href{https://en.wikibooks.org/wiki/SPARQL/UNION}{UNION} clause must be enclosed in curly braces. Otherwise, the SPARQL query will not be compiled.
+}
+
 \begin{lstlisting}[ language=SPARQL, 
                     caption={List of cities ordered by number of sister cities\\\hspace{\textwidth}
-                        The result contains \num{4046} records in 2020.\\\hspace{\textwidth}
+                        The result contains \num{4046} world cities with sister cities in 2020.\\\hspace{\textwidth}
                         SPARQL query: \href{https://w.wiki/m3M}{w.wiki/m3M}
                         },
                     label=lst:ordered_by_sister_cities,
@@ -266,26 +272,18 @@ GROUP BY ?city ?cityLabel # Grouping by city
 ORDER BY DESC(?sisterCount) # Sorting by number of sister cities
 \end{lstlisting}%
 
-\marginnote[-3.0cm]{
-Note that parts of the \href{https://en.wikibooks.org/wiki/SPARQL/UNION}{UNION} clause must be enclosed in curly braces. Otherwise, the SPARQL query will not be compiled.
-}
-
-There were more cities wishing to be friends with the cultural capital of Russia (230 sister cities) than with the official capital (134 sister cities) for 2020. Omsk (58), Volgograd (56) and Kaliningrad (54) had almost the same number of sister cities. Petrozavodsk, Perm, Vladimir and Belgorod each had 14 sister cities.
-
 \begin{lstlisting}[ language=SPARQL, 
                     caption={List of Russian cities ordered by number of sister cities\\\hspace{\textwidth}
-                        The result contains 82 records in 2020.\\\hspace{\textwidth}
-                        SPARQL query: \href{https://w.wiki/m3K}{w.wiki/m3K}
+                        The result contains 82 Russian cities with sister cities in 2020.\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/pMQ}{w.wiki/pMQ}
                         },
                     label=lst:ordered_by_sister_cities_Russia,
                     texcl 
                     ]
 # Counting sister cities of cities which are ...
 SELECT ?cityLabel (COUNT(?sister) AS ?sisterCount) WHERE {           
-	{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"
-	{ ?city wdt:P31 wd:Q515 } UNION # OR "city"
-	{ ?city wdt:P31 wd:Q1549591 } UNION # OR "big city"
-	{ ?city wdt:P31 wd:Q1637706 } # OR "city 1000000+"      
+	VALUES ?cityTypes {wd:Q3957 wd:Q515 wd:Q1549591 wd:Q1637706}
+	?city wdt:P31 ?cityTypes. # different types of cities instances
 	?city wdt:P17 wd:Q159. # belonging to Russia
 	?city wdt:P190 ?sister. # with property "sister city"
 	SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
@@ -294,14 +292,16 @@ GROUP BY ?city ?cityLabel # Grouping by city
 ORDER BY DESC(?sisterCount) # Sorting by number of sister cities
 \end{lstlisting}%
 
+There were more cities wishing to be friends with the cultural capital of Russia (230 sister cities) than with the official capital (134 sister cities) for 2020. Omsk (58), Volgograd (56) and Kaliningrad (54) had almost the same number of sister cities. Petrozavodsk, Perm, Vladimir and Belgorod each had 14 sister cities.
+
 \subsection{Number of cities with certain amount of sister cities}
 
 SPARQL queries for finding the number of cities with a certain amount of sister cities for all cities known by Wikidata (Listing \ref{lst:city_relation_S_N}) and Russian cities (Listing \ref{lst:city_relation_Russia_S_N}) are presented below.
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Number of cities with certain amount of sister cities\\\hspace{\textwidth}
-                        The result contains 90 variants of sister city amount in 2020.\\\hspace{\textwidth}
-                        SPARQL query: \href{https://w.wiki/m3J}{w.wiki/m3J}
+                        The result contains 90 variants of sister cities amount in the world in 2020.\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/pM9}{w.wiki/pM9}
                         },
                     label=lst:city_relation_S_N,
                     texcl 
@@ -312,10 +312,8 @@ SPARQL queries for finding the number of cities with a certain amount of sister 
 SELECT ?sisterCount (COUNT(?sisterCount) AS ?FreqNSister) WHERE {                                                                         
 	{ # Count sister cities of cities which are ...
 		SELECT (COUNT(?sister) AS ?sisterCount) WHERE {        
-			{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"
-			{ ?city wdt:P31 wd:Q515 } UNION # OR "city"
-			{ ?city wdt:P31 wd:Q1549591 } UNION # OR "big city"
-			{ ?city wdt:P31 wd:Q1637706 } # OR "city 1000000+"
+			VALUES ?cityTypes {wd:Q3957 wd:Q515 wd:Q1549591 wd:Q1637706}
+			?city wdt:P31 ?cityTypes. # different types of cities
 			?city wdt:P190 ?sister. # with property "sister city"
 		}
 		GROUP BY ?city # Group list by city
@@ -325,13 +323,17 @@ GROUP BY ?sisterCount # Group by number of sister cities
 ORDER BY DESC(?sisterCount) # Order by number of sister cities 
 \end{lstlisting}%
 
+\marginnote[-4.0cm]{
+The line \#defaultView:LineChart at the beginning of the script is not a comment. This is a special command for building a diagram (\reffig{fig:city_relation_S_N}) on the \href{https://query.wikidata.org}{Wikidata Query Service} platform, in which we write scripts to process Wikidata.
+}
+
 \begin{marginfigure}
 {
 \setlength{\fboxsep}{0pt}%
 \setlength{\fboxrule}{1pt}%
 \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{chapter/city/Number_of_cities_having_given_number_of_sister_cities_according_to_Wikidata,_2020.png}}
 }
-	\caption{Relation between number of sister cities the city have (S) and number of cities which have this amount of sister cities (N), 2020.}
+	\caption{Relation between number of sister cities the city have (S) and number of world cities which have this amount of sister cities (N), 2020.}
 	\labfig{fig:city_relation_S_N}
 \end{marginfigure}
 
@@ -339,9 +341,9 @@ The result of SPARQL query for all cities is shown in \reffig{fig:city_relation_
 
 \begin{itemize}
 \item 32\% (1314 cities) have relations with more than five cities;
-\item 18\% (728 cities) have at least eleven sister cities;
-\item 9\% (345 cities) friends with more than twenty cities;
-\item 2\% (94 cities) have fifty or more sister cities.
+\item 18\% (728 cities) have at least 11 sister cities;
+\item 9\% (345 cities) friends with more than 20 cities;
+\item 2\% (94 cities) have 50 or more sister cities.
 \end{itemize}
 
 \begin{figure*}[h]
@@ -350,7 +352,7 @@ The result of SPARQL query for all cities is shown in \reffig{fig:city_relation_
 \setlength{\fboxrule}{1pt}%
 \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{chapter/city/Logarithm_of_the_number_of_cities_having_given_number_of_sister_cities_according_to_Wikidata,_2020.png}}%
 }
-  \caption{Relation between number of sister cities the city have (S) and logarithm of the number of cities which have this amount of sister cities (N), 2020.}%
+  \caption{Relation between number of sister cities the city have (S) and logarithm of the number of world cities which have this amount of sister cities (N), 2020.}%
   \labfig{fig:city_ln_relation_S_N}%
 \end{figure*}
 
@@ -358,8 +360,8 @@ Based on the constructed trend, it can be concluded that the relation between nu
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Number of Russian cities with certain amount of sister cities\\\hspace{\textwidth}
-                        The result contains 24 variants of sister city amount in 2020.\\\hspace{\textwidth}
-                        SPARQL query: \href{https://w.wiki/m3H}{w.wiki/m3H}
+                        The result contains 24 variants of sister cities amount in Russia in 2020.\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/pMA}{w.wiki/pMA}
                         },
                     label=lst:city_relation_Russia_S_N,
                     texcl 
@@ -370,10 +372,8 @@ Based on the constructed trend, it can be concluded that the relation between nu
 SELECT ?sisterCount (COUNT(?sisterCount) AS ?FreqNSister) WHERE {                                                                                  
 	{ # Count sister cities of cities which are ...
 		SELECT (COUNT(?sister) AS ?sisterCount) WHERE {    
-			{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"
-			{ ?city wdt:P31 wd:Q515 } UNION # OR "city"
-			{ ?city wdt:P31 wd:Q1549591 } UNION # OR "big city"
-			{ ?city wdt:P31 wd:Q1637706 } # OR "city 1000000+"
+			VALUES ?cityTypes {wd:Q3957 wd:Q515 wd:Q1549591 wd:Q1637706}
+			?city wdt:P31 ?cityTypes. # different types of cities
 			?city wdt:P17 wd:Q159. # belonging to Russia
 			?city wdt:P190 ?sister. # with property "sister city"
 		}
@@ -398,7 +398,7 @@ The situation with Russian cities is shown in \reffig{fig:city_relation_Russia_S
 
 \subsection{Which country has the most sister cities?}
 
-The SPARQL query for construction a list of countries ordered by number of sister cities is presented below (Listing \ref{lst:countries_sister_cities}). The result of this query is shown in \reffig{fig:Bubble_countries_sister_cities}.
+The SPARQL query for construction a list of countries ordered by number of sister cities is presented below (Listing \ref{lst:countries_sister_cities}). The result of query is shown in \reffig{fig:Bubble_countries_sister_cities}.
 
 \begin{marginfigure}[2cm]
 {
@@ -412,8 +412,8 @@ The SPARQL query for construction a list of countries ordered by number of siste
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={List of countries ordered by number of sister cities\\\hspace{\textwidth}
-                        The result contains 208 records in 2020.\\\hspace{\textwidth}
-                        SPARQL query: \href{https://w.wiki/m3E}{w.wiki/m3E}
+                        The result contains 208 countries in 2020.\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/pMT}{w.wiki/pMT}
                         },
                     label=lst:countries_sister_cities,
                     texcl 
@@ -423,10 +423,8 @@ The SPARQL query for construction a list of countries ordered by number of siste
 # country cities which are ... 
 SELECT ?countryLabel (COUNT(?sister) as ?sisterCount) WHERE { 
 	SELECT DISTINCT ?countryLabel ?sister WHERE {
-		{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"
-		{ ?city wdt:P31 wd:Q515 } UNION # OR "city"
-		{ ?city wdt:P31 wd:Q1549591 } UNION # OR "big city"
-		{ ?city wdt:P31 wd:Q1637706 }. # OR "city 1000000+"
+		VALUES ?cityTypes {wd:Q3957 wd:Q515 wd:Q1549591 wd:Q1637706}
+		?city wdt:P31 ?cityTypes. # different types of cities
 		?city wdt:P17 ?country. # with property "country"
 		?city wdt:P190 ?sister. # with property "sister city"
 		SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
@@ -456,15 +454,16 @@ Germany had the largest number of sister cities (1375 cities) for 2020. The \ref
     9 & \wdqName{Hungary}{28} & 39 & \num{2,8}\% \\
     10 & \wdqName{Belgium}{31} & 33 & \num{2,4}\% \\
     \bottomrule  \end{tabular}%
-  \caption{List of countries having the largest number of sister cities with Germany cities, 2020.}
+  \caption{List of first 10 countries having the largest number of sister cities with Germany cities, 2020.}
   \labtab{tab:germany_sister_cities}
   %\zsavepos{pos:normaltab}
 \end{table}
 
+\newpage
 \begin{lstlisting}[ language=SPARQL, 
                     caption={List of countries having sister cities with Germany cities \\\hspace{\textwidth}
-                        The result contains 93 records in 2020.\\\hspace{\textwidth}
-                        SPARQL query: \href{https://w.wiki/m3A}{w.wiki/m3A}
+                        The result contains 93 countries in 2020.\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/pMV}{w.wiki/pMV}
                         },
                     label=lst:sister_cities_with_Germany,
                     texcl 
@@ -473,10 +472,8 @@ Germany had the largest number of sister cities (1375 cities) for 2020. The \ref
 # of cities which are ...
 SELECT ?country ?countryLabel 
 				(COUNT(DISTINCT ?sister) as ?sisterCount) WHERE {                                                          
-	{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"
-	{ ?city wdt:P31 wd:Q515 } UNION # OR "city"
-	{ ?city wdt:P31 wd:Q1549591 } UNION # OR "big city"      
-	{ ?city wdt:P31 wd:Q1637706 }. # OR "city 1000000+"
+	VALUES ?cityTypes {wd:Q3957 wd:Q515 wd:Q1549591 wd:Q1637706}
+	?city wdt:P31 ?cityTypes. # different types of cities instances
 	?city wdt:P17 wd:Q183. # belonging to Germany  
 	?city wdt:P190 ?sister. # with property "sister city"
 	?sister wdt:P17 ?country. # with property "country"
@@ -486,9 +483,9 @@ GROUP BY ?country ?countryLabel
 ORDER BY DESC(?sisterCount)
 \end{lstlisting}%
 
-\subsection{Closest neighbours of Russia}
+\subsection{Closest neighbours of Russia by number of sister cities}
 
-The SPARQL query for construction a list of countries with which Russia has sister cities is presented below (Listing \ref{lst:countries_sister_cities_with_Russia}). The result of this query is shown in \reffig{fig:Bubble_countries_sister_cities_with_Russia}.
+The SPARQL query for construction a list of countries with which Russia has sister cities is presented below (Listing \ref{lst:countries_sister_cities_with_Russia}). The result of query is shown in \reffig{fig:Bubble_countries_sister_cities_with_Russia}.
 
 \begin{marginfigure}[2cm]
 {
@@ -501,9 +498,9 @@ The SPARQL query for construction a list of countries with which Russia has sist
 \end{marginfigure}
 
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={Closest neighbours of Russia\\\hspace{\textwidth}
-                        The result contains 96 records in 2020.\\\hspace{\textwidth}
-                        SPARQL query: \href{https://w.wiki/m37}{w.wiki/m37}
+                    caption={Closest neighbours of Russia by number of sister cities\\\hspace{\textwidth}
+                        The result contains 96 countries in 2020.\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/pMW}{w.wiki/pMW}
                         },
                     label=lst:countries_sister_cities_with_Russia,
                     texcl 
@@ -513,10 +510,8 @@ The SPARQL query for construction a list of countries with which Russia has sist
 # of cities which are ...
 SELECT ?country ?countryLabel 
 				(COUNT(DISTINCT ?sister) as ?sisterCount) WHERE {                                                
-	{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"
-	{ ?city wdt:P31 wd:Q515 } UNION # OR "city"
-	{ ?city wdt:P31 wd:Q1549591 } UNION # OR "big city"
-	{ ?city wdt:P31 wd:Q1637706 }. # OR "city 1000000+"                                 
+	VALUES ?cityTypes {wd:Q3957 wd:Q515 wd:Q1549591 wd:Q1637706}
+	?city wdt:P31 ?cityTypes. # different types of cities instances                                
 	?city wdt:P17 wd:Q159. # belonging to Russia
 	?city wdt:P190 ?sister. # with property "sister city"
 	?sister wdt:P17 ?country. # with property "country"
@@ -567,7 +562,7 @@ SELECT ?city ?cityLabel WHERE { # Selecting items which are ...
 }
 \end{lstlisting}%
 
-Also, probably with ambiguity in the criteria for assigning city status, subclasses were created for specific countries — \wdqName{city in Chile}{25412763}, \wdqName{city in Cyprus}{29556224}, \wdqName{city of Japan}{494721} and so on. This tendency was not spared by the cities of Russia, which could be noticed when comparing the results of a SPARQL query to find instances of  \wdqName{city}{515} (Listing \ref{lst:city}). At the moment, most of them belong to the \wdqName{city/town}{7930989} class.
+Also, probably with ambiguity in the criteria for assigning city status, subclasses were created for specific countries — \wdqName{city in Chile}{25412763}, \wdqName{city in Cyprus}{29556224}, \wdqName{city of Japan}{494721} and so on. This tendency was not spared by the cities of Russia, which could be noticed when comparing the results of a SPARQL query to find instances of  \wdqName{city}{515} (Listing \ref{lst:city}). For 2020, most of them belong to the \wdqName{city/town}{7930989} class.
 
 According to the \href{http://www.gks.ru/free\_doc/new\_site/perepis2010/croc/Documents/Vol1/pub-01-03.pdf}{Russian Census (2010)} and the \href{https://rosstat.gov.ru/free\_doc/new\_site/population/demo/perepis\_krim/KRUM\_2015.pdf}{Crimean Federal District Census (2014)}, the total number of Russian cities was \num{1117} in 2014. All cities in Russia have an article in both Russian and English Wikipedia.
 
