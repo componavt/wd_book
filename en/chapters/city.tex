@@ -45,7 +45,7 @@ SELECT ?city ?cityLabel WHERE {
 \end{lstlisting}%
 
 %\marginnote[-1.0cm]{
-\wdqName{Singapore}{334} is the leader in terms of the number of properties (104 properties) among cities and big cities around the world. %\wdqName{Novorossiysk}{15760} contains 31 properties which is the maximum number of properties for Russian cities.
+\wdqName{Singapore}{334} is the leader in terms of the number of properties (104 properties) among cities around the world \sidecite{city_prowd}. %\wdqName{Novorossiysk}{15760} contains 31 properties which is the maximum number of properties for Russian cities.
 %}
 
 \begin{lstlisting}[ language=SPARQL, 
@@ -63,9 +63,8 @@ SELECT ?city ?cityLabel WHERE {
 }
 \end{lstlisting}%
 
-%\marginnote[-0.7cm]{
-\wdqName{Moscow}{649} contains 76 properties which is the maximum number for Russian big cities.
-%}
+\wdqName{Moscow}{649} contains 76 properties which is the maximum number for Russian big cities \sidecite{big_city_prowd}.
+
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Instances of \wdqName{city with millions of inhabitants}{1637706}\\\hspace{\textwidth}
@@ -191,7 +190,7 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
 
 Different countries use different characters as separators, such as point, comma, or space. As a result, the variants of representing the value of the \href{https://www.wikidata.org/wiki/Property:P1082}{population} property can also be different. Problems arise when using a point, because in Wikidata this character is the separator between the integer and decimal parts of a number. To disambiguate, \href{https://en.wikibooks.org/wiki/SPARQL/Expressions\_and\_Functions\#REPLACE}{REPLACE} function to remove the specified character should be used (Listings \ref{lst:population_town},   \ref{lst:population_city}, \ref{lst:population_big_city}, \ref{lst:population_city_millions}). This conversion does not affect the value itself, since the population is an integer, and the separators are used solely for ease of reading.
 
-The \reftab{tab:population} shows a summary of the population of different types of cities, as well as the proportion of the population per type of city of the \href{https://en.wikipedia.org/wiki/World\_population}{world population}, which reached approximately 7,8 billion people in 2020. According to Wikidata, almost three quarters of the world's population live in cities.
+The \reftab{tab:population} shows a summary of the population of different types of cities, as well as the proportion of the population per type of city of the \href{https://en.wikipedia.org/wiki/World\_population}{world population}, which reached approximately 7,8 billion people in 2020 \sidecite{world_population}. According to Wikidata, almost three quarters of the world's population live in cities.
 
 \begin{table}[h]
   \centering
@@ -217,7 +216,7 @@ The \reftab{tab:population} shows a summary of the population of different types
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Sister cities}
 
-\href{https://en.wikipedia.org/wiki/Sister_city}{Sister cities} are cities of different states that have established permanent friendly relations with each other in order to strengthen international relationship in the fields of culture, economics, creation and management of urban infrastructure, the functioning of civil society, and so on.
+\href{https://en.wikipedia.org/wiki/Sister_city}{Sister cities} are cities of different states that have established permanent friendly relations with each other in order to strengthen international relationship in the fields of culture, economics, creation and management of urban infrastructure, the functioning of civil society, and so on \sidecite{sister_city}.
 
 \subsection{How many cities don't have a single sister city?}
 
@@ -564,12 +563,12 @@ SELECT ?city ?cityLabel WHERE { # Selecting items which are ...
 
 Also, probably with ambiguity in the criteria for assigning city status, subclasses were created for specific countries — \wdqName{city in Chile}{25412763}, \wdqName{city in Cyprus}{29556224}, \wdqName{city of Japan}{494721} and so on. This tendency was not spared by the cities of Russia, which could be noticed when comparing the results of a SPARQL query to find instances of  \wdqName{city}{515} (Listing \ref{lst:city}). For 2020, most of them belong to the \wdqName{city/town}{7930989} class.
 
-According to the \href{http://www.gks.ru/free\_doc/new\_site/perepis2010/croc/Documents/Vol1/pub-01-03.pdf}{Russian Census (2010)} and the \href{https://rosstat.gov.ru/free\_doc/new\_site/population/demo/perepis\_krim/KRUM\_2015.pdf}{Crimean Federal District Census (2014)}, the total number of Russian cities was \num{1117} in 2014. All cities in Russia have an article in both Russian and English Wikipedia.
+According to the \href{http://www.gks.ru/free\_doc/new\_site/perepis2010/croc/Documents/Vol1/pub-01-03.pdf}{Russian Census (2010)} \sidecite{city_perepis_2010} and the \href{https://rosstat.gov.ru/free\_doc/new\_site/population/demo/perepis\_krim/KRUM\_2015.pdf}{Crimean Federal District Census (2014)} \sidecite{city_perepis_2014}, the total number of Russian cities was \num{1117} in 2014. All cities in Russia have an article in both Russian and English Wikipedia.
 
 Number of Wikidata elements which are Russian cities equals to \href{https://w.wiki/ngM}{\num{1126}}. It can be assumed that Wikidata completely covers, at least, Russian cities.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Tasks}
+\section{Exercises}
 \begin{enumerate}
 \item Construct a graph of Russian sister cities.
 \item Get a list of Russian cities situated beyond the Arctic circle.
