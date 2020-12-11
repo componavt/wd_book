@@ -188,6 +188,19 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
 }
 \end{lstlisting}%
 
+%\marginnote{
+%Which of these cities were named after toponyms?
+%\begin{itemize}
+%\item \href{https://w.wiki/pzi}{Tolyatti}
+%\item \href{https://w.wiki/pzj}{Tula}
+%\item \href{https://w.wiki/pzk}{Chernyakhovsk}
+%\item \href{https://w.wiki/pzm}{Kurilsk}
+%\item \href{https://w.wiki/pzn}{Vologda}
+%\item \href{https://w.wiki/pzo}{Obninsk}
+%\end{itemize}
+%См. ответ~\ref{answer:cities_geographic_objects} на с.~\pageref{answer:cities_geographic_objects}.
+%}
+
 Different countries use different characters as separators, such as point, comma, or space. As a result, the variants of representing the value of the \href{https://www.wikidata.org/wiki/Property:P1082}{population} property can also be different. Problems arise when using a point, because in Wikidata this character is the separator between the integer and decimal parts of a number. To disambiguate, \href{https://en.wikibooks.org/wiki/SPARQL/Expressions\_and\_Functions\#REPLACE}{REPLACE} function to remove the specified character should be used (Listings \ref{lst:population_town},   \ref{lst:population_city}, \ref{lst:population_big_city}, \ref{lst:population_city_millions}). This conversion does not affect the value itself, since the population is an integer, and the separators are used solely for ease of reading.
 
 The \reftab{tab:population} shows a summary of the population of different types of cities, as well as the proportion of the population per type of city of the \href{https://en.wikipedia.org/wiki/World\_population}{world population}, which reached approximately 7,8 billion people in 2020 \sidecite{world_population}. According to Wikidata, almost three quarters of the world's population live in cities.
@@ -383,6 +396,11 @@ GROUP BY ?sisterCount # Group by number of sister cities
 ORDER BY DESC(?sisterCount) # Order by number of sister cities
 \end{lstlisting}%
 
+%\marginnote[-3.0cm]{
+%Which of these cities were founded more than 400 years ago: \href{https://w.wiki/pzt}{Moscow}, \href{https://w.wiki/pzu}{Sarov}, \href{https://w.wiki/pzx}{Kazan}, \href{https://w.wiki/pzy}{Astrakhan}, \href{https://w.wiki/pzz}{Samara}, \href{https://w.wiki/pz$}{Voronezh}?
+%См. ответ~\ref{answer:cities_over_400_age} на с.~\pageref{answer:cities_over_400_age}.
+%}
+
 The situation with Russian cities is shown in \reffig{fig:city_relation_Russia_S_N}. A little less than a hundred Russian cities (82 cities) have at least one sister city, of which only 48\% (39 cities) are connected with over than five cities.
 
 \begin{figure}[H]
@@ -484,43 +502,74 @@ ORDER BY DESC(?sisterCount)
 
 \subsection{Closest neighbours of Russia by number of sister cities}
 
-The SPARQL query for construction a list of countries with which Russia has sister cities is presented below (Listing \ref{lst:countries_sister_cities_with_Russia}). The result of query is shown in \reffig{fig:Bubble_countries_sister_cities_with_Russia}.
-
-\begin{marginfigure}[2cm]
-{
-\setlength{\fboxsep}{0pt}%
-\setlength{\fboxrule}{1pt}%
-\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{chapter/city/Bubble_chart_number_of_sister_cities_with_Russia_of_countries_according_to_Wikidata,_2020_(EN).png}}
-}
-	\caption{Bubble chart by the number of Russian sister cities with countries, 2020.}
-	\labfig{fig:Bubble_countries_sister_cities_with_Russia}
-\end{marginfigure}
+The SPARQL query for construction a list of countries with which Russia has sister cities is presented below (Listing \ref{lst:countries_sister_cities_with_Russia}). The result of query is shown in \reffig{fig:Map_closest_neighbours_Russia}.
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Closest neighbours of Russia by number of sister cities\\\hspace{\textwidth}
-                        The result contains 96 countries in 2020.\\\hspace{\textwidth}
-                        SPARQL query: \href{https://w.wiki/pMW}{w.wiki/pMW}
+                        The result contains 102 countries in 2020.\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/q5d}{w.wiki/q5d}
                         },
                     label=lst:countries_sister_cities_with_Russia,
                     texcl 
                     ]
-#defaultView:BubbleChart
+#defaultView:Map
 # Selecting number of distinct particular country sister cities 
 # of cities which are ...
-SELECT ?country ?countryLabel 
-				(COUNT(DISTINCT ?sister) as ?sisterCount) WHERE {                                                
-	VALUES ?cityTypes {wd:Q3957 wd:Q515 wd:Q1549591 wd:Q1637706}
-	?city wdt:P31 ?cityTypes. # different types of cities instances                                
-	?city wdt:P17 wd:Q159. # belonging to Russia
-	?city wdt:P190 ?sister. # with property "sister city"
-	?sister wdt:P17 ?country. # with property "country"
-	SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
+SELECT ?country ?countryLabel ?sisterCount ?shape ?layer WHERE {
+	{ 
+		SELECT ?country ?countryLabel 
+					(COUNT(DISTINCT ?sister) as ?sisterCount) WHERE {  
+			VALUES ?cityTypes {wd:Q3957 wd:Q515 wd:Q1549591 wd:Q1637706}
+			?city wdt:P31 ?cityTypes. # different types of cities
+			?city wdt:P17 wd:Q159. # city belongs to Russia
+			?city wdt:P190 ?sister. # city has "sister city"
+			?sister wdt:P17 ?country. # which belongs to "country"
+			FILTER(?country NOT IN(wd:Q159))  # except the Russia
+			SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
+		}
+		GROUP BY ?country ?countryLabel
+		ORDER BY DESC(?sisterCount)
+	}
+	OPTIONAL {?country wdt:P3896 ?shape.} # country has "geoshape"
+	BIND(
+		IF(?sisterCount < 5, "<5",
+		IF(?sisterCount <= 10, "5-10",
+		IF(?sisterCount <= 20, "11-20",
+		IF(?sisterCount <= 30, "21-30",
+		IF(?sisterCount <= 40, "31-40",
+		">40"))))) AS ?layer).
 }
-GROUP BY ?country ?countryLabel
-ORDER BY DESC(?sisterCount)
 \end{lstlisting}%
 
-Russia has more than twenty sister cities with countries such as United States of America (47), China (46), Germany (45), Ukraine (28), Bulgaria (26), Poland (24), France (23) and Italy (22).
+%\marginnote{
+%Which city does the flag in \reffig{fig:flag_question_city} belong to?
+%}
+
+%\begin{marginfigure}
+%{
+%\setlength{\fboxsep}{0pt}%
+%\setlength{\fboxrule}{1pt}%
+%\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{/chapter/city/Flag_of_Karabulak_(Ingushetia).png}}%
+%}
+  %\caption{Flag of some Russian city.}%
+  %\labfig{fig:flag_question_city}%
+%\end{marginfigure}
+
+%\marginnote{
+%См. ответ~\ref{answer:cities_flags} на с.~\pageref{answer:cities_flags}.
+%}
+
+\begin{figure*}[h]
+{
+\setlength{\fboxsep}{0pt}%
+\setlength{\fboxrule}{1pt}%
+\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{chapter/city/Map_of_closest_neighbours_of_Russia_by_number_of_sister_cities,_2020.png}}
+}
+	\caption{Map of closest neighbours of Russia by number of sister cities, 2020.}
+	\labfig{fig:Map_closest_neighbours_Russia}
+\end{figure*}
+
+Russia has more than twenty sister cities with countries such as United States of America (46), China (46), Germany (44), Ukraine (28), Bulgaria (25), Poland (24), France (23) and Italy (22).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Wikidata completeness and disadvantages}
