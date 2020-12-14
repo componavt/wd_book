@@ -1,26 +1,4 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% kaobook
-% kao Styling Package
-% Version 1.2.2 (2020/07/03)
-%
-% This template originates from:
-% https://www.LaTeXTemplates.com
-%
-% For the latest template development version and to make contributions:
-% https://github.com/fmarotta/kaobook
-%
-% Authors:
-% Federico Marotta (federicomarotta@mail.com)
-% Based on the doctoral thesis of Ken Arroyo Ohori (https://3d.bk.tudelft.nl/ken/en)
-% and on the Tufte-LaTeX class.
-% Modified for LaTeX Templates by Vel (vel@latextemplates.com)
-%
-% License:
-% LPPL (see included MANIFEST.md file)
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\ProvidesPackage{styles/kao}[2020/07/03 v1.2.3 kao]
+\ProvidesPackage{styles/kao}
 
 %----------------------------------------------------------------------------------------
 %	USEFUL PACKAGES AND COMMANDS
@@ -29,9 +7,10 @@
 % \RequirePackage[l2tabu,orthodox]{nag} % turn on warnings because of bad style
 \RequirePackage{etoolbox} % Easy programming to modify TeX stuff
 \RequirePackage{calc} % Make calculations
+\RequirePackage[usenames,dvipsnames,table]{xcolor} % Colours
 \RequirePackage{iftex} % Check wether XeTeX is being used
 \RequirePackage{xifthen} % Easy conditionals
-\RequirePackage{xkeyval} % Manage class options
+\RequirePackage{options} % Manage class options
 \RequirePackage{xparse} % Parse arguments for macros
 \RequirePackage{xpatch} % Patch LaTeX code in external packages
 \RequirePackage{xstring} % Parse strings
@@ -73,6 +52,200 @@
 \pretocmd{\maketitle}{\pdfbookmark[1]{\@plaintitle}{title}}{}{}%
 
 %----------------------------------------------------------------------------------------
+%	PAGE LAYOUT
+%----------------------------------------------------------------------------------------
+
+% Define lengths to set the scale of the document. Changing these 
+% lengths should affect all the other pagesize-dependent elements in the 
+% layout, such as the geometry of the page, the spacing between 
+% paragraphs, and so on. (As of now, not all the elements rely on hscale 
+% and vscale; future work will address this shortcoming.)
+\newlength{\hscale}
+\newlength{\vscale}
+
+% By default, the scales are set to work for a4paper
+\setlength{\hscale}{1mm}
+\setlength{\vscale}{1mm}
+
+\@ifclasswith{\@baseclass}{a0paper}{\setlength{\hscale}{4mm}\setlength{\vscale}{4mm}}{}
+\@ifclasswith{\@baseclass}{a1paper}{\setlength{\hscale}{2.828mm}\setlength{\vscale}{2.828mm}}{}
+\@ifclasswith{\@baseclass}{a2paper}{\setlength{\hscale}{2mm}\setlength{\vscale}{2mm}}{}
+\@ifclasswith{\@baseclass}{a3paper}{\setlength{\hscale}{1.414mm}\setlength{\vscale}{1.414mm}}{}
+\@ifclasswith{\@baseclass}{a4paper}{\setlength{\hscale}{1mm}\setlength{\vscale}{1mm}}{}
+\@ifclasswith{\@baseclass}{a5paper}{\setlength{\hscale}{0.704mm}\setlength{\vscale}{0.704mm}}{}
+\@ifclasswith{\@baseclass}{a6paper}{\setlength{\hscale}{0.5mm}\setlength{\vscale}{0.5mm}}{}
+\@ifclasswith{\@baseclass}{b0paper}{\setlength{\hscale}{4.761mm}\setlength{\vscale}{4.761mm}}{}
+\@ifclasswith{\@baseclass}{b1paper}{\setlength{\hscale}{3.367mm}\setlength{\vscale}{3.367mm}}{}
+\@ifclasswith{\@baseclass}{b2paper}{\setlength{\hscale}{2.380mm}\setlength{\vscale}{2.380mm}}{}
+\@ifclasswith{\@baseclass}{b3paper}{\setlength{\hscale}{1.681mm}\setlength{\vscale}{1.681mm}}{}
+\@ifclasswith{\@baseclass}{b4paper}{\setlength{\hscale}{1.190mm}\setlength{\vscale}{1.190mm}}{}
+\@ifclasswith{\@baseclass}{b5paper}{\setlength{\hscale}{0.837mm}\setlength{\vscale}{0.837mm}}{}
+\@ifclasswith{\@baseclass}{b6paper}{\setlength{\hscale}{0.570mm}\setlength{\vscale}{0.570mm}}{}
+\@ifclasswith{\@baseclass}{c0paper}{\setlength{\hscale}{4.367mm}\setlength{\vscale}{4.367mm}}{}
+\@ifclasswith{\@baseclass}{c1paper}{\setlength{\hscale}{3.085mm}\setlength{\vscale}{3.085mm}}{}
+\@ifclasswith{\@baseclass}{c2paper}{\setlength{\hscale}{2.180mm}\setlength{\vscale}{2.180mm}}{}
+\@ifclasswith{\@baseclass}{c3paper}{\setlength{\hscale}{1.542mm}\setlength{\vscale}{1.542mm}}{}
+\@ifclasswith{\@baseclass}{c4paper}{\setlength{\hscale}{1.090mm}\setlength{\vscale}{1.090mm}}{}
+\@ifclasswith{\@baseclass}{c5paper}{\setlength{\hscale}{0.771mm}\setlength{\vscale}{0.771mm}}{}
+\@ifclasswith{\@baseclass}{c6paper}{\setlength{\hscale}{0.542mm}\setlength{\vscale}{0.542mm}}{}
+\@ifclasswith{\@baseclass}{b0j}{\setlength{\hscale}{4.904mm}\setlength{\vscale}{4.904mm}}{}
+\@ifclasswith{\@baseclass}{b1j}{\setlength{\hscale}{3.467mm}\setlength{\vscale}{3.467mm}}{}
+\@ifclasswith{\@baseclass}{b2j}{\setlength{\hscale}{2.452mm}\setlength{\vscale}{2.452mm}}{}
+\@ifclasswith{\@baseclass}{b3j}{\setlength{\hscale}{1.733mm}\setlength{\vscale}{1.733mm}}{}
+\@ifclasswith{\@baseclass}{b4j}{\setlength{\hscale}{1.226mm}\setlength{\vscale}{1.226mm}}{}
+\@ifclasswith{\@baseclass}{b5j}{\setlength{\hscale}{0.867mm}\setlength{\vscale}{0.867mm}}{}
+\@ifclasswith{\@baseclass}{b6j}{\setlength{\hscale}{0.613mm}\setlength{\vscale}{0.613mm}}{}
+\@ifclasswith{\@baseclass}{ansiapaper}{\setlength{\hscale}{1.028mm}\setlength{\vscale}{0.939mm}}{}
+\@ifclasswith{\@baseclass}{ansibpaper}{\setlength{\hscale}{1.328mm}\setlength{\vscale}{1.454mm}}{}
+\@ifclasswith{\@baseclass}{ansicpaper}{\setlength{\hscale}{2.057mm}\setlength{\vscale}{1.882mm}}{}
+\@ifclasswith{\@baseclass}{ansidpaper}{\setlength{\hscale}{2.662mm}\setlength{\vscale}{2.909mm}}{}
+\@ifclasswith{\@baseclass}{ansiepaper}{\setlength{\hscale}{4.114mm}\setlength{\vscale}{3.764mm}}{}
+\@ifclasswith{\@baseclass}{letterpaper}{\setlength{\hscale}{1.028mm}\setlength{\vscale}{0.939mm}}{}
+\@ifclasswith{\@baseclass}{executivepaper}{\setlength{\hscale}{0.876mm}\setlength{\vscale}{0.898mm}}{}
+\@ifclasswith{\@baseclass}{legalpaper}{\setlength{\hscale}{1.028mm}\setlength{\vscale}{1.198mm}}{}
+\@ifclasswith{\@baseclass}{smallpocketpaper}{\setlength{\hscale}{0.571mm}\setlength{\vscale}{0.639mm}}{}
+\@ifclasswith{\@baseclass}{pocketpaper}{\setlength{\hscale}{0.642mm}\setlength{\vscale}{0.723mm}}{}
+\@ifclasswith{\@baseclass}{juvenilepaper}{\setlength{\hscale}{0.738mm}\setlength{\vscale}{0.740mm}}{}
+\@ifclasswith{\@baseclass}{smallphotopaper}{\setlength{\hscale}{0.809mm}\setlength{\vscale}{0.572mm}}{}
+\@ifclasswith{\@baseclass}{photopaper}{\setlength{\hscale}{1.00mm}\setlength{\vscale}{0.707mm}}{}
+\@ifclasswith{\@baseclass}{appendixpaper}{\setlength{\hscale}{1.000mm}\setlength{\vscale}{0.505mm}}{}
+\@ifclasswith{\@baseclass}{cookpaper}{\setlength{\hscale}{0.809mm}\setlength{\vscale}{0.740mm}}{}
+\@ifclasswith{\@baseclass}{illustratedpaper}{\setlength{\hscale}{0.905mm}\setlength{\vscale}{0.909mm}}{}
+\@ifclasswith{\@baseclass}{f24paper}{\setlength{\hscale}{0.762mm}\setlength{\vscale}{0.808mm}}{}
+\@ifclasswith{\@baseclass}{a4paperlandscape}{\setlength{\hscale}{1.414mm}\setlength{\vscale}{0.707mm}}{}
+
+% Set the default page layout
+\RequirePackage[
+	paperwidth=210\hscale,
+	paperheight=297\vscale,
+	includemp
+]{geometry}
+
+% Command to choose among the three possible layouts
+\DeclareDocumentCommand{\pagelayout}{m}{%
+	\ifthenelse{\equal{margin}{#1}}{\marginlayout\marginfloatsetup}{}%
+	\ifthenelse{\equal{wide}{#1}}{\widelayout\widefloatsetup}{}%
+	\ifthenelse{\equal{fullwidth}{#1}}{\fullwidthlayout\widefloatsetup}{}%
+}
+
+% Layout #1: large margins
+\newcommand{\marginlayout}{%
+	\newgeometry{
+		top=27.4\vscale,
+		bottom=27.4\vscale,
+		inner=24.8\hscale,
+		textwidth=107\hscale,
+		marginparsep=8.2\hscale,
+		marginparwidth=49.4\hscale,
+	}%
+}
+
+% Layout #2: small, symmetric margins
+\newcommand{\widelayout}{%
+	\newgeometry{
+		top=27.4\vscale,
+		bottom=27.4\vscale,
+		inner=24.8\hscale,
+		outer=24.8\hscale,
+		marginparsep=0mm,
+		marginparwidth=0mm,
+		ignoremp,
+	}%
+}
+
+% Layout #3: no margins and no space above or below the body
+\newcommand{\fullwidthpage}{%
+	\newgeometry{
+		top=0mm,
+		bottom=0mm,
+		inner=0mm,
+		outer=0mm,
+		marginparwidth=0mm,
+		marginparsep=0mm,
+		ignoremp
+	}%
+}
+
+% Set the default page layout
+\AtBeginDocument{\pagelayout{margin}}
+
+%----------------------------------------------------------------------------------------
+%	HEADERS AND FOOTERS
+%----------------------------------------------------------------------------------------
+
+\RequirePackage{scrlayer-scrpage}		% Customise head and foot regions
+
+% Set the header height to prevent a warning
+%\setlength{\headheight}{27.4\vscale}
+% Increase the space between header and text
+\setlength{\headsep}{11\vscale}
+
+% Define some LaTeX lengths used in the page headers
+\newlength{\headtextwidth}
+\newlength{\headmarginparsep}
+\newlength{\headmarginparwidth}
+\newlength{\headtotal} % This is the total width of the header
+
+\AtBeginDocument{% Recalculate the header-related lengths
+	\setlength{\headtextwidth}{\textwidth}%
+	\setlength{\headmarginparsep}{\marginparsep}%
+	\setlength{\headmarginparwidth}{\marginparwidth}%
+	\setlength{\headtotal}{\headtextwidth+\headmarginparsep+\headmarginparwidth}%
+}
+
+% Style with chapter number, chapter title, and page in the header (used throughout the document)
+\renewpagestyle{scrheadings}{%
+	{\smash{\hspace{-\headmarginparwidth}\hspace{-\headmarginparsep}\makebox[\headtotal][l]{%
+		\makebox[7\hscale][r]{\thepage}%
+		\makebox[3\hscale]{}\rule[-1mm]{0.5pt}{19\vscale-1mm}\makebox[3\hscale]{}%
+		\makebox[\headtextwidth][l]{\leftmark}}}}%
+	{\smash{\makebox[0pt][l]{\makebox[\headtotal][r]{%
+		\makebox[\headtextwidth][r]{\hfill\rightmark}%
+		\makebox[3\hscale]{}\rule[-1mm]{0.5pt}{19\vscale-1mm}\makebox[3\hscale]{}%
+		\makebox[7\hscale][l]{\thepage}}}}}%
+	{\smash{\makebox[0pt][l]{\makebox[\headtotal][r]{%
+		\makebox[\headtextwidth][r]{\hfill\rightmark}%
+		\makebox[3\hscale]{}\rule[-1mm]{0.5pt}{19\vscale-1mm}\makebox[3\hscale]{}%
+		\makebox[7\hscale][l]{\thepage}}}}}%
+}{%
+	{}%
+	{}%
+	{}%
+}
+
+% Style with neither header nor footer (used for special pages)
+\renewpagestyle{plain.scrheadings}{%
+	{}%
+	{}%
+	{}%
+}{%
+	{}%
+	{}%
+	{}%
+}
+
+% Style with an empty header and the page number in the footer
+\newpagestyle{pagenum.scrheadings}{%
+	{}%
+	{}%
+	{}%
+}{%
+	{\thepage}%
+	{\hfill\thepage}%
+	{}%
+}
+
+% Command to print a blank page
+\newcommand\blankpage{%
+	\null%
+	\thispagestyle{empty}%
+	\newpage%
+}
+
+% Set the default page style
+\pagestyle{plain.scrheadings}
+
+%----------------------------------------------------------------------------------------
 %	PARAGRAPH FORMATTING
 %----------------------------------------------------------------------------------------
 
@@ -82,11 +255,8 @@
 \RequirePackage{microtype} % Improves character and word spacing
 \RequirePackage{needspace} % Required to prevent page break right after a sectioning command
 \RequirePackage{xspace} % Better print trailing whitespace
-\RequirePackage[usenames,dvipsnames,table]{xcolor} % Colours
 
 % TODO: recognize space/indent justified/raggedright class options
-
-%------------------------------------------------
 
 % Settings for a normal paragraph
 \newcommand{\@body@par}{%
@@ -96,8 +266,6 @@
 	\normalfont% Use the default font
 	\normalsize% Use the default size
 }
-
-%------------------------------------------------
 
 % Settings for paragraphs in the margins
 \newcommand{\@margin@par}{%
@@ -111,23 +279,50 @@
 	\footnotesize% Use a smaller size
 }
 
-%------------------------------------------------
-
 % By default, use @body@par settings
 \@body@par
+
+%----------------------------------------------------------------------------------------
+%	WIDE PARAGRAPHS
+%----------------------------------------------------------------------------------------
+
+% Environment for a wide paragraph
+\NewDocumentEnvironment{widepar}{}{%
+  \if@twoside%
+	\Ifthispageodd{%
+	  \begin{addmargin}[0cm]{-\marginparwidth-\marginparsep}%
+	}{%
+	  \begin{addmargin}[-\marginparwidth-\marginparsep]{0cm}%
+	}%
+  \else%
+	\begin{addmargin}[0cm]{-\marginparwidth-\marginparsep}%
+  \fi%
+}{%
+	\end{addmargin}%
+}
+
+% Environment for a wide equation
+\NewDocumentEnvironment{wideequation}{}{%
+  \begin{widepar}%
+	\begin{equation}%
+}{%
+	\end{equation}%
+  \end{widepar}%
+}
 
 %----------------------------------------------------------------------------------------
 %	FOOTNOTES, MARGINNOTES AND SIDENOTES
 %----------------------------------------------------------------------------------------
 
 \RequirePackage[section]{placeins} % Prevent floats to cross sections
-
 \extrafloats{100} % Require more floats
 
-%------------------------------------------------
+\RequirePackage{marginnote} % Provides options for margin notes
+\RequirePackage{marginfix} % Make marginpars float freely
+\RequirePackage{sidenotes} % Use sidenotes
+\RequirePackage{chngcntr} % Reset counters at sections
 
 % TODO: see also page 440 of the KOMA-script guide
-
 \RequirePackage[
 	bottom,
 	symbol*,
@@ -146,21 +341,17 @@
 % FIXME: I am not able to choose the paragraph layout of footnotes, probably the footnotes package conflicts with scrbook.
 %\renewcommand{\footnotelayout}{\@margin@par}
 
-%------------------------------------------------
-
-\RequirePackage{marginnote} % Provides options for margin notes
-\RequirePackage{marginfix} % Make marginpars float freely
-\RequirePackage{sidenotes} % Use sidenotes
-\RequirePackage{chngcntr} % Reset counters at sections
+%----------------------------------------------------------------------------------------
 
 % Justify and format margin notes
 \renewcommand*{\raggedleftmarginnote}{} % Suppress left margin
 \renewcommand*{\raggedrightmarginnote}{} % Suppress right margin
 \renewcommand*{\marginfont}{\@margin@par} % Format marginnotes according to \@marginpar (see above)
-\renewcommand{\marginnotevadjust}{0.7\vpll} % Bring all marginnotes downward a bit
+\renewcommand{\marginnotevadjust}{0.7\vscale} % Bring all marginnotes downward a bit
 %\RequirePackage[marginnote=true]{snotez} % Provides options for sidenotes
 
-\def\snotez@if@nblskip#1{%
+% Copied from snotez's \sidenote
+\def\kao@if@nblskip#1{%
 	\expandafter\ifx\@car#1\@nil*%
 		\expandafter\@firstoftwo%
 	\else%
@@ -188,23 +379,20 @@
 % Usage: \marginnote[<offset>]{Text of the note.}
 \let\oldmarginnote\marginnote%
 \RenewDocumentCommand\marginnote { o m }{%
-	\IfNoValueOrEmptyTF{#1}%
-	{%
+	\IfNoValueOrEmptyTF{#1}{%
 		\IfInFloatingEnvir{%
 			\oldmarginnote{#2}%
 		}{%
 			\marginpar{\@margin@par#2}%
 		}%
 	}{%
-		\oldmarginnote{#2}[\snotez@if@nblskip{#1}{\@cdr#1\@nil\baselineskip}{#1}]%
+		\oldmarginnote{#2}[\kao@if@nblskip{#1}{\@cdr#1\@nil\baselineskip}{#1}]%
 	}%
 }
 
 % Redefine the following sidenotes' command to use the kao version of marginnote
-\RenewDocumentCommand \@sidenotes@placemarginal { m m }%
-{%
-	\IfNoValueOrEmptyTF{#1}%
-	{%
+\RenewDocumentCommand \@sidenotes@placemarginal { m m }{%
+	\IfNoValueOrEmptyTF{#1}{%
 		\IfInFloatingEnvir{%
 			\oldmarginnote{#2}%
 		}{%
@@ -235,8 +423,7 @@
 % }
 
 % Formatting sidenotes
-\RenewDocumentCommand \@sidenotes@thesidenotemark { m }%
-{%
+\RenewDocumentCommand \@sidenotes@thesidenotemark { m }{%
 	\leavevmode%
 	\ifhmode%
 		\edef\@x@sf{\the\spacefactor}%
@@ -248,14 +435,13 @@
 	\fi%
 	\relax%
 }%
-%
-\RenewDocumentCommand\sidenotetext{ o o +m }% number, offset, text
-{%
-	\IfNoValueOrEmptyTF{#1}%
-	{%
+
+\RenewDocumentCommand\sidenotetext{ o o +m }{% number, offset, text
+	\IfNoValueOrEmptyTF{#1}{%
 		\@sidenotes@placemarginal{#2}{\@margin@par\thesidenote:\enskip#3}%
+	}{%
+		\@sidenotes@placemarginal{#2}{\@margin@par#1:\enskip#3}%
 	}%
-	{\@sidenotes@placemarginal{#2}{\@margin@par#1:\enskip#3}}%
 }
 
 %----------------------------------------------------------------------------------------
@@ -273,11 +459,11 @@
 %\RequirePackage{minted}
 \RequirePackage{morewrites} % Fix some errors related to floats
 \RequirePackage[hypcap=true]{caption} % Correctly placed anchors for hyperlinks
+\RequirePackage{scrhack} % Make packages compatible with KOMA Script
 % \RequirePackage{atbegshi}
 % \RequirePackage{perpage}
 \let\c@abspage\relax
 % \newcommand{\pp@g@sidenote}{}
-%\RequirePackage[nomencl=false]{scrhack} % Force KOMA to like floatrow
 \RequirePackage{floatrow} % Set up captions of floats
 \RequirePackage{dblfloatfix} % Better positioning of wide figures and tables
 
@@ -308,6 +494,7 @@
 % Environment to hold a margin figure (from the sidenotes package)
 % We redefine it here because we want to use our own caption formatting.
 \RenewDocumentEnvironment{marginfigure}{o}{%
+  \FloatBarrier
   \marginskip{\kaomarginskipabove}%
   \begin{lrbox}{\@sidenotes@marginfigurebox}%
 	\begin{minipage}{\marginparwidth}%
@@ -315,12 +502,13 @@
 }{%
     \end{minipage}%
   \end{lrbox}%
-  \marginnote[#1]{\usebox{\@sidenotes@marginfigurebox}}% Place the table box in the margin
+  \marginnote[#1]{\usebox{\@sidenotes@marginfigurebox}}%
   \marginskip{\kaomarginskipbelow}%
 }
 
 % Environment to hold a margin table (from the sidenotes package)
 \RenewDocumentEnvironment{margintable}{o}{%
+  \FloatBarrier
   \marginskip{\kaomarginskipabove}%
   \begin{lrbox}{\@sidenotes@margintablebox}%
 	\begin{minipage}{\marginparwidth}%
@@ -328,13 +516,14 @@
 }{%
     \end{minipage}%
   \end{lrbox}%
-  \marginnote[#1]{\usebox{\@sidenotes@margintablebox}}% Place the table box in the margin
+  \marginnote[#1]{\usebox{\@sidenotes@margintablebox}}%
   \marginskip{\kaomarginskipbelow}%
 }
 
 % Environment to hold a margin listing
 \newsavebox{\@sidenotes@marginlistingbox}%
 \NewDocumentEnvironment{marginlisting}{o}{% The optional parameter is the vertical offset
+  \FloatBarrier
   \marginskip{\kaomarginskipabove}%
   \begin{lrbox}{\@sidenotes@marginlistingbox}%
 	\begin{minipage}{\marginparwidth}%
@@ -342,131 +531,190 @@
 }{%
 	\end{minipage}%
   \end{lrbox}%
-  \marginnote{#1}{\usebox{\@sidenotes@marginlistingbox}}% Place the listing box in the margin
+  \marginnote[#1]{\usebox{\@sidenotes@marginlistingbox}}%
   \marginskip{\kaomarginskipbelow}%
 }
 
 % Change the position of the captions
 \DeclareFloatSeparators{marginparsep}{\hskip\marginparsep}%
 
+% Detect whether there is a caption in the current environment by switching the kaocaption toggle when \caption is called. If there is no caption, reset the floatsetup. Without this fix, the floatrow package will align the environment to the main text if there is a caption, but to the margin if there is no caption.
+\newtoggle{kaocaption}
+\AtBeginEnvironment{figure}{%
+	\let\oldcaption\caption%
+	\RenewDocumentCommand{\caption}{s o m}{%
+		\IfBooleanTF{#1}{%
+			\oldcaption*{#3}%
+		}{%
+			\IfValueTF{#2}{%
+				\oldcaption[#2]{#3}%
+			}{%
+				\oldcaption{#3}%
+			}%
+		}%
+		\toggletrue{kaocaption}%
+	}%
+}
+\AtEndEnvironment{figure}{%
+	\iftoggle{kaocaption}{%
+	}{%
+		\RawFloats%
+		\centering%
+	}%
+	\togglefalse{kaocaption}%
+}
+\AtBeginEnvironment{table}{%
+	\let\oldcaption\caption%
+	\RenewDocumentCommand{\caption}{s o m}{%
+		\IfBooleanTF{#1}{%
+			\oldcaption*{#3}%
+		}{%
+			\IfValueTF{#2}{%
+				\oldcaption[#2]{#3}%
+			}{%
+				\oldcaption{#3}%
+			}%
+		}%
+		\toggletrue{kaocaption}%
+	}%
+}
+\AtEndEnvironment{table}{%
+	\iftoggle{kaocaption}{%
+	}{%
+		\RawFloats%
+		\centering%
+	}%
+	\togglefalse{kaocaption}%
+}
+
 % Captions for the 'margin' layout
 \NewDocumentCommand{\marginfloatsetup}{}{%
 \if@twoside%
-	\floatsetup[figure]{ % Captions for figueres
-		margins=hangoutside, % Put captions in the margins
+	\floatsetup[figure]{% Captions for figures
+		margins=hangoutside,% Put captions in the margins
 		facing=yes,%
 		capposition=beside,%
 		capbesideposition={bottom,outside},%
 		capbesideframe=yes,%
-		capbesidewidth=\marginparwidth, % Width of the caption equal to the width of the margin
-		capbesidesep=marginparsep,
-		floatwidth=\textwidth, % Width of the figure equal to the width of the text
-	}
-	\floatsetup[widefigure]{ % Captions for wide figures
-		margins=hangoutside, % Put captions below the figure
+		capbesidewidth=\marginparwidth,% Width of the caption equal to the width of the margin
+		capbesidesep=marginparsep,%
+		floatwidth=\textwidth,% Width of the figure equal to the width of the text
+	}%
+	\floatsetup[widefigure]{% Captions for wide figures
+		margins=hangoutside,% Put captions below the figure
 		facing=yes,%
 		capposition=bottom%
-	}
-	\floatsetup[table]{ % Captions for tables
-		margins=hangoutside, % Put captions in the margin
+	}%
+	\floatsetup[table]{% Captions for tables
+		margins=hangoutside,% Put captions in the margin
 		facing=yes,%
 		capposition=beside,%
 		capbesideposition={top,outside},%
 		%capbesideposition=outside,
 		capbesideframe=yes,%
-		capbesidewidth=\marginparwidth, % Width of the caption equal to the width of the margin
+		capbesidewidth=\marginparwidth,% Width of the caption equal to the width of the margin
 		capbesidesep=marginparsep,%
-		floatwidth=\textwidth, % Width of the figure equal to the width of the text
-	}
-	\floatsetup[widetable]{ % Captions for wide tables
-		margins=hangoutside, % Put captions above the table
+		floatwidth=\textwidth,% Width of the figure equal to the width of the text
+	}%
+	\floatsetup[widetable]{% Captions for wide tables
+		margins=hangoutside,% Put captions above the table
 		facing=yes,%
 		capposition=above%
-	}
-	\floatsetup[lstlisting]{ % Captions for lstlistings
-		margins=hangoutside, % Put captions in the margin
+	}%
+	\floatsetup[lstlisting]{% Captions for lstlistings
+		margins=hangoutside,% Put captions in the margin
 		facing=yes,%
 		capposition=beside,%
 		capbesideposition={top,outside},%
 		%capbesideposition=outside,
 		capbesideframe=yes,%
-		capbesidewidth=\marginparwidth, % Width of the caption equal to the width of the margin
+		capbesidewidth=\marginparwidth,% Width of the caption equal to the width of the margin
 		capbesidesep=marginparsep,%
-		floatwidth=\textwidth, % Width of the figure equal to the width of the text
-	}
-	\floatsetup[listing]{ % Captions for listings (minted package)
-		margins=hangoutside, % Put captions in the margin
+		floatwidth=\textwidth,% Width of the figure equal to the width of the text
+	}%
+	\floatsetup[listing]{% Captions for listings (minted package)
+		margins=hangoutside,% Put captions in the margin
 		facing=yes,%
 		capposition=beside,%
 		capbesideposition={top,outside},%
 		%capbesideposition=outside,
 		capbesideframe=yes,%
-		capbesidewidth=\marginparwidth, % Width of the caption equal to the width of the margin
+		capbesidewidth=\marginparwidth,% Width of the caption equal to the width of the margin
 		capbesidesep=marginparsep,%
-		floatwidth=\textwidth, % Width of the figure equal to the width of the text
-	}
-	\captionsetup[lstlisting]{format=llap,labelsep=space,singlelinecheck=no,belowskip=-0.6cm}
+		floatwidth=\textwidth,%Width of the figure equal to the width of the text
+	}%
+	\captionsetup[lstlisting]{%
+		format=llap,%
+		labelsep=space,%
+		singlelinecheck=no,%
+		belowskip=-0.6cm,%
+	}%
 \else%
-	\floatsetup[figure]{ % Captions for figures
-		margins=hangright, % Put captions in the margins
+	\floatsetup[figure]{% Captions for figures
+		margins=hangright,% Put captions in the margins
 		facing=yes,%
 		capposition=beside,%
 		capbesideposition={bottom,right},%
 		capbesideframe=yes,%
-		capbesidewidth=\marginparwidth, % Width of the caption equal to the width of the margin
+		capbesidewidth=\marginparwidth,% Width of the caption equal to the width of the margin
 		capbesidesep=marginparsep,%
-		floatwidth=\textwidth, % Width of the figure equal to the width of the text
-	}
-	\floatsetup[widefigure]{ % Captions for wide figures
-		margins=hangright, % Put captions below the figure
+		floatwidth=\textwidth,% Width of the figure equal to the width of the text
+	}%
+	\floatsetup[widefigure]{% Captions for wide figures
+		margins=hangright,% Put captions below the figure
 		facing=no,%
 		capposition=bottom%
-	}
-	\floatsetup[table]{ % Captions for tables
-		margins=hangright, % Put captions in the margin
+	}%
+	\floatsetup[table]{% Captions for tables
+		margins=hangright,% Put captions in the margin
 		facing=yes,%
 		capposition=beside,%
 		capbesideposition={top,right},%
 		%capbesideposition=outside,
 		capbesideframe=yes,%
-		capbesidewidth=\marginparwidth, % Width of the caption equal to the width of the margin
+		capbesidewidth=\marginparwidth,% Width of the caption equal to the width of the margin
 		capbesidesep=marginparsep,%
-		floatwidth=\textwidth, % Width of the figure equal to the width of the text
-	}
-	\floatsetup[widetable]{ % Captions for wide tables
-		margins=hangright, % Put captions above the table
+		floatwidth=\textwidth,% Width of the figure equal to the width of the text
+	}%
+	\floatsetup[widetable]{% Captions for wide tables
+		margins=hangright,% Put captions above the table
 		facing=no,%
 		capposition=above%
-	}
-	\floatsetup[lstlisting]{ % Captions for lstlisting
-		margins=hangright, % Put captions in the margin
+	}%
+	\floatsetup[lstlisting]{% Captions for lstlisting
+		margins=hangright,% Put captions in the margin
 		facing=yes,%
 		capposition=beside,%
 		capbesideposition={top,right},%
 		%capbesideposition=outside,
 		capbesideframe=yes,%
-		capbesidewidth=\marginparwidth, % Width of the caption equal to the width of the margin
+		capbesidewidth=\marginparwidth,% Width of the caption equal to the width of the margin
 		capbesidesep=marginparsep,%
-		floatwidth=\textwidth, % Width of the figure equal to the width of the text
-	}
-	\floatsetup[listing]{ % Captions for listing (minted package)
-		margins=hangright, % Put captions in the margin
+		floatwidth=\textwidth,% Width of the figure equal to the width of the text
+	}%
+	\floatsetup[listing]{% Captions for listing (minted package)
+		margins=hangright,% Put captions in the margin
 		facing=yes,%
 		capposition=beside,%
 		capbesideposition={top,right},%
 		%capbesideposition=outside,
 		capbesideframe=yes,%
-		capbesidewidth=\marginparwidth, % Width of the caption equal to the width of the margin
+		capbesidewidth=\marginparwidth,% Width of the caption equal to the width of the margin
 		capbesidesep=marginparsep,%
-		floatwidth=\textwidth, % Width of the figure equal to the width of the text
-	}
-	\captionsetup[lstlisting]{format=llap,labelsep=space,singlelinecheck=no,belowskip=-0.6cm}
+		floatwidth=\textwidth,% Width of the figure equal to the width of the text
+	}%
+	\captionsetup[lstlisting]{%
+		format=llap,%
+		labelsep=space,%
+		singlelinecheck=no,%
+		belowskip=-0.6cm,%
+	}%
 \fi%
 }
 
 % Captions for the 'wide' layout
 \NewDocumentCommand{\widefloatsetup}{}{%
-	\floatsetup[figure]{ % Captions for figueres
+	\floatsetup[figure]{ % Captions for figures
 		capposition=bottom,%
 		margins=centering,%
 		floatwidth=\textwidth%
@@ -553,350 +801,16 @@
 \setcounter{tocdepth}{\subsectiontocdepth}
 
 % Define the style for toc entries
-\DeclareTOCStyleEntry[level=1,indent=0em,numwidth=2em]{tocline}{figure}
-\DeclareTOCStyleEntry[level=1,indent=0em,numwidth=2em]{tocline}{table}
+\DeclareTOCStyleEntries[indent=0em,numwidth=2em,dynnumwidth=yes,pagenumberwidth=2.1em]{tocline}{figure,table}
+\DeclareTOCStyleEntries[dynnumwidth=yes]{tocline}{subsubsection,subsection,section,chapter,part}
+\DeclareTOCStyleEntries[pagenumberwidth=2.5em]{tocline}{chapter,part}
+\DeclareTOCStyleEntries[pagenumberwidth=2.1em]{tocline}{subsubsection,subsection,section}
 
 % Define the names for the headings
 % \renewcaptionname{english}{\contentsname}{Detailed Contents}
 % \renewcaptionname{english}{\listfigurename}{Figures}
 % \renewcaptionname{english}{\listtablename}{Tables}
 % \newcaptionname{english}{\listtheoremname}{Theorems}
-
-%----------------------------------------------------------------------------------------
-%	PAGE LAYOUT
-%----------------------------------------------------------------------------------------
-
-% Define lengths to set the scale of the document. Changing these lengths should affect all the other pagesize-dependent elements in the layout, such as the geometry of the page, the spacing between paragraphs, and so on. (As of now, not all the elements rely on hpll and vpll; future work will address this shortcoming.)
-\newlength{\hpll}
-\newlength{\vpll}
-
-\@ifclasswith{\@baseclass}{a0paper}{%
-	\setlength{\hpll}{4mm}%
-	\setlength{\vpll}{4mm}%
-}{}
-\@ifclasswith{\@baseclass}{a1paper}{%
-	\setlength{\hpll}{2.828mm}%
-	\setlength{\vpll}{2.828mm}%
-}{}
-\@ifclasswith{\@baseclass}{a2paper}{%
-	\setlength{\hpll}{2mm}%
-	\setlength{\vpll}{2mm}%
-}{}
-\@ifclasswith{\@baseclass}{a3paper}{%
-	\setlength{\hpll}{1.414mm}%
-	\setlength{\vpll}{1.414mm}%
-}{}
-\@ifclasswith{\@baseclass}{a4paper}{%
-	\setlength{\hpll}{1mm}%
-	\setlength{\vpll}{1mm}%
-}{}
-\@ifclasswith{\@baseclass}{a5paper}{%
-	\setlength{\hpll}{0.704mm}%
-	\setlength{\vpll}{0.704mm}%
-}{}
-\@ifclasswith{\@baseclass}{a6paper}{%
-	\setlength{\hpll}{0.5mm}%
-	\setlength{\vpll}{0.5mm}%
-}{}
-\@ifclasswith{\@baseclass}{b0paper}{%
-	\setlength{\hpll}{4.761mm}%
-	\setlength{\vpll}{4.761mm}%
-}{}
-\@ifclasswith{\@baseclass}{b1paper}{%
-	\setlength{\hpll}{3.367mm}%
-	\setlength{\vpll}{3.367mm}%
-}{}
-\@ifclasswith{\@baseclass}{b2paper}{%
-	\setlength{\hpll}{2.380mm}%
-	\setlength{\vpll}{2.380mm}%
-}{}
-\@ifclasswith{\@baseclass}{b3paper}{%
-	\setlength{\hpll}{1.681mm}%
-	\setlength{\vpll}{1.681mm}%
-}{}
-\@ifclasswith{\@baseclass}{b4paper}{%
-	\setlength{\hpll}{1.190mm}%
-	\setlength{\vpll}{1.190mm}%
-}{}
-\@ifclasswith{\@baseclass}{b5paper}{%
-	\setlength{\hpll}{0.837mm}%
-	\setlength{\vpll}{0.837mm}%
-}{}
-\@ifclasswith{\@baseclass}{b6paper}{%
-	\setlength{\hpll}{0.570mm}%
-	\setlength{\vpll}{0.570mm}%
-}{}
-\@ifclasswith{\@baseclass}{c0paper}{%
-	\setlength{\hpll}{4.367mm}%
-	\setlength{\vpll}{4.367mm}%
-}{}
-\@ifclasswith{\@baseclass}{c1paper}{%
-	\setlength{\hpll}{3.085mm}%
-	\setlength{\vpll}{3.085mm}%
-}{}
-\@ifclasswith{\@baseclass}{c2paper}{%
-	\setlength{\hpll}{2.180mm}%
-	\setlength{\vpll}{2.180mm}%
-}{}
-\@ifclasswith{\@baseclass}{c3paper}{%
-	\setlength{\hpll}{1.542mm}%
-	\setlength{\vpll}{1.542mm}%
-}{}
-\@ifclasswith{\@baseclass}{c4paper}{%
-	\setlength{\hpll}{1.090mm}%
-	\setlength{\vpll}{1.090mm}%
-}{}
-\@ifclasswith{\@baseclass}{c5paper}{%
-	\setlength{\hpll}{0.771mm}%
-	\setlength{\vpll}{0.771mm}%
-}{}
-\@ifclasswith{\@baseclass}{c6paper}{%
-	\setlength{\hpll}{0.542mm}%
-	\setlength{\vpll}{0.542mm}%
-}{}
-\@ifclasswith{\@baseclass}{b0j}{%
-	\setlength{\hpll}{4.904mm}%
-	\setlength{\vpll}{4.904mm}%
-}{}
-\@ifclasswith{\@baseclass}{b1j}{%
-	\setlength{\hpll}{3.467mm}%
-	\setlength{\vpll}{3.467mm}%
-}{}
-\@ifclasswith{\@baseclass}{b2j}{%
-	\setlength{\hpll}{2.452mm}%
-	\setlength{\vpll}{2.452mm}%
-}{}
-\@ifclasswith{\@baseclass}{b3j}{%
-	\setlength{\hpll}{1.733mm}%
-	\setlength{\vpll}{1.733mm}%
-}{}
-\@ifclasswith{\@baseclass}{b4j}{%
-	\setlength{\hpll}{1.226mm}%
-	\setlength{\vpll}{1.226mm}%
-}{}
-\@ifclasswith{\@baseclass}{b5j}{%
-	\setlength{\hpll}{0.867mm}%
-	\setlength{\vpll}{0.867mm}%
-}{}
-\@ifclasswith{\@baseclass}{b6j}{%
-	\setlength{\hpll}{0.613mm}%
-	\setlength{\vpll}{0.613mm}%
-}{}
-\@ifclasswith{\@baseclass}{ansiapaper}{%
-	\setlength{\hpll}{1.028mm}%
-	\setlength{\vpll}{0.939mm}%
-}{}
-\@ifclasswith{\@baseclass}{ansibpaper}{%
-	\setlength{\hpll}{1.328mm}%
-	\setlength{\vpll}{1.454mm}%
-}{}
-\@ifclasswith{\@baseclass}{ansicpaper}{%
-	\setlength{\hpll}{2.057mm}%
-	\setlength{\vpll}{1.882mm}%
-}{}
-\@ifclasswith{\@baseclass}{ansidpaper}{%
-	\setlength{\hpll}{2.662mm}%
-	\setlength{\vpll}{2.909mm}%
-}{}
-\@ifclasswith{\@baseclass}{ansiepaper}{%
-	\setlength{\hpll}{4.114mm}%
-	\setlength{\vpll}{3.764mm}%
-}{}
-\@ifclasswith{\@baseclass}{letterpaper}{%
-	\setlength{\hpll}{1.028mm}%
-	\setlength{\vpll}{0.939mm}%
-}{}
-\@ifclasswith{\@baseclass}{executivepaper}{%
-	\setlength{\hpll}{0.876mm}%
-	\setlength{\vpll}{0.898mm}%
-}{}
-\@ifclasswith{\@baseclass}{legalpaper}{%
-	\setlength{\hpll}{1.028mm}%
-	\setlength{\vpll}{1.198mm}%
-}{}
-\@ifclasswith{\@baseclass}{smallpocketpaper}{%
-	\setlength{\hpll}{0.571mm}%
-	\setlength{\vpll}{0.639mm}%
-}{}
-\@ifclasswith{\@baseclass}{pocketpaper}{%
-	\setlength{\hpll}{0.642mm}%
-	\setlength{\vpll}{0.723mm}%
-}{}
-\@ifclasswith{\@baseclass}{juvenilepaper}{%
-	\setlength{\hpll}{0.738mm}%
-	\setlength{\vpll}{0.740mm}%
-}{}
-\@ifclasswith{\@baseclass}{smallphotopaper}{%
-	\setlength{\hpll}{0.809mm}%
-	\setlength{\vpll}{0.572mm}%
-}{}
-\@ifclasswith{\@baseclass}{photopaper}{%
-	\setlength{\hpll}{1.00mm}%
-	\setlength{\vpll}{0.707mm}%
-}{}
-\@ifclasswith{\@baseclass}{appendixpaper}{%
-	\setlength{\hpll}{1.000mm}%
-	\setlength{\vpll}{0.505mm}%
-}{}
-\@ifclasswith{\@baseclass}{cookpaper}{%
-	\setlength{\hpll}{0.809mm}%
-	\setlength{\vpll}{0.740mm}%
-}{}
-\@ifclasswith{\@baseclass}{illustratedpaper}{%
-	\setlength{\hpll}{0.905mm}%
-	\setlength{\vpll}{0.909mm}%
-}{}
-
-% Set the default page layout
-\RequirePackage[
-	paperwidth=\vpll*\real{210},
-	paperheight=\vpll*\real{297},
-	top=\vpll*\real{27.4},
-	bottom=\vpll*\real{27.4},
-	inner=\hpll*\real{24.8},
-	textwidth=\hpll*\real{107},
-	marginparsep=\hpll*\real{8.2},
-	marginparwidth=\hpll*\real{49.4},
-	includemp
-]{geometry}
-
-% Command to print a blank page
-\newcommand\blankpage{%
-	\null%
-	\thispagestyle{empty}%
-	\newpage%
-}
-
-% Command to choose among the three possible layouts
-\DeclareDocumentCommand{\pagelayout}{m}{%
-	\ifthenelse{\equal{margin}{#1}}{\marginlayout\marginfloatsetup}{}%
-	\ifthenelse{\equal{wide}{#1}}{\widelayout\widefloatsetup}{}%
-	\ifthenelse{\equal{fullwidth}{#1}}{\fullwidthlayout\widefloatsetup}{}%
-}
-
-% Layout #1: large margins
-\newcommand{\marginlayout}{%
-	\newgeometry{
-		top=\vpll*\real{27.4},
-		bottom=\vpll*\real{27.4},
-		inner=\hpll*\real{24.8},
-		textwidth=\hpll*\real{107},
-		marginparsep=\hpll*\real{8.2},
-		marginparwidth=\hpll*\real{49.4},
-	}%
-}
-
-% Layout #2: small, symmetric margins
-\newcommand{\widelayout}{%
-	\newgeometry{
-		top=\vpll*\real{27.4},
-		bottom=\vpll*\real{27.4},
-		inner=\hpll*\real{24.8},
-		outer=\hpll*\real{24.8},
-		marginparsep=0mm,
-		marginparwidth=0mm,
-		ignoremp,
-	}%
-}
-
-% Layout #3: no margins and no space above or below the body
-\newcommand{\fullwidthpage}{%
-	\newgeometry{
-		top=0mm,
-		bottom=0mm,
-		inner=0mm,
-		outer=0mm,
-		marginparwidth=0mm,
-		marginparsep=0mm,
-		ignoremp
-	}%
-}
-
-% Set the default page layout
-\AtBeginDocument{\pagelayout{margin}}
-
-%----------------------------------------------------------------------------------------
-%	WIDE PARAGRAPHS
-%----------------------------------------------------------------------------------------
-
-% Environment for a wide paragraph
-\NewDocumentEnvironment{widepar}{}{%
-  \if@twoside%
-	\Ifthispageodd{%
-	  \begin{addmargin}[0cm]{-\marginparwidth-\marginparsep}%
-	}{%
-	  \begin{addmargin}[-\marginparwidth-\marginparsep]{0cm}%
-	}%
-  \else%
-	\begin{addmargin}[0cm]{-\marginparwidth-\marginparsep}%
-  \fi%
-}{%
-	\end{addmargin}%
-}
-
-% Environment for a wide equation
-\NewDocumentEnvironment{wideequation}{}{%
-  \begin{widepar}%
-	\begin{equation}%
-}{%
-	\end{equation}%
-  \end{widepar}%
-}
-
-%----------------------------------------------------------------------------------------
-%	HEADERS AND FOOTERS
-%----------------------------------------------------------------------------------------
-
-\RequirePackage{scrlayer-scrpage}		% Customise head and foot regions
-\setlength{\headheight}{40\vpll}		% Enlarge the header
-
-% Headings styles
-
-% Style with chapter number, chapter title, and page in the header (used 
-% throughout the document)
-\renewpagestyle{scrheadings}{%
-	{\hspace{-\marginparwidth}\hspace{-\marginparsep}\makebox[\overflowingheadlen][l]{%
-		\parbox[t][1.7cm][c]{2em}{\hfill\thepage}%
-		\makebox[2em][c]{\rule[-1.03cm]{1pt}{1.55cm}}%
-		\parbox[t][1.7cm][c]{\textwidth}{\leftmark}}}%
-	{\makebox[\overflowingheadlen][r]{%
-		\parbox[t][1.7cm][c]{\textwidth}{\hfill\rightmark}%
-		\makebox[2em][c]{\rule[-1.03cm]{1pt}{1.55cm}}%
-		\parbox[t][1.7cm][c]{2em}{\thepage}}}%
-	{\makebox[\overflowingheadlen][r]{%
-		\parbox[t][1.7cm][c]{\textwidth}{\hfill\rightmark}%
-		\makebox[2em][c]{\rule[-1.03cm]{1pt}{1.55cm}}%
-		\parbox[t][1.7cm][c]{2em}{\thepage}}}%
-}{%
-	{}%
-	{}%
-	{}%
-}
-
-% Style with neither header nor footer (used for special pages)
-\renewpagestyle{plain.scrheadings}{%
-	{}%
-	{}%
-	{}%
-}{%
-	{}%
-	{}%
-	{}%
-}
-
-% Style with an empty header and the page number in the footer
-\newpagestyle{pagenum.scrheadings}{%
-	{}%
-	{}%
-	{}%
-}{%
-	{\thepage}%
-	{\hfill\thepage}%
-	{}%
-}
-
-% Set the default page style
-\pagestyle{plain.scrheadings}
 
 %----------------------------------------------------------------------------------------
 %	MARGIN TOC
@@ -908,7 +822,7 @@
 \setcounter{margintocdepth}{\subsectiontocdepth}
 
 \newlength{\mtocshift} % Length of the vertical offset used for margin tocs
-\setlength{\mtocshift}{-52\vpll}
+\setlength{\mtocshift}{-52\vscale}
 
 % Command to print a table of contents in the margin
 \newcommand{\margintoc}[1][\mtocshift]{ % The first parameter is the vertical offset; by default it is \mtocshift

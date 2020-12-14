@@ -1,25 +1,3 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% kaobook
-% LaTeX Template
-% Version 1.3 (18/2/2020)
-%
-% This template originates from:
-% https://www.LaTeXTemplates.com
-%
-% For the latest template development version and to make contributions:
-% https://github.com/fmarotta/kaobook
-%
-% Authors:
-% Federico Marotta (federicomarotta@mail.com)
-% Based on the doctoral thesis of Ken Arroyo Ohori (https://3d.bk.tudelft.nl/ken/en)
-% and on the Tufte-LaTeX class.
-% Modified for LaTeX Templates by Vel (vel@latextemplates.com)
-%
-% License:
-% CC0 1.0 Universal (see included MANIFEST.md file)
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %----------------------------------------------------------------------------------------
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
@@ -216,6 +194,8 @@
 \mainmatter % Denotes the start of the main document content, resets page numbering and uses arabic numbers
 \setchapterstyle{kao} % Choose the default chapter heading style
 
+%\doublespacing
+
 \input{chapters/introduction.tex}
 \input{chapters/listings_about.tex}
 
@@ -227,9 +207,8 @@
 \input{chapters/programming_language.tex}
 \input{chapters/ship.tex}
  
-% template and help LaTeX chapters
-
-\input{chapters.source/introduction.tex}
+% Answers to the questions in the book
+\input{chapters/answers.tex}
 
 \pagelayout{wide} % No margins
 \addpart{Class Options, Commands and Environments}
