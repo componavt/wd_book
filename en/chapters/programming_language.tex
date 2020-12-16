@@ -66,10 +66,25 @@ WHERE
 \end{lstlisting}%
 For 2020, all languages in the list have a filled label field.
 
+\label{question:prog_lang_1}
+\marginnote{
+Correlate a programming language and its developer.
+\newline
+	\begin{tabular}{ll}
+		Developer & Language\\
+		\hline
+		J. Ichbiah & \href{https://www.wikidata.org/wiki/Q154755}{Ada}\\
+		C. Moore & \href{https://www.wikidata.org/wiki/Q275472}{Forth}\\
+		J. Armstrong & \href{https://www.wikidata.org/wiki/Q334879}{Erlang}\\
+	\end{tabular}
+\newline
+The answer is on page~\pageref{answer:prog_lang_1}.
+}
+
 \section{Demonstration of work with operations on sets in SPARQL}
 
 Output all programming languages that are open (free) software and / or experienced the influence of at least one of the following programming languages: \wdqName{C}{15777}, \wdqName{Python}{28865}, \wdqName{Java}{251}. At the same time, developed by any of the companies, except: \href{https://en.wikipedia.org/wiki/Sun_Microsystems}{Sun Microsystems}, \href{https://en.wikipedia.org/wiki/Johnson_Space_Center}{Johnson Space Center}.
-
+\index{SPARQL!MINUS / An example of working with sets.}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={An example of working with sets.\\\hspace{\textwidth}
                         The result contains \num{115} languages in 2017, 
@@ -178,7 +193,7 @@ UNION
 \section{Number of source file formats}
 
 Depending on the programming language, the source code files for programs may have different extensions. Let's construct a bubble diagram by the number of valid formats of the source code files.
-
+\index{Chart!BubbleChart / Number of file formats for programming languages}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Number of file formats for programming languages.\\\hspace{\textwidth}
                         SPARQL query: \href{https://w.wiki/kf7}{w.wiki/kf7}
@@ -219,8 +234,9 @@ By 2020 (fig.~\ref{fig:source_types_2020}), languages such as  \href{https://en.
 
 Let's map (figures~\ref{fig:organizations_2017} \& ~\ref{fig:organizations_2020}) the countries in which people and organizations, connected with the creation of programming languages, live. Noticing that the developer of the language can act both as an organization and as individuals. To determine the location (property: coordinate location) of the organization, we will use the coordinates of its headquarters (property: headquarters location), for the person - the coordinates of the place of his birth (property: place of birth).
 
+\index{Chart!Map / Map of the countries where people and organizations connected with the creation of programming languages live}
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={Map of the countries in which people and organizations, connected with the creation of programming languages, live.\\\hspace{\textwidth}
+                    caption={Map of the countries where people and organizations connected with the creation of programming languages live.\\\hspace{\textwidth}
                         SPARQL query: \href{https://w.wiki/kD9}{w.wiki/kD9}
                         },
                     label=lst:prog_langs_live,
@@ -251,6 +267,19 @@ WHERE
 }
 \end{lstlisting}%
 
+\label{question:prog_lang_2}
+\marginnote[-200pt]{
+Which image is the programming language logo \href{https://www.wikidata.org/wiki/Q513238}{LOLCODE}:
+	\begin{tabular}{c}
+		\includegraphics[width=2cm]{./chapter/programming_language/task_2_logo_1.PNG}\\
+		\includegraphics[width=2cm]{./chapter/programming_language/task_2_logo_2.PNG}\\
+		\includegraphics[width=2cm]{./chapter/programming_language/task_2_logo_3.PNG}\\
+		\includegraphics[width=2cm]{./chapter/programming_language/task_2_logo_4.PNG}\\
+	\end{tabular}
+\newline
+The answer is on page~\pageref{answer:prog_lang_2}.
+}
+
 \begin{figure}[h]
 \centering
 	\includegraphics[width=1\textwidth]{./chapter/programming_language/Organizations_map_2017.png}
@@ -273,6 +302,7 @@ We will also construct a bubble chart (fig.~\ref{fig:emergence_2020}) to identif
 	\label{fig:emergence_2020}
 \end{marginfigure}
 
+\index{Chart!BubbleChart / Bubble chart of the most favorable countries for the emergence of people capable of developing programming languages and locating headquarters in these countries}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Bubble chart of the most favorable countries for the emergence of people capable of developing programming languages and locating headquarters in these countries.\\\hspace{\textwidth}
 			For 2020, the number of headquarters in the US is 241, in the UK - 24, in France - 18, and in Russia - 5.\\\hspace{\textwidth}
@@ -314,8 +344,9 @@ ORDER BY DESC(?count)
 \section{Universities where people who developed programming languages studied}
 Let's display on the map educational institutions, in which students, who subsequently developed programming languages, studied (figures~\ref{fig:institutes_2017} \&~\ref{fig:institutes_2020}).
 \newpage
+\index{Chart!Map / Map of educational institutions where developers of programming languages studied}
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={Map of educational institutions, in which students, who subsequently developed programming languages, studied.\\\hspace{\textwidth}
+                    caption={Map of educational institutions where developers of programming languages studied.\\\hspace{\textwidth}
 			The map shows that most of the people involved in the creation of programming languages studied in Europe or the United States.\\\hspace{\textwidth}
                         SPARQL query: \href{https://w.wiki/kDY}{w.wiki/kDY}
                         },
@@ -347,6 +378,13 @@ WHERE
 }
 \end{lstlisting}%
 
+\label{question:prog_lang_3}
+\marginnote{
+Fill the gaps.\newline
+\href{https://www.wikidata.org/wiki/Q83303}{Fortran} ranks first in terms of the number of its dialects. Their number reaches about \underline{\hspace{1cm}}. In second place is \href{https://www.wikidata.org/wiki/Q132874}{Lisp}, it has \underline{\hspace{1cm}} dialects. The third place is shared by\href{https://www.wikidata.org/wiki/Q597330}{Standard ML} and \href{https://www.wikidata.org/wiki/Q633894}{Object Pascal} with \underline{\hspace{1cm}} dialects.\newline
+The answer is on page~\pageref{answer:prog_lang_3}.
+}
+
 \begin{figure}[h]
 \centering
 	\includegraphics[width=1\textwidth]{./chapter/programming_language/Institutes_2017.png}
@@ -363,6 +401,7 @@ WHERE
 
 Let's construct a bubble chart for the most popular educational institutions, among future developers of programming languages (fig.~\ref{fig:universities_2020}). 
 
+\index{Chart!BubbleChart / Bubble chart of the most popular educational institutions, among future developers of programming languages}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Bubble chart of the most popular educational institutions, among future developers of programming languages.\\\hspace{\textwidth}
                         SPARQL query: \href{https://w.wiki/kDb}{w.wiki/kDb}
@@ -414,6 +453,7 @@ You can see in the figure~\ref{fig:universities_2020} that the first places were
 
 Let's construct a bubble diagram showing which professions prevail among people who develop programming languages.
 
+\index{Chart!BubbleChart / Bubble diagram showing which professions prevail among people who develop programming languages}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Bubble diagram showing which professions prevail among people who develop programming languages.\\\hspace{\textwidth}
 			The result contains \num{48} occupations in 2017, 
@@ -470,7 +510,7 @@ WHERE
 
 \section{Fullness of Wikidata}
 
-According to the Bourabai Research University, there are at least 26 programming languages that support an object-oriented paradigm. In the articles devoted to object-oriented programming, another 4 and 3 programming languages are added to this list. The SPARQL-query (\href{https://w.wiki/n9Y}{w.wiki/n9Y}) returned 116 results. It is difficult to judge the completeness of the data in the three sources cited above, since there are a large number of little-known, obsolete and narrowly focused languages that are not covered in authoritative sources. From this it can be concluded that Wikidata provides a fairly complete list of object-oriented programming languages.
+According to the Bourabai Research University \cite{obj_orient_langs_bourabai}, there are at least 26 programming languages that support an object-oriented paradigm. In the articles devoted to object-oriented programming, another 4 \cite{oo_langs_science_wikia} and 3 \cite{oo_langs_garshin} programming languages are added to this list. The SPARQL-query (\href{https://w.wiki/n9Y}{w.wiki/n9Y}) returned 116 results. It is difficult to judge the completeness of the data in the three sources cited above, since there are a large number of little-known, obsolete and narrowly focused languages that are not covered in authoritative sources. From this it can be concluded that Wikidata provides a fairly complete list of object-oriented programming languages.
 
 \section{Filling objects}
 
