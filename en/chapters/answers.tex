@@ -49,12 +49,99 @@ Answer text.
 \labsec{answer-towns}
 
 \begin{exercise}%
-    \label{answer:formulate-your-short-label-for-question-here-please2}
-Question two?
+    \label{answer:cities_geographic_objects}
+Which of these cities were named after toponyms?
+\begin{itemize}
+\item \href{https://w.wiki/pzi}{Tolyatti}
+\item \href{https://w.wiki/pzj}{Tula}
+\item \href{https://w.wiki/pzk}{Chernyakhovsk}
+\item \href{https://w.wiki/pzm}{Kurilsk}
+\item \href{https://w.wiki/pzn}{Vologda}
+\item \href{https://w.wiki/pzo}{Obninsk}
+\end{itemize}
 \end{exercise}
 
-Answer text.
+Tula, Kurilsk and Vologda were named after the following toponyms: Tulitsa river, \href{https://w.wiki/qqJ}{Kuril Islands}, \href{https://w.wiki/qqK}{Vologda river}. The answer to the question can also be obtained by running the following SPARQL query (Listing \ref{lst:cities_geographic_objects}). The \href{https://www.wikidata.org/wiki/Property:P138}{named after} property value shows which Wikidata object the city was named after.
+    
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={Cities named after toponyms.\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/otn}{w.wiki/otn}
+                        },
+                    label=lst:cities_geographic_objects,
+                    texcl 
+                    ]
+SELECT ?city ?cityLabel ?namedAfterLabel ?whatIsItLabel WHERE {
+	?city wdt:P31/wdt:P279* wd:Q7930989. # "city/town" subclasses
+	?city wdt:P138 ?namedAfter. # with property "named after"
+	?namedAfter wdt:P31 ?whatIsIt. # which is instance of
+	FILTER(?city = wd:Q1341 || ?city = wd:Q2770 || ?city = wd:Q5655 
+		|| ?city = wd:Q156046 || ?city = wd:Q1957 || ?city = wd:Q175651)
+	SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
+}
+\end{lstlisting}%
 
+See question on page~\pageref{question:cities_geographic_objects}.
+
+\marginnote[-2.0cm]{
+If it doesn't matter what certain type of city the Wikidata object belongs to, you can use a construction with subclasses, specifying the only class relative to which the search will be performed. This construction is discussed in more detail in the section  ``Wikidata completeness and disadvantages'' on page \pageref{section:countries_Wikidata_completeness_and_disadvantages}.
+}
+
+\begin{exercise}%
+    \label{answer:cities_over_400_age}
+Which of these cities were founded more than 400 years ago: \href{https://w.wiki/pzt}{Moscow}, \href{https://w.wiki/pzu}{Sarov}, \href{https://w.wiki/pzx}{Kazan}, \href{https://w.wiki/pzy}{Astrakhan}, \href{https://w.wiki/pzz}{Samara}, \href{https://w.wiki/pz$}{Voronezh}?
+\end{exercise}
+
+Moscow (1147 year), Voronezh (1586), Samara (1586), Kazan (1005) and Astrakhan (1558) were founded more than 400 years ago. The answer to the question can also be obtained by running the following SPARQL query (Listing \ref{lst:cities_over_400_age}). The \href{https://www.wikidata.org/wiki/Property:P571}{inception} property value contains the date the city was founded.
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={Cities founded more than 400 years ago.\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/oto}{w.wiki/oto}
+                        },
+                    label=lst:cities_over_400_age,
+                    texcl 
+                    ]
+SELECT ?city ?cityLabel ?inceptionDate WHERE {
+	?city wdt:P31/wdt:P279* wd:Q7930989. # "city/town" subclasses
+	?city wdt:P17 wd:Q159. # belonging to Russia
+	?city wdt:P571 ?inceptionDate. # with property "inception"
+	FILTER(BOUND(?inceptionDate) && 
+			DATATYPE(?inceptionDate) = xsd:dateTime).
+	BIND(NOW() - ?inceptionDate AS ?distance).
+	FILTER(0 <= ?distance && ?distance > 146000). # = 400 * 365
+	FILTER(?city = wd:Q649 || ?city = wd:Q193522 || ?city = wd:Q900
+		|| ?city = wd:Q3927 || ?city = wd:Q894 || ?city = wd:Q3426)
+	SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
+}
+GROUP BY ?city ?cityLabel ?inceptionDate
+\end{lstlisting}%
+
+See question on page~\pageref{question:cities_over_400_age}.
+
+\begin{exercise}%
+    \label{answer:cities_flags}
+Which city does the flag in \reffig{fig:flag_question_city} belong to?
+\end{exercise}
+
+The flag in \reffig{fig:flag_question_city} belongs to \href{https://w.wiki/qqN}{Karabulak}. The answer to the question can also be obtained by running the following SPARQL query (Listing \ref{lst:cities_flags}). The \href{https://www.wikidata.org/wiki/Property:P41}{flag image} property value contains the image of the city flag.
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={Cities flags.\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/otp}{w.wiki/otp}
+                        },
+                    label=lst:cities_flags,
+                    texcl 
+                    ]
+#defaultView:ImageGrid
+SELECT ?city ?cityLabel ?flag ?countryLabel WHERE {
+	?city wdt:P31/wdt:P279* wd:Q7930989. # "city/town" subclasses
+	?city wdt:P17 ?country. # with property "country"
+	?city wdt:P41 ?flag. # with property "flag"
+	FILTER(?city = wd:Q144969) # for Karabulak only
+	SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
+}
+\end{lstlisting}%
+
+See question on page~\pageref{question:cities_flags}.
 
 \section{Programming languages and its creators}
 \labsec{answer-languages}
