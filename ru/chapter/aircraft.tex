@@ -41,6 +41,7 @@ WHERE
 
 Построим список производителей воздушных судов.
 
+\index{SPARQL!COUNT / Производители воздушных судов}
 \begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/nRx}{Производители воздушных судов}\protect\footnotemark}, label=lst:lang2, ]
 # Count aircraft having property manufacture, group by manufacture
 SELECT ?manufactureLabel (COUNT(?item) AS ?count) 
@@ -69,6 +70,7 @@ GROUP BY ?manufacture ?manufactureLabel # group by manufacture
 
 \section{Количество выпущенных воздушных судов}
 
+\index{Самолёты!Авиационная промышленность / Определение}
 Авиационная промышленность ~--- это одна из самой крупнных отраслей машиностроения в мире. 
 В её задачи входит как разработка, так и производство различной воздушной техники. 
 Для того чтобы оценить, какие модели воздушных судов являются самыми массовыми, 
@@ -87,6 +89,7 @@ SELECT ?itemLabel ?count WHERE {
 
 Некоторые модели воздушных судов были выпущены в единичных экземплярах, поэтому для повышения читабельности диаграммы их можно исключить. Для получения нового списка добавим фильтр по количеству выпущенных самолётов в запрос.
 
+\index{SPARQL!FILTER / Список выпущенных самолётов, в количестве более 10 штук}
 \begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/nVT}{Список выпущенных самолётов, в количестве более 10 штук}\protect\footnotemark}, label=lst:lang3_1, ]
 SELECT ?itemLabel ?count WHERE {
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
@@ -140,6 +143,7 @@ SELECT ?itemLabel ?count WHERE {
 \begin{enumerate} 
   \item Подсчитать общее число самолётов по всем моделям, с помощью скрипта, представленного на листинге~\ref{lst:lang3_2}.
   
+  \index{SPARQL!SUM / Общее число произведённых самолётов}
   \begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/nVU}{Общее число произведённых самолётов}\protect\footnotemark}, label=lst:lang3_2, ]
   SELECT (SUM(?count) as ?sum) WHERE {
     SELECT ?count WHERE {
@@ -190,6 +194,7 @@ SELECT ?itemLabel ?count WHERE {
 См. ответ~\ref{answer:aircraft_company_headquarters} на с.~\pageref{answer:aircraft_company_headquarters}.
 }
 
+\index{SPARQL!COUNT / Список соотношения количества производителей воздушных судов по странам}
 \begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/nUv}{Список соотношения количества производителей воздушных судов по странам}\protect\footnotemark}, label=lst:lang4, ]
 # Count manufacture having property country group by country
 SELECT ?countryLabel (count(?manufacturer) as ?count)
@@ -208,6 +213,8 @@ GROUP BY ?country ?countryLabel
 Получив список стран по количеству заводов-производителей авиационной техники, мы можем для наглядности построить пузырьковую диаграмму <<Соотношение количества
 производителей воздушных судов по странам>>~\ref{fig:Manufacture_with_country_2020}. Для её построения выполняем запрос~\ref{lst:lang5}.
 
+\index{SPARQL!COUNT / Пузырьковая диаграмма <<Соотношение количества производителей воздушных судов по странам>>}
+\index{График!BubbleChart / Пузырьковая диаграмма <<Соотношение количества производителей воздушных судов по странам>>}
 \begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/nUx}{Пузырьковая диаграмма <<Соотношение количества производителей воздушных судов по странам>>}}, label=lst:lang5, ]
 #defaultView:BubbleChart
 SELECT ?countryLabel (count(?item) as ?count)
@@ -272,11 +279,11 @@ GROUP BY ?country ?countryLabel
 См. ответ~\ref{answer:aircraft_question_airship_2} на с.~\pageref{answer:aircraft_question_airship_2}.
 }
 
-Согласно сайту \href{https://www.aviationfanatic.com/}{aviationfanatic.com} существует около \num{1700} производителей воздушных судов\cite{aircraft_1} (2017 год) и \num{1939} (2020 год), но SPARQL-запрос~\ref{lst:lang2} вернул всего 300 записей в 2017 году, а в 2020 году ~--- 595 записей. Из этого можно сделать вывод о неполноте Викиданных. Скорее всего, не указанные производители сделали слишком мало самолетов или не сделали их вовсе, поэтому из-за недостатка информации они не были включены в Викиданные. 
+Согласно сайту \href{https://www.aviationfanatic.com/}{aviationfanatic.com} существует около \num{1700} производителей воздушных судов\cite{count_of_aircraft_manufactures} (2017 год) и \num{1939} (2020 год), но SPARQL-запрос~\ref{lst:lang2} вернул всего 300 записей в 2017 году, а в 2020 году ~--- 595 записей. Из этого можно сделать вывод о неполноте Викиданных. Скорее всего, не указанные производители сделали слишком мало самолетов или не сделали их вовсе, поэтому из-за недостатка информации они не были включены в Викиданные. 
 
 Согласно полученным данным можно сделать прогноз, когда данные в Викиданных будут полными. За три года количество производителей воздушных судов увеличилось на 239, что составляет ежегодный прирост примерно на 80 авиа-производителей. Также за это время в Викиданные была занесена информация о 295 авиа-производителей, то есть ежегодно добавляется около 98 новых записей. Также на 2020 год в Викиданных отсутствуют записи о \num{1344} авиа-производителях. Если считать, что ежегодно будет появляться фиксированное количество новых авиа-производителей и количество ежегодно заносимых записей в Викиданные останется неизменным, то можно предположить, что примерно через 75 лет (то есть в 2095 году) Викиданные будут содержать записи обо всех авиа-производителях.
 
-В категории \href{https://cutt.ly/NhrKnWn}{<<Авиастроительные компании России>>} указано наличие в России 58 авиастроительных компаний в 2017 году и 62 компаний в 2020 году, но в то же время на сайте \href{https://www.aviationfanatic.com/}{aviationfanatic.com} указано наличие 61 завода\cite{aircraft_2} в 2017 году и 71 в 2020 году. Среди авиастроительных компаний России представлены такие компании как: \href{https://clck.ru/RxFCs}{Иркут}, \href{https://clck.ru/QR6qZ}{МиГ}, \href{https://clck.ru/RxFG3}{Туполев}.
+В категории \href{https://cutt.ly/NhrKnWn}{<<Авиастроительные компании России>>} указано наличие в России 58 авиастроительных компаний в 2017 году и 62 компаний в 2020 году, но в то же время на сайте \href{https://www.aviationfanatic.com/}{aviationfanatic.com} указано наличие 61 завода\cite{count_plants_of_aircrafts} в 2017 году и 71 в 2020 году. Среди авиастроительных компаний России представлены такие компании как: \href{https://clck.ru/RxFCs}{Иркут}, \href{https://clck.ru/QR6qZ}{МиГ}, \href{https://clck.ru/RxFG3}{Туполев}.
 
 %\section{Степень заполненности Викиданных}
 
