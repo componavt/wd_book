@@ -102,6 +102,8 @@ SELECT ?city ?cityLabel WHERE { # Selecting items which are ...
 
 SPARQL queries for finding total population of different types of cities are presented below: \wdqName{town}{3957} (Listing \ref{lst:population_town}), \wdqName{city}{515} (Listing \ref{lst:population_city}), \wdqName{big city}{1549591} (Listing \ref{lst:population_big_city}), \wdqName{city with millions of inhabitants}{1637706} (Listing \ref{lst:population_city_millions}).
 
+\index{SPARQL!REPLACE / Population of towns}
+\index{SPARQL!STR / Population of towns}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Population of towns.\\\hspace{\textwidth}
                         The result contains \num{53,3} million people in 2020.\\\hspace{\textwidth}
@@ -127,6 +129,7 @@ You can use various string processing functions, such as \href{https://en.wikibo
 
 \newpage
 
+\index{SPARQL!MAX / Population of cities}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Population of cities.\\\hspace{\textwidth}
                         The result contains \num{1 133,56} million people in 2020.\\\hspace{\textwidth}
@@ -150,6 +153,7 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
 The population is always changing, so a city can have several \href{https://www.wikidata.org/wiki/Property:P1082}{population} values corresponding to different years. To select one of the property values, you can use aggregating functions, for example, \href{https://en.wikibooks.org/wiki/SPARQL/Expressions\_and\_Functions\#COUNT,\_MIN,\_MAX,\_AVG\_and\_SUM}{MIN, MAX, AVG}.
 }
 
+\index{SPARQL!SUM / Population of big cities}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Population of big cities.\\\hspace{\textwidth}
                         The result contains \num{2 538,49} million people in 2020.\\\hspace{\textwidth}
@@ -230,12 +234,14 @@ The \reftab{tab:population} shows a summary of the population of different types
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Sister cities}
 
+\index{City!Sister cities / Definition}
 \href{https://en.wikipedia.org/wiki/Sister_city}{Sister cities} are cities of different states that have established permanent friendly relations with each other in order to strengthen international relationship in the fields of culture, economics, creation and management of urban infrastructure, the functioning of civil society, and so on \sidecite{sister_city}.
 
 \subsection{How many cities don't have a single sister city?}
 
 The SPARQL query for determination of the number of cities without sister cities is presented below (Listing \ref{lst:without_sister_cities}).
 
+\index{SPARQL!COUNT / Number of cities without sister cities}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Number of cities without sister cities.\\\hspace{\textwidth}
                         The result contains \num{21479} cities in 2020.\\\hspace{\textwidth}
@@ -264,6 +270,7 @@ SPARQL queries for construction lists of all cities (Listing \ref{lst:ordered_by
 Note that parts of the \href{https://en.wikibooks.org/wiki/SPARQL/UNION}{UNION} clause must be enclosed in curly braces. Otherwise, the SPARQL query will not be compiled.
 }
 
+\index{SPARQL!COUNT / List of cities ordered by number of sister cities}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={List of cities ordered by number of sister cities.\\\hspace{\textwidth}
                         The result contains \num{4046} world cities with sister cities in 2020.\\\hspace{\textwidth}
@@ -311,6 +318,8 @@ There were more cities wishing to be friends with the cultural capital of Russia
 
 SPARQL queries for finding the number of cities with a certain amount of sister cities for all cities known by Wikidata (Listing \ref{lst:city_relation_S_N}) and Russian cities (Listing \ref{lst:city_relation_Russia_S_N}) are presented below.
 
+\index{SPARQL!COUNT / Number of cities with certain amount of sister cities}
+\index{Chart!LineChart / Relation between number of sister cities the city have (S) and number of world cities which have this amount of sister cities (N)}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Number of cities with certain amount of sister cities.\\\hspace{\textwidth}
                         The result contains 90 variants of sister cities amount in the world in 2020.\\\hspace{\textwidth}
@@ -371,6 +380,7 @@ The result of SPARQL query for all cities is shown in \reffig{fig:city_relation_
 
 Based on the constructed trend, it can be concluded that the relation between number of sister cities the city have and number of cities which have this amount of sister cities has a distribution close to a power law.
 
+\index{Chart!LineChart / Relation between number of sister cities the Russian city have (S) and number of Russian cities which have this amount of sister cities (N)}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Number of Russian cities with certain amount of sister cities.\\\hspace{\textwidth}
                         The result contains 24 variants of sister cities amount in Russia in 2020.\\\hspace{\textwidth}
@@ -429,6 +439,8 @@ The SPARQL query for construction a list of countries ordered by number of siste
 	\labfig{fig:Bubble_countries_sister_cities}
 \end{marginfigure}
 
+\index{SPARQL!COUNT / List of countries ordered by number of sister cities}
+\index{Chart!BubbleChart / Bubble chart by the number of sister cities of countries}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={List of countries ordered by number of sister cities.\\\hspace{\textwidth}
                         The result contains 208 countries in 2020.\\\hspace{\textwidth}
@@ -479,6 +491,7 @@ Germany had the largest number of sister cities (1375 cities) for 2020. The \ref
 \end{table}
 
 \newpage
+\index{SPARQL!COUNT / List of countries having sister cities with Germany cities}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={List of countries having sister cities with Germany cities.\\\hspace{\textwidth}
                         The result contains 93 countries in 2020.\\\hspace{\textwidth}
@@ -506,6 +519,12 @@ ORDER BY DESC(?sisterCount)
 
 The SPARQL query for construction a list of countries with which Russia has sister cities is presented below (Listing \ref{lst:countries_sister_cities_with_Russia}). The result of query is shown in \reffig{fig:Map_closest_neighbours_Russia}.
 
+\index{SPARQL!COUNT / Closest neighbours of Russia by number of sister cities}
+\index{SPARQL!FILTER / Closest neighbours of Russia by number of sister cities}
+\index{SPARQL!OPTIONAL / Closest neighbours of Russia by number of sister cities}
+\index{SPARQL!BIND / Closest neighbours of Russia by number of sister cities}
+\index{SPARQL!IF / Closest neighbours of Russia by number of sister cities}
+\index{Chart!Map / Map of closest neighbours of Russia by number of sister cities}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Closest neighbours of Russia by number of sister cities.\\\hspace{\textwidth}
                         The result contains 102 countries in 2020.\\\hspace{\textwidth}
