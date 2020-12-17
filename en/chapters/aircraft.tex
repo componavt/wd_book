@@ -55,6 +55,7 @@ For 2020, uninformative aircraft are: \href{https://www.wikidata.org/wiki/Q82060
 
 Let's make a list of aircraft manufacturers.
 
+\index{SPARQL!COUNT / Aircraft manufacturers}
 \begin{lstlisting}[ language=SPARQL, breaklines=true, 
                     caption={Aircraft manufacturers\\\hspace{\textwidth}
                         The result contains \num{300} manufacturers in 2017, 
@@ -78,8 +79,22 @@ The result of the query~\ref{lst:aircraft_listing_2} is a list of all aircraft m
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\label{question:aircraft_manufacturers_en}
+\marginnote{
+Which Russian aircraft manufacturers have websites?
+\begin{itemize}
+\item MiG
+\item Saratov Aviation Plant
+\item Tupolev
+\item Sukhoi
+\end{itemize}
+The answer is on page~\pageref{answer:aircraft_manufacturers_en}.
+}
+
+
 \section{Number of aircraft produced}
 
+\index{Aircraft!Aviation industry / definition}
 The aviation industry is one of the largest mechanical engineering industries in the world. Its tasks include both the development 
 and production of various aerial vehicles. In order to assess which aircraft models are the most widespread, we will build a diagram 
 of the produced aircraft of various models.
@@ -102,6 +117,7 @@ SELECT ?itemLabel ?count WHERE {
 Some aircraft models were produced in small numbers, so they can be excluded to improve the readability of the diagram. 
 To get a new list, let's add a filter to the request.
 
+\index{SPARQL!FILTER / List of aircraft manufactured over 10 pieces}
 \begin{lstlisting}[ language=SPARQL, breaklines=true, 
                     caption={List of aircraft manufactured over 10 pieces\\\hspace{\textwidth}
                         The result contains \num{86} records in 2020.
@@ -139,9 +155,26 @@ number of aircraft models"?
 
 In order to build a graph, you must perform the following steps:
 
+\label{question:aircraft_question_2}
+\marginnote{
+Find the correspondence between the date of foundation and the company.
+\\
+\begin{tabular}{ l | l }
+Company & Foundation date \\ \hline
+MiG & 01.01.1939 \\
+Vympel & 18.11.1949 \\
+Tupolev & 18.12.1939 \\
+Sukhoi & 01.01.1922 \\
+\end{tabular}
+\\
+The answer is on page~\pageref{answer:aircraft_answer_2}.
+}
+
+
 \begin{enumerate} 
   \item Calculate the total number of aircraft for all models using the script shown in the listing~\ref{lst:aircraft_listing_5}.
 
+  \index{SPARQL!SUM / Total number of aircraft produced}
   \begin{lstlisting}[ language=SPARQL, breaklines=true,  
                       caption={Total number of aircraft produced\\\hspace{\textwidth}
                           The result contains \num{33 178} aircrafts in 2020.
@@ -188,6 +221,22 @@ models, which is 9.2\% of the total number of models. Pareto's law states that: 
 Let's build a list of the number of aircraft manufacturers by country. To execute the query~\ref{lst:aircraft_listing_6}, we use the grouping 
 by country (GROUP BY) and use the ``Count" function to count the number of productions for each country.
 
+\label{question:aircraft_question_3}
+\marginnote{
+Find the correspondence between the location of the company's headquarters and the company.
+\\
+\begin{tabular}{ l | l }
+Company & Headquarters \\ \hline
+Kazan Helicopters Plant & Kazan \\
+Saratov Aviation Plant & Saratov \\
+Ulan-Ude Aviation Plant & Ulan-Ude \\
+Sukhoi & Moscow \\
+\end{tabular}
+\\
+The answer is on page~\pageref{answer:aircraft_company_headquarters_en}.
+}
+
+\index{SPARQL!COUNT / List of the ratio of the number of manufacturers aircraft by country}
 \begin{lstlisting}[ language=SPARQL, breaklines=true, 
                     caption={List of the ratio of the \\\hspace{\textwidth} 
 						number of manufacturers aircraft by country\\\hspace{\textwidth}
@@ -212,6 +261,8 @@ GROUP BY ?country ?countryLabel
 Having received a list of countries by the number of aircraft manufacturing plants, we can construct a bubble chart 
 ``The ratio of the number of aircraft manufacturers by country"~\ref{} for clarity. To build it, we execute the request ~\ref{lst:aircraft_listing_7}.
 
+\index{SPARQL!COUNT / Bubble chart ``The ratio of the number of aircraft manufacturers by country"}
+\index{График!BubbleChart / Bubble chart ``The ratio of the number of aircraft manufacturers by country"}
 \begin{lstlisting}[ language=SPARQL, breaklines=true, 
                     caption={Bubble chart\\\hspace{\textwidth}
                         SPARQL query: \href{https://w.wiki/n7E}{w.wiki/n7E}
@@ -252,6 +303,14 @@ USA (115), Great Britain (30), Germany (17), Russia (17) as of May 2017.
 	\caption{The ratio of the number of aircraft manufacturers by country, 2020.}
 	\label{fig:Manufacture-with-country_2020_en}
 \end{figure}
+
+\label{question:aircraft_question_4}
+\marginnote{
+What is the name of the aircraft, supported in flight by a huge cylinder of flammable, lethal gas, right above the heads of the passengers?
+\\
+The answer is on page~\pageref{answer:aircraft_question_airship_en}.
+}
+
 
 Comparing two bubble charts for 2017 (Fig.~\ref{fig:Manufacture-with-country_en_2017}) and 2020 (Fig.~\ref{fig:Manufacture-with-country_2020_en}), 
 we can conclude that the main aircraft manufacturers are: USA (135 manufacturers) , Great Britain (43), France (29), Germany (26), Russia (21). 
