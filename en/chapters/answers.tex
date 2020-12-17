@@ -36,12 +36,130 @@ See question on page~\pageref{question:short-link-to-SPARQL}.
 \section{Aircraft from small to large}
 \labsec{answer-aircraft}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%answer_1%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{exercise}%
-    \label{answer:formulate-your-short-label-for-question-here-please}
-Question one?
+    \label{answer:aircraft_manufacturers_en}
+Which Russian aircraft manufacturers have websites?
+\begin{itemize}
+\item MiG
+\item Saratov Aviation Plant
+\item Tupolev
+\item Sukhoi
+\end{itemize}
 \end{exercise}
 
-Answer text.
+\newthought{The following Russian manufacturers have websites: Mig, Tupolev and Sukhoi. The answer to the question can also be obtained by running the following SPARQL query (listing \ref{lst:aircraft_listing_Manufacturers_websites})}. 
+    
+\begin{lstlisting}[ language=SPARQL, breaklines=true, 
+                    caption={Manufacturers websites\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/quH}{w.wiki/quH}
+                        },
+                    label=lst:aircraft_listing_Manufacturers_websites,
+                    texcl 
+                    ]
+SELECT ?item ?itemLabel ?site
+WHERE
+{
+    ?item wdt:P31 wd:Q936518. # instance of aerospace manufacturer
+  	?item wdt:P17 wd:Q159. # country Russia
+  	?item wdt:P856 ?site # official website
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+\end{lstlisting}
+\newline
+Question from page~\pageref{question:aircraft_manufacturers_en}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%answer_2%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exercise}%
+    \label{answer:aircraft_answer_2}
+Find the correspondence between the date of foundation and the company.
+\\
+\begin{tabular}{ l | l }
+Company & Foundation date \\ \hline
+MiG & 01.01.1939 \\
+Vympel & 18.11.1949 \\
+Tupolev & 18.12.1939 \\
+Sukhoi & 01.01.1922 \\
+\end{tabular}
+\end{exercise}
+
+\newthought{The company ``Mig" was founded on December 18.1939, ``Pennant" - November 18.1949, ``Tupolev" - January 01.1922, ``Sukhoi" - January 01.1939 Reply the question can also be obtained by running the following SPARQL-request (listing \ref{lst:aircraft_company_foundation_date_lst_en})}. 
+       
+\begin{lstlisting}[ language=SPARQL, breaklines=true, 
+                    caption={Company foundation dates\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/quu}{w.wiki/quu}
+                        },
+                    label=lst:aircraft_company_foundation_date_lst_en,
+                    texcl 
+                    ]
+SELECT ?item ?itemLabel ?inception
+WHERE
+{
+    ?item wdt:P31 wd:Q936518. # instance of aerospace manufacturer
+  	?item wdt:P17 wd:Q159. # country Russia
+  	?item wdt:P571 ?inception # foundation date
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+\end{lstlisting}
+
+\newline
+Question from page~\pageref{question:aircraft_question_2}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%answer_3%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exercise}%
+    \label{answer:aircraft_company_headquarters_en}
+Find the correspondence between the location of the company's headquarters and the company.
+\\
+\begin{tabular}{ l | l }
+Company & Headquarters \\ \hline
+Kazan Helicopters Plant & Kazan \\
+Saratov Aviation Plant & Saratov \\
+Ulan-Ude Aviation Plant & Ulan-Ude \\
+Sukhoi & Moscow \\
+\end{tabular}
+\end{exercise}
+
+\newthought{The headquarters of the company ``Kamov" is located in the city of Lyubertsy, ``Aviadvigatel" - the city of Perm, ``Ulan-Ude Aviation Plant" - the city of Ulan-Ude, ``Sukhoi" - the city of Moscow. The answer to the question can also be obtained by running the following SPARQL-request (listing \ref{lst:aircraft_company_headquarters_lst_en})}. 
+          
+\begin{lstlisting}[ language=SPARQL, breaklines=true, 
+                    caption={Company headquarters\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/quw}{w.wiki/quw}
+                        },
+                    label=lst:aircraft_company_headquarters_lst_en,
+                    texcl 
+                    ]
+SELECT ?item ?itemLabel ?inceptionLabel
+WHERE
+{
+    ?item wdt:P31 wd:Q936518. # instance of aerospace manufacturer
+  	?item wdt:P17 wd:Q159. # country Russia
+  	?item wdt:P159 ?inception # headquarters location
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+\end{lstlisting}
+
+\newline
+Question from page~\pageref{question:aircraft_question_3}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%answer_4%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{exercise}%
+    \label{answer:aircraft_question_airship_en}
+What is the name of the aircraft, supported in flight by a huge cylinder of flammable, lethal gas, right above the heads of the passengers?
+\end{exercise}
+
+\newthought{Airship}. 
+
+\newline
+Question from page~\pageref{question:aircraft_question_4}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%answer_5%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%end_answers_aircraft%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
