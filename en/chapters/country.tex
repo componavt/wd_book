@@ -22,9 +22,9 @@ label=lst:country]
 SELECT ?country ?label_en ?label_ru
 WHERE
 {
-?country wdt:P31 wd:Q6256. # country
-?country rdfs:label ?label_en filter (lang(?label_en) = "en").
-?country rdfs:label ?label_ru filter (lang(?label_ru) = "ru").
+	?country wdt:P31 wd:Q6256. # country
+	?country rdfs:label ?label_en filter (lang(?label_en) = "en").
+	?country rdfs:label ?label_ru filter (lang(?label_ru) = "ru").
 }
 \end{lstlisting}
 
@@ -49,13 +49,11 @@ label=lst:age_of_country,
 SELECT ?country ?countryLabel ?inception
 WHERE
 {
-?country wdt:P31 wd:Q6256. # country
-?country wdt:P571 ?inception. # inception
-
-SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+	?country wdt:P31 wd:Q6256. # country
+	?country wdt:P571 ?inception. # inception
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
 ORDER BY (?inception)
-}
 \end{lstlisting}
 
 %SPARQL query (listing ~\ref{lst:age_of_country}), 112 results (2017), 199 results (2020).
@@ -91,10 +89,9 @@ label=lst:without_inception
 SELECT ?country ?countryLabel 
 WHERE
 {
-?country wdt:P31 wd:Q6256. # country
-
-MINUS { ?country wdt:P571 [] }. # inception of country is empty
-SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+	?country wdt:P31 wd:Q6256. # country
+	MINUS { ?country wdt:P571 [] }. # inception of country is empty
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
 \end{lstlisting}
 
@@ -115,11 +112,11 @@ label=lst:demonym,
 SELECT ?country ?countryLabel 
 WHERE
 {
-?country wdt:P31 wd:Q6256.       #country
-?country wdt:P1549 ?demonym.     #demonym
+	?country wdt:P31 wd:Q6256.       #country
+	?country wdt:P1549 ?demonym.     #demonym
 
-FILTER((LANG(?demonym)) = "en")
-SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+	FILTER((LANG(?demonym)) = "en")
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
 
 GROUP BY ?country ?countryLabel
@@ -141,11 +138,11 @@ label=lst:list_demonym,
 SELECT ?country ?countryLabel ?demonym
 WHERE
 {
-?country wdt:P31 wd:Q6256.      #country
-?country wdt:P1549 ?demonym.    #demonym
-
-FILTER((LANG(?demonym)) = "en")
-SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+	?country wdt:P31 wd:Q6256.      #country
+	?country wdt:P1549 ?demonym.    #demonym
+	
+	FILTER((LANG(?demonym)) = "en")
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
 \end{lstlisting}
 
@@ -165,11 +162,11 @@ label=lst:without_demonym,
 SELECT ?country ?countryLabel 
 WHERE
 {
-?country wdt:P31 wd:Q6256.              # country
-MINUS { ?country wdt:P1549 ?demonym.    # except with demonyms
-FILTER((LANG(?demonym)) = "en") # in English
-}    
-SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+	?country wdt:P31 wd:Q6256.              # country
+	MINUS { ?country wdt:P1549 ?demonym.    # except with demonyms
+			FILTER((LANG(?demonym)) = "en") # in English
+		  }    
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
 GROUP BY ?country ?countryLabel
 \end{lstlisting}
@@ -190,15 +187,13 @@ label=lst:count_demonym,
 SELECT  ?country ?countryLabel (count(*) as ?count)
 WHERE
 {
-?country wdt:P31 wd:Q6256.      #country
-?country wdt:P1549 ?demonym.    #demonym
-SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+	?country wdt:P31 wd:Q6256.      #country
+	?country wdt:P1549 ?demonym.    #demonym
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
 GROUP BY ?country ?countryLabel 
 ORDER BY DESC(?count)
 \end{lstlisting}
-
-%SPARQL query (listing ~\ref{lst:count_demonym}),199 results (2017), 167 results (2020).
 
 The United States of America object contains the maximum number of demonyms --- 41, Great Britain --- 40, Germany --- 40, Canada --- 36 and Russia --- 34.
 
@@ -215,12 +210,12 @@ label=lst:form_of_government
 SELECT ?bfog ?form (count(*) as ?count)
 WHERE 
 {
-?country wdt:P31 wd:Q6256. # country
-?country wdt:P122 ?bfog.   # subject's government
-OPTIONAL {
-?bfog rdfs:label ?form
-filter (lang(?form) = "ru")
-}
+	?country wdt:P31 wd:Q6256. # country
+	?country wdt:P122 ?bfog.   # subject's government
+	OPTIONAL {
+		?bfog rdfs:label ?form
+		filter (lang(?form) = "ru")
+	}
 }
 GROUP BY ?bfog ?form
 ORDER BY DESC(?count) ASC(?form)
@@ -269,10 +264,10 @@ SELECT ?country ?countryLabel ?sharesBorderWith
 ?sharesBorderWithLabel
 WHERE
 {
-?country wdt:P31 wd:Q6256.
-
-SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
-OPTIONAL { ?country wdt:P47 ?sharesBorderWith. }
+	?country wdt:P31 wd:Q6256.
+	
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+	OPTIONAL { ?country wdt:P47 ?sharesBorderWith. }
 }
 \end{lstlisting}
 
@@ -302,6 +297,64 @@ OPTIONAL { ?country wdt:P47 ?sharesBorderWith. }
 
 As a result of the query, we get a graph with 787 edges on 2017 (fig. ~\ref{fig:neighboring_countries_2017}) and 698 edges on 2020 (fig. ~\ref{fig:neighboring_countries_2020}), where the edge is a neighborhood between the two countries. The graph represents several connected components, since there are island countries that do not have neighbors (for example, Mauritius, Maldives, Madagascar).
 
+\subsection{Neighboring countries of Russia}
+
+We will construct a graph of neighboring countries of Russia (Listing \ref{lst:neighboring_countries_ru}).
+
+\begin{lstlisting}[ language=SPARQL, 
+caption={Map of neighboring countries of Russia. The result contains \num{22} neighboring countries in 2020.\\\hspace{\textwidth}
+SPARQL query: \href{https://w.wiki/rMR}{https://w.wiki/rMR}},
+label=lst:neighboring_countries_ru
+]
+# Map of neighboring countries of Russia
+#defaultView:Map
+SELECT ?border_country ?border_countryLabel ?coords ?layer
+WHERE 
+{
+	?border_country wdt:P47 wd:Q159.  # country has border with Russia
+	OPTIONAL { ?border_country wdt:P3896 ?coords. }
+	BIND ( ?coords AS ?layer )
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+\end{lstlisting}
+
+As a result of executing the query, we get a map of neighboring countries of Russia (Fig. ~\ref {fig: neighboring_countries_ru}), which includes the following countries:
+\begin{enumerate}
+	\item \wdqName{Japan} {17}
+	\item \wdqName{Norway} {20}
+	\item \wdqName{Finland} {33}
+	\item \wdqName{Poland} {36}
+	\item \wdqName{Lithuania} {37}
+	\item \wdqName{People's Republic of China} {148}
+	\item \wdqName{Belarus} {184}
+	\item \wdqName{Estonia} {191}
+	\item \wdqName{Latvia} {211}
+	\item \wdqName{Ukraine} {212}
+	\item \wdqName{Azerbaijan} {227}
+	\item \wdqName{Georgia} {230}
+	\item \wdqName{Kazakhstan} {232}
+	\item \wdqName{DPRK} {423}
+	\item \wdqName{European Union} {458}
+	\item \wdqName{Mongolia} {711}
+	\item \wdqName{Hokkaido} {35581}
+	\item \wdqName{Racha-Lechkhumi and Kvemo-Svaneti} {38893}
+	\item \wdqName{Chechen Republic of Ichkeria} {210036}
+	\item \wdqName{Donetsk People's Republic} {16150196}
+	\item \wdqName{Luhansk People's Republic} {16746854}
+	\item \wdqName{Republic of Abkhazia} {31354462}
+\end{enumerate}
+
+
+\begin{figure}
+	{
+		\setlength{\fboxsep}{0pt}%
+		\setlength{\fboxrule}{1pt}%
+		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/Map_of_neighboring_countries_of_Russia_en.png}}%
+	}
+	\caption{Map of neighboring countries of Russia, 2020.
+	}%
+	\label{fig:neighboring_countries_ru}%
+\end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Tasks}
 \begin{enumerate}

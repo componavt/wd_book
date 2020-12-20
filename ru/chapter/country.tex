@@ -382,6 +382,67 @@ WHERE
 	\label{fig:neighboring_countries_2020}%
 \end{figure}
 
+\subsection{Соседние страны России}
+
+Построим граф соседних стран России (листинг ~\ref{lst:neighboring_countries_ru}).
+
+\begin{lstlisting}[ language=SPARQL, 
+caption={\href{https://w.wiki/rMP}{Соседние страны}\protect\footnotemark},
+label=lst:neighboring_countries_ru, 
+escapebegin=ку,escapeend=ку-ку>
+]
+# Map of neighboring countries of Russia
+#defaultView:Map
+SELECT ?border_country ?border_countryLabel ?coords ?layer
+WHERE 
+{
+	?border_country wdt:P47 wd:Q159.  # country has border with Russia
+	OPTIONAL { ?border_country wdt:P3896 ?coords. }
+	BIND ( ?coords AS ?layer )
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
+}
+\end{lstlisting}
+
+\footnotetext{Получено 22 записи на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/rMP}{https://w.wiki/rMP}}
+
+
+В результате выполнения запроса мы получаем карту соседних страны России (рис. ~\ref{fig:neighboring_countries_ru_2020}), которая включает в себя следующие страны:
+\begin{enumerate}
+	\item \wdqName{Япония}{17}
+	\item \wdqName{Норвегия}{20}
+	\item \wdqName{Финляндия}{33}
+	\item \wdqName{Польша}{36}
+	\item \wdqName{Литва}{37}
+	\item \wdqName{Китайская Народная Республика}{148}
+	\item \wdqName{Белоруссия}{184}
+	\item \wdqName{Эстония}{191}
+	\item \wdqName{Латвия}{211}
+	\item \wdqName{Украина}{212}
+	\item \wdqName{Азербайджан}{227}
+	\item \wdqName{Грузия}{230}
+	\item \wdqName{Казахстан}{232}
+	\item \wdqName{КНДР}{423}
+	\item \wdqName{Европейский союз}{458}
+	\item \wdqName{Монголия}{711}
+	\item \wdqName{Хоккайдо}{35581}
+	\item \wdqName{Рача-Лечхуми и Квемо-Сванети}{38893}
+	\item \wdqName{Чеченская Республика Ичкерия}{210036}
+	\item \wdqName{Донецкая Народная Республика}{16150196}
+	\item \wdqName{Луганская Народная Республика}{16746854}
+	\item \wdqName{Республика Абхазия}{31354462}
+\end{enumerate}
+
+\begin{figure}
+	{
+		\setlength{\fboxsep}{0pt}%
+		\setlength{\fboxrule}{1pt}%
+		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/Map_of_neighboring_countries_of_Russia_ru.png}}%
+	}
+	\caption{Карта соседних стран России, 2020.
+	}%
+	\label{fig:neighboring_countries_ru_2020}%
+\end{figure}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Упражнения}
