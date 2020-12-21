@@ -7,19 +7,13 @@
 Author: \href{https://commons.wikimedia.org/wiki/File:SJ_skyline_at_night_horizontal.jpg}{Ben Loomis, WikiCommons / 2014 / Creative Commons Attribution License}.}
 
 \section{Abstract}
-The article examines the properties of programming languages based on the knowledge base of the international project Wikidata. A number of problems have been solved with the help of SPARQL queries calculated on objects of the "programming language"\  type in Wikidata. Lists of all programming languages under permissive licenses and languages with closed licenses were obtained and their percentage was calculated. A bubble chart was built by the number of source code file formats. Maps have been received showing the location of educational institutions and companies in which people associated with the creation of programming languages studied or worked. A bubble diagram has been built showing the professions of people involved in the creation and development of programming languages. A list of all object-oriented programming languages was obtained and a conclusion was drawn about the exhaustive completeness of Wikidata regarding them. Comparison and analysis of the results of SPARQL queries of 2017 and 2020 are carried out, the main changes are noted.
+The chapter examines the properties of programming languages based on the knowledge base of the international project Wikidata. A number of problems have been solved with the help of SPARQL queries calculated on objects of the ``programming language''  type in Wikidata. Lists of all programming languages under permissive licenses and languages with closed licenses were obtained and their percentage was calculated. A bubble chart showing the number of source code file formats was built. Maps have been generated showing the location of educational institutions and companies in which people associated with the creation of programming languages studied or worked. A bubble diagram shows the professions of people involved in the creation and development of programming languages. A list of all object-oriented programming languages was obtained and a conclusion was drawn about the completeness of Wikidata regarding them. Comparison and analysis of the results of SPARQL queries of 2017 and 2020 are carried out, the main changes are noted, such as the filling level of objects, an increase in the number of professions of the creators of programming languages, etc.
 
-\section{Formulation of the problem}
-We study programming languages, in particular, information about them in Russian Wikipedia, English Wikipedia and Wikidata.
-Tasks:
-\begin{enumerate}
-\item Construct an ordered list of programming languages by the number of interlinks.
-\item Construct a list of languages by the number of visits of articles in Russian Wikipedia.
-\item Construct a directed acyclic graph of dependencies of programming languages from each other (or find cycles in dependencies, if such a graph can not be constructed). See the "influenced by"\  property in Java.
-\end{enumerate}
+%\section{Formulation of the problem}
+%We study information about programming languages in Russian Wikipedia, English Wikipedia and Wikidata.
 
-Instances of the ``Programming Language''\  object\newline
-Let's build a list of all languages.
+\section{List of programming languages}
+We study information about programming languages in Russian Wikipedia, English Wikipedia and Wikidata. Let's build a list of all languages (Listing \ref{lst:prog_languages}).
 \begin{lstlisting}[ language=SPARQL, 
                     caption={List of programming languages.\\\hspace{\textwidth}
                         The result contains \num{732} languages in 2017, 
@@ -33,7 +27,7 @@ Let's build a list of all languages.
 SELECT ?lang ?langLabel
 WHERE
 {
-    ?lang wdt:P31 wd:Q9143.
+    ?lang wdt:P31 wd:Q9143. #instance of language
     SERVICE wikibase:label 
 		{bd:serviceParam wikibase:language "en"}
 }
@@ -41,34 +35,34 @@ WHERE
 
 The most complete and well-developed programming languages on Wikidata for 2017 were: \wdqName{Java}{251}, \wdqName{Python}{28865}, \wdqName{C}{15777}. For 2020 the most well-developed programming languages on Wikidata are: \wdqName{C++}{2407} (26 properties), \wdqName{Java}{251} (26 properties), \wdqName{JavaScript}{2005} (25 properties), \wdqName{R}{206904} (25 properties).
 
-Almost empty and uninformative languages for 2017 were: \wdqName{CLIPS}{165372}, \wdqName{Dylan}{1268744}, \wdqName{Go!}{3109515}.
+Almost empty and uninformative languages for 2020 are: \wdqName{Proteus}{3924253}, \wdqName{Cryptol}{5190950}, \wdqName{Flow Java}{5462069}, \wdqName{Comfy}{21524853} according to ProWD\cite{prowd_langs}.
 
-The disadvantage of the resulting list is that a number of objects turned out to be nameless on the Wikidata (No label defined). Let's try to get a list of languages, which "label"\  field will be non-empty.
+In 2017 there were languages with an unfilled label, but script \ref{lst:labled_prog_languages} shows that for 2020 all languages have a filled label. However, not all programming languages have labels for the Russian language.
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={List of programming languages with label.\\\hspace{\textwidth}
                         The result contains \num{709} languages in 2017, 
                         \num{1422} languages in 2020.\\\hspace{\textwidth}
-                        SPARQL query: \href{https://w.wiki/kCf}{w.wiki/kCf}
+                        SPARQL query: \href{https://w.wiki/rc3}{w.wiki/rc3}
                         },
                     label=lst:labled_prog_languages,
                     texcl 
                     ]
 #List of `instances of` "programming language"\  only with a label.
-SELECT ?item ?item_label
+SELECT ?lang ?lang_label
 WHERE
 {
-    ?item wdt:P31 wd:Q9143
-    ; rdfs:label ?item_label . 
+    ?lang wdt:P31 wd:Q9143 #instance of language
+    ; rdfs:label ?lang_label . 
 
-    FILTER (LANG(?item_label) = "en") . 
+    FILTER (LANG(?lang_label) = "en") . 
 }
 \end{lstlisting}%
 For 2020, all languages in the list have a filled label field.
 
 \label{question:prog_lang_1}
 \marginnote{
-Correlate a programming language and its developer.
+Match a programming language and its developer.
 \newline
 	\begin{tabular}{ll}
 		Developer & Language\\
@@ -83,35 +77,33 @@ The answer is on page~\pageref{answer:prog_lang_1}.
 
 \section{Demonstration of work with operations on sets in SPARQL}
 
-Output all programming languages that are open (free) software and / or experienced the influence of at least one of the following programming languages: \wdqName{C}{15777}, \wdqName{Python}{28865}, \wdqName{Java}{251}. At the same time, developed by any of the companies, except: \href{https://en.wikipedia.org/wiki/Sun_Microsystems}{Sun Microsystems}, \href{https://en.wikipedia.org/wiki/Johnson_Space_Center}{Johnson Space Center}.
+Let us list all programming languages that are open (free) software and influenced by at least one of the following programming languages: \wdqName{C}{15777}, \wdqName{Python}{28865}, \wdqName{Java}{251} and not developed by any of the companies, except: \href{https://en.wikipedia.org/wiki/Sun_Microsystems}{Sun Microsystems}, \href{https://en.wikipedia.org/wiki/Johnson_Space_Center}{Johnson Space Center} (Listing~\ref{lst:prog_lang_sets}).
 \index{SPARQL!MINUS / An example of working with sets.}
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={An example of working with sets.\\\hspace{\textwidth}
+                    caption={List of free programming languages influenced by C, Python or Java and not developed by Sun Microsystems or Johnson Space Center.\\\hspace{\textwidth}
                         The result contains \num{115} languages in 2017, 
                         \num{122} languages in 2020.\\\hspace{\textwidth}
-                        SPARQL query: \href{https://w.wiki/n9H}{w.wiki/n9H}
+                        SPARQL query: \href{https://w.wiki/kCh}{w.wiki/kCh}
                         },
                     label=lst:prog_lang_sets,
                     texcl 
                     ]
-SELECT DISTINCT ?item ?item_label
+SELECT DISTINCT ?lang ?lang_label
 WHERE
 {
-    ?item wdt:P31 wd:Q9143 # instances of programming language
-    ; rdfs:label ?item_label . 
-
-    FILTER (LANG(?item_label) = "en") . 
-
+    ?lang wdt:P31 wd:Q9143
+    ; rdfs:label ?lang_label . 
+    FILTER (LANG(?lang_label) = "en") . 
     {
-      { ?item wdt:P737 wd:Q15777 } UNION # influenced by C
-      { ?item wdt:P737 wd:Q28865 } UNION # influenced by Python
-      { ?item wdt:P737 wd:Q251   } UNION # influenced by Java
-      { ?item wdt:P31  wd:Q341   }
+      { ?lang wdt:P737 wd:Q15777 } UNION
+      { ?lang wdt:P737 wd:Q28865 } UNION 
+      { ?lang wdt:P737 wd:Q251   } UNION
+      { ?lang wdt:P31 wd:Q341    }
     } MINUS 
   	{ 
-      { ?item wdt:P178 wd:Q14647  } UNION # dev Sun Microsystems
-      { ?item wdt:P178 wd:Q208371 }       # Johnson Space Center
-    }  
+      { ?lang wdt:P178 wd:Q14647  } UNION
+      { ?lang wdt:P178 wd:Q208371 }
+    }   
 }
 \end{lstlisting}%
 
@@ -122,23 +114,24 @@ We will output all programming languages under permissive licenses (practically 
                     caption={List of programming languages under permissive licenses.\\\hspace{\textwidth}
                         The result contains \num{37} languages in 2017, 
                         \num{82} languages in 2020.\\\hspace{\textwidth}
-                        SPARQL query: \href{https://w.wiki/kD6}{w.wiki/kD6}
+                        SPARQL query: \href{https://w.wiki/rc7}{w.wiki/rc7}
                         },
                     label=lst:prog_lang_permissive,
                     texcl 
                     ]
-SELECT DISTINCT ?item ?item_label
+SELECT DISTINCT ?lang ?lang_label
 WHERE
 {
-    ?item wdt:P31 wd:Q9143 # instances of programming language
-    ; rdfs:label ?item_label . 
+    ?lang wdt:P31 wd:Q9143
+    ; rdfs:label ?lang_label . 
 
-    FILTER (LANG(?item_label) = "en") . 
-  
-      { ?item wdt:P275 wd:Q308915  }  UNION  # Mozzila Public
-      { ?item wdt:P275 wd:Q334661  }  UNION  # MIT
-      { ?item wdt:P275 wd:Q191307  }  UNION  # BSD
-      { ?item wdt:P275 wd:Q6905323 }         # CC
+    FILTER (LANG(?lang_label) = "en") . 
+
+     
+      { ?lang wdt:P275 wd:Q308915  }  UNION  # license Mozzila Public
+      { ?lang wdt:P275 wd:Q334661  }  UNION  # license MIT
+	{ ?lang wdt:P275 wd:Q191307  }  UNION  # license BSD
+	{ ?lang wdt:P275 wd:Q6905323 }             # license CC
 }
 \end{lstlisting}%
 
@@ -237,33 +230,33 @@ Let's map (figures~\ref{fig:organizations_2017} \& ~\ref{fig:organizations_2020}
 \index{Chart!Map / Map of the countries where people and organizations connected with the creation of programming languages live}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Map of the countries where people and organizations connected with the creation of programming languages live.\\\hspace{\textwidth}
-                        SPARQL query: \href{https://w.wiki/kD9}{w.wiki/kD9}
+                        SPARQL query: \href{https://w.wiki/rcA}{w.wiki/rcA}
                         },
                     label=lst:prog_langs_live,
                     texcl 
                     ]
 #defaultView:Map
-SELECT ?item_label ?developer_label ?location_label ?coord
+SELECT ?lang_label ?developer_label ?location_label ?coord
 WHERE
 {
-    ?item wdt:P31 wd:Q9143 # instances of programming language
-    ; rdfs:label ?item_label.     
-    FILTER (LANG(?item_label) = "en"). 
-  
-    ?item wdt:P178 ?developer. # developer
-    ?developer rdfs:label ?developer_label. 
-    FILTER (LANG(?developer_label) = "en"). 
-      		
-    { ?developer wdt:P159 ?location. } UNION # headquarters loc.
-    { ?developer wdt:P19  ?location  }       # place of birth
-    ?location rdfs:label ?location_label. 
-    FILTER (LANG(?location_label) = "en").
-    
-    ?location wdt:P625 ?coord. # coordinate location
+ 	?lang wdt:P31 wd:Q9143 # instances of programming language
+ ; rdfs:label ?lang_label. 
+ 	FILTER (LANG(?lang_label) = "en"). 
+ 
+ ?lang wdt:P178 ?developer. # developer
+ ?developer rdfs:label ?developer_label. 
+ 	FILTER (LANG(?developer_label) = "en"). 
+ 		
+ { ?developer wdt:P159 ?location. } UNION # headquarters location
+ { ?developer wdt:P19 ?location } # place of birth
+ 	?location rdfs:label ?location_label. 
+ FILTER (LANG(?location_label) = "en").
+ 
+ 	?location wdt:P625 ?coord. # coordinate location
 
-    SERVICE wikibase:label {
-        bd:serviceParam wikibase:language "en".
-    }   	
+ SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en".
+	} 	
 }
 \end{lstlisting}%
 
@@ -569,4 +562,7 @@ WHERE
 \item Output all programming languages with the "\href{https://www.wikidata.org/wiki/Property:P822}{mascot character}" property.
 \item Calculate the number of programming languages founded before 1992 (property: "\href{https://www.wikidata.org/wiki/Property:P571}{inception}").
 \item Construct a bar chart that shows the number of known hashtags in Twitter for each programming language (property: "\href{https://www.wikidata.org/wiki/Property:P2572}{Twitter hashtag}").
+\item Construct an ordered list of programming languages by the number of interlinks.
+\item Construct a list of languages by the number of visits of articles in Russian Wikipedia.
+\item Construct a directed acyclic graph of dependencies of programming languages from each other (or find cycles in dependencies, if such a graph can not be constructed). See the "influenced by"\  property in Java.
 \end{enumerate}
