@@ -7,7 +7,7 @@
 \footnotetext{\href{https://en.wikipedia.org/wiki/World_map}{Political map of the world}. 
 	Author: \href{https://commons.wikimedia.org/wiki/File:Political_Map_of_the_World,_2013.png}{Central Intelligence Agency / 2015 /  Creative Commons Attribution License}.}
 
-The chapter is devoted to the study of countries based on the knowledge base of the Wikidata international project. SPARQL queries were used in order to analyse and compare ``countries'' objects in Wikidata. A list of all currently existing countries, a list of countries ordered by date of creation, a list of demonyms of countries were generated. A bubble chart with the forms of government of countries and a graph of neighboring countries were constructed. In addition, conclusions were drawn regarding the completeness of the Wikidata for this topic.
+The chapter is devoted to the study of countries based on the knowledge base of the Wikidata international project. SPARQL queries were used in order to analyse and compare ``countries'' objects in Wikidata. A list of all currently existing countries, a list of countries ordered by date of creation, a list of demonyms of countries were generated. A bubble chart with the forms of government of countries, a graph of neighboring countries and a map of neighboring countries of Russia were constructed. In addition, conclusions were drawn regarding the completeness of the Wikidata for this topic.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Instances}
@@ -56,7 +56,31 @@ WHERE
 ORDER BY (?inception)
 \end{lstlisting}
 
-%SPARQL query (listing ~\ref{lst:age_of_country}), 112 results (2017), 199 results (2020).
+%%%%%%%%%%%%%%%% Ex 3 %%%%%%%%%%%%%%%%
+\marginnote[-2.0cm]{
+	\label{question:population_density}
+	Identify the countries of Asia by flags and list them in ascending order of population density (fig. ~\ref{fig:flag_kor}, ~\ref{fig:flag_mongolia}, ~\ref{fig:flag_singapore}, ~\ref{fig:flag_israel}).
+}
+
+\begin{marginfigure}[-0.8cm]
+	{
+		\setlength{\fboxsep}{0pt}%
+		\setlength{\fboxrule}{1pt}%
+		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/256px-Flag_of_South_Korea.png}}%
+	}
+	\caption{First country flag.}%
+	\label{fig:flag_kor}%
+\end{marginfigure}
+
+\begin{marginfigure}[3.2cm]
+	{
+		\setlength{\fboxsep}{0pt}%
+		\setlength{\fboxrule}{1pt}%
+		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/256px-Flag_of_Mongolia.png}}%
+	}
+	\caption{Second country flag.}%
+	\label{fig:flag_mongolia}%
+\end{marginfigure}
 
 As a result of the query, a list of countries with the dates of their creation was received. For example: \wdqName{Russia}{159} --- Jan 1 0862, \wdqName{Kosovo}{1246} --- Feb 17 2008, \wdqName{South Sudan}{958} --- Jul 9 2011.
 
@@ -81,7 +105,29 @@ WHERE
 }
 \end{lstlisting}
 
-%SPARQL query (listing ~\ref{lst:without_inception}), 100 results (2017), 7 results (2020).
+\begin{marginfigure}
+	{
+		\setlength{\fboxsep}{0pt}%
+		\setlength{\fboxrule}{1pt}%
+		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/256px-Flag_of_Singapore.png}}%
+	}
+	\caption{Third country flag.}%
+	\label{fig:flag_singapore}%
+\end{marginfigure}
+
+\begin{marginfigure}
+	{
+		\setlength{\fboxsep}{0pt}%
+		\setlength{\fboxrule}{1pt}%
+		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/256px-Flag_of_Israel.png}}%
+	}
+	\caption{Fourth country flag.}%
+	\label{fig:flag_israel}%
+\end{marginfigure}
+
+\marginnote{
+	See the answer in Exercise~\ref{answer:population_density}, page~\pageref{answer:population_density}.
+}
 
 So, on March 6 2017, the Wikidata contains 100 out of 198 entries about the currently existing countries with an unknown year of the country's foundation.
 
@@ -99,51 +145,6 @@ According to the category of \href{https://en.wikipedia.org/wiki/List_of_soverei
 
 It is not always possible to specify the exact date of the country's foundation for various reasons: absence, lack or inconsistency of written sources. For example, the basis of the Old Russian state is associated with the vocation of Varangian prince Rurik in 862, but there is no exact date (object \wdqName{Russia}{159}). Also, some modern countries were preceded by a number of others and the date of formation of which of them should be considered as the date of creation of the country is an open question (for example, \wdqName{Mongolia}{711}).
 
-%%%%%%%%%%%%%%%% Ex 3 %%%%%%%%%%%%%%%%
-\marginnote{
-	\label{question:population_density}
-	Identify the countries of Asia by flags and list them in ascending order of population density.
-}
-
-\begin{marginfigure}
-	{
-		\setlength{\fboxsep}{0pt}%
-		\setlength{\fboxrule}{1pt}%
-		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/256px-Flag_of_South_Korea.png}}%
-	}
-	\caption{First country flag.}%
-	\label{fig:flag_kor}%
-\end{marginfigure}
-\begin{marginfigure}
-	{
-		\setlength{\fboxsep}{0pt}%
-		\setlength{\fboxrule}{1pt}%
-		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/256px-Flag_of_Singapore.png}}%
-	}
-	\caption{Second country flag.}%
-	\label{fig:flag_singapore}%
-\end{marginfigure}
-\begin{marginfigure}
-	{
-		\setlength{\fboxsep}{0pt}%
-		\setlength{\fboxrule}{1pt}%
-		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/256px-Flag_of_Israel.png}}%
-	}
-	\caption{Third country flag.}%
-	\label{fig:flag_israel}%
-\end{marginfigure}
-\begin{marginfigure}
-	{
-		\setlength{\fboxsep}{0pt}%
-		\setlength{\fboxrule}{1pt}%
-		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/256px-Flag_of_Mongolia.png}}%
-	}
-	\caption{Fourth country flag.}%
-	\label{fig:flag_mongolia}%
-\end{marginfigure}
-\marginnote{
-	See the answer in Exercise~\ref{answer:population_density}, page~\pageref{answer:population_density}.
-}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{List of demonyms in English}
@@ -167,7 +168,6 @@ WHERE
 GROUP BY ?country ?countryLabel
 \end{lstlisting}
 
-%SPARQL query (listing ~\ref{lst:demonym}), 197 results (2017), 162 results (2020).
 
 As of April 26 2017, the Wikidata contains 197 of the 202 countries with demonyms.
 
@@ -239,6 +239,22 @@ WHERE
 GROUP BY ?country ?countryLabel 
 ORDER BY DESC(?count)
 \end{lstlisting}
+
+%%%%%%%%%%%%%%%% Ex 4 %%%%%%%%%%%%%%%%
+\marginnote{
+	\label{question:official_language}
+	Which of these languages are official in \href{https://en.wikipedia.org/wiki/Russia}{Russia}?
+	\begin{itemize}
+		\item \href{https://en.wikipedia.org/wiki/Abaza_language}{Abaza};
+		\item \href{https://en.wikipedia.org/wiki/Moksha_language}{Moksha};
+		\item \href{https://en.wikipedia.org/wiki/Erzya_language}{Erzya};
+		\item \href{https://en.wikipedia.org/wiki/Belarusian_language}{Belarusian}.
+	\end{itemize}
+}
+\marginnote{
+	See the answer in Exercise~\ref{answer:official_languages}, page~\pageref{answer:official_languages}.
+}
+
 
 The United States of America Wikidata object contains the maximum number of demonyms --- 41, Great Britain --- 40, Germany --- 40, Canada --- 36 and Russia --- 34.
 

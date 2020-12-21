@@ -265,6 +265,73 @@ SELECT ?city ?cityLabel ?flag ?countryLabel WHERE {
 
 See question on page~\pageref{question:cities_flags}.
 
+\section{Analysis of aspects of modern countries}
+\labsec{answer-languages}
+\begin{exercise}
+\label{answer:population_density}
+Identify the countries of Asia by flags and list them in ascending order of population density (fig. ~\ref{fig:flag_kor}, ~\ref{fig:flag_mongolia}, ~\ref{fig:flag_singapore}, ~\ref{fig:flag_israel}).
+\end{exercise}
+
+\begin{enumerate}
+\item Mongolia (\num{1.96} people km\begin{math}^2\end{math}), (fig. ~\ref{fig:flag_mongolia});
+\item Israel (\num{437.79} people km\begin{math}^2\end{math}), (fig. ~\ref{fig:flag_israel});
+\item Korea (\num{513.14} people km\begin{math}^2\end{math}), (fig. ~\ref{fig:flag_kor});
+\item Singapore (\num{8189.30} people km\begin{math}^2\end{math}), (fig. ~\ref{fig:flag_singapore}).
+\end{enumerate}
+
+The answer to the question can also be obtained by running the following SPARQL query (Listing \ref{lst:population_density}).
+
+\begin{lstlisting}[ language=SPARQL, 
+caption={\href{https://w.wiki/rcE}{
+		Population density in Asia}\protect\footnotemark},
+label=lst:population_density
+]
+SELECT ?country ?countryLabel ?flag ?area  ?population 
+(?population / ?area as ?populationDensity)
+{
+	?country wdt:P31 wd:Q6256.       # country
+	?country wdt:P30 wd:Q48 .        # on the continent of Asia
+	?country wdt:P41 ?flag .         # has a flag (image)
+	?country wdt:P2046 ?area .       # has an area
+	?country wdt:P1082 ?population . # has a population
+	
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY DESC(?populationDensity)
+\end{lstlisting}
+
+See question on page~\pageref{question:population_density}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{exercise}
+\label{answer:official_languages}
+Which of these languages are official in \href{https://en.wikipedia.org/wiki/Russia}{Russia}?
+\begin{itemize}
+\item \href{https://en.wikipedia.org/wiki/Abaza_language}{Abaza};
+\item \href{https://en.wikipedia.org/wiki/Moksha_language}{Moksha};
+\item \href{https://en.wikipedia.org/wiki/Erzya_language}{Erzya};
+\item \href{https://en.wikipedia.org/wiki/Belarusian_language}{Belarusian}.
+\end{itemize}
+\end{exercise}
+
+The official languages of Russia are the Abaza, Moksha and Erzyan languages. The answer to the question can also be obtained by running the following SPARQL query (Listing \ref{lst:official_languages}).
+
+\begin{lstlisting}[ language=SPARQL, 
+caption={\href{https://w.wiki/rcF}{Official languages in Russia}\protect\footnotemark},
+label=lst:official_languages
+]
+# Official language in Russia
+SELECT ?lanquage ?lanquageLabel
+WHERE
+{
+	?country wdt:P31 wd:Q6256 .# country
+	?country wdt:P37 ?lanquage .
+	FILTER(?country = wd:Q159) . 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+\end{lstlisting}
+
+See question on page~\pageref{question:official_language}.
+
 \section{Programming languages and its creators}
 \labsec{answer-languages}
 \begin{exercise}
