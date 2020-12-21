@@ -34,13 +34,13 @@
 Построим список всех кораблей на русском языке (см. листинг \ref{lst:ships_ru}).
 
 \begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/koL}{Список кораблей}}\protect\footnotemark}, label=lst:ships_ru, ]
-  #List of ship in Russian
-  SELECT ?ship ?shipLabel
-  WHERE
-  {
-    ?ship wdt:P31 wd:Q11446. # instance of ship
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
-  }
+#List of ship in Russian
+SELECT ?ship ?shipLabel
+WHERE
+{
+  ?ship wdt:P31 wd:Q11446. # instance of ship
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
+}
 \end{lstlisting}
 \footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/koL}{https://w.wiki/koL}. Найдено\num{19820} кораблей в 2017 г. и \num{50681} в 2020 г.}
 
@@ -49,17 +49,17 @@
 Составим список кораблей, операторы которых находятся или находились в России, СССР или Российской Империи (см. листинг \ref{lst:ships_with_ru_op}).
 
 \begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/koN}{Cписок кораблей, операторы которых находятся или находились в России, СССР или Российской Империи}}, label=lst:ships_with_ru_op ]
-  #List of ship from Russia, Soviet Union and Russian Empire
-  SELECT ?ship ?shipLabel
-  WHERE
-  {
-    ?ship wdt:P31 wd:Q11446. # instance of ship
-                                       # ships belongs to:
-    { ?ship wdt:P137/wdt:P17 wd:Q34266 } UNION  # Russian Empire
-    { ?ship wdt:P137/wdt:P17 wd:Q15180 } UNION  # Soviet Union
-    { ?ship wdt:P137/wdt:P17 wd:Q159 }.         # Russia
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
-  }
+#List of ship from Russia, Soviet Union and Russian Empire
+SELECT ?ship ?shipLabel
+WHERE
+{
+  ?ship wdt:P31 wd:Q11446. # instance of ship
+                                    # ships belongs to:
+  { ?ship wdt:P137/wdt:P17 wd:Q34266 } UNION  # Russian Empire
+  { ?ship wdt:P137/wdt:P17 wd:Q15180 } UNION  # Soviet Union
+  { ?ship wdt:P137/wdt:P17 wd:Q159 }.         # Russia
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
+}
 \end{lstlisting}
 \footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/koN}{https://w.wiki/koN}. Найдено 107 кораблей в 2017 г. и 579 в 2020 г.}
 
@@ -71,54 +71,64 @@
 
 \section{Полнота Викиданных}
 
-Поиск точного количества кораблей в мире — трудная задача. Ведь данные о некоторых из них являются совершенно секретными, какие-то же — это частные судна и информации о них тоже нет. Предположим, что общее число кораблей равно 1 210 895, как указано в базе данных судов\cite{FleetMon}. \href{https://w.wiki/koU}{SPARQL-запрос} показал только 19 886 записей (на 2017 год), что составляет только 1,6\% от общего числа кораблей. См. листинг \ref{lst:all_ships_en}.
+Поиск точного количества кораблей в мире — трудная задача. Ведь данные о некоторых из них являются совершенно секретными, какие-то же — это частные судна и информации о них тоже нет. Предположим, что общее число кораблей равно 1 210 895, как указано в базе данных судов\cite{FleetMon}. На 2017 год было найдено только \num{19886} записей, что составляет только 1,6\% от общего числа кораблей. См. листинг \ref{lst:all_ships_en}.
 
 
 \begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/koU}{Список кораблей на английском}}, label=lst:all_ships_en ]
-  #List of ships in English
-  SELECT ?ship ?shipLabel
-  WHERE
-  {
-    ?ship wdt:P31 wd:Q11446.
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
-  }
+#List of ships in English
+SELECT ?ship ?shipLabel
+WHERE
+{
+  ?ship wdt:P31 wd:Q11446.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
 \end{lstlisting}
 \footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/koU}{https://w.wiki/koU}.}
 
 Что касается российских кораблей, актуальный список корабельного состава ВМФ России на 16 октября 2017 г., содержит 72 подводные лодки, а также 211 боевых кораблей и катеров \cite{RussianShips}, При этом запрос в листинге \ref{lst:all_ru_ships} находит всего 25 записей (0.09\%).
 
 \begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/koS}{Cписок кораблей, операторы которых находятся или находились в России, СССР или Российской Империи}}, label=lst:all_ru_ships ]
-  #List of ship from Russia, Soviet Union and Russian Empire
-  SELECT ?ship ?shipLabel
-  WHERE
-  {
-    ?ship wdt:P31 wd:Q11446. # instance of ship
-                                       # ships belongs to:
-    { ?ship wdt:P137/wdt:P17 wd:Q34266 } UNION  # Russian Empire
-    { ?ship wdt:P137/wdt:P17 wd:Q15180 } UNION  # Soviet Union
-    { ?ship wdt:P137/wdt:P17 wd:Q159 }.         # Russia
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
-  }
+#List of ship from Russia, Soviet Union and Russian Empire
+SELECT ?ship ?shipLabel
+WHERE
+{
+  ?ship wdt:P31 wd:Q11446. # instance of ship
+                                     # ships belongs to:
+  { ?ship wdt:P137/wdt:P17 wd:Q34266 } UNION  # Russian Empire
+  { ?ship wdt:P137/wdt:P17 wd:Q15180 } UNION  # Soviet Union
+  { ?ship wdt:P137/wdt:P17 wd:Q159 }.         # Russia
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
+}
 \end{lstlisting}
 \footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/koN}{https://w.wiki/koN}.}
 
 И в первом, и во втором случае разница между фактическим количеством кораблей и результатом запросов огромная, что говорит о неполноте Викиданных.
 
+\label{question:ship_1}
+\marginnote{
+  {
+    \setlength{\fboxsep}{0pt}%
+    \setlength{\fboxrule}{1pt}%
+    \fcolorbox{gray}{gray}{\includegraphics{chapter/ship/Secret_Grem_ship.jpg}}
+  }
+  На рисунке представлен самый известный советский \href{https://ru.wikipedia.org/wiki/Эскадренный_миноносец}{эскадренный миноносец} \href{https://ru.wikipedia.org/wiki/Эскадренные_миноносцы_проекта_7}{проекта 7}, удостоенный звания "гвардейский", назовите его.
+}
+
 
 \section{Полнота свойств объектов военных кораблей}
 
-Составим список кораблей (на русском языке), участвовавших в каких-либо конфликтах (см. листинг \ref{lst:ships_in_conflict_ru})
+Составим список кораблей (на русском языке), участвовавших в каких-либо конфликтах (см. листинг \ref{lst:ships_in_conflict_ru}).
 
 \begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/ghY}{Список кораблей, участвовавших в каких-либо конфликтах (на русском языке)}}\protect\footnotemark}, label=lst:ships_in_conflict_ru, ]
-  #List of ships with countries and war conflicts in Russian
-  SELECT ?ship ?shipLabel ?countryLabel ?conflict ?conflictLabel
-  WHERE
-  {
-    ?ship wdt:P31 wd:Q11446;        # instance of ship
-          wdt:P137/wdt:P17 ?country;         # belongs to country
-          wdt:P607 ?conflict.       # engaged in some conflict
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
-  }
+#List of ships with countries and war conflicts in Russian
+SELECT ?ship ?shipLabel ?countryLabel ?conflict ?conflictLabel
+WHERE
+{
+  ?ship wdt:P31 wd:Q11446;        # instance of ship
+        wdt:P137/wdt:P17 ?country;         # belongs to country
+        wdt:P607 ?conflict.       # engaged in some conflict
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
+}
 \end{lstlisting}
 \footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/ghY}{https://w.wiki/ghY}, найдено \num{1400} кораблей в 2017 г. и \num{3586} в 2020 г.}
 
@@ -131,23 +141,43 @@
 
 Для первого типа объектов в скриптах с поиском у кораблей свойства \href{https://www.wikidata.org/wiki/Property:P607}{conflict (P607)} будет отображаться больше войн/сражений, чем при втором. Но в этом случае операция \href{https://ru.wikipedia.org/wiki/Одесская_оборона_(1941)}{Одесская оборона} будет стоять наряду с \href{https://ru.wikipedia.org/wiki/Великая_Отечественная_война}{Великой Отечественной войной}, хотя она является частью этой войны. В такой ситуации выводимые данные будут не точными.
 
+\label{question:ship_2}
+\marginnote{
+  Исходя из графика зависимости кораблей и военных действий (Рис. \ref{fig:ships_by_country_and_conflict}), на какую страну приходится больше всего значений войн, с которыми связаны корабли?
+  \begin{itemize}
+    \item СССР
+    \item Россия
+    \item Российская Империя
+  \end{itemize}
+}
+
+\label{question:ship_3}
+\marginnote{
+  Исходя из этого же графика, на какую войну приходится больше всего значений кораблей?
+  \begin{itemize}
+    \item \href{https://www.wikidata.org/wiki/Q159950}{Русско-японская война}
+    \item \href{https://www.wikidata.org/wiki/Q362}{Вторая мировая война}
+    \item \href{https://www.wikidata.org/wiki/Q254106}{Крымская война}
+  \end{itemize}
+}
+
 Составим список кораблей (на русском языке) России, СССР или Российской Империи, участвовавших в каких-либо конфликтах (см. листинг \ref{lst:ships_in_war_ru}).
 
 \begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/koW}{Список кораблей России, СССР или Российской Империи, участвовавших в каких-либо конфликтах}}\protect\footnotemark}, label=lst:ships_in_war_ru, ]
-  #List of ship with countries and war conflicts in Russian
-  SELECT ?ship ?shipLabel ?countryLabel ?conflict ?conflictLabel
-  WHERE
-  {
-    ?ship wdt:P31 wd:Q11446;        # instance of ship
-          wdt:P137/wdt:P17 ?country;        # belongs to operator
-          wdt:P607 ?conflict.       # engaged in some conflict
-    
-    { ?country wdt:P17 wd:Q34266 } UNION  # Russian Empire
-    { ?country wdt:P17 wd:Q15180 } UNION  # Soviet Union
-    { ?country wdt:P17 wd:Q159 }.         # Russia
-    
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
-  }
+#List of ship with countries and war conflicts in Russian
+SELECT ?ship ?shipLabel ?countryLabel ?conflict ?conflictLabel
+WHERE
+{
+  ?ship wdt:P31 wd:Q11446;        # instance of ship
+        wdt:P137/wdt:P17 ?country;        # belongs to operator
+        wdt:P607 ?conflict.       # engaged in some conflict
+  
+  { ?country wdt:P17 wd:Q34266 } UNION  # Russian Empire
+  { ?country wdt:P17 wd:Q15180 } UNION  # Soviet Union
+  { ?country wdt:P17 wd:Q159 }.         # Russia
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
+}
 \end{lstlisting}
 \footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/koW}{https://w.wiki/koW}. Найдено \num{105} кораблей в 2017 г. и \num{86} в 2020 г.}
   
@@ -161,36 +191,6 @@
 \end{enumerate}
 
 
-\section{Упражнения}
-
-\begin{enumerate}
-  \item Исходя из графика зависимости кораблей и военных действий (Рис. \ref{fig:ships_by_country_and_conflict}), на какую страну приходится больше всего значений войн, с которыми связаны корабли?
-  \begin{itemize}
-    \item СССР
-    \item Россия
-    \item Российская Империя
-  \end{itemize}
-
-  \item Исходя из этого же графика, на какую войну приходится больше всего значений кораблей?
-  \begin{itemize}
-    \item \href{https://www.wikidata.org/wiki/Q159950}{Русско-японская война}
-    \item \href{https://www.wikidata.org/wiki/Q362}{Вторая мировая война}
-    \item \href{https://www.wikidata.org/wiki/Q254106}{Крымская война}
-  \end{itemize}
-
-  \item На рисунке \ref{fig:quiz_question_ship} представлен самый известный советский \href{https://ru.wikipedia.org/wiki/Эскадренный_миноносец}{эскадренный миноносец} \href{https://ru.wikipedia.org/wiki/Эскадренные_миноносцы_проекта_7}{проекта 7}, удостоенный звания "гвардейский", назовите его.
-  
-  \begin{marginfigure}[0.0cm]
-    {
-      \setlength{\fboxsep}{0pt}%
-      \setlength{\fboxrule}{1pt}%
-      \fcolorbox{gray}{gray}{\includegraphics{chapter/ship/Secret_Grem_ship.jpg}}
-    }
-    \caption{Известный советский эскадренный миноносец проекта 7.}%
-    \label{fig:quiz_question_ship}%
-  \end{marginfigure}
-\end{enumerate}
-
 
 \begin{figure*}[h]
   {
@@ -201,3 +201,8 @@
     \caption{Список кораблей, связанных с Россией и участвовавших в военных конфликтах (2020)}%
     \label{fig:ships_by_country_and_conflict}%
 \end{figure*}
+
+
+\section{Упражнения}
+
+TODO
