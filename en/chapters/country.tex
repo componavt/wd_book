@@ -230,7 +230,7 @@ As a result of the query, we get a bubble chart with the most popular forms of g
 		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/Bubble_chart_forms_of_government_countries_according_to_Wikidata.png}}%
 	}
 	\caption{Bubble chart forms of government countries, 2017
-		\\ The popular forms of government of the countries are the republic (in 20 countries), the constitutional monarchy (in 18 countries), the federal republic (in 18 countries), the parliamentary republic (in 17 countries) and the presidential system (in 11 countries) for 2017.
+		\\ The popular forms of government of the countries are the republic (in 20 countries), the constitutional monarchy (18), the federal republic (18), the parliamentary republic (17) and the presidential system (11) for 2017.
 	}%
 	\label{fig:bubble_chart_forms_of_government_countries_2017}%
 \end{figure}
@@ -243,7 +243,7 @@ As a result of the query, we get a bubble chart with the most popular forms of g
 	}
 	\caption{Bubble chart forms of government countries, 2020
 		\\ 
-		The popular forms of government of the countries are the republic (in 27 countries), the constitutional monarchy (in 18 countries), the federal republic (in 16 countries), the parliamentary republic (in 13 countries) and the presidential system (in 12 countries) for 2020.
+		The popular forms of government of the countries are the republic (in 27 countries), the constitutional monarchy (18), the federal republic (16), the parliamentary republic (13) and the presidential system (12) for 2020.
 	}%
 	\label{fig:bubble_chart_forms_of_government_countries_2020}%
 \end{figure}
@@ -258,6 +258,8 @@ caption={Neighboring countries graph. The result contains \num{795} neighboring 
 SPARQL query: \href{https://w.wiki/mrs}{https://w.wiki/mrs}},
 label=lst:neighboring_countries
 ]
+#Neighboring countries graph
+#defaultView:Graph
 SELECT ?country ?countryLabel ?sharesBorderWith 
 ?sharesBorderWithLabel
 WHERE
@@ -359,6 +361,6 @@ As a result of executing the query, we get a map of neighboring countries of Rus
 	\item For each country display its flag and motto.
 	\item Draw a map with the marked capitals of all the existing countries.
 	\item Calculate the first five countries with the largest population density for each continent.
-	\item Construct a column diagram showing the distribution of the number of countries by form of government. Estimate whether this distribution is a heavy tail.
-	\item Build list the countries ordered by the number of neighbors. Which countries have the maximum and minimum number of neighbors, what is the average number of neighbors? Is there a correlation between this index and some other parameter of the countries?
+	\item Construct a column diagram showing the distribution of the number of countries by form of government. Estimate whether this distribution has a heavy tail.
+	\item Build a list the countries ordered by the number of neighbors. Which countries have the maximum and minimum number of neighbors, what is the average number of neighbors? Is there a correlation between this parameter and some other parameter of the countries?
 \end{enumerate}

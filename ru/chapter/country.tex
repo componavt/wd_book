@@ -156,6 +156,7 @@ caption={\href{https://w.wiki/k6q}{Страны с незаполненной д
 label=lst:without_inception, 
 escapebegin=ку,escapeend=ку-ку>
 ]
+#List of `instances of` "countries without a inception" 
 SELECT ?country ?countryLabel 
 WHERE
 {
@@ -177,15 +178,15 @@ WHERE
 
 Название жителей может определяться от наименования различных объектов земной поверхности — гор, островов, континентов. Так же обозначение места происхождения людей может зависеть от политико-административного делению. Например, для обозначения гражданства; Тайланд — тайландцы, Канада - канадцы. Внутригосударственное деление также может породить новые наименования, Крым — крымчане.
 
-Построим список стран, у которых есть этнохоронимы на русском языке.
+Построим список стран, у которых есть этнохоронимы на русском языке (листинг ~\ref{lst:demonym}).
 
-Выведем список стран с пустым свойством <<дата основания>> (листинг ~\ref{lst:demonym}).
 
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/k72}{Этнохоронимы на русском языке}\protect\footnotemark},
 label=lst:demonym, 
 escapebegin=ку,escapeend=ку-ку>
 ]
+#List of countries with demonyms in Russian
 SELECT ?country ?countryLabel 
 WHERE
 {
@@ -216,11 +217,13 @@ GROUP BY ?country ?countryLabel
 
 Выведем список всех этнохоронимом на русском языке (листинг ~\ref{lst:list_demonym}).
 
+\index{SPARQL!FILTER / Cписок этнохоронимов}
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/k7A}{Cписок этнохоронимов}\protect\footnotemark},
 label=lst:list_demonym, 
 escapebegin=ку,escapeend=ку-ку>
 ]
+#List of demonyms in Russian
 SELECT ?country ?countryLabel ?demonym
 WHERE
 {
@@ -236,12 +239,13 @@ WHERE
 \subsection{Страны с незаполненными этнохоронимами}
 
 Построим список стран, у которых нет этнохоронимов на русском языке (листинг ~\ref{lst:without_demonym}).
-
+\index{SPARQL!FILTER / Страны с незаполненными этнохоронимами}
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/k7E}{Страны с незаполненными этнохоронимами }\protect\footnotemark},
 label=lst:without_demonym, 
 escapebegin=ку,escapeend=ку-ку>
 ]
+#List of countries without demonyms in Russian
 SELECT ?country ?countryLabel 
 WHERE
 {
@@ -266,6 +270,7 @@ caption={\href{https://w.wiki/k7K}{Количество заполненных �
 label=lst:count_demonym, 
 escapebegin=ку,escapeend=ку-ку>
 ]
+#Count of demonyms in countries
 SELECT  ?country ?countryLabel (count(*) as ?count)
 WHERE
 {
@@ -286,12 +291,14 @@ ORDER BY DESC(?count)
 \section{Формы правления стран}
 
 Построим пузырьковую диаграмму форм правления стран (листинг ~\ref{lst:form_of_government}).
-
+\index{График!BubbleChart / Пузырьковая диаграмма форм правления стран}
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/k7M}{Формы правления стран}\protect\footnotemark},
 label=lst:form_of_government, 
 escapebegin=ку,escapeend=ку-ку>
 ]
+#basic form of government ranking
+#defaultView:BubbleChart
 SELECT ?bfog ?form (count(*) as ?count)
 WHERE 
 {
@@ -343,12 +350,14 @@ ORDER BY DESC(?count) ASC(?form)
 \section{Соседние страны}
 
 Построим граф соседних стран (листинг ~\ref{lst:neighboring_countries}).
-
+\index{График!Graph / Граф соседних стран}
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/k7P}{Соседние страны}\protect\footnotemark},
 label=lst:neighboring_countries, 
 escapebegin=ку,escapeend=ку-ку>
 ]
+#neighboring countries graph
+#defaultView:Graph
 SELECT ?country ?countryLabel ?sharesBorderWith ?sharesBorderWithLabel
 WHERE
 {
@@ -387,7 +396,7 @@ WHERE
 \subsection{Соседние страны России}
 
 Построим карту соседних стран России (листинг ~\ref{lst:neighboring_countries_ru}).
-
+\index{График!Map / Пузырьковая диаграмма по числу побратимов у страны}
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/rMP}{Соседние страны}\protect\footnotemark},
 label=lst:neighboring_countries_ru, 
