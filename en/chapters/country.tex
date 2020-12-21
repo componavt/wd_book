@@ -7,7 +7,7 @@
 \footnotetext{\href{https://en.wikipedia.org/wiki/World_map}{Political map of the world}. 
 	Author: \href{https://commons.wikimedia.org/wiki/File:Political_Map_of_the_World,_2013.png}{Central Intelligence Agency / 2015 /  Creative Commons Attribution License}.}
 
-The chapter is devoted to the study of countries based on the knowledge base of the Wikidata international project. SPARQL queries were used in order to analyse and compare "countries" objects in Wikidata. A list of all currently existing countries, a list of countries ordered by date of creation, a list of demonyms of countries were generated. A bubble chart with the forms of government of countries and a graph of neighboring countries were constructed. In addition, conclusions were drawn regarding the completeness of the Wikidata for this topic.
+The chapter is devoted to the study of countries based on the knowledge base of the Wikidata international project. SPARQL queries were used in order to analyse and compare ``countries'' objects in Wikidata. A list of all currently existing countries, a list of countries ordered by date of creation, a list of demonyms of countries were generated. A bubble chart with the forms of government of countries and a graph of neighboring countries were constructed. In addition, conclusions were drawn regarding the completeness of the Wikidata for this topic.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Instances}
@@ -41,7 +41,7 @@ Almost empty and uninformative countries include \wdqName{Sahrawi Arab Democrati
 Let's build a list of countries sorted by the date of the country's foundation (the first mention of the country) (Listing \ref{lst:age_of_country}).
 
 \begin{lstlisting}[ language=SPARQL, 
-caption={List of `instances of` "countries sorted by inception". The result contains \num{112} countries with completed date of foundation in 2017 and \num{199} in 2020.\\\hspace{\textwidth}
+caption={List of `instances of` ``countries sorted by inception''. The result contains \num{112} countries with completed date of foundation in 2017 and \num{199} in 2020.\\\hspace{\textwidth}
 SPARQL query: \href{https://w.wiki/k6M}{https://w.wiki/k6M}
 },
 label=lst:age_of_country, 					
@@ -63,26 +63,12 @@ As a result of the query, a list of countries with the dates of their creation w
 According to ProWD \wdqName{France}{142} and \wdqName{Israel}{801} are the leaders in the number of objects (127 objects) among all countries. \wdqName{Land of Nod}{1929769} and \wdqName{Polska Ludowa}{11165755} have the least number of objects (3 objects).
 
 
-\subsection{Completeness of Wikidata}
-
-Let's analyze the completeness of the Wikidata.
-
-According to the "Russian classification of countries of the world" there are 251 countries on earth.
-
-This task does not take into account ancient, non-existent states (for example: \wdqName{Assyria}{41137}), since they are not a "country" object but a "former country" object. Let us note that the number of former countries is an order of magnitude greater than the existing countries.
-
-According to the category of \href{https://w.wiki/dWv}{"Alphabetical list of countries and territories"} in Russian Wikipedia, there are 252 countries.
-
-According to the category of \href{https://en.wikipedia.org/wiki/List_of_sovereign_states}{"List of sovereign states"} in English Wikipedia, there are 206 countries.
-
-It is not always possible to specify the exact date of the country's foundation for various reasons: absence, lack or inconsistency of written sources. For example, the basis of the Old Russian state is associated with the vocation of Varangian prince Rurik in 862, but there is no exact date (object \wdqName{Russia}{159}). Also, some modern countries were preceded by a number of others and the date of formation of which of them should be considered as the date of creation of the country is an open question (for example, \wdqName{Mongolia}{711}).
-
 \subsection{Countries with an unfilled inception}
 
-Let's display a list of countries with an empty "inception of" property (Listing \ref{lst:without_inception}).
+Let's display a list of countries with an empty ``inception of'' property (Listing \ref{lst:without_inception}).
 
 \begin{lstlisting}[ language=SPARQL, 
-caption={List of `instances of` "countries without a inception". The result contains \num{100} countries without completed date of foundation in 2017 and \num{7} in 2020.\\\hspace{\textwidth}
+caption={List of `instances of` ``countries without a inception''. The result contains \num{100} countries without completed date of foundation in 2017 and \num{7} in 2020.\\\hspace{\textwidth}
 SPARQL query: \href{https://w.wiki/k6q}{https://w.wiki/k6q}},
 label=lst:without_inception
 ]
@@ -99,6 +85,19 @@ WHERE
 
 So, on March 6 2017, the Wikidata contains 100 out of 198 entries about the currently existing countries with an unknown year of the country's foundation.
 
+\subsection{Completeness of Wikidata}
+
+Let's analyze the completeness of the Wikidata.
+
+According to the ``Russian classification of countries of the world'' there are 251 countries on earth.
+
+This task does not take into account ancient, non-existent states (for example: \wdqName{Assyria}{41137}), since they are not a ``country'' object but a ``former country'' object. Let us note that the number of former countries is an order of magnitude greater than the existing countries.
+
+According to the category of \href{https://w.wiki/dWv}{``Alphabetical list of countries and territories''} in Russian Wikipedia, there are 252 countries.
+
+According to the category of \href{https://en.wikipedia.org/wiki/List_of_sovereign_states}{``List of sovereign states''} in English Wikipedia, there are 206 countries.
+
+It is not always possible to specify the exact date of the country's foundation for various reasons: absence, lack or inconsistency of written sources. For example, the basis of the Old Russian state is associated with the vocation of Varangian prince Rurik in 862, but there is no exact date (object \wdqName{Russia}{159}). Also, some modern countries were preceded by a number of others and the date of formation of which of them should be considered as the date of creation of the country is an open question (for example, \wdqName{Mongolia}{711}).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{List of demonyms in English}
 
@@ -118,7 +117,6 @@ WHERE
 	FILTER((LANG(?demonym)) = "en")
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
-
 GROUP BY ?country ?countryLabel
 \end{lstlisting}
 
@@ -163,7 +161,7 @@ SELECT ?country ?countryLabel
 WHERE
 {
 	?country wdt:P31 wd:Q6256.              # country
-	MINUS { ?country wdt:P1549 ?demonym.    # except with demonyms
+	MINUS { ?country wdt:P1549 ?demonym.    # except demonyms
 			FILTER((LANG(?demonym)) = "en") # in English
 		  }    
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
@@ -175,7 +173,7 @@ GROUP BY ?country ?countryLabel
 
 On April 27 2017, the Wikidata comprise 5 of the 202 countries with unfilled demonyms.
 
-\subsection{Number of completed demonyms in countries}
+\subsection{Number of demonyms in countries}
 
 Let`s display the list of countries, ordered by the number of demonyms filled in Wikidata (Listing \ref{lst:count_demonym}).
 
@@ -195,7 +193,7 @@ GROUP BY ?country ?countryLabel
 ORDER BY DESC(?count)
 \end{lstlisting}
 
-The United States of America object contains the maximum number of demonyms --- 41, Great Britain --- 40, Germany --- 40, Canada --- 36 and Russia --- 34.
+The United States of America Wikidata object contains the maximum number of demonyms --- 41, Great Britain --- 40, Germany --- 40, Canada --- 36 and Russia --- 34.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Basic forms of government}
@@ -223,7 +221,7 @@ ORDER BY DESC(?count) ASC(?form)
 
 %SPARQL query (listing ~\ref{lst:form_of_government}),199 results (2017), 30 results (2017), 29 results (2020).
 
-As a result of the query, we get a bubble chart with the most popular forms of government in countries.
+As a result of the query, we get a bubble chart with the most popular forms of government in countries in 2017 (fig. ~\ref{fig:bubble_chart_forms_of_government_countries_2017}) and in 2020 (fig. ~\ref{fig:bubble_chart_forms_of_government_countries_2020}).
 
 \begin{figure}
 	{
