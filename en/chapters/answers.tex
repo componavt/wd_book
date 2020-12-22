@@ -53,17 +53,17 @@ The following Russian manufacturers have websites: Mig, Tupolev and Sukhoi. The 
     
 \begin{lstlisting}[ language=SPARQL, breaklines=true, 
                     caption={Manufacturers websites\\\hspace{\textwidth}
-                        SPARQL query: \href{https://w.wiki/quH}{w.wiki/quH}
+                        SPARQL query: \href{https://w.wiki/rg8}{w.wiki/rg8}
                         },
                     label=lst:aircraft_listing_Manufacturers_websites,
                     texcl 
                     ]
-SELECT ?item ?itemLabel ?site
+SELECT ?manufacturer ?manufacturerLabel ?site
 WHERE
 {
-    ?item wdt:P31 wd:Q936518. # instance of aerospace manufacturer
-  	?item wdt:P17 wd:Q159. # country Russia
-  	?item wdt:P856 ?site # official website
+    ?manufacturer wdt:P31 wd:Q936518. # instance of aerospace manufacturer
+  	?manufacturer wdt:P17 wd:Q159. # country Russia
+  	?manufacturer wdt:P856 ?site # official website
     SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
 \end{lstlisting}
@@ -89,17 +89,17 @@ The company ``Mig" was founded on December 18.1939, ``Pennant" - November 18.194
        
 \begin{lstlisting}[ language=SPARQL, breaklines=true, 
                     caption={Company foundation dates\\\hspace{\textwidth}
-                        SPARQL query: \href{https://w.wiki/quu}{w.wiki/quu}
+                        SPARQL query: \href{https://w.wiki/rg7}{w.wiki/rg7}
                         },
                     label=lst:aircraft_company_foundation_date_lst_en,
                     texcl 
                     ]
-SELECT ?item ?itemLabel ?inception
+SELECT ?manufacturer ?manufacturerLabel ?inception
 WHERE
 {
-    ?item wdt:P31 wd:Q936518. # instance of aerospace manufacturer
-  	?item wdt:P17 wd:Q159. # country Russia
-  	?item wdt:P571 ?inception # foundation date
+    ?manufacturer wdt:P31 wd:Q936518. # instance of aerospace manufacturer
+  	?manufacturer wdt:P17 wd:Q159. # country Russia
+  	?manufacturer wdt:P571 ?inception # foundation date
     SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
 \end{lstlisting}
@@ -125,17 +125,17 @@ The headquarters of the company ``Kamov" is located in the city of Lyubertsy, ``
           
 \begin{lstlisting}[ language=SPARQL, breaklines=true, 
                     caption={Company headquarters\\\hspace{\textwidth}
-                        SPARQL query: \href{https://w.wiki/quw}{w.wiki/quw}
+                        SPARQL query: \href{https://w.wiki/rg5}{w.wiki/rg5}
                         },
                     label=lst:aircraft_company_headquarters_lst_en,
                     texcl 
                     ]
-SELECT ?item ?itemLabel ?inceptionLabel
+SELECT ?manufacturer ?manufacturerLabel ?inceptionLabel
 WHERE
 {
-    ?item wdt:P31 wd:Q936518. # instance of aerospace manufacturer
-  	?item wdt:P17 wd:Q159. # country Russia
-  	?item wdt:P159 ?inception # headquarters location
+    ?manufacturer wdt:P31 wd:Q936518. # instance of aerospace manufacturer
+  	?manufacturer wdt:P17 wd:Q159. # country Russia
+  	?manufacturer wdt:P159 ?inception # headquarters location
     SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
 \end{lstlisting}
@@ -149,15 +149,51 @@ Question from page~\pageref{question:aircraft_question_3}.
 What is the name of the aircraft, supported in flight by a huge cylinder of flammable, lethal gas, right above the heads of the passengers?
 \end{exercise}
 
+\begin{marginfigure}[0cm]
+    {%
+        \setlength{\fboxsep}{0pt}
+        \setlength{\fboxrule}{1pt}
+        \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/aircraft/foto_of_airship.jpg}}
+    }
+	\caption{Airship.}
+	\labfig{fig:airship_question_answers_aircraft_en}
+\end{marginfigure}
+
 Airship. 
 
 Question from page~\pageref{question:aircraft_question_4}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%answer_5%%%%%%%%%%%%%%%%%%%%%%
 
+\begin{exercise}%
+\label{answer:aircraft_question_airship_2_en}
+Which aircraft is shown in Fig. \ref{fig:airship_question_answers_aircraft_en}?
+
+\end{exercise}
+
+The aircraft shown in Fig. \ref{fig:airship_question_aircraft_en} is an airship. 
+The answer to the question can also be obtained by running the following SPARQL-request (listing \ref{lst:aircraft_airship_photo_lst_en})
+
+\begin{lstlisting}[ language=SPARQL, breaklines=true, 
+                    caption={Airship images\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/rg4}{w.wiki/rg4}
+                        },
+                    label=lst:aircraft_airship_photo_lst_en,
+                    texcl 
+                    ]
+#defaultView:ImageGrid
+SELECT ?airship ?airshipLabel ?image
+WHERE
+{
+    ?airship wdt:P31 wd:Q133585. # instance of airship
+  	?airship wdt:P18 ?image # image airship
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+\end{lstlisting}
+
+Question from page~\pageref{question:aircraft_question_5}.
 
 %%%%%%%%%%%%%%%%%%end_answers_aircraft%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 
 \section{From towns to cities with millions of inhabitants}
