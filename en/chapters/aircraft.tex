@@ -4,50 +4,47 @@
 \labch{aircraft-chapter_en}
 
 \footnotetext{\href{https://en.wikipedia.org/wiki/NASA_X-43}{NASA X-43} it is the fastest aircraft in the history of aviation.
-Author: \href{https://commons.wikimedia.org/wiki/File:X43a2_nasa_scramjet.jpg}{NASA, WikiCommons / 2008 / public domain}. }
+Author: \href{https://commons.wikimedia.org/wiki/File:X43a2_nasa_scramjet.jpg}{NASA, WikiCommons / 2008 / Public Domain}. }
 
-The chapter is devoted to the study of various properties of aircraft
-based on Wikidata.
-In the course of research using SPARQL queries calculated on objects of the type ``Aircraft",
-received information about all aircraft and their number,
-also a diagram showing the ratio of the total number of aircraft manufacturers by country was obtained.
-The chapter concludes with an estimate of the completeness of the data presented in Wikipedia and Wikidata. According to her, Wikidata contains only
-300 records of aircraft manufacturers out of \num{1700}.
+The chapter explores the various properties of aircraft based on the Wikidata database.
+During the study, using SPARQL queries calculated on objects of the ``Aircraft" type, information was obtained on all aircraft and their number, 
+and a diagram was also obtained that reflects the ratio of the total number of aircraft manufacturers by country.
+
+The chapter concludes with an estimate of the completeness of the data presented in Wikipedia and Wikidata. 
+Wikidata contains only 595 records of aircraft manufacturers out of \num{1700}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Instances of the object ``Aircraft"}
+\section{List of aircrafts}
 
 Let's build a list of all instances of the object ``Aircraft" \href{https://www.wikidata.org/wiki/Q11436}{Q11436}.
 
 \begin{lstlisting}[ language=SPARQL, breaklines=true, 
-                    caption={List of aircrafts\\\hspace{\textwidth}
+                    caption={List of aircrafts.\\\hspace{\textwidth}
                         The result contains \num{1564} aircrafts in 2017, 
                         \num{3324} aircrafts in 2020.\\\hspace{\textwidth}
-                        SPARQL query: \href{https://w.wiki/nZU}{w.wiki/nZU}
+                        SPARQL query: \href{https://w.wiki/rez}{w.wiki/rez}
                         },
                     label=lst:aircraft_listing_1,
                     texcl 
                     ]
-#List of `instances of` "aircraft"
-#Q11436 - object aircraft 
-#P31 - properties instance of
-SELECT ?item ?itemLabel
+# List of aircrafts
+SELECT ?plane ?planeLabel
 WHERE
 {
-    ?item wdt:P31 wd:Q11436. # instances of aircraft
+    ?plane wdt:P31 wd:Q11436. # instance of aircraft
     SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}
 
-The most complete and well-developed aircraft on Wikidata for 2017 are: \href{https://www.wikidata.org/wiki/Q271446}{Mikoyan-Gurevich MiG-3}, 
+The most complete and well-developed aircraft on Wikidata in 2017 were \href{https://www.wikidata.org/wiki/Q271446}{Mikoyan-Gurevich MiG-3}, 
 \href{https://www.wikidata.org/wiki/Q1349098}{Yakovlev Yak-36}, \href{https://www.wikidata.org/wiki/Q429839}{Mitsubishi A5M}. 
-For 2020, the most complete and well-developed aircraft on Wikidata are: \href{https://www.wikidata.org/wiki/Q770863}{Sopwith Triplane} (18 properties), 
+As for 2020, the most complete and well-developed aircrafts on Wikidata are \href{https://www.wikidata.org/wiki/Q770863}{Sopwith Triplane} (18 properties), 
 \href{https://www.wikidata.org/wiki/Q1658673}{IL-103} (14 properties), \href{https://www.wikidata.org/wiki/Q665071}{Martin 2-0-2} (14 properties).
-Almost empty and uninformative aircraft for 2017 turned out to be: \href{https://www.wikidata.org/wiki/Q464247}{Mikoyan-Gurevich MiG-1}, 
-\href{https://www.wikidata.org/wiki/Q2296502}{Sukhoi Su-6}, \href{https://www.wikidata.org/wiki/Q1658673}{Il-103}.
-For 2020, uninformative aircraft are: \href{https://www.wikidata.org/wiki/Q820603}{Beriev Be-1} (3 properties), \href{https://www.wikidata.org/wiki/Q117984}{Lituanica} (4 properties), 
-\href{https://www.wikidata.org/wiki/Q572762}{Lavochkin La-168} (3 properties).
+%Almost empty and uninformative aircraft for 2017 turned out to be: \href{https://www.wikidata.org/wiki/Q464247}{Mikoyan-Gurevich MiG-1}, 
+%\href{https://www.wikidata.org/wiki/Q2296502}{Sukhoi Su-6}, \href{https://www.wikidata.org/wiki/Q1658673}{Il-103}.
+For 2020, uninformative aircraft are: \href{https://www.wikidata.org/wiki/Q820603}{Beriev Be-1} (Wikidata object has 3 properties), \href{https://www.wikidata.org/wiki/Q117984}{Lituanica} (Wikidata object has 4 properties), 
+\href{https://www.wikidata.org/wiki/Q572762}{Lavochkin La-168} (Wikidata object has 3 properties).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -60,19 +57,19 @@ Let's make a list of aircraft manufacturers.
                     caption={Aircraft manufacturers\\\hspace{\textwidth}
                         The result contains \num{300} manufacturers in 2017, 
                         \num{597} manufacturers in 2020.\\\hspace{\textwidth}
-                        SPARQL query: \href{https://w.wiki/nZZ}{w.wiki/nZZ}
+                        SPARQL query: \href{https://w.wiki/rf3}{w.wiki/rf3}
                         },
                     label=lst:aircraft_listing_2,
                     texcl 
                     ]
 # Count aircraft having property manufacture, group by manufacture
-SELECT ?manufactureLabel (COUNT(?item) AS ?count) 
+SELECT ?manufactureLabel (COUNT(?plane) AS ?count) 
 WHERE {
-  ?item wdt:P31 wd:Q11436.     # instance of aircraft
-  ?item wdt:P176 ?manufacture. # show manufacture
-  SERVICE wikibase:label {bd:serviceParam wikibase:language "en".}
+  ?plane wdt:P31 wd:Q11436. # instance of aircraft
+  ?plane wdt:P176 ?manufacture. # show manufacture
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
 }
-GROUP BY ?manufacture ?manufactureLabel 
+GROUP BY ?manufacture ?manufactureLabel
 \end{lstlisting}
 
 The result of the query~\ref{lst:aircraft_listing_2} is a list of all aircraft manufacturers.
@@ -102,15 +99,15 @@ of the produced aircraft of various models.
 \begin{lstlisting}[ language=SPARQL, breaklines=true, 
                     caption={List of aircraft and their number produced\\\hspace{\textwidth}
                         The result contains \num{177} records in 2020. 
-                        SPARQL query: \href{https://w.wiki/nZF}{w.wiki/nZF}
+                        SPARQL query: \href{https://w.wiki/rf6}{w.wiki/rf6}
                         },
                     label=lst:aircraft_listing_3,
                     texcl 
                     ]
-SELECT ?itemLabel ?count WHERE {
-  SERVICE wikibase:label {bd:serviceParam wikibase:language "en".}
-  ?item wdt:P31 wd:Q11436. # instance of aircraft
-  ?item wdt:P1092 ?count.  # total aircraft manufactured
+SELECT ?planeLabel ?count WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  ?plane wdt:P31 wd:Q11436. # instance of aircraft
+  ?plane wdt:P1092 ?count. # total aircraft manufactured
 }
 \end{lstlisting}
 
@@ -121,15 +118,15 @@ To get a new list, let's add a filter to the request.
 \begin{lstlisting}[ language=SPARQL, breaklines=true, 
                     caption={List of aircraft manufactured over 10 pieces\\\hspace{\textwidth}
                         The result contains \num{86} records in 2020.
-                        SPARQL query: \href{https://w.wiki/nZb}{w.wiki/nZb}
+                        SPARQL query: \href{https://w.wiki/rf7}{w.wiki/rf7}
                         },
                     label=lst:aircraft_listing_4,
                     texcl 
                     ]
-SELECT ?itemLabel ?count WHERE {
-  SERVICE wikibase:label {bd:serviceParam wikibase:language "en".}
-  ?item wdt:P31 wd:Q11436. # instance of aircraft
-  ?item wdt:P1092 ?count. # total aircraft manufactured
+SELECT ?planeLabel ?count WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  ?plane wdt:P31 wd:Q11436. # instance of aircraft
+  ?plane wdt:P1092 ?count. # total aircraft manufactured
   
   FILTER (?count > 10)
 }
@@ -155,6 +152,33 @@ number of aircraft models"?
 
 In order to build a graph, you must perform the following steps:
 
+\begin{enumerate} 
+  \item Calculate the total number of aircraft for all models using the script shown in the listing~\ref{lst:aircraft_listing_5}.
+
+  \index{SPARQL!SUM / Total number of aircraft produced}
+  \begin{lstlisting}[ language=SPARQL, breaklines=true,  
+                      caption={Total number of aircraft produced\\\hspace{\textwidth}
+                          The result contains \num{33 178} aircrafts in 2020.
+                          SPARQL query: \href{https://w.wiki/rf9}{w.wiki/rf9}
+                          },
+                      label=lst:aircraft_listing_5,
+                      texcl 
+                      ]
+  SELECT (SUM(?count) as ?sum) WHERE {
+    SELECT ?count WHERE {
+      SERVICE wikibase:label {bd:serviceParam wikibase:language "en".}
+      ?plane wdt:P31 wd:Q11436; # instance of aircraft
+        wdt:P1092 ?count. # total aircraft manufactured
+    }
+  }
+  \end{lstlisting}
+
+  \item The X-axis represents the number of aircraft models under consideration (that is, 1 ~--- is the number of manufactured aircraft of the 1st 
+  model, 2 ~--- is the sum of aircraft of the 1st and 2nd models, etc.). On the Y-axis, we will plot the percentage of the number of aircraft models 
+  produced by all airlines to the total number of aircraft manufactured for all time. Also, along the X axis, we postpone the second scale from 
+  0 to 100 \% to make it easier to determine the parameters for the Pareto law.
+\end{enumerate}
+
 \label{question:aircraft_question_2}
 \marginnote{
 Find the correspondence between the date of foundation and the company.
@@ -169,34 +193,6 @@ Sukhoi & 01.01.1922 \\
 \\
 The answer is on page~\pageref{answer:aircraft_answer_2}.
 }
-
-
-\begin{enumerate} 
-  \item Calculate the total number of aircraft for all models using the script shown in the listing~\ref{lst:aircraft_listing_5}.
-
-  \index{SPARQL!SUM / Total number of aircraft produced}
-  \begin{lstlisting}[ language=SPARQL, breaklines=true,  
-                      caption={Total number of aircraft produced\\\hspace{\textwidth}
-                          The result contains \num{33 178} aircrafts in 2020.
-                          SPARQL query: \href{https://w.wiki/nZi}{w.wiki/nZi}
-                          },
-                      label=lst:aircraft_listing_5,
-                      texcl 
-                      ]
-  SELECT (SUM(?count) as ?sum) WHERE {
-    SELECT ?count WHERE {
-      SERVICE wikibase:label {bd:serviceParam wikibase:language "en".}
-      ?item wdt:P31 wd:Q11436; # instance of aircraft
-        wdt:P1092 ?count. # total aircraft manufactured
-    }
-  }
-  \end{lstlisting}
-
-  \item The X-axis represents the number of aircraft models under consideration (that is, 1 ~--- is the number of manufactured aircraft of the 1st 
-  model, 2 ~--- is the sum of aircraft of the 1st and 2nd models, etc.). On the Y-axis, we will plot the percentage of the number of aircraft models 
-  produced by all airlines to the total number of aircraft manufactured for all time. Also, along the X axis, we postpone the second scale from 
-  0 to 100 \% to make it easier to determine the parameters for the Pareto law.
-\end{enumerate}
 
 \begin{figure*}[h]
 
@@ -214,13 +210,6 @@ models, which is 9.2\% of the total number of models. Pareto's law states that: 
  of the efforts - only 20\% of the result." It can be concluded that a stronger law is fulfilled than the Pareto principle regarding the number 
  of aircraft models.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Countries of origin of aircraft manufacturers}
-
-Let's build a list of the number of aircraft manufacturers by country. To execute the query~\ref{lst:aircraft_listing_6}, we use the grouping 
-by country (GROUP BY) and use the ``Count" function to count the number of productions for each country.
-
 \label{question:aircraft_question_3}
 \marginnote{
 Find the correspondence between the location of the company's headquarters and the company.
@@ -236,26 +225,33 @@ Sukhoi & Moscow \\
 The answer is on page~\pageref{answer:aircraft_company_headquarters_en}.
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Countries of origin of aircraft manufacturers}
+
+Let's build a list of the number of aircraft manufacturers by country. To execute the query~\ref{lst:aircraft_listing_6}, we use the grouping 
+by country (GROUP BY) and use the ``Count" function to count the number of productions for each country.
+
 \index{SPARQL!COUNT / List of the ratio of the number of manufacturers aircraft by country}
 \begin{lstlisting}[ language=SPARQL, breaklines=true, 
                     caption={List of the ratio of the \\\hspace{\textwidth} 
 						number of manufacturers aircraft by country\\\hspace{\textwidth}
                         The result contains \num{39} records in 2017, 
                         \num{46} records in 2020.\\\hspace{\textwidth}
-                        SPARQL query: \href{https://w.wiki/nZu}{w.wiki/nZu}
+                        SPARQL query: \href{https://w.wiki/rfD}{w.wiki/rfD}
                         },
                     label=lst:aircraft_listing_6,
                     texcl 
                     ]
 # Count manufacture having property country group by country
-SELECT ?countryLabel (count(?item) as ?count)
+SELECT ?countryLabel (count(?manufacture) as ?count)
 WHERE
 {
-    ?item wdt:P31 wd:Q936518.   # instance of aerospace manufacture
-    ?item wdt:P17 ?country.     # belong to country
-    SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
+    ?manufacture wdt:P31 wd:Q936518. # instance of aerospace manufacture
+  	?manufacture wdt:P17 ?country. # belong to country
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
-GROUP BY ?country ?countryLabel 
+GROUP BY ?country ?countryLabel
 \end{lstlisting}
 
 Having received a list of countries by the number of aircraft manufacturing plants, we can construct a bubble chart 
@@ -265,18 +261,18 @@ Having received a list of countries by the number of aircraft manufacturing plan
 \index{Chart!BubbleChart / Bubble chart ``The ratio of the number of aircraft manufacturers by country"}
 \begin{lstlisting}[ language=SPARQL, breaklines=true, 
                     caption={Bubble chart\\\hspace{\textwidth}
-                        SPARQL query: \href{https://w.wiki/n7E}{w.wiki/n7E}
+                        SPARQL query: \href{https://w.wiki/rfF}{w.wiki/rfF}
                         },
                     label=lst:aircraft_listing_7,
                     texcl 
                     ]
 #defaultView:BubbleChart
-SELECT ?countryLabel (count(?item) as ?count)
+SELECT ?countryLabel (count(?manufacture) as ?count)
 WHERE
 {
-    ?item wdt:P31 wd:Q936518. # instance of aerospace manufacture
-  	?item wdt:P17 ?country. # belong to country
-    SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
+    ?manufacture wdt:P31 wd:Q936518. # instance of aerospace manufacture
+  	?manufacture wdt:P17 ?country. # belong to country
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
 GROUP BY ?country ?countryLabel
 \end{lstlisting}
@@ -297,6 +293,14 @@ aircraft manufacturers are indicated, as evidenced by the data taken from the si
 More information on the lack of data in Wikidata is indicated in the next section of this chapter. Most manufacturers are indicated in the 
 USA (115), Great Britain (30), Germany (17), Russia (17) as of May 2017.
 
+\label{question:aircraft_question_4}
+\marginnote{
+What is the name of the aircraft, supported in flight by a huge cylinder of flammable, lethal gas, right above the heads of the passengers?
+\\
+The answer is on page~\pageref{answer:aircraft_question_airship_en}.
+}
+
+
 \begin{figure}[h!]
 \centering
 	\includegraphics[width=0.7\textwidth]{./chapter/aircraft/Manufacture-with-country_2020_en.png}
@@ -304,12 +308,6 @@ USA (115), Great Britain (30), Germany (17), Russia (17) as of May 2017.
 	\label{fig:Manufacture-with-country_2020_en}
 \end{figure}
 
-\label{question:aircraft_question_4}
-\marginnote{
-What is the name of the aircraft, supported in flight by a huge cylinder of flammable, lethal gas, right above the heads of the passengers?
-\\
-The answer is on page~\pageref{answer:aircraft_question_airship_en}.
-}
 
 
 Comparing two bubble charts for 2017 (Fig.~\ref{fig:Manufacture-with-country_en_2017}) and 2020 (Fig.~\ref{fig:Manufacture-with-country_2020_en}), 
@@ -320,6 +318,30 @@ The USA is still the leader, but France in 3 years managed to outstrip Germany, 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Completeness of Wikidata}
+
+
+\label{question:aircraft_question_5}
+\marginnote{
+Which aircraft is shown in Fig. \ref{fig:airship_question_aircraft_en}?
+}
+
+
+\begin{marginfigure}
+{
+\setlength{\fboxsep}{0pt}%
+\setlength{\fboxrule}{1pt}%
+\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/aircraft/foto_of_airship.jpg}}%
+}
+  \caption{Aircraft}%
+  \label{fig:airship_question_aircraft_en}%
+\end{marginfigure}
+
+
+\marginnote{
+The answer is on page~\pageref{answer:aircraft_question_airship_2_en}.
+}
+
+
 
 According to the site \href{https://www.aviationfanatic.com/}{aviationfanatic.com} there are about \num{1700} aircraft manufacturers (2017) 
 and \num{1939} (2020), but SPARQL query ~\ref{lst:aircraft_listing_2} returned only 300 records in 2017, and in 2020 ~--- 595 records. 
