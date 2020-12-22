@@ -63,7 +63,7 @@
     Если не имеет значения к какому конкретно типу городов относится объект Викиданных, то можно использовать конструкцию с подклассами, указав при этом единственный класс, относительно которого будет выполняться поиск. Более подробно данная конструкция рассматривается в разделе <<Полнота и недостатки Викиданных>> на с. \pageref{lst:countries_sister_cities_with_Russia}.
     }
     
-    \index{SPARQL!FILTER / Города, названные в честь географических объектов}
+    \index{SPARQL!FILTER!Города, названные в честь географических объектов}
     \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/otj}{Города, названные в честь географических объектов}\protect\footnotemark},
                     label=lst:cities_geographic_objects, 
@@ -86,11 +86,11 @@ SELECT ?city ?cityLabel ?namedAfterLabel ?whatIsItLabel WHERE {
     \label{answer:cities_over_400_age}
     \newthought{Более 400 лет назад} были основаны Москва (1147 год), Воронеж (1586), Самара (1586), Казань (1005) и Астрахань (1558). Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:cities_over_400_age}). Значение свойства \href{https://www.wikidata.org/wiki/Property:P571}{inception} содержит дату основания города.
     
-    \index{SPARQL!FILTER / Города, основанные более 400 лет назад}
-    \index{SPARQL!BOUND / Города, основанные более 400 лет назад}
-    \index{SPARQL!DATATYPE / Города, основанные более 400 лет назад}
-    \index{SPARQL!BIND / Города, основанные более 400 лет назад}
-    \index{SPARQL!NOW / Города, основанные более 400 лет назад}
+    \index{SPARQL!FILTER!Города, основанные более 400 лет назад}
+    \index{SPARQL!BOUND!Города, основанные более 400 лет назад}
+    \index{SPARQL!DATATYPE!Города, основанные более 400 лет назад}
+    \index{SPARQL!BIND!Города, основанные более 400 лет назад}
+    \index{SPARQL!NOW!Города, основанные более 400 лет назад}
     \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/oti}{Города, основанные более 400 лет назад}\protect\footnotemark},
                     label=lst:cities_over_400_age, 
@@ -119,7 +119,7 @@ GROUP BY ?city ?cityLabel ?inceptionDate
     \label{answer:cities_flags}
     \newthought{Флаг, изображенный на рис. \ref{fig:flag_question_city}} принадлежит городу \href{https://w.wiki/oLF}{Карабулак}. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:cities_flags}). Значение свойства \href{https://www.wikidata.org/wiki/Property:P41}{flag image} содержит изображение флага города.
     
-    \index{SPARQL!FILTER / Флаги городов}
+    \index{SPARQL!FILTER!Флаги городов}
     \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/otf}{Флаги городов}\protect\footnotemark},
                     label=lst:cities_flags, 

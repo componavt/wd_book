@@ -108,8 +108,8 @@ SELECT ?city ?cityLabel WHERE { # Selecting items which are ...
 См. ответ~\ref{answer:cities_geographic_objects} на с.~\pageref{answer:cities_geographic_objects}.
 }
 
-\index{SPARQL!REPLACE / Численность населения <<малых городов>>}
-\index{SPARQL!STR / Численность населения <<малых городов>>}
+\index{SPARQL!REPLACE!Численность населения <<малых городов>>}
+\index{SPARQL!STR!Численность населения <<малых городов>>}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/jgX}{Численность населения <<малых городов>>}\protect\footnotemark},
                     label=lst:population_town, 
@@ -131,7 +131,7 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
 Для приведения значений свойства \href{https://www.wikidata.org/wiki/Property:P1082}{population} к единообразному виду можно использовать различные функции обработки строк, например, \href{https://en.wikibooks.org/wiki/SPARQL/Expressions\_and\_Functions\#REPLACE}{REPLACE}. Так, после обработки, применяемой в SPARQL-запросе, строка <<1.000.000>> примет вид <<1000000>>.
 }
 
-\index{SPARQL!MAX / Численность населения <<городов>>}
+\index{SPARQL!MAX!Численность населения <<городов>>}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/jgY}{Численность населения <<городов>>}\protect\footnotemark},
                     label=lst:population_city, 
@@ -152,7 +152,7 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
 Численность населения постоянно изменяется, поэтому город может иметь несколько значений свойства \href{https://www.wikidata.org/wiki/Property:P1082}{population}, соответствующих различным годам. Для выбора одного из значений свойства можно использовать агрегирующие функции, например, \href{https://en.wikibooks.org/wiki/SPARQL/Expressions\_and\_Functions\#COUNT,\_MIN,\_MAX,\_AVG\_and\_SUM}{MIN, MAX, AVG}.
 }
 
-\index{SPARQL!SUM / Численность населения <<больших городов>>}
+\index{SPARQL!SUM!Численность населения <<больших городов>>}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/jga}{Численность населения <<больших городов>>}\protect\footnotemark},
                     label=lst:population_big_city, 
@@ -226,7 +226,7 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
 
 %\newpage % Fix: Остается одна строчка от листинга на странице
 
-\index{SPARQL!COUNT / Количество городов, не имеющих побратимов}
+\index{SPARQL!COUNT!Количество городов, не имеющих побратимов}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/jgv}{Количество городов, не имеющих побратимов}\protect\footnotemark},
                     label=lst:without_sister_cities, 
@@ -253,7 +253,7 @@ SELECT (COUNT(?city) as ?count) WHERE {
 Обратите внимание на то, что части конструкции \href{https://en.wikibooks.org/wiki/SPARQL/UNION}{UNION} должны быть заключены в фигурные скобки. В противном случае, SPARQL-запрос не будет скомпилирован.
 }
 
-\index{SPARQL!COUNT / Упорядоченный список городов по числу побратимов}
+\index{SPARQL!COUNT!Упорядоченный список городов по числу побратимов}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/jg$}{Упорядоченный список городов по числу побратимов}\protect\footnotemark},
                     label=lst:ordered_by_sister_cities, 
@@ -301,8 +301,8 @@ ORDER BY DESC(?sisterCount) # Sorting by number of sister cities
 Строка в начале скрипта \#defaultView:LineChart не является комментарием. Это специальная команда для построения диаграммы (рис.~\ref{fig:city_relation_S_N}) на платформе \href{https://query.wikidata.org}{Wikidata Query Service}, в которой мы пишем скрипты для обработки Викиданных.
 }
 
-\index{SPARQL!COUNT / Число городов с определённым числом побратимов}
-\index{График!LineChart / Зависимость числа городов всего мира (N) от числа имеющихся у этих городов побратимов (S)}
+\index{SPARQL!COUNT!Число городов с определённым числом побратимов}
+\index{График!LineChart!Зависимость числа городов всего мира (N) от числа имеющихся у этих городов побратимов (S)}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/pM9}{Число городов с определённым числом побратимов}\protect\footnotemark},
                     label=lst:city_relation_S_N, 
@@ -357,7 +357,7 @@ ORDER BY DESC(?sisterCount) # Order by number of sister cities
 
 На основании построенного тренда можно сделать предположение, что зависимость числа городов от числа имеющихся у этих городов побратимов имеет распределение, близкое к степенному.
 
-\index{График!LineChart / Зависимость числа городов России (N) от числа имеющихся у этих городов побратимов (S)}
+\index{График!LineChart!Зависимость числа городов России (N) от числа имеющихся у этих городов побратимов (S)}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/pMA}{Число городов России с определённым числом побратимов}\protect\footnotemark},
                     label=lst:city_relation_Russia_S_N, 
@@ -414,8 +414,8 @@ ORDER BY DESC(?sisterCount) # Order by number of sister cities
   \label{fig:Bubble_countries_sister_cities}%
 \end{marginfigure}
 
-\index{SPARQL!COUNT / Упорядоченный список стран по числу побратимов}
-\index{График!BubbleChart / Пузырьковая диаграмма по числу побратимов у страны}
+\index{SPARQL!COUNT!Упорядоченный список стран по числу побратимов}
+\index{График!BubbleChart!Число побратимов у страны}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/pMC}{Упорядоченный список стран по числу побратимов}\protect\footnotemark},
                     label=lst:countries_sister_cities, 
@@ -463,7 +463,7 @@ ORDER BY DESC(?sisterCount)
   %\zsavepos{pos:normaltab}
 \end{table}
 
-\index{SPARQL!COUNT / Список стран, имеющих побратимов с городами Германии}
+\index{SPARQL!COUNT!Список стран, имеющих побратимов с городами Германии}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/pME}{Список стран, имеющих побратимов с городами Германии}\protect\footnotemark},
                     label=lst:sister_cities_with_Germany, 
@@ -507,12 +507,12 @@ ORDER BY DESC(?sisterCount)\end{lstlisting}
 См. ответ~\ref{answer:cities_flags} на с.~\pageref{answer:cities_flags}.
 }
 
-\index{SPARQL!COUNT / Ближайшие соседи России по числу побратимов}
-\index{SPARQL!FILTER / Ближайшие соседи России по числу побратимов}
-\index{SPARQL!OPTIONAL / Ближайшие соседи России по числу побратимов}
-\index{SPARQL!BIND / Ближайшие соседи России по числу побратимов}
-\index{SPARQL!IF / Ближайшие соседи России по числу побратимов}
-\index{График!Map / Карта ближайших соседей России по числу городов-побратимов}
+\index{SPARQL!COUNT!Ближайшие соседи России по числу побратимов}
+\index{SPARQL!FILTER!Ближайшие соседи России по числу побратимов}
+\index{SPARQL!OPTIONAL!Ближайшие соседи России по числу побратимов}
+\index{SPARQL!BIND!Ближайшие соседи России по числу побратимов}
+\index{SPARQL!IF!Ближайшие соседи России по числу побратимов}
+\index{График!Map!Ближайшие соседи России по числу городов-побратимов}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/q5Z}{Ближайшие соседи России по числу побратимов}\protect\footnotemark},
                     label=lst:countries_sister_cities_with_Russia, 
