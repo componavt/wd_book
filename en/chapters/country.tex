@@ -103,7 +103,7 @@ WHERE
 }
 \end{lstlisting}
 
-\begin{marginfigure}
+\begin{marginfigure}[-1.6cm]
 	{
 		\setlength{\fboxsep}{0pt}%
 		\setlength{\fboxrule}{1pt}%
@@ -113,7 +113,7 @@ WHERE
 	\label{fig:flag_singapore}%
 \end{marginfigure}
 
-\begin{marginfigure}
+\begin{marginfigure}[2.4cm]
 	{
 		\setlength{\fboxsep}{0pt}%
 		\setlength{\fboxrule}{1pt}%
@@ -122,7 +122,6 @@ WHERE
 	\caption{Fourth country flag.}%
 	\label{fig:flag_israel}%
 \end{marginfigure}
-
 \marginnote{
 	See the answer in Exercise~\ref{answer:population_density}, page~\pageref{answer:population_density}.
 }
@@ -148,7 +147,7 @@ It is not always possible to specify the exact date of the country's foundation 
 \section{List of demonyms in English}
 
 Let's build a list of countries that have demonyms in English (Listing \ref{lst:demonym}).
-
+\index{SPARQL!FILTER!List of countries with demonyms in English}
 \begin{lstlisting}[ language=SPARQL, 
 caption={List of countries with demonyms in English. The result contains \num{197} countries with demonyms in 2017 and \num{162} in 2020.\\\hspace{\textwidth}
 SPARQL query: \href{https://w.wiki/mro}{https://w.wiki/mro}},
@@ -172,7 +171,7 @@ As of April 26 2017, the Wikidata contains 197 of the 202 countries with demonym
 \subsection{List of demonyms}
 
 Let's build a list of all demonyms in English (Listing \ref{lst:list_demonym}).
-
+\index{SPARQL!FILTER!List of demonyms in English}
 \begin{lstlisting}[ language=SPARQL, 
 caption={List of demonyms in English. The result contains \num{237} demonyms in 2017 and \num{213} in 2020.\\\hspace{\textwidth}
 SPARQL query: \href{https://w.wiki/mrp}{https://w.wiki/mrp}},
@@ -260,7 +259,7 @@ The United States of America Wikidata object contains the maximum number of demo
 \section{Basic forms of government}
 
 Let`s construct a bubble diagram of the forms of government of countries (Listing \ref{lst:form_of_government}).
-
+\index{Chart!BubbleChart!Basic forms of government}
 \begin{lstlisting}[ language=SPARQL, 
 caption={Basic form of government ranking. The result contains \num{30} basic forms of government in 2017 and \num{29} in 2020.\\\hspace{\textwidth}
 SPARQL query: \href{https://w.wiki/mrr}{https://w.wiki/mrr}},
@@ -313,7 +312,7 @@ As a result of the query, we get a bubble chart with the most popular forms of g
 \section{Neighboring countries}
 
 We will construct a graph of neighboring countries (Listing \ref{lst:neighboring_countries}).
-
+\index{Graph!Graph!Neighboring countries}
 \begin{lstlisting}[ language=SPARQL, 
 caption={Neighboring countries graph. The result contains \num{795} neighboring countries in 2017 and \num{698} in 2020.\\\hspace{\textwidth}
 SPARQL query: \href{https://w.wiki/mrs}{https://w.wiki/mrs}},
@@ -361,7 +360,7 @@ As a result of the query, we get a graph with 787 edges on 2017 (fig. ~\ref{fig:
 \subsection{Neighboring countries of Russia}
 
 We will construct a graph of neighboring countries of Russia (Listing \ref{lst:neighboring_countries_ru}).
-
+\index{Map!Map!Neighboring countries of Russia}
 \begin{lstlisting}[ language=SPARQL, 
 caption={Map of neighboring countries of Russia. The result contains \num{22} neighboring countries in 2020.\\\hspace{\textwidth}
 SPARQL query: \href{https://w.wiki/rMR}{https://w.wiki/rMR}},
