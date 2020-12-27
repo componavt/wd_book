@@ -367,6 +367,39 @@ WHERE
 \end{lstlisting}
 
 See question on page~\pageref{question:official_language}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{exercise}
+\label{answer:administrative_territorial}
+
+Latvia has 119, Thailand has 77, Denmark has 5, and Russia has 81. What are we talking about?
+\begin{itemize}
+\item Number of cities with a population of over one million;
+\item Number of higher education institutions;
+\item Number of administrative units;
+\item Number of official languages.
+\end{itemize}
+
+\end{exercise}
+
+We are talking about the number of administrative-territorial units in each country. The answer to the question can also be obtained by running the following SPARQL query (Listing \ref{lst:administrative_territorial}).
+
+\begin{lstlisting}[ language=SPARQL, 
+caption={\href{https://w.wiki/s86}{Number of administrative-territorial units in each country}\protect\footnotemark},
+label=lst:administrative_territorial
+]
+#Contains administrative territorial entity in country
+SELECT ?countryLabel  (count(*) as ?count)
+WHERE
+{
+	?country wdt:P31 wd:Q6256.      # country
+	?country wdt:P150 ?ATentity.    # contains administrative territorial entity 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY (?countryLabel)
+ORDER BY DESC(?count)
+\end{lstlisting}
+
+See question on page~\pageref{question:administrative_territorial}.
 
 \section{Programming languages and its creators}
 \labsec{answer-languages}
