@@ -1457,9 +1457,10 @@
 % The 'fancy' page style is the default style for all pages.
 \fancyhf{} % clear header and footer fields
 \ifthenelse{\boolean{@tufte@twoside}}
-  {\fancyhead[LE]{\thepage\quad\smallcaps{\newlinetospace{\plainauthor}}}%
-    \fancyhead[RO]{\smallcaps{\newlinetospace{\plaintitle}}\quad\thepage}}
-  {\fancyhead[RE,RO]{\smallcaps{\newlinetospace{\plaintitle}}\quad\thepage}}
+% List of authors in the top of even pages
+  {\fancyhead[LE]{\thepage\quad\newlinetospace{\plainauthor}}%
+    \fancyhead[RO]{\newlinetospace{\plaintitle}\quad\thepage}}
+  {\fancyhead[RE,RO]{\newlinetospace{\plaintitle}\quad\thepage}}
 
 
 % The `plain' page style is used on chapter opening pages.
