@@ -11,7 +11,7 @@ The chapter is devoted to the study of different types of cities corresponding t
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Lists of different types of cities}
 
-Objects under study and SPARQL queries for getting lists of their intances are presented below: \wdqName{town}{3957} (Listing \ref{lst:town}), \wdqName{city}{515} (Listing \ref{lst:city}), \wdqName{big city}{1549591} (Listing \ref{lst:big_city}), \wdqName{city with millions of inhabitants}{1637706} (Listing \ref{lst:city_million}). Additionally SPARQL query for getting instances of different types of cities have been constructed (Listing \ref{lst:different_city_types}).
+Objects under study and SPARQL queries for getting lists of their instances are presented below: \wdqName{town}{3957} (Listing \ref{lst:town}), \wdqName{city}{515} (Listing \ref{lst:city}), \wdqName{big city}{1549591} (Listing \ref{lst:big_city}), \wdqName{city with millions of inhabitants}{1637706} (Listing \ref{lst:city_million}). Additionally SPARQL query for getting instances of different types of cities have been constructed (Listing \ref{lst:different_city_types}).
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Instances of \wdqName{town}{3957}.\\\hspace{\textwidth}
@@ -194,7 +194,7 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
 
 \marginnote{
 \label{question:cities_geographic_objects}
-Which of these cities were named after toponyms?
+Which of the following cities were named after toponyms?
 \begin{itemize}
 \item \href{https://w.wiki/pzi}{Tolyatti}
 \item \href{https://w.wiki/pzj}{Tula}
@@ -260,7 +260,7 @@ SELECT (COUNT(?city) as ?count) WHERE {
 }
 \end{lstlisting}%
 
-There are \num{26751} cities of four types known by Wikidata for 2020. Thus, sister cities are known only for 20\% of cities.
+There are \num{26751} cities of four types known by Wikidata for 2020 (Listing \ref{lst:different_city_types}). Thus, sister cities are known only for 20\% of cities.
 
 \subsection{List of cities ordered by number of sister cities}
 
@@ -274,13 +274,13 @@ Note that parts of the \href{https://en.wikibooks.org/wiki/SPARQL/UNION}{UNION} 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={List of cities ordered by number of sister cities.\\\hspace{\textwidth}
                         The result contains \num{4046} world cities with sister cities in 2020.\\\hspace{\textwidth}
-                        SPARQL query: \href{https://w.wiki/m3M}{w.wiki/m3M}
+                        SPARQL query: \href{https://w.wiki/t44}{w.wiki/t44}
                         },
                     label=lst:ordered_by_sister_cities,
                     texcl 
                     ]
 # Counting sister cities of cities which are ...
-SELECT ?cityLabel (COUNT(?sister) AS ?sisterCount) WHERE {           
+SELECT ?city ?cityLabel (COUNT(?sister) AS ?sisterCount) WHERE {           
 	{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"
 	{ ?city wdt:P31 wd:Q515 } UNION # OR "city"
 	{ ?city wdt:P31 wd:Q1549591 } UNION # OR "big city"
@@ -295,13 +295,13 @@ ORDER BY DESC(?sisterCount) # Sorting by number of sister cities
 \begin{lstlisting}[ language=SPARQL, 
                     caption={List of Russian cities ordered by number of sister cities.\\\hspace{\textwidth}
                         The result contains 82 Russian cities with sister cities in 2020.\\\hspace{\textwidth}
-                        SPARQL query: \href{https://w.wiki/pMQ}{w.wiki/pMQ}
+                        SPARQL query: \href{https://w.wiki/t47}{w.wiki/t47}
                         },
                     label=lst:ordered_by_sister_cities_Russia,
                     texcl 
                     ]
 # Counting sister cities of cities which are ...
-SELECT ?cityLabel (COUNT(?sister) AS ?sisterCount) WHERE {           
+SELECT ?city ?cityLabel (COUNT(?sister) AS ?sisterCount) WHERE {           
 	VALUES ?cityTypes {wd:Q3957 wd:Q515 wd:Q1549591 wd:Q1637706}
 	?city wdt:P31 ?cityTypes. # different types of cities instances
 	?city wdt:P17 wd:Q159. # belonging to Russia
@@ -409,7 +409,7 @@ ORDER BY DESC(?sisterCount) # Order by number of sister cities
 
 \marginnote[-3.0cm]{
 \label{question:cities_over_400_age}
-Which of these cities were founded more than 400 years ago: \href{https://w.wiki/pzt}{Moscow}, \href{https://w.wiki/pzu}{Sarov}, \href{https://w.wiki/pzx}{Kazan}, \href{https://w.wiki/pzy}{Astrakhan}, \href{https://w.wiki/pzz}{Samara}, \href{https://w.wiki/pz$}{Voronezh}?
+Which of the following cities were founded more than 400 years ago: \href{https://w.wiki/pzt}{Moscow}, \href{https://w.wiki/pzu}{Sarov}, \href{https://w.wiki/pzx}{Kazan}, \href{https://w.wiki/pzy}{Astrakhan}, \href{https://w.wiki/pzz}{Samara}, \href{https://w.wiki/pz$}{Voronezh}?
 See the answer in Exercise~\ref{answer:cities_over_400_age}, page~\pageref{answer:cities_over_400_age}.
 }
 
@@ -435,7 +435,7 @@ The SPARQL query for construction a list of countries ordered by number of siste
 \setlength{\fboxrule}{1pt}%
 \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{chapter/city/Bubble_chart_number_of_sister_cities_of_countries_according_to_Wikidata,_2020_(EN).png}}
 }
-	\caption{Bubble chart by the number of sister cities of countries, 2020.}
+	\caption{Bubble chart of the countries, the size of the ball - the sister cities number of certain country cities, 2020.}
 	\labfig{fig:Bubble_countries_sister_cities}
 \end{marginfigure}
 
@@ -633,7 +633,7 @@ SELECT ?city ?cityLabel WHERE { # Selecting items which are ...
 }
 \end{lstlisting}%
 
-Also, probably with ambiguity in the criteria for assigning city status, subclasses were created for specific countries — \wdqName{city in Chile}{25412763}, \wdqName{city in Cyprus}{29556224}, \wdqName{city of Japan}{494721} and so on. This tendency was not spared by the cities of Russia, which could be noticed when comparing the results of a SPARQL query to find instances of  \wdqName{city}{515} (Listing \ref{lst:city}). For 2020, most of them belong to the \wdqName{city/town}{7930989} class.
+Also, probably due to the ambiguity in the criteria for assigning city status, subclasses were created for specific countries — \wdqName{city in Chile}{25412763}, \wdqName{city in Cyprus}{29556224}, \wdqName{city of Japan}{494721} and so on. This tendency was not spared by the cities of Russia, which could be noticed when comparing the results of a SPARQL query to find instances of  \wdqName{city}{515} (Listing \ref{lst:city}). For 2020, most of them belong to the \wdqName{city/town}{7930989} class.
 
 According to the \href{http://www.gks.ru/free\_doc/new\_site/perepis2010/croc/Documents/Vol1/pub-01-03.pdf}{Russian Census (2010)} \sidecite{city_perepis_2010} and the \href{https://rosstat.gov.ru/free\_doc/new\_site/population/demo/perepis\_krim/KRUM\_2015.pdf}{Crimean Federal District Census (2014)} \sidecite{city_perepis_2014}, the total number of Russian cities was \num{1117} in 2014. All cities in Russia have an article in both Russian and English Wikipedia.
 
