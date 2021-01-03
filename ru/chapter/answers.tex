@@ -315,83 +315,83 @@ SELECT ?city ?cityLabel ?flag ?countryLabel WHERE {
 
 \begin{task}
     \label{answer:aircraft_manufacturers}
-    \newthought{Веб-сайты есть у следующих российских производителей: Миг, Туполев и Сухой. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:aircraft_manufactures_lst})}. 
+    \newthought{Веб-сайты есть у следующих российских производителей: Миг, Туполев и Сухой. Ответ на вопрос также можно получить, выполнив SPARQL-запрос, представленный на листинге~\ref{lst:aircraft_manufactures_lst}}. 
     
-	\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/kXg}{Веб-сайты производителей}\protect\footnotemark}, label=lst:aircraft_manufactures_lst, ]
-SELECT ?item ?itemLabel ?site
+	\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/t4H}{Веб-сайты производителей}\protect\footnotemark}, label=lst:aircraft_manufactures_lst, ]
+SELECT ?manufacturer ?manufacturerLabel ?site
 WHERE
 {
-    ?item wdt:P31 wd:Q936518. # instance of aerospace manufacturer
-  	?item wdt:P17 wd:Q159. # country Russia
-  	?item wdt:P856 ?site # official website
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
+    ?manufacturer wdt:P31 wd:Q936518. # instance of aerospace manufacturer
+  	?manufacturer wdt:P17 wd:Q159. # country Russia
+  	?manufacturer wdt:P856 ?site # official website
+    SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
 }
 \end{lstlisting}
-\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/kXg}{https://w.wiki/kXg} }
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/t4H}{https://w.wiki/t4H} }
     
     \small{Вопрос на с.~\pageref{lst:lang2}.}
 \end{task}
 
 \begin{task}
     \label{answer:aircraft_company_foundation_date}
-    \newthought{Компания <<Миг>> была основана 18 декабря 1939 г., <<Вымпел>> - 18 ноября 1949 г., <<Туполев>> - 01 января 1922 г., <<Сухой>> - 01 января 1939 г. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:aircraft_company_foundation_date_lst})}. 
+    \newthought{Компания <<МиГ>> была основана 18 декабря 1939 года, <<Вымпел>> ~--- 18 ноября 1949 года, <<Туполев>> ~--- 1 января 1922 года, <<Сухой>> ~--- 1 января 1939 года. Ответ на вопрос также можно получить, выполнив SPARQL-запрос, представленный на листинге~\ref{lst:aircraft_company_foundation_date_lst}}. 
     
-	\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/kXu}{Даты основания компаний}\protect\footnotemark}, label=lst:aircraft_company_foundation_date_lst, ]
-SELECT ?item ?itemLabel ?inception
+	\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/t4T}{Даты основания компаний}\protect\footnotemark}, label=lst:aircraft_company_foundation_date_lst, ]
+SELECT ?manufacturer ?manufacturerLabel ?inception
 WHERE
 {
-    ?item wdt:P31 wd:Q936518. # instance of aerospace manufacturer
-  	?item wdt:P17 wd:Q159. # country Russia
-  	?item wdt:P571 ?inception # foundation date
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
+    ?manufacturer wdt:P31 wd:Q936518. # instance of aerospace manufacturer
+  	?manufacturer wdt:P17 wd:Q159. # country Russia
+  	?manufacturer wdt:P571 ?inception # foundation date
+    SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
 }
 \end{lstlisting}
-\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/kXu}{https://w.wiki/kXu} }
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/t4T}{https://w.wiki/t4T} }
     
     \small{Вопрос на с.~\pageref{aircraft_question_2}.}
 \end{task}
 
 \begin{task}
     \label{answer:aircraft_company_headquarters}
-    \newthought{Штаб-квартира компании <<Камов>> находится в городе Люберцы, <<Авиадвигатель>> - г. Пермь, <<Улан-Удэнский авиационный завод>> - г. Улан-Удэ, <<Сухой>> - г. Москва. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:aircraft_company_headquarters_lst})}. 
+    \newthought{Штаб-квартира компании <<Камов>> находится в городе Люберцы, <<Авиадвигатель>> ~--- в Перми, <<Улан-Удэнский авиационный завод>> ~--- в городе Улан-Удэ, <<Сухой>> ~--- в Москве. Ответ на вопрос также можно получить, выполнив SPARQL-запрос, представленный на листинге~\ref{lst:aircraft_company_headquarters_lst}}. 
     
-	\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/kY9}{Штаб-квартиры компаний}\protect\footnotemark}, label=lst:aircraft_company_headquarters_lst, ]
-SELECT ?item ?itemLabel ?inceptionLabel
+	\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/t4X}{Штаб-квартиры компаний}\protect\footnotemark}, label=lst:aircraft_company_headquarters_lst, ]
+SELECT ?manufacturer ?manufacturerLabel ?inceptionLabel
 WHERE
 {
-    ?item wdt:P31 wd:Q936518. # instance of aerospace manufacturer
-  	?item wdt:P17 wd:Q159. # country Russia
-  	?item wdt:P159 ?inception # headquarters location
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
+    ?manufacturer wdt:P31 wd:Q936518. # instance of aerospace manufacturer
+  	?manufacturer wdt:P17 wd:Q159. # country Russia
+  	?manufacturer wdt:P159 ?inception # headquarters location
+    SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
 }
 \end{lstlisting}
-\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/kY9}{https://w.wiki/kY9} }
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/t4X}{https://w.wiki/t4X} }
     
     \small{Вопрос на с.~\pageref{aircraft_question_3}.}
 \end{task}
 
 \begin{task}
     \label{answer:aircraft_question_airship}
-    \newthought{Дирижабль}. 
+    \newthought{Воздушным судном, удерживаемым в воздухе огромным баллоном с горючим смертельно опасным газом, расположенным прямо над головами пассажиров является дирижабль}. 
     
     \small{Вопрос на с.~\pageref{aircraft_question_4}.}
 \end{task}
 
 \begin{task}
     \label{answer:aircraft_question_airship_2}
-    \newthought{Воздушное судно изображенное на рис. \ref{fig:airship_question_aircraft} это дирижабль. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:aircraft_airship_photo_lst})}. 
+    \newthought{Воздушное судно, изображенное на рис. \ref{fig:airship_question_aircraft}, ~--- это дирижабль. Выполнив SPARQL-запрос, представленный на листинге~\ref{lst:aircraft_airship_photo_lst}), можно получить иллюстрации дирижаблей}. 
     
-	\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/kY6}{Изображения дирижаблей}\protect\footnotemark}, label=lst:aircraft_airship_photo_lst, ]
+	\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/t4c}{Изображения дирижаблей}\protect\footnotemark}, label=lst:aircraft_airship_photo_lst, ]
 #defaultView:ImageGrid
-SELECT ?item ?itemLabel ?image
+SELECT ?airship ?airshipLabel ?image
 WHERE
 {
-    ?item wdt:P31 wd:Q133585. # instance of airship
-  	?item wdt:P18 ?image # image airship
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+    ?airship wdt:P31 wd:Q133585. # instance of airship
+  	?airship wdt:P18 ?image # image airship
+    SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
 }
 \end{lstlisting}
-\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/kY6}{https://w.wiki/kY6} }
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/t4c}{https://w.wiki/t4c} }
     
     \small{Вопрос на с.~\pageref{aircraft_question_5}.}
 \end{task}
