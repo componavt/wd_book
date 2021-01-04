@@ -212,7 +212,7 @@ Which of the following cities were named after toponyms?
 \end{itemize}
 \end{exercise}
 
-Tula, Kurilsk and Vologda were named after the following toponyms: Tulitsa river, \href{https://w.wiki/qqJ}{Kuril Islands}, \href{https://w.wiki/qqK}{Vologda river}. The answer to the question can also be obtained by running the following SPARQL query (Listing \ref{lst:cities_geographic_objects}). The \href{https://www.wikidata.org/wiki/Property:P138}{named after} property value shows which Wikidata object the city was named after.
+Tula, Kurilsk and Vologda were named after the following toponyms: Tulitsa river, \href{https://w.wiki/qqJ}{Kuril Islands}, \href{https://w.wiki/qqK}{Vologda river}. The answer to the question can also be obtained by running the following SPARQL query (Listing \ref{lst:cities_geographic_objects}). The \href{https://www.wikidata.org/wiki/Property:P138}{named after (P138)} property value shows which Wikidata object the city was named after.
     
 \index{SPARQL!FILTER!Cities named after toponyms}
 \begin{lstlisting}[ language=SPARQL, 
@@ -235,7 +235,7 @@ SELECT ?city ?cityLabel ?namedAfterLabel ?whatIsItLabel WHERE {
 See question on page~\pageref{question:cities_geographic_objects}.
 
 \marginnote[-2.0cm]{
-If it doesn't matter what certain type of city the Wikidata object belongs to, you can use a construction with subclasses, specifying the only class relative to which the search will be performed. This construction is discussed in more detail in the section  ``Wikidata completeness and disadvantages'' on page \pageref{section:countries_Wikidata_completeness_and_disadvantages}.
+Let's explain the second line of the script in the Listing \ref{lst:cities_geographic_objects}, that is, the construction wdt:P31/wdt:P279*, followed by a Wikidata object that combines \wdqName{city}{515} and \wdqName{town}{3957}, and is called \mbox{\wdqName{city/town}{7930989}}. If it doesn't matter what certain type of city the Wikidata object belongs to, you can use a construction with subclasses, specifying the only class relative to which the search will be performed. This construction is discussed in more detail in the section  ``Wikidata completeness and disadvantages'', in the text before Listing \ref{lst:example_subclasses_city} on page \pageref{lst:example_subclasses_city}.
 }
 
 \begin{exercise}%
@@ -243,33 +243,47 @@ If it doesn't matter what certain type of city the Wikidata object belongs to, y
 Which of the following cities were founded more than 400 years ago: \href{https://w.wiki/pzt}{Moscow}, \href{https://w.wiki/pzu}{Sarov}, \href{https://w.wiki/pzx}{Kazan}, \href{https://w.wiki/pzy}{Astrakhan}, \href{https://w.wiki/pzz}{Samara}, \href{https://w.wiki/pz$}{Voronezh}?
 \end{exercise}
 
-Moscow (1147 year), Voronezh (1586), Samara (1586), Kazan (1005) and Astrakhan (1558) were founded more than 400 years ago. The answer to the question can also be obtained by running the following SPARQL query (Listing \ref{lst:cities_over_400_age}). The \href{https://www.wikidata.org/wiki/Property:P571}{inception} property value contains the date the city was founded.
+Kazan (1005 year), Moscow (1147), Astrakhan (1558), Voronezh (1586) and Samara (1586) were founded more than 400 years ago. Sarov, which had been founded in 1691, turned out to be the youngest city. The answer to the question can also be obtained by running the following SPARQL query (Listing \ref{lst:cities_over_400_age}). The \href{https://www.wikidata.org/wiki/Property:P571}{inception (P571)} property value contains the date the city was founded.
 
 \index{SPARQL!FILTER!Cities founded more than 400 years ago}
-\index{SPARQL!BOUND!Cities founded more than 400 years ago}
-\index{SPARQL!DATATYPE!Cities founded more than 400 years ago}
-\index{SPARQL!BIND!Cities founded more than 400 years ago}
+\index{SPARQL!YEAR!Cities founded more than 400 years ago}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Cities founded more than 400 years ago.\\\hspace{\textwidth}
-                        SPARQL query: \href{https://w.wiki/oto}{w.wiki/oto}
+                        SPARQL query: \href{https://w.wiki/t5v}{w.wiki/t5v}
                         },
                     label=lst:cities_over_400_age,
                     texcl 
                     ]
-SELECT ?city ?cityLabel ?inceptionDate WHERE {
+SELECT ?city ?cityLabel (YEAR(?inceptionDate) AS ?year) WHERE {
 	?city wdt:P31/wdt:P279* wd:Q7930989. # "city/town" subclasses
 	?city wdt:P17 wd:Q159. # belonging to Russia
-	?city wdt:P571 ?inceptionDate. # with property "inception"
-	FILTER(BOUND(?inceptionDate) && 
-			DATATYPE(?inceptionDate) = xsd:dateTime).
-	BIND(NOW() - ?inceptionDate AS ?distance).
-	FILTER(0 <= ?distance && ?distance > 146000). # = 400 * 365
+	?city wdt:P571 ?inceptionDate. # with property "inception"  
+	FILTER (YEAR(?inceptionDate) < 1620). # 2020 - 400 years
 	FILTER(?city = wd:Q649 || ?city = wd:Q193522 || ?city = wd:Q900
 		|| ?city = wd:Q3927 || ?city = wd:Q894 || ?city = wd:Q3426)
 	SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 GROUP BY ?city ?cityLabel ?inceptionDate
+ORDER BY ASC(?year)
 \end{lstlisting}%
+
+\marginnote[-3.5cm]{
+Which lines in the Listing \ref{lst:cities_over_400_age} should be commented out for:
+\begin{itemize}
+	\item[a)] getting a list of Russian cities which were founded more than 400 years ago?
+	\item[b)] getting a list of world cities which were founded at the same years?
+\end{itemize}
+}
+
+\marginnote{
+Can the ?year variable be negative in the Listing \ref{lst:cities_over_400_age}? Why?
+}
+
+The Wikidata object \wdqName{Moscow}{649} has ``unknown value'' of \href{https://www.wikidata.org/wiki/Property:P571}{inception} property with the \href{https://www.wikidata.org/wiki/Property:P1326}{latest date} qualifier = April 4, 1147. Probably for this reason, in the Listing \ref{lst:cities_over_400_age} the ?year variable takes an empty value for Moscow, and Moscow is mistakenly not included in the list of correct answers. Thus, to extract the year 1147, it is necessary to modify the existing script, which we will leave to the reader.
+
+\marginnote[-1.0cm]{
+About types of data and sets of properties related to date and time, see \href{https://w.wiki/NdT}{Help:Dates}.
+}
 
 See question on page~\pageref{question:cities_over_400_age}.
 
@@ -278,12 +292,12 @@ See question on page~\pageref{question:cities_over_400_age}.
 Which city does the flag in \reffig{fig:flag_question_city} belong to?
 \end{exercise}
 
-The flag in \reffig{fig:flag_question_city} belongs to \href{https://w.wiki/qqN}{Karabulak}. The answer to the question can also be obtained by running the following SPARQL query (Listing \ref{lst:cities_flags}). The \href{https://www.wikidata.org/wiki/Property:P41}{flag image} property value contains the image of the city flag.
+The flag in \reffig{fig:flag_question_city} belongs to \href{https://w.wiki/qqN}{Karabulak}. The answer to the question can also be obtained by running the following SPARQL query (Listing \ref{lst:cities_flags}). The \href{https://www.wikidata.org/wiki/Property:P41}{flag image (P41)} property value contains the image of the city flag.
 
 \index{SPARQL!FILTER!Cities flags}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Cities flags.\\\hspace{\textwidth}
-                        SPARQL query: \href{https://w.wiki/otp}{w.wiki/otp}
+                        SPARQL query: \href{https://w.wiki/t5s}{w.wiki/t5s}
                         },
                     label=lst:cities_flags,
                     texcl 
@@ -291,9 +305,8 @@ The flag in \reffig{fig:flag_question_city} belongs to \href{https://w.wiki/qqN}
 #defaultView:ImageGrid
 SELECT ?city ?cityLabel ?flag ?countryLabel WHERE {
 	?city wdt:P31/wdt:P279* wd:Q7930989. # "city/town" subclasses
-	?city wdt:P17 ?country. # with property "country"
-	?city wdt:P41 ?flag. # with property "flag"
-	FILTER(?city = wd:Q144969) # for Karabulak only
+	?city wdt:P17 wd:Q159. # belonging to Russia
+	?city wdt:P41 ?flag. # with filled property "flag"
 	SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}%
