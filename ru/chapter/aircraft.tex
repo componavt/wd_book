@@ -1,14 +1,18 @@
-\chapter{Воздушные суда от мала до велика}%
+\chapter{Воздушные суда и их производители}%
 \label{ch:aircraft-chapter}
 
-Глава посвящена исследованию различных свойств воздушных судов 
-на основе базы Викиданные. 
+Глава посвящена исследованию различных свойств воздушных судов на основе базы Викиданные. 
 В ходе исследования с помощью SPARQL-запросов, вычисляемых на объектах типа <<Воздушные суда>>, 
-получены сведения о всех воздушных судах и их количестве, 
-также получена диаграмма, отражающая соотношение общего количества производителей воздушных судов по странам. 
-В заключении главы получена оценка полноты данных, представленных в Википедии и Викиданных. Согласно ей в Викиданных представлено всего 300 записей о производителей воздушных судов из 1700.
+получен список воздушных судов и их производителей, получено число выпущенных самолётов для разных моделей. Для этого числа самолётов по моделям проверено выполнение \href{https://clck.ru/JvaaU}{закона Парето}. 
+Также получена диаграмма, отражающая соотношение общего количества производителей воздушных судов по странам. 
+В заключении главы получена оценка полноты данных, представленных в Википедии и Викиданных. Согласно ей в Викиданных представлено всего 595 записей о производителей воздушных судов из \num{1700} на 2020 год.
+Если считать, что ежегодно будет появляться фиксированное количество новых авиапроизводителей и количество ежегодно заносимых записей в Викиданные останется неизменным, то можно предположить, что примерно через 75 лет (то есть в 2095 году) Викиданные будут содержать записи обо всех авиапроизводителях.
 
-\section{Экземпляры объекта <<Воздушные суда>>}
+\section{Список самолётов}
+
+Воздушное судно — летательный аппарат, поддерживаемый в атмосфере за счёт взаимодействия с воздухом, отличного от взаимодействия с воздухом, отражённым от поверхности земли или воды.
+К воздушным судам относятся следующие виды летательной техники: автожир, аэростат, вертолёт, винтокрыл, дирижабль, махолёт, планёр и самолёт.
+К воздушным судам не относятся космические корабли, ракеты, экранопланы (но не экранолёты) и суда на воздушной подушке. 
 
 Построим список всех экземпляров объекта <<Воздушные суда>> \href{https://www.wikidata.org/wiki/Q11436}{Q11436}.
 
@@ -17,48 +21,46 @@
 %\itemСвойство: Экземпляр (P31).
 %\end{itemize}
 
-\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/nVQ}{Список воздушных судов}\protect\footnotemark}, label=lst:lang1, ]
+\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/t3j}{Список воздушных судов}\protect\footnotemark}, label=lst:lang1, ]
 #List of `instances of` "aircraft"
-#Q11436 - object aircraft
-#P31 - property instance
-SELECT ?item ?itemLabel
+SELECT ?plane ?planeLabel
 WHERE
 {
-    ?item wdt:P31 wd:Q11436. # instances of aircraft
+    ?plane wdt:P31 wd:Q11436. # instances of aircraft
     SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
 \end{lstlisting}
-\footnotetext{Получено 153 воздушных судна в 2017 году, 299 воздушных судов в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/nVQ}{https://w.wiki/nVQ}}
+\footnotetext{Получено 153 воздушных судна в 2017 году, 299 воздушных судов в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/t3j}{https://w.wiki/t3j}}
 
 %Результатом запроса~\ref{lst:lang1} (на английском языке) является список всех воздушных судов. На 2017 год список содержал \num{1564} записи, а к 2020 году число записей увеличилось до \num{3325}.
 %На руском языке на 2017 год результат запроса~\ref{lst:lang1} содержал 153 записи, а к 2020 году их число увиличилось до 299 записей.
 
-Наиболее полными и проработанными воздушными судами на Викиданных на 2017 год являются: \href{https://www.wikidata.org/wiki/Q271446}{МиГ-3}, \href{https://www.wikidata.org/wiki/Q1349098}{Як-36}, \href{https://www.wikidata.org/wiki/Q429839}{Mitsubishi A5M}. На 2020 год наиболее полными и проработанными воздушными судами на Викиданных являются: \href{https://www.wikidata.org/wiki/Q770863}{Sopwith Triplane} (18 свойств), \href{https://www.wikidata.org/wiki/Q1658673}{Ил-103} (14 свойств), \href{https://www.wikidata.org/wiki/Q665071}{Martin 2-0-2} (14 свойств).
-Почти пустыми и малоинформативными воздушными судами на 2017 год оказались: \href{https://www.wikidata.org/wiki/Q464247}{МиГ-1}, \href{https://www.wikidata.org/wiki/Q2296502}{Су-6}, \href{https://www.wikidata.org/wiki/Q1658673}{Ил-103}.
-На 2020 год малоинформативными воздушными судами являются: \href{https://www.wikidata.org/wiki/Q820603}{Бе-1}, \href{https://www.wikidata.org/wiki/Q117984}{Литуаника}, \href{https://www.wikidata.org/wiki/Q572762}{Ла-168}.
+Наиболее полными и проработанными воздушными судами на Викиданных на 2017 год являются: \href{https://www.wikidata.org/wiki/Q271446}{МиГ-3}, \href{https://www.wikidata.org/wiki/Q1349098}{Як-36}, \href{https://www.wikidata.org/wiki/Q429839}{Mitsubishi A5M}. На 2020 год наиболее полными и проработанными воздушными судами на Викиданных являются: \href{https://www.wikidata.org/wiki/Q770863}{Sopwith Triplane} (18 свойств: instance of, subclass of, image, country, operator, manufacturer, first flight, wingspan, maximum operating altitude, total produced, developer, designed by, service entry, length, height, Commons gallery, Commons category, topic's main category), \href{https://www.wikidata.org/wiki/Q1658673}{Ил-103} (14 свойств), \href{https://www.wikidata.org/wiki/Q665071}{Martin 2-0-2} (14 свойств).
+Количество свойств было получено при помощи сервиса \href{https://prowd.id/dashboards/972cd00ce110/profile}{ProWD}, который позволяет проанализировать выбранный объект Викиданных.
+%Почти пустыми и малоинформативными воздушными судами на 2017 год оказались: \href{https://www.wikidata.org/wiki/Q464247}{МиГ-1}, \href{https://www.wikidata.org/wiki/Q2296502}{Су-6}, \href{https://www.wikidata.org/wiki/Q1658673}{Ил-103}.
+На 2020 год малоинформативными воздушными судами являются: \href{https://www.wikidata.org/wiki/Q820603}{Бе-1} (3 свойства), \href{https://www.wikidata.org/wiki/Q117984}{Литуаника} (4 свойства), \href{https://www.wikidata.org/wiki/Q572762}{Ла-168} (3 свойства).
 
 \section{Производители воздушных судов}
 
-Построим список производителей воздушных судов.
+Построим список производителей воздушных судов, выполнив запрос~\ref{lst:lang2}.
 
-\index{SPARQL!COUNT / Производители воздушных судов}
-\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/nRx}{Производители воздушных судов}\protect\footnotemark}, label=lst:lang2, ]
+\footnotetext{На 2017 год список содержал 300 записей, к 2020 году число записей увеличилось до 597. Ссылка на SPARQL-запрос: \href{https://w.wiki/t3n}{https://w.wiki/t3n}}
+
+\index{SPARQL!COUNT!Производители воздушных судов}
+\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/t3n}{Производители воздушных судов}\protect\footnotemark}, label=lst:lang2, ]
 # Count aircraft having property manufacture, group by manufacture
-SELECT ?manufactureLabel (COUNT(?item) AS ?count) 
+SELECT ?manufacture ?manufactureLabel (COUNT(?plane) AS ?count) 
 WHERE {
-  ?item wdt:P31 wd:Q11436.     # instance of aircraft
-  ?item wdt:P176 ?manufacture. # show manufacture
+  ?plane wdt:P31 wd:Q11436.     # instance of aircraft
+  ?plane wdt:P176 ?manufacture. # manufacture
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
 }
-GROUP BY ?manufacture ?manufactureLabel # group by manufacture
+GROUP BY ?manufacture ?manufactureLabel
 \end{lstlisting}
-\footnotetext{На 2017 год список содержал 300 записей, к 2020 году число записей увеличилось до 597. Ссылка на SPARQL-запрос: \href{https://w.wiki/nRx}{https://w.wiki/nRx}}
-
-Результатом запроса~\ref{lst:lang2} является список список всех производителей воздушных судов. 
 
 \marginnote{
 
-У каких российских производителей самолётов есть веб-сайты?
+У каких из представленных ниже российских производителей самолётов есть веб-сайты?
 \begin{itemize}
 \item Миг
 \item Саратовский авиационный завод
@@ -68,44 +70,60 @@ GROUP BY ?manufacture ?manufactureLabel # group by manufacture
 См. ответ~\ref{answer:aircraft_manufacturers} на с.~\pageref{answer:aircraft_manufacturers}.
 }
 
+Результатом запроса~\ref{lst:lang2} является список всех производителей воздушных судов с указанием количества различных моделей, производимых данным заводом.
+
 \section{Количество выпущенных воздушных судов}
 
-\index{Самолёты!Авиационная промышленность / Определение}
-Авиационная промышленность ~--- это одна из самой крупнных отраслей машиностроения в мире. 
+\index{Самолёты!Определения!Авиационная промышленность}
+Авиационная промышленность ~--- это одна из самых крупных отраслей машиностроения в мире. 
 В её задачи входит как разработка, так и производство различной воздушной техники. 
 Для того чтобы оценить, какие модели воздушных судов являются самыми массовыми, 
-мы построим диаграмму произведенных судов различных моделей.
+мы построим диаграмму произведенных судов различных моделей, представленную на рис.~\ref{fig:Number_of_aircraft_produced_ru_2020}. 
+Чтобы получить количество произведённых воздушных судов необходимо выполнить запрос~\ref{lst:lang3}.
 
-\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/nVS}{Список произведённых самолётов}\protect\footnotemark}, label=lst:lang3, ]
-SELECT ?itemLabel ?count WHERE {
+\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/t3p}{Список произведённых самолётов}\protect\footnotemark}, label=lst:lang3, ]
+SELECT ?planeLabel ?count WHERE {
+  ?plane wdt:P31 wd:Q11436. # instance of aircraft
+  ?plane wdt:P1092 ?count.  # total aircraft manufactured
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
-  ?item wdt:P31 wd:Q11436. # instance of aircraft
-  ?item wdt:P1092 ?count.  # total aircraft manufactured
 }
 \end{lstlisting}
-\footnotetext{Получен список, состоящий из 177 (на 2020 год) моделей воздушных судов. Ссылка на SPARQL-запрос: \href{https://w.wiki/nVS}{https://w.wiki/nVS}}
+\footnotetext{Получен список, состоящий из 177 (на 2020 год) моделей воздушных судов. Ссылка на SPARQL-запрос: \href{https://w.wiki/t3p}{https://w.wiki/t3p}}
 
 %В результатом запроса~\ref{lst:lang3} мы получили список состоящий из 177 записей (на 2020 год) моделей воздушных судов и их суммарного произведенного количества за всё время.
 
-Некоторые модели воздушных судов были выпущены в единичных экземплярах, поэтому для повышения читабельности диаграммы их можно исключить. Для получения нового списка добавим фильтр по количеству выпущенных самолётов в запрос.
+Некоторые модели воздушных судов были выпущены в единичных экземплярах, поэтому для повышения читабельности диаграммы~\ref{fig:Number_of_aircraft_produced_ru_2020} их можно исключить. Для получения нового списка добавим в запрос~\ref{lst:lang3_1} фильтр по количеству выпущенных самолётов в запрос.
 
-\index{SPARQL!FILTER / Список выпущенных самолётов, в количестве более 10 штук}
-\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/nVT}{Список выпущенных самолётов, в количестве более 10 штук}\protect\footnotemark}, label=lst:lang3_1, ]
-SELECT ?itemLabel ?count WHERE {
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
-  ?item wdt:P31 wd:Q11436. # instance of aircraft
-  ?item wdt:P1092 ?count. # total aircraft manufactured
-  
+\footnotetext{Получен отфильтрованный по количеству выпущенных самолётов список, состоящий из 131 записи. Ссылка на SPARQL-запрос: \href{https://w.wiki/t3q}{https://w.wiki/t3q}}
+\index{SPARQL!FILTER!Список выпущенных самолётов, в количестве более 10 штук}
+\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/t3q}{Список, включающий только те самолёты, которые были выпущены в количестве более 10 штук}\protect\footnotemark}, label=lst:lang3_1, ]
+SELECT ?plane ?planeLabel ?count WHERE {
+  ?plane wdt:P31 wd:Q11436. # instance of aircraft
+  ?plane wdt:P1092 ?count. # total aircraft manufactured  
   FILTER (?count > 10)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
 }
+ORDER BY (?count)
 \end{lstlisting}
-\footnotetext{Получен отфильтрованный по количеству выпущенных самолётов список, состоящий из 86 записей. Ссылка на SPARQL-запрос: \href{https://w.wiki/nVT}{https://w.wiki/nVT}}
-
 
 %Итого, результатом запроса~\ref{lst:lang3_1} уже будет 86 записей, а не 177.
 
-На рисунке рис.~\ref{fig:Number_of_aircraft_produced_ru_2020} видно, что на 2020 год больше всего было выпущено воздушных судов следующих моделей: \href{https://www.wikidata.org/wiki/Q2096452}{Piper PA-32} (\num{7842} штук), \href{https://www.wikidata.org/wiki/Q1860367}{Piper PA-24 Comanche} (\num{4857}), \href{https://www.wikidata.org/wiki/Q694521}{Junkers W 34} (\num{3000}), \href{https://www.wikidata.org/wiki/Q4046989}{Piper J-4} (\num{1251}).
+\label{aircraft_question_2}
+\marginnote{
+Найдите соответствие между датой основания и компанией в следующей таблице:
+\\
+\begin{tabular}{ l | l }
+Компания & Дата основания \\ \hline
+Миг & 1 января 1939 \\
+Вымпел & 18 ноября 1949 \\
+Туполев & 18 декабря 1939 \\
+Сухой & 1 января 1922 \\
+\end{tabular}
+\\
+См. ответ~\ref{answer:aircraft_company_foundation_date} на с.~\pageref{answer:aircraft_company_foundation_date}.
+}
 
+На рисунке рис.~\ref{fig:Number_of_aircraft_produced_ru_2020} видно, что на 2020 год больше всего было выпущено воздушных судов следующих моделей: \href{https://www.wikidata.org/wiki/Q2096452}{Piper PA-32} (\num{7842} штук), \href{https://www.wikidata.org/wiki/Q1860367}{Piper PA-24 Comanche} (\num{4857}), \href{https://www.wikidata.org/wiki/Q694521}{Junkers W 34} (\num{3000}), \href{https://www.wikidata.org/wiki/Q4046989}{Piper J-4} (\num{1251}).
 
 %\clearpage
 \begin{figure*}[h]
@@ -119,45 +137,34 @@ SELECT ?itemLabel ?count WHERE {
     \label{fig:Number_of_aircraft_produced_ru_2020}%
 \end{figure*}
 
-%По диаграмме видно, что больше всего было выпущено воздушных судов следующих моделей: Piper PA-32 (\num{7842} штук), Piper PA-24 Comanche (\num{4857}), Junkers W 34 (\num{3000}), Piper J-4 (\num{1251}).
+%По диаграмме видно, что больше всего было выпущено воздушных судов следующих моделей: Piper PA-32 (\num{7842} штук), Piper PA-24 Comanche (\num{4857}), Junkers W 34 (\num{3000}), Piper J-4 (\num{1251})
 
+\newpage 
+\index{Самолёты!Определения!Закон Парето}
 Теперь попытаемся ответить на вопрос: <<Выполняется ли \href{https://clck.ru/JvaaU}{Закон Парето} относительно числа моделей самолётов>>?
 
-Для того чтобы построить график необходимо выполнить следующие шаги:
+Для того чтобы построить график процентного соотношения количества выпущенных моделей самолётов к общему числу произведённых самолётов, необходимо выполнить следующие шаги:
 
-\label{aircraft_question_2}
-\marginnote{
-Найдите соответствие между датой основания и компанией.
-\\
-\begin{tabular}{ l | l }
-Компания & Дата основания \\ \hline
-Миг & 01.01.1939 \\
-Вымпел & 18.11.1949 \\
-Туполев & 18.12.1939 \\
-Сухой & 01.01.1922 \\
-\end{tabular}
-\\
-См. ответ~\ref{answer:aircraft_company_foundation_date} на с.~\pageref{answer:aircraft_company_foundation_date}.
-}
+\footnotetext{Диаграмма~\ref{fig:Number_of_aircraft_produced_ru_2020} была построена в excel на основании данных, полученных из запроса~\ref{lst:lang3_1}}.
 
 \begin{enumerate} 
   \item Подсчитать общее число самолётов по всем моделям, с помощью скрипта, представленного на листинге~\ref{lst:lang3_2}.
   
-  \index{SPARQL!SUM / Общее число произведённых самолётов}
-  \begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/nVU}{Общее число произведённых самолётов}\protect\footnotemark}, label=lst:lang3_2, ]
-  SELECT (SUM(?count) as ?sum) WHERE {
-    SELECT ?count WHERE {
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
-      ?item wdt:P31 wd:Q11436; # instance of aircraft
-        wdt:P1092 ?count. # total aircraft manufactured
-    }
+  \index{SPARQL!SUM!Общее число произведённых самолётов}
+  \footnotetext{Общее число выпущенных самолётов на 2020 год составляет \num{44151}. Ссылка на SPARQL-запрос: \href{https://w.wiki/t3s}{https://w.wiki/t3s}}
+\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/t3s}{Общее число произведённых самолётов}\protect\footnotemark}, label=lst:lang3_2, ]
+SELECT (SUM(?count) as ?sum) WHERE {
+  SELECT ?count WHERE {
+    SERVICE wikibase:label {bd:serviceParam wikibase:language "ru".}
+    ?plane wdt:P31 wd:Q11436; # instance of aircraft
+		   wdt:P1092 ?count. # total aircraft manufactured
   }
-  \end{lstlisting}
-  \footnotetext{Общее число выпущенных самолётов на 2020 год составляет \num{33177}. Ссылка на SPARQL-запрос: \href{https://w.wiki/nVU}{https://w.wiki/nVU}}
+}
+\end{lstlisting}
   
   %В результате выполнения запроса~\ref{lst:lang3_2} мы получили общее число выпущенных самолётов на 2020 год = \num{33177}.
   
-  \item По оси Х откладывается число рассматриваемых моделей самолётов (то есть 1~--- это количество выпущенных самолётов 1-ой модели, 2 ~--- это сумма выпущенных самолётов 1-ой и 2-ой модели и т.д.). По оси Y будем откладывать процентное соотношение количества выпущенных моделей самолётов по всем авиакомпаниям к общему числу выпущенных самолётов за всё время. Также по оси Х откладываем вторую шкалу от 0 до 100\%, чтобы легче было определить параметры для закона Парето.
+  \item По оси Х откладывается число рассматриваемых моделей самолётов (то есть при х = 1 мы рассматриваем число выпущенных самолётов первой модели, при х = 2 ~--- число выпущенных самолётов первой и второй модели и так далее). По оси Y будем откладывать F(n) = $\sum\limits_{i=1}^n f(i)$, где f(i) ~--- число выпущенных самолётов модели i. При этом выполняется условие f(i) > f(j), при i < j, где i, j ~--- номер модели самолёта (то есть количество выпущенных моделей самолётов заранее упорядочивается по убыванию). Также по оси Х откладываем вторую шкалу от 0 до 100\%, чтобы легче было определить параметры для закона Парето.
 \end{enumerate}
 
 \begin{figure*}[h]
@@ -167,20 +174,19 @@ SELECT ?itemLabel ?count WHERE {
     \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/aircraft/Pareto_principle_diargam.png}}%
 
 %	\includegraphics{./chapter/aircraft/Number_of_aircraft_produced_ru.png}%
-	\caption{Процентное соотношение количества выпущенных моделей самолётов по всем авиакомпаниям к общему числу выпущенных самолётов за всё время, 2020.}%
+	\caption{Процентное соотношение количества выпущенных моделей самолётов по n моделям к общему числу выпущенных самолётов за всё время, 2020.}%
     \label{fig:Pareto_principle_diargam}%
 \end{figure*}
 
-По графику~\ref{fig:Pareto_principle_diargam} видно, что 80\% всех выпущенных самолётов приходится на 16 различных моделей самолётов, что составляет 9,2\% от общего числа моделей. Закон Парето утверждает, что: «20\% усилий дают 80\% результата, а остальные 80\% усилий — лишь 20\% результата». Можно сделать вывод, что выполняется более сильный закон, чем принцип Парето относительно числа моделей самолётов.
-
+\index{Самолёты!Определения!Закон Парето}
+По графику~\ref{fig:Pareto_principle_diargam} видно, что 80\% всех выпущенных самолётов приходится на 16 различных моделей самолётов, что составляет 9,2\% от общего числа моделей. Закон Парето утверждает, что: \href{https://clck.ru/JvaaU}{«20\% усилий дают 80\% результата, а остальные 80\% усилий — лишь 20\% результата»}. Можно сделать вывод, что выполняется более сильный закон, чем принцип Парето относительно числа моделей самолётов.
+\footnotetext{Закон Парето: \href{https://clck.ru/JvaaU}{https://clck.ru/JvaaU}}
 
 \section{В каких странах производят самолёты}
 
-Построим список количества производителей воздушных судов по странам. Для выполнения запроса~\ref{lst:lang4} используем группировку по странам (GROUP BY) и при помощи функции <<Count>> для каждой страны подсчитаем количество производств.
-
 \label{aircraft_question_3}
 \marginnote{
-Найдите соответствие между расположением штаб-квартирой компании и компанией.
+Найдите соответствие между расположением штаб-квартиры компании и названием компании производителя самолётов в следующей таблице:
 \\
 \begin{tabular}{ l | l }
 Компания & Штаб-квартира \\ \hline
@@ -194,41 +200,43 @@ SELECT ?itemLabel ?count WHERE {
 См. ответ~\ref{answer:aircraft_company_headquarters} на с.~\pageref{answer:aircraft_company_headquarters}.
 }
 
-\index{SPARQL!COUNT / Список соотношения количества производителей воздушных судов по странам}
-\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/nUv}{Список соотношения количества производителей воздушных судов по странам}\protect\footnotemark}, label=lst:lang4, ]
+Построим список количества производителей воздушных судов по странам. Для выполнения запроса~\ref{lst:lang4} используем группировку по странам (GROUP BY) и при помощи функции Count() для каждой страны подсчитаем общее количество авиастоительных заводов.
+
+\index{SPARQL!COUNT!Список соотношения количества производителей воздушных судов по странам}
+\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/t3t}{Список стран с указанием количества производителей воздушных судов}\protect\footnotemark}, label=lst:lang4, ]
 # Count manufacture having property country group by country
-SELECT ?countryLabel (count(?manufacturer) as ?count)
+SELECT ?country ?countryLabel (count(?manufacturer) as ?count)
 WHERE
 {
     ?manufacturer wdt:P31 wd:Q936518.   # instance of aerospace manufacture
     ?manufacturer wdt:P17 ?country.     # belong to country
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
+    SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
 }
 GROUP BY ?country ?countryLabel
 \end{lstlisting}
-\footnotetext{Получено 39 записей в 2017 году, 46 записей в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/nUv}{https://w.wiki/nUv}}
+\footnotetext{Получено 39 записей в 2017 году, 46 записей в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/t3t}{https://w.wiki/t3t}}
 
-%В результатом запроса~\ref{lst:lang4} мы получили список состоящий из 39 записей (на 2017 год): страна и количество производств воздушных судов. К 2020 году число записей в руском сегменте Викиданных возросло до 46 записей.
+%В результатом запроса~\ref{lst:lang4} мы получили список состоящий из 39 записей (на 2017 год): страна и количество производств воздушных судов. К 2020 году число записей в русском сегменте Викиданных возросло до 46 записей.
 
 Получив список стран по количеству заводов-производителей авиационной техники, мы можем для наглядности построить пузырьковую диаграмму <<Соотношение количества
 производителей воздушных судов по странам>>~\ref{fig:Manufacture_with_country_2020}. Для её построения выполняем запрос~\ref{lst:lang5}.
 
-\index{SPARQL!COUNT / Пузырьковая диаграмма <<Соотношение количества производителей воздушных судов по странам>>}
-\index{График!BubbleChart / Пузырьковая диаграмма <<Соотношение количества производителей воздушных судов по странам>>}
-\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/nUx}{Пузырьковая диаграмма <<Соотношение количества производителей воздушных судов по странам>>}}, label=lst:lang5, ]
+\index{SPARQL!COUNT!Соотношение количества производителей воздушных судов по странам}
+\index{График!BubbleChart!Соотношение количества производителей воздушных судов по странам}
+\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/t3v}{Пузырьковая диаграмма <<Соотношение количества производителей воздушных судов по странам>>}}, label=lst:lang5, ]
 #defaultView:BubbleChart
-SELECT ?countryLabel (count(?item) as ?count)
+SELECT ?country ?countryLabel (count(?manufacturer) as ?count)
 WHERE
 {
-    ?item wdt:P31 wd:Q936518. # instance of aerospace manufacture
-  	?item wdt:P17 ?country. # belong to country
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
+    ?manufacturer wdt:P31 wd:Q936518. # instance of aerospace manufacture
+  	?manufacturer wdt:P17 ?country. # belong to country
+    SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
 }
 GROUP BY ?country ?countryLabel
 \end{lstlisting}
-\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/nUx}{https://w.wiki/nUx}}
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/t3v}{https://w.wiki/t3v}}
 
-В результате выполнения запроса~\ref{lst:lang5} будет построена пузырьковая диаграмма, в которой круги означают страны, а их размеры соответствуют количеству авиапроизводителей в указанной стране. Такая диаграмма помогает более наглядно увидеть разницу разницу в количестве авиационных производств между странами.
+В результате выполнения запроса~\ref{lst:lang5} будет построена пузырьковая диаграмма, в которой круги означают страны, а их размеры соответствуют количеству авиапроизводителей в указанной стране. Такая диаграмма помогает более наглядно увидеть разницу в количестве авиационных заводов в разных странах.
  
 \begin{figure}[h!]
 \centering
@@ -237,7 +245,14 @@ GROUP BY ?country ?countryLabel
 	\label{fig:Manufacture_with_country_2017}
 \end{figure}
 
-Как видно из ответа на запрос~\ref{lst:lang5} на (рис.~\ref{fig:Manufacture_with_country_2017_2}) указаны не все производители воздушных судов о чём свидетельствуют данные взятые с сайта \href{https://www.aviationfanatic.com/}{aviationfanatic.com}. Более подробная информация о недостаточности данных в Викиданных указывается в следующем разделе текущей главы. Больше всего производителей указано у США (115), Великобритании (30), Германии (17), России (17) на май 2017.
+\label{aircraft_question_4}
+\marginnote{
+Как называется воздушное судно, удерживаемое в воздухе огромным баллоном с горючим смертельно опасным газом, расположенным прямо над головами пассажиров?
+\\
+См. ответ~\ref{answer:aircraft_question_airship} на с.~\pageref{answer:aircraft_question_airship}.
+}
+
+Как видно из ответа на запрос~\ref{lst:lang5} на рис.~\ref{fig:Manufacture_with_country_2017_2} указаны не все производители воздушных судов о чём свидетельствуют данные, взятые с сайта \href{https://www.aviationfanatic.com/}{aviationfanatic.com}. Более подробная информация о недостаточности данных в Викиданных даётся в следующем разделе этой главы. Больше всего производителей указано у США (115), Великобритании (30), Германии (17), России (17) на 2017 год.
 
 \begin{figure}[h!]
 \centering
@@ -248,16 +263,11 @@ GROUP BY ?country ?countryLabel
 
 \label{fig:Manufacture_with_country_2017_2}
 
-\label{aircraft_question_4}
-\marginnote{
-Как называется воздушное судно, поддерживаемое в полете за счёт огромного баллона с горючим смертельно опасным газом, прямо над головами пассажиров?
-\\
-См. ответ~\ref{answer:aircraft_question_airship} на с.~\pageref{answer:aircraft_question_airship}.
-}
-
-Сравнивая две пузырьковые диаграммы за 2017 (рис.~\ref{fig:Manufacture_with_country_2017}) и 2020 (рис.~\ref{fig:Manufacture_with_country_2020}) годы, можно сделать вывод, что основными производителями воздушных судов являются: США (135 производителей), Великобритания (43), Франция (29), Германия (26), Россия (21). Лидером по-прежнему является США, а вот Франция за 3 года сумела опередить Германию, увеличив количество производств до 29 (Германия ~--- 26), тем самым заняв 3-е место. Но в целом соотношение по производству воздушных судов между различными странами остаётся на прежнем уровне.
+Сравнивая две пузырьковые диаграммы за 2017 (рис.~\ref{fig:Manufacture_with_country_2017}) и 2020 (рис.~\ref{fig:Manufacture_with_country_2020}) годы, можно сделать вывод, что основными производителями воздушных судов в мире на 2020 год являются: США (135 производителей), Великобритания (43), Франция (29), Германия (26), Россия (21). Лидером по-прежнему является США, а вот Франция за 3 года сумела опередить Германию, увеличив количество производств до 29 (Германия ~--- 26), тем самым заняв третье место. Но в целом соотношение по производству воздушных судов между различными странами остаётся на прежнем уровне.
 
 \section{Полнота Викиданных}
+
+Согласно сайту \href{https://www.aviationfanatic.com/}{aviationfanatic.com} существует около \num{1700} производителей воздушных судов\cite{count_of_aircraft_manufactures} (2017 год) и \num{1939} (2020 год), но SPARQL-запрос~\ref{lst:lang2} вернул всего 300 записей в 2017 году, а в 2020 году ~--- 595 записей. Из этого можно сделать вывод о неполноте Викиданных. Скорее всего, не указанные производители сделали слишком мало самолетов или не сделали их вовсе, поэтому из-за недостатка информации они не были включены в Викиданные. 
 
 \label{aircraft_question_5}
 \marginnote{
@@ -271,19 +281,20 @@ GROUP BY ?country ?countryLabel
 \setlength{\fboxrule}{1pt}%
 \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/aircraft/foto_of_airship.jpg}}%
 }
-  \caption{Воздушное судно}%
+  \caption{Неизвестное воздушное судно}%
   \label{fig:airship_question_aircraft}%
 \end{marginfigure}
 
 \marginnote{
+
 См. ответ~\ref{answer:aircraft_question_airship_2} на с.~\pageref{answer:aircraft_question_airship_2}.
 }
 
-Согласно сайту \href{https://www.aviationfanatic.com/}{aviationfanatic.com} существует около \num{1700} производителей воздушных судов\cite{count_of_aircraft_manufactures} (2017 год) и \num{1939} (2020 год), но SPARQL-запрос~\ref{lst:lang2} вернул всего 300 записей в 2017 году, а в 2020 году ~--- 595 записей. Из этого можно сделать вывод о неполноте Викиданных. Скорее всего, не указанные производители сделали слишком мало самолетов или не сделали их вовсе, поэтому из-за недостатка информации они не были включены в Викиданные. 
+Согласно приведённым выше данным можно сделать прогноз, о том когда Викиданные будут включать все данные сайта aviationfanatic.com. За три года количество производителей воздушных судов увеличилось на 239, что составляет ежегодный прирост примерно на 80 авиапроизводителей. Также за это время в Викиданные была занесена информация о 295 авиапроизводителях, то есть ежегодно добавляется около 98 новых записей. Также на 2020 год в Викиданных отсутствуют записи о \num{1344} авиапроизводителях. Если считать, что ежегодно будет появляться фиксированное количество новых авиапроизводителей и количество ежегодно заносимых записей в Викиданные останется неизменным, то можно предположить, что примерно через 75 лет (то есть в 2095 году) Викиданные будут содержать записи обо всех авиапроизводителях, представленных на сайте aviationfanatic.com.
 
-Согласно полученным данным можно сделать прогноз, когда данные в Викиданных будут полными. За три года количество производителей воздушных судов увеличилось на 239, что составляет ежегодный прирост примерно на 80 авиа-производителей. Также за это время в Викиданные была занесена информация о 295 авиа-производителей, то есть ежегодно добавляется около 98 новых записей. Также на 2020 год в Викиданных отсутствуют записи о \num{1344} авиа-производителях. Если считать, что ежегодно будет появляться фиксированное количество новых авиа-производителей и количество ежегодно заносимых записей в Викиданные останется неизменным, то можно предположить, что примерно через 75 лет (то есть в 2095 году) Викиданные будут содержать записи обо всех авиа-производителях.
+\footnotetext{<<Авиастроительные компании России>>: https://cutt.ly/NhrKnWn}
 
-В категории \href{https://cutt.ly/NhrKnWn}{<<Авиастроительные компании России>>} указано наличие в России 58 авиастроительных компаний в 2017 году и 62 компаний в 2020 году, но в то же время на сайте \href{https://www.aviationfanatic.com/}{aviationfanatic.com} указано наличие 61 завода\cite{count_plants_of_aircrafts} в 2017 году и 71 в 2020 году. Среди авиастроительных компаний России представлены такие компании как: \href{https://clck.ru/RxFCs}{Иркут}, \href{https://clck.ru/QR6qZ}{МиГ}, \href{https://clck.ru/RxFG3}{Туполев}.
+В категории \href{https://cutt.ly/NhrKnWn}{<<Авиастроительные компании России>>} указано наличие в России 58 авиастроительных компаний в 2017 году и 62 завода, института и корпорации, связанных с самолётостроением, в 2020 году, но в то же время на сайте \href{https://www.aviationfanatic.com/}{aviationfanatic.com} указано наличие 61 завода\cite{count_plants_of_aircrafts} в 2017 году и 71 в 2020 году. Среди авиастроительных компаний России представлены такие компании как: \href{https://clck.ru/RxFCs}{Иркут}, \href{https://clck.ru/QR6qZ}{МиГ}, \href{https://clck.ru/RxFG3}{Туполев}.
 
 %\section{Степень заполненности Викиданных}
 
@@ -323,8 +334,8 @@ GROUP BY ?country ?countryLabel
 \begin{enumerate}
 \item Найти самолет с максимальным радиусом полета.
 \item Отметить на политической карте мира местоположение главных офисов компаний авиапроизводителей.
-\item Найти производителя с максимальным числом изготовленных самолетов, используя свойство manufacturer у воздушных судов.
+\item Найти производителя с максимальным числом изготовленных самолетов, используя свойство \textit{manufacturer} у воздушных судов.
 \item Когда был построен первый самолёт?
 \item Какие фирмы первыми выпустили 10, 100 и тысячу самолётов?
-\item Нарисуйте диаграмму количества выпускаемых самолётов по годам.
+\item Нарисуйте диаграмму количества выпускаемых самолётов в мире и в России по годам.
 \end{enumerate}

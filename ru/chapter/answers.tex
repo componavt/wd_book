@@ -57,10 +57,11 @@
 %%%%%%%%%%%%%% City chapter %%%%%%%%%%%%%%
 \begin{task}
     \label{answer:cities_geographic_objects}
-    \newthought{В честь географических объектов} были названы Тула (\href{https://w.wiki/oLJ}{река Тулица}), Курильск (\href{https://w.wiki/oLH}{Курильские острова}) и Вологда (\href{https://w.wiki/oLG}{река Вологда}). Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:cities_geographic_objects}). Значение свойства \href{https://www.wikidata.org/wiki/Property:P138}{named after} показывает, в честь какого объекта Викиданных был назван город.
+    \newthought{В честь географических объектов} были названы Тула (\href{https://w.wiki/oLJ}{река Тулица}), Курильск (\href{https://w.wiki/oLH}{Курильские острова}) и Вологда (\href{https://w.wiki/oLG}{река Вологда}). Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:cities_geographic_objects}). Значение свойства \href{https://www.wikidata.org/wiki/Property:P138}{named after (P138)} показывает, в честь какого объекта Викиданных был назван город.
     
-    \marginnote{
-    Если не имеет значения к какому конкретно типу городов относится объект Викиданных, то можно использовать конструкцию с подклассами, указав при этом единственный класс, относительно которого будет выполняться поиск. Более подробно данная конструкция рассматривается в разделе <<Полнота и недостатки Викиданных>> на с. \pageref{lst:countries_sister_cities_with_Russia}.
+    \marginnote[-1.0cm]{
+    Поясним вторую строчку скрипта в листинге \ref{lst:cities_geographic_objects}, то есть конструкцию wdt:P31/wdt:P279*, за которой следует объект Викиданных, объединяющий \wdqName{city}{515} и \wdqName{town}{3957}, и называющийся \wdqName{city/town}{7930989}.
+    Если не имеет значения к какому конкретно типу городов относится объект Викиданных, то можно использовать конструкцию с подклассами, указав при этом единственный класс, относительно которого будет выполняться поиск. Более подробно данная конструкция рассматривается в разделе <<Полнота и недостатки Викиданных>>, в тексте, предшествующем листингу \ref{lst:example_subclasses_city} на с. \pageref{lst:example_subclasses_city}.
     }
     
     \index{SPARQL!FILTER!Города, названные в честь географических объектов}
@@ -84,57 +85,70 @@ SELECT ?city ?cityLabel ?namedAfterLabel ?whatIsItLabel WHERE {
 
 \begin{task}
     \label{answer:cities_over_400_age}
-    \newthought{Более 400 лет назад} были основаны Москва (1147 год), Воронеж (1586), Самара (1586), Казань (1005) и Астрахань (1558). Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:cities_over_400_age}). Значение свойства \href{https://www.wikidata.org/wiki/Property:P571}{inception} содержит дату основания города.
+    \newthought{Более 400 лет назад} были основаны Казань (1005 год), Москва (1147), Астрахань (1558), Воронеж (1586) и Самара (1586). Самым молодым городом оказался Саров, основанный в 1691 году. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:cities_over_400_age}). Значение свойства \href{https://www.wikidata.org/wiki/Property:P571}{inception (P571)} содержит дату основания города.
+
+\marginnote{
+Какие строчки в листинге \ref{lst:cities_over_400_age} нужно закомментировать, чтобы:
+\begin{itemize}
+	\item[а)] получить список всех отечественных городов, основанных более 400 лет назад?
+	\item[б)] получить список всех городов мира, основанных в те же годы?
+\end{itemize}
+}
+
+\marginnote[0.5cm]{
+Может ли в листинге \ref{lst:cities_over_400_age} переменная ?year принимать отрицательные значения? Почему?
+}
     
     \index{SPARQL!FILTER!Города, основанные более 400 лет назад}
-    \index{SPARQL!BOUND!Города, основанные более 400 лет назад}
-    \index{SPARQL!DATATYPE!Города, основанные более 400 лет назад}
-    \index{SPARQL!BIND!Города, основанные более 400 лет назад}
-    \index{SPARQL!NOW!Города, основанные более 400 лет назад}
+    \index{SPARQL!YEAR!Города, основанные более 400 лет назад}
     \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/oti}{Города, основанные более 400 лет назад}\protect\footnotemark},
+                    caption={\href{https://w.wiki/t5u}{Города, основанные более 400 лет назад}\protect\footnotemark},
                     label=lst:cities_over_400_age, 
                     escapebegin=ку,escapeend=ку-ку>
                     ]
-SELECT ?city ?cityLabel ?inceptionDate WHERE {
+SELECT ?city ?cityLabel (YEAR(?inceptionDate) AS ?year) WHERE {
 	?city wdt:P31/wdt:P279* wd:Q7930989. # "city/town" subclasses
 	?city wdt:P17 wd:Q159. # belonging to Russia
-	?city wdt:P571 ?inceptionDate. # with filled property "inception"
-	FILTER(BOUND(?inceptionDate) && 
-					DATATYPE(?inceptionDate) = xsd:dateTime).
-	BIND(NOW() - ?inceptionDate AS ?distance).
-	FILTER(0 <= ?distance && ?distance > 146000). # = 400 * 365
+	?city wdt:P571 ?inceptionDate. # with filled property "inception"  
+	FILTER (YEAR(?inceptionDate) < 1620). # 2020 - 400 years
 	FILTER(?city = wd:Q649 || ?city = wd:Q193522 || ?city = wd:Q900 ||
 		?city = wd:Q3927 || ?city = wd:Q894 || ?city = wd:Q3426)
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
-GROUP BY ?city ?cityLabel ?inceptionDate    
+GROUP BY ?city ?cityLabel ?inceptionDate
+ORDER BY ASC(?year)
 \end{lstlisting}
-\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/oti}{https://w.wiki/oti}}  
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/t5u}{https://w.wiki/t5u}} 
+
+У объекта Викиданных \wdqName{Москва}{649} свойство \href{https://www.wikidata.org/wiki/Property:P571}{inception} принимает значение <<unknown value>> (неизвестное значение) с квалификатором <<самое позднее упоминание>> (\href{https://www.wikidata.org/wiki/Property:P1326}{latest date}) = 4 апреля 1147 года. Вероятно, по этой причине в листинге \ref{lst:cities_over_400_age} переменная ?year принимает для Москвы пустое значение, и Москва ошибочно не попадает в список правильных ответов. Таким образом, чтобы извлечь 1147 год, необходимо доработать имеющийся скрипт, что мы оставим читателю. 
+
+\marginnote[-1.0cm]{
+О типах данных и наборах свойств, связанных с датой и временем, см. \href{https://w.wiki/NdT}{Help:Dates}.
+}
+
 
     \small{Вопрос на с.~\pageref{fig:city_relation_Russia_S_N}.}
 \end{task}
 
 \begin{task}
     \label{answer:cities_flags}
-    \newthought{Флаг, изображенный на рис. \ref{fig:flag_question_city}} принадлежит городу \href{https://w.wiki/oLF}{Карабулак}. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:cities_flags}). Значение свойства \href{https://www.wikidata.org/wiki/Property:P41}{flag image} содержит изображение флага города.
+    \newthought{Флаг, изображенный на рис. \ref{fig:flag_question_city}} принадлежит городу \href{https://w.wiki/oLF}{Карабулак}. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:cities_flags}). Значение свойства \href{https://www.wikidata.org/wiki/Property:P41}{flag image (P41)} содержит изображение флага города.
     
     \index{SPARQL!FILTER!Флаги городов}
     \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/otf}{Флаги городов}\protect\footnotemark},
+                    caption={\href{https://w.wiki/t5q}{Флаги городов}\protect\footnotemark},
                     label=lst:cities_flags, 
                     escapebegin=ку,escapeend=ку-ку>
                     ]
 #defaultView:ImageGrid
 SELECT ?city ?cityLabel ?flag ?countryLabel WHERE {
 	?city wdt:P31/wdt:P279* wd:Q7930989. # "city/town" subclasses
-	?city wdt:P17 ?country. # with filled property "country"
+	?city wdt:P17 wd:Q159. # belonging to Russia	
 	?city wdt:P41 ?flag. # with filled property "flag"
-	FILTER(?city = wd:Q144969) # for Karabulak only
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
 \end{lstlisting}
-\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/otf}{https://w.wiki/otf}}  
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/t5q}{https://w.wiki/t5q}}  
     
     \small{Вопрос на с.~\pageref{lst:countries_sister_cities_with_Russia}.}
 \end{task}
@@ -315,83 +329,83 @@ SELECT ?city ?cityLabel ?flag ?countryLabel WHERE {
 
 \begin{task}
     \label{answer:aircraft_manufacturers}
-    \newthought{Веб-сайты есть у следующих российских производителей: Миг, Туполев и Сухой. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:aircraft_manufactures_lst})}. 
+    \newthought{Веб-сайты есть у следующих российских производителей: Миг, Туполев и Сухой. Ответ на вопрос также можно получить, выполнив SPARQL-запрос, представленный на листинге~\ref{lst:aircraft_manufactures_lst}}. 
     
-	\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/kXg}{Веб-сайты производителей}\protect\footnotemark}, label=lst:aircraft_manufactures_lst, ]
-SELECT ?item ?itemLabel ?site
+	\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/t4H}{Веб-сайты производителей}\protect\footnotemark}, label=lst:aircraft_manufactures_lst, ]
+SELECT ?manufacturer ?manufacturerLabel ?site
 WHERE
 {
-    ?item wdt:P31 wd:Q936518. # instance of aerospace manufacturer
-  	?item wdt:P17 wd:Q159. # country Russia
-  	?item wdt:P856 ?site # official website
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
+    ?manufacturer wdt:P31 wd:Q936518. # instance of aerospace manufacturer
+  	?manufacturer wdt:P17 wd:Q159. # country Russia
+  	?manufacturer wdt:P856 ?site # official website
+    SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
 }
 \end{lstlisting}
-\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/kXg}{https://w.wiki/kXg} }
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/t4H}{https://w.wiki/t4H} }
     
     \small{Вопрос на с.~\pageref{lst:lang2}.}
 \end{task}
 
 \begin{task}
     \label{answer:aircraft_company_foundation_date}
-    \newthought{Компания <<Миг>> была основана 18 декабря 1939 г., <<Вымпел>> - 18 ноября 1949 г., <<Туполев>> - 01 января 1922 г., <<Сухой>> - 01 января 1939 г. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:aircraft_company_foundation_date_lst})}. 
+    \newthought{Компания <<МиГ>> была основана 18 декабря 1939 года, <<Вымпел>> ~--- 18 ноября 1949 года, <<Туполев>> ~--- 1 января 1922 года, <<Сухой>> ~--- 1 января 1939 года. Ответ на вопрос также можно получить, выполнив SPARQL-запрос, представленный на листинге~\ref{lst:aircraft_company_foundation_date_lst}}. 
     
-	\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/kXu}{Даты основания компаний}\protect\footnotemark}, label=lst:aircraft_company_foundation_date_lst, ]
-SELECT ?item ?itemLabel ?inception
+	\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/t4T}{Даты основания компаний}\protect\footnotemark}, label=lst:aircraft_company_foundation_date_lst, ]
+SELECT ?manufacturer ?manufacturerLabel ?inception
 WHERE
 {
-    ?item wdt:P31 wd:Q936518. # instance of aerospace manufacturer
-  	?item wdt:P17 wd:Q159. # country Russia
-  	?item wdt:P571 ?inception # foundation date
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
+    ?manufacturer wdt:P31 wd:Q936518. # instance of aerospace manufacturer
+  	?manufacturer wdt:P17 wd:Q159. # country Russia
+  	?manufacturer wdt:P571 ?inception # foundation date
+    SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
 }
 \end{lstlisting}
-\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/kXu}{https://w.wiki/kXu} }
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/t4T}{https://w.wiki/t4T} }
     
     \small{Вопрос на с.~\pageref{aircraft_question_2}.}
 \end{task}
 
 \begin{task}
     \label{answer:aircraft_company_headquarters}
-    \newthought{Штаб-квартира компании <<Камов>> находится в городе Люберцы, <<Авиадвигатель>> - г. Пермь, <<Улан-Удэнский авиационный завод>> - г. Улан-Удэ, <<Сухой>> - г. Москва. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:aircraft_company_headquarters_lst})}. 
+    \newthought{Штаб-квартира компании <<Камов>> находится в городе Люберцы, <<Авиадвигатель>> ~--- в Перми, <<Улан-Удэнский авиационный завод>> ~--- в городе Улан-Удэ, <<Сухой>> ~--- в Москве. Ответ на вопрос также можно получить, выполнив SPARQL-запрос, представленный на листинге~\ref{lst:aircraft_company_headquarters_lst}}. 
     
-	\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/kY9}{Штаб-квартиры компаний}\protect\footnotemark}, label=lst:aircraft_company_headquarters_lst, ]
-SELECT ?item ?itemLabel ?inceptionLabel
+	\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/t4X}{Штаб-квартиры компаний}\protect\footnotemark}, label=lst:aircraft_company_headquarters_lst, ]
+SELECT ?manufacturer ?manufacturerLabel ?inceptionLabel
 WHERE
 {
-    ?item wdt:P31 wd:Q936518. # instance of aerospace manufacturer
-  	?item wdt:P17 wd:Q159. # country Russia
-  	?item wdt:P159 ?inception # headquarters location
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
+    ?manufacturer wdt:P31 wd:Q936518. # instance of aerospace manufacturer
+  	?manufacturer wdt:P17 wd:Q159. # country Russia
+  	?manufacturer wdt:P159 ?inception # headquarters location
+    SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
 }
 \end{lstlisting}
-\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/kY9}{https://w.wiki/kY9} }
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/t4X}{https://w.wiki/t4X} }
     
     \small{Вопрос на с.~\pageref{aircraft_question_3}.}
 \end{task}
 
 \begin{task}
     \label{answer:aircraft_question_airship}
-    \newthought{Дирижабль}. 
+    \newthought{Воздушным судном, удерживаемым в воздухе огромным баллоном с горючим смертельно опасным газом, расположенным прямо над головами пассажиров является дирижабль}. 
     
     \small{Вопрос на с.~\pageref{aircraft_question_4}.}
 \end{task}
 
 \begin{task}
     \label{answer:aircraft_question_airship_2}
-    \newthought{Воздушное судно изображенное на рис. \ref{fig:airship_question_aircraft} это дирижабль. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:aircraft_airship_photo_lst})}. 
+    \newthought{Воздушное судно, изображенное на рис. \ref{fig:airship_question_aircraft}, ~--- это дирижабль. Выполнив SPARQL-запрос, представленный на листинге~\ref{lst:aircraft_airship_photo_lst}), можно получить иллюстрации дирижаблей}. 
     
-	\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/kY6}{Изображения дирижаблей}\protect\footnotemark}, label=lst:aircraft_airship_photo_lst, ]
+	\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/t4c}{Изображения дирижаблей}\protect\footnotemark}, label=lst:aircraft_airship_photo_lst, ]
 #defaultView:ImageGrid
-SELECT ?item ?itemLabel ?image
+SELECT ?airship ?airshipLabel ?image
 WHERE
 {
-    ?item wdt:P31 wd:Q133585. # instance of airship
-  	?item wdt:P18 ?image # image airship
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+    ?airship wdt:P31 wd:Q133585. # instance of airship
+  	?airship wdt:P18 ?image # image airship
+    SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
 }
 \end{lstlisting}
-\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/kY6}{https://w.wiki/kY6} }
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/t4c}{https://w.wiki/t4c} }
     
     \small{Вопрос на с.~\pageref{aircraft_question_5}.}
 \end{task}
