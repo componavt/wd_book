@@ -19,7 +19,7 @@
 
 \section{Список стран и степень полноты информации ряда стран}
 
-Построим список всех стран на английском и русском языках (листинг ~\ref{lst:country}).
+Построим список всех стран на английском и русском языках (листинг~\ref{lst:country}).
 
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/k6L}{Экземпляры объекта <<Страна>>}\protect\footnotemark},
@@ -66,7 +66,7 @@ WHERE
 	См. ответ~\ref{answer:administrative_territorial} на с.~\pageref{answer:administrative_territorial}.
 }
 
-Построим список стран, отсортированных по дате основания страны, то есть первом упоминании о стране (листинг ~\ref{lst:age_of_country}).
+Построим список стран, отсортированных по дате основания страны, то есть первом упоминании о стране (листинг~\ref{lst:age_of_country}).
 
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/rN8}{Даты основания стран}\protect\footnotemark},
@@ -153,7 +153,7 @@ ORDER BY (?inception)
 
 \subsection{Страны с незаполненной датой основания}
 
-Выведем список стран с пустым свойством <<дата основания>> (листинг ~\ref{lst:without_inception}).
+Выведем список стран с пустым свойством <<дата основания>> (листинг~\ref{lst:without_inception}).
 
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/k6q}{Страны с незаполненной датой основания}\protect\footnotemark},
@@ -182,7 +182,7 @@ WHERE
 
 Название жителей может определяться от наименования различных объектов земной поверхности — гор, островов, континентов. Так же обозначение места происхождения людей может зависеть от политико-административного делению. Например, для обозначения гражданства; Тайланд — тайландцы, Канада - канадцы. Внутригосударственное деление также может породить новые наименования, Крым — крымчане.
 
-Построим список стран, у которых есть этнохоронимы на русском языке (листинг ~\ref{lst:demonym}).
+Построим список стран, у которых есть этнохоронимы на русском языке (листинг~\ref{lst:demonym}).
 
 
 \begin{lstlisting}[ language=SPARQL, 
@@ -219,7 +219,7 @@ GROUP BY ?country ?countryLabel
 	См. ответ~\ref{answer:official_language} на с.~\pageref{answer:official_language}.
 }
 
-Выведем список всех этнохоронимом на русском языке (листинг ~\ref{lst:list_demonym}).
+Выведем список всех этнохоронимом на русском языке (листинг~\ref{lst:list_demonym}).
 
 \index{SPARQL!FILTER!Cписок этнохоронимов}
 \begin{lstlisting}[ language=SPARQL, 
@@ -242,7 +242,7 @@ WHERE
 
 \subsection{Страны с незаполненными этнохоронимами}
 
-Построим список стран, у которых нет этнохоронимов на русском языке (листинг ~\ref{lst:without_demonym}).
+Построим список стран, у которых нет этнохоронимов на русском языке (листинг~\ref{lst:without_demonym}).
 \index{SPARQL!FILTER!Страны с незаполненными этнохоронимами}
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/k7E}{Страны с незаполненными этнохоронимами }\protect\footnotemark},
@@ -267,7 +267,7 @@ GROUP BY ?country ?countryLabel
 
 \subsection{Количество заполненных этнохоронимов у стран}
 
-Выведем список стран, упорядоченный по количеству заполненных в Викиданных этнохоронимов (листинг ~\ref{lst:count_demonym}).
+Выведем список стран, упорядоченный по количеству заполненных в Викиданных этнохоронимов (листинг~\ref{lst:count_demonym}).
 
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/k7K}{Количество заполненных этнохоронимов у стран}\protect\footnotemark},
@@ -294,7 +294,7 @@ ORDER BY DESC(?count)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Формы правления стран}
 
-Построим пузырьковую диаграмму форм правления стран (листинг ~\ref{lst:form_of_government}).
+Построим пузырьковую диаграмму форм правления стран (листинг~\ref{lst:form_of_government}).
 \index{График!BubbleChart!Формы правления стран}
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/k7M}{Формы правления стран}\protect\footnotemark},
@@ -353,7 +353,7 @@ ORDER BY DESC(?count) ASC(?form)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Соседние страны}
 
-Построим граф соседних стран (листинг ~\ref{lst:neighboring_countries}).
+Построим граф соседних стран (листинг~\ref{lst:neighboring_countries}).
 \index{График!Graph!Соседние стран}
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/k7P}{Соседние страны}\protect\footnotemark},
@@ -399,7 +399,7 @@ WHERE
 
 \subsection{Соседние страны России}
 
-Построим карту соседних стран России (листинг ~\ref{lst:neighboring_countries_ru}).
+Построим карту соседних стран России (листинг~\ref{lst:neighboring_countries_ru}).
 \index{График!Map!Соседние страны России}
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/rMP}{Соседние страны}\protect\footnotemark},
