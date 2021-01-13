@@ -4,45 +4,36 @@
 %\footnotetext{
 \marginnote{Используемые в SPARQL-запросах объекты:
 \begin{itemize}
-	\item\href{https://www.wikidata.org/wiki/Q9143}{programming language} --- язык программирования
-	\item\href{https://www.wikidata.org/wiki/Q899523}{object-based language} --- объектно ориентированный язык программирования
+	\item\href{https://www.wikidata.org/wiki/Q9143}{programming language} --- язык программирования;
+	\item\href{https://www.wikidata.org/wiki/Q899523}{object-based language} --- объектно-ориентированный язык программирования;
 \end{itemize}
 Используемые в SPARQL-запросах свойства:
 \begin{itemize}
-	\item\href{https://www.wikidata.org/wiki/Property:P737}{influenced by} --- какие языки программирования оказали влияние
-	\item\href{https://www.wikidata.org/wiki/Property:P178}{developer} --- кто разработал язык программирования
-	\item\href{https://www.wikidata.org/wiki/Property:P275}{copyright license} --- какая лицензия
-	\item\href{https://www.wikidata.org/wiki/Property:P31}{instance of} --- к какому более общему типу (типам) относится этот язык
-	\item\href{https://www.wikidata.org/wiki/Property:P1195}{file extension} --- расширение файлов
-	\item\href{https://www.wikidata.org/wiki/Property:P159}{headquarters location} --- место расположения штаб-квартиры разработчиков языка
-	\item\href{https://www.wikidata.org/wiki/Property:P625}{coordinate location} --- геокоординаты объекта
-	\item\href{https://www.wikidata.org/wiki/Property:P69}{educated at} --- где учился объект
-	\item\href{https://www.wikidata.org/wiki/Property:P19}{place of birth} --- где родился объект
-	\item\href{https://www.wikidata.org/wiki/Property:P106}{occupation} --- род занятий объекта (профессия)
+	\item\href{https://www.wikidata.org/wiki/Property:P737}{influenced by} --- какие языки программирования оказали влияние;
+	\item\href{https://www.wikidata.org/wiki/Property:P178}{developer} --- кто разработал язык программирования;
+	\item\href{https://www.wikidata.org/wiki/Property:P275}{copyright license} --- какая лицензия;
+	\item\href{https://www.wikidata.org/wiki/Property:P31}{instance of} --- к какому более общему типу (типам) относится этот язык;
+	\item\href{https://www.wikidata.org/wiki/Property:P1195}{file extension} --- расширение файлов;
+	\item\href{https://www.wikidata.org/wiki/Property:P159}{headquarters location} --- место расположения штаб-квартиры разработчиков языка;
+	\item\href{https://www.wikidata.org/wiki/Property:P625}{coordinate location} --- геокоординаты объекта;
+	\item\href{https://www.wikidata.org/wiki/Property:P69}{educated at} --- где учился объект;
+	\item\href{https://www.wikidata.org/wiki/Property:P19}{place of birth} --- где родился объект;
+	\item\href{https://www.wikidata.org/wiki/Property:P106}{occupation} --- род занятий объекта (профессия);
 \end{itemize}
 }
 
-В работе исследуются свойства языков программирования на основе базы знаний международного проекта Викиданные. С помощью SPARQL-запросов, вычисляемых на объектах типа <<язык программирования>>  в Викиданных, решен ряд задач. Получены перечени всех языков программирования под пермиссивными лицензиями и языков с закрытыми лицензиями и рассчитано их процентное соотношение. Построена пузырьковая диаграмма по количеству форматов файлов исходного кода. Получены карты, отображающие месторасположение учебных заведений и компаний, в которых учились или работали люди, связанные с созданием языков программирования. Построена пузырьковая диаграмма, отображающая профессии людей, причастных к созданию и разработке языков программирования. Получен список всех объектно-ориентированных языков программирования и сделан вывод об исчерпывающей полноте Викиданных относительно них. Проведено сравнение и анализ результатов SPARQL-запросов 2017 года и 2020 года, отмечены основные изменения. 
+В работе исследуются свойства языков программирования на основе базы знаний международного проекта Викиданные. С помощью SPARQL-запросов, вычисляемых на объектах типа <<язык программирования>>  в Викиданных, решён ряд задач. Получены перечени всех языков программирования под пермиссивными лицензиями и языков с закрытыми лицензиями и рассчитано их процентное соотношение. Построена пузырьковая диаграмма по количеству разных расширений файлов для одного языка программирования. Получены карты, отображающие месторасположение учебных заведений и компаний, в которых учились или работали люди, связанные с созданием языков программирования. Построена пузырьковая диаграмма, отображающая популярные профессии среди людей, причастных к созданию и разработке языков программирования. Получен список всех объектно-ориентированных языков программирования и сделан вывод об исчерпывающей полноте Викиданных относительно них. Проведено сравнение и анализ результатов SPARQL-запросов 2017 года и 2020 года, отмечены основные изменения. 
 
 %%
-% Постановка задачи
+% Список языков программирования
 %%
-\section{Постановка задачи}
-Исследуем языки программирования, а именно информацию о них в Русской Википедии, Английской Википедии и Викиданных.
-Задачи:
-\begin{enumerate} 
-  \itemПостроить упорядоченный список языков программирования по числу интервик.
-  \itemПостроить список языков по числу посещений статей в Русской Википедии.
-  \itemПостроить \href{https://en.wikipedia.org/wiki/Directed_acyclic_graph}{направленный ациклический граф} зависимостей языков программирования друг от друга (или найти циклы в зависимостях, если такой граф нельзя построить). См. свойство "\href{https://www.wikidata.org/wiki/Property:P737}{influenced by}
-"\  в \href{https://www.wikidata.org/wiki/Q251}{Java}.
-\end{enumerate}
-
-Экземпляры объекта "Язык программирования"
+\section{Список языков программирования}
+Выведем (листинг \ref{lst:prog_langs}) список всех языков программирования, с которыми будет вестись работа в дальнейшем. Для этого мы используем объект \wdqName{programming language}{9143} и свойство \href{https://www.wikidata.org/wiki/Property:P31}{instance of}.
 
 \begin{lstlisting}[
 	language=SPARQL,
 	label=lst:prog_langs,
-	caption={\href{https://w.wiki/kCe}{Список языков программирования}\protect\footnotemark},
+	caption={\href{https://w.wiki/uGs}{Список языков программирования}\protect\footnotemark},
 	texcl 
 ]
 #List of `instances of` "programming language" 
@@ -53,7 +44,8 @@ WHERE
     SERVICE wikibase:label { bd:serviceParam wikibase:language "ru"}
 }
 \end{lstlisting}
-\footnotetext{Результатом запроса~\ref{lst:prog_langs} является список всех языков прогрмаммирования. На 2017 год список содержал 732 записи, а на 2020 год число языков программирования увеличилось до \num{1422} записи.}
+\footnotetext{Результатом запроса~\ref{lst:prog_langs} является список всех языков программирования. На 2017 год список содержал 732 записи, а на 2020 год число языков программирования увеличилось до \num{1422} записи. Ссылка на SPARQL-запрос: \href{https://w.wiki/uGs}{https://w.wiki/uGs}
+}
 
 На 2020 год наиболее проработанными на Викиданных языками программирования являются: \href{https://www.wikidata.org/wiki/Q2407}{C++} (26 свойств), \href{https://www.wikidata.org/wiki/Q251}{Java} (26 свойств), \href{https://www.wikidata.org/wiki/Q2005}{JavaScript} (25 свойств), \href{https://www.wikidata.org/wiki/Q206904}{R} (25 свойств).
 Почти пустыми и малоинформативными языками на 2017 год оказались: \href{https://www.wikidata.org/wiki/Q165372}{CLIPS}, \href{https://www.wikidata.org/wiki/Q1268744}{Dylan}, \href{https://www.wikidata.org/wiki/Q3109515}{Go!}.
@@ -76,30 +68,29 @@ WHERE
 \begin{lstlisting}[
 	language=SPARQL,
 	label=lst:labeled_languages,
-	caption={\href{https://w.wiki/kCf}{Список языков программирования с заполненным свойством label}\protect\footnotemark},
+	caption={\href{https://w.wiki/uG7}{Список языков программирования с заполненным свойством label}\protect\footnotemark},
 	texcl
 ]
 #List of `instances of` "programming language"\  only with a label.
-SELECT ?item ?item_label
+SELECT ?lang ?lang_label
 WHERE
 {
-    ?item wdt:P31 wd:Q9143 # instances of programming language
-    ; rdfs:label ?item_label FILTER (LANG(?item_label) = "ru")
+    ?lang wdt:P31 wd:Q9143
+    ; rdfs:label ?lang_label FILTER (LANG(?lang_label) = "en") . 
 }
 \end{lstlisting}
-\footnotetext{Результатом запроса~\ref{lst:labeled_languages} также будет список языков программирования, но из него исключены те, для которых не указан параметр label. На 2017 год список содержал 709 записей, на 2020 год в списке 1422 записи. Если в 2017 году было два десятка языков с незаполненным полем label, то в 2020 год все языки программирования в Викиданных имеют заполненное поле label.}
+\footnotetext{Результатом запроса~\ref{lst:labeled_languages} также будет список языков программирования, но из него исключены те, для которых не указан параметр label на английском языке. На 2017 год список содержал 709 записей, на 2020 год в списке 1422 записи. Если в 2017 году было два десятка языков с незаполненным полем label, то в 2020 год все языки программирования в Викиданных имеют заполненное поле label. Ссылка на SPARQL-запрос: \href{https://w.wiki/uG7}{https://w.wiki/uG7}}
 
 %%
 % Демонстрация работы с операциями над множества в SPARQL
 %%
 Выведем~\ref{lst:free_license_languages} все языки программирования, являющиеся открытым программным обеспечением (free software) и/или испытавшие на себе влияние, хотя бы одного из следующих языков программирования: \href{https://en.wikipedia.org/wiki/C_(programming_language)}{Си}, \href{https://ru.wikipedia.org/wiki/Python}{Python}, \href{https://ru.wikipedia.org/wiki/Java}{Java}. При этом разработанные какой-либо из фирм, кроме: \href{https://ru.wikipedia.org/wiki/Sun_Microsystems}{Sun Microsystems}, \href{https://en.wikipedia.org/wiki/Johnson_Space_Center}{Космический центр имени Линдона Джонсона}.
 
-\pagebreak
 \index{SPARQL!MINUS / Список "свободных" языков программирования}
 \begin{lstlisting}[
 	language=SPARQL,
 	label=lst:free_license_languages,
-	caption={\href{https://w.wiki/kCh}{Список "свободных" языков программирования}\protect\footnotemark},
+	caption={\href{https://w.wiki/uG9}{Список "свободных" языков программирования}\protect\footnotemark},
 	texcl
 ]
 SELECT DISTINCT ?prog ?prog_label
@@ -108,7 +99,7 @@ WHERE
     ?prog wdt:P31 wd:Q9143 # instances of programming language
     ; rdfs:label ?prog_label . 
 
-    FILTER (LANG(?prog_label) = "ru") . 
+    FILTER (LANG(?prog_label) = "en") . 
 
     {
       { ?prog wdt:P737 wd:Q15777 } UNION # influenced by C
@@ -122,41 +113,39 @@ WHERE
     }
 }
 \end{lstlisting}
-\footnotetext{Рeзультатом запроса~\ref{lst:free_license_languages} является список языков программирования, удовлетворяющих указанным выше требованиям. На 2017 год список содержил 115 записей, на 2020 год - 112 записей.}
-
+\footnotetext{Рeзультатом запроса~\ref{lst:free_license_languages} является список языков программирования, удовлетворяющих указанным выше требованиям. На 2017 год список содержил 115 записей, на 2020 год - 125 записей. Ссылка на SPARQL-запрос: \href{https://w.wiki/uG9}{https://w.wiki/uG9}}
 
 %%
 % Пермиссивные лицензии
 %%
 Выведем все языки программирования находящиеся под \href{https://en.wikipedia.org/wiki/Permissive_software_license}{пермиссивными лицензиями}.\marginnote{\index{Языки программирования!Определения / Пермиссивные лицензии} Пермиссивные лицензии на свободное ПО --- лицензии на программное обеспечение, которые практически не ограничивают свободу действий пользователей ПО и разработчиков, работающих с исходным кодом.}
-\footnotetext{Результатом работы запроса~\ref{lst:permessive_license} является список языков программирования, находящихся под пермиссивными лицензиями. На 2017 год список содержал 37 записей, на 2020 год в списке 82 записи. В этот список из 82 <<свободных>>  языков попали, например \href{https://ru.wikipedia.org/wiki/CoffeeScript}{CoffeeScript}, \href{https://ru.wikipedia.org/wiki/Go}{Go}, \href{https://ru.wikipedia.org/wiki/Haml}{Haml}.}
+\footnotetext{Результатом работы запроса~\ref{lst:permessive_license} является список языков программирования, находящихся под пермиссивными лицензиями. На 2017 год список содержал 37 записей, на 2020 год в списке 45 записи. В этот список из 82 <<свободных>>  языков попали, например \href{https://ru.wikipedia.org/wiki/CoffeeScript}{CoffeeScript}, \href{https://ru.wikipedia.org/wiki/Go}{Go}, \href{https://ru.wikipedia.org/wiki/Haml}{Haml}. Ссылка на SPARQL-запрос: \href{https://w.wiki/uGC}{https://w.wiki/uGC}}
 \begin{lstlisting}[
 	language=SPARQL,
 	label=lst:permessive_license,
-	caption={\href{https://w.wiki/kD6}{Языки программирования с пермиссивными лицензиями}\protect\footnotemark},
+	caption={\href{https://w.wiki/uGC}{Языки программирования с пермиссивными лицензиями}\protect\footnotemark},
 	texcl
 ]
-SELECT DISTINCT ?item ?item_label
+SELECT DISTINCT ?lang ?lang_label
 WHERE
 {
-    ?item wdt:P31 wd:Q9143 # instances of programming language
-    ; rdfs:label ?item_label . 
+    ?lang wdt:P31 wd:Q9143
+    ; rdfs:label ?lang_label . 
 
-    FILTER (LANG(?item_label) = "ru") . 
-  
-      { ?item wdt:P275 wd:Q308915  }  UNION  # license Mozzila Public
-      { ?item wdt:P275 wd:Q334661  }  UNION  # license MIT
-      { ?item wdt:P275 wd:Q191307  }  UNION  # license BSD
-      { ?item wdt:P275 wd:Q6905323 }         # license CC
+    FILTER (LANG(?lang_label) = "ru") . 
+
+     
+      { ?lang wdt:P275 wd:Q308915  }  UNION  # license Mozzila Public
+      { ?lang wdt:P275 wd:Q334661  }  UNION  # license MIT
+	  { ?lang wdt:P275 wd:Q191307  }  UNION  # license BSD
+	  { ?lang wdt:P275 wd:Q6905323 }         # license CC
 }
 \end{lstlisting}
 
 
 Рассмотрим соотношение языков с пермиссивной лицензией и языков с проприетарными или закрытыми лицензиями.
 
-\pagebreak
-
-\footnotetext{Рeзультатом запроса~\ref{lst:license_compare} будет значение отношения числа языков программирования со свободной лицензией к числу языков с закрытой лицензией. На 2020 год это значение равно 20\%.}
+\footnotetext{Рeзультатом запроса~\ref{lst:license_compare} будет значение отношения числа языков программирования со свободной лицензией к числу языков с закрытой лицензией. На 2020 год это значение равно 20\%. Ссылка на SPARQL-запрос: \href{https://www.t.ly/xUrq}{t.ly/xUrq}}
 \label{question:prog_lang_2}
 \marginnote[50pt]{
 Какое из изображений --- логотип языка программирования \href{https://www.wikidata.org/wiki/Q513238}{LOLCODE}:
@@ -172,7 +161,7 @@ WHERE
 \begin{lstlisting}[
 	language=SPARQL,
 	label=lst:license_compare,
-	caption={\href{https://w.wiki/kD6}{Рассчёт отношения "свободных"\ языков к "закрытым".}\protect\footnotemark},
+	caption={\href{https://www.t.ly/xUrq}{Рассчёт отношения "свободных"\ языков к "закрытым".}\protect\footnotemark},
 	texcl
 ]
 #The script calculates the percentage of programming languages 
@@ -218,21 +207,20 @@ UNION
 \marginnote{\index{Языки программирования!Определения / Расширение имени файла}Расширение имени файла --- последовательность символов, добавляемых к имени файла и предназначенных для идентификации типа (формата) файла. Это один из распространённых способов, с помощью которых пользователь или программное обеспечение компьютера может определить тип данных, хранящихся в файле, например: имя.jpg это фотографии, имя.avi - видео и т.п.}
 В зависимости от языка программирования, файлы с исходным кодом программ могут иметь разные расширения. Построим~\ref{lst:source_formats} пузырьковую диаграмму по количеству допустимых форматов файлов исходного кода и сравним с аналогичной диаграммой, построенной в 2017 году.
 
-\pagebreak
 \index{График!BubbleChart / Количество форматов файлов исходного кода}
 \begin{lstlisting}[
 	language=SPARQL,
 	label=lst:source_formats,
-	caption={\href{https://w.wiki/kf7}{Количество форматов файлов исходного кода.}\protect\footnotemark},
+	caption={\href{https://w.wiki/uGQ}{Количество форматов файлов исходного кода.}\protect\footnotemark},
 	texcl
 ]
 #defaultView:BubbleChart
 SELECT ?lang_name (count(*) as ?count)
 WHERE
 {
-    ?lang wdt:P31 wd:Q9143. # instance of programming language
-  	?lang wdt:P1195 ?count. # file extension
-  	?lang rdfs:label ?lang_name . FILTER (lang(?lang_name) = "ru").
+    ?lang wdt:P31 wd:Q9143 . # instance of programming language
+ 	?lang wdt:P1195 ?count . # file extension
+ 	?lang rdfs:label ?lang_name FILTER (lang(?lang_name) = "en").
 }
 GROUP BY ?lang_name 
 ORDER BY DESC(?count)
@@ -244,14 +232,14 @@ ORDER BY DESC(?count)
 \centering
 	\includegraphics[width=0.8\linewidth]{./chapter/programming_language/File_extensions_quantity_of_source_code_2017.png}
 	\label{fig:source_format_2017}
-	\caption{Пузырьковая диаграмма по количеству форматов файлов исходного кода на 2017 год.}
+	\caption{Пузырьковая диаграмма по количеству форматов файлов исходного кода на 2017 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/uGQ}{https://w.wiki/uGQ}}
 \end{figure}
 К 2020 году (рис.~\ref{fig:source_format_2020}) \href{https://en.wikipedia.org/wiki/C++}{C++} и \href{https://en.wikipedia.org/wiki/Geometric_Description_Language}{Geometric Description Language (GDL)} остались на лидирующем месте (10 и 8 форматов-расширений). За три года подтянулись и вошли в первую восьмёрку также такие языки, как \href{https://en.wikipedia.org/wiki/Raku_(programming_language)}{Raku} (9 форматов), \href{https://en.wikipedia.org/wiki/Rexx}{REXX} и \href{https://en.wikipedia.org/wiki/Scratch_(programming_language)}{Scratch} (по 6 форматов), \href{https://ru.wikipedia.org/wiki/Java}{Java} и \href{https://en.wikipedia.org/wiki/Wolfram_Language}{Wolfram Language} (по 5 форматов).
 \begin{figure}
 \centering
 	\includegraphics[width=0.8\linewidth]{./chapter/programming_language/File_extensions_quantity_of_source_code_2020.png}
 	\label{fig:source_format_2020}
-	\caption{Пузырьковая диаграмма по количеству форматов файлов исходного кода на 2020 год.}
+	\caption{Пузырьковая диаграмма по количеству форматов файлов исходного кода на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/uGQ}{https://w.wiki/uGQ}}
 \end{figure}
 
 \footnotetext{Рисунки~\ref{fig:source_format_2017} и ~\ref{fig:source_format_2020} построены при при помощи запроса~\ref{lst:source_formats}.}
@@ -269,43 +257,46 @@ ORDER BY DESC(?count)
 \begin{lstlisting}[
 	language=SPARQL,
 	label=lst:countries_map,
-	caption={\href{https://w.wiki/kD9}{Карта с указанием места жительства или работы разработчиков языков программирования}\protect\footnotemark},
+	caption={\href{https://w.wiki/rcA}{Карта с указанием места жительства или работы разработчиков языков программирования}\protect\footnotemark},
 	texcl
 ]
 #defaultView:Map
-SELECT ?item_label ?developer_label ?location_label ?coord
+SELECT ?lang_label ?developer_label ?location_label ?coord
 WHERE
 {
-    ?item wdt:P31 wd:Q9143 # instances of programming language
-    ; rdfs:label ?item_label.     
-    FILTER (LANG(?item_label) = "ru"). 
-  
-    ?item wdt:P178 ?developer. # developer
-    ?developer rdfs:label ?developer_label FILTER (LANG(?developer_label) = "ru"). 
-    { ?developer wdt:P159 ?location. } UNION # headquarters location
-    { ?developer wdt:P19  ?location }       # place of birth
-    ?location rdfs:label ?location_label FILTER (LANG(?location_label) = "ru").
-    ?location wdt:P625 ?coord. # coordinate location
-    SERVICE wikibase:label {
-        bd:serviceParam wikibase:language "ru".
-    }   	
+ 	?lang wdt:P31 wd:Q9143 # instances of programming language
+ ; rdfs:label ?lang_label. 
+ 	FILTER (LANG(?lang_label) = "en"). 
+ 
+ ?lang wdt:P178 ?developer. # developer
+ ?developer rdfs:label ?developer_label. 
+ 	FILTER (LANG(?developer_label) = "en"). 
+ 		
+ { ?developer wdt:P159 ?location. } UNION # headquarters location
+ { ?developer wdt:P19 ?location } # place of birth
+ 	?location rdfs:label ?location_label. 
+ FILTER (LANG(?location_label) = "en").
+ 
+ 	?location wdt:P625 ?coord. # coordinate location
+
+ SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en".
+	} 	
 }
 \end{lstlisting}
 
 \begin{figure}[h]
 \centering
 	\includegraphics[width=1\textwidth]{./chapter/programming_language/Map_showing_contries_2017.png}
-	\caption{Страны, в которых живут люди или расположены организации, связанные с созданием языков программирования (2017).}
+	\caption{Страны, в которых живут люди или расположены организации, связанные с созданием языков программирования (2017). Ссылка на SPARQL-запрос: \href{https://w.wiki/rcA}{https://w.wiki/rcA}}
 	\label{fig:countries_2017}
 \end{figure}
 \begin{figure}
 \centering
 	\includegraphics[width=1\textwidth]{./chapter/programming_language/Map_showing_contries_2020.png}
-	\caption{Страны, в которых живут люди или расположены организации, связанные с созданием языков программирования (2020).}
+	\caption{Страны, в которых живут люди или расположены организации, связанные с созданием языков программирования (2020). Ссылка на SPARQL-запрос: \href{https://w.wiki/rcA}{https://w.wiki/rcA}}
 	\label{fig:countries_2020}
 \end{figure}
-
-\pagebreak
 
 \begin{marginfigure}
 {
@@ -313,7 +304,7 @@ WHERE
 \setlength{\fboxrule}{1pt}%
 \fcolorbox{white}{white}{\includegraphics[width=\linewidth]{./chapter/programming_language/The_most_favorable_countries_for_the_emergence_of_people_capable_of_developing_programming_languages_2020_RU.png}}
 }
-  \caption{Наиболее благоприятные страны для появления людей, способных к разработке языков программирования на 2020 год.}%
+  \caption{Наиболее благоприятные страны для появления людей, способных к разработке языков программирования на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/uGa}{https://w.wiki/uGa}}%
   \label{fig:countries_2_2020}%
 \end{marginfigure}
 По  рис.~\ref{fig:countries_2017} и рис.~\ref{fig:countries_2020} можно сделать вывод, что наиболее благоприятными местами жительства для людей, разрабатывающих языки программирования являются восточное побережье \href{https://en.wikipedia.org/wiki/USA}{США}, Центральная Европа и Великобритания.
@@ -323,32 +314,35 @@ WHERE
 \begin{lstlisting}[
 	language=SPARQL,
 	label=lst:countries_bubble,
-	caption={\href{https://w.wiki/kDb}{Пузырьковая диаграмма благоприятных стран для появления разработчиков языков программирования}\protect\footnotemark},
+	caption={\href{https://w.wiki/uGa}{Пузырьковая диаграмма благоприятных стран для появления разработчиков языков программирования}\protect\footnotemark},
 	texcl
 ]
 #defaultView:BubbleChart
-SELECT ?educational_institution_label (count(*) as ?count)
+SELECT ?state_label (count(*) as ?count)
 WHERE
 {
- ?item wdt:P31 wd:Q9143 # instances of programming language
- ; rdfs:label ?item_label. 
- FILTER (LANG(?item_label) = "en"). 
+ 	?lang wdt:P31 wd:Q9143 # instances of programming language
+ ; rdfs:label ?lang_label. 
+ 	FILTER (LANG(?lang_label) = "en"). 
  
- ?item wdt:P178 ?developer. # developer
+ ?lang wdt:P178 ?developer. # developer
  ?developer rdfs:label ?developer_label. 
- FILTER (LANG(?developer_label) = "en"). 
- 	
- ?developer wdt:P69 ?educational_institution. # educated at
- ?educational_institution rdfs:label ?educational_institution_label. 
- FILTER (LANG(?educational_institution_label) = "en").
+ 	FILTER (LANG(?developer_label) = "en"). 
+ 		
+ { ?developer wdt:P159 ?location. } UNION # headquarters location
+ { ?developer wdt:P19 ?location } # place of birth
+ 	?location rdfs:label ?location_label. 
+ FILTER (LANG(?location_label) = "ru").
  
- ?educational_institution wdt:P625 ?coord. # coordinate location
- 
+ ?location wdt:P17 ?state.
+ ?state rdfs:label ?state_label. 
+ FILTER (LANG(?state_label) = "ru").
+
  SERVICE wikibase:label {
- bd:serviceParam wikibase:language "en".
- } 	
+		bd:serviceParam wikibase:language "en".
+	} 	
 }
-GROUP BY ?educational_institution_label
+GROUP BY ?state_label
 ORDER BY DESC(?count)
 \end{lstlisting}
 
@@ -367,38 +361,43 @@ ORDER BY DESC(?count)
 \begin{lstlisting}[
 	language=SPARQL,
 	label=lst:developer_university,
-	caption={\href{https://w.wiki/kDY}{Карта с указанием университетов, в которых учились разработчики языков программирования}\protect\footnotemark},
+	caption={\href{https://w.wiki/uGb}{Карта с указанием университетов, в которых учились разработчики языков программирования}\protect\footnotemark},
 	texcl
 ]
 #defaultView:Map
-SELECT ?item_label ?developer_label ?educational_institution_label ?coord
+SELECT ?lang_label ?developer_label ?educational_institution_label ?coord
 WHERE
 {
-    ?item wdt:P31 wd:Q9143 # instances of programming language
-    ; rdfs:label ?item_label. FILTER (LANG(?item_label) = "ru"). 
-    
-    ?item wdt:P178 ?developer. # developer
-    ?developer rdfs:label ?developer_label. FILTER (LANG(?developer_label) = "ru"). 
-    	
-    ?developer wdt:P69 ?educational_institution. # educated at
-    ?educational_institution rdfs:label ?educational_institution_label. FILTER (LANG(?educational_institution_label) = "ru").
-    
-    ?educational_institution wdt:P625 ?coord. # coordinate location
-    
-    SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"} 	
+ 	?lang wdt:P31 wd:Q9143 # instances of programming language
+ ; rdfs:label ?lang_label. 
+ 	FILTER (LANG(?lang_label) = "en"). 
+ 
+ ?lang wdt:P178 ?developer. # developer
+ ?developer rdfs:label ?developer_label. 
+ 	FILTER (LANG(?developer_label) = "en"). 
+ 		
+ ?developer wdt:P69 ?educational_institution. # educated at
+ ?educational_institution rdfs:label ?educational_institution_label. 
+ FILTER (LANG(?educational_institution_label) = "en").
+ 
+ ?educational_institution wdt:P625 ?coord. # coordinate location
+
+ SERVICE wikibase:label {
+		bd:serviceParam wikibase:language "en".
+	} 	
 }
 \end{lstlisting}
 
 \begin{figure}[h]
 \centering
 	\includegraphics[width=1\textwidth]{./chapter/programming_language/Map_showing_educational_institutes_2017.png}
-	\caption{Учебные заведения, в которых учились люди, создававшие языки программирования (2017).}
+	\caption{Учебные заведения, в которых учились люди, создававшие языки программирования (2017). Ссылка на SPARQL-запрос: \href{https://w.wiki/uGb}{https://w.wiki/uGb}}
 	\label{fig:universities_2017}
 \end{figure}
 \begin{figure}[h]
 \centering
 	\includegraphics[width=1\textwidth]{./chapter/programming_language/Map_showing_educational_institutes_2020.png}
-	\caption{Учебные заведения, в которых учились люди, создававшие языки программирования (2020).}
+	\caption{Учебные заведения, в которых учились люди, создававшие языки программирования (2020). Ссылка на SPARQL-запрос: \href{https://w.wiki/uGb}{https://w.wiki/uGb}}
 	\label{fig:universities_2020}
 \end{figure}
 
@@ -411,25 +410,30 @@ WHERE
 \begin{lstlisting}[
 	language=SPARQL,
 	label=lst:developer_universities_bubble,
-	caption={\href{https://w.wiki/kDb}{Университеты, в которых учились разработчики языков программирования}\protect\footnotemark},
+	caption={\href{https://w.wiki/uGc}{Университеты, в которых учились разработчики языков программирования}\protect\footnotemark},
 	texcl
 ]
 #defaultView:BubbleChart
 SELECT ?educational_institution_label (count(*) as ?count)
 WHERE
 {
- ?item wdt:P31 wd:Q9143 # instances of programming language
- ; rdfs:label ?item_label. FILTER (LANG(?item_label) = "ru"). 
+ ?lang wdt:P31 wd:Q9143 # instances of programming language
+ ; rdfs:label ?lang_label. 
+ FILTER (LANG(?lang_label) = "en"). 
  
- ?item wdt:P178 ?developer. # developer
- ?developer rdfs:label ?developer_label. FILTER (LANG(?developer_label) = "ru"). 
+ ?lang wdt:P178 ?developer. # developer
+ ?developer rdfs:label ?developer_label. 
+ FILTER (LANG(?developer_label) = "en"). 
  	
  ?developer wdt:P69 ?educational_institution. # educated at
- ?educational_institution rdfs:label ?educational_institution_label. FILTER (LANG(?educational_institution_label) = "ru").
+ ?educational_institution rdfs:label ?educational_institution_label. 
+ FILTER (LANG(?educational_institution_label) = "en").
  
  ?educational_institution wdt:P625 ?coord. # coordinate location
  
- SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } 	
+ SERVICE wikibase:label {
+ bd:serviceParam wikibase:language "en".
+ } 	
 }
 GROUP BY ?educational_institution_label
 ORDER BY DESC(?count)
@@ -463,23 +467,24 @@ ORDER BY DESC(?count)
 \begin{lstlisting}[
 	language=SPARQL,
 	label=lst:developer_profession,
-	caption={\href{https://w.wiki/kDc}{Профессии создателей языков программирования}\protect\footnotemark},
+	caption={\href{https://w.wiki/uGd}{Профессии создателей языков программирования}\protect\footnotemark},
 	texcl
 ]
 #defaultView:BubbleChart
 SELECT ?occupation_label (count(*) as ?occupation)
 WHERE
 {
-    ?item wdt:P31 wd:Q9143. # instances of programming language 
-    ?item wdt:P178 ?developer. # developer
-    ?developer wdt:P106 ?occupation. # occupation
-    ?occupation rdfs:label ?occupation_label. FILTER (LANG(?occupation_label) = "ru"). 
+ ?lang wdt:P31 wd:Q9143. # instances of programming language 
+ 	?lang wdt:P178 ?developer. # developer
+ 	?developer wdt:P106 ?occupation. # occupation
+ 	?occupation rdfs:label ?occupation_label. 
+ 	FILTER (LANG(?occupation_label) = "ru"). 
 }
 GROUP BY ?occupation_label 
 ORDER BY DESC(?count)
 \end{lstlisting}
 
-\footnotetext{Результатом запроса~\ref{lst:developer_profession} в 2017 году является 48 записей, к 2020 году их число увеличилось до 74.}
+\footnotetext{Результатом запроса~\ref{lst:developer_profession} в 2017 году является 48 записей, к 2020 году их число увеличилось до 74. Ссылка на SPARQL-запрос: \href{https://w.wiki/uGd}{https://w.wiki/uGd}}
 
 Результаты запросов можно видеть на рисунках~\ref{fig:2017_profession} и~\ref{fig:2020_profession}.
 Наиболее распространенными профессиями оказались: специалист в области \href{https://www.wikidata.org/wiki/Q21198}{компьютерных наук}, \href{https://www.wikidata.org/wiki/Q81096}{инженер} и \href{https://www.wikidata.org/wiki/Q37226}{учитель}. Интересно заметить, что встречаются такие профессии как: джазовый музыкант, политик. Например, обеими профессиями владел \href{https://www.wikidata.org/wiki/Q181529}{Герберт Александер Саймон}. На 2020 год среди разработчиков языков программирования оказалось больше всего специалистов в области компьютерных наук (172 человека), а также 96 инженеров, 57 учителей, 56 программистов и 43 математика.
@@ -493,20 +498,18 @@ ORDER BY DESC(?count)
 \begin{lstlisting}[
 	language=SPARQL,
 	label=lst:oopl,
-	caption={\href{https://w.wiki/kDe}{Список объектно-ориентированных языков программирования}\protect\footnotemark},
+	caption={\href{https://w.wiki/uGf}{Список объектно-ориентированных языков программирования}\protect\footnotemark},
 	texcl
 ]
-SELECT DISTINCT ?item ?item_label
+SELECT DISTINCT ?lang ?lang_label
 WHERE
 {
-    ?item wdt:P31 wd:Q899523 # instances of object-oriented programming language
-    ; rdfs:label ?item_label . 
-
-    FILTER (LANG(?item_label) = "ru") . 
+ ?lang wdt:P31 wd:Q899523 # instances of object-oriented programming language
+ ; rdfs:label ?lang_label FILTER (LANG(?lang_label) = "en") . 
 }
 \end{lstlisting}
 
-\footnotetext{Результатом SPARQL-запроса~\ref{lst:oopl} является список объектно-ориентированных языков программирования. На 2017 год список содержал 116 записей, к 2020 году число записей увеличилось на 2 и составляет 118 языков программирования.}
+\footnotetext{Результатом SPARQL-запроса~\ref{lst:oopl} является список объектно-ориентированных языков программирования. На 2017 год список содержал 116 записей, к 2020 году число записей увеличилось на 2 и составляет 118 языков программирования. Ссылка на SPARQL-запрос: \href{https://w.wiki/uGf}{https://w.wiki/uGf}}
 
 Таким образом 8\% языков программирования на 2020 год являются объектно-ориентированными (отношение числа объектно-ориентированных языков программирования(листинг~\ref{lst:oopl}) ко всем языкам программирования (листинг~\ref{lst:prog_langs})).
 
@@ -514,24 +517,9 @@ WHERE
 % Полнота викиданных
 %%
 \section{Полнота Викиданных}
-По данным Боровского исследовательского университета\cite{obj_orient_langs_bourabai} существует как минимум 26 языков программирования, которые поддерживают объектно-ориентированную парадигму. В статьях посвященных объектно-ориентированному программированию к этому списку добавляются ещё 4\cite{oo_langs_science_wikia} и 3\cite{oo_langs_garshin} языка программирования.
+По данным Боровского исследовательского университета\cite{oo_langs_bourabai} существует как минимум 26 языков программирования, которые поддерживают объектно-ориентированную парадигму. В статьях посвященных объектно-ориентированному программированию к этому списку добавляются ещё 4\cite{oo_langs_science_wikia} и 3\cite{oo_langs_garshin} языка программирования. При этом SPARQL-запрос~\ref{lst:oopl} вернул 118 результатов.
 
-\begin{lstlisting}[
-	language=SPARQL,
-	label=lst:fullness,
-	caption={\href{https://w.wiki/kDf}{Смотрим на полноту викиданных}\protect\footnotemark},
-	texcl
-]
-SELECT DISTINCT ?item ?item_label
-WHERE
-{
- ?item wdt:P31 wd:Q899523 # instances of object-oriented programming language
- ; rdfs:label ?item_label . FILTER (LANG(?item_label) = "en")
-}
-\end{lstlisting}
-\footnotetext{SPARQL-запрос~\ref{lst:fullness} вернул 119 результатов.}
-
-Судить о полноте данных по трем приведенным выше источникам сложно, так как в них обсуждается большое количество малоизвестных, устаревших и узконаправленных языков, которые не освещаются в авторитетных источниках. Из этого можно сделать вывод, Викиданные предоставляют достаточно полный список объектно-ориентированных языков программирования.
+Судить о полноте данных по трем приведенным выше источникам достаточно сложно, так как в них обсуждается большое количество малоизвестных, устаревших и узконаправленных языков, которые не освещаются в авторитетных источниках и при этом не рассматиривают недавно возникшие языки программирования. Таким образом можно предположить, что Викиданные предоставляют достаточно полный список объектно-ориентированных языков программирования.
 
 %%
 % Степень заполненности объектов
@@ -550,29 +538,28 @@ WHERE
 \begin{lstlisting}[
 	language=SPARQL,
 	label=lst:filling,
-	caption={\href{https://w.wiki/kDg}{Список разработчиков языков программирования с заполненным полем Label на английском языке}\protect\footnotemark},
+	caption={\href{https://w.wiki/uGq}{Список разработчиков языков программирования с заполненным полем Label на английском языке}\protect\footnotemark},
 	texcl
 ]
-SELECT ?item_label ?item ?developer_label ?developer
+SELECT ?lang_label ?lang ?developer_label ?developer
 WHERE
 {
-    ?item wdt:P31 wd:Q9143 # instances of programming language
-    ; rdfs:label ?item_label. 
-    FILTER (LANG(?item_label) = "en"). 
+ 	?lang wdt:P31 wd:Q9143 # instances of programming language
+ ; rdfs:label ?lang_label. 
+ 	FILTER (LANG(?lang_label) = "en"). 
 
-    ?item wdt:P178 ?developer. # developer 
-    ?developer wdt:P31 wd:Q5.  # instances of human
-    ?developer rdfs:label ?developer_label. 
-    FILTER (LANG(?developer_label) = "en").  
+ ?lang wdt:P178 ?developer. # developer 
+ ?developer wdt:P31 wd:Q5. # instances of human
+ ?developer rdfs:label ?developer_label FILTER (LANG(?developer_label) = "en"). 
 }
 \end{lstlisting}
-\footnotetext{По результату запроса~\ref{lst:filling} в на 21 мая 2017 года было получено 133 записи, в 2020 году получено 223 записи.}
+\footnotetext{Результатом запрос \ref{lst:filling} в 2017 году были 133 записи, в 2020 году получено 223 записи. Ссылка на SPARQL-запрос: \href{https://w.wiki/uGq}{https://w.wiki/uGq}}
 Выведем аналогичный список, но с заполненным полем "label"\  на русском языке. Таких записей 88. Заполним поля "label"\  и "description"\  на русском языке у этих объектов и выведем результат:
 
 \begin{lstlisting}[
 	language=SPARQL,
 	label=lst:filling_label,
-	caption={\href{https://w.wiki/kDj}{Список разработчиков языков программирования с заполненными полями Label на английском языке и Developer на русском языке}\protect\footnotemark},
+	caption={\href{https://w.wiki/uGo}{Список разработчиков языков программирования с заполненными полями Label на английском языке и Developer на русском языке}\protect\footnotemark},
 	texcl
 ]
 SELECT ?item_label ?item ?developer_label ?developer
@@ -588,7 +575,7 @@ WHERE
     FILTER (LANG(?developer_label) = "ru").  
 }
 \end{lstlisting}
-\footnotetext{В 2017 году запрос~\ref{lst:filling_label} вернул 133 значения, в 2020 году выполнение запроса дало 183 записи.}
+\footnotetext{В 2017 году запрос~\ref{lst:filling_label} вернул 133 значения, в 2020 году выполнение запроса дало 183 записи. Ссылка на SPARQL-запрос: \href{https://w.wiki/uGo}{https://w.wiki/uGo}}
 
 %%
 % Упражнения
