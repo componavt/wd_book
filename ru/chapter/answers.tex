@@ -414,69 +414,54 @@ WHERE
 
 \begin{task}
     \label{answer:prog_lang_1}
-    \newthought{Язык программирования Ада был разработан Jean Ichbiah, Форт разработал Charles H. Moore, а создателем языка Erlang считается Joe Armstrong. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:prog_lang_answer_1})}. 
-	\begin{lstlisting}[language=SPARQL, caption={{Создатели языков программирования}\protect\footnotemark}, label=lst:prog_lang_answer_1]
-		SELECT ?item_label ?developer_label
-		WHERE
-		{
-		 ?item wdt:P31 wd:Q9143
-		 ; rdfs:label ?item_label. 
-		 ?item wdt:P178 ?developer.
-		 ?developer rdfs:label ?developer_label.
-		 
-		 FILTER (LANG(?item_label) = "en"). 
-		 FILTER (LANG(?developer_label) = "en"). 
-		}
-		ORDER BY DESC (?item_label)
+    \newthought{Язык программирования \href{https://ru.wikipedia.org/wiki/Ада_(язык_программирования)}{Ада} был разработан Жан Ишбиа, \href{https://ru.wikipedia.org/wiki/Форт_(язык_программирования)}{Форт} разработал Чарльз Мур, а создателем языка \href{https://ru.wikipedia.org/wiki/Erlang}{Erlang} считается Джо Армстронг. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:prog_lang_answer_1})}. 
+	\begin{lstlisting}[language=SPARQL, caption={{\href{https://w.wiki/v4Q}{Создатели языков программирования}}\protect\footnotemark}, label=lst:prog_lang_answer_1]
+SELECT ?itemLabel ?developerLabel
+WHERE {
+ ?item wdt:P31 wd:Q9143
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "en,ru" }
+ ?item wdt:P178 ?developer.
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "en,ru" }
+}
+ORDER BY DESC (?item_label)
 	\end{lstlisting}
-\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/kfZ}{https://w.wiki/kfZ}
+\footnotetext{В 2020 году найдено 520 разработчика. Ссылка на SPARQL-запрос: \href{https://w.wiki/v4Q}{https://w.wiki/v4Q}
 \newline
 \small{Вопрос на с.~\pageref{question:prog_lang_1}.}}
 \end{task}
 
 \begin{task}
     \label{answer:prog_lang_2}
-    \newthought{Логотипом языка программирования LOLCODE является третья картинка. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:prog_lang_answer_1})}. 
-	\begin{lstlisting}[language=SPARQL, caption={{Логотипы языков программирования}\protect\footnotemark}, label=lst:prog_lang_answer_1]
-		#defaultView:ImageGrid
-		SELECT ?item_label ?image
-		WHERE
-		{
-		 ?item wdt:P31 wd:Q9143 # instances of programming language
-		 ; rdfs:label ?item_label. 
-		 ?item wdt:P154 ?image. # image
-		 	
-		 	FILTER (lang(?item_label) = "en")
+    \newthought{Логотипом языка программирования \href{https://ru.wikipedia.org/wiki/LOLCODE}{LOLCODE} является третья картинка. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:prog_lang_answer_1})}. 
+	\begin{lstlisting}[language=SPARQL, caption={{\href{https://w.wiki/v4U}{Логотипы языков программирования}}\protect\footnotemark}, label=lst:prog_lang_answer_1]
+#defaultView:ImageGrid
+SELECT ?itemLabel ?image
+WHERE
+{
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "en,ru" }
+ ?item wdt:P154 ?image. # image
 }
 	\end{lstlisting}
-\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/kfd}{https://w.wiki/kfd}
+\footnotetext{В 2020 году получено 87066 логотипов. Ссылка на SPARQL-запрос: \href{https://w.wiki/v4U}{https://w.wiki/v4U}
 \newline
 \small{Вопрос на с.~\pageref{question:prog_lang_2}.}}
 
 \end{task}
 
 \begin{task}
-    \label{answer:prog_lang_3}
-    \newthought{Считается, что Фортран имеет от 8 до 12 диалектов, Лисп - 6 диалектов, а Standart ML и Object Pascal по 3 диалекта.}
-    
-\footnotetext{\small{Вопрос на с.~\pageref{question:prog_lang_3}}.}
-\end{task}
-
-\begin{task}
     \label{answer:prog_langs_4}
-    \newthought{Получить список языков программирования со свойством \href{https://www.wikidata.org/wiki/Property:P822}{"персонаж-талисман"} можно выполнив следующий SPARQL-запрос (листинг \ref{lst:prog_lang_answer_4})}. 
-	\begin{lstlisting}[language=SPARQL, caption={{"Персонажи-талисманы" языков программирования}\protect\footnotemark}, label=lst:prog_lang_answer_4]
-		#Select programming languages with mascot
-		SELECT DISTINCT ?lang_name ?mascot_name
-		WHERE
-		{
-		    ?lang wdt:P31 wd:Q9143 .
-		    ?lang wdt:P822 ?mascot .
-		    ?lang rdfs:label ?lang_name filter (lang(?lang_name) = "en").
-		    ?mascot rdfs:label ?mascot_name filter (lang(?mascot_name) = "en").
-		}
+    \newthought{Получить список языков программирования со свойством \href{https://www.wikidata.org/wiki/Property:P822}{<<персонаж-талисман>> (P822)} можно выполнив следующий SPARQL-запрос (листинг \ref{lst:prog_lang_answer_4})}. 
+	\begin{lstlisting}[language=SPARQL, caption={{\href{https://w.wiki/v4e}{<<Персонажи-талисманы>> языков программирования}}\protect\footnotemark}, label=lst:prog_lang_answer_4]
+#List of programming languages with mascot
+SELECT ?lang_name ?mascot_name
+WHERE {
+    ?lang wdt:P31 wd:Q9143 .
+    ?lang wdt:P822 ?mascot .
+    ?lang rdfs:label ?lang_name filter (lang(?lang_name) = "en").
+    ?mascot rdfs:label ?mascot_name filter (lang(?mascot_name) = "en").
+}
 	\end{lstlisting}
-\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/kfj}{https://w.wiki/kfj} }
+\footnotetext{В 2020 году результат запроса~---~3 языка программирования. Ссылка на SPARQL-запрос: \href{https://w.wiki/v4e}{https://w.wiki/v4e} }
     
     \small{Задание на с.~\pageref{prog_lang_test}.}
 \end{task}
@@ -484,39 +469,38 @@ WHERE
 \begin{task}
     \label{answer:prog_langs_5}
     \newthought{Получить список языков программирования, основанных ранее 1992 года можно выполнив следующий SPARQL-запрос (листинг \ref{lst:prog_lang_answer_5})}. 
-	\begin{lstlisting}[language=SPARQL, caption={{Языки программирования, старше 1992 года}\protect\footnotemark}, label=lst:prog_lang_answer_5]
-		#Select langeages older than 1992
-		SELECT DISTINCT ?lang_name ?age
-		WHERE
-		{
-		    ?lang wdt:P31 wd:Q9143 .
-		    ?lang wdt:P571 ?age .
-		    ?lang rdfs:label ?lang_name filter (lang(?lang_name) = "en").
-		    FILTER(year(?age) < 1992)
-		}
+	\begin{lstlisting}[language=SPARQL, caption={{\href{https://w.wiki/v4f}{Языки программирования, старше 1992 года}}\protect\footnotemark}, label=lst:prog_lang_answer_5]
+#Select langeages older than 1992
+SELECT DISTINCT ?langLabel ?age
+WHERE {
+  ?lang wdt:P31 wd:Q9143 .
+  ?lang wdt:P571 ?age .
+  ?lang rdfs:label ?langLabel FILTER (lang(?langLabel) = "ru").
+  FILTER(year(?age) < 1992)
+}
 	\end{lstlisting}
-\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/kfn}{https://w.wiki/kfn} }
+\footnotetext{Результатом запроса в 2020 году были 207 языков. Ссылка на SPARQL-запрос: \href{https://w.wiki/v4f}{https://w.wiki/v4f} }
     
     \small{Задание на с.~\pageref{prog_lang_test}.}
 \end{task}
 
 \begin{task}
     \label{answer:prog_langs_6}
-    \newthought{Построить столбчатую диаграмму, отражающую количество известных хештегов в Твиттере для каждого языка программирования можно выполнив следующий SPARQL-запрос (листинг \ref{lst:prog_lang_answer_6})}. 
-	\begin{lstlisting}[language=SPARQL, caption={{Хештеги языков программирования в Твиттере}\protect\footnotemark}, label=lst:prog_lang_answer_6]
-		#defaultView:BarChart
-		#Twitter tags for programming language
-		SELECT DISTINCT ?lang_name (count(*) as ?count)
-		WHERE
-		{
-		    ?lang wdt:P31 wd:Q9143 .
-		    ?lang wdt:P2572 ?count .
-		    ?lang rdfs:label ?lang_name filter (lang(?lang_name) = "en"). 
-		} 
-		GROUP BY ?lang_name 
-		ORDER BY DESC(?count)
+    \newthought{Для построения столбчатой диаграммы, отражающуей количество известных хештегов в Твиттере для каждого языка программирования используем свойство (листинг \ref{lst:prog_lang_answer_6})}. 
+	\begin{lstlisting}[language=SPARQL, caption={{\href{https://w.wiki/v4h}{Хештеги языков программирования в Твиттере}}\protect\footnotemark}, label=lst:prog_lang_answer_6]
+#defaultView:BarChart
+#Twitter tags for programming language
+SELECT DISTINCT ?langLabel (count(*) as ?count)
+WHERE
+{
+    ?lang wdt:P31 wd:Q9143 .
+    ?lang wdt:P2572 ?count .
+    ?lang rdfs:label ?langLabel filter (lang(?langLabel) = "ru"). 
+} 
+GROUP BY ?langLabel
+ORDER BY DESC(?count)
 	\end{lstlisting}
-\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/kfo}{https://w.wiki/kfo} }
+\footnotetext{Результатом запроса в 2020 году были 3 языка программирования. Ссылка на SPARQL-запрос: \href{https://w.wiki/v4h}{https://w.wiki/v4h} }
     
     \small{Задание на с.~\pageref{prog_lang_test}.}
 \end{task}
