@@ -67,8 +67,7 @@
     \index{SPARQL!FILTER!Города, названные в честь географических объектов}
     \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/otj}{Города, названные в честь географических объектов}\protect\footnotemark},
-                    label=lst:cities_geographic_objects, 
-                    escapebegin=ку,escapeend=ку-ку>
+                    label=lst:cities_geographic_objects
                     ]
 SELECT ?city ?cityLabel ?namedAfterLabel ?whatIsItLabel WHERE {
 	?city wdt:P31/wdt:P279* wd:Q7930989. # "city/town" subclasses
@@ -103,8 +102,7 @@ SELECT ?city ?cityLabel ?namedAfterLabel ?whatIsItLabel WHERE {
     \index{SPARQL!YEAR!Города, основанные более 400 лет назад}
     \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/t5u}{Города, основанные более 400 лет назад}\protect\footnotemark},
-                    label=lst:cities_over_400_age, 
-                    escapebegin=ку,escapeend=ку-ку>
+                    label=lst:cities_over_400_age
                     ]
 SELECT ?city ?cityLabel (YEAR(?inceptionDate) AS ?year) WHERE {
 	?city wdt:P31/wdt:P279* wd:Q7930989. # "city/town" subclasses
@@ -137,8 +135,7 @@ ORDER BY ASC(?year)
     \index{SPARQL!FILTER!Флаги городов}
     \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/t5q}{Флаги городов}\protect\footnotemark},
-                    label=lst:cities_flags, 
-                    escapebegin=ку,escapeend=ку-ку>
+                    label=lst:cities_flags
                     ]
 #defaultView:ImageGrid
 SELECT ?city ?cityLabel ?flag ?countryLabel WHERE {

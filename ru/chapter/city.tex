@@ -17,8 +17,7 @@
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/t4o}{Экземпляры объекта <<малый город>>}\protect\footnotemark},
-                    label=lst:town, 
-                    escapebegin=ку,escapeend=ку-ку>
+                    label=lst:town
                     ]
 SELECT ?city ?cityLabel WHERE {
 	?city wdt:P31 wd:Q3957. # instances of "town"
@@ -31,8 +30,7 @@ SELECT ?city ?cityLabel WHERE {
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/t4q}{Экземпляры объекта <<город>>}\protect\footnotemark},
-                    label=lst:city, 
-                    escapebegin=ку,escapeend=ку-ку>
+                    label=lst:city
                     ]
 SELECT ?city ?cityLabel WHERE {
 	?city wdt:P31 wd:Q515. # instances of "city"
@@ -45,8 +43,7 @@ SELECT ?city ?cityLabel WHERE {
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/t4r}{Экземпляры объекта <<большой город>>}\protect\footnotemark},
-                    label=lst:big_city, 
-                    escapebegin=ку,escapeend=ку-ку>
+                    label=lst:big_city
                     ]
 SELECT ?city ?cityLabel WHERE {
 	?city wdt:P31 wd:Q1549591. # instances of "big city"    
@@ -57,8 +54,7 @@ SELECT ?city ?cityLabel WHERE {
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/t4t}{Экземпляры объекта <<города-миллионеры>>}\protect\footnotemark},
-                    label=lst:city_million, 
-                    escapebegin=ку,escapeend=ку-ку>
+                    label=lst:city_million
                     ]
 SELECT ?city ?cityLabel WHERE {
 	?city wdt:P31 wd:Q1637706. # instances of "city 1000000+" 
@@ -69,8 +65,7 @@ SELECT ?city ?cityLabel WHERE {
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/t4v}{Экземпляры объектов разных типов городов}\protect\footnotemark},
-                    label=lst:different_city_types, 
-                    escapebegin=ку,escapeend=ку-ку>
+                    label=lst:different_city_types
                     ]
 SELECT ?city ?cityLabel WHERE { # Selecting items which are ...
 	{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"
@@ -112,8 +107,7 @@ SELECT ?city ?cityLabel WHERE { # Selecting items which are ...
 \index{SPARQL!STR!Численность населения <<малых городов>>}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/jgX}{Численность населения <<малых городов>>}\protect\footnotemark},
-                    label=lst:population_town, 
-                    escapebegin=ку,escapeend=ку-ку>
+                    label=lst:population_town
                     ]
 # Selecting total population of items which are ...
 SELECT (SUM(?population_city) as ?sum) WHERE {                    
@@ -134,8 +128,7 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
 \index{SPARQL!MAX!Численность населения <<городов>>}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/jgY}{Численность населения <<городов>>}\protect\footnotemark},
-                    label=lst:population_city, 
-                    escapebegin=ку,escapeend=ку-ку>
+                    label=lst:population_city
                     ]
 # Selecting total population of items which are ...
 SELECT (SUM(?population_city) as ?sum) WHERE {                    
@@ -155,8 +148,7 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
 \index{SPARQL!SUM!Численность населения <<больших городов>>}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/jga}{Численность населения <<больших городов>>}\protect\footnotemark},
-                    label=lst:population_big_city, 
-                    escapebegin=ку,escapeend=ку-ку>
+                    label=lst:population_big_city
                     ]
 # Selecting total population of items which are ...
 SELECT (SUM(?population_city) as ?sum) WHERE {                    
@@ -173,8 +165,7 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
 \newpage
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/jgb}{Численность населения <<городов-миллионеров>>}\protect\footnotemark},
-                    label=lst:population_city_millions, 
-                    escapebegin=ку,escapeend=ку-ку>
+                    label=lst:population_city_millions
                     ]
 # Selecting total population of items which are ...
 SELECT (SUM(?population_city) as ?sum) WHERE {
@@ -229,8 +220,7 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
 \index{SPARQL!COUNT!Количество городов, не имеющих побратимов}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/jgv}{Количество городов, не имеющих побратимов}\protect\footnotemark},
-                    label=lst:without_sister_cities, 
-                    escapebegin=ку,escapeend=ку-ку>
+                    label=lst:without_sister_cities
                     ]
 # Counting items which are ... 
 SELECT (COUNT(?city) as ?count) WHERE {                             
@@ -256,8 +246,7 @@ SELECT (COUNT(?city) as ?count) WHERE {
 \index{SPARQL!COUNT!Упорядоченный список городов по числу побратимов}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/sY4}{Упорядоченный список городов по числу побратимов}\protect\footnotemark},
-                    label=lst:ordered_by_sister_cities, 
-                    escapebegin=ку,escapeend=ку-ку>
+                    label=lst:ordered_by_sister_cities
                     ]
 # Counting sister cities of cities which are ...
 SELECT ?city ?cityLabel (COUNT(?sister) AS ?sisterCount) WHERE {           
@@ -275,8 +264,7 @@ ORDER BY DESC(?sisterCount) # Sorting by number of sister cities
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/t4A}{Упорядоченный список городов России по числу побратимов}\protect\footnotemark},
-                    label=lst:ordered_by_sister_cities_Russia, 
-                    escapebegin=ку,escapeend=ку-ку>
+                    label=lst:ordered_by_sister_cities_Russia
                     ]
 # Counting sister cities of cities which are ...
 SELECT ?city ?cityLabel (COUNT(?sister) AS ?sisterCount) WHERE {           
@@ -305,8 +293,7 @@ ORDER BY DESC(?sisterCount) # Sorting by number of sister cities
 \index{График!LineChart!Зависимость числа городов всего мира (N) от числа имеющихся у этих городов побратимов (S)}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/pM9}{Число городов с определённым числом побратимов}\protect\footnotemark},
-                    label=lst:city_relation_S_N, 
-                    escapebegin=ку,escapeend=ку-ку>
+                    label=lst:city_relation_S_N
                     ]
 #defaultView:LineChart
 # Count No. of cities having sisterCount sister cities 
@@ -360,8 +347,7 @@ ORDER BY DESC(?sisterCount) # Order by number of sister cities
 \index{График!LineChart!Зависимость числа городов России (N) от числа имеющихся у этих городов побратимов (S)}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/pMA}{Число городов России с определённым числом побратимов}\protect\footnotemark},
-                    label=lst:city_relation_Russia_S_N, 
-                    escapebegin=ку,escapeend=ку-ку>
+                    label=lst:city_relation_Russia_S_N
                     ]
 #defaultView:LineChart                                                   
 # Count No. of cities having sisterCount sister cities  
@@ -418,8 +404,7 @@ ORDER BY DESC(?sisterCount) # Order by number of sister cities
 \index{График!BubbleChart!Число побратимов у страны}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/pMC}{Упорядоченный список стран по числу побратимов}\protect\footnotemark},
-                    label=lst:countries_sister_cities, 
-                    escapebegin=ку,escapeend=ку-ку>
+                    label=lst:countries_sister_cities
                     ]
 #defaultView:BubbleChart
 # Selecting number of distinct sister cities of particular country cities 
@@ -466,8 +451,7 @@ ORDER BY DESC(?sisterCount)
 \index{SPARQL!COUNT!Список стран, имеющих побратимов с городами Германии}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/pME}{Список стран, имеющих побратимов с городами Германии}\protect\footnotemark},
-                    label=lst:sister_cities_with_Germany, 
-                    escapebegin=ку,escapeend=ку-ку>
+                    label=lst:sister_cities_with_Germany
                     ]
 # Selecting number of distinct particular country sister cities of cities 
 # which are ...
@@ -515,8 +499,7 @@ ORDER BY DESC(?sisterCount)\end{lstlisting}
 \index{График!Map!Ближайшие соседи России по числу городов-побратимов}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/q5Z}{Ближайшие соседи России по числу побратимов}\protect\footnotemark},
-                    label=lst:countries_sister_cities_with_Russia, 
-                    escapebegin=ку,escapeend=ку-ку>
+                    label=lst:countries_sister_cities_with_Russia
                     ]
 #defaultView:Map
 # Selecting number of distinct particular country sister cities of cities 
@@ -571,8 +554,7 @@ SELECT ?country ?countryLabel ?sisterCount ?shape ?layer WHERE {
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/k5T}{Пример использования конструкции UNION}\protect\footnotemark},
-                    label=lst:example_union_city, 
-                    escapebegin=ку,escapeend=ку-ку>
+                    label=lst:example_union_city
                     ]
 SELECT ?city ?cityLabel WHERE { # Selecting items which are ...
 	{ ?city wdt:P31 wd:Q515 } UNION # instances of "city"            
@@ -585,8 +567,7 @@ SELECT ?city ?cityLabel WHERE { # Selecting items which are ...
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/jyB}{Пример использования конструкции с подклассами}\protect\footnotemark},
-                    label=lst:example_subclasses_city, 
-                    escapebegin=ку,escapeend=ку-ку>
+                    label=lst:example_subclasses_city
                     ]
 SELECT ?city ?cityLabel WHERE { # Selecting items which are ...
 	?city wdt:P31/wdt:P279* wd:Q515 # instances of "city" subclasses
