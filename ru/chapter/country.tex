@@ -1,7 +1,7 @@
 \chapter[Анализ стран: возраст, формы правления и этнохоронимы]{Анализ трёх аспектов современных стран по Викиданным: возраст стран, популярные формы правления и этнохоронимы}
 \label{ch:country}
 
-Эта глава посвящена исследованию стран на основе базы знаний международного проекта Викиданные. С помощью SPARQL-запросов, вычисляемых на объектах <<страна>> в Викиданных, получены: список всех ныне существующих стран, перечень стран, упорядоченных по дате создания, список этнохоронимов стран, пузырьковая диаграмма с формами правления стран, граф соседних стран и карту соседних стран России. Кроме того, проанализирована полнота Викиданных по данной теме.
+Глава посвящена исследованию стран на основе базы знаний международного проекта Викиданные. С помощью SPARQL-запросов, вычисляемых на объектах <<страна>> в Викиданных, получены: список всех ныне существующих стран, перечень стран, упорядоченных по дате создания, список этнохоронимов стран, пузырьковая диаграмма с формами правления стран, граф соседних стран и карту соседних стран России. Кроме того, проанализирована полнота Викиданных по этой теме.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{marginfigure}[0.0cm]
@@ -11,7 +11,7 @@
 		\fcolorbox{gray}{gray}{\includegraphics{chapter/country/ProWD_country.png}}
 	}
 	\caption{
-		Высокая степень заполнения по числу свойств объекта Викиданных \href{https://www.wikidata.org/wiki/Q6256}{Страна (Q6256)}.  Данные получены с помощью сервиса \href{https://prowd.id/dashboards/86b6f91a8131/profile}{ProWD.id}, 2020 год. \emph{Коэффициент Джини равен 0.091.}
+		Высокая степень заполнения по числу свойств объекта Викиданных \href{https://www.wikidata.org/wiki/Q6256}{страна (Q6256)}.  Данные получены с помощью сервиса \href{https://prowd.id/dashboards/86b6f91a8131/profile}{ProWD.id}, 2020 год. \emph{Коэффициент Джини равен 0.091.}
 	}%
 	\label{fig:ProWD_country}%
 \end{marginfigure}
@@ -22,7 +22,7 @@
 Построим список всех стран на английском и русском языках (листинг~\ref{lst:country}).
 
 \begin{lstlisting}[ language=SPARQL, 
-caption={\href{https://w.wiki/k6L}{Экземпляры объекта <<Страна>>}\protect\footnotemark},
+caption={\href{https://w.wiki/k6L}{Экземпляры объекта <<страна>>}\protect\footnotemark},
 label=lst:country, 
 escapebegin=ку,escapeend=ку-ку>
 ]
@@ -30,7 +30,7 @@ escapebegin=ку,escapeend=ку-ку>
 SELECT ?country ?label_en ?label_ru
 WHERE
 {
-		?country wdt:P31 wd:Q6256. # country
+		?country wdt:P31 wd:Q6256. # instance country
 		?country rdfs:label ?label_en filter (lang(?label_en) = "en").
 		?country rdfs:label ?label_ru filter (lang(?label_ru) = "ru").
 }
@@ -40,11 +40,9 @@ WHERE
 
 По степени заполненности свойств на Викиданнных можно различать <<полные>> и  <<пустые>> страны. 
 
-Примерами наиболее полных и проработанных стран на Викиданных по данным ProWD\cite{prowd_balakireva} являются: \wdqName{Израиль}{801}, \wdqName{Франция}{142}, \wdqName{Соединённые Штаты Америки}{30}.
+Примерами наиболее полных и проработанных стран на Викиданных по данным ProWD\cite{prowd_balakireva} являются: \wdqName{Израиль}{801} (127 свойств), \wdqName{Франция}{142} (126 свойств), \wdqName{Соединённые Штаты Америки}{30} (124 свойства).
 
-Почти пустой и малоинформативной страной по данным ProWD является: \wdqName{Срединная Литва}{523380}.
-
-Лидерами среди стран по количеству свойств в Викиданных, по версии ProWD, являются \wdqName{Израиль}{801} и \wdqName{Франция}{142} (по 127 свойств), наименьшее количество свойств у \wdqName{Демократической Республики Вьетнам}{172640} (24 свойства).
+Наименьшее количество свойств у \wdqName{Соединённых провинций Центральной Америки}{8842993} (3 свойства) и \wdqName{Джалаириды}{8842993} (9 свойств).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Возраст стран}
@@ -54,54 +52,135 @@ WHERE
 %	Какое количество административных единиц имеют следующие страны:
 	У \href{https://w.wiki/mzN}{Латвии} их 119, у \href{https://w.wiki/mzP}{Таиланда} 77, у \href{https://w.wiki/mzR}{Дании} 5, а у \href{https://w.wiki/myt}{России} 81. О количестве чего идет речь?
 	\begin{itemize}
-		%\item Латвия;
-		%\item Тайланд;
-		%\item Дания;
-		%\item Россия.
-		\item Количество городов с населением более миллиона человек;
-		\item Количество высших учебных заведений;
-		\item Количество административных единиц;
-		\item Количество официальных языков.
+		\item Количество городов с населением более миллиона человек?
+		\item Количество высших учебных заведений?
+		\item Количество административных единиц?
+		\item Количество официальных языков?
 	\end{itemize}
 	См. ответ~\ref{answer:administrative_territorial} на с.~\pageref{answer:administrative_territorial}.
 }
 
-Построим список стран, отсортированных по дате основания страны, то есть первом упоминании о стране (листинг~\ref{lst:age_of_country}).
+Построим список стран, отсортированных по дате основания страны, то есть по первому упоминанию о стране (листинг~\ref{lst:age_of_country}).
 
 \begin{lstlisting}[ language=SPARQL, 
-caption={\href{https://w.wiki/rN8}{Даты основания стран}\protect\footnotemark},
+caption={\href{https://w.wiki/suP}{Даты основания стран}\protect\footnotemark},
 label=lst:age_of_country, 
 escapebegin=ку,escapeend=ку-ку>
 ]
-#List of `instances of` "countries sorted by inception" 
+# List of countries sorted by inception 
 SELECT ?country ?countryLabel ?inception
 WHERE
 {
-		?country wdt:P31 wd:Q6256. # instance of country
-		?country wdt:P571 ?inception. # the first mention	
-		SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
+	?country wdt:P31 wd:Q6256.    # instance of country
+	?country wdt:P571 ?inception. # the first mention
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
 ORDER BY (?inception)
-}
 \end{lstlisting}
 
-\footnotetext{Получено  112 стран на 2017 год и 199 стран на 2020. Ссылка на SPARQL-запрос: \href{https://w.wiki/rN8}{https://w.wiki/rN8}}
+\footnotetext{Получено  112 стран на 2017 год и 199 стран на 2020. Ссылка на SPARQL-запрос: \href{https://w.wiki/suP}{https://w.wiki/suP}}
 
-В результате выполнения запроса получен список стран с датами их создания. Например, \wdqName{Абхазия}{23334} --- 1 января 0786, \wdqName{Россия}{159} --- 1 января 0862, \wdqName{Косово}{1246} --- 17 февряля 2008, \wdqName{Южный Судан}{958} --- 9 июля 2011. 
-Наибольшее количество стран появилось в 1991 году (17 стран), в 1812 (6 стран) и в 1918 (5 стран).
+В результате выполнения запроса (листинг~\ref{lst:age_of_country}) получен скромный список стран, включающий на 2020 год всего 184 страны. На примере России разберемся, в чем здесь дело. Объект \wdqName{Россия}{159} в поле "instance of" содержит не одно, а восемь значений, в том числе \wdqName{country}{6256}.
+
+\marginnote{
+	На странице Викиданных "Request a query" одни редакторы задают вопросы, как написать тот или иной скрипт, а другие редакторы отвечают. Пользуйтесь этим форумом.
+}
+
+Решение и ответ на этот вопрос были найдены на странице "Wikidata: Request a query", а именно в разделе доступном по ссылке \href{https://w.wiki/tLm}{https://w.wiki/tLm}.
+
+Дело в том, что конструкция wdt позволяет находить только истинные значения. Для России предпочтительным ответом (англ. preferred value) в поле "instance of" является <<суверенное государство>>, а не страна. Чтобы проверить все варианты, представленные в поле "instance of" России, нужно использовать конструкцию p:/ps:.
+
+Таким образом, скрипт для получения всех 232 стран, отсортированных по дате создания, представлен на листинге~\ref{lst:list_of_country_instance_of}.
+
+\begin{lstlisting}[ language=SPARQL, 
+caption={\href{https://w.wiki/tN$}{Список стран, отсортированных по дате основания}\protect\footnotemark},
+label=lst:list_of_country_instance_of, 
+escapebegin=ку,escapeend=ку-ку>
+]
+# List of countries sorted by inception date
+SELECT ?country ?countryLabel
+		(MIN(?year) AS ?min_year)
+WHERE
+{
+	?country p:P31 [ps:P31 wd:Q6256]. # instance of a country 
+	?country p:P571 [ps:P571 ?inception]. # all inception dates
+	BIND(YEAR(?inception) AS ?year)
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
+}
+GROUP BY ?country ?countryLabel ?min_year
+ORDER BY ?min_year
+\end{lstlisting}
+
+\footnotetext{Получено  235 стран на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/tN\$}{https://w.wiki/tN\$}}
+
+Чтобы убрать из этого списка уже не существующие страны, то есть экземпляры объекта \wdqName{historical country}{3024240}, используем оператор MIN US.
+
+С помощью скрипта (листинг~\ref{lst:list_of_country_instance_of_}) получено 211 не исторических стран с известной датой основания.
+
+\begin{lstlisting}[ language=SPARQL, 
+caption={\href{https://w.wiki/tP6}{Список стран, отсортированных по дате основания}\protect\footnotemark},
+label=lst:list_of_country_instance_of_, 
+escapebegin=ку,escapeend=ку-ку>
+]
+# List of countries sorted by inception date
+SELECT ?country ?countryLabel 
+(MIN(?year) AS ?min_year)
+WHERE
+{
+	?country p:P31 [ps:P31 wd:Q6256]. # instance of a country 
+	MINUS {?country p:P31 [ps:P31 wd:Q3024240]}. # except historical countries
+	?country p:P571 [ps:P571 ?inception]. # all inception dates
+	BIND(YEAR(?inception) AS ?year)
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
+}
+GROUP BY ?country ?countryLabel ?min_year
+ORDER BY ?min_year
+\end{lstlisting}
+
+\footnotetext{Получено  211 стран на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/tP6}{https://w.wiki/tP6}}
+
+Например, \wdqName{Франция}{142} --- 463 год, \wdqName{Россия}{159} --- 862 год, \wdqName{Республика Косово}{1246} --- 2008 год, \wdqName{Южный Судан}{958} --- 2011. 
+Наибольшее количество стран появилось в 1960 (16 стран), в 1991 году (15 стран), в 1962 (6 стран) и в 1821 (6 стран).
 
 
 \subsection{Полнота Викиданных}
 
-Проанализируем полноту Викиданных.
+Проанализируем полноту Викиданных: исторические и современные страны..
 
-По данным <<Общероссийского классификатора стран мира>>\cite{oksm} на земле существует 251 страна.
+По данным <<Общероссийского классификатора стран мира>>\cite{oksm} на Земле существует 251 страна.
 
-При анализе полноты не учитываются древние, уже не существующие государства (например, \wdqName{Ассирия}{41137}), поскольку они являются экземпляром не объекта <<country>>, а объекта <<former country>> (бывшие страны). Отметим, что количество бывших стран (165 на 2020 год) меньше существующих ныне стран.
+Отдельного анализа заслуживают древние, уже не существующие государства, например, \wdqName{Ассирия}{41137}. Объекты таких страны на Викиданных являются экземплярами не объекта <<country>>, а  <<historical country>> (исторические страны). 
 
-По данным статьи <<Алфавитный список стран и территорий>>\cite{list_of_sovereign_states} Русской Википедии существует 252 страны (в  <<Общероссийском классификаторе стран мира>> недостаёт Косово).
+%%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%%
+\marginnote{
+	%	Какое количество административных единиц имеют следующие страны:
+	Найдите государства, существовавшие дольше всего. 
+	См. ответ~\ref{answer:old_countries} на с.~\pageref{answer:old_countries}.
+}
 
-По данным категории ``List of sovereign states''\cite{list_of_sovereign_states_en} Английской Википедии существует 206 стран.
+С помощью скрипта (листинг~\ref{lst:List_of_historical_countries}) построим список исторических государств. Таких бывших государств оказалось три тысячи, что на порядок больше числа современных государств.
+
+\begin{lstlisting}[ language=SPARQL, 
+caption={\href{https://w.wiki/tQN}{Список исторических стран}\protect\footnotemark},
+label=lst:List_of_historical_countries, 
+escapebegin=ку,escapeend=ку-ку>
+]
+# List of historical countries
+SELECT ?country ?countryLabel
+WHERE
+{
+	?country p:P31 [ps:P31 wd:Q3024240]. # instance of a historical country 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],ru,en"} 
+}
+\end{lstlisting}
+
+\footnotetext{Получено  3026 стран на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/tQN}{https://w.wiki/tQN}}
+
+%Отметим, что количество бывших стран (165 на 2020 год) меньше существующих ныне стран.
+
+По данным статьи <<Список государств>>\cite{list_of_sovereign_states} Русской Википедии существует 252 страны (в  <<Общероссийском классификаторе стран мира>> недостаёт Косово).
+
+По данным статьи ``List of sovereign states''\cite{list_of_sovereign_states_en} Английской Википедии существует 206 стран.
 
 %%%%%%%%%%%%%%%% Упражнение 3 %%%%%%%%%%%%%%%%
 \marginnote{
@@ -147,7 +226,7 @@ ORDER BY (?inception)
 	См. ответ~\ref{answer:population_density} на с.~\pageref{answer:population_density}.
 }
 
-Не всегда точно можно  указать дату основания страны по разным причинам: отсутствие, недостаток или противоречие письменных источников. Например, основание Древнерусского государства связывают с призванием варяжского князя Рюрика в 862 году, но точной даты нет (объект \wdqName{Россия}{159}). Некоторым современным странам предшествовали ряд исторических предшественников, и дату образования какого из них считать за дату создания современной страны ‒ это вопрос открытый. Например, датой основания \wdqName{Монголии}{711} принято считать 29 декабря 1911 года, когда произошло провозглашение независимости от Китая. Хотя в истории Монголия появляется со времен деятельности Чингисхана, который кратковременно в начале 13 века объединил под своей властью большую часть Евразии.
+У экземпляров объекта <<\href{https://www.wikidata.org/wiki/Q6256}{страна}>> обычно заполнено свойство \href{https://www.wikidata.org/wiki/Property:P571}{inception (P571)}, то есть дата основания. Однако не всегда точно можно  указать дату основания страны по разным причинам: отсутствие, недостаток или противоречие письменных источников. Например, основание Древнерусского государства связывают с призванием варяжского князя Рюрика в 862 году, но точной даты нет (объект \wdqName{Россия}{159}). Некоторым современным странам предшествовали ряд исторических предшественников, и дату образования какого из них считать за дату создания современной страны ‒ это вопрос открытый. Например, датой основания \wdqName{Монголии}{711} принято считать 29 декабря 1911 года, когда произошло провозглашение независимости от Китая. Хотя в истории Монголия появляется со времён деятельности Чингисхана, который кратковременно в начале \MakeUppercase{\romannumeral13} века объединил под своей властью большую часть Евразии.
 
 
 

@@ -169,9 +169,9 @@ SELECT ?city ?cityLabel ?flag ?countryLabel WHERE {
 	SELECT ?countryLabel  (count(*) as ?count)
 	WHERE
 	{
-		?country wdt:P31 wd:Q6256.      # country
-		?country wdt:P150 ?ATentity.    # contains administrative territorial entity
-		SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
+	?country wdt:P31 wd:Q6256.      # country
+	?country wdt:P150 ?ATentity.    # contains administrative territorial entity
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 	}
 	GROUP BY (?countryLabel)
 	ORDER BY DESC(?count)
@@ -182,56 +182,90 @@ SELECT ?city ?cityLabel ?flag ?countryLabel WHERE {
 \end{task}
 
 \begin{task}
+	\label{answer:old_countries}
+	\newthought{ 
+		Результатом работы скрипта (листинг \ref{lst:old_countries}) будет список империй и небольших стран, исчезнувших с лица земли. Две с половиной тысячи лет и больше просуществовали только семь государств: \href{https://w.wiki/vAT}{Угарит} (4810 лет), \href{https://w.wiki/vAU}{Тамла} (3740 лет), \href{https://w.wiki/vAX}{Древний Египет} (3544 лет), \href{https://w.wiki/vAY}{Майя} (3521 год), \href{https://w.wiki/vAZ}{Идалион} (2550 год), \href{https://w.wiki/vAb}{Мероитское царство} (2529 год) и город-государство \href{https://w.wiki/vAf}{Дильмун} (2500 лет).
+	}
+	\begin{lstlisting}[ language=SPARQL, 
+	caption={\href{https://w.wiki/tYc}{
+	Список исторических стран, отсортированных по дате основания}\protect\footnotemark},
+	label=lst:old_countries	]
+	# List of historical countries sorted by inception date
+	SELECT ?country ?countryLabel 
+	(MIN(?start) AS ?min_year)
+	(MAX(?end)   AS ?max_year) 
+	(?max_year - ?min_year as ?age)
+	WHERE
+	{
+	?country p:P31 [ps:P31 wd:Q3024240]. # instance of a historical country
+	
+	FILTER EXISTS {?country wdt:P571 []}.# skip countries without inception date
+	FILTER EXISTS {?country wdt:P576 []}.# skip countries without dissolution date
+	
+	OPTIONAL {?country p:P571 [ps:P571 ?inception].}# any inception date
+	OPTIONAL {?country p:P576 [ps:P576 ?dissolution].}# any dissolution date
+	
+	BIND(YEAR(?inception) AS ?start)
+	BIND(YEAR(?dissolution) AS ?end)  
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,[AUTO_LANGUAGE],en" }
+	}
+	GROUP BY ?country ?countryLabel ?min_year ?max_year ?age
+	ORDER BY DESC(?age)
+	\end{lstlisting}
+	\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/tYc}{https://w.wiki/tYc}}  
+	
+	\small{Вопрос на с.~\pageref{lst:list_of_country_instance_of_}.}
+\end{task}
+
+\begin{task}
 	\label{answer:population_density}
 	\newthought{ Площадь Израиля составляет \num{20770} км\begin{math}^2\end{math}, население  \num{8.46} млн человек, площадь Монголии составляет  \num{1566000} км\begin{math}^2\end{math}, население  \num{2.95} млн человек, площадь Республики Кореи составляет \num{100295} км\begin{math}^2\end{math}, население  \num{50219669} человек, а площадь Сингапура  \num{719.1} км\begin{math}^2\end{math}, население  \num{5.78} млн человек. Таким образом, по возрастанию плотности населения страны будут упорядочены так:
-	\begin{enumerate}
-		\item Монголия (\num{1.96} человек на км\begin{math}^2\end{math}), (рис. ~\ref{fig:flag_mongolia});
-		\item Израиль (\num{437.79} человек на км\begin{math}^2\end{math}), (рис. ~\ref{fig:flag_israel});
-		\item Корея (\num{513.14} человек на км\begin{math}^2\end{math}), (рис. ~\ref{fig:flag_kor});
-		\item Сингапур (\num{8189.30} человек на км\begin{math}^2\end{math}), (рис. ~\ref{fig:flag_singapore}).
-	\end{enumerate}	
+		\begin{enumerate}
+			\item Монголия (\num{1.96} человек на км\begin{math}^2\end{math}), (рис. ~\ref{fig:flag_mongolia});
+			\item Израиль (\num{437.79} человек на км\begin{math}^2\end{math}), (рис. ~\ref{fig:flag_israel});
+			\item Корея (\num{513.14} человек на км\begin{math}^2\end{math}), (рис. ~\ref{fig:flag_kor});
+			\item Сингапур (\num{8189.30} человек на км\begin{math}^2\end{math}), (рис. ~\ref{fig:flag_singapore}).
+		\end{enumerate}	
 	}
-
-\begin{marginfigure}[0.0cm]
-	{
-		\setlength{\fboxsep}{0pt}%
-		\setlength{\fboxrule}{1pt}%
-		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/256px-Flag_of_Mongolia.png}}%
-	}
-	\caption{Флаг \href{https://w.wiki/mze}{Монголии}.}%
-	\label{fig:flag_mongolia}%
-\end{marginfigure}
-\begin{marginfigure}[0.0cm]
-	{
-		\setlength{\fboxsep}{0pt}%
-		\setlength{\fboxrule}{1pt}%
-		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/256px-Flag_of_Israel.png}}%
-	}
-	\caption{Флаг \href{https://w.wiki/mzh}{Израиля}.}%
-	\label{fig:flag_israel}%
-\end{marginfigure}
-\begin{marginfigure}[0.0cm]
-	{
-		\setlength{\fboxsep}{0pt}%
-		\setlength{\fboxrule}{1pt}%
-		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/256px-Flag_of_South_Korea.png}}%
-	}
-	\caption{Флаг \href{https://w.wiki/mzc}{Республики Кореи}.}%
-	\label{fig:flag_kor}%
-\end{marginfigure}
-\begin{marginfigure}[0.0cm]
-	{
-		\setlength{\fboxsep}{0pt}%
-		\setlength{\fboxrule}{1pt}%
-		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/256px-Flag_of_Singapore.png}}%
-	}
-	\caption{Флаг \href{https://w.wiki/mzd}{Cингапура}.}%
-	\label{fig:flag_singapore}%
-\end{marginfigure}
-\marginnote{
-	См. ответ~\ref{answer:population_density} на с.~\pageref{answer:population_density}.
-}
-
+	
+	\begin{marginfigure}[0.0cm]
+		{
+			\setlength{\fboxsep}{0pt}%
+			\setlength{\fboxrule}{1pt}%
+			\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/256px-Flag_of_Mongolia.png}}%
+		}
+		\caption{Флаг \href{https://w.wiki/mze}{Монголии}.}%
+		\label{fig:flag_mongolia}%
+	\end{marginfigure}
+	\begin{marginfigure}[0.0cm]
+		{
+			\setlength{\fboxsep}{0pt}%
+			\setlength{\fboxrule}{1pt}%
+			\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/256px-Flag_of_Israel.png}}%
+		}
+		\caption{Флаг \href{https://w.wiki/mzh}{Израиля}.}%
+		\label{fig:flag_israel}%
+	\end{marginfigure}
+	\begin{marginfigure}[0.0cm]
+		{
+			\setlength{\fboxsep}{0pt}%
+			\setlength{\fboxrule}{1pt}%
+			\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/256px-Flag_of_South_Korea.png}}%
+		}
+		\caption{Флаг \href{https://w.wiki/mzc}{Республики Кореи}.}%
+		\label{fig:flag_kor}%
+	\end{marginfigure}
+	\begin{marginfigure}[0.0cm]
+		{
+			\setlength{\fboxsep}{0pt}%
+			\setlength{\fboxrule}{1pt}%
+			\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/256px-Flag_of_Singapore.png}}%
+		}
+		\caption{Флаг \href{https://w.wiki/mzd}{Cингапура}.}%
+		\label{fig:flag_singapore}%
+	\end{marginfigure}
+	
+	
 	
 	\newthought{  Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:population_density}).}
 	
@@ -242,13 +276,13 @@ SELECT ?city ?cityLabel ?flag ?countryLabel WHERE {
 	]
 	SELECT ?country ?countryLabel ?flag ?area  ?population (?population / ?area as ?populationDensity)
 	{
-		?country wdt:P31 wd:Q6256.       # country
-		?country wdt:P30 wd:Q48 .        # on the continent of Asia
-		?country wdt:P41 ?flag .         # has a flag (image)
-		?country wdt:P2046 ?area .       # has an area
-		?country wdt:P1082 ?population . # has a population
-		
-		SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
+	?country wdt:P31 wd:Q6256.       # country
+	?country wdt:P30 wd:Q48 .        # on the continent of Asia
+	?country wdt:P41 ?flag .         # has a flag (image)
+	?country wdt:P2046 ?area .       # has an area
+	?country wdt:P1082 ?population . # has a population
+	
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 	}
 	ORDER BY DESC(?populationDensity)
 	\end{lstlisting}
@@ -270,10 +304,10 @@ SELECT ?city ?cityLabel ?flag ?countryLabel WHERE {
 	WHERE
 	{
 	
-		?country wdt:P31 wd:Q6256.  # country
-		?country wdt:P37 ?lanquage. # has an official language
-		FILTER(?country = wd:Q159). 
-		SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
+	?country wdt:P31 wd:Q6256.  # country
+	?country wdt:P37 ?lanquage. # has an official language
+	FILTER(?country = wd:Q159). 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 	}
 	\end{lstlisting}
 	\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/mzF}{https://w.wiki/mzF}}  
