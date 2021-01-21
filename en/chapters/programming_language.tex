@@ -176,9 +176,10 @@ SELECT (COUNT(?not_free)* 100 / (COUNT(?free)) as ?total) WHERE
     }
 }}
 \end{lstlisting}%
+The above query consists of two subqueries. The first receives a list of free programming languages, and the second ~ --- closed ones, after which the ratio of the number of languages in the resulting lists is found.
 
 \section{Number of source file formats}
-
+\marginnote[-40pt]{Filename extension - a sequence of characters added to the file name and intended to identify the type (format) of the file. This is one of the most common ways that a user or computer software can determine the type of data stored in a file, for example: name.jpg is a photograph, name.avi is a video file.}
 Depending on the programming language, the source code files for programs may have different extensions. Let's construct a bubble diagram by the number of valid formats of the source code files.
 \index{Chart!BubbleChart!Number of file formats for programming languages}
 \begin{lstlisting}[ language=SPARQL, 
