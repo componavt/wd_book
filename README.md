@@ -10,8 +10,8 @@ Computer science book about Wikidata programming.
 
 See our course [Research in programming Wikidata](https://en.wikiversity.org/wiki/Research_in_programming_Wikidata) in English Wikiversity.
 
-We are using the LaTeX template [https://github.com/fmarotta/kaobook fmarotta / kaobook].
-Read [the template tutorial online](https://github.com/fmarotta/kaobook/blob/master/examples/documentation/main_with_bibtex.pdf).
+We are using the LaTeX template [fmarotta/kaobook](https://github.com/fmarotta/kaobook).
+Read [the template tutorial online](https://github.com/fmarotta/kaobook/blob/master/examples/documentation/main.pdf).
 
 ## Quick Start
 
@@ -30,6 +30,9 @@ The result should look like `mainka.pdf`.
 # Wikidata programming book (in Russian)
 
 See our course [Research in programming Wikidata](https://ru.wikiversity.org/wiki/Программирование_Викиданных) in Russian Wikiversity.
+
+We are using the LaTeX template [Tufte-LaTeX](https://github.com/Tufte-LaTeX/tufte-latex).
+Read [the template tutorial online](https://raw.githubusercontent.com/Tufte-LaTeX/tufte-latex/master/sample-book.pdf).
 
 ## Quick Start
 
