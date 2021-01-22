@@ -330,25 +330,63 @@ Identify the countries of Asia by flags and list them in ascending order of popu
 The answer to the question can also be obtained by running the following SPARQL query (Listing \ref{lst:population_density}).
 
 \begin{lstlisting}[ language=SPARQL, 
-caption={\href{https://w.wiki/rcE}{
+caption={\href{https://w.wiki/vLJ}{
 		Population density in Asia}\protect\footnotemark},
 label=lst:population_density
 ]
-SELECT ?country ?countryLabel ?flag ?area  ?population 
+# Population density in Asian countries
+SELECT ?country ?countryLabel ?flag ?area ?population 
 (?population / ?area as ?populationDensity)
 {
-	?country wdt:P31 wd:Q6256.       # country
-	?country wdt:P30 wd:Q48 .        # on the continent of Asia
-	?country wdt:P41 ?flag .         # has a flag (image)
-	?country wdt:P2046 ?area .       # has an area
-	?country wdt:P1082 ?population . # has a population
-	
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+	?country p:P31 [ps:P31 wd:Q6256].# this is a country
+	?country wdt:P30 wd:Q48 .   # on the Asian continent 
+	?country wdt:P41 ?flag .    # has flag
+	?country wdt:P2046 ?area .  # has area
+	?country wdt:P1082 ?population. # has population  
+	SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 ORDER BY DESC(?populationDensity)
 \end{lstlisting}
 
 See question on page~\pageref{question:population_density}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{exercise}
+\label{answer:old_countries}
+
+Find the states that have existed the longest.
+
+\end{exercise}
+
+The result of the script (Listing \ref{lst:old_countries}) will be a list of empires and small countries that have disappeared from the face of the earth. Two and a half thousand years and more, only seven states existed: \href{https://w.wiki/vAT}{Ugarit} (4810 years), \href{https://w.wiki/vAU}{Tamla} (3740 years), \href{https://w.wiki/vAX}{Ancient Egypt} (3544 years), \href{https://w.wiki/vAY}{Maya} (3521), \href{ https://w.wiki/vAZ}{Idalion} (2550), \href{https://w.wiki/vAb}{Meroite Kingdom} (2529) and the city-state \href{https://w.wiki/vAf}{Dilmun} (2500 years old).
+
+\begin{lstlisting}[ language=SPARQL, 
+caption={\href{https://w.wiki/tYc}{List of historical countries sorted by inception date}\protect\footnotemark},
+label=lst:old_countries
+]
+# List of historical countries sorted by inception date
+SELECT ?country ?countryLabel 
+(MIN(?start) AS ?min_year)
+(MAX(?end)   AS ?max_year) 
+(?max_year - ?min_year as ?age)
+WHERE
+{
+	?country p:P31 [ps:P31 wd:Q3024240]. # instance of a historical country
+	
+	FILTER EXISTS {?country wdt:P571 []}.# skip countries without inception date
+	FILTER EXISTS {?country wdt:P576 []}.# skip countries without dissolution date
+	
+	OPTIONAL {?country p:P571 [ps:P571 ?inception].}# any inception date
+	OPTIONAL {?country p:P576 [ps:P576 ?dissolution].}# any dissolution date
+	
+	BIND(YEAR(?inception) AS ?start)
+	BIND(YEAR(?dissolution) AS ?end)  
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,[AUTO_LANGUAGE],en" }
+}
+GROUP BY ?country ?countryLabel ?min_year ?max_year ?age
+ORDER BY DESC(?age)
+\end{lstlisting}
+
+See question on page~\pageref{question:old_countries}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{exercise}
 \label{answer:official_languages}
@@ -364,18 +402,16 @@ Which of these languages are official in \href{https://en.wikipedia.org/wiki/Rus
 The official languages of Russia are the Abaza, Moksha and Erzyan languages. The answer to the question can also be obtained by running the following SPARQL query (Listing \ref{lst:official_languages}).
 
 \begin{lstlisting}[ language=SPARQL, 
-caption={\href{https://w.wiki/rcF}{Official languages in Russia}\protect\footnotemark},
+caption={\href{https://w.wiki/vLK}{Official languages in Russia}\protect\footnotemark},
 label=lst:official_languages
 ]
-# Official language in Russia
+# Official languages in Russia
 SELECT ?lanquage ?lanquageLabel
 WHERE
-{
-	?country wdt:P31 wd:Q6256 .# country
-	?country wdt:P37 ?lanquage .
-	FILTER(?country = wd:Q159) . 
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
-}
+{ # Russia has the official language
+	wd:Q159 p:P37 [ps:P37 ?lanquage].
+	SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
+} ORDER BY ?lanquageLabel
 \end{lstlisting}
 
 See question on page~\pageref{question:official_language}.
@@ -385,10 +421,10 @@ See question on page~\pageref{question:official_language}.
 
 Latvia has 119, Thailand has 77, Denmark has 5, and Russia has 81. What are we talking about?
 \begin{itemize}
-\item Number of cities with a population of over one million;
-\item Number of higher education institutions;
-\item Number of administrative units;
-\item Number of official languages.
+\item Is a number of cities with a population of over one million?
+\item Is a number of higher education institutions?
+\item Is a number of administrative units?
+\item Is a number of official languages?
 \end{itemize}
 
 \end{exercise}
@@ -396,18 +432,18 @@ Latvia has 119, Thailand has 77, Denmark has 5, and Russia has 81. What are we t
 We are talking about the number of administrative-territorial units in each country. The answer to the question can also be obtained by running the following SPARQL query (Listing \ref{lst:administrative_territorial}).
 
 \begin{lstlisting}[ language=SPARQL, 
-caption={\href{https://w.wiki/s86}{Number of administrative-territorial units in each country}\protect\footnotemark},
+caption={\href{https://w.wiki/vL6}{Countries sorted by number of administrative territories country}\protect\footnotemark},
 label=lst:administrative_territorial
 ]
-#Contains administrative territorial entity in country
-SELECT ?countryLabel  (count(*) as ?count)
+# Countries sorted by number of administrative territories
+SELECT ?country ?countryLabel  (count(*) as ?count)
 WHERE
 {
-	?country wdt:P31 wd:Q6256.      # country
-	?country wdt:P150 ?ATentity.    # contains administrative territorial entity 
+	?country p:P31 [ps:P31 wd:Q6256].# is a country
+	?country wdt:P150 []. # has some administrative territory
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
-GROUP BY (?countryLabel)
+GROUP BY ?country ?countryLabel
 ORDER BY DESC(?count)
 \end{lstlisting}
 

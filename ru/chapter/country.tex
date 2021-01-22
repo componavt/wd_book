@@ -115,10 +115,10 @@ ORDER BY ?min_year
 С помощью скрипта (листинг~\ref{lst:list_of_country_instance_of_}) получено 211 не исторических стран с известной датой основания.
 
 \begin{lstlisting}[ language=SPARQL, 
-caption={\href{https://w.wiki/tP6}{Список стран, отсортированных по дате основания}\protect\footnotemark},
+caption={\href{https://w.wiki/vLF}{Список стран, отсортированных по дате основания, не включающий исторические страны}\protect\footnotemark},
 label=lst:list_of_country_instance_of_, 
 ]
-# List of countries sorted by inception date
+# List of countries sorted by inception date without historical countries
 SELECT ?country ?countryLabel 
 (MIN(?year) AS ?min_year)
 WHERE
@@ -133,7 +133,7 @@ GROUP BY ?country ?countryLabel ?min_year
 ORDER BY ?min_year
 \end{lstlisting}
 
-\footnotetext{Получено  211 стран на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/tP6}{https://w.wiki/tP6}}
+\footnotetext{Получено  211 стран на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vLF}{https://w.wiki/vLF}}
 
 Например, \wdqName{Франция}{142}~--- 463 год, \wdqName{Россия}{159}~--- 862 год, \wdqName{Республика Косово}{1246}~--- 2008 год, \wdqName{Южный Судан}{958}~--- 2011. 
 Наибольшее количество стран появилось в 1960 (16 стран), в 1991 году (15 стран), в 1962 (6 стран) и в 1821 (6 стран).
