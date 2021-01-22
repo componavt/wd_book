@@ -38,12 +38,12 @@ We study information about programming languages in Russian Wikipedia, English W
                     label=lst:prog_languages,
                     texcl 
                     ]
-#List of `instances of` "programming language" 
+#List of programming languages
 SELECT ?lang ?langLabel
 WHERE
 {
     ?lang wdt:P31 wd:Q9143. # instances of programming language
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+    SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}%
 
@@ -62,12 +62,12 @@ In 2017 there were languages with an unfilled label, but script \ref{lst:labled_
                     label=lst:labled_prog_languages,
                     texcl 
                     ]
-#List of `instances of` "programming language" only with a label.
+#List of programming languages only with a label.
 SELECT ?lang ?lang_label
 WHERE
 {
     ?lang wdt:P31 wd:Q9143
-    ; rdfs:label ?lang_label FILTER (LANG(?lang_label) = "en") . 
+    ; rdfs:label ?lang_label FILTER (LANG(?lang_label) = "en") 
 }
 \end{lstlisting}%
 For 2020, all languages in the list have a filled label field.
@@ -95,25 +95,27 @@ Let us list all programming languages that are open (free) software and influenc
                     caption={List of free programming languages influenced by C, Python or Java and not developed by Sun Microsystems or Johnson Space Center.\\\hspace{\textwidth}
                         The result contains \num{115} languages in 2017, 
                         \num{122} languages in 2020.\\\hspace{\textwidth}
-                        SPARQL query: \href{https://w.wiki/kCh}{w.wiki/kCh}
+                        SPARQL query: \href{https://w.wiki/vLs}{w.wiki/vLs}
                         },
                     label=lst:prog_lang_sets,
                     texcl 
                     ]
-SELECT DISTINCT ?lang ?lang_label
+#List of free programming languages
+SELECT DISTINCT ?lang ?langLabel
 WHERE
 {
-    ?lang wdt:P31 wd:Q9143
-    ; rdfs:label ?lang_label FILTER (LANG(?lang_label) = "en") . 
+    ?lang wdt:P31 wd:Q9143 .
     {
-      { ?lang wdt:P737 wd:Q15777 } UNION
-      { ?lang wdt:P737 wd:Q28865 } UNION 
-      { ?lang wdt:P737 wd:Q251   } UNION
+      # popular languages
+      VALUES ?popLangs {wd:Q15777 wd:Q28865 wd:Q251}.
+      { ?lang wdt:P737 ?popLangs } UNION
       { ?lang wdt:P31 wd:Q341    }
     } MINUS { 
-      { ?lang wdt:P178 wd:Q14647  } UNION
-      { ?lang wdt:P178 wd:Q208371 }
-    }   
+      # unwanted developers
+      VALUES ?unwCompanies {wd:Q14647 wd:Q208371}
+      ?lang wdt:P178 ?unwCompanies
+    }
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}%
 
@@ -124,20 +126,20 @@ We will output all programming languages under permissive licenses (practically 
                     caption={List of programming languages under permissive licenses.\\\hspace{\textwidth}
                         The result contains \num{37} languages in 2017, 
                         \num{82} languages in 2020.\\\hspace{\textwidth}
-                        SPARQL query: \href{https://w.wiki/rc7}{w.wiki/rc7}
+                        SPARQL query: \href{https://w.wiki/vLv}{w.wiki/vLv}
                         },
                     label=lst:prog_lang_permissive,
                     texcl 
                     ]
-SELECT DISTINCT ?lang ?lang_label
+#List of free languages
+SELECT DISTINCT ?lang ?langLabel
 WHERE
 {
-	?lang wdt:P31 wd:Q9143
-	; rdfs:label ?lang_label FILTER (LANG(?lang_label) = "en") . 
-	{ ?lang wdt:P275 wd:Q308915  }  UNION  # license Mozzila Public
-	{ ?lang wdt:P275 wd:Q334661  }  UNION  # license MIT
-	{ ?lang wdt:P275 wd:Q191307  }  UNION  # license BSD
-	{ ?lang wdt:P275 wd:Q6905323 }             # license CC
+    ?lang wdt:P31 wd:Q9143
+    SERVICE wikibase:label {bd:serviceParam wikibase:language "en"} .
+    # Permissive licenses
+    VALUES ?licenses {wd:Q308915 wd:Q334661 wd:Q191307 wd:Q6905323}
+    ?lang wdt:P275 ?licenses
 }
 \end{lstlisting}%
 
@@ -148,31 +150,27 @@ Consider the relationship between permissive and proprietary or closed-licensed 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Relationship between permissive and proprietary or closed-licensed languages.\\\hspace{\textwidth}
                         For 2020 the ratio is 25\%.\\\hspace{\textwidth}
-                        SPARQL query: \href{shorturl.at/beouL}{shorturl.at/beouL}
+                        SPARQL query: \href{https://w.wiki/vMA}{w.wiki/vMA}
                         },
                     label=lst:prog_lang_relationship,
                     texcl 
                     ]
-#The script calculates the percentage of programming languages 
+#The script calculates the percentage of programming languages
 # with a free license in relation to languages with a closed license
-SELECT (COUNT(?not_free)* 100 / (COUNT(?free)) as ?total) WHERE
+SELECT (COUNT(?notFree)* 100 / (COUNT(?free)) as ?total) WHERE
 {{
     SELECT ?free WHERE {
-         ?free wdt:P31 wd:Q9143 # instance of prog. language
-         ; rdfs:label ?item_label FILTER (LANG(?item_label) = "en") . 
-         { ?free wdt:P275 wd:Q308915  }  UNION  # license Mozzila Public
-         { ?free wdt:P275 wd:Q334661  }  UNION  # license MIT
-         { ?free wdt:P275 wd:Q191307  }  UNION  # license BSD
-         { ?free wdt:P275 wd:Q6905323 }         # license CC
-    }} UNION {
-    SELECT ?not_free WHERE {
-      ?not_free wdt:P31 wd:Q9143 # instances of programming language
-      ; rdfs:label ?lang_label FILTER (LANG(?lang_label) = "en") .
-      { ?not_free wdt:P275 wd:Q6165015 } UNION # Java Research
-      { ?not_free wdt:P275 wd:Q218616 } UNION # propr. software
-      { ?not_free wdt:P275 wd:Q3238057 } UNION # propr. license 
-      { ?not_free wdt:P275 wd:Q31202214 } UNION # propr. software 
-      { ?not_free wdt:P275 wd:Q979794 } # Aladdin Free Public
+      ?free wdt:P31 wd:Q9143 # instances of programming language
+      # Free licenses
+      VALUES ?freeLicenses {wd:Q308915 wd:Q334661 wd:Q191307 
+				wd:Q6905323}
+      ?free wdt:P275 ?freeLicenses
+    }} UNION {SELECT ?notFree WHERE {
+      ?notFree wdt:P31 wd:Q9143 # instances of programming language
+      # Closed licenses
+      VALUES ?closedLicenses {wd:Q6165015 wd:Q218616 
+				wd:Q3238057 wd:Q31202214 wd:Q979794}
+      ?notFree wdt:P275 ?closedLicenses
     }
 }}
 \end{lstlisting}%
@@ -184,20 +182,19 @@ Depending on the programming language, the source code files for programs may ha
 \index{Chart!BubbleChart!Number of file formats for programming languages}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Number of file formats for programming languages.\\\hspace{\textwidth}
-                        SPARQL query: \href{https://w.wiki/kf7}{w.wiki/kf7}
+                        SPARQL query: \href{https://w.wiki/vED}{w.wiki/vED}
                         },
                     label=lst:prog_lang_file_formats,
                     texcl 
                     ]
 #defaultView:BubbleChart
-SELECT ?lang_name (count(*) as ?count)
-WHERE
-{
-	?lang wdt:P31 wd:Q9143. # instance of programming language
-	?lang wdt:P1195 ?count. # file extension
-	?lang rdfs:label ?lang_name FILTER (lang(?lang_name) = "en").
+SELECT ?langLabel (count(*) as ?count)
+WHERE {
+ ?lang wdt:P31 wd:Q9143.
+ ?lang wdt:P1195 ?count.
+ SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}.
 }
-GROUP BY ?lang_name 
+GROUP BY ?langLabel
 ORDER BY DESC(?count)
 \end{lstlisting}%
 
@@ -214,40 +211,8 @@ ORDER BY DESC(?count)
 
 The figure~\ref{fig:source_types_2017} shows that the most historically rich in formats and file extensions programming languages are \href{https://en.wikipedia.org/wiki/C\%2B\%2B}{C++} (10 formats), \href{https://en.wikipedia.org/wiki/Geometric_Description_Language}{Geometric Description Language} (8), \href{https://en.wikipedia.org/wiki/Racket}{Racket} (7). For example, files with a program in the Racket language can have the extensions rkt, rktl, rktd, scrbl, plt, ss or scm.
 
-By 2020 (fig.~\ref{fig:source_types_2020}), languages such as  \href{https://en.wikipedia.org/wiki/REXX}{REXX} (6 formats), \href{https://en.wikipedia.org/wiki/Java_(programming_language)}{Java} (5 formats), \href{https://en.wikipedia.org/wiki/Wolfram_Language}{Wolfram Language} (5 formats), \href{https://en.wikipedia.org/wiki/Raku_(programming_language)}{Raku} (9 formats), \href{https://en.wikipedia.org/wiki/Geometric_Description_Language}{GDL} (8 formats) have also started to take the lead.
-
-\section{Where located people and organizations associated with the creation of programming languages}
-
-Let's map (figures~\ref{fig:organizations_2017} \& ~\ref{fig:organizations_2020}) the countries in which people and organizations, connected with the creation of programming languages, live. Noticing that the developer of the language can act both as an organization and as individuals. To determine the location (property: coordinate location) of the organization, we will use the coordinates of its headquarters (property: headquarters location), for the person - the coordinates of the place of his birth (property: place of birth).
-
-\index{Chart!Map!Map of the countries where people and organizations connected with the creation of programming languages live}
-\begin{lstlisting}[ language=SPARQL, 
-                    caption={Map of the countries where people and organizations connected with the creation of programming languages live.\\\hspace{\textwidth}
-                        SPARQL query: \href{https://w.wiki/rcA}{w.wiki/rcA}
-                        },
-                    label=lst:prog_langs_live,
-                    texcl 
-                    ]
-#defaultView:Map
-SELECT ?lang_label ?developer_label ?location_label ?coord
-WHERE
-{
-	 ?lang wdt:P31 wd:Q9143 # instances of programming language
-	 ; rdfs:label ?lang_label FILTER (LANG(?lang_label) = "en"). 
-	 ?lang wdt:P178 ?developer. # developer
-	 ?developer rdfs:label ?developer_label
-	FILTER (LANG(?developer_label) = "en"). 
-	{ ?developer wdt:P159 ?location. } UNION # headquarters location
-	{ ?developer wdt:P19 ?location } # place of birth
-	?location rdfs:label ?location_label 
-	FILTER (LANG(?location_label) = "en").
- 	?location wdt:P625 ?coord. # coordinate location
- 	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } 	
-}
-\end{lstlisting}%
-
 \label{question:prog_lang_2}
-\marginnote[-70pt]{
+\marginnote[20pt]{
 The images below are the logos of various programming languages. Which logo belongs to the \href{https://www.wikidata.org/wiki/Q513238}{LOLCODE}  programming language?\\
 	\begin{tabular}{c}
 		\includegraphics[width=1cm]{./chapter/programming_language/task_2_logo_1.PNG}\\
@@ -259,56 +224,81 @@ The images below are the logos of various programming languages. Which logo belo
 The answer is on page~\pageref{answer:prog_lang_2}.
 }
 
-\begin{figure}[h]
-\centering
-	\includegraphics[width=1\textwidth]{./chapter/programming_language/Organizations_map_2017.png}
-	\caption{Countries in which people and organizations live, associated with the creation of programming languages (2017).}
-	\label{fig:organizations_2017}
-\end{figure}
+By 2020 (fig.~\ref{fig:source_types_2020}), languages such as  \href{https://en.wikipedia.org/wiki/REXX}{REXX} (6 formats), \href{https://en.wikipedia.org/wiki/Java_(programming_language)}{Java} (5 formats), \href{https://en.wikipedia.org/wiki/Wolfram_Language}{Wolfram Language} (5 formats), \href{https://en.wikipedia.org/wiki/Raku_(programming_language)}{Raku} (9 formats), \href{https://en.wikipedia.org/wiki/Geometric_Description_Language}{GDL} (8 formats) have also started to take the lead.
 
-\begin{figure}[h]
-\centering
-	\includegraphics[width=1\textwidth]{./chapter/programming_language/Organizations_map_2020.png}
-	\caption{Countries in which people and organizations live, associated with the creation of programming languages (2020)}
-	\label{fig:organizations_2020}
-\end{figure}
+\section{Where located people and organizations associated with the creation of programming languages}
 
-We will also construct a bubble chart (fig.~\ref{fig:emergence_2020}) to identify the most favorable countries for the emergence of people capable of developing programming languages and locating headquarters in these countries. We see in the figure that the most favorable countries were the \href{https://en.wikipedia.org/wiki/United_States}{United States} (159 people and the headquarters of the apartments) and the \href{https://en.wikipedia.org/wiki/United_Kingdom}{United Kingdom} (15). In \href{https://en.wikipedia.org/wiki/Russia}{Russia}, only two programming languages were developed: Refal and the Embedded Programming Language 1C: Enterprise.
+Let's map (figures~\ref{fig:organizations_2017} \& ~\ref{fig:organizations_2020}) the countries in which people and organizations, connected with the creation of programming languages, live. Noticing that the developer of the language can act both as an organization and as individuals. To determine the location (property: coordinate location) of the organization, we will use the coordinates of its headquarters (property: headquarters location), for the person - the coordinates of the place of his birth (property: place of birth).
 
-\begin{marginfigure}[5cm]
+\index{Chart!Map!Map of the countries where people and organizations connected with the creation of programming languages live}
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={Map of the countries where people and organizations connected with the creation of programming languages live.\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/vBp}{w.wiki/vBp}
+                        },
+                    label=lst:prog_langs_live,
+                    texcl 
+                    ]
+#defaultView:Map
+SELECT ?langLabel ?developerLabel ?locationLabel ?coord
+WHERE {
+  ?lang wdt:P31 wd:Q9143. # instances of programming language
+  ?lang wdt:P178 ?developer. # developer
+  { ?developer wdt:P159 ?location. } UNION # headquarters location
+  { ?developer wdt:P19 ?location. } # place of birth
+  ?location wdt:P625 ?coord. # coordinate location
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en"} 	
+}
+\end{lstlisting}%
+\begin{marginfigure}[-3cm]
 	\includegraphics[width=\linewidth]{./chapter/programming_language/The_most_favorable_countries_for_the_emergence_of_people_capable_of_developing_programming_languages_2020.png}
 	\caption[Bubble chart of the most favorable countries for the emergence people capable of developing programming languages (2020).]{Bubble chart of the most favorable countries for the emergence people capable of developing programming languages (2020). The bubble size corresponds to the number of people from the respective country.}
 	\label{fig:emergence_2020}
 \end{marginfigure}
 
+We will also construct a bubble chart (fig.~\ref{fig:emergence_2020}) to identify the most favorable countries for the emergence of people capable of developing programming languages and locating headquarters in these countries. We see in the figure that the most favorable countries were the \href{https://en.wikipedia.org/wiki/United_States}{United States} (159 people and the headquarters of the apartments) and the \href{https://en.wikipedia.org/wiki/United_Kingdom}{United Kingdom} (15). In \href{https://en.wikipedia.org/wiki/Russia}{Russia}, only two programming languages were developed: Refal and the Embedded Programming Language 1C: Enterprise.
+
 \index{Chart!BubbleChart!Bubble chart of the most favorable countries for the emergence of people capable of developing programming languages and locating headquarters in these countries}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Bubble chart of the most favorable countries for the emergence of people capable of developing programming languages and locating headquarters in these countries.\\\hspace{\textwidth}
 			For 2020, the number of headquarters in the US is 241, in the UK - 24, in France - 18, and in Russia - 5.\\\hspace{\textwidth}
-                        SPARQL query: \href{https://w.wiki/n9Q}{w.wiki/n9Q}
+                        SPARQL query: \href{https://w.wiki/vMG}{w.wiki/vMG}
                         },
                     label=lst:prog_langs_emerge,
                     texcl 
                     ]
 #defaultView:BubbleChart
-SELECT ?state_label (count(*) as ?count)
-WHERE
-{
-	?item wdt:P31 wd:Q9143 # instances of programming language
-	; rdfs:label ?item_label FILTER (LANG(?item_label) = "en"). 
-	?item wdt:P178 ?developer. # developer
-	?developer rdfs:label ?developer_label FILTER (LANG(?developer_label) = "en"). 
-	{ ?developer wdt:P159 ?location. } UNION # headquarters location
-	{ ?developer wdt:P19 ?location } # place of birth
-	?location rdfs:label ?location_label FILTER (LANG(?location_label) = "en").
-	?location wdt:P17 ?state.
-	?state rdfs:label ?state_label FILTER (LANG(?state_label) = "en").
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } 	
+SELECT ?stateLabel (count(*) as ?count)
+WHERE {
+  ?item wdt:P31 wd:Q9143. # instances of programming language
+  ?item wdt:P178 ?developer. # developer
+  { ?developer wdt:P159 ?location. } UNION # headquarters location
+  { ?developer wdt:P19 ?location } # place of birth
+  ?location wdt:P17 ?state.
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en"} 	
 }
-GROUP BY ?state_label
+GROUP BY ?stateLabel
 ORDER BY DESC(?count)
 \end{lstlisting}%
 
+%%%%%
+\begin{figure*}[h]
+{
+\setlength{\fboxsep}{0pt}%
+\setlength{\fboxrule}{1pt}%
+\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/programming_language/Organizations_map_2017.png}}
+}
+	\caption{Countries in which people and organizations live, associated with the creation of programming languages (2017).}
+	\labfig{fig:organizations_2017}
+\end{figure*}
+\begin{figure*}[h]
+{
+\setlength{\fboxsep}{0pt}%
+\setlength{\fboxrule}{1pt}%
+\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/programming_language/Organizations_map_2020.png}}
+}
+	\caption{Countries in which people and organizations live, associated with the creation of programming languages (2020).}
+	\labfig{fig:organizations_2020}
+\end{figure*}
 
 \section{Universities where people who developed programming languages studied}
 Let's display on the map educational institutions, in which students, who subsequently developed programming languages, studied (figures~\ref{fig:institutes_2017} \&~\ref{fig:institutes_2020}).
@@ -316,32 +306,30 @@ Let's display on the map educational institutions, in which students, who subseq
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Map of educational institutions where developers of programming languages studied.\\\hspace{\textwidth}
 			The map shows that most of the people involved in the creation of programming languages studied in Europe or the United States.\\\hspace{\textwidth}
-                        SPARQL query: \href{https://w.wiki/kDY}{w.wiki/kDY}
+                        SPARQL query: \href{https://w.wiki/vLb}{w.wiki/vLb}
                         },
                     label=lst:prog_langs_universities,
                     texcl 
                     ]
+# Universities with programming languages developers on the map
 #defaultView:Map
-SELECT ?item_label ?developer_label ?educational_institution_label ?coord
+SELECT ?lang ?langLabel ?developer ?developerLabel ?edu ?eduLabel 
+				?logo ?coord
 WHERE
 {
-	?item wdt:P31 wd:Q9143 # instances of programming language
-	; rdfs:label ?item_label FILTER (LANG(?item_label) = "en"). 
-	?item wdt:P178 ?developer. # developer
-	?developer rdfs:label ?developer_label
-	FILTER (LANG(?developer_label) = "en"). 
-	?developer wdt:P69 ?educational_institution. # educated at
-	?educational_institution rdfs:label ?educational_institution_label
-	FILTER (LANG(?educational_institution_label) = "en").
-	?educational_institution wdt:P625 ?coord. # coordinate location
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } 	
+  ?lang wdt:P31 wd:Q9143. # instances of programming language
+  ?lang wdt:P178 ?developer. # developer
+  ?developer wdt:P69 ?edu. # educated at
+  ?edu wdt:P625 ?coord; # coordinate location
+       wdt:P154 ?logo. # logo image
+SERVICE wikibase:label {bd:serviceParam wikibase:language "en"} 	
 }
 \end{lstlisting}%
 
 \label{question:prog_lang_3}
-\marginnote[-50pt]{
+\marginnote[-60pt]{
 Fill the gaps.\newline
-\href{https://www.wikidata.org/wiki/Q83303}{Fortran} ranks first in terms of the number of its dialects. Their number reaches about \underline{\hspace{1cm}}. In second place is \href{https://www.wikidata.org/wiki/Q132874}{Lisp}, it has \underline{\hspace{1cm}} dialects. The third place is shared by\href{https://www.wikidata.org/wiki/Q597330}{Standard ML} and \href{https://www.wikidata.org/wiki/Q633894}{Object Pascal} with \underline{\hspace{1cm}} dialects.\newline
+\href{https://www.wikidata.org/wiki/Q83303}{Fortran} ranks first in terms of the number of its dialects. Their number reaches about \underline{\hspace{1cm}}. In second place is \href{https://www.wikidata.org/wiki/Q132874}{Lisp}, it has \underline{\hspace{1cm}} dialects. The third place is shared by \href{https://www.wikidata.org/wiki/Q597330}{Standard ML} and \href{https://www.wikidata.org/wiki/Q633894}{Object Pascal} with \underline{\hspace{1cm}} dialects.\newline
 The answer is on page~\pageref{answer:prog_lang_3}.
 }
 
@@ -364,31 +352,26 @@ Let's construct a bubble chart for the most popular educational institutions, am
 \index{Chart!BubbleChart!Bubble chart of the most popular educational institutions, among future developers of programming languages}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Bubble chart of the most popular educational institutions, among future developers of programming languages.\\\hspace{\textwidth}
-                        SPARQL query: \href{https://w.wiki/kDb}{w.wiki/kDb}
+                        SPARQL query: \href{https://w.wiki/vMQ}{w.wiki/vMQ}
                         },
                     label=lst:prog_langs_universities_2,
                     texcl 
                     ]
 #defaultView:BubbleChart
-SELECT ?educational_institution_label (count(*) as ?count)
+SELECT ?educationalInstitutionLabel (count(*) as ?count)
 WHERE
 {
-	?item wdt:P31 wd:Q9143 # instances of programming language
-	; rdfs:label ?item_label FILTER (LANG(?item_label) = "en"). 
-	?item wdt:P178 ?developer. # developer
-	?developer rdfs:label ?developer_label
-	FILTER (LANG(?developer_label) = "en"). 
-	?developer wdt:P69 ?educational_institution. # educated at
-	?educational_institution rdfs:label ?educational_institution_label
-	FILTER (LANG(?educational_institution_label) = "en").
-	?educational_institution wdt:P625 ?coord. # coordinate location 
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" } 	
+	?lang wdt:P31 wd:Q9143. # instances of programming language
+	?lang wdt:P178 ?developer. # developer
+	?developer wdt:P69 ?educationalInstitution. # educated at
+	?educationalInstitution wdt:P625 ?coord. # coordinate location
+	SERVICE wikibase:label {bd:serviceParam wikibase:language "en"} 	
 }
-GROUP BY ?educational_institution_label
+GROUP BY ?educationalInstitutionLabel
 ORDER BY DESC(?count)
 \end{lstlisting}%
 
-\begin{marginfigure}[-7cm]
+\begin{marginfigure}[-3cm]
 	\includegraphics[width=\linewidth]{./chapter/programming_language/Universities_2020.png}
 	\caption{Bubble chart of the most favorable universities among future developers of programming languages (2020).}
 	\label{fig:universities_2020}
@@ -397,15 +380,13 @@ ORDER BY DESC(?count)
 You can see in the figure~\ref{fig:universities_2020} that the first places were: Berkeley (19), Massachusetts Institute of Technology (17), \href{https://en.wikipedia.org/wiki/Princeton_University}{Princeton University} (9) and \href{https://en.wikipedia.org/wiki/Stanford_University}{Stanford University} (12). MSU was at the end of the list, \href{https://en.wikipedia.org/wiki/Tony_Hoare}{Tony Hoare}, who developed \href{https://en.wikipedia.org/wiki/ALGOL}{ALGOL60}, and \href{https://en.wikipedia.org/wiki/Valentin_Turchin}{Valentin Turchin}, who developed Refal, studied there. Moscow State University was included in this list, which includes 142 universities of the world.
 
 \section{Professions of the creators of programming languages}
+Let's construct a bubble diagram showing which professions prevail among people who develop programming languages.
 
-\begin{marginfigure}[-5cm]
+\begin{marginfigure}[3cm]
 	\includegraphics[width=\linewidth]{./chapter/programming_language/Professions_2017.png}
 	\caption{Which professions prevail among people developing programming languages (2017).}
 	\label{fig:Professions_2017}
 \end{marginfigure}
-
-Let's construct a bubble diagram showing which professions prevail among people who develop programming languages.
-
 \index{Chart!BubbleChart!Bubble diagram showing which professions prevail among people who develop programming languages}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={Bubble diagram showing which professions prevail among people who develop programming languages.\\\hspace{\textwidth}
@@ -417,24 +398,17 @@ Let's construct a bubble diagram showing which professions prevail among people 
                     texcl 
                     ]
 #defaultView:BubbleChart
-SELECT ?occupation_label (count(*) as ?occupation)
+SELECT ?occupationLabel (count(*) as ?occupation)
 WHERE
 {
     ?item wdt:P31 wd:Q9143. # instances of programming language 
     ?item wdt:P178 ?developer. # developer
     ?developer wdt:P106 ?occupation. # occupation
-    ?occupation rdfs:label ?occupation_label. 
-    FILTER (LANG(?occupation_label) = "en"). 
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
-GROUP BY ?occupation_label 
+GROUP BY ?occupationLabel 
 ORDER BY DESC(?count)
 \end{lstlisting}%
-
-\begin{marginfigure}[-10pt]
-	\includegraphics[width=\linewidth]{./chapter/programming_language/Professions_2020.png}
-	\caption{Which professions prevail among people developing programming languages (2020).}
-	\label{fig:Professions_2020}
-\end{marginfigure}
 
 The most common professions (fig.~\ref{fig:Professions_2017}) were: a specialist in computer science, an engineer, a teacher. It is interesting to note that there are such professions as: jazz musician, politician (Herbert A. Simon). In 2020 (fig.~\ref{fig:Professions_2020}), among the developers of programming languages, there were the most specialists in the field of computer science (172 people), as well as 96 engineers, 57 teachers, 56 programmers and 43 mathematicians.
 
@@ -461,6 +435,11 @@ WHERE
 
 \section{Fullness of Wikidata}
 
+\begin{marginfigure}[5pt]
+	\includegraphics[width=\linewidth]{./chapter/programming_language/Professions_2020.png}
+	\caption{Which professions prevail among people developing programming languages (2020).}
+	\label{fig:Professions_2020}
+\end{marginfigure}
 According to the Bourabai Research University \cite{oo_langs_bourabai}, there are at least 26 programming languages that support an object-oriented paradigm. In the articles devoted to object-oriented programming, another 4 \cite{oo_langs_science_wikia} and 3 \cite{oo_langs_garshin} programming languages are added to this list. The SPARQL-query (\href{https://w.wiki/n9Y}{w.wiki/n9Y}) returned 116 results. It is difficult to judge the completeness of the data in the three sources cited above, since there are a large number of little-known, obsolete and narrowly focused languages that are not covered in authoritative sources. From this it can be concluded that Wikidata provides a fairly complete list of object-oriented programming languages.
 
 \section{Filling objects}
@@ -471,19 +450,18 @@ Let's list all people who are involved in the development of programming languag
                     caption={List of involved in the development of programming languages with filled with the 'label' field in English.\\\hspace{\textwidth}
 			The result contains \num{133} languages in 2017, 
                         \num{223} languages in 2020. \\\hspace{\textwidth}
-                        SPARQL query: \href{https://w.wiki/kDg}{w.wiki/kDg}
+                        SPARQL query: \href{https://w.wiki/vEV}{w.wiki/vEV}
                         },
                     label=lst:prog_langs_filling_1,
                     texcl 
                     ]
-SELECT ?item_label ?item ?developer_label ?developer
+SELECT ?langLabel ?lang ?developerLabel ?developer
 WHERE
 {
-    ?item wdt:P31 wd:Q9143 # instances of programming language
-    ; rdfs:label ?item_label FILTER (LANG(?item_label) = "en"). 
-    ?item wdt:P178 ?developer. # developer 
-    ?developer wdt:P31 wd:Q5.  # instances of human
-    ?developer rdfs:label ?developer_label FILTER (LANG(?developer_label) = "en").  
+ ?lang wdt:P31 wd:Q9143. # instances of programming language
+ ?lang wdt:P178 ?developer. # developer 
+ ?developer wdt:P31 wd:Q5. # instances of human
+ SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}%
 
@@ -493,19 +471,18 @@ We will derive a similar list, but with a filled-in 'label' field in Russian. Th
                     caption={List of involved in the development of programming languages with filled with the 'label' field in Russian.\\\hspace{\textwidth}
 			The result contains \num{133} languages in 2017, 
                         \num{183} languages in 2020. \\\hspace{\textwidth}
-                        SPARQL query: \href{https://w.wiki/kDj}{w.wiki/kDj}
+                        SPARQL query: \href{https://w.wiki/vEX}{w.wiki/vEX}
                         },
                     label=lst:prog_langs_filling_2,
                     texcl 
                     ]
-SELECT ?item_label ?item ?developer_label ?developer
+SELECT ?langLabel ?lang ?developerLabel ?developer
 WHERE
 {
-    ?item wdt:P31 wd:Q9143 # instances of programming language
-    ; rdfs:label ?item_label FILTER (LANG(?item_label) = "en"). 
-    ?item wdt:P178 ?developer. # developer 
-    ?developer wdt:P31 wd:Q5.  # instances of human
-    ?developer rdfs:label ?developer_label FILTER (LANG(?developer_label) = "en").  
+ ?lang wdt:P31 wd:Q9143. # instances of programming language
+ ?lang wdt:P178 ?developer. # developer 
+ ?developer wdt:P31 wd:Q5. # instances of human
+ SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
 }
 \end{lstlisting}%
 

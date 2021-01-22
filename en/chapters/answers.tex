@@ -457,25 +457,21 @@ Correlate a programming language and its developer.
 	\begin{tabular}{ll}
 		Developer & Language\\
 		\hline
-		J. Ichbiah & \href{https://www.wikidata.org/wiki/Q154755}{Ada}\\
-		C. Moore & \href{https://www.wikidata.org/wiki/Q275472}{Forth}\\
-		J. Armstrong & \href{https://www.wikidata.org/wiki/Q334879}{Erlang}\\
+		\href{https://en.wikipedia.org/wiki/Jean_Ichbiah}{J.Ichbiah} & \href{https://www.wikidata.org/wiki/Q154755}{Ada}\\
+		\href{https://en.wikipedia.org/wiki/Charles_H._Moore}{C.Moore} & \href{https://www.wikidata.org/wiki/Q275472}{Forth}\\
+		\href{https://en.wikipedia.org/wiki/Joe_Armstrong_(programmer)}{J.Armstrong} & \href{https://www.wikidata.org/wiki/Q334879}{Erlang}\\
 	\end{tabular}
 \end{exercise}
     The Ada programming language was developed by Jean Ichbiah, Forth was developed by Charles H. Moore, and the creator of Erlang is believed to be Joe Armstrong. The answer to the question can also be obtained by running the following SPARQL query (listing \ref{lst:prog_lang_answer_1}). 
 	\begin{lstlisting}[language=SPARQL, caption={{Programming languages developers}\protect\footnotemark}, label=lst:prog_lang_answer_1]
-		SELECT ?item_label ?developer_label
-		WHERE
-		{
-		 ?item wdt:P31 wd:Q9143
-		 ; rdfs:label ?item_label. 
-		 ?item wdt:P178 ?developer.
-		 ?developer rdfs:label ?developer_label.
-		 
-		 FILTER (LANG(?item_label) = "en"). 
-		 FILTER (LANG(?developer_label) = "en"). 
-		}
-		ORDER BY DESC (?item_label)
+SELECT ?langLabel ?developerLabel
+WHERE
+{
+	?lang wdt:P31 wd:Q9143.
+	?lang wdt:P178 ?developer.
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+ORDER BY DESC (?langLabel)
 	\end{lstlisting}
 SPARQL query: \href{https://w.wiki/kfZ}{https://w.wiki/kfZ}
 
@@ -491,15 +487,13 @@ Which image is the programming language logo \href{https://www.wikidata.org/wiki
 \end{exercise}
     The third picture is the logo of the LOLCODE programming language. The answer to the question can also be obtained by running the following SPARQL query (listing \ref{lst:prog_lang_answer_1}). 
 	\begin{lstlisting}[language=SPARQL, caption={{Programmers languages logos}\protect\footnotemark}, label=lst:prog_lang_answer_1]
-		#defaultView:ImageGrid
-		SELECT ?item_label ?image
-		WHERE
-		{
-		 ?item wdt:P31 wd:Q9143 # instances of programming language
-		 ; rdfs:label ?item_label. 
-		 ?item wdt:P154 ?image. # image
-		 	
-		 	FILTER (lang(?item_label) = "en")
+#defaultView:ImageGrid
+SELECT ?langLlabel ?image
+WHERE
+{
+	?lang wdt:P31 wd:Q9143. # instances of programming language
+	?lang wdt:P154 ?image. # image
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
 	\end{lstlisting}
 SPARQL query: \href{https://w.wiki/kfd}{https://w.wiki/kfd}
