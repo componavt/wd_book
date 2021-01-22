@@ -1,21 +1,29 @@
 \setchapterimage[6cm]{chapter/aircraft/aircraft_title_photo2.jpg}
 \setchapterpreamble[u]{\margintoc}
-\chapter{Aircraft from small to large\protect\footnotemark}
+\chapter{Aircraft and their manufacturers\protect\footnotemark}
 \labch{aircraft-chapter_en}
 
 \footnotetext{\href{https://en.wikipedia.org/wiki/NASA_X-43}{NASA X-43} it is the fastest aircraft in the history of aviation.
 Author: \href{https://commons.wikimedia.org/wiki/File:X43a2_nasa_scramjet.jpg}{NASA, WikiCommons / 2008 / Public Domain}. }
 
 The chapter explores the various properties of aircraft based on the Wikidata database.
-During the study, using SPARQL queries calculated on objects of the ``Aircraft" type, information was obtained on all aircraft and their number, 
-and a diagram was also obtained that reflects the ratio of the total number of aircraft manufacturers by country.
-
+During the study, using SPARQL queries calculated on objects of the ``Aircraft" type, a list of aircraft and their manufacturers was obtained, the number 
+produced aircraft for different models. For this number of aircraft, the \Wikiref{Pareto principle} has been verified by models.
+A diagram is also obtained showing the ratio of the total number of aircraft manufacturers by country.
 The chapter concludes with an estimate of the completeness of the data presented in Wikipedia and Wikidata. 
-Wikidata contains only 595 records of aircraft manufacturers out of \num{1700}.
+According to it, only 595 records of aircraft manufacturers from \num{1700} for 2020 are presented in Wikidata.
+Assuming a fixed number of new aircraft manufacturers emerge each year and the number of Wikidata entries entered annually, 
+we can assume that in about 75 years (that is, in 2095) Wikidata will contain records of all aircraft manufacturers.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{List of aircrafts}
+
+Aircraft~--- an aircraft supported in the atmosphere by interaction with air, different from interaction with air reflected from the 
+surface of the earth or water.
+Aircraft include the following types of aircraft: gyroplane, balloon, helicopter, rotorcraft, airship, flywheel, glider and airplane.
+Aircraft do not include spaceships, rockets, ekranoplanes (but not ekranoplanes) and hovercraft.
 
 Let's build a list of all instances of the object ``Aircraft" \href{https://www.wikidata.org/wiki/Q11436}{Q11436}.
 
@@ -50,24 +58,24 @@ For 2020, uninformative aircraft are: \href{https://www.wikidata.org/wiki/Q82060
 
 \section{Aircraft manufacturers}
 
-Let's make a list of aircraft manufacturers.
+Let's make a list of aircraft manufacturers by completing the request~\ref{lst:aircraft_listing_2}.
 
-\index{SPARQL!COUNT / Aircraft manufacturers}
+\index{SPARQL!COUNT!Aircraft manufacturers}
 \begin{lstlisting}[ language=SPARQL, breaklines=true, 
                     caption={Aircraft manufacturers\\\hspace{\textwidth}
                         The result contains \num{300} manufacturers in 2017, 
                         \num{597} manufacturers in 2020.\\\hspace{\textwidth}
-                        SPARQL query: \href{https://w.wiki/rf3}{w.wiki/rf3}
+                        SPARQL query: \href{https://w.wiki/vNn}{w.wiki/vNn}
                         },
                     label=lst:aircraft_listing_2,
                     texcl 
                     ]
 # Count aircraft having property manufacture, group by manufacture
-SELECT ?manufactureLabel (COUNT(?plane) AS ?count) 
+SELECT ?manufacture ?manufactureLabel (COUNT(?plane) AS ?count) 
 WHERE {
   ?plane wdt:P31 wd:Q11436. # instance of aircraft
   ?plane wdt:P176 ?manufacture. # show manufacture
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en".}
 }
 GROUP BY ?manufacture ?manufactureLabel
 \end{lstlisting}
@@ -78,12 +86,12 @@ The result of the query~\ref{lst:aircraft_listing_2} is a list of all aircraft m
 
 \label{question:aircraft_manufacturers_en}
 \marginnote{
-Which Russian aircraft manufacturers have websites?
+Which of the Russian aircraft manufacturers below have websites?
 \begin{itemize}
-\item MiG
-\item Saratov Aviation Plant
-\item Tupolev
-\item Sukhoi
+\item \Wikiref{Russian Aircraft Corporation MiG}
+\item \Wikiref{Saratov Aviation Plant}
+\item \Wikiref{Tupolev}
+\item \Wikiref{Sukhoi}
 \end{itemize}
 The answer is on page~\pageref{answer:aircraft_manufacturers_en}.
 }
@@ -91,45 +99,51 @@ The answer is on page~\pageref{answer:aircraft_manufacturers_en}.
 
 \section{Number of aircraft produced}
 
-\index{Aircraft!Aviation industry / definition}
+\index{Aircraft!Aviation industry!definition}
 The aviation industry is one of the largest mechanical engineering industries in the world. Its tasks include both the development 
 and production of various aerial vehicles. In order to assess which aircraft models are the most widespread, we will build a diagram 
-of the produced aircraft of various models.
+of the produced aircraft of various models, , shown in Fig.~\ref{fig:Number_of_aircraft_produced_en_2020}.
+To get the number of aircraft produced, query~\ref{lst:aircraft_listing_3}.
+
 
 \begin{lstlisting}[ language=SPARQL, breaklines=true, 
-                    caption={List of aircraft and their number produced\\\hspace{\textwidth}
-                        The result contains \num{177} records in 2020. 
-                        SPARQL query: \href{https://w.wiki/rf6}{w.wiki/rf6}
+                    caption={Received \num{288} models, for which the number\\\hspace{\textwidth}
+                        of aircraft produced, 2020 is known. 
+                        SPARQL query: \href{https://w.wiki/v4J}{w.wiki/v4J}
                         },
                     label=lst:aircraft_listing_3,
                     texcl 
                     ]
-SELECT ?planeLabel ?count WHERE {
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+# List of aircraft models, sorted by number of aircraft built
+SELECT ?plane ?planeLabel ?planes_produced WHERE {
   ?plane wdt:P31 wd:Q11436. # instance of aircraft
-  ?plane wdt:P1092 ?count. # total aircraft manufactured
+  ?plane wdt:P1092 ?planes_produced.  # total aircraft manufactured
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "ru,en".}
 }
+ORDER BY DESC(?planes_produced)
 \end{lstlisting}
 
-Some aircraft models were produced in small numbers, so they can be excluded to improve the readability of the diagram. 
-To get a new list, let's add a filter to the request.
+Some aircraft models were produced in small numbers, so they can be excluded to improve the readability of the diagram~\ref{fig:Number_of_aircraft_produced_en_2020}. 
+To get a new list, let's add a filter to the request~\ref{lst:aircraft_listing_4}.
 
-\index{SPARQL!FILTER / List of aircraft manufactured over 10 pieces}
+\index{SPARQL!FILTER!List of aircraft manufactured over 10 pieces}
 \begin{lstlisting}[ language=SPARQL, breaklines=true, 
-                    caption={List of aircraft manufactured over 10 pieces\\\hspace{\textwidth}
-                        The result contains \num{86} records in 2020.
-                        SPARQL query: \href{https://w.wiki/rf7}{w.wiki/rf7}
+                    caption={A list of \num{124} models, filtered by the\\\hspace{\textwidth}
+                        number of aircraft produced, has been received.
+                        SPARQL query: \href{https://w.wiki/v4N}{w.wiki/v4N}
                         },
                     label=lst:aircraft_listing_4,
                     texcl 
                     ]
-SELECT ?planeLabel ?count WHERE {
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+# List of aircraft models, sorted by number of aircraft built
+#defaultView:BarChart
+SELECT ?plane ?planeLabel ?planes_produced WHERE {
   ?plane wdt:P31 wd:Q11436. # instance of aircraft
-  ?plane wdt:P1092 ?count. # total aircraft manufactured
-  
-  FILTER (?count > 10)
+  ?plane wdt:P1092 ?planes_produced.  # total aircraft manufactured
+  FILTER (?planes_produced > 10)
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "ru,en".}
 }
+ORDER BY (?planes_produced)
 \end{lstlisting}
 
 The figure in Fig.~\ref{fig:Number_of_aircraft_produced_en_2020} shows that the following aircraft models were produced the most in 
@@ -143,11 +157,11 @@ The figure in Fig.~\ref{fig:Number_of_aircraft_produced_en_2020} shows that the 
     \setlength{\fboxrule}{1pt}%
     \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/aircraft/Number_of_aircraft_produced_en_2020.jpg}}%
 
-	\caption{Number of aircraft produced by model, 2020.}%
+	\caption[Number of aircraft produced by model, 2020.]{The number of aircraft produced by model, 2020. The diagram is built in Microsoft Excel based on the data obtained using the query ~\protect\ref{lst:aircraft_listing_4}.}%
     \label{fig:Number_of_aircraft_produced_en_2020}%
 \end{figure*}
 
-Now let's try to answer the question: ``Does \href{https://en.wikipedia.org/wiki/Pareto_principle}{Pareto principle} hold with respect to the 
+Now let's try to answer the question: ``Does \Wikiref{Pareto principle} hold with respect to the 
 number of aircraft models"?
 
 In order to build a graph, you must perform the following steps:
@@ -168,31 +182,36 @@ In order to build a graph, you must perform the following steps:
     SELECT ?count WHERE {
       SERVICE wikibase:label {bd:serviceParam wikibase:language "en".}
       ?plane wdt:P31 wd:Q11436; # instance of aircraft
-        wdt:P1092 ?count. # total aircraft manufactured
+			 wdt:P1092 ?count. # total aircraft manufactured
     }
   }
   \end{lstlisting}
-
-  \item The X-axis represents the number of aircraft models under consideration (that is, 1 ~--- is the number of manufactured aircraft of the 1st 
-  model, 2 ~--- is the sum of aircraft of the 1st and 2nd models, etc.). On the Y-axis, we will plot the percentage of the number of aircraft models 
-  produced by all airlines to the total number of aircraft manufactured for all time. Also, along the X axis, we postpone the second scale from 
-  0 to 100 \% to make it easier to determine the parameters for the Pareto law.
+  
+  \label{question:aircraft_question_2}
+  \marginnote{
+	Find the correspondence between the date of foundation and the company in the following table:
+	\\
+	\begin{tabular}{ l | l }
+	Company & Foundation date \\ \hline
+	\Wikiref{MiG} & January 1, 1939 \\
+	\Wikiref{Vympel NPO} & November 18, 1949 \\
+	\Wikiref{Tupolev} & December 18, 1939 \\
+	\Wikiref{Sukhoi} & January 1, 1922 \\
+	\end{tabular}
+	\\
+	The answer is on page~\pageref{answer:aircraft_answer_2}.
+  }
+  
+  \item The X axis represents the number of aircraft models under consideration (that is, for x = 1, we consider the number of aircraft of the first model 
+  produced, for x = 2~--- the number of aircraft of the first and second model, and so on). 
+  On the Y axis we will plot F(n) = $\sum\limits_{i=1}^n f(i)$, where f(i)~--- is the number of aircraft of model i released. 
+  In this case, the condition f(i) > f(j) is satisfied, for i < j, where i, j~--- is the aircraft model number 
+  (that is, the number of released aircraft models is pre-ordered in descending order). Also, on the X-axis, we postpone the second scale from 0 to 1, 
+  to make it easier to determine the parameters for checking the implementation of \Wikiref{Pareto principle}.
+  
 \end{enumerate}
 
-\label{question:aircraft_question_2}
-\marginnote{
-Find the correspondence between the date of foundation and the company.
-\\
-\begin{tabular}{ l | l }
-Company & Foundation date \\ \hline
-MiG & 01.01.1939 \\
-Vympel & 18.11.1949 \\
-Tupolev & 18.12.1939 \\
-Sukhoi & 01.01.1922 \\
-\end{tabular}
-\\
-The answer is on page~\pageref{answer:aircraft_answer_2}.
-}
+
 
 \begin{figure*}[h]
 
@@ -216,10 +235,10 @@ Find the correspondence between the location of the company's headquarters and t
 \\
 \begin{tabular}{ l | l }
 Company & Headquarters \\ \hline
-Kazan Helicopters Plant & Kazan \\
-Saratov Aviation Plant & Saratov \\
-Ulan-Ude Aviation Plant & Ulan-Ude \\
-Sukhoi & Moscow \\
+\Wikiref{Kazan Helicopters} & Kazan \\
+\Wikiref{Saratov Aviation Plant} & Saratov \\
+\Wikiref{Ulan-Ude Aviation Plant} & Ulan-Ude \\
+\Wikiref{Sukhoi} & Moscow \\
 \end{tabular}
 \\
 The answer is on page~\pageref{answer:aircraft_company_headquarters_en}.
@@ -227,75 +246,76 @@ The answer is on page~\pageref{answer:aircraft_company_headquarters_en}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Countries of origin of aircraft manufacturers}
+\section{In which countries are aircraft produced}
 
-Let's build a list of the number of aircraft manufacturers by country. To execute the query~\ref{lst:aircraft_listing_6}, we use the grouping 
-by country (GROUP BY) and use the ``Count" function to count the number of productions for each country.
+Let's build a list of the number of aircraft manufacturers by country. To execute the query~\ref{lst:aircraft_listing_7}, we use the grouping 
+by country (GROUP BY) and use the ``Count" function for each country to calculate the total number of aircraft manufacturing plants.
 
-\index{SPARQL!COUNT / List of the ratio of the number of manufacturers aircraft by country}
-\begin{lstlisting}[ language=SPARQL, breaklines=true, 
-                    caption={List of the ratio of the \\\hspace{\textwidth} 
-						number of manufacturers aircraft by country\\\hspace{\textwidth}
-                        The result contains \num{39} records in 2017, 
-                        \num{46} records in 2020.\\\hspace{\textwidth}
-                        SPARQL query: \href{https://w.wiki/rfD}{w.wiki/rfD}
-                        },
-                    label=lst:aircraft_listing_6,
-                    texcl 
-                    ]
-# Count manufacture having property country group by country
-SELECT ?countryLabel (count(?manufacture) as ?count)
-WHERE
-{
-    ?manufacture wdt:P31 wd:Q936518. # instance of aerospace manufacture
-  	?manufacture wdt:P17 ?country. # belong to country
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
-}
-GROUP BY ?country ?countryLabel
-\end{lstlisting}
+%\index{SPARQL!COUNT!List of the ratio of the number of manufacturers aircraft by country}
+%\begin{lstlisting}[ language=SPARQL, breaklines=true, 
+%                    caption={List of the ratio of the \\\hspace{\textwidth} 
+%						number of manufacturers aircraft by country\\\hspace{\textwidth}
+%                        The result contains \num{39} records in 2017, 
+%                        \num{46} records in 2020.\\\hspace{\textwidth}
+%                        SPARQL query: \href{https://w.wiki/rfD}{w.wiki/rfD}
+%                        },
+%                    label=lst:aircraft_listing_6,
+%                    texcl 
+%                    ]
+%# Count manufacture having property country group by country
+%SELECT ?countryLabel (count(?manufacture) as ?count)
+%WHERE
+%{
+%    ?manufacture wdt:P31 wd:Q936518. # instance of aerospace manufacture
+%  	?manufacture wdt:P17 ?country. # belong to country
+%    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+%}
+%GROUP BY ?country ?countryLabel
+%\end{lstlisting}
 
-Having received a list of countries by the number of aircraft manufacturing plants, we can construct a bubble chart 
-``The ratio of the number of aircraft manufacturers by country"~\ref{} for clarity. To build it, we execute the request ~\ref{lst:aircraft_listing_7}.
+Having received a list of countries by the number of aircraft manufacturing plants, we can construct a bubble diagram 
+for clarity of the ``Relationship between the number of aircraft manufacturers by country"~\ref{fig:Manufacture-with-country_2020_en}. 
+To build it, we execute the request ~\ref{lst:aircraft_listing_7}.
 
-\index{SPARQL!COUNT / Bubble chart ``The ratio of the number of aircraft manufacturers by country"}
-\index{Chart!BubbleChart / Bubble chart ``The ratio of the number of aircraft manufacturers by country"}
+\index{SPARQL!COUNT!Bubble chart ``Relationship between the number of aircraft manufacturers by country"}
+\index{Chart!BubbleChart!Bubble chart ``Relationship between the number of aircraft manufacturers by country"}
 \begin{lstlisting}[ language=SPARQL, breaklines=true, 
                     caption={Bubble chart\\\hspace{\textwidth}
-                        SPARQL query: \href{https://w.wiki/rfF}{w.wiki/rfF}
+                        SPARQL query: \href{https://w.wiki/vPE}{w.wiki/vPE}
                         },
                     label=lst:aircraft_listing_7,
                     texcl 
                     ]
 #defaultView:BubbleChart
-SELECT ?countryLabel (count(?manufacture) as ?count)
+SELECT ?country ?countryLabel (count(?manufacture) as ?count)
 WHERE
 {
     ?manufacture wdt:P31 wd:Q936518. # instance of aerospace manufacture
   	?manufacture wdt:P17 ?country. # belong to country
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+    SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 GROUP BY ?country ?countryLabel
 \end{lstlisting}
 
-As a result of the query ~\ref{lst:aircraft_listing_7}, a bubble chart will be generated, in which the circles represent countries and their 
-sizes correspond to the number of aircraft manufacturers in the specified country. Such a diagram helps to more clearly see the difference 
-in the number of aircraft production between countries.
+The query~\ref{lst:aircraft_listing_7} will generate a bubble chart in which the circles represent countries and their sizes correspond to the number 
+of aircraft manufacturers in the specified country. Such a diagram helps to more clearly see the difference in the number of aircraft factories 
+between countries.
 
 \begin{figure}[h!]
 \centering
-	\includegraphics[width=0.7\textwidth]{./chapter/aircraft/Manufacture-with-country_en_2017.png}
+	\includegraphics[width=0.95\textwidth]{./chapter/aircraft/Manufacture-with-country_en_2017.png}
 	\caption{The ratio of the number of aircraft manufacturers by country, 2017.}
 	\label{fig:Manufacture-with-country_en_2017}
 \end{figure}
 
-As you can see from the response to the request~\ref{lst:aircraft_listing_7} on (Fig.~\ref{fig:Manufacture-with-country_en_2017}) not all 
-aircraft manufacturers are indicated, as evidenced by the data taken from the site \href{https://www.aviationfanatic.com/}{aviationfanatic.com}. 
-More information on the lack of data in Wikidata is indicated in the next section of this chapter. Most manufacturers are indicated in the 
-USA (115), Great Britain (30), Germany (17), Russia (17) as of May 2017.
+As can be seen from the response to request~\ref{lst:aircraft_listing_7} in Fig.~\ref{fig:Manufacture-with-country_en_2017}, not all existing 
+aircraft manufacturers are listed, as evidenced by the data taken from the \href{https://www.aviationfanatic.com/}{aviationfanatic.com}. 
+More information about the lack of data in Wikidata is given in the next section of this chapter. 
+%Most manufacturers are indicated in the USA (115), Great Britain (30), Germany (17), Russia (17) as of May 2017.
 
 \label{question:aircraft_question_4}
 \marginnote{
-What is the name of the aircraft, supported in flight by a huge cylinder of flammable, lethal gas, right above the heads of the passengers?
+What is the name of an aircraft held in the air by a huge tank of flammable, lethal gas, located directly above the heads of passengers?
 \\
 The answer is on page~\pageref{answer:aircraft_question_airship_en}.
 }
@@ -303,17 +323,17 @@ The answer is on page~\pageref{answer:aircraft_question_airship_en}.
 
 \begin{figure}[h!]
 \centering
-	\includegraphics[width=0.7\textwidth]{./chapter/aircraft/Manufacture-with-country_2020_en.png}
+	\includegraphics[width=0.95\textwidth]{./chapter/aircraft/Manufacture-with-country_2020_en.png}
 	\caption{The ratio of the number of aircraft manufacturers by country, 2020.}
 	\label{fig:Manufacture-with-country_2020_en}
 \end{figure}
 
 
-
 Comparing two bubble charts for 2017 (Fig.~\ref{fig:Manufacture-with-country_en_2017}) and 2020 (Fig.~\ref{fig:Manufacture-with-country_2020_en}), 
-we can conclude that the main aircraft manufacturers are: USA (135 manufacturers) , Great Britain (43), France (29), Germany (26), Russia (21). 
-The USA is still the leader, but France in 3 years managed to outstrip Germany, increasing the number of production facilities to 29 
-(Germany ~--- 26), thereby taking the 3rd place. But in general, the ratio of aircraft production between different countries remains the same.
+we can conclude that the main aircraft manufacturers in the world in 2017 and 2020 were: USA (115 plants in 2017 and 135 plants in 2020), 
+Great Britain (30 and 43 plants), Germany (17 and 26 plants) and Russia (17 and 21 plants). The USA is still the leader, but France in 3 years 
+managed to outstrip Germany, increasing the number of production facilities to 29 (Germany~--- 26), thus taking the third place. But in general, 
+the ratio of aircraft production between different countries remains the same.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -332,7 +352,7 @@ Which aircraft is shown in Fig. \ref{fig:airship_question_aircraft_en}?
 \setlength{\fboxrule}{1pt}%
 \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/aircraft/foto_of_airship.jpg}}%
 }
-  \caption{Aircraft}%
+  \caption{Unknown aircraft.}%
   \label{fig:airship_question_aircraft_en}%
 \end{marginfigure}
 
@@ -342,23 +362,18 @@ The answer is on page~\pageref{answer:aircraft_question_airship_2_en}.
 }
 
 
+Based on the above data, it is possible to predict when Wikidata will include all data from aviationfanatic.com. In three years, 
+the number of aircraft manufacturers increased by 239, representing an annual increase of about 80 aircraft manufacturers. 
+Also during this time, information on 295 aircraft manufacturers was entered into Wikidata, that is, about a hundred aircraft factories 
+are added annually. For 2020, there was no information on Wikidata about the \num{1344} aircraft manufacturers listed 
+on \href{https://www.aviationfanatic.com/}{aviationfanatic.com}. Assuming that a fixed number of new aircraft manufacturers are added 
+annually and the number of entries in Wikidata remains unchanged, we can assume that in about 75 years (i.e. 2095), Wikidata will contain 
+records of all aircraft manufacturers listed on the aviationfanatic website. com.
 
-According to the site \href{https://www.aviationfanatic.com/}{aviationfanatic.com} there are about \num{1700} aircraft manufacturers (2017) 
-and \num{1939} (2020), but SPARQL query ~\ref{lst:aircraft_listing_2} returned only 300 records in 2017, and in 2020 ~--- 595 records. 
-From this we can conclude that Wikidata is incomplete. Most likely, the manufacturers not listed made too few or none of the aircraft, 
-so due to a lack of information they were not included in Wikidata.
-
-Based on the data obtained, you can predict when the data in Wikidata will be complete. In three years, the number of aircraft manufacturers 
-increased by 239, representing an annual increase of about 80 aircraft manufacturers. Also during this time, information about 295 aircraft 
-manufacturers was entered into Wikidata, that is, about 98 new entries are added annually. Also for 2020, there are no records of \num{1344} 
-aircraft manufacturers in Wikidata. Assuming a fixed number of new aircraft manufacturers appear annually and the number of Wikidata entries 
-entered annually remains unchanged, we can assume that in about 75 years (i.e. 2095) Wikidata will contain records of all aircraft manufacturers.
-
-The category \href{https://cutt.ly/NhrKnWn}{``Russian Aircraft Companies"} indicates the presence in Russia of 58 aircraft companies in 2017 and 
-62 companies in 2020, but at the same time on the website \href{https://www.aviationfanatic.com/}{Aviationfanatic.com} there are 61 
-plants in 2017 and 71 in 2020. Among the aircraft building companies in Russia, there are such companies as: \href{https://en.wikipedia.org/wiki/Irkut_Corporation}{Irkut Corporation}, 
-\href{https://en.wikipedia.org/wiki/Russian_Aircraft_Corporation_MiG}{Russian Aircraft Corporation MiG}, 
-\href{https://en.wikipedia.org/wiki/Tupolev}{Tupolev}.
+The category \Wikiref{Category:Aircraft manufacturers of Russia} indicates the presence in Russia of 58 aircraft manufacturing companies 
+in 2017 and 62 plants, institutes and corporations related to aircraft manufacturing in 2020, but at the same time on the 
+website \href{https://www.aviationfanatic.com/}{Aviationfanatic.com} lists 61 plants in 2017 and 71 in 2020. 
+Among the aircraft building companies in Russia are such companies as: \Wikiref{Irkut Corporation}, \Wikiref{MiG}, \Wikiref{Tupolev}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -367,8 +382,8 @@ plants in 2017 and 71 in 2020. Among the aircraft building companies in Russia, 
 \begin{enumerate}
 \item Find the plane with the maximum flight radius.
 \item Mark on the political map of the world the location of the main offices of aircraft manufacturers.
-\item Find the manufacturer with the most aircraft manufactured using the aircraft manufacturer property \href{https://www.wikidata.org/wiki/Property:P176}{P176}.
+\item Find the manufacturer with the maximum number of aircraft manufactured using the \href{https://w.wiki/vF7}{\textit{manufacturer (P176)}} property for aircraft.
 \item When was the first aircraft built?
 \item Which firms were the first to produce 10, 100 and a thousand aircraft?
-\item Draw a chart of the number of aircraft produced by year.
+\item Draw a chart of the number of aircraft produced in the world and in Russia by year.
 \end{enumerate}
