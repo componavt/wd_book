@@ -105,7 +105,7 @@ ORDER BY ?min_year
 To remove from this list no longer existing countries, that is, instances of the \wdqName{historical country}{3024240} object, use the MIN US operator.
 
 Using the script (listing \ref{lst:list_of_country_instance_of_}), 211 non-historical countries with a known foundation date were obtained.
-
+\index{SPARQL!MINUS!List of countries sorted by inception date}
 \begin{lstlisting}[ language=SPARQL, 
 caption={List of countries sorted by inception date. The result contains \num{112} countries with completed date of foundation in 2017 and \num{211} in 2021.\\\hspace{\textwidth}
 SPARQL query: \href{https://w.wiki/vJt}{https://w.wiki/vJt}
@@ -133,7 +133,7 @@ For example, \wdqName{France}{142}~--- 463 year, \wdqName{Russia}{159}~--- 862, 
 The largest number of countries appeared in 1960 (16 countries), in 1991 (15 countries), in 1962 (6 countries) and in 1821 (6 countries).
 
 Let's display a list of countries with an empty ``inception of'' property (Listing \ref{lst:without_inception}).
-
+\index{SPARQL!MINUS!List of countries without a inception}
 \begin{lstlisting}[ language=SPARQL, 
 caption={List of `instances of` ``countries without a inception''. The result contains \num{100} countries without completed date of foundation in 2017 and \num{7} in 2020.\\\hspace{\textwidth}
 SPARQL query: \href{https://w.wiki/k6q}{https://w.wiki/k6q}},
@@ -175,8 +175,6 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 	\caption{Second country flag.}%
 	\label{fig:flag_mongolia}%
 \end{marginfigure}
-
-
 
 
 \subsection{Completeness of Wikidata}
@@ -302,7 +300,7 @@ WHERE
 \subsection{Countries with unfilled demonyms}
 
 Let's build a list of countries which do not have demonyms in English (Listing \ref{lst:without_demonym}).
-
+\index{SPARQL!MINUS!List of countries without demonyms in English}
 \begin{lstlisting}[ language=SPARQL, 
 caption={List of countries without demonyms in English. The result contains \num{5} countries without demonyms in 2017 and \num{107} in 2021.\\\hspace{\textwidth}
 SPARQL query: \href{https://w.wiki/myi}{https://w.wiki/myi}},
@@ -368,11 +366,11 @@ According to data for 2017, the United States of America has the largest number 
 
 Let's construct a bubble diagram of countries' government forms (Listing \ref{lst:form_of_government}), where the size of the bubble will correspond to the number of countries with one form of government or another.
 
-
+\index{SPARQL!FILTER!Forms of government ordered by number of countries}
 \index{Chart!BubbleChart!Basic forms of government}
 \begin{lstlisting}[ language=SPARQL, 
 caption={Basic form of government ranking. The result contains \num{30} basic forms of government in 2017 and \num{41} in 2020.\\\hspace{\textwidth}
-SPARQL query: \href{https://w.wiki/mrr}{https://w.wiki/mrr}},
+SPARQL query: \href{https://w.wiki/vLp}{https://w.wiki/vLp}},
 label=lst:form_of_government
 ]
 # Forms of government ordered by number of countries
@@ -380,13 +378,13 @@ label=lst:form_of_government
 SELECT ?bfog ?form (COUNT(*) AS ?countries)
 WHERE 
 {
-?country p:P31 [ps:P31 wd:Q6256].# instance of a country
-?country p:P122 [ps:P122 ?bfog].# # basic form of government
-OPTIONAL {
-?bfog rdfs:label ?form
-FILTER (LANG(?form) = "en")
-}
-SERVICE wikibase:label { bd:serviceParam wikibase:language "en"}
+	?country p:P31 [ps:P31 wd:Q6256].# instance of a country
+	?country p:P122 [ps:P122 ?bfog].# # basic form of government
+	OPTIONAL {
+	?bfog rdfs:label ?form
+		FILTER (LANG(?form) = "ru")
+	}
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en"}
 }
 GROUP BY ?bfog ?form
 ORDER BY DESC(?countries) ASC(?form)
@@ -519,7 +517,7 @@ WHERE
 
 The line in Listing \ref{lst:neighboring_countries_ru} with the comment ``is a country'' is needed to check that the object specified as ``having a common border'' with Russia is a country. This made it possible to exclude from the list the region of Georgia (Racha-lechkhumi and Kvemo-Svaneti), and for example, the island of Japan (Hokkaido), indicated in the list of border objects.
 
-As a result of the query execution (Listing \ref{lst:neighboring_countries_ru}), we get a map of neighboring countries of Russia ((Fig. \ref{fig: neighboring_countries_ru})), including 17 countries, namely: \wdqName{Japan}{17}, \wdqName{Norway}{20}, \wdqName{USA}{30}, \wdqName{Finland}{33}, \wdqName{Sweden}{34}, \wdqName{Poland}{36}, \wdqName{Lithuania}{37}, \wdqName{People's Republic of China}{148}, \wdqName{Belarus}{184}, \wdqName{Estonia}{191}, \wdqName{Latvia}{211}, \wdqName{Ukraine}{212}, \wdqName{Azerbaijan}{227}, \wdqName{Georgia}{230}, \wdqName{Kazakhstan}{232}, \wdqName{DPRK}{423} and \wdqName{Mongolia}{711}.
+As a result of the query execution (Listing \ref{lst:neighboring_countries_ru}), we get a map of neighboring countries of Russia (Fig. ~\ref{fig:neighboring_countries_ru}), including 17 countries, namely: \wdqName{Japan}{17}, \wdqName{Norway}{20}, \wdqName{USA}{30}, \wdqName{Finland}{33}, \wdqName{Sweden}{34}, \wdqName{Poland}{36}, \wdqName{Lithuania}{37}, \wdqName{People's Republic of China}{148}, \wdqName{Belarus}{184}, \wdqName{Estonia}{191}, \wdqName{Latvia}{211}, \wdqName{Ukraine}{212}, \wdqName{Azerbaijan}{227}, \wdqName{Georgia}{230}, \wdqName{Kazakhstan}{232}, \wdqName{DPRK}{423} and \wdqName{Mongolia}{711}.
 
 
 \begin{figure*}
