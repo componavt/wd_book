@@ -33,26 +33,27 @@ See question on page~\pageref{question:short-link-to-SPARQL}.
 
 
 
-\section{Aircraft from small to large}
+\section{Aircraft and their manufacturers}
 \labsec{answer-aircraft}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%answer_1%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{exercise}%
     \label{answer:aircraft_manufacturers_en}
-Which Russian aircraft manufacturers have websites?
+Which of the Russian aircraft manufacturers below have websites?
 \begin{itemize}
-\item MiG
-\item Saratov Aviation Plant
-\item Tupolev
-\item Sukhoi
+\item \Wikiref{Russian Aircraft Corporation MiG}
+\item \Wikiref{Saratov Aviation Plant}
+\item \Wikiref{Tupolev}
+\item \Wikiref{Sukhoi}
 \end{itemize}
 \end{exercise}
 
-The following Russian manufacturers have websites: Mig, Tupolev and Sukhoi. The answer to the question can also be obtained by running the following SPARQL query (listing~\ref{lst:aircraft_listing_Manufacturers_websites}). 
+The following Russian manufacturers have websites: \Wikiref{Russian Aircraft Corporation MiG}, \Wikiref{Tupolev} and \Wikiref{Sukhoi}. The answer to the question can also be obtained by running the following SPARQL query (listing~\ref{lst:aircraft_listing_Manufacturers_websites}). 
     
 \begin{lstlisting}[ language=SPARQL, breaklines=true, 
-                    caption={Manufacturers websites\\\hspace{\textwidth}
+                    caption={Russian aircraft factories websites\\\hspace{\textwidth}
+						Received 14 aircraft factories in Russia with websites for 2020.
                         SPARQL query: \href{https://w.wiki/rg8}{w.wiki/rg8}
                         },
                     label=lst:aircraft_listing_Manufacturers_websites,
@@ -74,21 +75,22 @@ Question from page~\pageref{question:aircraft_manufacturers_en}.
 
 \begin{exercise}%
     \label{answer:aircraft_answer_2}
-Find the correspondence between the date of foundation and the company.
+Find the correspondence between the date of foundation and the company in the following table:
 \\
 \begin{tabular}{ l | l }
 Company & Foundation date \\ \hline
-MiG & 01.01.1939 \\
-Vympel & 18.11.1949 \\
-Tupolev & 18.12.1939 \\
-Sukhoi & 01.01.1922 \\
+\Wikiref{MiG} & January 1, 1939 \\
+\Wikiref{Vympel NPO} & November 18, 1949 \\
+\Wikiref{Tupolev} & December 18, 1939 \\
+\Wikiref{Sukhoi} & January 1, 1922 \\
 \end{tabular}
 \end{exercise}
 
 The company ``Mig" was founded on December 18.1939, ``Pennant" - November 18.1949, ``Tupolev" - January 01.1922, ``Sukhoi" - January 01.1939 Reply the question can also be obtained by running the following SPARQL-request (listing \ref{lst:aircraft_company_foundation_date_lst_en}). 
        
 \begin{lstlisting}[ language=SPARQL, breaklines=true, 
-                    caption={Company foundation dates\\\hspace{\textwidth}
+                    caption={Dates of foundation of domestic aircraft factories\\\hspace{\textwidth}
+						Received 15 domestic aircraft factories with the date of foundation, 2021.
                         SPARQL query: \href{https://w.wiki/rg7}{w.wiki/rg7}
                         },
                     label=lst:aircraft_company_foundation_date_lst_en,
@@ -114,10 +116,10 @@ Find the correspondence between the location of the company's headquarters and t
 \\
 \begin{tabular}{ l | l }
 Company & Headquarters \\ \hline
-Kazan Helicopters Plant & Kazan \\
-Saratov Aviation Plant & Saratov \\
-Ulan-Ude Aviation Plant & Ulan-Ude \\
-Sukhoi & Moscow \\
+\Wikiref{Kazan Helicopters} & Kazan \\
+\Wikiref{Saratov Aviation Plant} & Saratov \\
+\Wikiref{Ulan-Ude Aviation Plant} & Ulan-Ude \\
+\Wikiref{Sukhoi} & Moscow \\
 \end{tabular}
 \end{exercise}
 
@@ -125,6 +127,7 @@ The headquarters of the company ``Kamov" is located in the city of Lyubertsy, ``
           
 \begin{lstlisting}[ language=SPARQL, breaklines=true, 
                     caption={Company headquarters\\\hspace{\textwidth}
+						Received 16 Russian aircraft factories with headquarters, 2021.
                         SPARQL query: \href{https://w.wiki/rg5}{w.wiki/rg5}
                         },
                     label=lst:aircraft_company_headquarters_lst_en,
@@ -146,7 +149,7 @@ Question from page~\pageref{question:aircraft_question_3}.
 
 \begin{exercise}%
     \label{answer:aircraft_question_airship_en}
-What is the name of the aircraft, supported in flight by a huge cylinder of flammable, lethal gas, right above the heads of the passengers?
+What is the name of an aircraft held in the air by a huge tank of flammable, lethal gas, located directly above the heads of passengers?
 \end{exercise}
 
 \begin{marginfigure}[0cm]
@@ -155,8 +158,8 @@ What is the name of the aircraft, supported in flight by a huge cylinder of flam
         \setlength{\fboxrule}{1pt}
         \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/aircraft/foto_of_airship.jpg}}
     }
-	\caption{Airship.}
-	\labfig{fig:airship_question_answers_aircraft_en}
+	\caption{Unknown airship.}
+	\labfig{fig:airship_question_answers_aircraft_en_2}
 \end{marginfigure}
 
 Airship. 
@@ -167,15 +170,16 @@ Question from page~\pageref{question:aircraft_question_4}.
 
 \begin{exercise}%
 \label{answer:aircraft_question_airship_2_en}
-Which aircraft is shown in Fig. \ref{fig:airship_question_answers_aircraft_en}?
+Which aircraft is shown in Fig. \ref{fig:airship_question_answers_aircraft_en_2}?
 
 \end{exercise}
 
-The aircraft shown in Fig. \ref{fig:airship_question_aircraft_en} is an airship. 
+The aircraft shown in Fig. \ref{fig:airship_question_aircraft_en_2} is an airship. 
 The answer to the question can also be obtained by running the following SPARQL-request (listing \ref{lst:aircraft_airship_photo_lst_en})
 
 \begin{lstlisting}[ language=SPARQL, breaklines=true, 
                     caption={Airship images\\\hspace{\textwidth}
+						Received 18 illustrated airships, 2021.
                         SPARQL query: \href{https://w.wiki/rg4}{w.wiki/rg4}
                         },
                     label=lst:aircraft_airship_photo_lst_en,
