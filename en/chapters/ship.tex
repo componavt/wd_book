@@ -1,12 +1,9 @@
 \setchapterimage[6cm]{chapter/ship/ship_title_image.jpeg}
 \setchapterpreamble[u]{\margintoc}
-
-\setchapterpreamble[u]{\margintoc}
 \chapter{Warships and their operators\protect\footnotemark}
+\labch{ship}
 
-\labch{ships}
-
-\footnotetext{Imperial Japanese Navy battleship Fusō prepares for a review at Yokohama, Japan. \href{https://commons.m.wikimedia.org/wiki/File:Fuso_Yokohama.jpg}{https://commons.m.wikimedia.org/wiki/File:Fuso_Yokohama.jpg}. Kure Maritime Museum, (edited by Kazushige Todaka), Japanese Naval Warship Photo Album: Battleships and Battle Cruisers, p. 129.}
+\footnotetext{Imperial Japanese Navy battleship Fusō prepares for a review at Yokohama, Japan. \href{https://commons.wikimedia.org/wiki/File:Fuso_Yokohama.jpg}{WikiCommons / 1928 / Public domain}. Kure Maritime Museum, (edited by Kazushige Todaka), Japanese Naval Warship Photo Album: Battleships and Battle Cruisers, p. 129.}
 
 \section{Abstract}
 
@@ -29,18 +26,18 @@ This chapter focuses on ships in Russia and in the world. Ships have different p
 
 \href{https://en.wikipedia.org/wiki/Ship}{A ship} is a large marine vessel.
 
-Wikidata object considered in the сhapter: \href{https://www.wikidata.org/wiki/Q11446}{ship (Q11446)}.
-Wikidata properties considered in the сhapter: 
+Wikidata object considered in the chapter: \href{https://www.wikidata.org/wiki/Q11446}{ship (Q11446)}.
+Wikidata properties considered in the chapter: 
 \begin{itemize}
   \item \href{https://www.wikidata.org/wiki/Property:P31}{instance of (P31)}.
-  \item \href{https://www.wikidata.org/wiki/Property:P137}{operator  (P137)}.
-  \item \href{https://www.wikidata.org/wiki/Property:P17}{country  (P17)}.
-  \item \href{https://www.wikidata.org/wiki/Property:P607}{conflict  (P607)}
+  \item \href{https://www.wikidata.org/wiki/Property:P137}{operator (P137)}.
+  \item \href{https://www.wikidata.org/wiki/Property:P17}{country (P17)}.
+  \item \href{https://www.wikidata.org/wiki/Property:P607}{conflict (P607)}
 \end{itemize}
 
 Let's build a list of all ships with the script in listing \ref{lst:list_of_ship_en}
 
-\begin{lstlisting}[ language=SPARQL, caption={{List of ship in English. SPARQL-query:  \href{https://w.wiki/nDi}{https://w.wiki/nDi}, \num{19820} ships (2017), \num{50681} ships (2020).}\protect\footnotemark}, label=lst:list_of_ship_en, texcl]
+\begin{lstlisting}[ language=SPARQL, caption={{List of ship in English. SPARQL-query: \href{https://w.wiki/nDi}{https://w.wiki/nDi}, \num{19820} ships (2017), \num{50681} ships (2020).}\protect\footnotemark}, label=lst:list_of_ship_en, texcl]
 SELECT ?ship ?shipLabel
 WHERE
 {
@@ -160,7 +157,7 @@ WHERE
 
 
 
-\begin{figure*}[h]
+\begin{figure*}[ht]
   {
   \setlength{\fboxsep}{0pt}%
   \setlength{\fboxrule}{1pt}%
@@ -169,3 +166,4 @@ WHERE
     \caption{List of ships with countries and war conflicts in English (2017)}%
     \label{fig:ships_by_country_and_conflict}%
 \end{figure*}
+\contentsline
