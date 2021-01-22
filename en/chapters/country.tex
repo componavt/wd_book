@@ -19,12 +19,13 @@ caption={List of countries in English and Russian. The result contains \num{205}
 SPARQL query: \href{https://w.wiki/k6L}{https://w.wiki/k6L}
 },
 label=lst:country]
+#List of countries in English and Russian
 SELECT ?country ?label_en ?label_ru
 WHERE
 {
-	?country wdt:P31 wd:Q6256. # country
-	?country rdfs:label ?label_en filter (lang(?label_en) = "en").
-	?country rdfs:label ?label_ru filter (lang(?label_ru) = "ru").
+?country wdt:P31 wd:Q6256. # instance country
+?country rdfs:label ?label_en filter (lang(?label_en) = "en").
+?country rdfs:label ?label_ru filter (lang(?label_ru) = "ru").
 }
 \end{lstlisting}
 
@@ -42,7 +43,7 @@ WHERE
 	\label{fig:ProWD_country}%
 \end{marginfigure}
 
-According to the degree of occupancy of properties on Wikidann, one can distinguish between "full" and "empty" countries.
+According to the degree of occupancy of properties on Wikidann, one can distinguish between ``full'' and ``empty'' countries.
 
 Examples of the most complete and developed countries on Wikidata according to ProWD are: \wdqName{Israel}{801}, \wdqName{France}{142}, \wdqName{United States of America}{30}. According to ProWD, an almost empty and uninformative country is: \wdqName{Republic of Central Lithuania}{523380}. According to ProWD, the leaders among the countries in terms of the number of properties in Wikidata are \wdqName{Israel}{801} and \wdqName{France}{142} (127 properties each), the lowest number of properties is in the \wdqName{Democratic Republic of Vietnam}{172640}  (24 properties).
 
@@ -53,53 +54,83 @@ Examples of the most complete and developed countries on Wikidata according to P
 Let's build a list of countries sorted by the date of the country's foundation (the first mention of the country) (Listing \ref{lst:age_of_country}).
 
 \begin{lstlisting}[ language=SPARQL, 
-caption={List of `instances of` ``countries sorted by inception''. The result contains \num{112} countries with completed date of foundation in 2017 and \num{199} in 2020.\\\hspace{\textwidth}
-SPARQL query: \href{https://w.wiki/k6M}{https://w.wiki/k6M}
+caption={List of `instances of` ``countries sorted by inception''. The result contains \num{112} countries with completed date of foundation in 2017 and \num{187} in 2021.\\\hspace{\textwidth}
+SPARQL query: \href{https://w.wiki/vJk}{https://w.wiki/vJk}
 },
 label=lst:age_of_country, 					
 ]
+# List of countries sorted by inception 
 SELECT ?country ?countryLabel ?inception
 WHERE
 {
-	?country wdt:P31 wd:Q6256. # country
-	?country wdt:P571 ?inception. # inception
+	?country wdt:P31 wd:Q6256.    # instance of country
+	?country wdt:P571 ?inception. # the first mention
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
 ORDER BY (?inception)
 \end{lstlisting}
 
-%%%%%%%%%%%%%%%% Ex 3 %%%%%%%%%%%%%%%%
-\marginnote[-2.0cm]{
-	\label{question:population_density}
-	Identify the countries of Asia by flags and list them in ascending order of population density (fig. ~\ref{fig:flag_kor}, ~\ref{fig:flag_mongolia}, ~\ref{fig:flag_singapore}, ~\ref{fig:flag_israel}).
+As a result of executing the request (listing \ref{lst:age_of_country}), a modest list of countries was obtained, including only 184 countries for 2020. Using the example of Russia, we will figure out what is the matter here. The \wdqName{Russia}{159} object in the ``instance of'' field contains not one, but eight values, including \wdqName{country}{6256}.
+
+\marginnote{
+	On the Wikidata page ``Request a query'', some editors ask questions about how to write a particular script, while other editors answer. Use this forum.
 }
 
-\begin{marginfigure}[-0.8cm]
-	{
-		\setlength{\fboxsep}{0pt}%
-		\setlength{\fboxrule}{1pt}%
-		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/256px-Flag_of_South_Korea.png}}%
-	}
-	\caption{First country flag.}%
-	\label{fig:flag_kor}%
-\end{marginfigure}
+The solution and the answer to this question were found on the page ``Wikidata: Request a query'', namely in the section available at the link \href{https://w.wiki/tLm}{https://w.wiki/tLm }.
 
-\begin{marginfigure}[3.2cm]
-	{
-		\setlength{\fboxsep}{0pt}%
-		\setlength{\fboxrule}{1pt}%
-		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/256px-Flag_of_Mongolia.png}}%
-	}
-	\caption{Second country flag.}%
-	\label{fig:flag_mongolia}%
-\end{marginfigure}
+The point is that the wdt construction allows you to find only true values. For Russia, the preferred value in the ``instance of'' field is a sovereign state, not a country. To check all the options presented in the ``instance of'' field in Russia, you need to use the p:/ps: construction.
 
-As a result of the query, a list of countries with the dates of their creation was received. For example: \wdqName{Russia}{159} --- Jan 1 0862, \wdqName{Kosovo}{1246} --- Feb 17 2008, \wdqName{South Sudan}{958} --- Jul 9 2011.
+Thus, the script for getting all 232 countries sorted by creation date is shown in the listing \ref{lst:list_of_country_instance_of}.
 
-According to ProWD \wdqName{France}{142} and \wdqName{Israel}{801} are the leaders in the number of objects (127 objects) among all countries. \wdqName{Land of Nod}{1929769} and \wdqName{Polska Ludowa}{11165755} have the least number of objects (3 objects).
+\begin{lstlisting}[ language=SPARQL, 
+caption={List of countries sorted by inception date. The result contains \num{112} countries with completed date of foundation in 2017 and \num{235} in 2021.\\\hspace{\textwidth}
+SPARQL query: \href{https://w.wiki/vJp}{https://w.wiki/vJp}
+},
+label=lst:list_of_country_instance_of, 					
+]
+# List of countries sorted by inception date
+SELECT ?country ?countryLabel
+(MIN(?year) AS ?min_year)
+WHERE
+{
+	?country p:P31 [ps:P31 wd:Q6256]. # instance of a country 
+	?country p:P571 [ps:P571 ?inception]. # all inception dates
+	BIND(YEAR(?inception) AS ?year)
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?country ?countryLabel ?min_year
+ORDER BY ?min_year
+\end{lstlisting}
 
+To remove from this list no longer existing countries, that is, instances of the \wdqName{historical country}{3024240} object, use the MIN US operator.
 
-\subsection{Countries with an unfilled inception}
+Using the script (listing \ref{lst:list_of_country_instance_of_}), 211 non-historical countries with a known foundation date were obtained.
+
+\begin{lstlisting}[ language=SPARQL, 
+caption={List of countries sorted by inception date. The result contains \num{112} countries with completed date of foundation in 2017 and \num{211} in 2021.\\\hspace{\textwidth}
+SPARQL query: \href{https://w.wiki/vJt}{https://w.wiki/vJt}
+},
+label=lst:list_of_country_instance_of_, 					
+]
+# List of countries sorted by inception date
+SELECT ?country ?countryLabel 
+(MIN(?year) AS ?min_year)
+WHERE
+{
+	?country p:P31 [ps:P31 wd:Q6256]. # instance of a country 
+	MINUS {?country p:P31 [ps:P31 wd:Q3024240]}. # except historical countries
+	?country p:P571 [ps:P571 ?inception]. # all inception dates
+	BIND(YEAR(?inception) AS ?year)
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?country ?countryLabel ?min_year
+ORDER BY ?min_year
+\end{lstlisting}
+
+For example: \wdqName{Russia}{159} ~-- Jan 1 0862, \wdqName{Kosovo}{1246} ~-- Feb 17 2008, \wdqName{South Sudan}{958} ~-- Jul 9 2011.
+
+For example, \wdqName{France}{142} ~-- 463 year, \wdqName{Russia}{159} ~-- 862, \wdqName{Republic of Kosovo}{1246} ~-- 2008, \wdqName{South Sudan }{958} ~-- 2011.
+The largest number of countries appeared in 1960 (16 countries), in 1991 (15 countries), in 1962 (6 countries) and in 1821 (6 countries).
 
 Let's display a list of countries with an empty ``inception of'' property (Listing \ref{lst:without_inception}).
 
@@ -111,13 +142,81 @@ label=lst:without_inception
 SELECT ?country ?countryLabel 
 WHERE
 {
-	?country wdt:P31 wd:Q6256. # country
-	MINUS { ?country wdt:P571 [] }. # inception of country is empty
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+?country wdt:P31 wd:Q6256. # country
+MINUS { ?country wdt:P571 [] }. # inception of country is empty
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
 \end{lstlisting}
 
-\begin{marginfigure}[-1.6cm]
+%So, on March 6 2017, the Wikidata contains 100 out of 198 entries about the currently existing countries with an unknown year of the country's foundation.
+
+%%%%%%%%%%%%%%%% Ex 3 %%%%%%%%%%%%%%%%
+\marginnote[-2.0cm]{
+	\label{question:population_density}
+	Identify the countries of Asia by flags and list them in ascending order of population density (fig. ~\ref{fig:flag_kor}, ~\ref{fig:flag_mongolia}, ~\ref{fig:flag_singapore}, ~\ref{fig:flag_israel}).
+}
+
+\begin{marginfigure}[0.0cm]
+	{
+		\setlength{\fboxsep}{0pt}%
+		\setlength{\fboxrule}{1pt}%
+		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/256px-Flag_of_South_Korea.png}}%
+	}
+	\caption{First country flag.}%
+	\label{fig:flag_kor}%
+\end{marginfigure}
+
+\begin{marginfigure}[4.0cm]
+	{
+		\setlength{\fboxsep}{0pt}%
+		\setlength{\fboxrule}{1pt}%
+		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/256px-Flag_of_Mongolia.png}}%
+	}
+	\caption{Second country flag.}%
+	\label{fig:flag_mongolia}%
+\end{marginfigure}
+
+
+
+
+\subsection{Completeness of Wikidata}
+
+Let's analyze the completeness of Wikidata: historical and modern countries.
+
+According to the ``Russian classification of countries of the world'' there are 251 countries on earth.
+
+This task does not take into account ancient, non-existent states (for example: \wdqName{Assyria}{41137}), since they are not a ``country'' object but a ``historical country'' object. Let us note that the number of historical countries is an order of magnitude greater than the existing countries.
+
+
+Using the script (Listing \ref{lst:List_of_historical_countries}), let's build a list of historical states. There were three thousand such former states, which is an order of magnitude more than the number of modern states.
+
+\begin{lstlisting}[ language=SPARQL, 
+caption={List of historical countries. The result contains \num{3025} countries without completed date of foundation in 2021.\\\hspace{\textwidth}
+SPARQL query: \href{https://w.wiki/tQN}{https://w.wiki/tQN}},
+label=lst:without_inception
+]
+# List of historical countries
+SELECT ?country ?countryLabel
+WHERE
+{
+	?country p:P31 [ps:P31 wd:Q3024240]. # instance of a historical country 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],ru,en"} 
+}
+\end{lstlisting}
+
+\marginnote{
+	Find the states that have existed the longest.
+}
+
+\marginnote{
+	See the answer in Exercise~\ref{answer:old_countries}, page~\pageref{answer:old_countries}.
+}
+
+According to the category of \href{https://w.wiki/dWv}{``Alphabetical list of countries and territories''} in Russian Wikipedia, there are 252 countries.
+
+According to the category of \href{https://en.wikipedia.org/wiki/List_of_sovereign_states}{``List of sovereign states''} in English Wikipedia, there are 206 countries.
+
+\begin{marginfigure}[0.0cm]
 	{
 		\setlength{\fboxsep}{0pt}%
 		\setlength{\fboxrule}{1pt}%
@@ -127,7 +226,7 @@ WHERE
 	\label{fig:flag_singapore}%
 \end{marginfigure}
 
-\begin{marginfigure}[2.4cm]
+\begin{marginfigure}[4.0cm]
 	{
 		\setlength{\fboxsep}{0pt}%
 		\setlength{\fboxrule}{1pt}%
@@ -140,115 +239,110 @@ WHERE
 	See the answer in Exercise~\ref{answer:population_density}, page~\pageref{answer:population_density}.
 }
 
-So, on March 6 2017, the Wikidata contains 100 out of 198 entries about the currently existing countries with an unknown year of the country's foundation.
-
-\subsection{Completeness of Wikidata}
-
-Let's analyze the completeness of the Wikidata.
-
-According to the ``Russian classification of countries of the world'' there are 251 countries on earth.
-
-This task does not take into account ancient, non-existent states (for example: \wdqName{Assyria}{41137}), since they are not a ``country'' object but a ``former country'' object. Let us note that the number of former countries is an order of magnitude greater than the existing countries.
-
-According to the category of \href{https://w.wiki/dWv}{``Alphabetical list of countries and territories''} in Russian Wikipedia, there are 252 countries.
-
-According to the category of \href{https://en.wikipedia.org/wiki/List_of_sovereign_states}{``List of sovereign states''} in English Wikipedia, there are 206 countries.
-
 It is not always possible to specify the exact date of the country's foundation for various reasons: absence, lack or inconsistency of written sources. For example, the basis of the Old Russian state is associated with the vocation of Varangian prince Rurik in 862, but there is no exact date (object \wdqName{Russia}{159}). Also, some modern countries were preceded by a number of others and the date of formation of which of them should be considered as the date of creation of the country is an open question (for example, \wdqName{Mongolia}{711}).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{List of demonyms in English}
 
+Demonyms ~-- is the name of the inhabitants of a certain area, correlated with the toponym. For example, demonyms for Russia will be Russians, a Russian, a Russian woman, for the Czech Republic ~-- Czechs.
+
+In addition to the geographical factor, the new lexemes used to determine origin or belonging also come from ethnic, political, religious characteristics of people.
+
+Demonyms can be defined by the names of different objects of the earth's surface, mountains, islands, continents. Also, the designation of the place of origin of people may depend on the political and administrative division. For example, to denote citizenship: Thailand ~-- Thai people, Canada ~-- Canadians. Intra-state division can also give rise to new names, Crimea ~-- Crimeans.
+
 Let's build a list of countries that have demonyms in English (Listing \ref{lst:demonym}).
+
 \index{SPARQL!FILTER!List of countries with demonyms in English}
 \begin{lstlisting}[ language=SPARQL, 
-caption={List of countries with demonyms in English. The result contains \num{197} countries with demonyms in 2017 and \num{162} in 2020.\\\hspace{\textwidth}
-SPARQL query: \href{https://w.wiki/mro}{https://w.wiki/mro}},
+caption={List of countries with demonyms in English. The result contains \num{197} countries with demonyms in 2017 and \num{131} in 2021.\\\hspace{\textwidth}
+SPARQL query: \href{https://w.wiki/vK8}{https://w.wiki/vK8}},
 label=lst:demonym, 
 ]
+# List of countries with demonyms in English
 SELECT ?country ?countryLabel 
 WHERE
 {
-	?country wdt:P31 wd:Q6256.       #country
-	?country wdt:P1549 ?demonym.     #demonym
-
-	FILTER((LANG(?demonym)) = "en")
+	?country p:P31 [ps:P31 wd:Q6256]. # instance of a country
+	?country wdt:P1549 ?demonym .     # has demonym
+	FILTER((LANG(?demonym)) = "ru")
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
 GROUP BY ?country ?countryLabel
 \end{lstlisting}
 
 
-As of April 26 2017, the Wikidata contains 197 of the 202 countries with demonyms.
 
 \subsection{List of demonyms}
 
 Let's build a list of all demonyms in English (Listing \ref{lst:list_demonym}).
+
 \index{SPARQL!FILTER!List of demonyms in English}
 \begin{lstlisting}[ language=SPARQL, 
-caption={List of demonyms in English. The result contains \num{237} demonyms in 2017 and \num{213} in 2020.\\\hspace{\textwidth}
-SPARQL query: \href{https://w.wiki/mrp}{https://w.wiki/mrp}},
+caption={List of demonyms in English. The result contains \num{237} demonyms in 2017 and \num{296} in 2021.\\\hspace{\textwidth}
+SPARQL query: \href{https://w.wiki/vKA}{https://w.wiki/vKA}},
 label=lst:list_demonym, 
 ]
+# List of demonyms of countries in English
 SELECT ?country ?countryLabel ?demonym
 WHERE
 {
-	?country wdt:P31 wd:Q6256.      #country
-	?country wdt:P1549 ?demonym.    #demonym
-	
-	FILTER((LANG(?demonym)) = "en")
+	?country p:P31 [ps:P31 wd:Q6256]. # instance of a country
+	?country wdt:P1549 ?demonym .     # has demonym
+	FILTER((LANG(?demonym)) = "ru")
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
 \end{lstlisting}
 
 %SPARQL query (listing ~\ref{lst:list_demonym}), 237 results (2017), 213 results (2020).
 
-On April 27 2017, the Wikidata contains 237 filled demonyms.
+%On April 27 2017, the Wikidata contains 237 filled demonyms.
 
 \subsection{Countries with unfilled demonyms}
 
 Let's build a list of countries which do not have demonyms in English (Listing \ref{lst:without_demonym}).
 
 \begin{lstlisting}[ language=SPARQL, 
-caption={List of countries without demonyms in English. The result contains \num{5} countries without demonyms in 2017 and \num{20} in 2020.\\\hspace{\textwidth}
+caption={List of countries without demonyms in English. The result contains \num{5} countries without demonyms in 2017 and \num{107} in 2021.\\\hspace{\textwidth}
 SPARQL query: \href{https://w.wiki/myi}{https://w.wiki/myi}},
 label=lst:without_demonym, 
 ]
+#List of countries without demonyms in English
 SELECT ?country ?countryLabel 
 WHERE
 {
-	?country wdt:P31 wd:Q6256.              # country
-	MINUS { ?country wdt:P1549 ?demonym.    # except demonyms
-			FILTER((LANG(?demonym)) = "en") # in English
-		  }    
+	?country p:P31 [ps:P31 wd:Q6256].  # instance of a country
+	MINUS { ?country wdt:P1549 ?demonym.    # without demonyms
+		FILTER((LANG(?demonym)) = "ru") # in Russian
+	}
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
-GROUP BY ?country ?countryLabel
+GROUP BY ?country ?countryLabell
 \end{lstlisting}
 
-%SPARQL query (listing ~\ref{lst:without_demonym}), 5 results (2017), 20 results (2020).
-
-On April 27 2017, the Wikidata comprise 5 of the 202 countries with unfilled demonyms.
+Thanks to the MINUS construction (Listing \ref{lst:without_demonym}), the final list did not include countries with ethno-burial names in Russian.
 
 \subsection{Number of demonyms in countries}
+
+One country can have from zero, if the data is not filled in, to three or four ethnohoronyms. For example, Turkey has three names of its inhabitants: Turks, Tarchanka, Turks, Ethiopia has four: Ethiopian, Ethiopian, Ethiopian, Ethiopian.
 
 Let`s display the list of countries, ordered by the number of demonyms filled in Wikidata (Listing \ref{lst:count_demonym}).
 
 \begin{lstlisting}[ language=SPARQL, 
-caption={Count of demonyms in countries. The result contains \num{199} count of demonyms in countries in 2017 and \num{167} in 2020.\\\hspace{\textwidth}
-SPARQL query: \href{https://w.wiki/mrq}{https://w.wiki/mrq}},
+caption={Count of demonyms in countries. The result contains \num{199} count of demonyms in countries in 2017 and \num{215} in 2021.\\\hspace{\textwidth}
+SPARQL query: \href{https://w.wiki/vKD}{https://w.wiki/vKD}},
 label=lst:count_demonym, 
 ]
-SELECT  ?country ?countryLabel (count(*) as ?count)
+# List of countries ordered by number of demonyms
+SELECT  ?country ?countryLabel (COUNT(*) AS ?demonyms)
 WHERE
 {
-	?country wdt:P31 wd:Q6256.      #country
-	?country wdt:P1549 ?demonym.    #demonym
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+	?country p:P31 [ps:P31 wd:Q6256].# instance of a country
+	?country p:P1549 [ps:P1549 []].  # has demonym
+	SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 GROUP BY ?country ?countryLabel 
-ORDER BY DESC(?count)
+ORDER BY DESC(?demonyms)
 \end{lstlisting}
 
 %%%%%%%%%%%%%%%% Ex 4 %%%%%%%%%%%%%%%%
@@ -266,36 +360,47 @@ ORDER BY DESC(?count)
 	See the answer in Exercise~\ref{answer:official_languages}, page~\pageref{answer:official_languages}.
 }
 
-
-The United States of America Wikidata object contains the maximum number of demonyms --- 41, Great Britain --- 40, Germany --- 40, Canada --- 36 and Russia --- 34.
+According to data for 2017, the United States of America has the largest number of demonyms (41 demonyms), followed by Great Britain (40), Germany (40) and Canada (36). For 2021, the largest number of demonyms is in Germany (64 demonyms), Russia (61), Canada (60) and the United States (60). Thus, from 2017 to 2021, approximately 20 demonyms were added per country.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Basic forms of government}
 
-Let`s construct a bubble diagram of the forms of government of countries (Listing \ref{lst:form_of_government}).
+Let's construct a bubble diagram of countries' government forms (Listing \ref{lst:form_of_government}), where the size of the bubble will correspond to the number of countries with one form of government or another.
+
+
 \index{Chart!BubbleChart!Basic forms of government}
 \begin{lstlisting}[ language=SPARQL, 
-caption={Basic form of government ranking. The result contains \num{30} basic forms of government in 2017 and \num{29} in 2020.\\\hspace{\textwidth}
+caption={Basic form of government ranking. The result contains \num{30} basic forms of government in 2017 and \num{41} in 2020.\\\hspace{\textwidth}
 SPARQL query: \href{https://w.wiki/mrr}{https://w.wiki/mrr}},
 label=lst:form_of_government
 ]
-SELECT ?bfog ?form (count(*) as ?count)
+# Forms of government ordered by number of countries
+#defaultView:BubbleChart
+SELECT ?bfog ?form (COUNT(*) AS ?countries)
 WHERE 
 {
-	?country wdt:P31 wd:Q6256. # country
-	?country wdt:P122 ?bfog.   # subject's government
-	OPTIONAL {
-		?bfog rdfs:label ?form
-		filter (lang(?form) = "ru")
-	}
+?country p:P31 [ps:P31 wd:Q6256].# instance of a country
+?country p:P122 [ps:P122 ?bfog].# # basic form of government
+OPTIONAL {
+?bfog rdfs:label ?form
+FILTER (LANG(?form) = "en")
+}
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en"}
 }
 GROUP BY ?bfog ?form
-ORDER BY DESC(?count) ASC(?form)
+ORDER BY DESC(?countries) ASC(?form)
 \end{lstlisting}
 
 %SPARQL query (listing ~\ref{lst:form_of_government}),199 results (2017), 30 results (2017), 29 results (2020).
 
-As a result of the query, we get a bubble chart with the most popular forms of government in countries in 2017 (fig. ~\ref{fig:bubble_chart_forms_of_government_countries_2017}) and in 2020 (fig. ~\ref{fig:bubble_chart_forms_of_government_countries_2020}).
+The variable ``bfog'' (short for ``basic form of government'') contains the form of government, for example, ``republic''.
+
+The last line in Listing \ref{lst:form_of_government} contains the ordering commands first in descending order (DESC) and then ascending order (ASC). Thus, the forms of government are first sorted by the number of countries (?countries). Then, if the countries are equally divided, then the forms of government are sorted lexicographically\protect\footnotemark.
+
+\footnotetext{Lexicographic (dictionary) order ~-- is a way of ordering and sorting words, which is commonly used in dictionaries, encyclopedias and alphabetical indexes. For example, A < AA < AAA < AAB < AAC < AB < B < … < ZZZ.}
+
+
+As a result of the query, we get a bubble chart with the most popular forms of government in countries in 2017 (fig.~\ref{fig:bubble_chart_forms_of_government_countries_2017}) and in 2020 (fig.~\ref{fig:bubble_chart_forms_of_government_countries_2020}).
 
 \begin{figure}
 	{
@@ -322,26 +427,28 @@ As a result of the query, we get a bubble chart with the most popular forms of g
 	\label{fig:bubble_chart_forms_of_government_countries_2020}%
 \end{figure}
 
+Thus, for the period from 2017 to 2020, the form of government ``republic'' became more ``popular''. The number of countries having the form of a ``mixed republic'' has significantly decreased. Forms such as democratic centralism, democratic republic, democracy, Islamic state and parliamentary democracy emerged.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Neighboring countries}
 
-We will construct a graph of neighboring countries (Listing \ref{lst:neighboring_countries}).
+Countries have such a property as a common border. On Wikidata, this property is \href{https://www.wikidata.org/wiki/Property:P47}{shares border with (P47)}. Using this property, let's build a graph of neighboring countries (Listing \ref{lst:neighboring_countries}).
+
+
 \index{Graph!Graph!Neighboring countries}
 \begin{lstlisting}[ language=SPARQL, 
-caption={Neighboring countries graph. The result contains \num{795} neighboring countries in 2017 and \num{698} in 2020.\\\hspace{\textwidth}
-SPARQL query: \href{https://w.wiki/mrs}{https://w.wiki/mrs}},
+caption={Neighboring countries graph. The result contains \num{795} neighboring countries in 2017 and \num{912} in 2020.\\\hspace{\textwidth}
+SPARQL query: \href{https://w.wiki/vKR}{https://w.wiki/vKR}},
 label=lst:neighboring_countries
 ]
-#Neighboring countries graph
+# Graph of countries which share border
 #defaultView:Graph
-SELECT ?country ?countryLabel ?sharesBorderWith 
-?sharesBorderWithLabel
+SELECT ?country ?countryLabel ?border ?borderLabel
 WHERE
 {
-	?country wdt:P31 wd:Q6256.
-	
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
-	OPTIONAL { ?country wdt:P47 ?sharesBorderWith. }
+	?country p:P31 [ps:P31 wd:Q6256]. # instance of a country
+	OPTIONAL { ?country wdt:P47 ?sharesBorderWith }
+	SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}
 
@@ -374,10 +481,10 @@ WHERE
 	\label{question:administrative_territorial}
 	Latvia has 119, Thailand has 77, Denmark has 5, and Russia has 81. What are we talking about?
 	\begin{itemize}
-		\item Number of cities with a population of over one million;
-		\item Number of higher education institutions;
-		\item Number of administrative units;
-		\item Number of official languages.
+		\item Is a number of cities with a population of over one million?
+		\item Is a number of higher education institutions?
+		\item Is a number of administrative units?
+		\item Is a number of official languages?
 	\end{itemize}
 }
 
@@ -385,72 +492,53 @@ WHERE
 	See the answer in Exercise~\ref{answer:administrative_territorial}, page~\pageref{answer:administrative_territorial}.
 }
 
-As a result of the query, we get a graph with 787 edges on 2017 (fig. ~\ref{fig:neighboring_countries_2017}) and 698 edges on 2020 (fig. ~\ref{fig:neighboring_countries_2020}), where the edge is a neighborhood between the two countries. The graph represents several connected components, since there are island countries that do not have neighbors (for example, Mauritius, Maldives, Madagascar).
+As a result of the query, we get a graph with 787 edges on 2017 (fig. ~\ref{fig:neighboring_countries_2017}) and 912 edges on 2020 (fig. ~\ref{fig:neighboring_countries_2020}), where the edge is a neighborhood between the two countries. The graph represents several connected components, since there are island countries that do not have neighbors (for example, Mauritius, Maldives, Madagascar).
 
 \subsection{Neighboring countries of Russia}
 
 We will construct a graph of neighboring countries of Russia (Listing \ref{lst:neighboring_countries_ru}).
 \index{Map!Map!Neighboring countries of Russia}
 \begin{lstlisting}[ language=SPARQL, 
-caption={Map of neighboring countries of Russia. The result contains \num{22} neighboring countries in 2020.\\\hspace{\textwidth}
-SPARQL query: \href{https://w.wiki/rMR}{https://w.wiki/rMR}},
+caption={Map of neighboring countries of Russia. The result contains \num{17} neighboring countries in 2021.\\\hspace{\textwidth}
+SPARQL query: \href{https://w.wiki/vKV}{https://w.wiki/vKV}},
 label=lst:neighboring_countries_ru
 ]
 # Map of neighboring countries of Russia
 #defaultView:Map
 SELECT ?border_country ?border_countryLabel ?coords ?layer
 WHERE 
-{
-	?border_country wdt:P47 wd:Q159.  # country has border with Russia
-	OPTIONAL { ?border_country wdt:P3896 ?coords. }
-	BIND ( ?coords AS ?layer )
+{                                         # border_country
+	?border_country p:P47 [ps:P47 wd:Q159]. #   has border with Russia
+	?border_country p:P31 [ps:P31 wd:Q6256].#   is a country
+	OPTIONAL {?border_country wdt:P3896 ?coords.}
+	BIND (?coords AS ?layer)
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
 }
 \end{lstlisting}
 
-As a result of executing the query, we get a map of neighboring countries of Russia (Fig. ~\ref {fig: neighboring_countries_ru}), which includes the following countries:
-\begin{enumerate}
-	\item \wdqName{Japan} {17}
-	\item \wdqName{Norway} {20}
-	\item \wdqName{Finland} {33}
-	\item \wdqName{Poland} {36}
-	\item \wdqName{Lithuania} {37}
-	\item \wdqName{People's Republic of China} {148}
-	\item \wdqName{Belarus} {184}
-	\item \wdqName{Estonia} {191}
-	\item \wdqName{Latvia} {211}
-	\item \wdqName{Ukraine} {212}
-	\item \wdqName{Azerbaijan} {227}
-	\item \wdqName{Georgia} {230}
-	\item \wdqName{Kazakhstan} {232}
-	\item \wdqName{DPRK} {423}
-	\item \wdqName{European Union} {458}
-	\item \wdqName{Mongolia} {711}
-	\item \wdqName{Hokkaido} {35581}
-	\item \wdqName{Racha-Lechkhumi and Kvemo-Svaneti} {38893}
-	\item \wdqName{Chechen Republic of Ichkeria} {210036}
-	\item \wdqName{Donetsk People's Republic} {16150196}
-	\item \wdqName{Luhansk People's Republic} {16746854}
-	\item \wdqName{Republic of Abkhazia} {31354462}
-\end{enumerate}
+The line in Listing \ref{lst:neighboring_countries_ru} with the comment ``is a country'' is needed to check that the object specified as ``having a common border'' with Russia is a country. This made it possible to exclude from the list the region of Georgia (Racha-lechkhumi and Kvemo-Svaneti), and for example, the island of Japan (Hokkaido), indicated in the list of border objects.
+
+As a result of the query execution (Listing \ref{lst:neighboring_countries_ru}), we get a map of neighboring countries of Russia ((Fig. \ref{fig: neighboring_countries_ru})), including 17 countries, namely: \wdqName{Japan}{17}, \wdqName{Norway}{20}, \wdqName{USA}{30}, \wdqName{Finland}{33}, \wdqName{Sweden}{34}, \wdqName{Poland}{36}, \wdqName{Lithuania}{37}, \wdqName{People's Republic of China}{148}, \wdqName{Belarus}{184}, \wdqName{Estonia}{191}, \wdqName{Latvia}{211}, \wdqName{Ukraine}{212}, \wdqName{Azerbaijan}{227}, \wdqName{Georgia}{230}, \wdqName{Kazakhstan}{232}, \wdqName{DPRK}{423} and \wdqName{Mongolia}{711}.
 
 
-\begin{figure}
+\begin{figure*}
 	{
 		\setlength{\fboxsep}{0pt}%
 		\setlength{\fboxrule}{1pt}%
 		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/Map_of_neighboring_countries_of_Russia_en.png}}%
 	}
-	\caption{Map of neighboring countries of Russia, 2020.
+	\caption{Map of neighboring countries of Russia, 2021.
 	}%
 	\label{fig:neighboring_countries_ru}%
-\end{figure}
+\end{figure*}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Exercises}
+
 \begin{enumerate}
-	\item For each country display its flag and motto.
-	\item Draw a map with the marked capitals of all the existing countries.
-	\item Calculate the first five countries with the largest population density for each continent.
-	\item Construct a column diagram showing the distribution of the number of countries by form of government. Estimate whether this distribution has a heavy tail.
-	\item Build a list the countries ordered by the number of neighbors. Which countries have the maximum and minimum number of neighbors, what is the average number of neighbors? Is there a correlation between this parameter and some other parameter of the countries?
+\item Build a list of country flags and mottos. Not all countries have mottos.
+\item Mark the capitals of modern countries on the map.
+\item In each part of the world, calculate the top five countries with the highest population density.
+\item Build a bar graph showing the distribution of the number of countries by government. Evaluate whether this distribution is a ``heavy tail''\protect\footnotemark.
+\footnotetext {In probability theory, heavy-tailed distributions are probability distributions whose tails are not exponentially bounded: that is, they have heavier tails than the exponential distribution. An example of a ``heavy tail'' is shown in Fig. \ref{fig: city_relation_S_N} (dependence of the number of cities on the number of twin cities) on page \pageref{lst: city_relation_S_N}.}
+\item Print the list of countries sorted by the number of neighbors. Which countries have the most and least neighbors, what is the average number of neighbors? Is there a correlation between this indicator and any other country dimension?
 \end{enumerate}
