@@ -61,10 +61,11 @@ GROUP BY ?manufacture ?manufactureLabel
 
 У каких из представленных ниже российских производителей самолётов есть веб-сайты?
 \begin{itemize}
-\item \href{https://w.wiki/vDw}{Миг}
-\item \href{https://w.wiki/vDx}{Саратовский авиационный завод}
-\item \href{https://w.wiki/vDy}{Туполев}
-\item \href{https://w.wiki/vDz}{Сухой}
+%\item \href{https://w.wiki/vDw}{Миг}
+\item \ruwiki{vDw}{МиГ}
+\item \ruwiki{vDx}{Саратовский авиационный завод}
+\item \ruwiki{vDy}{Туполев}
+\item \ruwiki{vDz}{Сухой}
 \end{itemize}
 См. ответ~\ref{answer:aircraft_manufacturers} на с.~\pageref{answer:aircraft_manufacturers}.
 }
@@ -118,10 +119,10 @@ ORDER BY (?planes_produced)
 \\
 \begin{tabular}{ l | l }
 Компания & Дата основания \\ \hline
-\href{https://w.wiki/vDw}{Миг} & 1 января 1939 \\
-\href{https://w.wiki/vE4}{Вымпел} & 18 ноября 1949 \\
-\href{https://w.wiki/vDy}{Туполев} & 18 декабря 1939 \\
-\href{https://w.wiki/vDz}{Сухой} & 1 января 1922 \\
+\ruwiki{vDw}{Миг} & 1 января 1939 \\
+\ruwiki{vE4}{Вымпел} & 18 ноября 1949 \\
+\ruwiki{vDy}{Туполев} & 18 декабря 1939 \\
+\ruwiki{vDz}{Сухой} & 1 января 1922 \\
 \end{tabular}
 \\
 См. ответ~\ref{answer:aircraft_company_foundation_date} на с.~\pageref{answer:aircraft_company_foundation_date}.
@@ -137,7 +138,7 @@ ORDER BY (?planes_produced)
     \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/aircraft/Number_of_aircraft_produced_ru.png}}%
 
 %	\includegraphics{./chapter/aircraft/Number_of_aircraft_produced_ru.png}%
-	\caption{Количество выпущенных воздушных судов по моделям, 2020. Диаграмма построена в Microsoft Excel на основе данных, полученных с помощью запроса~\protect\ref{lst:lang3_1}.}%
+	\caption[Количество выпущенных воздушных судов по моделям, 2020.]{Количество выпущенных воздушных судов по моделям, 2020. Диаграмма построена в Microsoft Excel на основе данных, полученных с помощью запроса~\protect\ref{lst:lang3_1}.}%
     \label{fig:Number_of_aircraft_produced_ru_2020}%
 \end{figure*}
 
@@ -145,7 +146,7 @@ ORDER BY (?planes_produced)
 
 \newpage 
 \index{Самолёты!Определения!Закон Парето}
-Теперь попытаемся ответить на вопрос выполняется ли \href{https://w.wiki/vDs}{Закон Парето} относительно числа моделей самолётов?
+Теперь попытаемся ответить на вопрос выполняется ли \ruwiki{vDs}{Закон Парето} относительно числа моделей самолётов?
 
 Для того чтобы построить график процентного соотношения количества выпущенных моделей самолётов к общему числу произведённых самолётов, необходимо выполнить следующие шаги:
 
@@ -156,7 +157,7 @@ ORDER BY (?planes_produced)
   
   \index{SPARQL!SUM!Общее число произведённых самолётов}
   
-\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/vE9}{Общее число произведённых самолётов}\protect\footnotemark}, label=lst:lang3_2, ]
+\begin{lstlisting}[ language=SPARQL, caption={\ruwiki{vE9}{Общее число произведённых самолётов}\protect\footnotemark}, label=lst:lang3_2, ]
 SELECT (SUM(?count) as ?sum) WHERE {
   SELECT ?count WHERE {
     ?plane wdt:P31 wd:Q11436; # instance of aircraft
@@ -164,11 +165,11 @@ SELECT (SUM(?count) as ?sum) WHERE {
   }
 }
 \end{lstlisting}
-\footnotetext{Общее число выпущенных самолётов на 2020 год составляет \num{44151}. Ссылка на SPARQL-запрос: \href{https://w.wiki/vE9}{https://w.wiki/vE9}}
+\footnotetext{Общее число выпущенных самолётов на 2020 год составляет \num{44151}. Ссылка на SPARQL-запрос: \ruwiki{vE9}{https://w.wiki/vE9}}
   
   %В результате выполнения запроса~\ref{lst:lang3_2} мы получили общее число выпущенных самолётов на 2020 год = \num{33177}.
   
-  \item По оси Х откладывается число рассматриваемых моделей самолётов (то есть при х = 1 мы рассматриваем число выпущенных самолётов первой модели, при х = 2~--- число выпущенных самолётов первой и второй модели и так далее). По оси Y будем откладывать F(n) = $\sum\limits_{i=1}^n f(i)$, где f(i)~--- число выпущенных самолётов модели i. При этом выполняется условие f(i) > f(j), при i < j, где i, j~--- номер модели самолёта (то есть количество выпущенных моделей самолётов заранее упорядочивается по убыванию). Также по оси Х откладываем вторую шкалу от 0 до 1, чтобы легче было определить параметры для проверки выполнения \href{https://w.wiki/vDs}{закона Парето}.
+  \item По оси Х откладывается число рассматриваемых моделей самолётов (то есть при х = 1 мы рассматриваем число выпущенных самолётов первой модели, при х = 2~--- число выпущенных самолётов первой и второй модели и так далее). По оси Y будем откладывать F(n) = $\sum\limits_{i=1}^n f(i)$, где f(i)~--- число выпущенных самолётов модели i. При этом выполняется условие f(i) > f(j), при i < j, где i, j~--- номер модели самолёта (то есть количество выпущенных моделей самолётов заранее упорядочивается по убыванию). Также по оси Х откладываем вторую шкалу от 0 до 1, чтобы легче было определить параметры для проверки выполнения \ruwiki{vDs}{закона Парето}.
 \end{enumerate}
 
 \begin{figure*}[h]
@@ -183,7 +184,7 @@ SELECT (SUM(?count) as ?sum) WHERE {
 \end{figure*}
 
 \index{Самолёты!Определения!Закон Парето}
-По графику~\ref{fig:Pareto_principle_diargam} видно, что 80\% всех выпущенных самолётов приходится на 16 различных моделей самолётов, что составляет 9,2\% от общего числа моделей. Закон Парето утверждает, что: \href{https://w.wiki/vDs}{«20\% усилий дают 80\% результата, а остальные 80\% усилий — лишь 20\% результата»}. Можно сделать вывод, что выполняется более сильный закон, чем принцип Парето относительно числа моделей самолётов.
+По графику~\ref{fig:Pareto_principle_diargam} видно, что 80\% всех выпущенных самолётов приходится на 16 различных моделей самолётов, что составляет 9,2\% от общего числа моделей. Закон Парето утверждает, что: \ruwiki{vDs}{«20\% усилий дают 80\% результата, а остальные 80\% усилий — лишь 20\% результата»}. Можно сделать вывод, что выполняется более сильный закон, чем принцип Парето относительно числа моделей самолётов.
 \footnotetext{Закон Парето: \href{https://w.wiki/vDs}{https://w.wiki/vDs}}
 
 \section{В каких странах производят самолёты}
@@ -194,10 +195,10 @@ SELECT (SUM(?count) as ?sum) WHERE {
 \\
 \begin{tabular}{ l | l }
 Компания & Штаб-квартира \\ \hline
-\href{https://w.wiki/vEP}{Камов} & Улан-Удэ \\
-\href{https://w.wiki/vER}{Авиадвигатель} & Пермь \\
-\href{https://w.wiki/vEL}{Улан-Удэнский завод} & Москва \\
-\href{https://w.wiki/vDz}{Сухой} & Люберцы \\
+\ruwiki{vEP}{Камов} & Улан-Удэ \\
+\ruwiki{vER}{Авиадвигатель} & Пермь \\
+\ruwiki{vEL}{Улан-Удэнский завод} & Москва \\
+\ruwiki{vDz}{Сухой} & Люберцы \\
 \end{tabular}
 \\
 См. ответ~\ref{answer:aircraft_company_headquarters} на с.~\pageref{answer:aircraft_company_headquarters}.
@@ -243,7 +244,7 @@ GROUP BY ?country ?countryLabel
  
 \begin{figure}[h!]
 \centering
-	\includegraphics[width=0.7\textwidth]{./chapter/aircraft/Manufacture-with-country_2017.png}
+	\includegraphics[width=0.95\textwidth]{./chapter/aircraft/Manufacture-with-country_2017.png}
 	\caption{Соотношение количества производителей воздушных судов по странам, 2017 год.}
 	\label{fig:Manufacture_with_country_2017}
 \end{figure}
@@ -260,7 +261,7 @@ GROUP BY ?country ?countryLabel
 
 \begin{figure}[h!]
 \centering
-	\includegraphics[width=0.7\textwidth]{./chapter/aircraft/Manufacture-with-country_2020.png}
+	\includegraphics[width=0.95\textwidth]{./chapter/aircraft/Manufacture-with-country_2020.png}
 	\caption{Соотношение количества производителей воздушных судов по странам, 2020 год.}
 	\label{fig:Manufacture_with_country_2020}
 \end{figure}
@@ -299,7 +300,7 @@ GROUP BY ?country ?countryLabel
 
 \footnotetext{<<Авиастроительные компании России>>: \href{https://w.wiki/vF4}{https://w.wiki/vF4}}
 
-В категории \href{https://cutt.ly/NhrKnWn}{<<Авиастроительные компании России>>} указано наличие в России 58 авиастроительных компаний в 2017 году и 62 завода, института и корпорации, связанных с самолётостроением, в 2020 году, но в то же время на сайте \href{https://www.aviationfanatic.com/}{aviationfanatic.com} указано наличие 61 завода\cite{count_plants_of_aircrafts} в 2017 году и 71 в 2020 году. Среди авиастроительных компаний России представлены такие компании как: \href{https://clck.ru/RxFCs}{Иркут}, \href{https://clck.ru/QR6qZ}{МиГ}, \href{https://clck.ru/RxFG3}{Туполев}.
+В категории \ruwiki{vF4}{<<Авиастроительные компании России>>} указано наличие в России 58 авиастроительных компаний в 2017 году и 62 завода, института и корпорации, связанных с самолётостроением, в 2020 году, но в то же время на сайте \href{https://www.aviationfanatic.com/}{aviationfanatic.com} указано наличие 61 завода\cite{count_plants_of_aircrafts} в 2017 году и 71 в 2020 году. Среди авиастроительных компаний России представлены такие компании как: \ruwiki{vNY}{Иркут}, \ruwiki{vDw}{МиГ}, \ruwiki{vDy}{Туполев}.
 
 %\section{Степень заполненности Викиданных}
 
