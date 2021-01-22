@@ -184,6 +184,7 @@ ORDER BY DESC(?count)
 	\newthought{ 
 		Результатом работы скрипта (листинг \ref{lst:old_countries}) будет список империй и небольших стран, исчезнувших с лица земли. Две с половиной тысячи лет и больше просуществовали только семь государств: \href{https://w.wiki/vAT}{Угарит} (4810 лет), \href{https://w.wiki/vAU}{Тамла} (3740 лет), \href{https://w.wiki/vAX}{Древний Египет} (3544 лет), \href{https://w.wiki/vAY}{Майя} (3521 год), \href{https://w.wiki/vAZ}{Идалион} (2550 год), \href{https://w.wiki/vAb}{Мероитское царство} (2529 год) и город-государство \href{https://w.wiki/vAf}{Дильмун} (2500 лет).
 	}
+\index{SPARQL!FILTER EXISTS!Страны, отсортированных по дате основания}
 	\begin{lstlisting}[ language=SPARQL, 
 	caption={\href{https://w.wiki/tYc}{
 	Список исторических стран, отсортированных по дате основания}\protect\footnotemark},
@@ -319,7 +320,7 @@ WHERE
 \begin{task}
 	\label{answer:os_base}
 	\newthought{На основе \href{https://w.wiki/n8W}{Ubuntu} разработано больше всего операционных систем, а именно 11. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:os_base}).}
-	
+
 	\begin{lstlisting}[ language=SPARQL, caption={
 	\href{https://w.wiki/uLR}{Список базовых операционных систем}\protect\footnotemark},
 	label=lst:os_base
@@ -335,14 +336,14 @@ GROUP BY ?baseLabel
 ORDER BY DESC(?count) ASC(?baseLabel)
 	\end{lstlisting}
 	\footnotetext{118 операционных систем на 2020год. Ссылка на SPARQL-запрос: \href{https://w.wiki/uLR}{https://w.wiki/uLR}}
-	
+
 	\small{Вопрос на с.~\pageref{lst:base_of_operating_systems}.}
 \end{task}
 
 \begin{task}
 	\label{answer:what_system_created}
 	\newthought{Компания \href{https://w.wiki/n8S}{Apple} разработала ОС  \href{https://w.wiki/n8P}{Newton OS}. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:os_creators}).}
-	
+
 	\begin{lstlisting}[ language=SPARQL, caption={
 	\href{https://w.wiki/n8a}{Разработчики операционных систем}\protect\footnotemark},
 	label=lst:os_creators
@@ -354,14 +355,14 @@ SELECT ?os ?osLabel ?developer ?developerLabel WHERE {
 }
 	\end{lstlisting}
 	\footnotetext{\num{1115} операционных систем на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/n8a}{https://w.wiki/n8a}}
-	
+
 	\small{Вопрос на с.~\pageref{lst:inception_time_of_operating_systems}.}
 \end{task}
 
 \begin{task}
 	\label{answer:os_and_developers}
 	\newthought{Список разработчиков операционных систем можно получив выполнив следующий SPARQL-запрос (листинг \ref{lst:os_creators_2}).}
-	
+
 	\begin{lstlisting}[ language=SPARQL, caption={
 			\href{https://w.wiki/vGQ}{Разработчики операционных систем}\protect\footnotemark},
 		label=lst:os_creators_2
@@ -374,7 +375,7 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en". }
 }
 	\end{lstlisting}
 	\footnotetext{У 548 операционных систем заполнено свойство разработчик на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vGQ}{https://w.wiki/vGQ}}
-	
+
 	\small{Вопрос на с.~\pageref{tasks:operating_system_tasks}.}
 \end{task}
 
@@ -386,7 +387,7 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en". }
 		\href{https://w.wiki/vGQ}{Логотипы операционных систем}\protect\footnotemark},
 	label=lst:os_logos
 	]
-SELECT ?os ?osLabel ?image 
+SELECT ?os ?osLabel ?image
 WHERE {
 	?os wdt:P31 wd:Q9135.
 	?os wdt:P18 ?image.
@@ -400,11 +401,11 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en". }
 
 \begin{task}
 \label{answer:os_country}
-\newthought{Список стран происхождения операционных систем можно получив выполнив следующий SPARQL-запрос (листинг \ref{lst:os_logos}).}
+\newthought{Список стран происхождения операционных систем можно получив выполнив следующий SPARQL-запрос (листинг \ref{lst:os_development_country}).}
 
 \begin{lstlisting}[ language=SPARQL, caption={
 		\href{https://w.wiki/vGX}{Логотипы операционных систем}\protect\footnotemark},
-	label=lst:os_logos
+	label=lst:os_development_country
 	]
 SELECT ?os ?osLabel ?country ?countryLabel
 WHERE {
@@ -431,7 +432,7 @@ SELECT ?base ?baseLabel ?baseImage ?baseLogoImage
 ?os ?osLabel ?osImage ?osLogoImage
 WHERE
 {
-	?os wdt:P31 wd:Q9135. 
+	?os wdt:P31 wd:Q9135.
 	?os wdt:P144 ?base.
 	OPTIONAL { ?base wdt:P18 ?baseImage. }
 	OPTIONAL { ?base wdt:P154 ?baseLogoImage. }

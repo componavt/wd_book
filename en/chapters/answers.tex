@@ -449,6 +449,177 @@ ORDER BY DESC(?count)
 
 See question on page~\pageref{question:administrative_territorial}.
 
+%%%%%%%%%%%%%%%%%%operating systems%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Programming languages for operating systems}
+\labsec{answer-operating-systems}
+
+% question 1
+\begin{exercise}%
+	\label{answer:os_base}
+	Choose operating system 
+	\href{https://w.wiki/n8U}{Debian},
+	\href{https://w.wiki/n8V}{Android},
+	\href{https://w.wiki/n8W}{Ubuntu} or
+	\href{https://w.wiki/n8X}{Linux kernel}
+	which has the most count of based on it other operating systems.	
+\end{exercise}
+
+\href{https://w.wiki/n8W}{Ubuntu}  has the largest number of operating systems developed, namely 11. The answer to this question can also be obtained by running the following SPARQL query (listing \ref{lst:os_base}).
+
+\begin{lstlisting}[ language=SPARQL, breaklines=true, 
+	caption={List of bases of operating systems\\\hspace{\textwidth}
+		SPARQL query: \href{https://w.wiki/uLR}{https://w.wiki/uLR}
+	},
+	label=lst:os_base,
+	texcl 
+	]
+SELECT ?baseLabel (COUNT(*) AS ?count)
+WHERE
+{
+	?os wdt:P31 wd:Q9135. # is instance of operating system
+	?os wdt:P144 ?base.   # is based on ?base
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en"}
+}
+GROUP BY ?baseLabel
+ORDER BY DESC(?count) ASC(?baseLabel)
+\end{lstlisting}
+
+Question from page~\pageref{lst:base_of_operating_systems}.
+
+% question 2
+\begin{exercise}
+	\label{answer:what_system_created}
+	Which of operating systems
+	\href{https://w.wiki/n8P}{Newton OS},
+	\href{https://w.wiki/n8Q}{Ubuntu Touch} or
+	\href{https://w.wiki/n8R}{JavaOS} is developed by
+	\href{https://w.wiki/n8S}{Apple}?	
+\end{exercise}
+\href{https://w.wiki/n8S}{Apple}  developed  \href{https://w.wiki/n8P}{Newton OS}. You can also get the answer to the question by running the following SPARQL query (Listing \ref{lst:os_creators}).
+
+\begin{lstlisting}[ language=SPARQL, breaklines=true, 
+	caption={Ooperating systems developers\\\hspace{\textwidth}
+		SPARQL query: \href{https://w.wiki/vMK}{https://w.wiki/vMK}
+	},
+	label=lst:os_creators,
+	texcl 
+	]
+SELECT ?os ?osLabel ?developer ?developerLabel 
+WHERE {
+	?os wdt:P31 wd:Q9135. # instance of operating system
+	OPTIONAL { ?os wdt:P178 ?developer. }
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en"}
+}
+\end{lstlisting}
+
+Question from page~\pageref{lst:inception_time_of_operating_systems}.
+
+% exercise 1
+\begin{exercise}
+	\label{answer:os_and_developers}
+	Create list operating systems with information about their developers.
+\end{exercise}
+The list of operating system developers can be obtained by executing the following SPARQL query \ref{lst:os_creators_2}.
+
+\begin{lstlisting}[ language=SPARQL, breaklines=true, 
+	caption={Operating systems developers\\\hspace{\textwidth}
+		SPARQL query: \href{https://w.wiki/vMT}{https://w.wiki/vMT}
+	},
+	label=lst:os_creators_2,
+	texcl 
+	]
+SELECT ?os ?osLabel ?developer ?developerLabel
+WHERE {
+	?os wdt:P31 wd:Q9135. # os is instance of operating system
+	?os wdt:P178 ?developer. # os developed by developer
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en"}
+}
+\end{lstlisting}
+
+Question from page~\pageref{tasks:operating_system_tasks}.
+
+% exercise 2
+\begin{exercise}
+	\label{answer:os_and_logos}
+	Find list operating systems with their logos
+\end{exercise}
+The list of operating system logos can be obtained by executing the following SPARQL query \ref{lst:os_and_logos}.
+
+\begin{lstlisting}[ language=SPARQL, breaklines=true, 
+	caption={Logos of operating systems\\\hspace{\textwidth}
+		SPARQL query: \href{https://w.wiki/vMW}{https://w.wiki/vMW}
+	},
+	label=lst:os_and_logos,
+	texcl 
+	]
+SELECT ?os ?osLabel ?image 
+WHERE {
+	?os wdt:P31 wd:Q9135.
+	?os wdt:P18 ?image.
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en"}
+}
+\end{lstlisting}
+
+Question from page~\pageref{tasks:operating_system_tasks}.
+
+% exercise 3
+\begin{exercise}
+	\label{answer:os_country}
+	Find countries of origin of operating systems
+\end{exercise}
+The list of countries of origin of operating systems can be obtained by executing the following SPARQL query \ref{lst:os_development_country}.
+
+\begin{lstlisting}[ language=SPARQL, breaklines=true, 
+	caption={Countries where developed operating systems\\\hspace{\textwidth}
+		SPARQL query: \href{https://w.wiki/vMa}{https://w.wiki/vMa}
+	},
+	label=lst:os_development_country,
+	texcl 
+	]
+SELECT ?os ?osLabel ?country ?countryLabel
+WHERE {
+	?os wdt:P31 wd:Q9135.
+	?os wdt:P495 ?country.
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en"}
+}
+\end{lstlisting}
+
+Question from page~\pageref{tasks:operating_system_tasks}.
+
+% exercise 4
+\begin{exercise}
+	\label{answer:os_and_bases}
+	Create a script that creates a tree diagram. Top-level lines should contain operating systems. When ``deploying'', we should see a list of operating systems that were based on the system from the top-level line.
+\end{exercise}
+To get a tree of operating systems at the top level, and operating systems based on them, at the bottom, you can run the following SPARQL query \ref{lst:os_and_bases}.
+
+\begin{lstlisting}[ language=SPARQL, breaklines=true, 
+	caption={Operating systems tree and their basics\\\hspace{\textwidth}
+		SPARQL query: \href{https://w.wiki/vMb}{https://w.wiki/vMb}
+	},
+	label=lst:os_and_bases,
+	texcl 
+	]
+#defaultView:Tree
+SELECT ?base ?baseLabel ?baseImage ?baseLogoImage
+?os ?osLabel ?osImage ?osLogoImage
+WHERE
+{
+	?os wdt:P31 wd:Q9135. 
+	?os wdt:P144 ?base.
+	OPTIONAL { ?base wdt:P18 ?baseImage. }
+	OPTIONAL { ?base wdt:P154 ?baseLogoImage. }
+	OPTIONAL { ?os wdt:P18 ?osImage. }
+	OPTIONAL { ?os wdt:P154 ?osLogoImage. }
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en"}
+}
+\end{lstlisting}
+
+Question from page~\pageref{tasks:operating_system_tasks}.
+
+%%%%%%%%%%%%%%%%%%end operating systems%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Programming languages and its creators}
 \labsec{answer-languages}
 \begin{exercise}
