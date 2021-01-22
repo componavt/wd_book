@@ -45,7 +45,7 @@ WHERE
 
 According to the degree of occupancy of properties on Wikidann, one can distinguish between ``full'' and ``empty'' countries.
 
-Examples of the most complete and developed countries on Wikidata according to ProWD are: \wdqName{Israel}{801}, \wdqName{France}{142}, \wdqName{United States of America}{30}. According to ProWD, an almost empty and uninformative country is: \wdqName{Republic of Central Lithuania}{523380}. According to ProWD, the leaders among the countries in terms of the number of properties in Wikidata are \wdqName{Israel}{801} and \wdqName{France}{142} (127 properties each), the lowest number of properties is in the \wdqName{Democratic Republic of Vietnam}{172640}  (24 properties).
+Examples of the most complete and developed countries on Wikidata according to ProWD\sidecite{prowd_balakireva} are: \wdqName{Israel}{801}, \wdqName{France}{142}, \wdqName{United States of America}{30}. According to ProWD, an almost empty and uninformative country is: \wdqName{Republic of Central Lithuania}{523380}. According to ProWD, the leaders among the countries in terms of the number of properties in Wikidata are \wdqName{Israel}{801} and \wdqName{France}{142} (127 properties each), the lowest number of properties is in the \wdqName{Democratic Republic of Vietnam}{172640}  (24 properties).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -127,9 +127,9 @@ GROUP BY ?country ?countryLabel ?min_year
 ORDER BY ?min_year
 \end{lstlisting}
 
-For example: \wdqName{Russia}{159} ~-- Jan 1 0862, \wdqName{Kosovo}{1246} ~-- Feb 17 2008, \wdqName{South Sudan}{958} ~-- Jul 9 2011.
+For example: \wdqName{Russia}{159}~--- Jan 1 0862, \wdqName{Kosovo}{1246}~--- Feb 17 2008, \wdqName{South Sudan}{958}~--- Jul 9 2011.
 
-For example, \wdqName{France}{142} ~-- 463 year, \wdqName{Russia}{159} ~-- 862, \wdqName{Republic of Kosovo}{1246} ~-- 2008, \wdqName{South Sudan }{958} ~-- 2011.
+For example, \wdqName{France}{142}~--- 463 year, \wdqName{Russia}{159}~--- 862, \wdqName{Republic of Kosovo}{1246}~--- 2008, \wdqName{South Sudan }{958}~--- 2011.
 The largest number of countries appeared in 1960 (16 countries), in 1991 (15 countries), in 1962 (6 countries) and in 1821 (6 countries).
 
 Let's display a list of countries with an empty ``inception of'' property (Listing \ref{lst:without_inception}).
@@ -183,7 +183,7 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 
 Let's analyze the completeness of Wikidata: historical and modern countries.
 
-According to the ``Russian classification of countries of the world'' there are 251 countries on earth.
+According to the ``Russian classification of countries of the world''\sidecite{oksm} there are 251 countries on earth.
 
 This task does not take into account ancient, non-existent states (for example: \wdqName{Assyria}{41137}), since they are not a ``country'' object but a ``historical country'' object. Let us note that the number of historical countries is an order of magnitude greater than the existing countries.
 
@@ -213,9 +213,9 @@ WHERE
 	See the answer in Exercise~\ref{answer:old_countries}, page~\pageref{answer:old_countries}.
 }
 
-According to the category of \href{https://w.wiki/dWv}{``Alphabetical list of countries and territories''} in Russian Wikipedia, there are 252 countries.
+According to the category of \href{https://w.wiki/dWv}{``Alphabetical list of countries and territories''}\sidecite{list_of_sovereign_states} in Russian Wikipedia, there are 252 countries.
 
-According to the category of \href{https://en.wikipedia.org/wiki/List_of_sovereign_states}{``List of sovereign states''} in English Wikipedia, there are 206 countries.
+According to the category of \href{https://en.wikipedia.org/wiki/List_of_sovereign_states}{``List of sovereign states''}\sidecite{list_of_sovereign_states_en} in English Wikipedia, there are 206 countries.
 
 \begin{marginfigure}[0.0cm]
 	{
@@ -246,11 +246,11 @@ It is not always possible to specify the exact date of the country's foundation 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{List of demonyms in English}
 
-Demonyms ~-- is the name of the inhabitants of a certain area, correlated with the toponym. For example, demonyms for Russia will be Russians, a Russian, a Russian woman, for the Czech Republic ~-- Czechs.
+Demonyms~--- is the name of the inhabitants of a certain area, correlated with the toponym. For example, demonyms for Russia will be Russians, a Russian, a Russian woman, for the Czech Republic~--- Czechs.
 
-In addition to the geographical factor, the new lexemes used to determine origin or belonging also come from ethnic, political, religious characteristics of people.
+In addition to the geographical factor, the new lexemes used to determine origin or belonging also come from ethnic, political, religious characteristics of people\sidecite{Zhuravleva2012}.
 
-Demonyms can be defined by the names of different objects of the earth's surface, mountains, islands, continents. Also, the designation of the place of origin of people may depend on the political and administrative division. For example, to denote citizenship: Thailand ~-- Thai people, Canada ~-- Canadians. Intra-state division can also give rise to new names, Crimea ~-- Crimeans.
+Demonyms can be defined by the names of different objects of the earth's surface, mountains, islands, continents. Also, the designation of the place of origin of people may depend on the political and administrative division. For example, to denote citizenship: Thailand~--- Thai people, Canada~--- Canadians. Intra-state division can also give rise to new names, Crimea~--- Crimeans.
 
 Let's build a list of countries that have demonyms in English (Listing \ref{lst:demonym}).
 
@@ -398,7 +398,7 @@ The variable ``bfog'' (short for ``basic form of government'') contains the form
 
 The last line in Listing \ref{lst:form_of_government} contains the ordering commands first in descending order (DESC) and then ascending order (ASC). Thus, the forms of government are first sorted by the number of countries (?countries). Then, if the countries are equally divided, then the forms of government are sorted lexicographically\protect\footnotemark.
 
-\footnotetext{Lexicographic (dictionary) order ~-- is a way of ordering and sorting words, which is commonly used in dictionaries, encyclopedias and alphabetical indexes. For example, A < AA < AAA < AAB < AAC < AB < B < … < ZZZ.}
+\footnotetext{Lexicographic (dictionary) order~--- is a way of ordering and sorting words, which is commonly used in dictionaries, encyclopedias and alphabetical indexes. For example, A < AA < AAA < AAB < AAC < AB < B < … < ZZZ.}
 
 
 As a result of the query, we get a bubble chart with the most popular forms of government in countries in 2017 (fig.~\ref{fig:bubble_chart_forms_of_government_countries_2017}) and in 2020 (fig.~\ref{fig:bubble_chart_forms_of_government_countries_2020}).
