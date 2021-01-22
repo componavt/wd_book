@@ -157,23 +157,24 @@ SELECT ?city ?cityLabel ?flag ?countryLabel WHERE {
 	\newthought{ 
 		Речь идет о количестве административно-территориальных единиц в каждой из стран. 
 		%Количество административно-территориальных единиц у \href{https://w.wiki/mzN}{Латвии}  119, у \href{https://w.wiki/mzP}{Таиланда} 77, у \href{https://w.wiki/mzR}{Дании} 5, а у \href{https://w.wiki/myt}{России} 81. 
-		Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:administrative_territorial_entity}).}
+		Ответ на вопрос можно проверить, выполнив следующий SPARQL-запрос (листинг \ref{lst:administrative_territorial_entity}).}
 	
 	\begin{lstlisting}[ language=SPARQL, 
-	caption={\href{https://w.wiki/mzU}{
-	Количество административно-территориальных единиц в стране}\protect\footnotemark},
+	caption={\href{https://w.wiki/tiN}{
+	Список стран, упорядоченных по количеству административно-территориальных единиц}\protect\footnotemark},
 	label=lst:administrative_territorial_entity	]
-	SELECT ?countryLabel  (count(*) as ?count)
-	WHERE
-	{
-	?country wdt:P31 wd:Q6256.      # country
-	?country wdt:P150 ?ATentity.    # contains administrative territorial entity
+# Countries sorted by number of administrative territories
+SELECT ?country ?countryLabel  (count(*) as ?count)
+WHERE
+{
+	?country p:P31 [ps:P31 wd:Q6256].# is a country
+	?country wdt:P150 []. # has some administrative territory
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
-	}
-	GROUP BY (?countryLabel)
-	ORDER BY DESC(?count)
+}
+GROUP BY ?country ?countryLabel
+ORDER BY DESC(?count)
 	\end{lstlisting}
-	\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/mzU}{https://w.wiki/mzU}}  
+	\footnotetext{Получено 199 стран на 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/tiN}{https://w.wiki/tiN}}  
 	
 	\small{Вопрос на с.~\pageref{lst:age_of_country}.}
 \end{task}
@@ -211,19 +212,22 @@ SELECT ?city ?cityLabel ?flag ?countryLabel WHERE {
 	\end{lstlisting}
 	\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/tYc}{https://w.wiki/tYc}}  
 	
-	\small{Вопрос на с.~\pageref{lst:list_of_country_instance_of_}.}
+	\small{Вопрос на с.~\pageref{lst:List_of_historical_countries}.}
 \end{task}
 
 \begin{task}
 	\label{answer:population_density}
-	\newthought{ Площадь Израиля составляет \num{20770} км\begin{math}^2\end{math}, население  \num{8.46} млн человек, площадь Монголии составляет  \num{1566000} км\begin{math}^2\end{math}, население  \num{2.95} млн человек, площадь Республики Кореи составляет \num{100295} км\begin{math}^2\end{math}, население  \num{50219669} человек, а площадь Сингапура  \num{719.1} км\begin{math}^2\end{math}, население  \num{5.78} млн человек. Таким образом, по возрастанию плотности населения страны будут упорядочены так:
+	\newthought{ Площадь Израиля составляет \num{20770} км\begin{math}^2\end{math}, население  \num{9.09} млн человек, площадь Монголии составляет  \num{1566000} км\begin{math}^2\end{math}, население  \num{3.08} млн человек, площадь Республики Кореи составляет \num{100295} км\begin{math}^2\end{math}, население  \num{51.47} млн человек, а площадь Сингапура ~-- \num{719.1} км\begin{math}^2\end{math}, население  \num{5.89} млн человек. Таким образом, по возрастанию плотности населения страны будут упорядочены так:
 		\begin{enumerate}
-			\item Монголия (\num{1.96} человек на км\begin{math}^2\end{math}), (рис. ~\ref{fig:flag_mongolia});
-			\item Израиль (\num{437.79} человек на км\begin{math}^2\end{math}), (рис. ~\ref{fig:flag_israel});
-			\item Корея (\num{513.14} человек на км\begin{math}^2\end{math}), (рис. ~\ref{fig:flag_kor});
-			\item Сингапур (\num{8189.30} человек на км\begin{math}^2\end{math}), (рис. ~\ref{fig:flag_singapore}).
+			\item Монголия (\num{1.96} человек на км\begin{math}^2\end{math}), (рис.~\ref{fig:flag_mongolia});
+			\item Израиль (\num{437.79} человек на км\begin{math}^2\end{math}), (рис.~\ref{fig:flag_israel});
+			\item Корея (\num{513.15} человек на км\begin{math}^2\end{math}), (рис.~\ref{fig:flag_kor});
+			\item Сингапур (\num{8189.30} человек на км\begin{math}^2\end{math}), (рис.~\ref{fig:flag_singapore}).
 		\end{enumerate}	
 	}
+	
+	
+	\newthought{  Ответ на вопрос можно проверить, выполнив следующий SPARQL-запрос (листинг \ref{lst:population_density}).}
 	
 	\begin{marginfigure}[0.0cm]
 		{
@@ -262,54 +266,52 @@ SELECT ?city ?cityLabel ?flag ?countryLabel WHERE {
 		\label{fig:flag_singapore}%
 	\end{marginfigure}
 	
-	
-	
-	\newthought{  Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:population_density}).}
-	
 	\begin{lstlisting}[ language=SPARQL, 
-	caption={\href{https://w.wiki/mzj}{
+	caption={\href{https://w.wiki/tkD}{
 	Плотность населения в странах Азии}\protect\footnotemark},
 	label=lst:population_density
 	]
-	SELECT ?country ?countryLabel ?flag ?area  ?population (?population / ?area as ?populationDensity)
-	{
-	?country wdt:P31 wd:Q6256.       # country
-	?country wdt:P30 wd:Q48 .        # on the continent of Asia
-	?country wdt:P41 ?flag .         # has a flag (image)
-	?country wdt:P2046 ?area .       # has an area
-	?country wdt:P1082 ?population . # has a population
-	
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
-	}
-	ORDER BY DESC(?populationDensity)
+# Population density in Asian countries
+SELECT ?country ?countryLabel ?flag ?area ?population 
+(?population / ?area as ?populationDensity)
+{
+	?country p:P31 [ps:P31 wd:Q6256].# this is a country
+	?country wdt:P30 wd:Q48 .   # on the Asian continent 
+	?country wdt:P41 ?flag .    # has flag
+	?country wdt:P2046 ?area .  # has area
+	?country wdt:P1082 ?population. # has population  
+	SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
+}
+ORDER BY DESC(?populationDensity)
 	\end{lstlisting}
-	\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/mzj}{https://w.wiki/mzj}}  
+	\footnotetext{Получено 53 страны в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/tkD}{https://w.wiki/tkD}}  
+	
+	
+		\newthought{Результаты работы вы можете увидеть в виде <<плиточки>> из флагов. Для этого на странице \emph{Wikidata Query Service} под кнопкой запуска скрипта в выпадающем списке выберите \index{Wikidata Query Service!Image grid} \emph{Image grid}.}
 	
 	\small{Вопрос на с.~\pageref{lst:without_inception}.}
 \end{task}
 
 \begin{task}
 	\label{answer:official_language}
-	\newthought{Официальными языками \href{https://w.wiki/myt}{России} являются \href{https://w.wiki/myv}{абазинский}, \href{https://w.wiki/myx}{мокшанский} и \href{https://w.wiki/myy}{эрзянский} языки.  Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:official_languages}).}
+	\newthought{Официальными языками \href{https://w.wiki/myt}{России} являются \href{https://w.wiki/myv}{абазинский}, \href{https://w.wiki/myx}{мокшанский} и \href{https://w.wiki/myy}{эрзянский} языки.  Ответ на вопрос можно проверить, выполнив следующий SPARQL-запрос (листинг \ref{lst:official_languages}).}
 	
 	\index{SPARQL!FILTER!Официальные языки в России}
 	\begin{lstlisting}[ language=SPARQL, 
-	caption={\href{https://w.wiki/mzF}{Официальные языки в России}\protect\footnotemark},
+	caption={\href{https://w.wiki/tky}{Официальные языки в России}\protect\footnotemark},
 	label=lst:official_languages
 	]
-	SELECT ?lanquage ?lanquageLabel
-	WHERE
-	{
-	
-	?country wdt:P31 wd:Q6256.  # country
-	?country wdt:P37 ?lanquage. # has an official language
-	FILTER(?country = wd:Q159). 
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
-	}
+# Official languages in Russia
+SELECT ?lanquage ?lanquageLabel
+WHERE
+{ # Russia has the official language
+	wd:Q159 p:P37 [ps:P37 ?lanquage].
+	SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
+} ORDER BY ?lanquageLabel
 	\end{lstlisting}
-	\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/mzF}{https://w.wiki/mzF}}  
+	\footnotetext{Получено 37 языков в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/tky}{https://w.wiki/tky}}  
 	
-	\small{Вопрос на с.~\pageref{lst:without_inception}.}
+	\small{Вопрос на с.~\pageref{lst:List_of_historical_countries}.}
 \end{task}
 
 %%%%%%%%%%%%%% Operating system chapter %%%%%%%%%%%%%%

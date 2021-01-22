@@ -24,7 +24,6 @@
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/k6L}{Экземпляры объекта <<страна>>}\protect\footnotemark},
 label=lst:country, 
-escapebegin=ку,escapeend=ку-ку>
 ]
 #List of countries in English and Russian
 SELECT ?country ?label_en ?label_ru
@@ -65,7 +64,6 @@ WHERE
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/suP}{Даты основания стран}\protect\footnotemark},
 label=lst:age_of_country, 
-escapebegin=ку,escapeend=ку-ку>
 ]
 # List of countries sorted by inception 
 SELECT ?country ?countryLabel ?inception
@@ -80,22 +78,21 @@ ORDER BY (?inception)
 
 \footnotetext{Получено  112 стран на 2017 год и 199 стран на 2020. Ссылка на SPARQL-запрос: \href{https://w.wiki/suP}{https://w.wiki/suP}}
 
-В результате выполнения запроса (листинг~\ref{lst:age_of_country}) получен скромный список стран, включающий на 2020 год всего 184 страны. На примере России разберемся, в чем здесь дело. Объект \wdqName{Россия}{159} в поле "instance of" содержит не одно, а восемь значений, в том числе \wdqName{country}{6256}.
+В результате выполнения запроса (листинг~\ref{lst:age_of_country}) получен скромный список стран, включающий на 2020 год всего 184 страны. На примере России разберемся, в чем здесь дело. Объект \wdqName{Россия}{159} в поле ``instance of'' содержит не одно, а восемь значений, в том числе \wdqName{country}{6256}.
 
 \marginnote{
-	На странице Викиданных "Request a query" одни редакторы задают вопросы, как написать тот или иной скрипт, а другие редакторы отвечают. Пользуйтесь этим форумом.
+	На странице Викиданных ``Request a query'' одни редакторы задают вопросы, как написать тот или иной скрипт, а другие редакторы отвечают. Пользуйтесь этим форумом.
 }
 
-Решение и ответ на этот вопрос были найдены на странице "Wikidata: Request a query", а именно в разделе доступном по ссылке \href{https://w.wiki/tLm}{https://w.wiki/tLm}.
+Решение и ответ на этот вопрос были найдены на странице ``Wikidata: Request a query'', а именно в разделе доступном по ссылке \href{https://w.wiki/tLm}{https://w.wiki/tLm}.
 
-Дело в том, что конструкция wdt позволяет находить только истинные значения. Для России предпочтительным ответом (англ. preferred value) в поле "instance of" является <<суверенное государство>>, а не страна. Чтобы проверить все варианты, представленные в поле "instance of" России, нужно использовать конструкцию p:/ps:.
+Дело в том, что конструкция wdt позволяет находить только истинные значения. Для России предпочтительным ответом (англ. preferred value) в поле ``instance of'' является <<суверенное государство>>, а не страна. Чтобы проверить все варианты, представленные в поле ``instance of'' России, нужно использовать конструкцию p:/ps:.
 
 Таким образом, скрипт для получения всех 232 стран, отсортированных по дате создания, представлен на листинге~\ref{lst:list_of_country_instance_of}.
 
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/tN$}{Список стран, отсортированных по дате основания}\protect\footnotemark},
 label=lst:list_of_country_instance_of, 
-escapebegin=ку,escapeend=ку-ку>
 ]
 # List of countries sorted by inception date
 SELECT ?country ?countryLabel
@@ -120,7 +117,6 @@ ORDER BY ?min_year
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/tP6}{Список стран, отсортированных по дате основания}\protect\footnotemark},
 label=lst:list_of_country_instance_of_, 
-escapebegin=ку,escapeend=ку-ку>
 ]
 # List of countries sorted by inception date
 SELECT ?country ?countryLabel 
@@ -139,7 +135,7 @@ ORDER BY ?min_year
 
 \footnotetext{Получено  211 стран на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/tP6}{https://w.wiki/tP6}}
 
-Например, \wdqName{Франция}{142} --- 463 год, \wdqName{Россия}{159} --- 862 год, \wdqName{Республика Косово}{1246} --- 2008 год, \wdqName{Южный Судан}{958} --- 2011. 
+Например, \wdqName{Франция}{142} ~-- 463 год, \wdqName{Россия}{159} ~-- 862 год, \wdqName{Республика Косово}{1246} ~-- 2008 год, \wdqName{Южный Судан}{958} ~-- 2011. 
 Наибольшее количество стран появилось в 1960 (16 стран), в 1991 году (15 стран), в 1962 (6 стран) и в 1821 (6 стран).
 
 Выведем список стран с пустым свойством <<дата основания>> (листинг~\ref{lst:without_inception}).
@@ -147,7 +143,6 @@ ORDER BY ?min_year
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/k6q}{Страны с незаполненной датой основания}\protect\footnotemark},
 label=lst:without_inception, 
-escapebegin=ку,escapeend=ку-ку>
 ]
 #List of `instances of` "countries without a inception" 
 SELECT ?country ?countryLabel 
@@ -181,7 +176,6 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/tQN}{Список исторических стран}\protect\footnotemark},
 label=lst:List_of_historical_countries, 
-escapebegin=ку,escapeend=ку-ку>
 ]
 # List of historical countries
 SELECT ?country ?countryLabel
@@ -253,11 +247,11 @@ WHERE
 	См. ответ~\ref{answer:population_density} на с.~\pageref{answer:population_density}.
 }
 
-Этнохороним — это название жителей определённой местности, соотнесённое с топонимом. Например, этнохронимами для России будут россияне, россиянин, россиянка, для Чехии – чехи, чех, чешка.
+Этнохороним ~-- это название жителей определённой местности, соотнесённое с топонимом. Например, этнохронимами для России будут россияне, россиянин, россиянка, для Чехии – чехи, чех, чешка.
 
 Помимо географического фактора, новые лексемы, используемые для определения происхождения либо принадлежности, происходят так же от этнических, политических, религиозных характеристик людей\cite{Zhuravleva2012}. 
 
-Этнохоронимы могут определяться названиями разных объектов земной поверхности — гор, островов, континентов. Так же обозначение места происхождения людей может зависеть от политико-административного деления. Например, для обозначения гражданства: Тайланд — тайландцы, Канада — канадцы. Внутригосударственное деление также может породить новые наименования, Крым — крымчане.
+Этнохоронимы могут определяться названиями разных объектов земной поверхности ``` гор, островов, континентов. Так же обозначение места происхождения людей может зависеть от политико-административного деления. Например, для обозначения гражданства: Тайланд ~-- тайландцы, Канада ~-- канадцы. Внутригосударственное деление также может породить новые наименования, Крым ~-- крымчане.
 
 Построим список стран, у которых есть этнохоронимы на русском языке (листинг~\ref{lst:demonym}).
 
@@ -265,7 +259,6 @@ WHERE
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/tec}{Список стран с этнохоронимами на русском языке}\protect\footnotemark},
 label=lst:demonym, 
-escapebegin=ку,escapeend=ку-ку>
 ]
 # List of countries with demonyms in Russian
 SELECT ?country ?countryLabel 
@@ -296,7 +289,6 @@ GROUP BY ?country ?countryLabel
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/teg}{Cписок этнохоронимов}\protect\footnotemark},
 label=lst:list_demonym, 
-escapebegin=ку,escapeend=ку-ку>
 ]
 # List of demonyms of countries in Russian
 SELECT ?country ?countryLabel ?demonym
@@ -318,7 +310,6 @@ WHERE
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/teo}{Страны с незаполненными этнохоронимами на русском языке }\protect\footnotemark},
 label=lst:without_demonym, 
-escapebegin=ку,escapeend=ку-ку>
 ]
 #List of countries without demonyms in Russian
 SELECT ?country ?countryLabel 
@@ -346,7 +337,6 @@ GROUP BY ?country ?countryLabel
 \begin{lstlisting}[ language=SPARQL, 
 caption={"\protect\footnotemark},
 label=lst:count_demonym, 
-escapebegin=ку,escapeend=ку-ку>
 ]
 # List of countries ordered by number of demonyms
 SELECT  ?country ?countryLabel (COUNT(*) AS ?demonyms)
@@ -375,7 +365,6 @@ ORDER BY DESC(?demonyms)
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/tfc}{Число стран с разными формами правления}\protect\footnotemark},
 label=lst:form_of_government, 
-escapebegin=ку,escapeend=ку-ку>
 ]
 # Forms of government ordered by number of countries
 #defaultView:BubbleChart
@@ -396,13 +385,13 @@ ORDER BY DESC(?countries) ASC(?form)
 
 \footnotetext{Получено 30 форм правления на 2017 год и 41 формf правления на 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/tfc}{https://w.wiki/tfc}}
 
-Переменная "bfog" (сокращение от "basic form of government") содержит форму правления, например, <<республику>>. 
+Переменная ``bfog'' (сокращение от ``basic form of government'') содержит форму правления, например, <<республику>>. 
 
 Последняя сточка в листинге~\ref{lst:form_of_government} содержит команды упорядочения сначала по убыванию (DESC) и затем по возрастанию (ASC). Таким образом, формы правления сначала сортируются по числу стран (?countries). Затем, если стран поровну, то формы правления сортируются  лексикографически\protect\footnotemark. 
 
-\footnotetext{Лексикографический (словарный) порядок — способ упорядочивания и сортировки слов, который обычно используется в словарях, энциклопедиях и алфавитных указателях. Например, А < АА < ААА < ААБ < ААВ < АБ < Б < … < ЯЯЯ.}
+\footnotetext{Лексикографический (словарный) порядок ~-- способ упорядочивания и сортировки слов, который обычно используется в словарях, энциклопедиях и алфавитных указателях. Например, А < АА < ААА < ААБ < ААВ < АБ < Б < … < ЯЯЯ.}
 
-В результате выполнения запроса мы получаем пузырьковую диаграмму с наиболее распространенными формами правления в странах на 2017 год (рис. ~\ref{fig:bubble_chart_forms_of_government_countries_2017}) и на 2020 год (рис.~\ref{fig:bubble_chart_forms_of_government_countries_2020}).
+В результате выполнения запроса мы получаем пузырьковую диаграмму с наиболее распространенными формами правления в странах на 2017 год (рис.~\ref{fig:bubble_chart_forms_of_government_countries_2017}) и на 2020 год (рис.~\ref{fig:bubble_chart_forms_of_government_countries_2020}).
 
 \begin{figure}
 	{
@@ -439,7 +428,6 @@ ORDER BY DESC(?countries) ASC(?form)
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/tfo}{Соседние страны}\protect\footnotemark},
 label=lst:neighboring_countries, 
-escapebegin=ку,escapeend=ку-ку>
 ]
 # Graph of countries which share border
 #defaultView:Graph
@@ -454,7 +442,7 @@ WHERE
 
 \footnotetext{Получено 787 соседств на 2017 год и 912 соседств на 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/tfo}{https://w.wiki/tfo}}
 
-В результате выполнения запроса мы получаем граф с 787 ребрами на 2017 год (рис. ~\ref{fig:neighboring_countries_2017}) и 912 ребрами на 2021 год (рис. ~\ref{fig:neighboring_countries_2020}), где ребро указывает на общую границу двух стран. Граф представляет из себя несколько связных компонент, так как есть островные страны, у которых нет соседей (например, \href{https://w.wiki/vC7}{Маврикий} и \href{https://w.wiki/vC8}{Мальдивы}). Также стоит упомянуть, что теперь свойство shares border with включает общую не только сухопутную, но и морскую границу. Поэтому в будущем этот граф будет представлять одну связную компоненту. 
+В результате выполнения запроса мы получаем граф с 787 ребрами на 2017 год (рис.~\ref{fig:neighboring_countries_2017}) и 912 ребрами на 2021 год (рис.~\ref{fig:neighboring_countries_2020}), где ребро указывает на общую границу двух стран. Граф представляет из себя несколько связных компонент, так как есть островные страны, у которых нет соседей (например, \href{https://w.wiki/vC7}{Маврикий} и \href{https://w.wiki/vC8}{Мальдивы}). Также стоит упомянуть, что теперь свойство shares border with включает общую не только сухопутную, но и морскую границу. Поэтому в будущем этот граф будет представлять одну связную компоненту. 
 
 \begin{figure}
 	{
@@ -486,7 +474,6 @@ WHERE
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/tg3}{Соседние страны России}\protect\footnotemark},
 label=lst:neighboring_countries_ru, 
-escapebegin=ку,escapeend=ку-ку>
 ]
 # Map of neighboring countries of Russia
 #defaultView:Map
@@ -503,9 +490,9 @@ WHERE
 
 \footnotetext{Получено 17 стран на 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/tg3}{https://w.wiki/tg3}}
 
-Строка в листинге~\ref{lst:neighboring_countries_ru} с комментарием "is a country" нужна, чтобы проверить, что объект, указанный как <<имеющий общуюю границу>> с Россией является страной. Это позволило исключить из списка район Грузии (Рача-лечхуми и Квемо-Сванети), и например, остров Японии (Хоккайдо), указанные в списке пограничных объектов.
+Строка в листинге~\ref{lst:neighboring_countries_ru} с комментарием ``is a country'' нужна, чтобы проверить, что объект, указанный как <<имеющий общуюю границу>> с Россией является страной. Это позволило исключить из списка район Грузии (Рача-лечхуми и Квемо-Сванети), и например, остров Японии (Хоккайдо), указанные в списке пограничных объектов.
 
-В результате выполнения запроса (листинг~\ref{lst:neighboring_countries_ru}) мы получаем карту соседних стран России (рис. ~\ref{fig:neighboring_countries_ru_2020}), включающую 17 стран, а именно: \wdqName{Япония}{17}, \wdqName{Норвегия}{20}, \wdqName{США}{30}, \wdqName{Финляндия}{33}, \wdqName{Швеция}{34}, \wdqName{Польша}{36}, \wdqName{Литва}{37}, \wdqName{Китайская Народная Республика}{148}, \wdqName{Белоруссия}{184}, \wdqName{Эстония}{191}, \wdqName{Латвия}{211}, \wdqName{Украина}{212}, \wdqName{Азербайджан}{227}, \wdqName{Грузия}{230}, \wdqName{Казахстан}{232}, \wdqName{КНДР}{423} и \wdqName{Монголия}{711}.
+В результате выполнения запроса (листинг~\ref{lst:neighboring_countries_ru}) мы получаем карту соседних стран России (рис.~\ref{fig:neighboring_countries_ru_2020}), включающую 17 стран, а именно: \wdqName{Япония}{17}, \wdqName{Норвегия}{20}, \wdqName{США}{30}, \wdqName{Финляндия}{33}, \wdqName{Швеция}{34}, \wdqName{Польша}{36}, \wdqName{Литва}{37}, \wdqName{Китайская Народная Республика}{148}, \wdqName{Белоруссия}{184}, \wdqName{Эстония}{191}, \wdqName{Латвия}{211}, \wdqName{Украина}{212}, \wdqName{Азербайджан}{227}, \wdqName{Грузия}{230}, \wdqName{Казахстан}{232}, \wdqName{КНДР}{423} и \wdqName{Монголия}{711}.
 
 
 \begin{figure*}[h]
