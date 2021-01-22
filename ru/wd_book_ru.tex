@@ -80,10 +80,13 @@
 \usepackage{siunitx} % \num{12345,67890}
 
 
-% links to Russian Wikipedia articles \ruwiki{Москва}
+% links to Russian Wikipedia articles \ruwiki{short w.wiki link}{Москва}
 % see https://tex.stackexchange.com/a/86368/99685
 \usepackage{texlinks} 
-\newcommand{\ruwiki}[1]{\wikilangref{ru}{#1}{#1}}
+%\newcommand*{\ruwiki}{\wikilangref{ru}} - failed cyrillic in URL
+% \href{https://w.wiki/vDw}{МиГ} -> \ruwiki{vDw}{МиГ}
+\newcommand{\ruwiki}[2]{\href{https://w.wiki/#1}{#2}}
+
 
 % Wikidata object hyperlink in the form: QID, e.g. Q312154
 \newcommand{\wdq}[1]{\href{https://www.wikidata.org/wiki/Q#1}{Q#1}}
