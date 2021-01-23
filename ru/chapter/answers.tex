@@ -646,32 +646,40 @@ ORDER BY DESC(?count)
 	\label{answer:ship_ex_1}
 	\newthought{Один из воможных ответов: \href{https://en.wikipedia.org/wiki/Seawise_Giant}{Seawise Giant}}
 
-	\newthought{Примеры возможных решений через wikidata. Данные могут отличаться от ответа выше из-за неполноты информации об объектах Викиданных, см. в листингах \ref{lst:long_ship} и \ref{lst:wide_ship}.}
-\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/ugH}{Самый длинный корабль}}\protect\footnotemark}, label=lst:long_ship, ]
-SELECT ?ship ?shipLabel ?length
-WHERE
-{
-	?ship wdt:P31 wd:Q11446;        # instance of ship
-		  wdt:P2043 ?length.
-	  
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "en"}
-}
-ORDER BY DESC(?length) LIMIT 1
+	\newthought{Примеры возможных решений через Викиданные. Данные могут отличаться от ответа выше из-за неполноты информации об объектах Викиданных, см. в листингах \ref{lst:long_ship} и \ref{lst:wide_ship}.}
+\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/vTt}{Самый длинный корабль}}\protect\footnotemark}, label=lst:long_ship, ]
+SELECT ?ship ?shipLabel ?max_length WHERE {
+	{
+		SELECT (MAX(?length) as ?max_length)
+		WHERE
+		{
+			?ship wdt:P31 wd:Q11446;
+				  wdt:P2043 ?length
+		}
+	}
+	{?ship wdt:P31 wd:Q11446; wdt:P2043 ?max_length}
+		
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
+}  
 \end{lstlisting}
-\footnotetext{Найден \href{https://www.wikidata.org/wiki/Q48817670}{NMS Mircea} в январе 2021 г., длина \num{36} м. Ссылка на SPARQL-запрос: \href{https://w.wiki/ugH}{https://w.wiki/ugH}.}
+\footnotetext{Найден \href{https://www.wikidata.org/wiki/Q48817670}{NMS Mircea} в январе 2021 г., длина \num{36} м. Ссылка на SPARQL-запрос: \href{https://w.wiki/vTt}{https://w.wiki/vTt}.}
 
-\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/ugG}{Самый широкий корабль}}\protect\footnotemark}, label=lst:wide_ship, ]
-SELECT ?ship ?shipLabel ?beam
-WHERE
-{
-	?ship wdt:P31 wd:Q11446;
-		  wdt:P2261 ?beam.
-	  
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "en"}
+\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/vTx}{Самый широкий корабль}}\protect\footnotemark}, label=lst:wide_ship, ]
+SELECT ?ship ?shipLabel ?max_beam WHERE {
+	{
+		SELECT (MAX(?beam) as ?max_beam)
+		WHERE
+		{
+			?ship wdt:P31 wd:Q11446;
+				  wdt:P2261 ?beam
+		}
+	}
+	{?ship wdt:P31 wd:Q11446; wdt:P2261 ?max_beam}
+		
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
 }
-ORDER BY DESC(?beam) LIMIT 1
 \end{lstlisting}
-\footnotetext{ Найден \href{https://www.wikidata.org/wiki/Q1156392}{Project Habakkuk} в январе 2021 г., ширина \num{180} м. Ссылка на SPARQL-запрос: \href{https://w.wiki/vT2}{https://w.wiki/vT2}.}
+\footnotetext{Найден \href{https://www.wikidata.org/wiki/Q1156392}{Project Habakkuk} в январе 2021 г., ширина \num{180} м. Ссылка на SPARQL-запрос: \href{https://w.wiki/vTx}{https://w.wiki/vTx}.}
 
 \end{task}
 
