@@ -696,7 +696,7 @@ WHERE
 }
 ORDER BY DESC(?beam) LIMIT 1
 \end{lstlisting}
-\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/ugG}{https://w.wiki/ugG}. Найден \href{https://www.wikidata.org/wiki/Q1156392}{Project Habakkuk} в январе 2021 г., ширина \num{180} м.}
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/vT2}{https://w.wiki/vT2}. Найден \href{https://www.wikidata.org/wiki/Q1156392}{Project Habakkuk} в январе 2021 г., ширина \num{180} м.}
 
 \end{task}
 
@@ -705,13 +705,26 @@ ORDER BY DESC(?beam) LIMIT 1
 	\label{answer:ship_ex_2}
 	\newthought{Вывести фотографии тех кораблей, про которые снимали кино. Если таких не найдётся, тогда те корабли, о которых писали в книгах.}\\
 
+	\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/vSy}{Изображения кораблей, которые снимались в фильмах}}\protect\footnotemark}, label=lst:wide_ship, ]
+SELECT DISTINCT ?image 
+WHERE
+{
+	?film wdt:P31 wd:Q11424 
+		  
+	{?film wdt:P921/wdt:P31/wdt:P31 wd:Q2235308}
+	OPTIONAL { ?film wdt:P921/wdt:P18 ?image. }
+		
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
+}
+	\end{lstlisting}
+	\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/vSy}{https://w.wiki/vSy}.}
+	
 	Один из возможных ответов:\\
 	{
 		\setlength{\fboxsep}{0pt}%
 		\setlength{\fboxrule}{1pt}%
 		\fcolorbox{gray}{gray}{\includegraphics{chapter/ship/K-19.jpg}}
 	}
-
 	Подводная лодка \href{https://ru.wikipedia.org/wiki/К-19}{K-19}, о который был снят фильм \href{https://en.wikipedia.org/wiki/K-19:_The_Widowmaker}{K-19: The Widowmaker} Источник: \href{https://commons.wikimedia.org/wiki/File:K-19.jpg}{https://commons.wikimedia.org/wiki/File:K-19.jpg}, Norman Polamar Cold War Submarines.
 
 \end{task}
