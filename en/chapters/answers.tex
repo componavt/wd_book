@@ -691,16 +691,25 @@ Question from page~\pageref{question:prog_lang_3}.
 %%%%%%%%%%%%%%%%%%%  Ship chapter  %%%%%%%%%%%%%%%%%%
 
 \begin{exercise}
-	\href{https://en.wikipedia.org/wiki/Soviet_destroyer_Gremyashchy_(1937)}{Soviet destroyer Gremyashchy (1937)}.
+	The figure shows the most famous Soviet \href{https://en.wikipedia.org/wiki/Destroyer}{destroyer} \href{https://en.wikipedia.org/wiki/Gnevny-class_destroyer}{project 7}, awarded the title of "Guards", name it.
 	\label{answer:ship_1}
-	The figure shows the most famous \href{https://en.wikipedia.org/wiki/Destroyer}{destroyer} \href{https://en.wikipedia.org/wiki/Gnevny-class_destroyer}{project 7}, awarded the title of "Guards", name it.
-	  {
+	{
 		\setlength{\fboxsep}{0pt}%
 		\setlength{\fboxrule}{1pt}%
 		\fcolorbox{gray}{gray}{\includegraphics{chapter/ship/Grem_ship_answer.jpg}}
-	  }
+	}
 \end{exercise}
 
+\href{https://en.wikipedia.org/wiki/Soviet_destroyer_Gremyashchy_(1937)}{Soviet destroyer Gremyashchy (1937)}.
+\label{answer:ship_1}
+The figure shows the most famous \href{https://en.wikipedia.org/wiki/Destroyer}{destroyer} \href{https://en.wikipedia.org/wiki/Gnevny-class_destroyer}{project 7}, awarded the title of "Guards", name it.
+{
+	\setlength{\fboxsep}{0pt}%
+	\setlength{\fboxrule}{1pt}%
+	\fcolorbox{gray}{gray}{\includegraphics{chapter/ship/Grem_ship_answer.jpg}}
+}
+
+Question from page~\pageref{question:ship_1}.
 
 
 \begin{exercise}
@@ -711,7 +720,7 @@ Question from page~\pageref{question:prog_lang_3}.
 Possible solution: \href{https://en.wikipedia.org/wiki/Seawise_Giant}{Seawise Giant}
 
 Other possible solutions from Wikidata. The data may differ beacouse of imcopmlintess of wikidata objects' properties, see the listings \ref{lst:long_ship} and \ref{lst:wide_ship}.
-\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/vTt}{The longest wikidata ship. SPARQL-querry: \href{https://w.wiki/vTt}{https://w.wiki/vTt}. Ship in result: \href{https://www.wikidata.org/wiki/Q48817670}{NMS Mircea}, January 2021, length \num{36} m.}}\protect\footnotemark}, label=lst:long_ship, ]
+\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/vTt}{The longest wikidata ship. SPARQL-query: \href{https://w.wiki/vTt}{https://w.wiki/vTt}. Ship in result: \href{https://www.wikidata.org/wiki/Q48817670}{NMS Mircea}, January 2021, length \num{36} m.}}\protect\footnotemark}, label=lst:long_ship, ]
 SELECT ?ship ?shipLabel ?max_length WHERE {
 	{
 		SELECT (MAX(?length) as ?max_length)
@@ -727,7 +736,7 @@ SELECT ?ship ?shipLabel ?max_length WHERE {
 }  
 \end{lstlisting}
 
-\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/vTx}{The widest wikidata ship. SPARQL-querry: \href{https://w.wiki/vTx}{https://w.wiki/vTx}. Ship in result: \href{https://www.wikidata.org/wiki/Q1156392}{Project Habakkuk}, January 2021, width \num{180} m.}}\protect\footnotemark}, label=lst:wide_ship, ]
+\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/vTx}{The widest wikidata ship. SPARQL-query: \href{https://w.wiki/vTx}{https://w.wiki/vTx}. Ship in result: \href{https://www.wikidata.org/wiki/Q1156392}{Project Habakkuk}, January 2021, width \num{180} m.}}\protect\footnotemark}, label=lst:wide_ship, ]
 SELECT ?ship ?shipLabel ?max_beam WHERE {
 	{
 		SELECT (MAX(?beam) as ?max_beam)
@@ -743,14 +752,16 @@ SELECT ?ship ?shipLabel ?max_beam WHERE {
 }
 \end{lstlisting}
 
+\small{Question from page~\pageref{ship_tasks}.}
+
 
 \begin{exercise}
 	\label{answer:ship_ex_2}
 	Output pictures of those ships, about which the film were shot. If there are no such, then those ships, about which the books were written.\\
-
 \end{exercise}
+
 Solution:
-\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/vSy}{Images of ships, about which films were shot}}\protect\footnotemark}, label=lst:wide_ship, ]
+\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/vSy}{Images of ships, about which films were shot}}\protect\footnotemark}, label=lst:filmed_ships, ]
 	SELECT DISTINCT ?image 
 	WHERE
 	{
@@ -762,10 +773,10 @@ Solution:
 		SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en". }
 	}
 \end{lstlisting}
-\footnotetext{SPARQL-querry: \href{https://w.wiki/vSy}{https://w.wiki/vSy}.}
+\footnotetext{SPARQL-query: \href{https://w.wiki/vSy}{https://w.wiki/vSy}.}
 
 
-\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/vTE}{Images of ships, about which books were written}}\protect\footnotemark}, label=lst:wide_ship, ]
+\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/vTE}{Images of ships, about which books were written}}\protect\footnotemark}, label=lst:ships_in_books, ]
 		SELECT DISTINCT ?image
 		WHERE
 		{
@@ -776,14 +787,13 @@ Solution:
 				
 			SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en". }
 		}
-	\end{lstlisting}
-	\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/vTE}{https://w.wiki/vTE}.}
-\end{task}
-		
+\end{lstlisting}
+\footnotetext{SPARQL-query: \href{https://w.wiki/vTE}{https://w.wiki/vTE}.}
+
+\small{Question from page~\pageref{ship_tasks}.}
+
 		
 	
-
-
 \begin{exercise}
 	\label{answer:ship_ex_3}
 	Find \href{https://en.wikipedia.org/wiki/List_of_museum_ships}{the museum ship}.
@@ -791,7 +801,7 @@ Solution:
 
 Solution is in listing \ref{lst:museum_ship}.
 
-\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/ugG}{Museum ships in wikidata}. SPARQL-querry: \href{https://w.wiki/uhG}{https://w.wiki/uhG.}}\protect\footnotemark}, label=lst:museum_ship, ]
+\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/ugG}{Museum ships in wikidata}. SPARQL-query: \href{https://w.wiki/uhG}{https://w.wiki/uhG.}}\protect\footnotemark}, label=lst:museum_ship, ]
 SELECT ?ship ?shipLabel
 WHERE
 {
@@ -800,4 +810,5 @@ WHERE
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}
-		
+
+\small{Question from page~\pageref{ship_tasks}.}

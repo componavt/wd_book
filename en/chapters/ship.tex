@@ -96,28 +96,12 @@ WHERE
 \end{lstlisting}
 
 
-\label{question:ship_2}
-\marginnote{Based on the graph of the dependence of ships and military operations (Fig. \ref{fig:ships_by_country_and_conflict}), which country has the most values of wars associated with ships?
-\begin{itemize}
-  \item \href{https://www.wikidata.org/wiki/Q15180}{Soviet Union}
-  \item \href{https://www.wikidata.org/wiki/Q159}{Russia}
-  \item \href{https://www.wikidata.org/wiki/Q34266}{Russian Empire}
-\end{itemize}}
-
 When filling the properties of warships, namely the military conflicts in which they participated, the property \href{https://www.wikidata.org/wiki/Property:P607}{conflict (P607)} (war/battle) was indicated. At the same time, military conflicts and military operations, which are part of wars, are different concepts. Filled data on ships can be roughly divided into two types:
 \begin{itemize}
   \item \textbf{Objects in which military operations are combined with military conflicts}. For example, in \href{https://www.wikidata.org/wiki/Q4148613}{Soviet destroyer Gremyashchiy} nine wars / battles. Such a large number is due to the fact that the ship took part in many \href{https://en.wikipedia.org/wiki/Arctic_convoys_of_World_War_II}{arctic convoys} which are military operations.
   \item \textbf{Objects in which military operations are separated from military conflicts}. For example, in the British cruiser \href{https://en.wikipedia.org/wiki/HMS_Trinidad_(1940)}{HMS Trinidad} participation in the military campaign and the Arctic convoy are listed as part of World War II with the qualifier \href{https://www.wikidata.org/wiki/Property:P1012}{including (P1012)}. Thus, in the Wikidata, this cruiser has one war/battle.
 \end{itemize}
 
-
-\label{question:ship_3}
-\marginnote{Based on the graph of the dependence of ships and military operations (Fig. \ref{fig:ships_by_country_and_conflict}), which war accounts for most of the values of ships?
-\begin{itemize}
-  \item \href{https://www.wikidata.org/wiki/Q159950}{Russo-Japanese War}
-  \item \href{https://www.wikidata.org/wiki/Q362}{World War II}
-  \item \href{https://www.wikidata.org/wiki/Q254106}{Crimean War}
-\end{itemize}}
 
 For the first type of filling in the scripts with the search for \href{https://www.wikidata.org/wiki/Property:P607}{conflict (P607)} properties, the ships will display more wars/battles than the second. But in this case, the operation \href{https://en.wikipedia.org/wiki/Siege_of_Odessa_(1941)}{The Odessa Defense} will stand alongside \href{https://en.wikipedia.org/wiki/World_War_II}{World War II}, although it is part of this war. In this situation, the output data will not be accurate.
 
@@ -143,6 +127,7 @@ WHERE
 \section{Exercises}
 
 \begin{enumerate}
+  \label{ship_tasks}
   \item Find the "Guinness ship" (to choose from: the largest, the longest, the most capacious).
   \item Output pictures of those ships, about which the film were shot. If there are no such, then those ships, about which the books were written.
   \item Bring out \href{https://en.wikipedia.org/wiki/List_of_museum_ships}{the museum ships}.
@@ -154,9 +139,8 @@ WHERE
   {
   \setlength{\fboxsep}{0pt}%
   \setlength{\fboxrule}{1pt}%
-  \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{chapter/ship/List_of_ships_with_countries_and_war_conflicts_in_English.png}}%
+  \fcolorbox{gray}{gray}{\includegraphics[width=0.95\linewidth]{chapter/ship/List_of_ships_with_countries_and_war_conflicts_in_English.png}}%
   }
     \caption{List of ships with countries and war conflicts in English (2017)}%
     \label{fig:ships_by_country_and_conflict}%
 \end{figure*}
-\contentsline
