@@ -630,49 +630,24 @@ ORDER BY DESC(?count)
 %%%%%%%%%%%%%%%%%%%  Ship chapter  %%%%%%%%%%%%%%%%%%
 
 \begin{task}
+	\href{https://ru.wikipedia.org/wiki/Гремящий_(эсминец,_1937)}{Гремящий (эсминец, 1937)}.
+
 	\label{answer:ship_1}
-	\newthought{
-	На рисунке представлен самый известный советский \href{https://ru.wikipedia.org/wiki/Эскадренный_миноносец}{эскадренный миноносец} \href{https://ru.wikipedia.org/wiki/Эскадренные_миноносцы_проекта_7}{проекта 7}, удостоенный звания "гвардейский", назовите его.} \\
-	  {
+	{
 		\setlength{\fboxsep}{0pt}%
 		\setlength{\fboxrule}{1pt}%
-		\fcolorbox{gray}{gray}{\includegraphics{chapter/ship/Secret_Grem_ship.jpg}}
-	  }
-	Ответ: \href{https://ru.wikipedia.org/wiki/Гремящий_(эсминец,_1937)}{Гремящий (эсминец, 1937)}.
+		\fcolorbox{gray}{gray}{\includegraphics{chapter/ship/Grem_ship_answer.jpg}}
+	}
 \end{task}
-
-% \begin{task}
-% 	\label{answer:ship_2}
-% 	\newthought{Исходя из графика зависимости кораблей и военных действий (Рис. \ref{fig:ships_by_country_and_conflict}), на какую страну приходится больше всего значений войн, с которыми связаны корабли?
-% 	\begin{itemize}
-% 	  \item СССР
-% 	  \item Россия
-% 	  \item Российская Империя
-% 	\end{itemize}}
-% 	Ответ: СССР.
-% \end{task}
-
-
-% \begin{task}
-% 	\label{answer:ship_3}
-% 	\newthought{Исходя из этого же графика, на какую войну приходится больше всего значений кораблей?
-% 	\begin{itemize}
-% 	  \item \href{https://www.wikidata.org/wiki/Q159950}{Русско-японская война}
-% 	  \item \href{https://www.wikidata.org/wiki/Q362}{Вторая мировая война}
-% 	  \item \href{https://www.wikidata.org/wiki/Q254106}{Крымская война}
-% 	\end{itemize}}
-% 	Ответ: вторая мировая война.
-% \end{task}
 
 
 
 \begin{task}
 	\label{answer:ship_ex_1}
-	\newthought{Найти "корабль Гиннесса" (на выбор: самый большой, самый длинный, самый вместительный и т. д.).}
 	\newthought{Один из воможных ответов: \href{https://en.wikipedia.org/wiki/Seawise_Giant}{Seawise Giant}}
 
-	\newthought{Примеры возможных решений через wikidata. Данные могут отличаться от ответа выше из-за неполноты информации об объектах wikidata, см. в листингах \ref{lst:long_ship} и \ref{lst:wide_ship}.}
-\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/ugH}{Самый длинный корабль на wikidata}}\protect\footnotemark}, label=lst:long_ship, ]
+	\newthought{Примеры возможных решений через wikidata. Данные могут отличаться от ответа выше из-за неполноты информации об объектах Викиданных, см. в листингах \ref{lst:long_ship} и \ref{lst:wide_ship}.}
+\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/ugH}{Самый длинный корабль}}\protect\footnotemark}, label=lst:long_ship, ]
 SELECT ?ship ?shipLabel ?length
 WHERE
 {
@@ -683,28 +658,27 @@ WHERE
 }
 ORDER BY DESC(?length) LIMIT 1
 \end{lstlisting}
-\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/ugH}{https://w.wiki/ugH}. Найден \href{https://www.wikidata.org/wiki/Q48817670}{NMS Mircea} в январе 2021 г., длина \num{36} м.}
+\footnotetext{Найден \href{https://www.wikidata.org/wiki/Q48817670}{NMS Mircea} в январе 2021 г., длина \num{36} м. Ссылка на SPARQL-запрос: \href{https://w.wiki/ugH}{https://w.wiki/ugH}.}
 
-\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/ugG}{Самый широкий корабль на wikidata}}\protect\footnotemark}, label=lst:wide_ship, ]
+\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/ugG}{Самый широкий корабль}}\protect\footnotemark}, label=lst:wide_ship, ]
 SELECT ?ship ?shipLabel ?beam
 WHERE
 {
-	?ship wdt:P31 wd:Q11446;        # instance of ship
+	?ship wdt:P31 wd:Q11446;
 		  wdt:P2261 ?beam.
 	  
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "en"}
 }
 ORDER BY DESC(?beam) LIMIT 1
 \end{lstlisting}
-\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/vT2}{https://w.wiki/vT2}. Найден \href{https://www.wikidata.org/wiki/Q1156392}{Project Habakkuk} в январе 2021 г., ширина \num{180} м.}
+\footnotetext{ Найден \href{https://www.wikidata.org/wiki/Q1156392}{Project Habakkuk} в январе 2021 г., ширина \num{180} м. Ссылка на SPARQL-запрос: \href{https://w.wiki/vT2}{https://w.wiki/vT2}.}
 
 \end{task}
 
 
 \begin{task}
 	\label{answer:ship_ex_2}
-	\newthought{Вывести фотографии тех кораблей, про которые снимали кино. Если таких не найдётся, тогда те корабли, о которых писали в книгах.}\\
-
+	Решение:
 	\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/vSy}{Изображения кораблей, которые снимались в фильмах}}\protect\footnotemark}, label=lst:wide_ship, ]
 SELECT DISTINCT ?image 
 WHERE
@@ -714,29 +688,30 @@ WHERE
 	{?film wdt:P921/wdt:P31/wdt:P31 wd:Q2235308}
 	OPTIONAL { ?film wdt:P921/wdt:P18 ?image. }
 		
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en". }
 }
 	\end{lstlisting}
 	\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/vSy}{https://w.wiki/vSy}.}
-	
-	Один из возможных ответов:\\
-	{
-		\setlength{\fboxsep}{0pt}%
-		\setlength{\fboxrule}{1pt}%
-		\fcolorbox{gray}{gray}{\includegraphics{chapter/ship/K-19.jpg}}
-	}
-	Подводная лодка \href{https://ru.wikipedia.org/wiki/К-19}{K-19}, о который был снят фильм \href{https://en.wikipedia.org/wiki/K-19:_The_Widowmaker}{K-19: The Widowmaker} Источник: \href{https://commons.wikimedia.org/wiki/File:K-19.jpg}{https://commons.wikimedia.org/wiki/File:K-19.jpg}, Norman Polamar Cold War Submarines.
 
+	\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/vTE}{Изображения кораблей, о которых писали в книгах}}\protect\footnotemark}, label=lst:wide_ship, ]
+SELECT DISTINCT ?image
+WHERE
+{
+	?book wdt:P31 wd:Q571
+		  
+	{?book wdt:P921/wdt:P31/wdt:P31 wd:Q2235308}
+	OPTIONAL { ?book wdt:P921/wdt:P18 ?image. }
+		
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en". }
+}
+	\end{lstlisting}
+	\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/vTE}{https://w.wiki/vTE}.}
 \end{task}
 
 
 \begin{task}
 	\label{answer:ship_ex_3}
-	\newthought{Вывести \href{https://ru.wikipedia.org/wiki/Список_кораблей-музеев}{корабли-музеи}}
-
-	Решение см в листинге \ref{lst:museum_ship}.
-
-	\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/ugG}{Корабли-музеи на wikidata}}\protect\footnotemark}, label=lst:museum_ship, ]
+	\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/ugG}{Корабли-музеи}}\protect\footnotemark}, label=lst:museum_ship, ]
 SELECT ?ship ?shipLabel
 WHERE
 {
@@ -746,6 +721,4 @@ WHERE
 }
 	\end{lstlisting}
 	\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/uhG}{https://w.wiki/uhG}.}
-		
-
 \end{task}

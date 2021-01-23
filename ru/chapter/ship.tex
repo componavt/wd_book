@@ -62,11 +62,6 @@ WHERE
 \end{lstlisting}
 \footnotetext{Найдено 579 кораблей в 2020 г. Ссылка на SPARQL-запрос: \href{https://w.wiki/koN}{https://w.wiki/koN}.}
 
-% \section{Плохие и хорошие примеры}
-
-% Хорошие примеры объектов кораблей на сайте Викиданных: \href{https://www.wikidata.org/wiki/Q613128}{SMS Moltke}, \href{https://www.wikidata.org/wiki/Q596282}{HMS Hermes}, \href{https://www.wikidata.org/wiki/Q596282}{HMS Barham}.
-
-% Плохими примерами объектов кораблей на сайте Викиданных были: \href{https://www.wikidata.org/wiki/Q4264229}{Лихой}, \href{https://www.wikidata.org/wiki/Q18816894}{Николай Вилков}, \href{https://www.wikidata.org/wiki/Q4528362}{Щ-310}.
 
 \section{Полнота Викиданных}
 
@@ -140,26 +135,6 @@ WHERE
 
 Для первого типа объектов в скриптах с поиском у кораблей свойства \href{https://www.wikidata.org/wiki/Property:P607}{conflict (P607)} будет отображаться больше войн/сражений, чем при втором. Но в этом случае операция \href{https://ru.wikipedia.org/wiki/Одесская_оборона_(1941)}{Одесская оборона} будет стоять наряду с \href{https://ru.wikipedia.org/wiki/Великая_Отечественная_война}{Великой Отечественной войной}, хотя она является частью этой войны. В такой ситуации выводимые данные будут не точными.
 
-% \label{question:ship_2}
-% \marginnote{
-%   Исходя из графика зависимости кораблей и военных действий (Рис. \ref{fig:ships_by_country_and_conflict}), на какую страну приходится больше всего значений войн, с которыми связаны корабли?
-%   \begin{itemize}
-%     \item СССР
-%     \item Россия
-%     \item Российская Империя
-%   \end{itemize}
-% }
-
-% \label{question:ship_3}
-% \marginnote{
-%   Исходя из этого же графика, на какую войну приходится больше всего значений кораблей?
-%   \begin{itemize}
-%     \item \href{https://www.wikidata.org/wiki/Q159950}{Русско-японская война}
-%     \item \href{https://www.wikidata.org/wiki/Q362}{Вторая мировая война}
-%     \item \href{https://www.wikidata.org/wiki/Q254106}{Крымская война}
-%   \end{itemize}
-% }
-
 Составим список кораблей (на русском языке) России, СССР или Российской Империи, участвовавших в каких-либо конфликтах (см. листинг \ref{lst:ships_in_war_ru}).
 
 \begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/koW}{Список кораблей России, СССР или Российской Империи, участвовавших в каких-либо конфликтах}}\protect\footnotemark}, label=lst:ships_in_war_ru, ]
@@ -194,5 +169,5 @@ WHERE
 \begin{enumerate}
   \item Найти "корабль Гиннесса" (на выбор: самый большой, самый длинный, самый вместительный).
   \item Вывести фотографии тех кораблей, про которые снимали кино. Если таких не найдётся, тогда те корабли, о которых писали в книгах.
-  \item Вывести\href{https://ru.wikipedia.org/wiki/Список_кораблей-музеев}{корабли-музеи}\footnotetext{\href{https://ru.wikipedia.org/wiki/Корабль-музей}{корабль-музей} -- судно или корабль, на котором размещена музейная экспозиция, посвящённая истории корабля, экипажа, событиям, в которых принимало участие судно, объект морского наследия.}
+  \item Вывести \href{https://ru.wikipedia.org/wiki/Список_кораблей-музеев}{корабли-музеи}\footnotetext{\href{https://ru.wikipedia.org/wiki/Корабль-музей}{корабль-музей} -- судно или корабль, на котором размещена музейная экспозиция, посвящённая истории корабля, экипажа, событиям, в которых принимало участие судно, объект морского наследия.}
 \end{enumerate}

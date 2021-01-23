@@ -691,40 +691,15 @@ Question from page~\pageref{question:prog_lang_3}.
 %%%%%%%%%%%%%%%%%%%  Ship chapter  %%%%%%%%%%%%%%%%%%
 
 \begin{exercise}
+	\href{https://en.wikipedia.org/wiki/Soviet_destroyer_Gremyashchy_(1937)}{Soviet destroyer Gremyashchy (1937)}.
 	\label{answer:ship_1}
 	The figure shows the most famous \href{https://en.wikipedia.org/wiki/Destroyer}{destroyer} \href{https://en.wikipedia.org/wiki/Gnevny-class_destroyer}{project 7}, awarded the title of "Guards", name it.
 	  {
 		\setlength{\fboxsep}{0pt}%
 		\setlength{\fboxrule}{1pt}%
-		\fcolorbox{gray}{gray}{\includegraphics{chapter/ship/Secret_Grem_ship.jpg}}
+		\fcolorbox{gray}{gray}{\includegraphics{chapter/ship/Grem_ship_answer.jpg}}
 	  }
 \end{exercise}
-Answer: \href{https://en.wikipedia.org/wiki/Soviet_destroyer_Gremyashchy_(1937)}{Soviet destroyer Gremyashchy (1937)}.
-
-
-
-\begin{exercise}
-	\label{answer:ship_2}
-	Based on the graph of the dependence of ships and military operations (Fig. \ref{fig:ships_by_country_and_conflict}), which country has the most values of wars associated with ships?
-	\begin{itemize}
-		\item \href{https://www.wikidata.org/wiki/Q15180}{Soviet Union}
-		\item \href{https://www.wikidata.org/wiki/Q159}{Russia}
-		\item \href{https://www.wikidata.org/wiki/Q34266}{Russian Empire}
-	\end{itemize}
-\end{exercise}
-Answer: Russia.
-
-
-\begin{exercise}
-	\label{answer:ship_3}
-	Based on the graph of the dependence of ships and military operations (Fig. \ref{fig:ships_by_country_and_conflict}), which war accounts for most of the values of ships?
-	\begin{itemize}
-	  \item \href{https://www.wikidata.org/wiki/Q159950}{Russo-Japanese War}
-	  \item \href{https://www.wikidata.org/wiki/Q362}{World War II}
-	  \item \href{https://www.wikidata.org/wiki/Q254106}{Crimean War}
-	\end{itemize}
-\end{exercise}
-Answer: World War II.
 
 
 
@@ -766,15 +741,39 @@ ORDER BY DESC(?beam) LIMIT 1
 	Output pictures of those ships, about which the film were shot. If there are no such, then those ships, about which the books were written.\\
 
 \end{exercise}
-Possible answer:\\
-{
-	\setlength{\fboxsep}{0pt}%
-	\setlength{\fboxrule}{1pt}%
-	\fcolorbox{gray}{gray}{\includegraphics{chapter/ship/K-19.jpg}}
-}
+Solution:
+\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/vSy}{Images of ships, about which films were shot}}\protect\footnotemark}, label=lst:wide_ship, ]
+	SELECT DISTINCT ?image 
+	WHERE
+	{
+		?film wdt:P31 wd:Q11424 
+			  
+		{?film wdt:P921/wdt:P31/wdt:P31 wd:Q2235308}
+		OPTIONAL { ?film wdt:P921/wdt:P18 ?image. }
+			
+		SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en". }
+	}
+\end{lstlisting}
+\footnotetext{SPARQL-querry: \href{https://w.wiki/vSy}{https://w.wiki/vSy}.}
 
-Submarine \href{https://en.wikipedia.org/wiki/Soviet_submarine_K-19}{K-19} was filmed in \href{https://en.wikipedia.org/wiki/K-19:_The_Widowmaker}{K-19: The Widowmaker}.  Source: \href{https://commons.wikimedia.org/wiki/File:K-19.jpg}{https://commons.wikimedia.org/wiki/File:K-19.jpg}, Norman Polamar Cold War Submarines.
 
+\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/vTE}{Images of ships, about which books were written}}\protect\footnotemark}, label=lst:wide_ship, ]
+		SELECT DISTINCT ?image
+		WHERE
+		{
+			?book wdt:P31 wd:Q571
+				  
+			{?book wdt:P921/wdt:P31/wdt:P31 wd:Q2235308}
+			OPTIONAL { ?book wdt:P921/wdt:P18 ?image. }
+				
+			SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en". }
+		}
+	\end{lstlisting}
+	\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/vTE}{https://w.wiki/vTE}.}
+\end{task}
+		
+		
+	
 
 
 \begin{exercise}
