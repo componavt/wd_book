@@ -41,7 +41,7 @@ WHERE
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
 }
 \end{lstlisting}
-\footnotetext{Найдено \num{19820} кораблей в 2017 г. и \num{50681} в 2020 г. Ссылка на SPARQL-запрос: \href{https://w.wiki/koL}{https://w.wiki/koL}. }
+\footnotetext{Найдено \num{19820} кораблей в 2017 и \num{50681} в 2020. Ссылка на SPARQL-запрос: \href{https://w.wiki/koL}{https://w.wiki/koL}. }
 
 По данным ProWD больше всего свойств (34) имеет \href{https://www.wikidata.org/wiki/Q281147}{ледокол Красин}\cite{ProWD_ru_ships}.
 
@@ -84,7 +84,7 @@ WHERE
 \end{lstlisting}
 \footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/koU}{https://w.wiki/koU}.}
 
-Что касается российских кораблей, актуальный список корабельного состава Военно-морского флота Российской Федерации России на 16 октября 2017 г., содержит 72 подводные лодки, а также 211 боевых кораблей и катеров\cite{RussianShips}, При этом запрос в листинге \ref{lst:all_ru_ships} находит всего 25 записей (0.09\%).
+Что касается российских кораблей, актуальный список корабельного состава Военно-морского флота Российской Федерации России на 16 октября 2017 г., содержит \num{578} подводные лодки, а также 211 боевых кораблей и катеров\cite{RussianShips}, При этом запрос в листинге \ref{lst:all_ru_ships} находит всего 25 записей (0.04\%).
 
 \begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/koS}{Cписок кораблей, операторы которых находятся или находились в России, СССР или Российской Империи}}, label=lst:all_ru_ships ]
 #List of ship from Russia, Soviet Union and Russian Empire
@@ -140,25 +140,25 @@ WHERE
 
 Для первого типа объектов в скриптах с поиском у кораблей свойства \href{https://www.wikidata.org/wiki/Property:P607}{conflict (P607)} будет отображаться больше войн/сражений, чем при втором. Но в этом случае операция \href{https://ru.wikipedia.org/wiki/Одесская_оборона_(1941)}{Одесская оборона} будет стоять наряду с \href{https://ru.wikipedia.org/wiki/Великая_Отечественная_война}{Великой Отечественной войной}, хотя она является частью этой войны. В такой ситуации выводимые данные будут не точными.
 
-\label{question:ship_2}
-\marginnote{
-  Исходя из графика зависимости кораблей и военных действий (Рис. \ref{fig:ships_by_country_and_conflict}), на какую страну приходится больше всего значений войн, с которыми связаны корабли?
-  \begin{itemize}
-    \item СССР
-    \item Россия
-    \item Российская Империя
-  \end{itemize}
-}
+% \label{question:ship_2}
+% \marginnote{
+%   Исходя из графика зависимости кораблей и военных действий (Рис. \ref{fig:ships_by_country_and_conflict}), на какую страну приходится больше всего значений войн, с которыми связаны корабли?
+%   \begin{itemize}
+%     \item СССР
+%     \item Россия
+%     \item Российская Империя
+%   \end{itemize}
+% }
 
-\label{question:ship_3}
-\marginnote{
-  Исходя из этого же графика, на какую войну приходится больше всего значений кораблей?
-  \begin{itemize}
-    \item \href{https://www.wikidata.org/wiki/Q159950}{Русско-японская война}
-    \item \href{https://www.wikidata.org/wiki/Q362}{Вторая мировая война}
-    \item \href{https://www.wikidata.org/wiki/Q254106}{Крымская война}
-  \end{itemize}
-}
+% \label{question:ship_3}
+% \marginnote{
+%   Исходя из этого же графика, на какую войну приходится больше всего значений кораблей?
+%   \begin{itemize}
+%     \item \href{https://www.wikidata.org/wiki/Q159950}{Русско-японская война}
+%     \item \href{https://www.wikidata.org/wiki/Q362}{Вторая мировая война}
+%     \item \href{https://www.wikidata.org/wiki/Q254106}{Крымская война}
+%   \end{itemize}
+% }
 
 Составим список кораблей (на русском языке) России, СССР или Российской Империи, участвовавших в каких-либо конфликтах (см. листинг \ref{lst:ships_in_war_ru}).
 
@@ -183,7 +183,7 @@ WHERE
 
 \begin{figure*}
   \includegraphics[width=\linewidth]{chapter/ship/Ships_by_country_and_conflict_ru.png}
-  \caption{Список кораблей, связанных с Россией и участвовавших в военных конфликтах (2017)}%
+  \caption{Фрагмент cписка кораблей, связанных с Россией и участвовавших в военных конфликтах, 2017 год. Из списка видно, что больше большая часть кораблей связаны с Россией и СССР, а также со Второй мировой или Великой Отечественной войнами.}%
   \label{fig:ships_by_country_and_conflict}%
 \end{figure*}
 
