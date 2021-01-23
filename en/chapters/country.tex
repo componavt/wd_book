@@ -23,9 +23,9 @@ label=lst:country]
 SELECT ?country ?label_en ?label_ru
 WHERE
 {
-?country wdt:P31 wd:Q6256. # instance country
-?country rdfs:label ?label_en filter (lang(?label_en) = "en").
-?country rdfs:label ?label_ru filter (lang(?label_ru) = "ru").
+	?country wdt:P31 wd:Q6256. # instance country
+	?country rdfs:label ?label_en filter (lang(?label_en) = "en").
+	?country rdfs:label ?label_ru filter (lang(?label_ru) = "ru").
 }
 \end{lstlisting}
 
@@ -45,7 +45,7 @@ WHERE
 
 According to the degree of occupancy of properties on Wikidann, one can distinguish between ``full'' and ``empty'' countries.
 
-Examples of the most complete and developed countries on Wikidata according to ProWD\sidecite{prowd_balakireva} are: \wdqName{Israel}{801}, \wdqName{France}{142}, \wdqName{United States of America}{30}. According to ProWD, an almost empty and uninformative country is: \wdqName{Republic of Central Lithuania}{523380}. According to ProWD, the leaders among the countries in terms of the number of properties in Wikidata are \wdqName{Israel}{801} and \wdqName{France}{142} (127 properties each), the lowest number of properties is in the \wdqName{Democratic Republic of Vietnam}{172640}  (24 properties).
+Examples of the most complete and developed countries on Wikidata according to ProWD\sidecite{prowd_balakireva} are: \wdqName{Israel}{801}, \wdqName{France}{142}, \wdqName{United States of America}{30}. According to ProWD, the leaders among the countries in terms of the number of properties in Wikidata are \wdqName{Israel}{801} and \wdqName{France}{142} (127 properties each), the lowest number of properties is in the \wdqName{Democratic Republic of Vietnam}{172640}  (24 properties).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -127,7 +127,6 @@ GROUP BY ?country ?countryLabel ?min_year
 ORDER BY ?min_year
 \end{lstlisting}
 
-For example: \wdqName{Russia}{159}~--- Jan 1 0862, \wdqName{Kosovo}{1246}~--- Feb 17 2008, \wdqName{South Sudan}{958}~--- Jul 9 2011.
 
 For example, \wdqName{France}{142}~--- 463 year, \wdqName{Russia}{159}~--- 862, \wdqName{Republic of Kosovo}{1246}~--- 2008, \wdqName{South Sudan }{958}~--- 2011.
 The largest number of countries appeared in 1960 (16 countries), in 1991 (15 countries), in 1962 (6 countries) and in 1821 (6 countries).
@@ -142,9 +141,9 @@ label=lst:without_inception
 SELECT ?country ?countryLabel 
 WHERE
 {
-?country wdt:P31 wd:Q6256. # country
-MINUS { ?country wdt:P571 [] }. # inception of country is empty
-SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+	?country wdt:P31 wd:Q6256. # country
+	MINUS { ?country wdt:P571 [] }. # inception of country is empty
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
 \end{lstlisting}
 
@@ -190,7 +189,7 @@ Using the script (Listing \ref{lst:List_of_historical_countries}), let's build a
 
 \begin{lstlisting}[ language=SPARQL, 
 caption={List of historical countries. The result contains \num{3025} countries without completed date of foundation in 2021.\\\hspace{\textwidth}
-SPARQL query: \href{https://w.wiki/tQN}{https://w.wiki/tQN}},
+SPARQL query: \href{https://w.wiki/vRV}{https://w.wiki/vRV}},
 label=lst:without_inception
 ]
 # List of historical countries
@@ -198,7 +197,7 @@ SELECT ?country ?countryLabel
 WHERE
 {
 	?country p:P31 [ps:P31 wd:Q3024240]. # instance of a historical country 
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],ru,en"} 
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en,ru"} 
 }
 \end{lstlisting}
 
@@ -254,8 +253,8 @@ Let's build a list of countries that have demonyms in English (Listing \ref{lst:
 
 \index{SPARQL!FILTER!List of countries with demonyms in English}
 \begin{lstlisting}[ language=SPARQL, 
-caption={List of countries with demonyms in English. The result contains \num{197} countries with demonyms in 2017 and \num{131} in 2021.\\\hspace{\textwidth}
-SPARQL query: \href{https://w.wiki/vK8}{https://w.wiki/vK8}},
+caption={List of countries with demonyms in English. The result contains \num{197} countries with demonyms in 2017 and \num{209} in 2021.\\\hspace{\textwidth}
+SPARQL query: \href{https://w.wiki/vRW}{https://w.wiki/vRW}},
 label=lst:demonym, 
 ]
 # List of countries with demonyms in English
@@ -264,7 +263,7 @@ WHERE
 {
 	?country p:P31 [ps:P31 wd:Q6256]. # instance of a country
 	?country wdt:P1549 ?demonym .     # has demonym
-	FILTER((LANG(?demonym)) = "ru")
+	FILTER((LANG(?demonym)) = "en")
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
 GROUP BY ?country ?countryLabel
@@ -279,7 +278,7 @@ Let's build a list of all demonyms in English (Listing \ref{lst:list_demonym}).
 \index{SPARQL!FILTER!List of demonyms in English}
 \begin{lstlisting}[ language=SPARQL, 
 caption={List of demonyms in English. The result contains \num{237} demonyms in 2017 and \num{296} in 2021.\\\hspace{\textwidth}
-SPARQL query: \href{https://w.wiki/vKA}{https://w.wiki/vKA}},
+SPARQL query: \href{https://w.wiki/vRX}{https://w.wiki/vRX}},
 label=lst:list_demonym, 
 ]
 # List of demonyms of countries in English
@@ -288,7 +287,7 @@ WHERE
 {
 	?country p:P31 [ps:P31 wd:Q6256]. # instance of a country
 	?country wdt:P1549 ?demonym .     # has demonym
-	FILTER((LANG(?demonym)) = "ru")
+	FILTER((LANG(?demonym)) = "en")
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
 \end{lstlisting}
@@ -302,7 +301,7 @@ WHERE
 Let's build a list of countries which do not have demonyms in English (Listing \ref{lst:without_demonym}).
 \index{SPARQL!MINUS!List of countries without demonyms in English}
 \begin{lstlisting}[ language=SPARQL, 
-caption={List of countries without demonyms in English. The result contains \num{5} countries without demonyms in 2017 and \num{107} in 2021.\\\hspace{\textwidth}
+caption={List of countries without demonyms in English. The result contains \num{5} countries without demonyms in 2017 and \num{9} in 2021.\\\hspace{\textwidth}
 SPARQL query: \href{https://w.wiki/myi}{https://w.wiki/myi}},
 label=lst:without_demonym, 
 ]
@@ -312,7 +311,7 @@ WHERE
 {
 	?country p:P31 [ps:P31 wd:Q6256].  # instance of a country
 	MINUS { ?country wdt:P1549 ?demonym.    # without demonyms
-		FILTER((LANG(?demonym)) = "ru") # in Russian
+		FILTER((LANG(?demonym)) = "en") # in Russian
 	}
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
@@ -370,7 +369,7 @@ Let's construct a bubble diagram of countries' government forms (Listing \ref{ls
 \index{Chart!BubbleChart!Basic forms of government}
 \begin{lstlisting}[ language=SPARQL, 
 caption={Basic form of government ranking. The result contains \num{30} basic forms of government in 2017 and \num{41} in 2020.\\\hspace{\textwidth}
-SPARQL query: \href{https://w.wiki/vLp}{https://w.wiki/vLp}},
+SPARQL query: \href{https://w.wiki/vRY}{https://w.wiki/vRY}},
 label=lst:form_of_government
 ]
 # Forms of government ordered by number of countries
@@ -382,7 +381,7 @@ WHERE
 	?country p:P122 [ps:P122 ?bfog].# # basic form of government
 	OPTIONAL {
 	?bfog rdfs:label ?form
-		FILTER (LANG(?form) = "ru")
+		FILTER (LANG(?form) = "en")
 	}
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "en"}
 }
@@ -407,7 +406,7 @@ As a result of the query, we get a bubble chart with the most popular forms of g
 		\setlength{\fboxrule}{1pt}%
 		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/Bubble_chart_forms_of_government_countries_according_to_Wikidata.png}}%
 	}
-	\caption{Bubble chart forms of government countries, 2017
+	\caption[Bubble chart forms of government countries, 2017]{Bubble chart forms of government countries, 2017
 		\\ The popular forms of government of the countries are the republic (in 20 countries), the constitutional monarchy (18), the federal republic (18), the parliamentary republic (17) and the presidential system (11) for 2017.
 	}%
 	\label{fig:bubble_chart_forms_of_government_countries_2017}%
@@ -419,7 +418,9 @@ As a result of the query, we get a bubble chart with the most popular forms of g
 		\setlength{\fboxrule}{1pt}%
 		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/Bubble_chart_forms_of_government_countries_according_to_Wikidata_2020.PNG}}%
 	}
-	\caption{Bubble chart forms of government countries, 2020
+	\caption
+	[Bubble chart forms of government countries, 2020]
+	{Bubble chart forms of government countries, 2020
 		\\ 
 		The popular forms of government of the countries are the republic (in 27 countries), the constitutional monarchy (18), the federal republic (16), the parliamentary republic (13) and the presidential system (12) for 2020.
 	}%
@@ -526,8 +527,7 @@ As a result of the query execution (Listing \ref{lst:neighboring_countries_ru}),
 		\setlength{\fboxrule}{1pt}%
 		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/Map_of_neighboring_countries_of_Russia_en.png}}%
 	}
-	\caption{Map of neighboring countries of Russia, 2021.
-	}%
+	\caption{Map of neighboring countries of Russia, 2021.}%
 	\label{fig:neighboring_countries_ru}%
 \end{figure*}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
