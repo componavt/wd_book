@@ -49,7 +49,7 @@ WHERE
 
 The most complete and well-developed programming languages on Wikidata for 2017 were: \wdqName{Java}{251}, \wdqName{Python}{28865}, \wdqName{C}{15777}. For 2020 the most well-developed programming languages on Wikidata are: \wdqName{C++}{2407} (26 properties), \wdqName{Java}{251} (26 properties), \wdqName{JavaScript}{2005} (25 properties), \wdqName{R}{206904} (25 properties).
 
-Almost empty and uninformative languages for 2020 are: \wdqName{Proteus}{3924253}, \wdqName{Cryptol}{5190950}, \wdqName{Flow Java}{5462069}, \wdqName{Comfy}{21524853} according to ProWD\cite{prowd_langs}.
+Almost empty and uninformative languages for 2020 are: \wdqName{Proteus}{3924253}, \wdqName{Cryptol}{5190950}, \wdqName{Flow Java}{5462069}, \wdqName{Comfy}{21524853} according to ProWD\sidecite{prowd_langs}.
 
 In 2017 there were languages with an unfilled label, but script \ref{lst:labled_prog_languages} shows that for 2020 all languages have a filled label. However, not all programming languages have labels for the Russian language.
 
@@ -288,7 +288,7 @@ ORDER BY DESC(?count)
 \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/programming_language/Organizations_map_2017.png}}
 }
 	\caption{Countries in which people and organizations live, associated with the creation of programming languages (2017).}
-	\labfig{fig:organizations_2017}
+	\label{fig:organizations_2017}
 \end{figure*}
 \begin{figure*}[h]
 {
@@ -297,7 +297,7 @@ ORDER BY DESC(?count)
 \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/programming_language/Organizations_map_2020.png}}
 }
 	\caption{Countries in which people and organizations live, associated with the creation of programming languages (2020).}
-	\labfig{fig:organizations_2020}
+	\label{fig:organizations_2020}
 \end{figure*}
 
 \section{Universities where people who developed programming languages studied}
@@ -371,7 +371,7 @@ GROUP BY ?educationalInstitutionLabel
 ORDER BY DESC(?count)
 \end{lstlisting}%
 
-\begin{marginfigure}[-3cm]
+\begin{marginfigure}[-2cm]
 	\includegraphics[width=\linewidth]{./chapter/programming_language/Universities_2020.png}
 	\caption{Bubble chart of the most favorable universities among future developers of programming languages (2020).}
 	\label{fig:universities_2020}
@@ -434,13 +434,7 @@ WHERE
 \end{lstlisting}%
 
 \section{Fullness of Wikidata}
-
-\begin{marginfigure}[5pt]
-	\includegraphics[width=\linewidth]{./chapter/programming_language/Professions_2020.png}
-	\caption{Which professions prevail among people developing programming languages (2020).}
-	\label{fig:Professions_2020}
-\end{marginfigure}
-According to the Bourabai Research University \cite{oo_langs_bourabai}, there are at least 26 programming languages that support an object-oriented paradigm. In the articles devoted to object-oriented programming, another 4 \cite{oo_langs_science_wikia} and 3 \cite{oo_langs_garshin} programming languages are added to this list. The SPARQL-query (\href{https://w.wiki/n9Y}{w.wiki/n9Y}) returned 116 results. It is difficult to judge the completeness of the data in the three sources cited above, since there are a large number of little-known, obsolete and narrowly focused languages that are not covered in authoritative sources. From this it can be concluded that Wikidata provides a fairly complete list of object-oriented programming languages.
+According to the Bourabai Research University \sidecite{oo_langs_bourabai}, there are at least 26 programming languages that support an object-oriented paradigm. In the articles devoted to object-oriented programming, another 4 \sidecite{oo_langs_science_wikia} and 3 \sidecite{oo_langs_garshin} programming languages are added to this list. The SPARQL-query (\href{https://w.wiki/n9Y}{w.wiki/n9Y}) returned 116 results. It is difficult to judge the completeness of the data in the three sources cited above, since there are a large number of little-known, obsolete and narrowly focused languages that are not covered in authoritative sources. From this it can be concluded that Wikidata provides a fairly complete list of object-oriented programming languages.
 
 \section{Filling objects}
 
@@ -471,7 +465,7 @@ We will derive a similar list, but with a filled-in 'label' field in Russian. Th
                     caption={List of involved in the development of programming languages with filled with the 'label' field in Russian.\\\hspace{\textwidth}
 			The result contains \num{133} languages in 2017, 
                         \num{183} languages in 2020. \\\hspace{\textwidth}
-                        SPARQL query: \href{https://w.wiki/vEX}{w.wiki/vEX}
+                        SPARQL query: \href{https://w.wiki/vbR}{w.wiki/vbR}
                         },
                     label=lst:prog_langs_filling_2,
                     texcl 
@@ -480,11 +474,18 @@ SELECT ?langLabel ?lang ?developerLabel ?developer
 WHERE
 {
  ?lang wdt:P31 wd:Q9143. # instances of programming language
- ?lang wdt:P178 ?developer. # developer 
- ?developer wdt:P31 wd:Q5. # instances of human
- SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
+ ?lang wdt:P178 ?developer # developer 
+ ; rdfs:label ?developerLabel FILTER (LANG(?developerLabel) = "ru").
+ ?developer wdt:P31 wd:Q5 # instances of human
+ ; rdfs:label ?langLabel FILTER (LANG(?langLabel) = "ru")
+ 
 }
 \end{lstlisting}%
+\begin{marginfigure}[-35pt]
+	\includegraphics[width=\linewidth]{./chapter/programming_language/Professions_2020.png}
+	\caption{Which professions prevail among people developing programming languages (2020).}
+	\label{fig:Professions_2020}
+\end{marginfigure}
 
 \section{Exersises}
 \begin{enumerate}
