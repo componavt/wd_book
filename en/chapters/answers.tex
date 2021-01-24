@@ -88,20 +88,20 @@ Company & Foundation date \\ \hline
 
 The company 
 ``Tupolev'' was founded in 1922, 
-``MiG''~--- in 1939, 
-``Sukhoi''~--- in 1939, 
+``MiG'' and ``Sukhoi''~--- in 1939, 
 ``Vympel''~--- in 1949. 
-Answer to this question can be obtained by the following SPARQL-request (listing \ref{lst:aircraft_company_foundation_date_lst_en}). 
+Answer to this question can be obtained by the following SPARQL-request (listing~\ref{lst:aircraft_company_foundation_date_lst_en}). 
        
 \begin{lstlisting}[ language=SPARQL, breaklines=true, 
                     caption={List of Russian aircraft factories 
                         sorted by the years the factories were founded.\\\hspace{\textwidth}
 						There are 15 Russian aircraft factories, 2021.
-                        SPARQL query: \href{https://w.wiki/rg7}{w.wiki/rg7}
+                        SPARQL query: \href{https://w.wiki/vaF}{w.wiki/vaF}
                         },
                     label=lst:aircraft_company_foundation_date_lst_en,
                     texcl 
                     ]
+# Russian aircraft factories sorted by inception years
 SELECT ?manufacturer ?manufacturerLabel
        (YEAR(?inception) AS ?year)
 WHERE
