@@ -467,6 +467,25 @@ WHERE {
 }
 \end{lstlisting}
 \footnotetext{Результатом запроса в 2017 году было 133 разработчика, в 2020 году получено 237 разработчика. Ссылка на SPARQL-запрос: \href{https://w.wiki/v4L}{https://w.wiki/v4L}}
+
+\begin{lstlisting}[
+	language=SPARQL,
+	label=lst:filling,
+	caption={\href{https://w.wiki/vbU}{Список разработчиков языков программирования с заполненным полем label на русском языке}\protect\footnotemark},
+	texcl
+]
+SELECT ?langLabel ?lang ?developerLabel ?developer
+WHERE
+{
+ ?lang wdt:P31 wd:Q9143. # instances of programming language
+ ?lang wdt:P178 ?developer # developer 
+ ; rdfs:label ?developerLabel FILTER (LANG(?developerLabel) = "ru").
+ ?developer wdt:P31 wd:Q5 # instances of human
+ ; rdfs:label ?langLabel FILTER (LANG(?langLabel) = "ru")
+}
+\end{lstlisting}
+\footnotetext{Результатом запроса в 2017 году было 133 разработчика, в 2020 году получено 146 разработчика. Ссылка на SPARQL-запрос: \href{https://w.wiki/vbU}{https://w.wiki/vbU}}
+
 Сравнив результаты рапросов, можно заметить, что число объектов в Викиданных растёт и степень их заполненности также увеличивается.
 
 %%
