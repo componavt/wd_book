@@ -425,11 +425,11 @@ List all object-oriented programming languages.
                     label=lst:prog_langs_oopl,
                     texcl 
                     ]
-SELECT DISTINCT ?item ?item_label
+SELECT DISTINCT ?lang ?langLabel
 WHERE
 {
-    ?item wdt:P31 wd:Q899523 # instances of object-oriented prog. language
-    ; rdfs:label ?item_label FILTER (LANG(?item_label) = "en") 
+    ?lang wdt:P31 wd:Q899523 # instances of object-oriented prog. language
+    ; rdfs:label ?item_label FILTER (LANG(?langLabel) = "en") 
 }
 \end{lstlisting}%
 
@@ -481,7 +481,7 @@ WHERE
  
 }
 \end{lstlisting}%
-\begin{marginfigure}[-35pt]
+\begin{marginfigure}[-45pt]
 	\includegraphics[width=\linewidth]{./chapter/programming_language/Professions_2020.png}
 	\caption{Which professions prevail among people developing programming languages (2020).}
 	\label{fig:Professions_2020}
