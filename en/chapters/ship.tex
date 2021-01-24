@@ -98,9 +98,24 @@ WHERE
 
 When filling the properties of warships, namely the military conflicts in which they participated, the property \href{https://www.wikidata.org/wiki/Property:P607}{conflict (P607)} (war/battle) was indicated. At the same time, military conflicts and military operations, which are part of wars, are different concepts. Filled data on ships can be roughly divided into two types:
 \begin{itemize}
-  \item \textbf{Objects in which military operations are combined with military conflicts}. For example, in \href{https://www.wikidata.org/wiki/Q4148613}{Soviet destroyer Gremyashchiy} nine wars / battles. Such a large number is due to the fact that the ship took part in many \href{https://en.wikipedia.org/wiki/Arctic_convoys_of_World_War_II}{arctic convoys} which are military operations.
+  \item \textbf{Objects in which military operations are combined with military conflicts}. For example, in \href{https://www.wikidata.org/wiki/Q4148613}{Soviet destroyer Gremyashchiy} nine wars / battles, see listing \ref{lst:grem_wars}. Such a large number is due to the fact that the ship took part in many \href{https://en.wikipedia.org/wiki/Arctic_convoys_of_World_War_II}{arctic convoys} which are military operations.
   \item \textbf{Objects in which military operations are separated from military conflicts}. For example, in the British cruiser \href{https://en.wikipedia.org/wiki/HMS_Trinidad_(1940)}{HMS Trinidad} participation in the military campaign and the Arctic convoy are listed as part of World War II with the qualifier \href{https://www.wikidata.org/wiki/Property:P1012}{including (P1012)}. Thus, in the Wikidata, this cruiser has one war/battle.
 \end{itemize}
+
+
+\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/vbP}{War conflicts with \href{https://www.wikidata.org/wiki/Q4148613}{destroyer Gremyashchiy}}}\protect\footnotemark}, label=lst:grem_wars, ]
+SELECT ?conflict ?conflictLabel
+WHERE
+{
+  ?ship wdt:P31 wd:Q11446;
+        wdt:P607 ?conflict.
+      
+  FILTER (?ship IN (wd:Q4148613))
+                
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en". }
+}
+\end{lstlisting}
+\footnotetext{\num{10} conflicts are found, 2020. SPARQL-query: \href{https://w.wiki/vbP}{https://w.wiki/vbP}.}
 
 
 For the first type of filling in the scripts with the search for \href{https://www.wikidata.org/wiki/Property:P607}{conflict (P607)} properties, the ships will display more wars/battles than the second. But in this case, the operation \href{https://en.wikipedia.org/wiki/Siege_of_Odessa_(1941)}{The Odessa Defense} will stand alongside \href{https://en.wikipedia.org/wiki/World_War_II}{World War II}, although it is part of this war. In this situation, the output data will not be accurate.
