@@ -54,18 +54,19 @@ The following Russian manufacturers have websites: \Wikiref{Russian Aircraft Cor
 \begin{lstlisting}[ language=SPARQL, breaklines=true, 
                     caption={Russian aircraft factories websites\\\hspace{\textwidth}
 						Received 14 aircraft factories in Russia with websites for 2020.
-                        SPARQL query: \href{https://w.wiki/rg8}{w.wiki/rg8}
+                        SPARQL query: \href{https://w.wiki/vcH}{w.wiki/vcH}
                         },
                     label=lst:aircraft_listing_Manufacturers_websites,
                     texcl 
                     ]
+# Russian aircraft factories with websites
 SELECT ?manufacturer ?manufacturerLabel ?site
 WHERE
 {
-    ?manufacturer wdt:P31 wd:Q936518. # instance of aerospace manufacturer
-  	?manufacturer wdt:P17 wd:Q159. # country Russia
-  	?manufacturer wdt:P856 ?site # official website
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+  ?manufacturer wdt:P31 wd:Q936518; # is aerospace manufacturer
+                wdt:P17 wd:Q159;    # country Russia
+                wdt:P856 ?site.     # official website
+SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}
 
