@@ -86,24 +86,32 @@ Company & Foundation date \\ \hline
 \end{tabular}
 \end{exercise}
 
-The company ``MiG" was founded on December 18.1939, ``Pennant" - November 18.1949, ``Tupolev" - January 01.1922, ``Sukhoi" - January 01.1939 Reply the question can also be obtained by running the following SPARQL-request (listing \ref{lst:aircraft_company_foundation_date_lst_en}). 
+The company 
+``Tupolev'' was founded in 1922, 
+``MiG'' and ``Sukhoi''~--- in 1939, 
+``Vympel''~--- in 1949. 
+Answer to this question can be obtained by the following SPARQL-request (listing~\ref{lst:aircraft_company_foundation_date_lst_en}). 
        
 \begin{lstlisting}[ language=SPARQL, breaklines=true, 
-                    caption={Dates of foundation of Russian aircraft factories\\\hspace{\textwidth}
-						Received 15 Russian aircraft factories with the date of foundation, 2021.
-                        SPARQL query: \href{https://w.wiki/rg7}{w.wiki/rg7}
+                    caption={List of Russian aircraft factories 
+                        sorted by the years the factories were founded.\\\hspace{\textwidth}
+						There are 15 Russian aircraft factories, 2021.
+                        SPARQL query: \href{https://w.wiki/vaF}{w.wiki/vaF}
                         },
                     label=lst:aircraft_company_foundation_date_lst_en,
                     texcl 
                     ]
-SELECT ?manufacturer ?manufacturerLabel ?inception
+# Russian aircraft factories sorted by inception years
+SELECT ?manufacturer ?manufacturerLabel
+       (YEAR(?inception) AS ?year)
 WHERE
 {
-    ?manufacturer wdt:P31 wd:Q936518. # instance of aerospace manufacturer
-  	?manufacturer wdt:P17 wd:Q159. # country Russia
-  	?manufacturer wdt:P571 ?inception # foundation date
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+  ?manufacturer wdt:P31 wd:Q936518; # is aerospace manufacturer
+                wdt:P17 wd:Q159;    # country Russia
+                wdt:P571 ?inception.# foundation date
+SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
+ORDER BY ?year
 \end{lstlisting}
 
 Question from page~\pageref{question:aircraft_question_2}.
@@ -156,9 +164,9 @@ What is the name of an aircraft held in the air by a huge tank of flammable, let
     {%
         \setlength{\fboxsep}{0pt}
         \setlength{\fboxrule}{1pt}
-        \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/aircraft/foto_of_airship_answer.jpg}}
+        \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/aircraft/foto_of_airship.jpg}}
     }
-	\caption{Soviet airship V-6.}
+	\caption{Soviet airship \Wikiref{SSSR-V6 OSOAVIAKhIM}.}
 	\labfig{fig:airship_question_answers_aircraft_en_2}
 \end{marginfigure}
 
@@ -175,7 +183,7 @@ Which aircraft is shown in~\reffig{fig:airship_question_answers_aircraft_en_2}?
 \end{exercise}
 
 The aircraft shown in~\reffig{fig:airship_question_answers_aircraft_en_2} is an airship. 
-The answer to the question can also be obtained by running the following SPARQL-request (listing \ref{lst:aircraft_airship_photo_lst_en})
+The answer to the question can also be obtained by running the following SPARQL-request (listing \ref{lst:aircraft_airship_photo_lst_en}).
 
 \begin{lstlisting}[ language=SPARQL, breaklines=true, 
                     caption={Airship images\\\hspace{\textwidth}

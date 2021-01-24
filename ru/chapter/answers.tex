@@ -469,19 +469,27 @@ WHERE
 
 \begin{task}
     \label{answer:aircraft_company_foundation_date}
-    \newthought{Компания <<МиГ>> была основана 18 декабря 1939 года, <<Вымпел>> ~--- 18 ноября 1949 года, <<Туполев>> ~--- 1 января 1922 года, <<Сухой>> ~--- 1 января 1939 года. Ответ на вопрос также можно получить, выполнив SPARQL-запрос, представленный на листинге~\ref{lst:aircraft_company_foundation_date_lst}}. 
+    \newthought{Компания 
+<<Туполев>> была основана в 1922 году, 
+<<МиГ>> и <<Сухой>>~--- в 1939 
+и <<Вымпел>>~--- в 1949 году.
+    Ответ на вопрос можно получить, выполнив SPARQL-запрос, представленный на листинге~\ref{lst:aircraft_company_foundation_date_lst}}. 
     
-	\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/t4T}{Даты основания отечественных авиазаводов}\protect\footnotemark}, label=lst:aircraft_company_foundation_date_lst, ]
-SELECT ?manufacturer ?manufacturerLabel ?inception
+	\begin{lstlisting}[ language=SPARQL, 
+    caption={\href{https://w.wiki/t4T}{Даты основания отечественных авиазаводов}\protect\footnotemark}, label=lst:aircraft_company_foundation_date_lst, ]
+# Russian aircraft factories sorted by inception years
+SELECT ?manufacturer ?manufacturerLabel
+       (YEAR(?inception) AS ?year)
 WHERE
 {
-    ?manufacturer wdt:P31 wd:Q936518. # is aerospace manufacturer
-  	?manufacturer wdt:P17 wd:Q159. # country Russia
-  	?manufacturer wdt:P571 ?inception # foundation date
-    SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
+  ?manufacturer wdt:P31 wd:Q936518; # is aerospace manufacturer
+                wdt:P17 wd:Q159;    # country Russia
+                wdt:P571 ?inception.# foundation date
+SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
 }
+ORDER BY ?year
 \end{lstlisting}
-\footnotetext{Получено 15 отечественных авиазаводов с датой основания, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/t4T}{https://w.wiki/t4T} }
+\footnotetext{Получено 15 отечественных авиазаводов с датой основания, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vaH}{https://w.wiki/vaH}}
     
     \small{Вопрос на с.~\pageref{aircraft_question_2}.}
 \end{task}

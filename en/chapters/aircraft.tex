@@ -7,7 +7,7 @@
 Author: \href{https://commons.wikimedia.org/wiki/File:X43a2_nasa_scramjet.jpg}{NASA, WikiCommons / 2008 / Public Domain}. }
 
 The chapter explores the various properties of aircraft based on the Wikidata database.
-During the study, using SPARQL queries calculated on objects of the ``Aircraft" type, a list of aircraft and their manufacturers was obtained, the number 
+During the study, using SPARQL queries calculated on objects of the ``Aircraft'' type, a list of aircraft and their manufacturers was obtained, the number 
 produced aircraft for different models. For this number of aircraft, the \Wikiref{Pareto principle} has been verified by models.
 A diagram is also obtained showing the ratio of the total number of aircraft manufacturers by country.
 The chapter concludes with an estimate of the completeness of the data presented in Wikipedia and Wikidata. 
@@ -25,7 +25,7 @@ surface of the earth or water.
 Aircraft include the following types of aircraft: gyroplane, balloon, helicopter, rotorcraft, airship, flywheel, glider and airplane.
 Aircraft do not include spaceships, rockets, ekranoplanes (but not ekranoplanes) and hovercraft.
 
-Let's build a list of all instances of the object ``Aircraft" \href{https://www.wikidata.org/wiki/Q11436}{Q11436}.
+Let's build a list of all instances of the object ``Aircraft'' \href{https://www.wikidata.org/wiki/Q11436}{Q11436}.
 
 \begin{lstlisting}[ language=SPARQL, breaklines=true, 
                     caption={List of aircrafts.\\\hspace{\textwidth}
@@ -162,7 +162,7 @@ The figure in Fig.~\ref{fig:Number_of_aircraft_produced_en_2020} shows that the 
 \end{figure*}
 
 Now let's try to answer the question: ``Does \Wikiref{Pareto principle} hold with respect to the 
-number of aircraft models"?
+number of aircraft models''?
 
 In order to build a graph, you must perform the following steps:
 
@@ -226,7 +226,7 @@ In order to build a graph, you must perform the following steps:
 
 According to the graph~\ref{fig:Pareto_principle_diargam_en}, it can be seen that 80\% of all aircraft produced belong to 16 different aircraft 
 models, which is 9.2\% of the total number of models. Pareto's law states that: ``20\% of the efforts give 80\% of the result, and the remaining 80\%
- of the efforts - only 20\% of the result." It can be concluded that a stronger law is fulfilled than the Pareto principle regarding the number 
+ of the efforts~--- only 20\% of the result''. It can be concluded that a stronger law is fulfilled than the Pareto principle regarding the number 
  of aircraft models.
 
 \label{question:aircraft_question_3}
@@ -249,7 +249,7 @@ The answer is on page~\pageref{answer:aircraft_company_headquarters_en}.
 \section{In which countries are aircraft produced}
 
 Let's build a list of the number of aircraft manufacturers by country. To execute the query~\ref{lst:aircraft_listing_7}, we use the grouping 
-by country (GROUP BY) and use the ``Count" function for each country to calculate the total number of aircraft manufacturing plants.
+by country (GROUP BY) and use the ``Count'' function for each country to calculate the total number of aircraft manufacturing plants.
 
 %\index{SPARQL!COUNT!List of the ratio of the number of manufacturers aircraft by country}
 %\begin{lstlisting}[ language=SPARQL, breaklines=true, 
@@ -274,11 +274,11 @@ by country (GROUP BY) and use the ``Count" function for each country to calculat
 %\end{lstlisting}
 
 Having received a list of countries by the number of aircraft manufacturing plants, we can construct a bubble diagram 
-for clarity of the ``Relationship between the number of aircraft manufacturers by country"~\ref{fig:Manufacture-with-country_2020_en}. 
+for clarity of the ``Relationship between the number of aircraft manufacturers by country''~\ref{fig:Manufacture-with-country_2020_en}. 
 To build it, we execute the request ~\ref{lst:aircraft_listing_7}.
 
-\index{SPARQL!COUNT!Bubble chart ``Relationship between the number of aircraft manufacturers by country"}
-\index{Chart!BubbleChart!Bubble chart ``Relationship between the number of aircraft manufacturers by country"}
+\index{SPARQL!COUNT!Bubble chart ``Relationship between the number of aircraft manufacturers by country''}
+\index{Chart!BubbleChart!Bubble chart ``Relationship between the number of aircraft manufacturers by country''}
 \begin{lstlisting}[ language=SPARQL, breaklines=true, 
                     caption={Bubble chart\\\hspace{\textwidth}
                         SPARQL query: \href{https://w.wiki/vPE}{w.wiki/vPE}
