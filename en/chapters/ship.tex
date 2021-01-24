@@ -101,7 +101,7 @@ When filling the properties of warships, namely the military conflicts in which 
 \end{itemize}
 
 
-\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/vbP}{War conflicts with \href{https://www.wikidata.org/wiki/Q4148613}{destroyer Gremyashchiy}}}\protect\footnotemark}, label=lst:grem_wars, ]
+\begin{lstlisting}[ language=SPARQL, caption={{War conflicts with \href{https://www.wikidata.org/wiki/Q4148613}{destroyer Gremyashchiy}. \num{10} conflicts are found, 2020. SPARQL-query: \href{https://w.wiki/vbP}{https://w.wiki/vbP}.}\protect\footnotemark}, label=lst:grem_wars, ]
 SELECT ?conflict ?conflictLabel
 WHERE
 {
@@ -113,7 +113,6 @@ WHERE
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en". }
 }
 \end{lstlisting}
-\footnotetext{\num{10} conflicts are found, 2020. SPARQL-query: \href{https://w.wiki/vbP}{https://w.wiki/vbP}.}
 
 
 For the first type of filling in the scripts with the search for \href{https://www.wikidata.org/wiki/Property:P607}{conflict (P607)} properties, the ships will display more wars/battles than the second. But in this case, the operation \href{https://en.wikipedia.org/wiki/Siege_of_Odessa_(1941)}{The Odessa Defense} will stand alongside \href{https://en.wikipedia.org/wiki/World_War_II}{World War II}, although it is part of this war. In this situation, the output data will not be accurate.
