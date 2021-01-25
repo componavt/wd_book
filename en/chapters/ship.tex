@@ -78,7 +78,7 @@ The ship \href{https://www.wikidata.org/wiki/Q281147}{Krasin (Q281147)} has the 
 
 \section{Completeness of the Wikidata}
 
-Finding the exact number of ships in the world is a difficult task. After all, data about some of them are top secret, some are private vessels and there is no information about them either. Suppose that the total number of ships is about \num{1600000}, as indicated in the vessel database \sidecite{FleetMon}. The script in the listing \ref{lst:list_of_ship_en} showed only \num{71203} records, which makes up only 4,3\% of the total number of ships. 
+Finding the exact number of ships in the world is a difficult task. After all, data about some of them are top secret, some are private vessels and there is no information about them either. Suppose that the total number of ships is about \num{1600000}, as indicated in the vessel database \sidecite{FleetMon}. The script in the listing \ref{lst:list_of_ship_en} showed only \num{71203} records, which makes up only 4.3\% of the total number of ships. 
 
 As for the Russian ships, the actual civil and military fleets includes \num{17657} ships \sidecite{RussianShips}. At the time when the script in the listing \ref{lst:list_of_ship_ussr_rf_re_en} showed only 579 records, which is only 3.23\% of the total number of Russian ships. 
 
@@ -114,7 +114,6 @@ With the serarator ";" in the script in the listing \ref{lst:ships_in_conflict_e
   \item \textbf{Objects in which military operations are separated from military conflicts}. For example, in the British cruiser \href{https://en.wikipedia.org/wiki/HMS_Trinidad_(1940)}{HMS Trinidad} participation in the military campaign and the Arctic convoy are listed as part of World War II with the qualifier \href{https://www.wikidata.org/wiki/Property:P1012}{including (P1012)}. Thus, in the Wikidata, this cruiser has one war/battle.
 \end{itemize}
 
-
 \begin{lstlisting}[ language=SPARQL, caption={War conflicts with \href{https://www.wikidata.org/wiki/Q4148613}{destroyer Gremyashchiy}. \num{10} conflicts are found, 2021. SPARQL-query: \href{https://w.wiki/vi3}{https://w.wiki/vi3}}, label=lst:grem_wars, ]
 SELECT ?conflict ?conflictLabel
 WHERE
@@ -128,24 +127,23 @@ SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}
 
-
 For the first type of filling in the scripts with the search for \href{https://www.wikidata.org/wiki/Property:P607}{conflict (P607)} properties, the ships will display more wars/battles than the second. But in this case, the operation \href{https://en.wikipedia.org/wiki/Siege_of_Odessa_(1941)}{The Odessa Defense} will stand alongside \href{https://en.wikipedia.org/wiki/World_War_II}{World War II}, although it is part of this war. In this situation, the output data will not be accurate.
 
 \label{question:ship_3}
 \marginnote{Output pictures of those ships, about which the film were shot. If there are no such, then those ships, about which the books were written. See answer on page~\pageref{answer:ship_3}.}
 
-For the second type of filling, scripts in listing \ref{lst:ships_in_conflict_2_en} will clearly distinguish where the war is, and where the military operation, also the data displayed on the chart will be more accurate.
+Also, lets build list of conflict and ships of Russia, Russian empire and USSR with script in the listing \ref{lst:ships_in_conflict_2_en}.
 
-\begin{lstlisting}[ language=SPARQL, caption={List of ship with countries and war conflicts in English. \num{105} ships (2017), \num{86} ships (2020), \num{82} ships (2021). SPARQL-query: \href{https://w.wiki/vhs}{https://w.wiki/vhs}}, label=lst:ships_in_conflict_2_en, texcl]
+\begin{lstlisting}[ language=SPARQL, caption={List of ship with countries and war conflicts in English. \num{105} ships (2017), \num{86} ships (2020), \num{82} ships (2021). SPARQL-query: \href{https://w.wiki/vkB}{https://w.wiki/vkB}}, label=lst:ships_in_conflict_2_en, texcl]
 # List of ship with countries and war conflicts
 SELECT ?ship ?shipLabel ?countryLabel ?conflict ?conflictLabel
 WHERE
 {
   ?ship wdt:P31 wd:Q11446;        # instance of ship
-        wdt:P137/wdt:P17 ?country;         # belongs to country
+        wdt:P137/wdt:P17 ?country;# belongs to country
         wdt:P607 ?conflict.       # engaged in some conflict
   
-  VALUES ?country {wd:Q34266 # Russian EMpire
+  VALUES ?country {wd:Q34266 # Russian Empire
                    wd:Q15180 # Soviet Union
                    wd:Q159}  # Russia
   SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
