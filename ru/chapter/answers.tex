@@ -637,70 +637,9 @@ ORDER BY DESC(?count)
 
 %%%%%%%%%%%%%%%%%%%  Ship chapter  %%%%%%%%%%%%%%%%%%
 
-\begin{task}
-	\href{https://ru.wikipedia.org/wiki/Гремящий_(эсминец,_1937)}{Гремящий (эсминец, 1937)}. См. рисунок \ref{fig:grem_answer}.
 
+\begin{task}
 	\label{answer:ship_1}
-	\begin{marginfigure}[0.0cm]
-		{
-		  \setlength{\fboxsep}{0pt}%
-		  \setlength{\fboxrule}{1pt}%
-		  \fcolorbox{gray}{gray}{\includegraphics{chapter/ship/Grem_ship_answer.jpg}}
-		}
-		\caption{Почтовая марка с изображением эсминца \href{https://ru.wikipedia.org/wiki/Гремящий_(эсминец,_1937)}{Гремящий}.}%
-		\label{fig:grem_answer}%
-	  \end{marginfigure}
-
-    \small{Задание на с.~\pageref{question:ship_1}.}
-\end{task}
-
-
-\begin{task}
-	\label{answer:ship_ex_1}
-	\newthought{Один из воможных ответов: \href{https://en.wikipedia.org/wiki/Seawise_Giant}{Seawise Giant}}
-
-	\newthought{Примеры возможных решений через Викиданные. Данные могут отличаться от ответа выше из-за неполноты информации об объектах Викиданных, см. в листингах \ref{lst:long_ship} и \ref{lst:wide_ship}.}
-\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/vTt}{Самый длинный корабль}}\protect\footnotemark}, label=lst:long_ship, ]
-SELECT ?ship ?shipLabel ?max_length WHERE {
-	{
-		SELECT (MAX(?length) as ?max_length)
-		WHERE
-		{
-			?ship wdt:P31 wd:Q11446;
-				  wdt:P2043 ?length
-		}
-	}
-	{?ship wdt:P31 wd:Q11446; wdt:P2043 ?max_length}
-		
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
-}  
-\end{lstlisting}
-\footnotetext{Самым длинным кораблем оказался \href{https://www.wikidata.org/wiki/Q48817670}{NMS Mircea} длиной в  \num{36} метров. Ссылка на SPARQL-запрос: \href{https://w.wiki/vTt}{https://w.wiki/vTt}.}
-
-\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/vTx}{Самый широкий корабль}}\protect\footnotemark}, label=lst:wide_ship, ]
-SELECT ?ship ?shipLabel ?max_beam WHERE {
-	{
-		SELECT (MAX(?beam) as ?max_beam)
-		WHERE
-		{
-			?ship wdt:P31 wd:Q11446;
-				  wdt:P2261 ?beam
-		}
-	}
-	{?ship wdt:P31 wd:Q11446; wdt:P2261 ?max_beam}
-		
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
-}
-\end{lstlisting}
-\footnotetext{Самым широким кораблем оказался \href{https://www.wikidata.org/wiki/Q1156392}{Project Habakkuk} шириной \num{180} метров, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vTx}{https://w.wiki/vTx}.}
-
-
-\small{Задание на с.~\pageref{ship_tasks}.}
-\end{task}
-
-
-\begin{task}
-	\label{answer:ship_ex_2}
 	Решение:
 	\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/vf9}{Изображения кораблей, которые снимались в фильмах}}\protect\footnotemark}, label=lst:wide_ship, ]
 SELECT DISTINCT ?image 
@@ -730,5 +669,68 @@ WHERE
 	\end{lstlisting}
 	\footnotetext{Найдено 8 изображений кораблей, о которых было написано в книгах, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vfA}{https://w.wiki/vfA}.}
 	
-\small{Задание на с.~\pageref{ship_tasks}.}
+\small{Задание на с.~\pageref{question:ship_1}.}
+\end{task}
+
+
+\begin{task}
+	\href{https://ru.wikipedia.org/wiki/Гремящий_(эсминец,_1937)}{Гремящий (эсминец, 1937)}. См. рисунок \ref{fig:grem_answer}.
+
+	\label{answer:ship_2}
+	\begin{marginfigure}[0.0cm]
+		{
+		  \setlength{\fboxsep}{0pt}%
+		  \setlength{\fboxrule}{1pt}%
+		  \fcolorbox{gray}{gray}{\includegraphics{chapter/ship/Grem_ship_answer.jpg}}
+		}
+		\caption{Почтовая марка с изображением эсминца \href{https://en.wikipedia.org/wiki/Soviet_destroyer_Gremyashchy_(1937)}{Гремящий}.}%
+		\label{fig:grem_answer}%
+	  \end{marginfigure}
+
+    \small{Задание на с.~\pageref{question:ship_2}.}
+\end{task}
+
+
+
+\begin{task}
+	\label{answer:ship_3}
+	\newthought{Один из воможных ответов:  \Wikiref{Seawise Giant}}
+
+	\newthought{Примеры возможных решений через Викиданные. Данные могут отличаться от ответа выше из-за неполноты информации об объектах Викиданных, см. в листингах \ref{lst:long_ship} и \ref{lst:wide_ship}.}
+\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/vTt}{Самый длинный корабль}}\protect\footnotemark}, label=lst:long_ship, ]
+SELECT ?ship ?shipLabel ?max_length WHERE {
+	{
+		SELECT (MAX(?length) as ?max_length)
+		WHERE
+		{
+			?ship wdt:P31 wd:Q11446;
+				  wdt:P2043 ?length
+		}
+	}
+	{?ship wdt:P31 wd:Q11446; wdt:P2043 ?max_length}
+		
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
+}  
+\end{lstlisting}
+\footnotetext{Самым длинным кораблем оказался \Wikiref{NMS Mircea} длиной в  \num{36} метров. Ссылка на SPARQL-запрос: \href{https://w.wiki/vTt}{https://w.wiki/vTt}.}
+
+\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/vTx}{Самый широкий корабль}}\protect\footnotemark}, label=lst:wide_ship, ]
+SELECT ?ship ?shipLabel ?max_beam WHERE {
+	{
+		SELECT (MAX(?beam) as ?max_beam)
+		WHERE
+		{
+			?ship wdt:P31 wd:Q11446;
+				  wdt:P2261 ?beam
+		}
+	}
+	{?ship wdt:P31 wd:Q11446; wdt:P2261 ?max_beam}
+		
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
+}
+\end{lstlisting}
+\footnotetext{Самым широким кораблем оказался \href{https://www.wikidata.org/wiki/Q1156392}{Project Habakkuk} шириной \num{180} метров, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vTx}{https://w.wiki/vTx}.}
+
+
+\small{Задание на с.~\pageref{question:ship_3}.}
 \end{task}

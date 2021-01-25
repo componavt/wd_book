@@ -9,14 +9,21 @@
 
 This chapter focuses on ships in Russia and in the world. Ships have different purposes: military, or civil. Civilian ships are used in a variety of tasks: trucking, fishing, tourism, mineral exploration, rescue work, as well as sports, cultural and other activities. To store a large amount of information about all ships, it is necessary to maintain knowledge bases. One of those knowledge bases is Wikidata. This work is aimed at studying the stored in Wikidata objects describing ships and at evaluating the quality and completeness of their properties and descriptions.
 
+\begin{marginfigure}[0.0cm]
+  {
+    \setlength{\fboxsep}{0pt}%
+    \setlength{\fboxrule}{1pt}%
+    \fcolorbox{gray}{gray}{\includegraphics{chapter/ship/Secret_Grem_ship.jpg}}
+  }
+  \caption[Soviet destroyer project 7]{Postage stamp with a picture of Famous Soviet destroyer project 7.}%
+  \label{fig:quiz_question_ship}%
+\end{marginfigure}
 
 \section{List of ships}
 
 \href{https://en.wikipedia.org/wiki/Ship}{A ship} is a large marine vessel.
 
 
-\label{question:ship_1}
-\marginnote{The figure \ref{fig:quiz_question_ship} shows the most famous Soviet \href{https://en.wikipedia.org/wiki/Destroyer}{destroyer} \href{https://en.wikipedia.org/wiki/Gnevny-class_destroyer}{project 7}, awarded the title of "Guards", name it.}
 
 Wikidata properties considered in the chapter: 
 \begin{itemize}
@@ -28,6 +35,7 @@ Wikidata properties considered in the chapter:
 
 Let's build a list of all ships with the script in listing \ref{lst:list_of_ship_en}
 
+
 \begin{lstlisting}[ language=SPARQL, caption={List of ships. \num{19820} ships (2017), \num{50681} ships (2020). SPARQL-query: \href{https://w.wiki/nDi}{https://w.wiki/nDi}.}, label=lst:list_of_ship_en, texcl]
 SELECT ?ship ?shipLabel
 WHERE
@@ -37,6 +45,8 @@ WHERE
 }
 \end{lstlisting}
 
+\label{question:ship_1}
+\marginnote{The figure \ref{fig:quiz_question_ship} shows the most famous Soviet \href{https://en.wikipedia.org/wiki/Destroyer}{destroyer} \href{https://en.wikipedia.org/wiki/Gnevny-class_destroyer}{project 7}, awarded the title of "Guards", name it.}
   
 \begin{lstlisting}[ language=SPARQL, caption={List of ship from Russia, Soviet Union and Russian Empire. \num{107} ships (2017), \num{579} ships (2020). SPARQL-query: \href{https://w.wiki/nDk}{https://w.wiki/nDk}.}, label=lst:list_of_ship_ussr_rf_re_en, texcl]
 SELECT ?ship ?shipLabel
@@ -50,17 +60,8 @@ WHERE
 }
 \end{lstlisting}
 
-\href{https://www.wikidata.org/wiki/Q281147}{Krasin} has the biggest quantity of properties according to ProWD report\cite{ProWD_ru_ships}.
+\href{https://www.wikidata.org/wiki/Q281147}{Krasin} has the biggest quantity of properties according to ProWD report\sidecite{ProWD_ru_ships}.
   
-\begin{marginfigure}[0.0cm]
-  {
-    \setlength{\fboxsep}{0pt}%
-    \setlength{\fboxrule}{1pt}%
-    \fcolorbox{gray}{gray}{\includegraphics{chapter/ship/Secret_Grem_ship.jpg}}
-  }
-  \caption[Soviet destroyer project 7]{Postage stamp with a picture of Famous Soviet destroyer project 7.}%
-  \label{fig:quiz_question_ship}%
-\end{marginfigure}
 
 
 \section{Completeness of the Wikidata}
@@ -75,9 +76,7 @@ WHERE
   \label{fig:prowd_ships-unbalanced}%
 \end{marginfigure}
 
-Finding the exact number of ships in the world is a difficult task. After all, data about some of them are top secret, some are private vessels and there is no information about them either. Suppose that the total number of ships is \num{1641690}, as indicated in the vessel database\cite{FleetMon}. \href{https://w.wiki/koU}{SPARQL-query} showed only \num{71206} records, which makes up only 4,3\%  of the total number of ships. As for the Russian ships, the actual combat naval personnel of the Russian Navy\cite{RussianShips} issue 72 submarines, as well as 211 warships and boats. At the time when \href{https://w.wiki/koS}{the query} issued only 25 records. In the first and in the second case, the difference between the actual number of ships and the result of requests is huge, which indicates the incompleteness of the Wikidata. It is also showed by Fig. \ref{fig:prowd_ships-unbalanced}.
-
-
+Finding the exact number of ships in the world is a difficult task. After all, data about some of them are top secret, some are private vessels and there is no information about them either. Suppose that the total number of ships is \num{1641690}, as indicated in the vessel database\sidecite{FleetMon}. \href{https://w.wiki/koU}{SPARQL-query} showed only \num{71206} records, which makes up only 4,3\%  of the total number of ships. As for the Russian ships, the actual combat naval personnel of the Russian Navy\sidecite{RussianShips} issue 72 submarines, as well as 211 warships and boats. At the time when \href{https://w.wiki/koS}{the query} issued only 25 records. In the first and in the second case, the difference between the actual number of ships and the result of requests is huge, which indicates the incompleteness of the Wikidata. It is also showed by Fig. \ref{fig:prowd_ships-unbalanced}.
 
 \section{Objects' properties completeness}
 
@@ -92,6 +91,10 @@ WHERE
   SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
 }
 \end{lstlisting}
+
+
+\label{question:ship_2}
+\marginnote{Find the "Guinness ship". Choose from: the largest, the longest, the most capacious, etc.}
 
 
 When filling the properties of warships, namely the military conflicts in which they participated, the property \href{https://www.wikidata.org/wiki/Property:P607}{conflict (P607)} (war/battle) was indicated. At the same time, military conflicts and military operations, which are part of wars, are different concepts. Filled data on ships can be roughly divided into two types:
@@ -116,6 +119,8 @@ WHERE
 
 
 For the first type of filling in the scripts with the search for \href{https://www.wikidata.org/wiki/Property:P607}{conflict (P607)} properties, the ships will display more wars/battles than the second. But in this case, the operation \href{https://en.wikipedia.org/wiki/Siege_of_Odessa_(1941)}{The Odessa Defense} will stand alongside \href{https://en.wikipedia.org/wiki/World_War_II}{World War II}, although it is part of this war. In this situation, the output data will not be accurate.
+
+\marginnote{Output pictures of those ships, about which the film were shot. If there are no such, then those ships, about which the books were written.}
 
 For the second type of filling, scripts in listing \ref{lst:ships_in_conflict_2_en} will clearly distinguish where the war is, and where the military operation, also the data displayed on the chart will be more accurate.
 
@@ -148,14 +153,3 @@ For example, there is ref{https://www.wikidata.org/wiki/Q653477}{Kasato Maru (Q6
     \caption[List of ships with countries and war conflicts]{Fragment of the list of ships with countries and war conflicts (2017). The list shows that most of the ships are associated with Russia and the USSR, as well as with the Second World War or the German-Soviet War.}%
     \label{fig:ships_by_country_and_conflict}%
 \end{figure*}
-
-\section{Exercises}
-
-\begin{enumerate}
-  \label{ship_tasks}
-  \item Find the "Guinness ship" (to choose from: the largest, the longest, the most capacious).
-  \item Output pictures of those ships, about which the film were shot. If there are no such, then those ships, about which the books were written.
-  \item Bring out \href{https://en.wikipedia.org/wiki/List_of_museum_ships}{the museum ships}.
-\end{enumerate}
-
-
