@@ -120,6 +120,7 @@ WHERE
 
 For the first type of filling in the scripts with the search for \href{https://www.wikidata.org/wiki/Property:P607}{conflict (P607)} properties, the ships will display more wars/battles than the second. But in this case, the operation \href{https://en.wikipedia.org/wiki/Siege_of_Odessa_(1941)}{The Odessa Defense} will stand alongside \href{https://en.wikipedia.org/wiki/World_War_II}{World War II}, although it is part of this war. In this situation, the output data will not be accurate.
 
+\label{question:ship_3}
 \marginnote{Output pictures of those ships, about which the film were shot. If there are no such, then those ships, about which the books were written.}
 
 For the second type of filling, scripts in listing \ref{lst:ships_in_conflict_2_en} will clearly distinguish where the war is, and where the military operation, also the data displayed on the chart will be more accurate.
@@ -143,6 +144,56 @@ WHERE
 It is important to notice that the ships from script in listing \ref{ships_in_war_ru} are not necessary connected only with Russia, USSR or Soviet Union.
 For example, there is ref{https://www.wikidata.org/wiki/Q653477}{Kasato Maru (Q653477)}. It is a japanese ship but it has multiple operators in the list. This list also includes \href{https://www.wikidata.org/wiki/Q3737187}{Dobroflot (Q3737187)}, this operator owned this ship for some time. It means that the same ship may be owned by different operators in different periods. Owners may be changed time to time.
 
+\begin{figure*}[ht]
+  \includegraphics[width=0.9\linewidth]{chapter/ship/museum_graph.png}
+  \caption[Graph of countries and museum ships]{Fragment of the graph of countries, museum ships and conflicts, built via the script in the listing \ref{lst:museum_graph}.}%
+  \label{fig:museum_graph}%
+\end{figure*}
+\section{Museum ships around the world}
+\href{https://www.wikidata.org/wiki/Q575727}{Museum Ship (Q575727)} -- a ship that houses a museum exhibition dedicated to the history of the ship. Such ships are used for educational and memorial purposes. The ship's participation in the \href{https://www.wikidata.org/wiki/Q180684}{conflict (Q180684)} may lead to the creation of a museum ship in memory of past events.
+
+Let's build a graph of museum ships and the countries in which these ships are located. The vertices of the graph are \href{https://www.wikidata.org/wiki/Q6256}{countries (Q6256)} and \href{https://www.wikidata.org/wiki/Q575727}{museum ships (Q575727)}. The edge between a ship and a country means the ship is in that country. And the edge between the two countries means that there were conflicts between these countries, the number of which is equal to the weight of the edge. The script in listing \ref{lst:museum_graph} builds this graph according to the rules described above.
+
+\begin{lstlisting}[ language=SPARQL, caption={The graph of museum ships and the countries in which these ships are located. 117 vertices are found. SPARQL-query: \href{https://w.wiki/vfj}{https://w.wiki/vfj}.}, label=lst:museum_graph, ]
+#defaultView:Graph    
+SELECT ?vertex1 ?vertex1Label ?vertex2 ?vertex2Label ?edgeLabel ?image 
+WHERE {
+  {
+    # Conflicts
+    SELECT ?vertex1 ?vertex1Label ?vertex2 ?vertex2Label 
+            (STR(COUNT(?conflict)) as ?edgeLabel) 
+    WHERE
+    {
+      ?conflict wdt:P31 wd:Q180684 .
+      ?conflict wdt:P710 ?vertex1, ?vertex2 .
+      ?vertex1 wdt:P31 wd:Q6256 . 
+      ?vertex2 wdt:P31 wd:Q6256
+  
+      FILTER (?vertex1 != ?vertex2 && STR(?vertex1) < STR(?vertex2))
+    
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+    }
+    GROUP BY ?vertex1 ?vertex1Label ?vertex2 ?vertex2Label
+  }
+  UNION
+  {
+    # Museum ships
+    SELECT DISTINCT ?vertex1 ?vertex1Label ?vertex2 ?vertex2Label ?image
+    WHERE
+    {
+      ?vertex2 wdt:P31 wd:Q575727 .
+      {?vertex2 wdt:P17 ?vertex1} UNION # located in country
+      {?vertex2 wdt:P131/wdt:P17 ?vertex1} # lo
+          
+      OPTIONAL { ?vertex2 wdt:P18 ?image}
+          
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "en"}
+    }
+  }
+}
+\end{lstlisting}
+
+From a fragment of the graph in figure \ref{fig:museum_graph} it can be seen that the museum ships mostly belong to Germany, the USA and Australia. This "correlation" is quite logical, since these countries have a long history, for which they have participated in many conflicts. Also, these countries have access to the sea, which historically determines the presence of a fleet.
 
 \begin{figure*}[ht]
   {
