@@ -142,7 +142,7 @@ SELECT ?ship ?shipLabel ?countryLabel ?conflict ?conflictLabel
 WHERE
 {
   ?ship wdt:P31 wd:Q11446;        # instance of ship
-        wdt:P137/wdt:P17 ?country;        # belongs to operator
+        wdt:P137/wdt:P17 ?country;# belongs to operator
         wdt:P607 ?conflict.       # engaged in some conflict
   
   VALUES ?country {wd:Q34266 # Russian EMpire
