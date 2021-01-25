@@ -9,14 +9,15 @@
 
 This chapter focuses on ships in Russia and in the world. Ships have different purposes: military, or civil. Civilian ships are used in a variety of tasks: trucking, fishing, tourism, mineral exploration, rescue work, as well as sports, cultural and other activities. To store a large amount of information about all ships, it is necessary to maintain knowledge bases. One of those knowledge bases is Wikidata. This work is aimed at studying the stored in Wikidata objects describing ships and at evaluating the quality and completeness of their properties and descriptions.
 
+
 \begin{marginfigure}[0.0cm]
   {
     \setlength{\fboxsep}{0pt}%
     \setlength{\fboxrule}{1pt}%
-    \fcolorbox{gray}{gray}{\includegraphics{chapter/ship/Secret_Grem_ship.jpg}}
+    \fcolorbox{gray}{gray}{\includegraphics[width=0.9\linewidth]{chapter/ship/Russian_ships_topic_imbalance.png}}
   }
-  \caption[Soviet destroyer project 7]{Postage stamp with a picture of Famous Soviet destroyer project 7.}%
-  \label{fig:quiz_question_ship}%
+  \caption[Graph of Wikidata objects' completeness]{Graph of \href{https://www.wikidata.org/wiki/Q11446}{ship (Q11446)} Wikidata objects' completeness. Gini coefficient equals 0.239. Data was collected with ProWD.id, 2020. Completeness is not uniform.}%
+  \label{fig:prowd_ships-unbalanced}%
 \end{marginfigure}
 
 \section{List of ships}
@@ -66,21 +67,15 @@ WHERE
 
 \section{Completeness of the Wikidata}
 
-\begin{marginfigure}[0.0cm]
-  {
-    \setlength{\fboxsep}{0pt}%
-    \setlength{\fboxrule}{1pt}%
-    \fcolorbox{gray}{gray}{\includegraphics{chapter/ship/Russian_ships_topic_imbalance.png}}
-  }
-  \caption[Graph of Wikidata objects' completeness]{Graph of \href{https://www.wikidata.org/wiki/Q11446}{ship (Q11446)} Wikidata objects' completeness. Gini coefficient equals 0.239. Data was collected with ProWD.id, 2020. The graph and Gini coefficient show that completeness is not uniform.}%
-  \label{fig:prowd_ships-unbalanced}%
-\end{marginfigure}
 
 Finding the exact number of ships in the world is a difficult task. After all, data about some of them are top secret, some are private vessels and there is no information about them either. Suppose that the total number of ships is \num{1641690}, as indicated in the vessel database\sidecite{FleetMon}. \href{https://w.wiki/koU}{SPARQL-query} showed only \num{71206} records, which makes up only 4,3\%  of the total number of ships. As for the Russian ships, the actual combat naval personnel of the Russian Navy\sidecite{RussianShips} issue 72 submarines, as well as 211 warships and boats. At the time when \href{https://w.wiki/koS}{the query} issued only 25 records. In the first and in the second case, the difference between the actual number of ships and the result of requests is huge, which indicates the incompleteness of the Wikidata. It is also showed by Fig. \ref{fig:prowd_ships-unbalanced}.
+
 
 \section{Objects' properties completeness}
 
 It is required to find and fill a hundred objects of ships that participated in any military conflicts. Let's do this with the scipt in listing \ref{lst:ships_in_conflict_en}.
+
+
 \begin{lstlisting}[ language=SPARQL, caption={List of ships with countries and war conflicts in English. SPARQL-query: \href{https://w.wiki/nDo}{https://w.wiki/nDo}, \num{1400} ships (2017), \num{3586} ships (2020).}, label=lst:ships_in_conflict_en, texcl]
 SELECT ?ship ?shipLabel ?countryLabel ?conflict ?conflictLabel
 WHERE
@@ -92,19 +87,29 @@ WHERE
 }
 \end{lstlisting}
 
+\begin{marginfigure}[0.0cm]
+  {
+    \setlength{\fboxsep}{0pt}%
+    \setlength{\fboxrule}{1pt}%
+    \fcolorbox{gray}{gray}{\includegraphics{chapter/ship/Secret_Grem_ship.jpg}}
+  }
+  \caption[Soviet destroyer project 7]{Postage stamp with a picture of Famous Soviet destroyer project 7.}%
+  \label{fig:quiz_question_ship}%
+\end{marginfigure}
+
+When filling the properties of warships, namely the military conflicts in which they participated, the property \href{https://www.wikidata.org/wiki/Property:P607}{conflict (P607)} (war/battle) was indicated. At the same time, military conflicts and military operations, which are part of wars, are different concepts. Filled data on ships can be roughly divided into two types:
+
+\begin{itemize}
+  \item \textbf{Objects in which military operations are combined with military conflicts}. For example, in \href{https://www.wikidata.org/wiki/Q4148613}{Soviet destroyer Gremyashchiy} nine wars / battles, see listing \ref{lst:grem_wars}. Such a large number is due to the fact that the ship took part in many \href{https://en.wikipedia.org/wiki/Arctic_convoys_of_World_War_II}{arctic convoys} which are military operations.
 
 \label{question:ship_2}
 \marginnote{Find the "Guinness ship". Choose from: the largest, the longest, the most capacious, etc.}
 
-
-When filling the properties of warships, namely the military conflicts in which they participated, the property \href{https://www.wikidata.org/wiki/Property:P607}{conflict (P607)} (war/battle) was indicated. At the same time, military conflicts and military operations, which are part of wars, are different concepts. Filled data on ships can be roughly divided into two types:
-\begin{itemize}
-  \item \textbf{Objects in which military operations are combined with military conflicts}. For example, in \href{https://www.wikidata.org/wiki/Q4148613}{Soviet destroyer Gremyashchiy} nine wars / battles, see listing \ref{lst:grem_wars}. Such a large number is due to the fact that the ship took part in many \href{https://en.wikipedia.org/wiki/Arctic_convoys_of_World_War_II}{arctic convoys} which are military operations.
   \item \textbf{Objects in which military operations are separated from military conflicts}. For example, in the British cruiser \href{https://en.wikipedia.org/wiki/HMS_Trinidad_(1940)}{HMS Trinidad} participation in the military campaign and the Arctic convoy are listed as part of World War II with the qualifier \href{https://www.wikidata.org/wiki/Property:P1012}{including (P1012)}. Thus, in the Wikidata, this cruiser has one war/battle.
 \end{itemize}
 
 
-\begin{lstlisting}[ language=SPARQL, caption={War conflicts with \href{https://www.wikidata.org/wiki/Q4148613}{destroyer Gremyashchiy}. \num{10} conflicts are found, 2020. SPARQL-query: \href{https://w.wiki/vbP}{https://w.wiki/vbP}.}, label=lst:grem_wars, ]
+\begin{lstlisting}[ language=SPARQL, caption={War conflicts with \href{https://www.wikidata.org/wiki/Q4148613}{destroyer Gremyashchiy}. \num{10} conflicts are found, 2020. SPARQL-query: \href{https://w.wiki/vg3}{https://w.wiki/vg3}.}, label=lst:grem_wars, ]
 SELECT ?conflict ?conflictLabel
 WHERE
 {
@@ -113,7 +118,7 @@ WHERE
       
   FILTER (?ship IN (wd:Q4148613))
                 
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en". }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
 }
 \end{lstlisting}
 
@@ -154,7 +159,7 @@ For example, there is ref{https://www.wikidata.org/wiki/Q653477}{Kasato Maru (Q6
 
 Let's build a graph of museum ships and the countries in which these ships are located. The vertices of the graph are \href{https://www.wikidata.org/wiki/Q6256}{countries (Q6256)} and \href{https://www.wikidata.org/wiki/Q575727}{museum ships (Q575727)}. The edge between a ship and a country means the ship is in that country. And the edge between the two countries means that there were conflicts between these countries, the number of which is equal to the weight of the edge. The script in listing \ref{lst:museum_graph} builds this graph according to the rules described above.
 
-\begin{lstlisting}[ language=SPARQL, caption={The graph of museum ships and the countries in which these ships are located. 117 vertices are found. SPARQL-query: \href{https://w.wiki/vfj}{https://w.wiki/vfj}.}, label=lst:museum_graph, ]
+\begin{lstlisting}[ language=SPARQL, caption={The graph of museum ships and the countries in which these ships are located. 117 vertices are found (2020). SPARQL-query: \href{https://w.wiki/vfj}{https://w.wiki/vfj}.}, label=lst:museum_graph, ]
 #defaultView:Graph    
 SELECT ?vertex1 ?vertex1Label ?vertex2 ?vertex2Label ?edgeLabel ?image 
 WHERE {
@@ -183,7 +188,7 @@ WHERE {
     {
       ?vertex2 wdt:P31 wd:Q575727 .
       {?vertex2 wdt:P17 ?vertex1} UNION # located in country
-      {?vertex2 wdt:P131/wdt:P17 ?vertex1} # lo
+      {?vertex2 wdt:P131/wdt:P17 ?vertex1}
           
       OPTIONAL { ?vertex2 wdt:P18 ?image}
           
