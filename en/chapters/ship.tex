@@ -5,7 +5,6 @@
 
 \footnotetext{Imperial Japanese Navy battleship Fusō prepares for a review at Yokohama, Japan. \href{https://commons.wikimedia.org/wiki/File:Fuso_Yokohama.jpg}{WikiCommons / 1928 / Public domain}. Kure Maritime Museum, (edited by Kazushige Todaka), Japanese Naval Warship Photo Album: Battleships and Battle Cruisers, p. 129.}
 
-\section{Abstract}
 
 This chapter focuses on ships in Russia and in the world. Ships have different purposes, for example: military, civil. Civilian ships are used in a variety of tasks: trucking, fishing, tourism, mineral exploration, rescue work, as well as sports, cultural and other activities. To store a large amount of information about all ships, it is necessary to maintain knowledge bases. One of those knowledge bases is Wikidata. This work is aimed at studying the stored in Wikidata objects describing ships and at evaluating the quality and completeness of their properties and descriptions.
 
@@ -38,7 +37,7 @@ Let's build a list of all ships with the script in listing \ref{lst:list_of_ship
 
 
 \begin{lstlisting}[ language=SPARQL, caption={List of ships. \num{19820} ships (2017), \num{50681} ships (2020), \num{71203} ships (2021). SPARQL-query: \href{https://w.wiki/vhp}{https://w.wiki/vhp}}, label=lst:list_of_ship_en, texcl]
-#List of ships
+# List of ships
 SELECT ?ship ?shipLabel
 WHERE
 {
@@ -47,11 +46,20 @@ SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}
 
+
+\begin{marginfigure}[0.0cm]
+  {
+    \setlength{\fboxsep}{0pt}%
+    \setlength{\fboxrule}{1pt}%
+    \fcolorbox{gray}{gray}{\includegraphics[width=0.95\linewidth]{chapter/ship/Secret_Grem_ship.jpg}}
+  }
+  \caption[Soviet destroyer project 7]{Postage stamp with a picture of Famous Soviet destroyer project 7.}%
+  \label{fig:quiz_question_ship}%
+\end{marginfigure}
 \label{question:ship_1}
-\marginnote{The figure \ref{fig:quiz_question_ship} shows the most famous Soviet \href{https://en.wikipedia.org/wiki/Destroyer}{destroyer} \href{https://en.wikipedia.org/wiki/Gnevny-class_destroyer}{project 7}, awarded the title of "Guards", name it. See answer on page~\pageref{answer:ship_1}.}
   
 \begin{lstlisting}[ language=SPARQL, caption={List of ship from Russia, Soviet Union and Russian Empire. \num{107} ships (2017), \num{579} ships (2020), \num{578} ships (2020). SPARQL-query: \href{https://w.wiki/vhw}{https://w.wiki/vhw}}, label=lst:list_of_ship_ussr_rf_re_en, texcl]
-#List of ship from Russia, Soviet Union and Russian Empire
+# List of ship from Russia, Soviet Union and Russian Empire
 SELECT ?ship ?shipLabel
 WHERE
 {
@@ -65,44 +73,40 @@ WHERE
 }
 \end{lstlisting}
 
-The ship \href{https://www.wikidata.org/wiki/Q281147}{Krasin} has the biggest quantity of properties according to ProWD report\sidecite{ProWD_ru_ships}.
-  
+The ship \href{https://www.wikidata.org/wiki/Q281147}{Krasin} has the greatest quantity of properties according to ProWD report\sidecite{ProWD_ru_ships}.
+The ships \href{https://www.wikidata.org/wiki/Q99198666}{Liven (Q99198666)} and \href{https://www.wikidata.org/wiki/Q28155282}{Dispatch (Q28155282)} have the lowest quantity of properties.
 
 
 \section{Completeness of the Wikidata}
 
 
-Finding the exact number of ships in the world is a difficult task. After all, data about some of them are top secret, some are private vessels and there is no information about them either. Suppose that the total number of ships is \num{1641690}, as indicated in the vessel database\sidecite{FleetMon}. \href{https://w.wiki/koU}{SPARQL-query} showed only \num{71206} records, which makes up only 4,3\%  of the total number of ships. As for the Russian ships, the actual combat naval personnel of the Russian Navy\sidecite{RussianShips} issue 72 submarines, as well as 211 warships and boats. At the time when \href{https://w.wiki/koS}{the query} issued only 25 records. In the first and in the second case, the difference between the actual number of ships and the result of requests is huge, which indicates the incompleteness of the Wikidata. It is also showed by Fig. \ref{fig:prowd_ships-unbalanced}.
+Finding the exact number of ships in the world is a difficult task. After all, data about some of them are top secret, some are private vessels and there is no information about them either. Suppose that the total number of ships is about \num{1600000}, as indicated in the vessel database \sidecite{FleetMon}. The script in the listing \ref{lst:list_of_ship_en} showed only \num{71203} records, which makes up only 4,3\% of the total number of ships. 
+
+As for the Russian ships, the actual civil and military fleets includes \ref{17657} ships \sidecite{RussianShips}. At the time when \ref{lst:list_of_ship_ussr_rf_re_en} showed only 579 records, which is only 0.03\% of the total number of Russian ships. 
+
+In the first and in the second case, the difference between the actual number of ships and the result of requests is huge, which indicates the incompleteness of the Wikidata. It is also showed by Fig. \ref{fig:prowd_ships-unbalanced}.
 
 
-\section{Objects' properties completeness}
+\section{Ships objects' properties completeness}
 
-It is required to find and fill a hundred objects of ships that participated in any military conflicts. Let's do this with the scipt in listing \ref{lst:ships_in_conflict_en}.
+It is required to find objects of ships that participated in any military conflicts. Let's do this with the scipt in listing \ref{lst:ships_in_conflict_en}.
 
 
 \begin{lstlisting}[ language=SPARQL, caption={List of ships with countries and war conflicts in English. \num{1400} ships (2017), \num{3586} ships (2020), \num{3567} ships (2020). SPARQL-query: \href{https://w.wiki/vi2}{https://w.wiki/vi2}}, label=lst:ships_in_conflict_en, texcl]
-#List of ships with countries and war conflicts
+# List of ships with countries and war conflicts
 SELECT ?ship ?shipLabel ?countryLabel ?conflict ?conflictLabel
 WHERE
 {
   ?ship wdt:P31 wd:Q11446;        # instance of ship
-        wdt:P137/wdt:P17 ?country;         # belongs to country
+        wdt:P137/wdt:P17 ?country;# belongs to country
         wdt:P607 ?conflict.       # engaged in some conflict
 SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}
 
-\begin{marginfigure}[0.0cm]
-  {
-    \setlength{\fboxsep}{0pt}%
-    \setlength{\fboxrule}{1pt}%
-    \fcolorbox{gray}{gray}{\includegraphics{chapter/ship/Secret_Grem_ship.jpg}}
-  }
-  \caption[Soviet destroyer project 7]{Postage stamp with a picture of Famous Soviet destroyer project 7.}%
-  \label{fig:quiz_question_ship}%
-\end{marginfigure}
+\marginnote{The figure \ref{fig:quiz_question_ship} shows the most famous Soviet \href{https://en.wikipedia.org/wiki/Destroyer}{destroyer} \href{https://en.wikipedia.org/wiki/Gnevny-class_destroyer}{project 7}, awarded the title of "Guards", name it. See answer on page~\pageref{answer:ship_1}.}
 
-When filling the properties of warships, namely the military conflicts in which they participated, the property \href{https://www.wikidata.org/wiki/Property:P607}{conflict (P607)} (war/battle) was indicated. At the same time, military conflicts and military operations, which are part of wars, are different concepts. Filled data on ships can be roughly divided into two types:
+With the serarator ";" in the script in the listing \ref{lst:ships_in_conflict_en} it is possible to extract multiple properties of the same object in one line of code. It this script to properties were extracted: \href{https://www.wikidata.org/wiki/Property:P17}{country (P17)} of the \href{https://www.wikidata.org/wiki/Property:P137}{operator (P137)} and \href{https://www.wikidata.org/wiki/Property:P607}{conflict (P607)} Military conflicts and military operations, which are part of wars, are different concepts. Filled data on ships can be roughly divided into two types:
 
 \begin{itemize}
   \item \textbf{Objects in which military operations are combined with military conflicts}. For example, in \href{https://www.wikidata.org/wiki/Q4148613}{Soviet destroyer Gremyashchiy} nine wars / battles, see listing \ref{lst:grem_wars}. Such a large number is due to the fact that the ship took part in many \href{https://en.wikipedia.org/wiki/Arctic_convoys_of_World_War_II}{arctic convoys} which are military operations.
@@ -136,7 +140,7 @@ For the first type of filling in the scripts with the search for \href{https://w
 For the second type of filling, scripts in listing \ref{lst:ships_in_conflict_2_en} will clearly distinguish where the war is, and where the military operation, also the data displayed on the chart will be more accurate.
 
 \begin{lstlisting}[ language=SPARQL, caption={List of ship with countries and war conflicts in English. \num{105} ships (2017), \num{86} ships (2020), \num{82} ships (2021). SPARQL-query: \href{https://w.wiki/vhs}{https://w.wiki/vhs}}, label=lst:ships_in_conflict_2_en, texcl]
-#List of ship with countries and war conflicts
+# List of ship with countries and war conflicts
 SELECT ?ship ?shipLabel ?countryLabel ?conflict ?conflictLabel
 WHERE
 {

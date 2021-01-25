@@ -758,7 +758,7 @@ SELECT ?ship ?shipLabel ?max_beam WHERE {
 	}
 	{?ship wdt:P31 wd:Q11446; wdt:P2261 ?max_beam}
 			
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}
 
@@ -779,7 +779,7 @@ WHERE
 	{?film wdt:P921/wdt:P31/wdt:P31 wd:Q2235308}
 	OPTIONAL { ?film wdt:P921/wdt:P18 ?image }
 	
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}
 
@@ -793,7 +793,7 @@ WHERE
 	  
 	OPTIONAL { ?book wdt:P921/wdt:P18 ?image. }
 	
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}
 
