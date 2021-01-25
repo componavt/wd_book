@@ -37,19 +37,21 @@ Wikidata properties considered in the chapter:
 Let's build a list of all ships with the script in listing \ref{lst:list_of_ship_en}
 
 
-\begin{lstlisting}[ language=SPARQL, caption={List of ships. \num{19820} ships (2017), \num{50681} ships (2020). SPARQL-query: \href{https://w.wiki/nDi}{https://w.wiki/nDi}.}, label=lst:list_of_ship_en, texcl]
+\begin{lstlisting}[ language=SPARQL, caption={List of ships. \num{19820} ships (2017), \num{50681} ships (2020), \num{71203} ships (2021). SPARQL-query: \href{https://w.wiki/vh6}{https://w.wiki/vh6}.}, label=lst:list_of_ship_en, texcl]
+#List of ships
 SELECT ?ship ?shipLabel
 WHERE
 {
   ?ship wdt:P31 wd:Q11446. # instance of ship
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+SERVICE wikibase:label {bd:serviceParam wikibase:language "en".}
 }
 \end{lstlisting}
 
 \label{question:ship_1}
 \marginnote{The figure \ref{fig:quiz_question_ship} shows the most famous Soviet \href{https://en.wikipedia.org/wiki/Destroyer}{destroyer} \href{https://en.wikipedia.org/wiki/Gnevny-class_destroyer}{project 7}, awarded the title of "Guards", name it.}
   
-\begin{lstlisting}[ language=SPARQL, caption={List of ship from Russia, Soviet Union and Russian Empire. \num{107} ships (2017), \num{579} ships (2020). SPARQL-query: \href{https://w.wiki/nDk}{https://w.wiki/nDk}.}, label=lst:list_of_ship_ussr_rf_re_en, texcl]
+\begin{lstlisting}[ language=SPARQL, caption={List of ship from Russia, Soviet Union and Russian Empire. \num{107} ships (2017), \num{579} ships (2020), num{578} ships (2020). SPARQL-query: \href{https://w.wiki/nDk}{https://w.wiki/nDk}.}, label=lst:list_of_ship_ussr_rf_re_en, texcl]
+#List of ship from Russia, Soviet Union and Russian Empire
 SELECT ?ship ?shipLabel
 WHERE
 {
@@ -57,7 +59,7 @@ WHERE
   { ?ship wdt:P137/wdt:P17 wd:Q34266 } UNION  # Russian Empire
   { ?ship wdt:P137/wdt:P17 wd:Q15180 } UNION  # Soviet Union
   { ?ship wdt:P137/wdt:P17 wd:Q159 }.         # Russia
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+SERVICE wikibase:label {bd:serviceParam wikibase:language "en".}
 }
 \end{lstlisting}
 
@@ -76,14 +78,15 @@ Finding the exact number of ships in the world is a difficult task. After all, d
 It is required to find and fill a hundred objects of ships that participated in any military conflicts. Let's do this with the scipt in listing \ref{lst:ships_in_conflict_en}.
 
 
-\begin{lstlisting}[ language=SPARQL, caption={List of ships with countries and war conflicts in English. SPARQL-query: \href{https://w.wiki/nDo}{https://w.wiki/nDo}, \num{1400} ships (2017), \num{3586} ships (2020).}, label=lst:ships_in_conflict_en, texcl]
+\begin{lstlisting}[ language=SPARQL, caption={List of ships with countries and war conflicts in English. SPARQL-query: \href{https://w.wiki/vh9}{https://w.wiki/vh9}, \num{1400} ships (2017), \num{3586} ships (2020), \num{3567} ships (2020).}, label=lst:ships_in_conflict_en, texcl]
+#List of ships with countries and war conflicts
 SELECT ?ship ?shipLabel ?countryLabel ?conflict ?conflictLabel
 WHERE
 {
   ?ship wdt:P31 wd:Q11446;        # instance of ship
         wdt:P137/wdt:P17 ?country;         # belongs to country
         wdt:P607 ?conflict.       # engaged in some conflict
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+SERVICE wikibase:label {bd:serviceParam wikibase:language "en".}
 }
 \end{lstlisting}
 
@@ -109,7 +112,7 @@ When filling the properties of warships, namely the military conflicts in which 
 \end{itemize}
 
 
-\begin{lstlisting}[ language=SPARQL, caption={War conflicts with \href{https://www.wikidata.org/wiki/Q4148613}{destroyer Gremyashchiy}. \num{10} conflicts are found, 2020. SPARQL-query: \href{https://w.wiki/vg3}{https://w.wiki/vg3}.}, label=lst:grem_wars, ]
+\begin{lstlisting}[ language=SPARQL, caption={War conflicts with \href{https://www.wikidata.org/wiki/Q4148613}{destroyer Gremyashchiy}. \num{10} conflicts are found, 2021. SPARQL-query: \href{https://w.wiki/vg3}{https://w.wiki/vg3}.}, label=lst:grem_wars, ]
 SELECT ?conflict ?conflictLabel
 WHERE
 {
@@ -118,7 +121,7 @@ WHERE
       
   FILTER (?ship IN (wd:Q4148613))
                 
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+SERVICE wikibase:label {bd:serviceParam wikibase:language "en".}
 }
 \end{lstlisting}
 
@@ -130,7 +133,8 @@ For the first type of filling in the scripts with the search for \href{https://w
 
 For the second type of filling, scripts in listing \ref{lst:ships_in_conflict_2_en} will clearly distinguish where the war is, and where the military operation, also the data displayed on the chart will be more accurate.
 
-\begin{lstlisting}[ language=SPARQL, caption={List of ship with countries and war conflicts in English. \num{105} ships (2017), \num{86} ships (2020). SPARQL-query: \href{https://w.wiki/nDn}{https://w.wiki/nDn}.}, label=lst:ships_in_conflict_2_en, texcl]
+\begin{lstlisting}[ language=SPARQL, caption={List of ship with countries and war conflicts in English. \num{105} ships (2017), \num{86} ships (2020), \num{82} ships (2021). SPARQL-query: \href{https://w.wiki/vhB}{https://w.wiki/vhB}.}, label=lst:ships_in_conflict_2_en, texcl]
+#List of ship with countries and war conflicts
 SELECT ?ship ?shipLabel ?countryLabel ?conflict ?conflictLabel
 WHERE
 {
@@ -142,7 +146,7 @@ WHERE
   { ?country wdt:P17 wd:Q15180 } UNION  # Soviet Union
   { ?country wdt:P17 wd:Q159 }.         # Russia
       
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+SERVICE wikibase:label {bd:serviceParam wikibase:language "en".}
 }
 \end{lstlisting}
 
@@ -174,16 +178,16 @@ WHERE {
       ?vertex1 wdt:P31 wd:Q6256 . 
       ?vertex2 wdt:P31 wd:Q6256
   
-      FILTER (?vertex1 != ?vertex2 && STR(?vertex1) < STR(?vertex2))
+FILTER (?vertex1 != ?vertex2 && STR(?vertex1) < STR(?vertex2))
     
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
     }
     GROUP BY ?vertex1 ?vertex1Label ?vertex2 ?vertex2Label
   }
   UNION
   {
     # Museum ships
-    SELECT DISTINCT ?vertex1 ?vertex1Label ?vertex2 ?vertex2Label ?image
+SELECT DISTINCT ?vertex1 ?vertex1Label ?vertex2 ?vertex2Label ?image
     WHERE
     {
       ?vertex2 wdt:P31 wd:Q575727 .
@@ -192,7 +196,7 @@ WHERE {
           
       OPTIONAL { ?vertex2 wdt:P18 ?image}
           
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en"}
+SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
     }
   }
 }
