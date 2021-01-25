@@ -730,7 +730,7 @@ Answer: \href{https://en.wikipedia.org/wiki/Soviet_destroyer_Gremyashchy_(1937)}
 Possible solution: \href{https://en.wikipedia.org/wiki/Seawise_Giant}{Seawise Giant}
 
 Other possible solutions from Wikidata. The data may differ because of incompleteness of wikidata objects' properties, see the listings \ref{lst:long_ship} and \ref{lst:wide_ship}.
-\begin{lstlisting}[ language=SPARQL, caption={The longest ship. Ship in result: \href{https://www.wikidata.org/wiki/Q48817670}{NMS Mircea}, length is \num{36} m. SPARQL-query: \href{https://w.wiki/vev}{https://w.wiki/vev}.}, label=lst:long_ship, ]
+\begin{lstlisting}[ language=SPARQL, caption={The longest ship. Ship in result: \href{https://www.wikidata.org/wiki/Q48817670}{NMS Mircea}, length is \num{36} m. SPARQL-query: \href{https://w.wiki/vev}{https://w.wiki/vev}}, label=lst:long_ship, ]
 SELECT ?ship ?shipLabel ?max_length WHERE {
 	{
 		SELECT (MAX(?length) as ?max_length)
@@ -742,11 +742,11 @@ SELECT ?ship ?shipLabel ?max_length WHERE {
 	}
 	{?ship wdt:P31 wd:Q11446; wdt:P2043 ?max_length}
 			
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }  
 \end{lstlisting}
 
-\begin{lstlisting}[ language=SPARQL, caption={The widest ship. Ship in result: \href{https://www.wikidata.org/wiki/Q1156392}{Project Habakkuk}, 2021, width \num{180} m. SPARQL-query: \href{https://w.wiki/vex}{https://w.wiki/vex}.}, label=lst:wide_ship, ]
+\begin{lstlisting}[ language=SPARQL, caption={The widest ship. Ship in result: \href{https://www.wikidata.org/wiki/Q1156392}{Project Habakkuk}, 2021, width \num{180} m. SPARQL-query: \href{https://w.wiki/vex}{https://w.wiki/vex}}, label=lst:wide_ship, ]
 SELECT ?ship ?shipLabel ?max_beam WHERE {
 	{
 		SELECT (MAX(?beam) as ?max_beam)
@@ -770,21 +770,21 @@ SELECT ?ship ?shipLabel ?max_beam WHERE {
 	Output pictures of those ships, about which the film were shot. If there are no such, then those ships, about which the books were written.
 \end{exercise}
 
-\begin{lstlisting}[ language=SPARQL, caption={Images of ships, about which films were shot. 5 images are found, 2021. SPARQL-query: \href{https://w.wiki/vez}{https://w.wiki/vez}}, label=lst:filmed_ships, ]
+\begin{lstlisting}[ language=SPARQL, caption={Images of ships, about which films were shot. 5 images are found, 2021. SPARQL-query: \href{https://w.wiki/vi7}{https://w.wiki/vi7}}, label=lst:filmed_ships, ]
 SELECT DISTINCT ?image 
 WHERE
 {
 	?film wdt:P31 wd:Q11424 .
 	  
 	{?film wdt:P921/wdt:P31/wdt:P31 wd:Q2235308}
-	OPTIONAL { ?film wdt:P921/wdt:P18 ?image. }
+	OPTIONAL { ?film wdt:P921/wdt:P18 ?image }
 	
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
 \end{lstlisting}
 
 
-\begin{lstlisting}[ language=SPARQL, caption={Images of ships, about which books were written. 8 images are found, 2021. SPARQL-query: \href{https://w.wiki/vf2}{https://w.wiki/vf2}}, label=lst:ships_in_books, ]
+\begin{lstlisting}[ language=SPARQL, caption={Images of ships, about which books were written. 8 images are found, 2021. SPARQL-query: \href{https://w.wiki/vi8}{https://w.wiki/vi8}}, label=lst:ships_in_books, ]
 SELECT DISTINCT ?image
 WHERE
 {

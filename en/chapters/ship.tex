@@ -7,7 +7,7 @@
 
 \section{Abstract}
 
-This chapter focuses on ships in Russia and in the world. Ships have different purposes: military, or civil. Civilian ships are used in a variety of tasks: trucking, fishing, tourism, mineral exploration, rescue work, as well as sports, cultural and other activities. To store a large amount of information about all ships, it is necessary to maintain knowledge bases. One of those knowledge bases is Wikidata. This work is aimed at studying the stored in Wikidata objects describing ships and at evaluating the quality and completeness of their properties and descriptions.
+This chapter focuses on ships in Russia and in the world. Ships have different purposes, for example: military, civil. Civilian ships are used in a variety of tasks: trucking, fishing, tourism, mineral exploration, rescue work, as well as sports, cultural and other activities. To store a large amount of information about all ships, it is necessary to maintain knowledge bases. One of those knowledge bases is Wikidata. This work is aimed at studying the stored in Wikidata objects describing ships and at evaluating the quality and completeness of their properties and descriptions.
 
 
 \begin{marginfigure}[0.0cm]
@@ -37,33 +37,35 @@ Wikidata properties considered in the chapter:
 Let's build a list of all ships with the script in listing \ref{lst:list_of_ship_en}
 
 
-\begin{lstlisting}[ language=SPARQL, caption={List of ships. \num{19820} ships (2017), \num{50681} ships (2020), \num{71203} ships (2021). SPARQL-query: \href{https://w.wiki/vh6}{https://w.wiki/vh6}.}, label=lst:list_of_ship_en, texcl]
+\begin{lstlisting}[ language=SPARQL, caption={List of ships. \num{19820} ships (2017), \num{50681} ships (2020), \num{71203} ships (2021). SPARQL-query: \href{https://w.wiki/vhp}{https://w.wiki/vhp}}, label=lst:list_of_ship_en, texcl]
 #List of ships
 SELECT ?ship ?shipLabel
 WHERE
 {
   ?ship wdt:P31 wd:Q11446. # instance of ship
-SERVICE wikibase:label {bd:serviceParam wikibase:language "en".}
+SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}
 
 \label{question:ship_1}
-\marginnote{The figure \ref{fig:quiz_question_ship} shows the most famous Soviet \href{https://en.wikipedia.org/wiki/Destroyer}{destroyer} \href{https://en.wikipedia.org/wiki/Gnevny-class_destroyer}{project 7}, awarded the title of "Guards", name it.}
+\marginnote{The figure \ref{fig:quiz_question_ship} shows the most famous Soviet \href{https://en.wikipedia.org/wiki/Destroyer}{destroyer} \href{https://en.wikipedia.org/wiki/Gnevny-class_destroyer}{project 7}, awarded the title of "Guards", name it. See answer on page~\pageref{answer:ship_1}.}
   
-\begin{lstlisting}[ language=SPARQL, caption={List of ship from Russia, Soviet Union and Russian Empire. \num{107} ships (2017), \num{579} ships (2020), num{578} ships (2020). SPARQL-query: \href{https://w.wiki/nDk}{https://w.wiki/nDk}.}, label=lst:list_of_ship_ussr_rf_re_en, texcl]
+\begin{lstlisting}[ language=SPARQL, caption={List of ship from Russia, Soviet Union and Russian Empire. \num{107} ships (2017), \num{579} ships (2020), \num{578} ships (2020). SPARQL-query: \href{https://w.wiki/vhw}{https://w.wiki/vhw}}, label=lst:list_of_ship_ussr_rf_re_en, texcl]
 #List of ship from Russia, Soviet Union and Russian Empire
 SELECT ?ship ?shipLabel
 WHERE
 {
-  ?ship wdt:P31 wd:Q11446. # instance of ship
-  { ?ship wdt:P137/wdt:P17 wd:Q34266 } UNION  # Russian Empire
-  { ?ship wdt:P137/wdt:P17 wd:Q15180 } UNION  # Soviet Union
-  { ?ship wdt:P137/wdt:P17 wd:Q159 }.         # Russia
-SERVICE wikibase:label {bd:serviceParam wikibase:language "en".}
+  ?ship wdt:P31 wd:Q11446; # instance of ship
+        wdt:P137/wdt:P17 ?country.   # belongs to country
+    
+  VALUES ?country {wd:Q34266 # Russian EMpire
+                  wd:Q15180 # Soviet Union
+                  wd:Q159}  # Russia
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
 \end{lstlisting}
 
-\href{https://www.wikidata.org/wiki/Q281147}{Krasin} has the biggest quantity of properties according to ProWD report\sidecite{ProWD_ru_ships}.
+The ship \href{https://www.wikidata.org/wiki/Q281147}{Krasin} has the biggest quantity of properties according to ProWD report\sidecite{ProWD_ru_ships}.
   
 
 
@@ -78,7 +80,7 @@ Finding the exact number of ships in the world is a difficult task. After all, d
 It is required to find and fill a hundred objects of ships that participated in any military conflicts. Let's do this with the scipt in listing \ref{lst:ships_in_conflict_en}.
 
 
-\begin{lstlisting}[ language=SPARQL, caption={List of ships with countries and war conflicts in English. SPARQL-query: \href{https://w.wiki/vh9}{https://w.wiki/vh9}, \num{1400} ships (2017), \num{3586} ships (2020), \num{3567} ships (2020).}, label=lst:ships_in_conflict_en, texcl]
+\begin{lstlisting}[ language=SPARQL, caption={List of ships with countries and war conflicts in English. \num{1400} ships (2017), \num{3586} ships (2020), \num{3567} ships (2020). SPARQL-query: \href{https://w.wiki/vi2}{https://w.wiki/vi2}}, label=lst:ships_in_conflict_en, texcl]
 #List of ships with countries and war conflicts
 SELECT ?ship ?shipLabel ?countryLabel ?conflict ?conflictLabel
 WHERE
@@ -86,7 +88,7 @@ WHERE
   ?ship wdt:P31 wd:Q11446;        # instance of ship
         wdt:P137/wdt:P17 ?country;         # belongs to country
         wdt:P607 ?conflict.       # engaged in some conflict
-SERVICE wikibase:label {bd:serviceParam wikibase:language "en".}
+SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}
 
@@ -106,13 +108,13 @@ When filling the properties of warships, namely the military conflicts in which 
   \item \textbf{Objects in which military operations are combined with military conflicts}. For example, in \href{https://www.wikidata.org/wiki/Q4148613}{Soviet destroyer Gremyashchiy} nine wars / battles, see listing \ref{lst:grem_wars}. Such a large number is due to the fact that the ship took part in many \href{https://en.wikipedia.org/wiki/Arctic_convoys_of_World_War_II}{arctic convoys} which are military operations.
 
 \label{question:ship_2}
-\marginnote{Find the "Guinness ship". Choose from: the largest, the longest, the most capacious, etc.}
+\marginnote{Find the "Guinness ship". Choose from: the largest, the longest, the most capacious, etc. See answer on page~\pageref{answer:ship_2}.}
 
   \item \textbf{Objects in which military operations are separated from military conflicts}. For example, in the British cruiser \href{https://en.wikipedia.org/wiki/HMS_Trinidad_(1940)}{HMS Trinidad} participation in the military campaign and the Arctic convoy are listed as part of World War II with the qualifier \href{https://www.wikidata.org/wiki/Property:P1012}{including (P1012)}. Thus, in the Wikidata, this cruiser has one war/battle.
 \end{itemize}
 
 
-\begin{lstlisting}[ language=SPARQL, caption={War conflicts with \href{https://www.wikidata.org/wiki/Q4148613}{destroyer Gremyashchiy}. \num{10} conflicts are found, 2021. SPARQL-query: \href{https://w.wiki/vg3}{https://w.wiki/vg3}.}, label=lst:grem_wars, ]
+\begin{lstlisting}[ language=SPARQL, caption={War conflicts with \href{https://www.wikidata.org/wiki/Q4148613}{destroyer Gremyashchiy}. \num{10} conflicts are found, 2021. SPARQL-query: \href{https://w.wiki/vi3}{https://w.wiki/vi3}}, label=lst:grem_wars, ]
 SELECT ?conflict ?conflictLabel
 WHERE
 {
@@ -121,7 +123,7 @@ WHERE
       
   FILTER (?ship IN (wd:Q4148613))
                 
-SERVICE wikibase:label {bd:serviceParam wikibase:language "en".}
+SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}
 
@@ -129,24 +131,23 @@ SERVICE wikibase:label {bd:serviceParam wikibase:language "en".}
 For the first type of filling in the scripts with the search for \href{https://www.wikidata.org/wiki/Property:P607}{conflict (P607)} properties, the ships will display more wars/battles than the second. But in this case, the operation \href{https://en.wikipedia.org/wiki/Siege_of_Odessa_(1941)}{The Odessa Defense} will stand alongside \href{https://en.wikipedia.org/wiki/World_War_II}{World War II}, although it is part of this war. In this situation, the output data will not be accurate.
 
 \label{question:ship_3}
-\marginnote{Output pictures of those ships, about which the film were shot. If there are no such, then those ships, about which the books were written.}
+\marginnote{Output pictures of those ships, about which the film were shot. If there are no such, then those ships, about which the books were written. See answer on page~\pageref{answer:ship_3}.}
 
 For the second type of filling, scripts in listing \ref{lst:ships_in_conflict_2_en} will clearly distinguish where the war is, and where the military operation, also the data displayed on the chart will be more accurate.
 
-\begin{lstlisting}[ language=SPARQL, caption={List of ship with countries and war conflicts in English. \num{105} ships (2017), \num{86} ships (2020), \num{82} ships (2021). SPARQL-query: \href{https://w.wiki/vhB}{https://w.wiki/vhB}.}, label=lst:ships_in_conflict_2_en, texcl]
+\begin{lstlisting}[ language=SPARQL, caption={List of ship with countries and war conflicts in English. \num{105} ships (2017), \num{86} ships (2020), \num{82} ships (2021). SPARQL-query: \href{https://w.wiki/vhs}{https://w.wiki/vhs}}, label=lst:ships_in_conflict_2_en, texcl]
 #List of ship with countries and war conflicts
 SELECT ?ship ?shipLabel ?countryLabel ?conflict ?conflictLabel
 WHERE
 {
   ?ship wdt:P31 wd:Q11446;        # instance of ship
-        wdt:P137/wdt:P17 ?country;        # belongs to operator
+        wdt:P137/wdt:P17 ?country;         # belongs to country
         wdt:P607 ?conflict.       # engaged in some conflict
-      
-  { ?country wdt:P17 wd:Q34266 } UNION  # Russian Empire
-  { ?country wdt:P17 wd:Q15180 } UNION  # Soviet Union
-  { ?country wdt:P17 wd:Q159 }.         # Russia
-      
-SERVICE wikibase:label {bd:serviceParam wikibase:language "en".}
+  
+  VALUES ?country {wd:Q34266 # Russian EMpire
+                   wd:Q15180 # Soviet Union
+                   wd:Q159}  # Russia
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
 \end{lstlisting}
 
@@ -163,7 +164,7 @@ For example, there is ref{https://www.wikidata.org/wiki/Q653477}{Kasato Maru (Q6
 
 Let's build a graph of museum ships and the countries in which these ships are located. The vertices of the graph are \href{https://www.wikidata.org/wiki/Q6256}{countries (Q6256)} and \href{https://www.wikidata.org/wiki/Q575727}{museum ships (Q575727)}. The edge between a ship and a country means the ship is in that country. And the edge between the two countries means that there were conflicts between these countries, the number of which is equal to the weight of the edge. The script in listing \ref{lst:museum_graph} builds this graph according to the rules described above.
 
-\begin{lstlisting}[ language=SPARQL, caption={The graph of museum ships and the countries in which these ships are located. 117 vertices are found (2020). SPARQL-query: \href{https://w.wiki/vfj}{https://w.wiki/vfj}.}, label=lst:museum_graph, ]
+\begin{lstlisting}[ language=SPARQL, caption={The graph of museum ships and the countries in which these ships are located. 117 vertices are found (2020). SPARQL-query: \href{https://w.wiki/vfj}{https://w.wiki/vfj}}, label=lst:museum_graph, ]
 #defaultView:Graph    
 SELECT ?vertex1 ?vertex1Label ?vertex2 ?vertex2Label ?edgeLabel ?image 
 WHERE {
