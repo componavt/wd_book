@@ -21,19 +21,19 @@ This chapter focuses on ships in Russia and in the world. Ships have different p
 
 \section{List of ships}
 
-\href{https://en.wikipedia.org/wiki/Ship}{A ship} is a large marine vessel.
+A \href{https://www.wikidata.org/wiki/Q11446}{ship (Q11446)} is a large marine vessel.
 
 
 
 Wikidata properties considered in the chapter: 
 \begin{itemize}
-  \item \href{https://www.wikidata.org/wiki/Property:P31}{instance of (P31)}.
-  \item \href{https://www.wikidata.org/wiki/Property:P137}{operator (P137)}.
-  \item \href{https://www.wikidata.org/wiki/Property:P17}{country (P17)}.
-  \item \href{https://www.wikidata.org/wiki/Property:P607}{conflict (P607)}
+  \item \href{https://www.wikidata.org/wiki/Property:P31}{instance of (P31)};
+  \item \href{https://www.wikidata.org/wiki/Property:P137}{operator (P137)};
+  \item \href{https://www.wikidata.org/wiki/Property:P17}{country (P17)};
+  \item \href{https://www.wikidata.org/wiki/Property:P607}{conflict (P607)}.
 \end{itemize}
 
-Let's build a list of all ships with the script in listing \ref{lst:list_of_ship_en}
+Let's build a list of all ships with the script in the listing \ref{lst:list_of_ship_en}
 
 
 \begin{lstlisting}[ language=SPARQL, caption={List of ships. \num{19820} ships (2017), \num{50681} ships (2020), \num{71203} ships (2021). SPARQL-query: \href{https://w.wiki/vhp}{https://w.wiki/vhp}}, label=lst:list_of_ship_en, texcl]
@@ -51,45 +51,50 @@ SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
   {
     \setlength{\fboxsep}{0pt}%
     \setlength{\fboxrule}{1pt}%
-    \fcolorbox{gray}{gray}{\includegraphics[width=0.95\linewidth]{chapter/ship/Secret_Grem_ship.jpg}}
+    \fcolorbox{gray}{gray}{\includegraphics[width=0.92\linewidth]{chapter/ship/Secret_Grem_ship.jpg}}
   }
-  \caption[Soviet destroyer project 7]{Postage stamp with a picture of Famous Soviet destroyer project 7.}%
+  \caption[Soviet destroyer project 7]{Postage stamp with a picture of famous Soviet \Wikiref{Gnevny-class destroyer}, USSR, 1982}%
   \label{fig:quiz_question_ship}%
 \end{marginfigure}
-\label{question:ship_1}
   
-\begin{lstlisting}[ language=SPARQL, caption={List of ship from Russia, Soviet Union and Russian Empire. \num{107} ships (2017), \num{579} ships (2020), \num{578} ships (2020). SPARQL-query: \href{https://w.wiki/vhw}{https://w.wiki/vhw}}, label=lst:list_of_ship_ussr_rf_re_en, texcl]
+\begin{lstlisting}[ language=SPARQL, caption={List of ship from Russia, Soviet Union and Russian Empire. \num{107} ships (2017), \num{578} ships (2021). SPARQL-query: \href{https://w.wiki/vuM}{https://w.wiki/vuM}}, label=lst:list_of_ship_ussr_rf_re_en, texcl]
 # List of ship from Russia, Soviet Union and Russian Empire
 SELECT ?ship ?shipLabel
 WHERE
 {
   ?ship wdt:P31 wd:Q11446; # instance of ship
-        wdt:P137/wdt:P17 ?country.   # belongs to country
+        wdt:P137/wdt:P17 ?country. # belongs to country
     
-  VALUES ?country {wd:Q34266 # Russian EMpire
-                  wd:Q15180 # Soviet Union
-                  wd:Q159}  # Russia
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+  VALUES ?country {wd:Q34266 # Russian Empire
+                   wd:Q15180 # Soviet Union
+                   wd:Q159}  # Russia
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}
 
-The ship \href{https://www.wikidata.org/wiki/Q281147}{Krasin (Q281147)} has the greatest quantity of properties (34) according to ProWD report \sidecite{ProWD_ru_ships}. The ships \href{https://www.wikidata.org/wiki/Q99198666}{Liven (Q99198666)} (5 properties) and \href{https://www.wikidata.org/wiki/Q28155282}{Dispatch (Q28155282)} (4 properties) have the lowest quantity of properties.
+\label{question:ship_1}
+\marginnote{The figure \ref{fig:quiz_question_ship} shows the most famous Soviet \Wikiref{Gnevny-class destroyer}}, awarded the title of "Guards", name it. See answer on page~\pageref{answer:ship_1}.}
+
+The ship \href{https://www.wikidata.org/wiki/Q281147}{Krasin (Q281147)} has the maximum number of properties (34 properties) in WIkidata according to ProWD \sidecite{ProWD_ru_ships}. The ships \href{https://www.wikidata.org/wiki/Q99198666}{Liven (Q99198666)} (5 properties) and \href{https://www.wikidata.org/wiki/Q28155282}{Dispatch (Q28155282)} (4 properties) have the minimym number of properties.
 
 
-\section{Completeness of the Wikidata}
+\section{Completeness of the Wikidata ships' objects}
 
-Finding the exact number of ships in the world is a difficult task. After all, data about some of them are top secret, some are private vessels and there is no information about them either. Suppose that the total number of ships is about \num{1600000}, as indicated in the vessel database \sidecite{FleetMon}. The script in the listing \ref{lst:list_of_ship_en} showed only \num{71203} records, which makes up only 4.3\% of the total number of ships. 
+Finding the exact number of ships in the world is a difficult task. After all, data about some of them are top secret, some are private vessels and there is no information about them either. Suppose that the total number of ships is about 1.6 millions, as indicated in the vessel database \sidecite{FleetMon}. The script in the listing \ref{lst:list_of_ship_en} showed only \num{71203} records, which makes up only 4.5\% of the total number of ships. 
 
-As for the Russian ships, the actual civil and military fleets includes \num{17657} ships \sidecite{RussianShips}. At the time when the script in the listing \ref{lst:list_of_ship_ussr_rf_re_en} showed only 579 records, which is only 3.23\% of the total number of Russian ships. 
+As for the Russian ships, the actual civil and military fleets includes \num{17657} ships \sidecite{RussianShips}. In 2021 the script in the listing \ref{lst:list_of_ship_ussr_rf_re_en} showed only 578 records, which is only 3.27\% of the total number of Russian ships. 
 
-In the first and in the second case, the difference between the actual number of ships and the result of requests is huge, which indicates the incompleteness of the Wikidata. It is also showed by Fig. \ref{fig:prowd_ships-unbalanced}.
+\label{question:ship_2}
+\marginnote[-0.1cm]{Find ships worthy of mention in the Guinness Book, namely: the largest, the longest, the most capacious, etc. See answer on page~\pageref{answer:ship_2}.}
+
+In the first and second cases, there are small percentage of ships in Wikidata, which indicates the incompleteness of the Wikidata. It is also showed by Fig. \ref{fig:prowd_ships-unbalanced}.
 
 
 \section{Ships objects' properties completeness}
 
-It is required to find objects of ships that participated in any military conflicts. Let's do this with the scipt in listing \ref{lst:ships_in_conflict_en}.
+It is required to find objects of ships that participated in any military conflicts, let's do this with the scipt in the listing \ref{lst:ships_in_conflict_en}.
 
-\begin{lstlisting}[ language=SPARQL, caption={List of ships with countries and war conflicts in English. \num{1400} ships (2017), \num{3586} ships (2020), \num{3567} ships (2020). SPARQL-query: \href{https://w.wiki/vi2}{https://w.wiki/vi2}}, label=lst:ships_in_conflict_en, texcl]
+\begin{lstlisting}[ language=SPARQL, caption={List of ships with countries and war conflicts in English. \num{1400} ships (2017), \num{3567} ships (2021). SPARQL-query: \href{https://w.wiki/vi2}{https://w.wiki/vi2}}, label=lst:ships_in_conflict_en, texcl]
 # List of ships with countries and war conflicts
 SELECT ?ship ?shipLabel ?countryLabel ?conflict ?conflictLabel
 WHERE
@@ -101,40 +106,35 @@ SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}
 
-\marginnote{The figure \ref{fig:quiz_question_ship} shows the most famous Soviet \href{https://en.wikipedia.org/wiki/Destroyer}{destroyer} \href{https://en.wikipedia.org/wiki/Gnevny-class_destroyer}{project 7}, awarded the title of "Guards", name it. See answer on page~\pageref{answer:ship_1}.}
-
-With the serarator ";" in the script in the listing \ref{lst:ships_in_conflict_en} it is possible to extract multiple properties of the same object in one line of code. It this script to properties were extracted: \href{https://www.wikidata.org/wiki/Property:P17}{country (P17)} of the \href{https://www.wikidata.org/wiki/Property:P137}{operator (P137)} and \href{https://www.wikidata.org/wiki/Property:P607}{conflict (P607)} Military conflicts and military operations, which are part of wars, are different concepts. Filled data on ships can be roughly divided into two types:
+With the serarator ";" in the script in the listing \ref{lst:ships_in_conflict_en} it is possible to extract multiple properties of the same object in one line of code. It this script to properties were extracted: \href{https://www.wikidata.org/wiki/Property:P17}{country (P17)} of the \href{https://www.wikidata.org/wiki/Property:P137}{operator (P137)} and \href{https://www.wikidata.org/wiki/Property:P607}{conflict (P607)}. It should be noted that \href{https://www.wikidata.org/wiki/Q180684}{conflict (Q180684)} and \href{https://www.wikidata.org/wiki/Q645883}{military operation (Q645883)}, which are part of wars, are different concepts. Filled data on ships can be roughly divided into two types:
 
 \begin{itemize}
-  \item \textbf{Objects in which military operations are combined with military conflicts}. For example, in \href{https://www.wikidata.org/wiki/Q4148613}{Soviet destroyer Gremyashchiy} nine wars / battles, see listing \ref{lst:grem_wars}. Such a large number is due to the fact that the ship took part in many \href{https://en.wikipedia.org/wiki/Arctic_convoys_of_World_War_II}{arctic convoys} which are military operations.
-
-\label{question:ship_2}
-\marginnote{Find the "Guinness ship". Choose from: the largest, the longest, the most capacious, etc. See answer on page~\pageref{answer:ship_2}.}
-
-  \item \textbf{Objects in which military operations are separated from military conflicts}. For example, in the British cruiser \href{https://en.wikipedia.org/wiki/HMS_Trinidad_(1940)}{HMS Trinidad} participation in the military campaign and the Arctic convoy are listed as part of World War II with the qualifier \href{https://www.wikidata.org/wiki/Property:P1012}{including (P1012)}. Thus, in the Wikidata, this cruiser has one war/battle.
+  \item \textbf{Objects in which military operations are combined with military conflicts}. For example, in \href{https://www.wikidata.org/wiki/Q4148613}{Soviet destroyer Gremyashchiy} nine wars / battles, thesee listing \ref{lst:grem_wars}. Such a large number is due to the fact that the ship took part in many \href{https://en.wikipedia.org/wiki/Arctic_convoys_of_World_War_II}{arctic convoys} which are military operations.
+  
+  \item \textbf{Objects in which military operations are separated from military conflicts}. For example, in the British cruiser \href{https://www.wikidata.org/wiki/Q1565575}{HMS Trinidad (Q1565575)} participation in the military campaign and the Arctic convoy are listed as part of World War II with the qualifier \href{https://www.wikidata.org/wiki/Property:P1012}{including (P1012)}. Thus, in the Wikidata, this cruiser has one war/battle.
 \end{itemize}
 
-\begin{lstlisting}[ language=SPARQL, caption={War conflicts with \href{https://www.wikidata.org/wiki/Q4148613}{destroyer Gremyashchiy}. \num{10} conflicts are found, 2021. SPARQL-query: \href{https://w.wiki/vi3}{https://w.wiki/vi3}}, label=lst:grem_wars, ]
-SELECT ?conflict ?conflictLabel
+For the first type of filling in the scripts with the search for \href{https://www.wikidata.org/wiki/Property:P607}{conflict (P607)} properties, the ships will display more wars/battles than the second. 
+%But in this case, the operation \href{https://www.wikidata.org/wiki/Q682409}{Siege of Odessa (Q682409)} will stand alongside \href{https://www.wikidata.org/wiki/Q362}{World War II (Q362)}, although it is part of this war. In this situation, the output data will not be accurate.
+
+\begin{lstlisting}[ language=SPARQL, caption={War conflicts with \href{https://www.wikidata.org/wiki/Q4148613}{destroyer Gremyashchiy} and \href{https://www.wikidata.org/wiki/Q1565575}{HMS Trinidad (Q1565575)}. \num{10} and \num{1} conflicts are found respectively, 2021. SPARQL-query: \href{https://w.wiki/vuE}{https://w.wiki/vuE}}, label=lst:grem_wars, ]
+# List of military conflicts of the two ships 
+SELECT ?ship ?shipLabel ?conflict ?conflictLabel
 WHERE
 {
-  ?ship wdt:P31 wd:Q11446;
-        wdt:P607 ?conflict.
-      
-  FILTER (?ship IN (wd:Q4148613))
-                
+  VALUES ?ship {wd:Q4148613   # Soviet destroyer Gremyashchiy
+                wd:Q1565575}  # United Kingdom's HMS Trinidad
+  ?ship wdt:P607 ?conflict.   # conflict
 SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}
 
-For the first type of filling in the scripts with the search for \href{https://www.wikidata.org/wiki/Property:P607}{conflict (P607)} properties, the ships will display more wars/battles than the second. But in this case, the operation \href{https://en.wikipedia.org/wiki/Siege_of_Odessa_(1941)}{The Odessa Defense} will stand alongside \href{https://en.wikipedia.org/wiki/World_War_II}{World War II}, although it is part of this war. In this situation, the output data will not be accurate.
-
 \label{question:ship_3}
-\marginnote{Output pictures of those ships, about which the film were shot. If there are no such, then those ships, about which the books were written. See answer on page~\pageref{answer:ship_3}.}
+\marginnote{What ships were filmed in films or mentioned in books? Find pictures of these ships. See answer on page~\pageref{answer:ship_3}.}
 
-Also, lets build list of conflict and ships of Russia, Russian empire and USSR with script in the listing \ref{lst:ships_in_conflict_2_en}.
+Also, let's build list of conflict and ships of Russia, Russian empire and USSR with script in the listing \ref{lst:ships_in_conflict_2_en}.
 
-\begin{lstlisting}[ language=SPARQL, caption={List of ship with countries and war conflicts in English. \num{105} ships (2017), \num{86} ships (2020), \num{82} ships (2021). SPARQL-query: \href{https://w.wiki/vkB}{https://w.wiki/vkB}}, label=lst:ships_in_conflict_2_en, texcl]
+\begin{lstlisting}[ language=SPARQL, caption={List of ship with countries and war conflicts in English. \num{105} ships (2017), \num{86} ships (2020), \num{82} ships (2021). SPARQL-query: \href{https://w.wiki/vuP}{https://w.wiki/vuP}}, label=lst:ships_in_conflict_2_en, texcl]
 # List of ship with countries and war conflicts
 SELECT ?ship ?shipLabel ?countryLabel ?conflict ?conflictLabel
 WHERE
@@ -146,12 +146,12 @@ WHERE
   VALUES ?country {wd:Q34266 # Russian Empire
                    wd:Q15180 # Soviet Union
                    wd:Q159}  # Russia
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}
 
 It is important to notice that the ships from script in listing \ref{ships_in_war_ru} are not necessary connected only with Russia, USSR or Soviet Union.
-For example, there is ref{https://www.wikidata.org/wiki/Q653477}{Kasato Maru (Q653477)}. It is a japanese ship but it has multiple operators in the list. This list also includes \href{https://www.wikidata.org/wiki/Q3737187}{Dobroflot (Q3737187)}, this operator owned this ship for some time. It means that the same ship may be owned by different operators in different periods. Owners may be changed time to time.
+For example, there is \href{https://www.wikidata.org/wiki/Q653477}{Kasato Maru (Q653477)}. It is a japanese ship but it has multiple operators in the list. This list also includes \href{https://www.wikidata.org/wiki/Q3737187}{Dobroflot (Q3737187)}, this operator owned this ship for some time. It means that the same ship may be owned by different operators in different periods. Owners may be changed time to time.
 
 \begin{figure*}[ht]
   \includegraphics[width=0.9\linewidth]{chapter/ship/museum_graph.png}
@@ -163,7 +163,7 @@ For example, there is ref{https://www.wikidata.org/wiki/Q653477}{Kasato Maru (Q6
 
 Let's build a graph of museum ships and the countries in which these ships are located. The vertices of the graph are \href{https://www.wikidata.org/wiki/Q6256}{countries (Q6256)} and \href{https://www.wikidata.org/wiki/Q575727}{museum ships (Q575727)}. The edge between a ship and a country means the ship is in that country. And the edge between the two countries means that there were conflicts between these countries, the number of which is equal to the weight of the edge. The script in listing \ref{lst:museum_graph} builds this graph according to the rules described above.
 
-\begin{lstlisting}[ language=SPARQL, caption={The graph of museum ships and the countries in which these ships are located. 117 vertices are found (2020). SPARQL-query: \href{https://w.wiki/vfj}{https://w.wiki/vfj}}, label=lst:museum_graph, ]
+\begin{lstlisting}[ language=SPARQL, caption={The graph of museum ships and the countries in which these ships are located. 117 vertices are found (2021). SPARQL-query: \href{https://w.wiki/vfj}{https://w.wiki/vfj}}, label=lst:museum_graph, ]
 #defaultView:Graph    
 SELECT ?vertex1 ?vertex1Label ?vertex2 ?vertex2Label ?edgeLabel ?image 
 WHERE {
