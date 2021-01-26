@@ -22,16 +22,16 @@
 
 Исследуемые свойства:
 \begin{itemize}
-  \item\href{https://www.wikidata.org/wiki/Property:P31}{Экземпляр (P31)}.
-  \item\href{https://www.wikidata.org/wiki/Property:P137}{Оператор (P137)}.
-  \item\href{https://www.wikidata.org/wiki/Property:P17}{Государство (P17)}.
-  \item\href{https://www.wikidata.org/wiki/Property:P607}{Конфликт (P607)}
+  \item\href{https://www.wikidata.org/wiki/Property:P31}{Экземпляр (P31)};
+  \item\href{https://www.wikidata.org/wiki/Property:P137}{Оператор (P137)};
+  \item\href{https://www.wikidata.org/wiki/Property:P17}{Государство (P17)};
+  \item\href{https://www.wikidata.org/wiki/Property:P607}{Конфликт (P607)}.
 \end{itemize}
 }
 
 Построим список всех кораблей (см. листинг \ref{lst:ships_ru}).
 
-\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/vjB}{Список кораблей}}\protect\footnotemark}, label=lst:ships_ru, ]
+\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/vuU}{Список кораблей}}\protect\footnotemark}, label=lst:ships_ru, ]
 # List of ships
 SELECT ?ship ?shipLabel
 WHERE
@@ -40,13 +40,13 @@ WHERE
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
 }
 \end{lstlisting}
-\footnotetext{Найдено \num{19820} кораблей в 2017, \num{50681} в 2020, \numP{71203} в 2021. Ссылка на SPARQL-запрос: \href{https://w.wiki/vjB}{https://w.wiki/vjB}}
+\footnotetext{Найдено \num{19820} кораблей в 2017, \num{50681} в 2020, \numP{71203} в 2021. Ссылка на SPARQL-запрос: \href{https://w.wiki/vuU}{https://w.wiki/vuU}}
 
-По данным ProWD больше всего свойств (34) имеет \href{https://www.wikidata.org/wiki/Q281147}{ледокол Красин (Q281147)}, а меньше всего свойству у корабля \href{https://www.wikidata.org/wiki/Q99198666}{Ливень (Q99198666)} (4 свойства) и корабля \href{https://www.wikidata.org/wiki/Q28155282}{Dispatch (Q28155282)} \cite{ProWD_ru_ships}.
+По данным ProWD больше всего свойств (34 свойства) имеет \href{https://www.wikidata.org/wiki/Q281147}{ледокол Красин (Q281147)}, а меньше всего свойству у корабля \href{https://www.wikidata.org/wiki/Q99198666}{Ливень (Q99198666)} (4 свойства) и корабля \href{https://www.wikidata.org/wiki/Q28155282}{Dispatch (Q28155282)} \cite{ProWD_ru_ships}.
 
 Составим список кораблей, операторы которых находятся или находились в России, СССР или Российской империи (см. листинг \ref{lst:ships_with_ru_op}).
 
-\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/vjM}{Cписок кораблей, операторы которых находятся или находились в России, СССР или Российской Империи}}, label=lst:ships_with_ru_op ]
+\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/vud}{Cписок кораблей, операторы которых находятся или находились в России, СССР или Российской Империи}}, label=lst:ships_with_ru_op ]
 # List of ship from Russia, Soviet Union and Russian Empire
 SELECT ?ship ?shipLabel
 WHERE
@@ -54,13 +54,13 @@ WHERE
   ?ship wdt:P31 wd:Q11446. # instance of ship
         wdt:P137/wdt:P17 ?country; 
     
-  VALUES ?country {wd:Q34266 # Russian EMpire
+  VALUES ?country {wd:Q34266 # Russian Empire
                    wd:Q15180 # Soviet Union
                    wd:Q159}  # Russia
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
 }
 \end{lstlisting}
-\footnotetext{Найдено 579 кораблей в 2020 году, 578 кораблей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/vjM}{https://w.wiki/vjM}}
+\footnotetext{Найдено 107 кораблей в 2017 году, 578 кораблей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/vud}{https://w.wiki/vud}}
 
 
 \section{Полнота Викиданных}
@@ -77,7 +77,7 @@ WHERE
 
 
 \label{question:ship_2}
-\marginnote{На рисунке \ref{fig:grem_question} представлен самый известный советский \ruwiki{vgD}{эскадренный миноносец} \ruwiki{vgC}{проекта 7}, удостоенный звания <<гвардейский>>, назовите его.  Ответ можно найти на странице~\pageref{answer:ship_2}.}
+\marginnote{На рисунке \ref{fig:grem_question} представлен самый известный советский эсминец \ruwiki{vgC}{проекта 7}, удостоенный звания <<Гвардейский>>, назовите его.  Ответ можно найти на странице~\pageref{answer:ship_2}.}
 
 \begin{marginfigure}[0.0cm]
   {
@@ -93,7 +93,7 @@ WHERE
 
 Составим список кораблей, участвовавших в каких-либо конфликтах (см. листинг \ref{lst:ships_in_conflict_ru}).
 
-\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/vjN}{Список кораблей, участвовавших в каких-либо конфликтах}}\protect\footnotemark}, label=lst:ships_in_conflict_ru, ]
+\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/vum}{Список кораблей, участвовавших в каких-либо конфликтах}}\protect\footnotemark}, label=lst:ships_in_conflict_ru, ]
 # List of ships with countries and war conflicts
 SELECT ?ship ?shipLabel ?countryLabel ?conflict ?conflictLabel
 WHERE
@@ -104,39 +104,38 @@ WHERE
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
 }
 \end{lstlisting}
-\footnotetext{Найдено \num{3586} кораблей в 2020 году, \num{3567} в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/vjN}{https://w.wiki/vjN}}
+\footnotetext{Найдено \num{1400} кораблей в 2017 году, \num{3567} в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/vum}{https://w.wiki/vum}}
 
 У военных кораблей, участвовавших в конфликтах, указывается свойство \href{https://www.wikidata.org/wiki/Property:P607}{conflict (P607)} (война/сражение). В то же время военные конфликты и военные операции, которые являются частью войн, являются разными понятиями. Объекты кораблей можно условно по делить на два типа:
 
 \begin{enumerate}
-  \item Объекты, у которых военные операции объединены с военными конфликтами. Например, у \href{https://www.wikidata.org/wiki/Q4148613}{эсминца Гремящий} 10 войн/сражений, см. листинг \ref{lst:grem_wars}. Такое большое число связано с тем, что корабль принял участие во многих \href{https://ru.wikipedia.org/wiki/Арктические_конвои}{арктических конвоях}, которые являются военными операциями.
-  \item Объекты, у которых военные операции отделены от военных конфликтов. Например, у британского крейсера \href{https://ru.wikipedia.org/wiki/HMS_Trinidad_(1940)}{HMS Trinidad} участие в военной кампании и арктическом конвое указаны как часть Второй мировой войны с помощью квалификатора \href{https://www.wikidata.org/wiki/Property:P1012}{including (P1012)}. Таким образом, в Викиданных у этого крейсера указана одна война/сражение.
+  \item Объекты, у которых военные операции объединены с военными конфликтами. Например, у \href{https://www.wikidata.org/wiki/Q4148613}{эсминца Гремящий (Q4148613)} 10 войн/сражений, см. листинг \ref{lst:grem_wars}. Такое большое число связано с тем, что корабль принял участие во многих \href{https://ru.wikipedia.org/wiki/Арктические_конвои}{арктических конвоях}, которые являются военными операциями.
+  \item Объекты, у которых военные операции отделены от военных конфликтов. Например, у британского крейсера \href{https://www.wikidata.org/wiki/Q1565575}{HMS Trinidad (Q1565575)} участие в военной кампании и арктическом конвое указаны как часть Второй мировой войны с помощью квалификатора \href{https://www.wikidata.org/wiki/Property:P1012}{including (P1012)}. Таким образом, в Викиданных у этого крейсера указана одна война/сражение.
 \end{enumerate}
 
+Для первого типа объектов в скриптах с поиском у кораблей свойства \href{https://www.wikidata.org/wiki/Property:P607}{conflict (P607)} будет отображаться больше войн/сражений, чем при втором. 
+%Но в этом случае операция \href{https://ru.wikipedia.org/wiki/Одесская_оборона_(1941)}{Одесская оборона} будет стоять наряду с \href{https://ru.wikipedia.org/wiki/Великая_Отечественная_война}{Великой Отечественной войной}, хотя она является частью этой войны. В такой ситуации выводимые данные будут не точными.
 
 \label{question:ship_3}
 \marginnote{Вывести фотографии тех кораблей, про которые снимали кино. Если таких не найдётся, тогда те корабли, о которых писали в книгах. Ответ можно найти на странице~\pageref{answer:ship_3}}
 
 
-\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/vjP}{Военные конфликты, в которых участвовал \href{https://www.wikidata.org/wiki/Q4148613}{эсминец Гремящий}}}\protect\footnotemark}, label=lst:grem_wars, ]
-SELECT ?conflict ?conflictLabel
+\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/vuo}{Военные конфликты, в которых участвовали \href{https://www.wikidata.org/wiki/Q4148613}{эсминец Гремящий (Q4148613)} и \href{https://www.wikidata.org/wiki/Q1565575}{HMS Trinidad (Q1565575)}}}\protect\footnotemark}, label=lst:grem_wars, ]
+# List of military conflicts of the two ships 
+SELECT ?ship ?shipLabel ?conflict ?conflictLabel
 WHERE
 {
-  ?ship wdt:P31 wd:Q11446;
-        wdt:P607 ?conflict.
-    
-  FILTER (?ship IN (wd:Q4148613))
-              
+  VALUES ?ship {wd:Q4148613   # Soviet destroyer Gremyashchiy
+                wd:Q1565575}  # United Kingdom's HMS Trinidad
+  ?ship wdt:P607 ?conflict.   # conflict
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
 }
 \end{lstlisting}
-\footnotetext{Найдено \num{10} конфликтов, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vjP}{https://w.wiki/vjP}}
-
-Для первого типа объектов в скриптах с поиском у кораблей свойства \href{https://www.wikidata.org/wiki/Property:P607}{conflict (P607)} будет отображаться больше войн/сражений, чем при втором. Но в этом случае операция \href{https://ru.wikipedia.org/wiki/Одесская_оборона_(1941)}{Одесская оборона} будет стоять наряду с \href{https://ru.wikipedia.org/wiki/Великая_Отечественная_война}{Великой Отечественной войной}, хотя она является частью этой войны. В такой ситуации выводимые данные будут не точными.
+\footnotetext{Найдено \num{10} конфликтов для \href{https://www.wikidata.org/wiki/Q4148613}{эсминеца Гремящий (Q4148613)} и 1 конфликт для крейсера \href{https://www.wikidata.org/wiki/Q1565575}{HMS Trinidad (Q1565575)}, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vuo}{https://w.wiki/vuo}}
 
 Составим список кораблей (на русском языке) России, СССР или Российской Империи, участвовавших в каких-либо конфликтах (см. листинг \ref{lst:ships_in_war_ru}).
 
-\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/vjR}{Список кораблей России, СССР или Российской Империи, участвовавших в каких-либо конфликтах}}\protect\footnotemark}, label=lst:ships_in_war_ru, ]
+\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/vuw}{Список кораблей России, СССР или Российской Империи, участвовавших в каких-либо конфликтах}}\protect\footnotemark}, label=lst:ships_in_war_ru, ]
 # List of ship with countries and war conflicts
 SELECT ?ship ?shipLabel ?countryLabel ?conflict ?conflictLabel
 WHERE
@@ -145,14 +144,14 @@ WHERE
         wdt:P137/wdt:P17 ?country;# belongs to operator
         wdt:P607 ?conflict.       # engaged in some conflict
   
-  VALUES ?country {wd:Q34266 # Russian EMpire
+  VALUES ?country {wd:Q34266 # Russian Empire
                    wd:Q15180 # Soviet Union
-                  wd:Q159}  # Russia
+                   wd:Q159}  # Russia
 
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
 }
 \end{lstlisting}
-\footnotetext{Найдено \num{86} кораблей в 2020 году, \num{82} корабля в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/vjR}{https://w.wiki/vjR}}
+\footnotetext{Найдено \num{105} кораблей в 2017 году, \num{86} кораблей в 2020 году,\num{82} корабля в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/vuw}{https://w.wiki/vuw}}
 
 При анализе результатов работы скрипта в листинге \ref{lst:ships_in_war_ru} важно заметить, что попавшие в него корабли не обязательно связанны только с Россией, СССР или Российской империей. Например, корабль \href{https://www.wikidata.org/wiki/Q653477}{Kasato Maru (Q653477)} -- японский, однако, в списке его операторов указано несколько значений. Среди них есть \href{https://www.wikidata.org/wiki/Q3737187}{Добровольный флот (Q3737187)}, который также владел этим кораблем. Это значит, что один и тот же корабль в различные периоды времени может принадлежать разным операторам, переходить от владельца в владельцу.
 
