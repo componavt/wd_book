@@ -49,12 +49,13 @@ Examples of the most complete and developed countries on Wikidata according to P
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Age of countries}
+\section{Age of countries and why Russia is not a country? About p:/ps: construction}
+\labsec{RussiaNotCountryPPS}
 
 Let's build a list of countries sorted by the date of the country's foundation (the first mention of the country) (Listing \ref{lst:age_of_country}).
 
 \begin{lstlisting}[ language=SPARQL, 
-caption={List of `instances of` ``countries sorted by inception''. The result contains \num{112} countries with completed date of foundation in 2017 and \num{187} in 2021.\\\hspace{\textwidth}
+caption={List of countries sorted by inception date. The result contains \num{112} countries with date of inception (foundation) in 2017 and \num{187} in 2021. But this list of countries do not contain, for example, Russia. \\\hspace{\textwidth}
 SPARQL query: \href{https://w.wiki/vJk}{https://w.wiki/vJk}
 },
 label=lst:age_of_country, 					
@@ -72,15 +73,17 @@ ORDER BY (?inception)
 
 As a result of executing the request (listing \ref{lst:age_of_country}), a modest list of countries was obtained, including only 184 countries for 2020. Using the example of Russia, we will figure out what is the matter here. The \wdqName{Russia}{159} object in the ``instance of'' field contains not one, but eight values, including \wdqName{country}{6256}.
 
-\marginnote{
-	On the Wikidata page ``Request a query'', some editors ask questions about how to write a particular script, while other editors answer. Use this forum.
+\marginnote{%
+    On the Wikidata page ``Request a query'' some editors ask questions about writing scripts, while other editors answer. Use this forum: \href{https://w.wiki/tLm}{https://w.wiki/tLm}.
 }
+The solution and the answer to this question were found on the page ``Wikidata: Request a query'', namely in the section available at the link \href{https://w.wiki/tLm}{https://w.wiki/tLm}.
 
-The solution and the answer to this question were found on the page ``Wikidata: Request a query'', namely in the section available at the link \href{https://w.wiki/tLm}{https://w.wiki/tLm }.
+The point is that the \emph{wdt} construction allows you to find only true values. 
+For Russia, the preferred value in the ``instance of'' field is a sovereign state, not a country. 
+To check all the options presented in the ``instance of'' field in Russia, 
+you need to use the \emph{p:/ps:} construction.
 
-The point is that the wdt construction allows you to find only true values. For Russia, the preferred value in the ``instance of'' field is a sovereign state, not a country. To check all the options presented in the ``instance of'' field in Russia, you need to use the p:/ps: construction.
-
-Thus, the script for getting all 232 countries sorted by creation date is shown in the listing \ref{lst:list_of_country_instance_of}.
+Thus, the script for getting all 232 countries sorted by creation date is shown in the listing~\ref{lst:list_of_country_instance_of}.
 
 \begin{lstlisting}[ language=SPARQL, 
 caption={List of countries sorted by inception date. The result contains \num{112} countries with completed date of foundation in 2017 and \num{235} in 2021.\\\hspace{\textwidth}
