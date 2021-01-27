@@ -165,10 +165,10 @@ What is the name of an aircraft held in the air by a huge tank of flammable, let
     {%
         \setlength{\fboxsep}{0pt}
         \setlength{\fboxrule}{1pt}
-        \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/aircraft/foto_of_airship.jpg}}
+        \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/aircraft/airship-SSSR-V6.jpg}}
     }
-	\caption{Soviet airship \Wikiref{SSSR-V6 OSOAVIAKhIM}.}
-	\labfig{fig:airship_question_answers_aircraft_en_2}
+    \caption[Soviet airship SSSR-V6 OSOAVIAKhIM]{Soviet airship \Wikiref{SSSR-V6 OSOAVIAKhIM}.}
+	\labfig{fig:airship-SSSR-V6}
 \end{marginfigure}
 
 Airship. 
@@ -179,17 +179,17 @@ Question from page~\pageref{question:aircraft_question_4}.
 
 \begin{exercise}%
 \label{answer:aircraft_question_airship_2_en}
-Which aircraft is shown in~\reffig{fig:airship_question_answers_aircraft_en_2}?
+Which aircraft is shown in~\reffig{fig:airship-SSSR-V6}?
 
 \end{exercise}
 
-The aircraft shown in~\reffig{fig:airship_question_answers_aircraft_en_2} is an airship. 
+The aircraft shown in~\reffig{fig:airship-SSSR-V6} is an airship. 
 The answer to the question can also be obtained by running the following SPARQL-request (listing \ref{lst:aircraft_airship_photo_lst_en}).
 
 \begin{lstlisting}[ language=SPARQL, breaklines=true, 
                     caption={Airship images\\\hspace{\textwidth}
 						Received 18 illustrated airships, 2021.
-                        SPARQL query: \href{https://w.wiki/rg4}{w.wiki/rg4}
+                        SPARQL query: \href{https://w.wiki/w9x}{w.wiki/w9x}
                         },
                     label=lst:aircraft_airship_photo_lst_en,
                     texcl 
@@ -198,9 +198,9 @@ The answer to the question can also be obtained by running the following SPARQL-
 SELECT ?airship ?airshipLabel ?image
 WHERE
 {
-    ?airship wdt:P31 wd:Q133585. # instance of airship
-  	?airship wdt:P18 ?image # image airship
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+  ?airship wdt:P31 wd:Q133585. # instance of airship
+  ?airship wdt:P18 ?image # image of airship
+SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}
 
