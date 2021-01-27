@@ -719,34 +719,36 @@ Question from page~\pageref{question:prog_lang_3}.
 
 Answer: \href{https://en.wikipedia.org/wiki/Soviet_destroyer_Gremyashchy_(1937)}{Soviet destroyer Gremyashchy (1937)}. Fig. \ref{fig:grem_answer}.
 
-\small{Question from page~\pageref{question:ship_1}.}
+\small{See question from page~\pageref{question:ship_1}.}
 
 
 \begin{exercise}
 	\label{answer:ship_2}
-	Find the ``Guinness ship'' (to choose from: the largest, the longest, the most capacious).
+	Find ships worthy of mention in the Guinness Book, namely: the largest, the longest, the most capacious, etc.
 \end{exercise}
 
-Possible solution: \href{https://en.wikipedia.org/wiki/Seawise_Giant}{Seawise Giant}
+Possible solution: tanker \href{https://en.wikipedia.org/wiki/Seawise_Giant}{Seawise Giant}, which length is 458.45 m.
 
-Other possible solutions from Wikidata. The data may differ because of incompleteness of wikidata objects' properties, see the listings \ref{lst:long_ship} and \ref{lst:wide_ship}.
-\begin{lstlisting}[ language=SPARQL, caption={The longest ship. Ship in result: \href{https://www.wikidata.org/wiki/Q48817670}{NMS Mircea}, length is \num{36} m. SPARQL-query: \href{https://w.wiki/vev}{https://w.wiki/vev}}, label=lst:long_ship, ]
+There are thera possible solutions from Wikidata. The data may differ because of incompleteness of wikidata objects' properties, see the listings \ref{lst:long_ship} and \ref{lst:wide_ship}.
+\begin{lstlisting}[ language=SPARQL, caption={The longest ship is \href{https://www.wikidata.org/wiki/Q48817670}{NMS Mircea}, which length is \num{36} m. SPARQL-query: \href{https://w.wiki/wBJ}{https://w.wiki/wBJ}}, label=lst:long_ship, ]
+# Ship with maximum length
 SELECT ?ship ?shipLabel ?max_length WHERE {
 	{
 		SELECT (MAX(?length) as ?max_length)
 		WHERE
 		{
-			?ship wdt:P31 wd:Q11446;
+			?ship wdt:P31 wd:Q11446; # is ship
 				  wdt:P2043 ?length
 		}
 	}
 	{?ship wdt:P31 wd:Q11446; wdt:P2043 ?max_length}
-			
 SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }  
 \end{lstlisting}
 
-\begin{lstlisting}[ language=SPARQL, caption={The widest ship. Ship in result: \href{https://www.wikidata.org/wiki/Q1156392}{Project Habakkuk}, 2021, width \num{180} m. SPARQL-query: \href{https://w.wiki/w7X}{https://w.wiki/w7X}}, label=lst:wide_ship, ]
+The inner SELECT query finds maximum ship length, while the outer SELECT query finds the ship with this length itself.
+
+\begin{lstlisting}[ language=SPARQL, caption={Images of ships sorted by ships' width. The ship with maximum width is href{https://www.wikidata.org/wiki/Q1156392}{Project Habakkuk}, which width is \num{180} m, \num{1369} photos were found, 2021. SPARQL-query: \href{https://w.wiki/w7X}{https://w.wiki/w7X}}, label=lst:wide_ship, ]
 # List of ships' images sorted by width of ship
 #defaultView:ImageGrid
 SELECT ?ship ?shipLabel ?image ?beam
@@ -760,39 +762,46 @@ WHERE
 ORDER BY DESC(?beam)
 \end{lstlisting}
 
-\small{Question from page~\pageref{question:ship_2}.}
+\small{See question from page~\pageref{question:ship_2}.}
 
 
 \begin{exercise}
 	\label{answer:ship_3}
-	Output pictures of those ships, about which the film were shot. If there are no such, then those ships, about which the books were written.
+	Find images of ships that have been used in a movie. If there are no such, then those ships, about which the books were written.
 \end{exercise}
 
-\begin{lstlisting}[ language=SPARQL, caption={Images of ships, about which films were shot. 5 images are found, 2021. SPARQL-query: \href{https://w.wiki/vi7}{https://w.wiki/vi7}}, label=lst:filmed_ships, ]
-SELECT DISTINCT ?image 
+\begin{lstlisting}[ language=SPARQL, caption={Images of ships used in movies. 5 images were found, 2021. SPARQL-query: \href{https://w.wiki/wBR}{https://w.wiki/wBR}}, label=lst:filmed_ships, ]
+# Images of ships used in movies
+#defaultView:ImageGrid
+SELECT DISTINCT ?ship ?shipLabel ?image 
 WHERE
 {
-	?film wdt:P31 wd:Q11424 .
-	  
-	{?film wdt:P921/wdt:P31/wdt:P31 wd:Q2235308}
-	OPTIONAL { ?film wdt:P921/wdt:P18 ?image }
+	?film wdt:P31 wd:Q11424; # is film
+		  wdt:P921/wdt:P31/wdt:P31 wd:Q2235308 . # about ship
+			
+	?film wdt:P921 ?ship # ship
+	OPTIONAL { ?ship wdt:P18 ?image } # ship's image
 	
-SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
+	SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}
 
-
-\begin{lstlisting}[ language=SPARQL, caption={Images of ships, about which books were written. 8 images are found, 2021. SPARQL-query: \href{https://w.wiki/vi8}{https://w.wiki/vi8}}, label=lst:ships_in_books, ]
-SELECT DISTINCT ?image
+\begin{lstlisting}[ language=SPARQL, caption={Images of ships mentioned in books. 8 images are found, 2021. SPARQL-query: \href{https://w.wiki/wBT}{https://w.wiki/wBT}}, label=lst:ships_in_books, ]
+# Images of ships used in movies
+#defaultView:ImageGrid
+SELECT DISTINCT ?ship ?shipLabel ?image
 WHERE
 {
-	?book wdt:P31 wd:Q571
-	{?book wdt:P921/wdt:P31/wdt:P31 wd:Q2235308}
-	  
-	OPTIONAL { ?book wdt:P921/wdt:P18 ?image. }
+	?book wdt:P31 wd:Q571; # is book
+		  wdt:P921/wdt:P31/wdt:P31 wd:Q2235308 . # about ship
+			
+	?book wdt:P921 ?ship # ship
+	OPTIONAL { ?ship wdt:P18 ?image } # ship's image
 	
-SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
+	SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}
 
-\small{Question from page~\pageref{question:ship_3}.}
+In the listing \ref{filmed_ships} and \ref{ships_in_books} we used DISTINCT to filter duplicates. Multiple books and films may mention the same ship, so we need to filter extra images.
+
+\small{See question from page~\pageref{question:ship_3}.}
