@@ -714,7 +714,7 @@ Question from page~\pageref{question:prog_lang_3}.
 
 \begin{exercise}
 	\label{answer:ship_1}
-	The figure \ref{fig:grem_answer} shows the most famous Soviet \href{https://en.wikipedia.org/wiki/Destroyer}{destroyer} \href{https://en.wikipedia.org/wiki/Gnevny-class_destroyer}{project 7}, awarded the title of "Guards", name it.
+	The figure \ref{fig:grem_answer} shows the most famous Soviet \href{https://en.wikipedia.org/wiki/Destroyer}{destroyer} \href{https://en.wikipedia.org/wiki/Gnevny-class_destroyer}{project 7}, awarded the title of ``Guards'', name it.
 \end{exercise}
 
 Answer: \href{https://en.wikipedia.org/wiki/Soviet_destroyer_Gremyashchy_(1937)}{Soviet destroyer Gremyashchy (1937)}. Fig. \ref{fig:grem_answer}.
@@ -724,7 +724,7 @@ Answer: \href{https://en.wikipedia.org/wiki/Soviet_destroyer_Gremyashchy_(1937)}
 
 \begin{exercise}
 	\label{answer:ship_2}
-	Find the "Guinness ship" (to choose from: the largest, the longest, the most capacious).
+	Find the ``Guinness ship'' (to choose from: the largest, the longest, the most capacious).
 \end{exercise}
 
 Possible solution: \href{https://en.wikipedia.org/wiki/Seawise_Giant}{Seawise Giant}
@@ -746,20 +746,18 @@ SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }  
 \end{lstlisting}
 
-\begin{lstlisting}[ language=SPARQL, caption={The widest ship. Ship in result: \href{https://www.wikidata.org/wiki/Q1156392}{Project Habakkuk}, 2021, width \num{180} m. SPARQL-query: \href{https://w.wiki/vex}{https://w.wiki/vex}}, label=lst:wide_ship, ]
-SELECT ?ship ?shipLabel ?max_beam WHERE {
-	{
-		SELECT (MAX(?beam) as ?max_beam)
-		WHERE
-		{
-			?ship wdt:P31 wd:Q11446;
-				  wdt:P2261 ?beam
-		}
-	}
-	{?ship wdt:P31 wd:Q11446; wdt:P2261 ?max_beam}
-			
-SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
+\begin{lstlisting}[ language=SPARQL, caption={The widest ship. Ship in result: \href{https://www.wikidata.org/wiki/Q1156392}{Project Habakkuk}, 2021, width \num{180} m. SPARQL-query: \href{https://w.wiki/w7X}{https://w.wiki/w7X}}, label=lst:wide_ship, ]
+# List of ships' images sorted by width of ship
+#defaultView:ImageGrid
+SELECT ?ship ?shipLabel ?image ?beam
+WHERE 
+{
+	?ship wdt:P31 wd:Q11446; # is ship
+		  wdt:P2261 ?beam; # width of ship is ?beam
+	OPTIONAL { ?ship wdt:P18 ?image }
+	SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
+ORDER BY DESC(?beam)
 \end{lstlisting}
 
 \small{Question from page~\pageref{question:ship_2}.}
