@@ -641,33 +641,39 @@ ORDER BY DESC(?count)
 \begin{task}
 	\label{answer:ship_1}
 	Решение:
-	\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/vja}{Изображения кораблей, которые снимались в фильмах}}\protect\footnotemark}, label=lst:wide_ship, ]
-SELECT DISTINCT ?image 
+	\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/wKs}{Изображения кораблей, которые снимались в фильмах}}\protect\footnotemark}, label=lst:wide_ship, ]
+# Images of ships used in movies
+#defaultView:ImageGrid
+SELECT DISTINCT ?ship ?shipLabel ?image 
 WHERE
 {
-	?film wdt:P31 wd:Q11424 . 	  
-	{?film wdt:P921/wdt:P31/wdt:P31 wd:Q2235308}
+	?film wdt:P31 wd:Q11424; # is film
+		  wdt:P921/wdt:P31/wdt:P31 wd:Q2235308 . # about ship
+			
+	?film wdt:P921 ?ship # ship
+	OPTIONAL { ?ship wdt:P18 ?image } # ship's image
 	
-	OPTIONAL { ?film wdt:P921/wdt:P18 ?image }
-		
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
+	SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
 }
 	\end{lstlisting}
-	\footnotetext{Найдено 5 изображений кораблей, снимавшихся в фильмах, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vja}{https://w.wiki/vja}}
+	\footnotetext{Найдено 5 изображений кораблей, снимавшихся в фильмах, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/wKs}{https://w.wiki/wKs}}
 
-	\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/vjb}{Изображения кораблей, о которых писали в книгах}}\protect\footnotemark}, label=lst:wide_ship, ]
-SELECT DISTINCT ?image
+	\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/wKu}{Изображения кораблей, о которых писали в книгах}}\protect\footnotemark}, label=lst:wide_ship, ]
+# Images of ships used in movies
+#defaultView:ImageGrid
+SELECT DISTINCT ?ship ?shipLabel ?image
 WHERE
 {
-	?book wdt:P31 wd:Q571
-	{?book wdt:P921/wdt:P31/wdt:P31 wd:Q2235308}
-
-	OPTIONAL { ?book wdt:P921/wdt:P18 ?image }
-		
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
+	?book wdt:P31 wd:Q571; # is book
+		  wdt:P921/wdt:P31/wdt:P31 wd:Q2235308 . # about ship
+					
+	?book wdt:P921 ?ship # ship
+	OPTIONAL { ?ship wdt:P18 ?image } # ship's image
+			
+	SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
 }
 	\end{lstlisting}
-	\footnotetext{Найдено 8 изображений кораблей, о которых было написано в книгах, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vjb}{https://w.wiki/vjb}}
+	\footnotetext{Найдено 8 изображений кораблей, о которых было написано в книгах, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/wKu}{https://w.wiki/wKu}}
 	
 \small{Задание на с.~\pageref{question:ship_1}.}
 \end{task}
@@ -712,24 +718,24 @@ SELECT ?ship ?shipLabel ?max_length WHERE {
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
 }  
 \end{lstlisting}
-\footnotetext{Самым длинным кораблем оказался \Wikiref{NMS Mircea} длиной в  \num{36} метров. Ссылка на SPARQL-запрос: \href{https://w.wiki/vTt}{https://w.wiki/vTt}}
+\footnotetext{Самым длинным кораблем оказался \Wikiref{NMS Mircea} длиной в \num{36} метров. Ссылка на SPARQL-запрос: \href{https://w.wiki/vTt}{https://w.wiki/vTt}}
 
-\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/vTx}{Самый широкий корабль}}\protect\footnotemark}, label=lst:wide_ship, ]
-SELECT ?ship ?shipLabel ?max_beam WHERE {
-	{
-		SELECT (MAX(?beam) as ?max_beam)
-		WHERE
-		{
-			?ship wdt:P31 wd:Q11446;
-				  wdt:P2261 ?beam
-		}
-	}
-	{?ship wdt:P31 wd:Q11446; wdt:P2261 ?max_beam}
-		
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
+Внутренний SELECT в скрипте из листинга~\ref{long_ship} находит максимальную длину корабля, а внешний SELECT находить корабль с такой длиной.
+
+\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/wKv}{Изображения кораблей отсортированные по ширине корабля}}\protect\footnotemark}, label=lst:wide_ship, ]
+# List of ships' images sorted by width of ship
+#defaultView:ImageGrid
+SELECT ?ship ?shipLabel ?image ?beam
+WHERE 
+{
+	?ship wdt:P31 wd:Q11446; # is ship
+		  wdt:P2261 ?beam; # width of ship is ?beam
+	OPTIONAL { ?ship wdt:P18 ?image }
+	SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
 }
+ORDER BY DESC(?beam)
 \end{lstlisting}
-\footnotetext{Самым широким кораблем оказался \href{https://www.wikidata.org/wiki/Q1156392}{Project Habakkuk} шириной \num{180} метров, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vTx}{https://w.wiki/vTx}}
+\footnotetext{Самым широким кораблем оказался \href{https://www.wikidata.org/wiki/Q1156392}{Project Habakkuk} шириной \num{180} метров, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/wKv}{https://w.wiki/wKv}}
 
 
 \small{Задание на с.~\pageref{question:ship_3}.}
