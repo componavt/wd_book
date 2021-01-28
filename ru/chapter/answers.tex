@@ -520,9 +520,25 @@ WHERE
     \small{Вопрос на с.~\pageref{aircraft_question_4}.}
 \end{task}
 
+
+% Unknown old Soviet airship on black and white photo
+%
+\begin{marginfigure}[3.2cm]
+{%
+\setlength{\fboxsep}{0pt}%
+\setlength{\fboxrule}{1pt}%
+\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/aircraft/airship-SSSR-V6.jpg}}%
+}
+    \caption{Дирижабль \ruwiki{wKY}{СССР--В6 <<Осоавиахим>>} (1934--1938). 
+             Дирижабль В--6 установил мировой рекорд в~1937 году, 
+             пролетев 130 с~половиной часов без посадки.
+    }%
+    \label{fig:airship-stamp}%
+\end{marginfigure}
+% 
 \begin{task}
     \label{answer:aircraft_question_airship_2}
-    \newthought{Воздушное судно, изображенное на рис. \ref{fig:airship_question_aircraft},~--- это дирижабль. Выполнив SPARQL-запрос, представленный на листинге~\ref{lst:aircraft_airship_photo_lst}, можно получить иллюстрации дирижаблей}. 
+    \newthought{Воздушное судно, изображенное на рис.~\ref{fig:airship-stamp},~--- это дирижабль. Выполнив SPARQL-запрос, представленный на листинге~\ref{lst:aircraft_airship_photo_lst}, можно получить иллюстрации дирижаблей}. 
     
 	\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/t4c}{Изображения дирижаблей}\protect\footnotemark}, label=lst:aircraft_airship_photo_lst, ]
 #defaultView:ImageGrid
