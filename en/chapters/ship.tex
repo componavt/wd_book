@@ -111,7 +111,7 @@ With the serarator ``'';'' in the script in the listing \ref{lst:ships_in_confli
 \begin{itemize}
   \item \textbf{Objects in which military operations are combined with military conflicts}. For example, object \href{https://www.wikidata.org/wiki/Q4148613}{Soviet destroyer Gremyashchiy} contains 10 wars / battles in field \href{https://www.wikidata.org/wiki/Q180684}{conflict (Q180684)}, see listing \ref{lst:grem_wars}. Such a large number is due to the fact that the ship took part in many \href{https://en.wikipedia.org/wiki/Arctic_convoys_of_World_War_II}{arctic convoys} which are military operations.
   
-  \item \textbf{Objects in which military operations are separated from military conflicts}. For example, the participation of the British cruiser \href{https://www.wikidata.org/wiki/Q1565575}{HMS Trinidad (Q1565575)} in the military campaign and in the Arctic convoy are listed as part of World War II with the qualifier\marginnote{For more information about the qualifiers see: \href{w.wiki/w7n}{w.wiki/w7n}} \href{https://www.wikidata.org/wiki/Property:P1012}{including (P1012)}. Thus, in the Wikidata, this cruiser has one war/battle.
+  \item \textbf{Objects in which military operations are separated from military conflicts}. For example, the participation of the British cruiser \href{https://www.wikidata.org/wiki/Q1565575}{HMS Trinidad (Q1565575)} in the military campaign and in the Arctic convoy are listed as part of World War II with the qualifier\marginnote{For more information about the qualifiers see: \href{https://w.wiki/w7n}{https://w.wiki/w7n}} \href{https://www.wikidata.org/wiki/Property:P1012}{including (P1012)}. Thus, in the Wikidata, this cruiser has one war/battle.
 \end{itemize}
 
 Thus, the first type of object contains more \href{https://www.wikidata.org/wiki/Property:P607}{conflicts (P607)} than the second type. The ships of the first type will display more wars/battles than the second type. 
@@ -160,7 +160,7 @@ Let's build a graph of museum ships and the countries in which these ships are l
 
 
 \marginnote[7.0cm]{This FILTER function deletes selfloops and double edges between countries.}
-\marginnote[12.0cm]{Here we need to use the `` p:/ps:'' because of multiple values in the property \href{https://www.wikidata.org/wiki/Property:P31}{instance of (P31)} for country. See more information in section~\ref{RussiaNotCountryPPS} on page~\pageref{RussiaNotCountryPPS}.}
+\marginnote[12.0cm]{Here we need to use the ``p:/ps:'' because of multiple values in the property \href{https://www.wikidata.org/wiki/Property:P31}{instance of (P31)} for country. See more information in section~\ref{sec:RussiaNotCountryPPS} on page~\pageref{sec:RussiaNotCountryPPS}.}
 \begin{lstlisting}[ language=SPARQL, caption={The graph of museum ships and the countries in which these ships are located. 117 vertices are found (2021). SPARQL-query: \href{https://w.wiki/wBA}{https://w.wiki/wBA}}, label=lst:museum_graph, ]
 #defaultView:Graph    
 SELECT ?v1 ?v1Label ?v2 ?v2Label ?edgeLabel ?img 
