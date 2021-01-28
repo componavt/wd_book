@@ -163,6 +163,7 @@ WHERE
 Построим граф кораблей-музеев и стран, в которых эти корабли находятся. Вершинами графа являются \href{https://www.wikidata.org/wiki/Q6256}{страны (Q6256)} и \href{https://www.wikidata.org/wiki/Q575727}{корабли-музеи (Q575727)}. Ребро между кораблем и страной означает, что корабль находится в этой стране. А ребро между двумя странами означает, что эти страны участвовали в одних и тех же конфликтах, число которых равно весу ребра. Скрипт в листинге~\ref{lst:museum_graph} строит граф по описанным выше правилам.
 
 \marginnote[7.0cm]{Здесь используется функция FILTER, чтобы избежать появления петель и дублирующих ребер на графе.}
+\marginnote[12.0cm]{Здесь используется ``p:/ps:'' из-за наличия нескольких значений у свойства \href{https://www.wikidata.org/wiki/Property:P31}{экземпляр (P31)} у страны. Для справки см. главу~\ref{ch:RussiaNotCountryPPS} на странице~\pageref{ch:RussiaNotCountryPPS}.}
 \begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/wBA}{Граф кораблей-музеев и стран, в которых они находятся.}}\protect\footnotemark}, label=lst:museum_graph, ]
 #defaultView:Graph    
 SELECT ?v1 ?v1Label ?v2 ?v2Label ?edgeLabel ?img 
