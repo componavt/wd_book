@@ -657,39 +657,37 @@ ORDER BY DESC(?count)
 \begin{task}
 	\label{answer:ship_1}
 	Решение:
-	\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/wKs}{Изображения кораблей, которые снимались в фильмах}}\protect\footnotemark}, label=lst:wide_ship, ]
+	\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/wXG}{Изображения кораблей, снятых в фильмах}}\protect\footnotemark}, label=lst:wide_ship, ]
 # Images of ships used in movies
 #defaultView:ImageGrid
-SELECT DISTINCT ?ship ?shipLabel ?image 
+SELECT DISTINCT ?film ?filmLabel ?ship ?shipLabel ?image
 WHERE
 {
-	?film wdt:P31 wd:Q11424; # is film
-		  wdt:P921/wdt:P31/wdt:P31 wd:Q2235308 . # about ship
-			
-	?film wdt:P921 ?ship # ship
+	?film wdt:P31 wd:Q571. # is film	
+	?film wdt:P921 ?ship . # main subject
+	?ship wdt:P31/wdt:P31 wd:Q2235308 . # is ship
 	OPTIONAL { ?ship wdt:P18 ?image } # ship's image
-	
+							
 	SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
 }
 	\end{lstlisting}
-	\footnotetext{Найдено 5 изображений кораблей, снимавшихся в фильмах, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/wKs}{https://w.wiki/wKs}}
+	\footnotetext{Найдено пять изображений кораблей, снятых в кинолетнах, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/wXG}{https://w.wiki/wXG}}
 
-	\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/wKu}{Изображения кораблей, о которых писали в книгах}}\protect\footnotemark}, label=lst:wide_ship, ]
+	\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/wXF}{Изображения кораблей, о которых писали в книгах}}\protect\footnotemark}, label=lst:wide_ship, ]
 # Images of ships used in movies
 #defaultView:ImageGrid
-SELECT DISTINCT ?ship ?shipLabel ?image
+SELECT DISTINCT ?book ?bookLabel ?ship ?shipLabel ?image
 WHERE
 {
-	?book wdt:P31 wd:Q571; # is book
-		  wdt:P921/wdt:P31/wdt:P31 wd:Q2235308 . # about ship
-					
-	?book wdt:P921 ?ship # ship
+	?film wdt:P31 wd:Q571. # is book	
+	?film wdt:P921 ?ship . # main subject
+	?ship wdt:P31/wdt:P31 wd:Q2235308 . # is ship
 	OPTIONAL { ?ship wdt:P18 ?image } # ship's image
-			
+									
 	SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
 }
 	\end{lstlisting}
-	\footnotetext{Найдено 8 изображений кораблей, о которых было написано в книгах, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/wKu}{https://w.wiki/wKu}}
+	\footnotetext{Найдено пять изображений кораблей, о которых было написано в книгах, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/wXF}{https://w.wiki/wXF}}
 	
 \small{Задание на с.~\pageref{question:ship_1}.}
 \end{task}
@@ -705,7 +703,7 @@ WHERE
 		  \setlength{\fboxrule}{1pt}%
 		  \fcolorbox{gray}{gray}{\includegraphics{chapter/ship/Grem_ship_answer.jpg}}
 		}
-		\caption{Почтовая марка с изображением эсминца \ruwiki{https://w.wiki/vgE}{Гремящий}.}%
+		\caption{Почтовая марка с изображением эсминца \ruwiki{https://w.wiki/vgE}{Гремящий}, почта СССР, 1982.}%
 		\label{fig:grem_answer}%
 	  \end{marginfigure}
 
@@ -718,14 +716,15 @@ WHERE
 	\label{answer:ship_3}
 	\newthought{Один из воможных ответов:  \Wikiref{Seawise Giant}} -- самый длинный нефтяной танкер.
 
-	\newthought{Примеры возможных решений через Викиданные. Данные могут отличаться от ответа выше из-за неполноты информации об объектах Викиданных, см. в листингах~\ref{lst:long_ship} и~\ref{lst:wide_ship}.}
-\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/vTt}{Самый длинный корабль}}\protect\footnotemark}, label=lst:long_ship, ]
+	\newthought{Примеры возможных решений через Викиданные. Данные могут отличаться от ответа выше из-за неполноты информации об объектах Викиданных, см. листинги~\ref{lst:long_ship} и~\ref{lst:wide_ship}.}
+\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/wXL}{Самый длинный корабль}}\protect\footnotemark}, label=lst:long_ship, ]
+# The ship with maximum length
 SELECT ?ship ?shipLabel ?max_length WHERE {
 	{
 		SELECT (MAX(?length) as ?max_length)
 		WHERE
 		{
-			?ship wdt:P31 wd:Q11446;
+			?ship wdt:P31 wd:Q11446; # is ship
 				  wdt:P2043 ?length
 		}
 	}
@@ -734,11 +733,11 @@ SELECT ?ship ?shipLabel ?max_length WHERE {
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
 }  
 \end{lstlisting}
-\footnotetext{Самым длинным кораблем оказался \Wikiref{NMS Mircea} длиной в \num{36} метров. Ссылка на SPARQL-запрос: \href{https://w.wiki/vTt}{https://w.wiki/vTt}}
+\footnotetext{Самым длинным кораблем оказался \Wikiref{NMS Mircea} длиной в \num{36} метров. Ссылка на SPARQL-запрос: \href{https://w.wiki/wXL}{https://w.wiki/wXL}}
 
-Внутренний SELECT в скрипте из листинга~\ref{long_ship} находит максимальную длину корабля, а внешний SELECT находить корабль с такой длиной.
+Внутренний SELECT в скрипте из листинга~\ref{lst:long_ship} находит максимальную длину корабля, а внешний SELECT находит корабль с такой длиной.
 
-\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/wKv}{Изображения кораблей отсортированные по ширине корабля}}\protect\footnotemark}, label=lst:wide_ship, ]
+\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/wKv}{Изображения кораблейm, отсортированные по ширине корабля}}\protect\footnotemark}, label=lst:wide_ship, ]
 # List of ships' images sorted by width of ship
 #defaultView:ImageGrid
 SELECT ?ship ?shipLabel ?image ?beam
@@ -751,8 +750,8 @@ WHERE
 }
 ORDER BY DESC(?beam)
 \end{lstlisting}
-\footnotetext{Самым широким кораблем оказался \href{https://www.wikidata.org/wiki/Q1156392}{Project Habakkuk} шириной \num{180} метров, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/wKv}{https://w.wiki/wKv}}
-
+\footnotetext{Самым широким кораблем оказался незавершенный \href{https://www.wikidata.org/wiki/Q1156392}{проект авианосца Хабаккук} из льда и опилок, шириной \num{180} метров, 2021 год. Среди реально существоваших кораблей самым широким оказался норвежский корабль \href{https://www.wikidata.org/wiki/Q11987454}{M/S Isosaari (Q11987454)
+}. Ссылка на SPARQL-запрос: \href{https://w.wiki/wKv}{https://w.wiki/wKv}}
 
 \small{Задание на с.~\pageref{question:ship_3}.}
 \end{task}
