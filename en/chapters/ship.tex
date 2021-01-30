@@ -57,18 +57,19 @@ SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
   \label{fig:quiz_question_ship}%
 \end{marginfigure}
   
-\begin{lstlisting}[ language=SPARQL, caption={List of ship from Russia, Soviet Union and Russian Empire. \num{107} ships (2017), \num{578} ships (2021). SPARQL-query: \href{https://w.wiki/vuM}{https://w.wiki/vuM}}, label=lst:list_of_ship_ussr_rf_re_en, texcl]
+\begin{lstlisting}[ language=SPARQL, caption={List of ship from Russia, Soviet Union and Russian Empire. \num{107} ships (2017), \num{578} ships (2021). SPARQL-query: \href{https://w.wiki/waB}{https://w.wiki/waB}}, label=lst:list_of_ship_ussr_rf_re_en, texcl]
 # List of ship from Russia, Soviet Union and Russian Empire
 SELECT ?ship ?shipLabel
 WHERE
 {
-  ?ship wdt:P31 wd:Q11446; # instance of ship
-        wdt:P137/wdt:P17 ?country. # belongs to country
-    
   VALUES ?country {wd:Q34266 # Russian Empire
                    wd:Q15180 # Soviet Union
                    wd:Q159}  # Russia
-  SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
+  ?ship wdt:P31 wd:Q11446; # instance of ship
+        wdt:P137/wdt:P17 ?country; # operator in country
+      
+  
+SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
 \end{lstlisting}
 
@@ -134,18 +135,18 @@ SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 
 Also, let's build list of conflict and ships of Russian Empire, USSR and Russia, with script in the listing~\ref{lst:ships_in_conflict_2_en}.
 
-\begin{lstlisting}[ language=SPARQL, caption={List of ships with countries and war conflicts in English. \num{105} ships (2017), \num{86} ships (2020), \num{82} ships (2021) were found. SPARQL-query: \href{https://w.wiki/vuP}{https://w.wiki/vuP}}, label=lst:ships_in_conflict_2_en, texcl]
+\begin{lstlisting}[ language=SPARQL, caption={List of ships with countries and war conflicts in English. \num{105} ships (2017), \num{86} ships (2020), \num{82} ships (2021) were found. SPARQL-query: \href{https://w.wiki/waD}{https://w.wiki/waD}}, label=lst:ships_in_conflict_2_en, texcl]
 # List of ship with countries and war conflicts
 SELECT ?ship ?shipLabel ?countryLabel ?conflict ?conflictLabel
 WHERE
 {
-  ?ship wdt:P31 wd:Q11446;        # instance of ship
-        wdt:P137/wdt:P17 ?country;# belongs to country
-        wdt:P607 ?conflict.       # engaged in some conflict
-  
   VALUES ?country {wd:Q34266 # Russian Empire
                    wd:Q15180 # Soviet Union
                    wd:Q159}  # Russia
+  ?ship wdt:P31 wd:Q11446;        # instance of ship
+        wdt:P137/wdt:P17 ?country;# belongs to country
+        wdt:P607 ?conflict.       # engaged in some conflict
+
 SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}

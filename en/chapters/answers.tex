@@ -748,7 +748,7 @@ SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 
 The inner SELECT query finds maximum ship length, while the outer SELECT query finds the ship with this length itself.
 
-\begin{lstlisting}[ language=SPARQL, caption={Images of ships sorted by ships' width. The ship with maximum width is href{https://www.wikidata.org/wiki/Q1156392}{Project Habakkuk}, which width is \num{180} m, \num{1369} photos were found, 2021. SPARQL-query: \href{https://w.wiki/w7X}{https://w.wiki/w7X}}, label=lst:wide_ship, ]
+\begin{lstlisting}[ language=SPARQL, caption={Images of ships sorted by ships' width. The ship with maximum width is unfinished href{https://www.wikidata.org/wiki/Q1156392}{Project Habakkuk}, which width is \num{180} m. The real ship with maximum length is\href{https://www.wikidata.org/wiki/Q11987454}{M/S Isosaari (Q11987454)}, which length is 99m. \num{1369} photos were found, 2021. SPARQL-query: \href{https://w.wiki/w7X}{https://w.wiki/w7X}}, label=lst:wide_ship, ]
 # List of ships' images sorted by width of ship
 #defaultView:ImageGrid
 SELECT ?ship ?shipLabel ?image ?beam
@@ -770,35 +770,33 @@ ORDER BY DESC(?beam)
 	Find images of ships that have been used in a movie. If there are no such, then those ships, about which the books were written.
 \end{exercise}
 
-\begin{lstlisting}[ language=SPARQL, caption={Images of ships used in movies. 5 images were found, 2021. SPARQL-query: \href{https://w.wiki/wBR}{https://w.wiki/wBR}}, label=lst:filmed_ships, ]
+\begin{lstlisting}[ language=SPARQL, caption={Images of ships used in movies. 4 images were found, 2021. SPARQL-query: \href{https://w.wiki/waU}{https://w.wiki/waU}}, label=lst:filmed_ships, ]
 # Images of ships used in movies
 #defaultView:ImageGrid
-SELECT DISTINCT ?ship ?shipLabel ?image 
+SELECT DISTINCT ?film ?filmLabel ?ship ?shipLabel ?image
 WHERE
 {
-	?film wdt:P31 wd:Q11424; # is film
-		  wdt:P921/wdt:P31/wdt:P31 wd:Q2235308 . # about ship
-			
-	?film wdt:P921 ?ship # ship
+	?film wdt:P31 wd:Q11424. # is film	
+	?film wdt:P921 ?ship . # main subject
+	?ship wdt:P31/wdt:P31 wd:Q2235308 . # is ship
 	OPTIONAL { ?ship wdt:P18 ?image } # ship's image
-	
-	SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
+						
+SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}
 
-\begin{lstlisting}[ language=SPARQL, caption={Images of ships mentioned in books. 8 images are found, 2021. SPARQL-query: \href{https://w.wiki/wBT}{https://w.wiki/wBT}}, label=lst:ships_in_books, ]
+\begin{lstlisting}[ language=SPARQL, caption={Images of ships mentioned in books. 5 images were found, 2021. SPARQL-query: \href{https://w.wiki/wXF}{https://w.wiki/wXF}}, label=lst:ships_in_books, ]
 # Images of ships used in movies
 #defaultView:ImageGrid
-SELECT DISTINCT ?ship ?shipLabel ?image
+SELECT DISTINCT ?book ?bookLabel ?ship ?shipLabel ?image
 WHERE
 {
-	?book wdt:P31 wd:Q571; # is book
-		  wdt:P921/wdt:P31/wdt:P31 wd:Q2235308 . # about ship
-			
-	?book wdt:P921 ?ship # ship
+	?film wdt:P31 wd:Q571. # is book	
+	?film wdt:P921 ?ship . # main subject
+	?ship wdt:P31/wdt:P31 wd:Q2235308 . # is ship
 	OPTIONAL { ?ship wdt:P18 ?image } # ship's image
-	
-	SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
+										
+SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}
 

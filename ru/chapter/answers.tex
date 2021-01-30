@@ -657,21 +657,21 @@ ORDER BY DESC(?count)
 \begin{task}
 	\label{answer:ship_1}
 	Решение:
-	\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/wXG}{Изображения кораблей, снятых в фильмах}}\protect\footnotemark}, label=lst:wide_ship, ]
+	\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/waV}{Изображения кораблей, снятых в фильмах}}\protect\footnotemark}, label=lst:wide_ship, ]
 # Images of ships used in movies
 #defaultView:ImageGrid
 SELECT DISTINCT ?film ?filmLabel ?ship ?shipLabel ?image
 WHERE
 {
-	?film wdt:P31 wd:Q571. # is film	
+	?film wdt:P31 wd:Q11424. # is film	
 	?film wdt:P921 ?ship . # main subject
 	?ship wdt:P31/wdt:P31 wd:Q2235308 . # is ship
 	OPTIONAL { ?ship wdt:P18 ?image } # ship's image
-							
+								
 	SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
 }
 	\end{lstlisting}
-	\footnotetext{Найдено пять изображений кораблей, снятых в кинолетнах, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/wXG}{https://w.wiki/wXG}}
+	\footnotetext{Найдено четыре изображения кораблей, снятых в кинолетнах, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/waV}{https://w.wiki/waV}}
 
 	\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/wXF}{Изображения кораблей, о которых писали в книгах}}\protect\footnotemark}, label=lst:wide_ship, ]
 # Images of ships used in movies
