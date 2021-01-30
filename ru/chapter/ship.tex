@@ -134,9 +134,11 @@ WHERE
 \end{lstlisting}
 \footnotetext{Найдено \num{10} конфликтов у \href{https://www.wikidata.org/wiki/Q4148613}{эсминца Гремящий (Q4148613)} и один конфликт у крейсера \href{https://www.wikidata.org/wiki/Q1565575}{HMS Trinidad (Q1565575)}, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vuo}{https://w.wiki/vuo}}
 
-Составим список отечественных кораблей, участвовавших в каких-либо конфликтах с помощью скрипта в листинге~\ref{lst:ships_in_war_ru}.
+Составим список отечественных кораблей, участвовавших в каких-либо военных конфликтах с помощью скрипта~\ref{lst:ships_in_war_ru}.
 
-\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/wXA}{Список отечественных кораблей, участвовавших в каких-либо военных конфликтах}}\protect\footnotemark}, label=lst:ships_in_war_ru, ]
+\begin{lstlisting}[ language=SPARQL, 
+        caption={{\href{https://w.wiki/wXA}{Список отечественных кораблей, участвовавших в каких-либо военных конфликтах}}\protect\footnotemark}, 
+        label=lst:ships_in_war_ru ]
 # List of ship with countries and war conflicts
 SELECT ?ship ?shipLabel ?countryLabel ?conflict ?conflictLabel
 WHERE
@@ -153,7 +155,12 @@ WHERE
 \end{lstlisting}
 \footnotetext{Найдено \num{105} кораблей в 2017 году, \num{82} корабля в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/wXA}{https://w.wiki/wXA}}
 
-При анализе результатов работы скрипта в листинге~\ref{lst:ships_in_war_ru} важно заметить, что полученные корабли не обязательно связанны только с Россией, СССР или Российской империей. Например, корабль \href{https://www.wikidata.org/wiki/Q653477}{Kasato Maru (Q653477)} -- японский. Этот корабль принадлежал России в 1900--1905 годы, Японии с 1906 года.
+Особенность результатов скрипта~\ref{lst:ships_in_war_ru} в том, 
+что полученные корабли не обязательно связаны только с Российской империей, 
+СССР или Россией. 
+Например, корабль \href{https://www.wikidata.org/wiki/Q653477}{Kasato Maru (Q653477)}~--- японский. 
+Дело в том, что этот корабль принадлежал России в 1900--1905 годы, а Японии с 1906 года.
+
 
 \section{Корабли-музеи в странах мира}
 
@@ -161,68 +168,74 @@ WHERE
 
 Построим граф кораблей-музеев и стран, в которых эти корабли находятся. Вершинами графа будут \href{https://www.wikidata.org/wiki/Q6256}{страны (Q6256)} и \href{https://www.wikidata.org/wiki/Q575727}{корабли-музеи (Q575727)}. Ребро между кораблем и страной означает, что корабль находится в этой стране. А ребро между двумя странами означает, что эти страны участвовали в одних и тех же конфликтах, число которых равно весу ребра. Скрипт в листинге~\ref{lst:museum_graph} строит граф по описанным выше правилам.
 
-\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/wBA}{Граф кораблей-музеев и стран, в которых они находятся.}}\protect\footnotemark}, label=lst:museum_graph, ]
-#defaultView:Graph    
-SELECT ?v1 ?v1Label ?v2 ?v2Label ?edgeLabel ?img 
+%\begin{minipage}{\linewidth}
+\begin{lstlisting}[ language=SPARQL, 
+        caption={{\href{https://w.wiki/wBA}{Граф кораблей-музеев и стран, в которых они находятся (фрагмент скрипта)}}\protect\footnotemark}, 
+        label=lst:museum_graph ]
+#defaultView:Graph
+SELECT ?v1 ?v1Label ?v2 ?v2Label ?edgeLabel ?img
 WHERE {
   {SELECT ?c ?cLabel ?v1 ?v1Label ?v2 ?v2Label 
-                     (STR(COUNT(?c)) as ?edgeLabel) 
+                 (STR(COUNT(?c)) as ?edgeLabel) 
     WHERE
     {
-    VALUES ?cTypes 
-            {wd:Q180684 # conflict
-             wd:Q831663 # military campaign
-             wd:Q645883 # military operation
-             wd:Q198    # war
-            } 
-    ?c wdt:P31 ?cTypes.
-    ?v1 wdt:P31 wd:Q6256. ?v2 wdt:P31 wd:Q6256. # country
-    ?c wdt:P710 ?v1, ?v2. # in war
-    FILTER (?v1 != ?v2 && STR(?v1) < STR(?v2)) 
-  SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
-  }
-  GROUP BY ?c ?cLabel ?v1 ?v1Label ?v2 ?v2Label
-  }
-  UNION
-  {SELECT DISTINCT ?v1 ?v1Label ?v2 ?v2Label ?img
-   WHERE
-   {
-      ?v2 wdt:P31 wd:Q575727. # museum ship
-      {?v2 p:P17 [ps:P17 ?v1]} UNION # ?v2 has country ?v1
-      {
-        ?v2 wdt:P131 ?loc.      # in ?loc
-        ?loc p:P17 [ps:P17 ?v1].# ?loc in country ?v1
-      }
-      OPTIONAL {?v2 wdt:P18 ?img}
-  SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
+      . . .
+      ?c wdt:P31 ?cTypes.   # ?c is war / conflict
+      ?v1 wdt:P31 wd:Q6256. # v1 is country
+      ?v2 wdt:P31 wd:Q6256. # v2 is country
+      ?c wdt:P710 ?v1, ?v2. # v1 and v2 participated in war ?c
+      FILTER (?v1 != ?v2 && STR(?v1) < STR(?v2)) 
+      . . .
     }
+    GROUP BY ?c ?cLabel ?v1 ?v1Label ?v2 ?v2Label
   }
+  . . .
 }
 \end{lstlisting}
+%\end{minipage}
 \footnotetext{Найдено 117 вершин графа в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/wBA}{https://w.wiki/wBA}.}
-\marginnote[-10.0cm]{Здесь используется функция FILTER, чтобы избежать появления петель и дублирующих рёбер на графе.}
-\marginnote[-4.0cm]{Здесь используется ``p:/ps:'' из-за наличия нескольких значений у свойства \href{https://www.wikidata.org/wiki/Property:P31}{экземпляр (P31)} у страны. Для справки см. главу~\ref{ch:RussiaNotCountryPPS} на странице~\pageref{ch:RussiaNotCountryPPS}.}
+\marginnote[-7.3cm]{%
+    При определении \wdqName{страны}{6256} для переменных $v1$ и $v2$ 
+    используется конструкция ``p:/ps:''.
+    Это нужно потому, что у стран в поле 
+    \href{https://www.wikidata.org/wiki/Property:P31}{экземпляр (P31)}
+    кроме значения <<страна>> могут быть и другие значения. 
+    Конструкция ``p:/ps:'' позволяет перебрать все значения поля P31 и найти значение <<страна>>.
+    См. подробности в главе~\ref{ch:RussiaNotCountryPPS} на странице~\pageref{ch:RussiaNotCountryPPS}.}
+\marginnote[-1.7cm]{%
+    Функция FILTER позволяет избежать появления петель и дублирующих рёбер на графе.
+}
 
-Из фрагмента графа на рисунке~\ref{fig:museum_graph} видно, что корабли-музеи по большей части принадлежат Германии, США и Японии. Такая <<корреляция>> вполне логична, так как данные страны имеют длительную историю, за которую они поучаствовали во многих военных конфликтах. Также эти страны имеют выход к морю, что исторически обуславливает наличие у них флота, в котором могут найтись корабли для создания музея.
+Из фрагмента графа на рисунке~\ref{fig:museum_graph} видно, 
+что корабли-музеи по большей части принадлежат Германии, США и Японии. 
+Такая <<корреляция>> вполне логична, так как данные страны имеют длительную историю, 
+за которую они поучаствовали во многих военных конфликтах. 
+Также эти страны имеют выход к морю, что исторически обуславливает наличие у них флота, 
+в котором могут найтись корабли для создания музея.
 
 \begin{figure*}[ht]
   \includegraphics[width=0.9\linewidth]{chapter/ship/museum_graph.png}
-  \caption[Граф стран и кораблей-музеев]{Фрагмент графа стран, кораблей-музеев и конфликтов, построенный по скрипту в листинге~\protect\ref{lst:museum_graph}.}%
+  \caption[Граф стран и кораблей-музеев]{Фрагмент графа стран, кораблей-музеев и конфликтов, построенный по скрипту~\protect\ref{lst:museum_graph}.}%
   \label{fig:museum_graph}%
 \end{figure*}
 
 Вершины графа на рисунке~\ref{fig:museum_graph} кликабельны. Например, можно кликнуть на \href{https://www.wikidata.org/wiki/Q168713}{крейсер Аврора (Q168713)}, тогда появятся дополнительные вершины, соответствующие свойствам этого крейсера, см. рисунок~\ref{fig:aurora_graph}.
 
-\begin{figure*}[ht]
-  \centering
-  \includegraphics[width=0.5\linewidth]{chapter/ship/aurora_graph.jpg}
+\newpage
+\begin{figure*}[h]
+  \includegraphics[width=\linewidth]{chapter/ship/aurora_graph.jpg}
   \caption[Граф свойств Авроры]{Граф свойств \href{https://www.wikidata.org/wiki/Q168713}{крейсера Аврора (Q168713)}.}%
   \label{fig:aurora_graph}%
 \end{figure*}
 
 
-\begin{figure*}[ht]
-  \includegraphics[width=0.95\linewidth]{chapter/ship/Ships_by_country_and_conflict_ru.png}
-  \caption[Список кораблей и конфликтов, в которых они участвовали]{Фрагмент cписка кораблей, связанных с Россией и участвовавших в военных конфликтах, 2017 год. Из списка видно, что больше большая часть кораблей связаны с Россией и СССР, а также со Второй мировой или Великой Отечественной войнами.}%
-  \label{fig:ships_by_country_and_conflict}%
-\end{figure*}
+
+
+
+
+% last figure
+%\begin{figure*}[ht]
+%  \includegraphics[width=0.25\linewidth]{chapter/ship/red-green-cells_ships_by_country_and_conflict.png}
+%  \caption[Список кораблей и конфликтов, в которых они участвовали]{Фрагмент cписка кораблей, связанных с Россией и участвовавших в военных конфликтах, 2017 год. Из списка видно, что больше большая часть кораблей связаны с Россией и СССР, а также со Второй мировой или Великой Отечественной войнами.}%
+%  \label{fig:ships_by_country_and_conflict}%
+%\end{figure*}
