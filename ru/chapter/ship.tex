@@ -170,7 +170,7 @@ WHERE
 
 %\begin{minipage}{\linewidth}
 \begin{lstlisting}[ language=SPARQL, 
-        caption={{\href{https://w.wiki/wBA}{Граф кораблей-музеев и стран, в которых они находятся (фрагмент скрипта)}}\protect\footnotemark}, 
+        caption={{\href{https://w.wiki/wz8}{Граф кораблей-музеев и стран, в которых они находятся (фрагмент скрипта)}}\protect\footnotemark}, 
         label=lst:museum_graph ]
 #defaultView:Graph
 SELECT ?v1 ?v1Label ?v2 ?v2Label ?edgeLabel ?img
@@ -193,7 +193,7 @@ WHERE {
 }
 \end{lstlisting}
 %\end{minipage}
-\footnotetext{Найдено 117 вершин графа в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/wBA}{https://w.wiki/wBA}.}
+\footnotetext{Найдено 117 вершин графа в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/wz8}{https://w.wiki/wz8}.}
 \marginnote[-7.3cm]{%
     При определении \wdqName{страны}{6256} для переменных $v1$ и $v2$ 
     используется конструкция ``p:/ps:''.
@@ -214,7 +214,7 @@ WHERE {
 в котором могут найтись корабли для создания музея.
 
 \begin{figure*}[ht]
-  \includegraphics[width=0.95\linewidth]{chapter/ship/museum_graph.png}
+  \includegraphics[width=\linewidth]{chapter/ship/museum_graph.png}
   \caption[Граф стран и кораблей-музеев]{Фрагмент графа стран, кораблей-музеев и конфликтов, построенный по скрипту~\protect\ref{lst:museum_graph}.}%
   \label{fig:museum_graph}%
 \end{figure*}
