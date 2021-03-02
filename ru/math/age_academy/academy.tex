@@ -1,0 +1,39 @@
+\chapter{Анализ академий}
+\label{ch:academy-analysis}
+
+В этом разделе мы будем ранжировать академии, 
+в которые входят отечественные математики, 
+по тематикам и географическому расположению. 
+В первую очередь, с помощью SPARQL-запроса получаем  список всех организаций, 
+в которые входят исследуемые персоны (листинг~\ref{lst:academy-types}). 
+В результате было выявлено 30 типов организаций.
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={\href{https://w.wiki/t4o}{Типы академий, членами которых являются математики}\protect\footnotemark},
+                    label=lst:academy-types
+                    ]
+# types of organizations (academies) which includes mathematicians, "member of" (P463)
+SELECT ?academy_class ?academy_classLabel
+WHERE {
+  ?mathematician wdt:P106 wd:Q170790. # occupation is mathematician
+  #country of citizenship
+  { ?mathematician wdt:P27 wd:Q34266 } UNION  # Russian Empire
+  { ?mathematician wdt:P27 wd:Q15180 } UNION  # Soviet Union
+  { ?mathematician wdt:P27 wd:Q159 }.         # Russia
+  ?mathematician wdt:P463 ?academy. # member of academy
+  ?academy wdt:P31 ?academy_class.  # which types of academies includes mathematicians
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
+GROUP BY ?academy_class ?academy_classLabel
+\end{lstlisting}
+\footnotetext{Получено \num{53} типа академий на 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/33XL}{https://w.wiki/33XL}}
+
+
+...
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Название следующего подраздела \ldots}
+
+
+
+

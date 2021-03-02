@@ -338,6 +338,15 @@
 
 \RequirePackage{titlesec,titletoc}
 
+%%%% adding \part{Beginnings}, see https://tex.stackexchange.com/a/284257/99685
+%%%% 
+\titlecontents{part}
+[0pt]{\sffamily\bfseries\large\protect\addvspace{15pt}\titlerule\addvspace{1.5ex}}%remove rule if you like
+{}{\partname~}
+{} %if don't want page number for parts
+%[\addvspace{0.7ex}\titlerule\addvspace{1.5ex}]%remove rule if you like
+%%%%%%%%%%%%%%%%%%%% eo add \part{}
+
 %%%
 %% Loads the hyperref package and sets some default options.
 
