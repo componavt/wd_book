@@ -81,11 +81,20 @@
 
 
 % links to Russian Wikipedia articles \ruwiki{short w.wiki link}{Москва}
+% for example \ruwiki{vDw}{МиГ} = \href{https://w.wiki/vDw}{МиГ}
 % see https://tex.stackexchange.com/a/86368/99685
 \usepackage{texlinks} 
 %\newcommand*{\ruwiki}{\wikilangref{ru}} - failed cyrillic in URL
 % \href{https://w.wiki/vDw}{МиГ} -> \ruwiki{vDw}{МиГ}
 \newcommand{\ruwiki}[2]{\href{https://w.wiki/#1}{#2}}
+
+% full link to short URL created by URL Shortener, 
+% e.g. \wwiki{XYZ} = \href{https://w.wiki/XYZ}{https://w.wiki/XYZ}
+\newcommand{\wwiki}[1]{\href{https://w.wiki/#1}{https://w.wiki/#1}}
+
+% two parameters in case of special symbols in URL, e.g. $ = %24
+% e.g. \wwiki{X\%24Z}{X$Y} = \href{https://w.wiki/X\%24Z}{https://w.wiki/X$Z}
+% \newcommand{\wwiki}[1]{\href{https://w.wiki/#1}{https://w.wiki/#1}} or better is the explicit command?
 
 
 % Wikidata object hyperlink in the form: QID, e.g. Q312154
@@ -93,6 +102,10 @@
 % Wikidata object hyperlink in the form: Name (QID), e.g. Drosophila (Q312154)
 \newcommand{\wdqName}[2]{\href{https://www.wikidata.org/wiki/Q#2}{#1~(Q#2)}}
 
+% Wikidata object property name and hyperlink
+%   \wdproperty{ID, Name} = \href{https://www.wikidata.org/wiki/Property:PID}{Name (PID)}
+% \wdproperty{607, conflict} = \href{https://www.wikidata.org/wiki/Property:P607}{conflict (P607)}
+\newcommand{\wdProperty}[2]{\href{https://www.wikidata.org/wiki/Property:P#1}{#2 (#1)}}
 
 
 %\renewcommand{\rmdefault}{cmr}

@@ -694,7 +694,7 @@ WHERE
 
 
 \begin{task}
-	На риснуке \ref{fig:grem_answer} изображен советский эсминец \ruwiki{https://w.wiki/vgE}{Гремящий}.
+	На риснуке \ref{fig:grem_answer} изображен советский эсминец~\ruwiki{vgE}{Гремящий}.
 
 	\label{answer:ship_2}
 	\begin{marginfigure}[0.0cm]
@@ -703,7 +703,7 @@ WHERE
 		  \setlength{\fboxrule}{1pt}%
 		  \fcolorbox{gray}{gray}{\includegraphics{chapter/ship/Grem_ship_answer.jpg}}
 		}
-		\caption{Почтовая марка с изображением эсминца \ruwiki{https://w.wiki/vgE}{Гремящий}, почта СССР, 1982.}%
+		\caption{Почтовая марка с изображением эсминца~\ruwiki{vgE}{Гремящий}, почта СССР, 1982.}%
 		\label{fig:grem_answer}%
 	  \end{marginfigure}
 
@@ -713,11 +713,12 @@ WHERE
 
 
 \begin{task}
-	\label{answer:ship_3}
-	\newthought{Один из воможных ответов:  \Wikiref{Seawise Giant}} -- самый длинный нефтяной танкер.
+	\label{answer:ship_Guinness}
+    \newthought{<<Корабли Гиннесса>>}. Поиск самых-самых кораблей по Викиданным.
+    \Wikiref{Seawise Giant}~--- это самый длинный нефтяной танкер.
 
-	\newthought{Примеры возможных решений через Викиданные. Данные могут отличаться от ответа выше из-за неполноты информации об объектах Викиданных, см. листинги~\ref{lst:long_ship} и~\ref{lst:wide_ship}.}
-\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/wXL}{Самый длинный корабль}}\protect\footnotemark}, label=lst:long_ship, ]
+	Примеры возможных решений через Викиданные. Данные могут отличаться от ответа выше из-за неполноты информации об объектах Викиданных, см. листинги~\ref{lst:long_ship} и~\ref{lst:wide_ship}.
+\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/3L2R}{Самые длинные корабли}}\protect\footnotemark}, label=lst:long_ship,]
 # The ship with maximum length
 SELECT ?ship ?shipLabel ?max_length WHERE {
 	{
@@ -733,7 +734,7 @@ SELECT ?ship ?shipLabel ?max_length WHERE {
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
 }  
 \end{lstlisting}
-\footnotetext{Самым длинным кораблем оказался \Wikiref{NMS Mircea} длиной в \num{36} метров. Ссылка на SPARQL-запрос: \href{https://w.wiki/wXL}{https://w.wiki/wXL}}
+\footnotetext{Самым длинным кораблем оказался \Wikiref{NMS Mircea} длиной в \num{3600} метров. Ссылка на SPARQL-запрос: \wwiki{3L2R}}
 
 Внутренний SELECT в скрипте из листинга~\ref{lst:long_ship} находит максимальную длину корабля, а внешний SELECT находит корабль с такой длиной.
 
