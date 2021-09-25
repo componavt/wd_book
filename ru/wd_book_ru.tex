@@ -1,8 +1,7 @@
 %\documentclass{tufte-book}
-%\documentclass[nofonts]{tufte-book}
-\documentclass[nofonts,justified]{tufte-book}
+\documentclass[nofonts,justified]{tufte-book}% good in Ubuntu
 
-%\usepackage{cmap}
+\usepackage{cmap} % comment out in Ubuntu
 
 % source tufte-latex
 %\usepackage[T1]{fontenc}
@@ -10,16 +9,17 @@
 %\usepackage[utf8]{inputenc}
 
 % new, see https://tex.stackexchange.com/a/333416
+\usepackage[T1]{fontenc} % good in Ubuntu
 %\usepackage[T2A]{fontenc}
-\usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage[russian]{babel}
-\usepackage[scaled=.65]{PTMono}
+\usepackage[russian]{babel} % good in Ubuntu
+%\usepackage[english,russian]{babel}
+\usepackage[scaled=.85]{PTMono}
 
-\usepackage[babel=true]{microtype} % see https://tex.stackexchange.com/a/355726/99685
+\usepackage[babel=true]{microtype} % good in Ubuntu see https://tex.stackexchange.com/a/355726/99685
 
 % Select font you like
-\usepackage{paratype} % very good
+\usepackage{paratype} % very good in Ubuntu
 %\usepackage{libertine} % not bad
 %\usepackage{tempora}  % too heavy
 
@@ -126,6 +126,7 @@
 \newcommand{\wdProperty}[2]{\href{https://www.wikidata.org/wiki/Property:P#1}{#2 (#1)}}
 
 
+% comment all in Ubuntu
 %\renewcommand{\rmdefault}{cmr} % CM roman
 %\renewcommand{\sfdefault}{cmss} % CM sans serif 
 %\renewcommand{\ttdefault}{cmtt} % CM monospaced 
@@ -182,7 +183,7 @@
 
 %%
 % Book metadata
-\title{Программирование Викиданных для школьников и студентов}
+\title{Программирование\\Викиданных\\для школьников\\и студентов}
 \author[Крижановский А. А., Трубина Е. Д., Балакирева М. С., Меньшикова Е. А., Потес А. С.]{Крижановский Андрей, Трубина Елизавета, Балакирева Мария, Меньшикова Екатерина, Потес Артём}
 %\author[Крижановский Андрей, Иванов Иван]{Крижановский Андрей,\ Иванов Иван,\ добавьте свою фамилию и имя ...}
 \publisher{Publisher of This Book}
