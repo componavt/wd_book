@@ -46,7 +46,7 @@ The Wikidata book in Russian (file `wd_book/ru/wd_book.tex`) can be compiled wit
     pdflatex wd_book_ru
     pdflatex wd_book_ru
 
-The result should look like `wd_book_ru.pdf`.
+The result should look like `wd_book_ru.pdf`. See the latest file [wd_book_ru.pdf](https://bit.ly/3lVumoT).
 
 ## Troubleshooting
 
