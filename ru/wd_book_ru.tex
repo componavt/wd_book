@@ -1,5 +1,7 @@
 %\documentclass{tufte-book}
 \documentclass[nofonts,justified]{tufte-book}% good in Ubuntu
+%\documentclass[nofonts,justified, nobib]{tufte-book}
+%                                 tufte-book modifies the \cite-command heavily, you can turn this behavior off, using the nobib-option:  
 
 \usepackage{cmap} % comment out in Ubuntu
 
@@ -48,6 +50,11 @@
 
 % see https://mydebianblog.blogspot.com/2014/06/latex.html
 \usepackage{epigraph} %%% to make inspirational quotes.
+
+% https://tex.stackexchange.com/a/224875/99685
+%\usepackage{natbib}           % call natbib
+%\setcitestyle{authoryear}     % set citation style to authoryear
+%\bibliographystyle{plainnat}  % use the plainnat instead of plain
 
 
 % source: https://gist.github.com/vsimko/fcc84e1e4f8e750746caa34b802db5a7
@@ -491,8 +498,8 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 
 \backmatter
 
-\bibliography{wd_references}
 \bibliographystyle{plainnat}
+\bibliography{wd_references}
 
 \printindex
 
