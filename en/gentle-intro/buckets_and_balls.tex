@@ -30,19 +30,31 @@ My suggestion is to imagine every SPARQL query as a graph of linked buckets and 
 
 Variables are placeholders but abstract. We need a physical container to fill with things. We need buckets. And nodes are like balls. So, think of running a query as filling buckets with balls.
 
-A graph pattern then will look like this:
+A graph pattern then will look like this (figure~\ref{fig:graphPattern}):
 
-\begin{figure}[h!]
-    \includegraphics[width=0.6\linewidth]{./intro/bucketsAndBalls/graphPattern.PNG}
-\end{figure}
+\begin{marginfigure}[-1.5cm]
+	{
+		\setlength{\fboxsep}{0pt}%
+		\setlength{\fboxrule}{1pt}%
+		\fcolorbox{gray}{gray}{\includegraphics{./intro/bucketsAndBalls/graphPattern.PNG}}
+	}
+    \caption{Running a query as filling buckets with balls.}
+	\label{fig:graphPattern}
+\end{marginfigure}
 
 A bucket \textbf{?A} should be filled with those balls which have a relation \textbf{R} to ball \textbf{B}.
 
-But it looks nicer when we abbreviate it like this:
+But it looks nicer when we abbreviate it like this (figure~\ref{fig:graphPatternBucketsBalls}):
 
-\begin{figure}[h]
-    \includegraphics[width=0.6\linewidth]{./intro/bucketsAndBalls/graphPatternBucketsBalls.PNG}
-\end{figure}
+\begin{marginfigure}[1.0cm]
+	{
+		\setlength{\fboxsep}{0pt}%
+		\setlength{\fboxrule}{1pt}%
+		\fcolorbox{gray}{gray}{\includegraphics{./intro/bucketsAndBalls/graphPatternBucketsBalls.PNG}}
+	}
+    \caption{Graph pattern in\\ Buckets`n`Balls notation.}
+	\label{fig:graphPatternBucketsBalls}
+\end{marginfigure}
 
 This is a graph pattern in Buckets`n`Balls notation. The direction of the relation R is not shown but it`s always from left to right.
 
@@ -61,18 +73,17 @@ Now let`s write a query to get all heads of government of the member states of t
     \item The bucket for member state should be linked to the ball <<European union>> with relation <<member of>>; and it should be linked to the bucket for <<Head of Government>> with, well, the relation <<head of government>> which, respecting the direction should be thought of as <<has head of government>>.
 \end{enumerate}
 
-\newpage
 Let`s make it more interesting and add another bucket for images. Here`s now the query in Buckets`n`Balls notation:
 
-\begin{figure*}[h!]
-\includegraphics[width=0.55\linewidth]{./intro/bucketsAndBalls/select.PNG}
-\end{figure*}
+\begin{figure}[h!]
+\includegraphics[width=0.9\linewidth]{./intro/bucketsAndBalls/select.PNG}
+\end{figure}
 
 When we run the query, our buckets should, hopefully, look like this:
 
-\begin{figure*}[h!]
-\includegraphics[width=0.55\linewidth]{./intro/bucketsAndBalls/query.PNG}
-\end{figure*}
+\begin{figure}[h!]
+    \includegraphics[width=0.7\linewidth]{./intro/bucketsAndBalls/query.PNG}
+\end{figure}
 
 Now let`s go to Wikidata and write this query there.
 
