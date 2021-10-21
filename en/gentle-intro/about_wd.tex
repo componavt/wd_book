@@ -7,7 +7,7 @@
 
 \section{What is Wikidata?}
 \labsec{section:what-wd}
-Wikidata is a structured and collaboratively edited database, which was created by the Wikimedia Foundation\sidenote[][*-1]{ Wikidata is a free, collaborative, multilingual, secondary database that collects structured information to support the operation of Wikipedia, Wikimedia Commons, and other Wikimedia Foundation wiki projects.} \begin{marginfigure}[1.5cm]
+Wikidata is a structured and collaboratively edited database, which was created by the Wikimedia Foundation\sidenote[][0.7cm]{ Wikidata is a free, collaborative, multilingual, secondary database that collects structured information to support the operation of Wikipedia, Wikimedia Commons, and other Wikimedia Foundation wiki projects.}. \begin{marginfigure}[3.5cm]
 {
 	\setlength{\fboxsep}{0pt}%
 	\setlength{\fboxrule}{1pt}%
@@ -18,11 +18,47 @@ Wikidata is a structured and collaboratively edited database, which was created 
 2012 / Planemad / Public domain
 }
 \label{fig:seyu}
-\end{marginfigure}The project was officially launched on the 30th of October in 2012, and is being developed under the direction of Wikimedia Deutschland. The project was created with donations from the Allen Institute for Artificial Intelligence, the Gordon and Betty Moore Foundation and Google. At the moment, Wikidata is a free and open source knowledge base that can be used and edited by humans and machines.
+\end{marginfigure}The project was officially launched on the 30th of October in 2012, and is being developed under the direction of Wikimedia Deutschlandnd\sidecite{Wikipedia_review}. The project was created with donations from the Allen Institute for Artificial Intelligence, the Gordon and Betty Moore Foundation and Google. At the moment, Wikidata is a free and open source knowledge base that can be used and edited by humans and machines\sidecite{Vrandecic}.
 
 Any Wikidata object has its own unique identifier and properties. This information can be processed using a computer; thus, it is understandable to users. The Wikidata site contains the ‘Wikidata Query’ service, which includes a set of tools for building SPARQL queries and visualizing them in the form of tables, charts, graphs or geographic maps.
 
 Content on Wikidata is licensed under the Creative Commons CC0 license, which allows information to be reused in a variety of ways, allowing users to copy, modify, distribute and manipulate the data for any purpose. Another feature of Wikidata is multilingualism. Anyone can edit Wikidata in over 350 languages.
 
-Wikidata is constantly updated, and new objects are being added. By 2021 there have been over 95 million pages created and over 1.5 billion edits made. Over 800,000 edits were made to Wikidata during the year of 2019, which surpassed the number of edits on the English Wikipedia, making Wikidata the most edited Wikimedia site.
+Wikidata is constantly updated, and new objects are being added. By 2021 there have been over 95 million pages created and over 1.5 billion edits made\sidenote[][]{The data is taken from the official Wikidata statistics page: \href{https://www.wikidata.org/wiki/Wikidata:Statistics}{https://www.wikidata.org/wiki/Wikidata:Statistics}}. Over 800,000 edits were made to Wikidata during the year of 2019, which surpassed the number of edits on the English Wikipedia, making Wikidata the most edited Wikimedia site\sidenote[][]{The official website of Wikidata: \href{https://www.wikidata.org/}{https://www.wikidata.org/}}.
+\section{About Wikidata research}
+\labsec{section:research-wd}
+The article 'A large-scale collaborative ontological medical database'\sidecite{Collaborative_ontological_database} describes the benefits of using Wikidata to create a large-scale collaborative medical database. The main requirements for the described database are a platform with real-time updates, a suitable license for the subsequent use of the information obtained, free editing in any language. These are the main characteristics of Wikidata. Firstly, Wikidata is an open, editable knowledge base. Any user without programming skills can make changes in over 350 languages and dialects. Secondly, the information is constantly updated, and new objects are added. Wikidata currently has over 18,000 editors. Thirdly, the Creative Commons CC0 license allows extensive use of the acquired information.
+\begin{enumerate}
+\item Cyc is a project of Cycorp (Austin, USA) to create an ontological knowledge base that allows solving problems in the field of artificial intelligence\sidecite{Cyc}. Cyc is currently licensed under ResearchCyc. This knowledge base has some drawbacks: the complexity of the system (the complexity of adding data manually), lack of documentation for studying the system, incompleteness of the system. 
+\item Evi (formerly True Knowledgee\sidecite{True_Knowledge}) is a technology company in Cambridge, England that specializes in knowledge base and semantic search software. Adding information to the knowledge base is done in two ways: import from 'trustworthy' external databases (e.g., Wikipedia) and from users' views according to a uniform format and detailed input process. As with Wikipedia, the user can change
+data, 'agree' or 'disagree' with the information provided by True Knowledge. The system can reject any facts that are semantically incompatible with other validated knowledge, as opposed to Wikidata, where inconsistent data can be stored.
+\end{enumerate}
+According to the authors of the article, Wikidata is the best option for processing information, because objects can be linked through their properties (instance P31, subclass 279, part P361, has part P527), create SPARQL queries, visualize their results in the form of tables, graphs, diagrams, or save them in the desired format (CSV, JSON, SVG).
 
+Thus, the authors urge to pay attention to Wikidata, which can take on the role of a centralized data repository. The article ‘Falcon 2.0: An Entity and Relation Linking Tool over Wikidata'\sidecite{Falcon_2.0} provides an example of using Wikidata as a centralized and public knowledge base for the FALCON 2.0 system. It is a tool that connects entity and relationships through Wikidata. This system identifies entities in a short text or question and then links them with the corresponding URLs in the Wikidata knowledge graph.
+
+\section{Ambiguity of Wikidata object}
+\labsec{section:ambiguity-wd}
+As stated earlier, any Wikidata object has properties. One of them is ‘P31’ (an instance of the class). It defines the class to which the object belongs. The Wikidata rules and some of the articles\sidecite{BabelNet}, which were found using \href{scholar.google.com}{scholar.google.com}\sidecite{GoogleAcademy}, state that the object corresponds to one class.
+
+However, in the course of the research, it has been found that this is not always the case. It turned out that some objects are instances of completely different classes. For example, the Royal Swedish Academy of Sciences (Q191583) is an instance of three classes at once: the Academy of Sciences, the building and the Royal Academy of Sweden. In my opinion, such definition of classes is correct in this case. Since this object can be considered as an organization, the purpose of which is the development of science, and also as an architectural structure.
+
+The problem of lexical polysemy was solved by the scientist Angela Fogarolli from the Italian university. The research results were presented in the form of an article ‘Word Sense Disambiguation based on Wikipedia Link Structure’\sidecite{Fogarolli}. The author selects objects of ambiguity that correspond to several classes depending on the context and allows multiple classes in the ‘instance of’ property.
+
+\section{Quality of Wikidata}
+\labsec{section:quality-wd}
+Alessandro Piscopo's doctoral dissertation\sidecite{Piscopo} discusses the socio-technical processes and data quality of the Wikidata project, which has undergone major changes since its launch date (2012). At the moment, the project editors are more than 200 thousand users who have made more than 50 million edits.
+
+The dissertation explains that users of Wikidata have the ability to add individual pieces of information, perform editing through various interfaces, and work with platforms such as Wikipedia, but they are also responsible for maintaining the schema of the knowledge graph. However, this work must be carried out by a team of trained professionals in accordance with well thought out methods. These actions are carried out using the tools that form the technical basis of the system.
+
+Bots are a special tool, which is used in both Wikidata and Wikipedia. These are pieces of software that can automatically perform various actions on the platform at high speed (over a thousand edits per minute). Their main task is to edit existing data, add and import new data from other resources. Bots create reports which help the users to correct inaccuracies.
+
+Thus, bots are one of the key technical components of Wikidata. Users add and modify data and communicate with each other using the Wikidata web interface. There are also plugins available that alert editors when they are about to perform a revision that could lead to any data errors.
+
+It is also worth paying attention to the article 'Network structure of scientific revolutions', which, using the example of Wikipedia, examines the process of knowledge formation in the form of constantly growing networks of articles and their interconnected hyperlinks. This concept is being developed by filling knowledge gaps. The authors formulated the goal of their work in one sentence: 'The authors test theories of scientific progress on growing concept networks and reveal data-driven conditions underlying breakthroughs'\sidecite{Network_structure_revolutions}.
+
+In the course of the research, all Wikipedia articles on the network were ranked according to certain criteria. Each host corresponds to a specific article, the hostname is the title of the article, the year of birth of the host is the first year listed in the introduction or in the history section as the year the concept was conceived. Then, based on the current state of the networks, some patterns were identified in the evolution of these structures over time and periods when the network changed most rapidly.
+
+The results obtained showed that human knowledge is growing and, as a result, there is a gradual change in the network's structure (some knowledge gaps are being filled). The authors of the article believe that the knowledge found during filling the gaps will be essential for scientific innovation.
+
+This article is directly related to the quality of Wikidata, because the information for Wikidata is most often taken from Wikipedia. If the gaps in Wikipedia are filled, then the new data will definitely be added to Wikidata. Consequently, the knowledge base will be more complete.
