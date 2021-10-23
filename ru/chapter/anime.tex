@@ -50,10 +50,10 @@ WHERE
 \end{lstlisting}%
 \footnotetext{Получено \num{216} результатов в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4ABw}{https://w.wiki/4ABw}}
 
-В действительности в Викиданных объектов аниме гораздо больше, но они являются экземплярами не объекта <<аниме>>, а его подклассов.
+В действительности в Викиданных объектов аниме гораздо больше, но они являются экземплярами не объекта <<аниме>>, а его подклассов. Чтобы получить список жанров аниме и количество аниме, относящихся к этим жанрам, можно выполнить такой запрос:
 
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/4ABj}{Список аниме, включая аниме, относящиеся к подклассам.}\protect\footnotemark},
+                    caption={\href{https://w.wiki/4ABj}{Список жанров аниме и количество аниме, относящихся к этим жанрам.}\protect\footnotemark},
                     label=lst:anime_w_subclass,
                     texcl 
                     ]
@@ -66,6 +66,29 @@ SELECT ?subAnime ?subAnimeLabel (COUNT(?subAnimeInstance) AS ?count) WHERE {
 GROUP BY ?subAnime ?subAnimeLabel
 ORDER BY DESC(?count)
 \end{lstlisting}%
-\footnotetext{Получено \num{4757} результатов в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4ABj}{https://w.wiki/4ABj}}
+\footnotetext{Получено \num{11} результатов в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4ABj}{https://w.wiki/4ABj}}
 
-Эта классификация не идеальна, так как есть большое смещение в сторону аниме-сериалов: из 4757 тайтлов 2917 отнесены к жанру «аниме-сериал» (61,3 \%); вероятно, классификация жанров аниме в Викиданных требует дальнейшего уточнения. Также в подклассы попали понятия, относящиеся не к общей классификации, а к отдельным аниме, например, \href{https://ru.wikipedia.org/wiki/Евангелион}{«Евангелион»}.
+Эта классификация не идеальна, так как есть большое смещение в сторону аниме-сериалов: из 4757 тайтлов 2917 отнесены к жанру «аниме-сериал» (61,3 \%); вероятно, классификация жанров аниме в Викиданных требует дальнейшего уточнения. Также в подклассы попали понятия, относящиеся не к общей классификации, а к отдельным аниме, например, \href{https://clck.ru/9cFfS}{«Евангелион»}.
+
+Получим список всех аниме, включая тайтлы, относящиеся к жанрам аниме:
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={\href{https://w.wiki/49zY}{Список всех аниме на Викиданных.}\protect\footnotemark},
+                    label=lst:all_anime_list,
+                    texcl 
+                    ]
+# List of instances of anime and subclasses of anime
+SELECT ?anime ?animeLabel
+WHERE
+{
+    ?anime wdt:P31/wdt:P279* wd:Q1107. # instance of anime with subclasses
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en,ja" }
+}
+\end{lstlisting}%
+\footnotetext{Получено \num{683} результата в 2018 году и \num{4757} результатов в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/49zY}{https://w.wiki/49zY}}
+
+Аниме, о которых есть наиболее полная информация на Викиданных: \href{https://www.wikidata.org/wiki/Q4277}{Гуррен-Лаганн}, \href{https://www.wikidata.org/wiki/Q4292}{Space Battleship Yamato}, \href{https://www.wikidata.org/wiki/Q4316}{Project A-ko}
+
+Аниме с малоинформативными записями на Викиданных: \href{https://www.wikidata.org/wiki/Q18692527}{Charlotte}, \href{https://www.wikidata.org/wiki/Q20043638}{Dagashi Kashi}, \href{https://www.wikidata.org/wiki/Q19750843}{KonoSuba}
+
+Среди всех аниме-тайтлов в Викиданных больше всего свойств по данным сервиса ProWD у \href{https://www.wikidata.org/wiki/Q1004318}{Fullmetal Alchemist: The Sacred Star of Milos} (23 свойства).
