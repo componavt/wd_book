@@ -24,4 +24,48 @@
 
 \label{ch:anime}
 
+\section{Экземпляры объекта <<Аниме>>}
 
+Аниме — это японская анимация. У каждого аниме есть свои актёры озвучивания. В дальнейшем под <<сэйю>> будем понимать японского актёра озвучивания. В японской анимации слова <<актёры озвучивания>> и <<сэйю>> являются синонимами \cite{seiyu_def}. Под словом <<тайтл>> (от англ. <<title>>, название) обычно понимают конкретное аниме \cite{anime_social}. В общем же смысле слово <<тайтл>> означает понятие, объединяющее различные виды продукции (от кинофильма до романа), созданные на основе конкретного произведения, за которым закреплено строго определённое название \cite{anime_title_def}.
+
+\begin{itemize}
+	\item Свойство: экземпляр (\href{https://www.wikidata.org/wiki/Property:P31}{P31})
+	\item Объект: аниме (\href{https://www.wikidata.org/wiki/Q1107}{Q1107})
+\end{itemize}
+
+Если получить только список аниме, без учёта подклассов, с помощью такого запроса:
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={\href{https://w.wiki/4ABw}{Список аниме без учёта подклассов.}\protect\footnotemark},
+                    label=lst:anime,
+                    texcl 
+                    ]
+# List of instances of anime
+SELECT ?anime ?animeLabel
+WHERE
+{
+    ?anime wdt:P31 wd:Q1107. # instance of anime
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en,ja" }
+}
+\end{lstlisting}%
+\footnotetext{Получено \num{216} результатов в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4ABw}{https://w.wiki/4ABw}}
+
+В действительности в Викиданных объектов аниме гораздо больше, но они являются экземплярами не объекта <<аниме>>, а его подклассов.
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={\href{https://w.wiki/4ABj}{Список аниме, включая аниме, относящиеся к подклассам.}\protect\footnotemark},
+                    label=lst:anime_w_subclass,
+                    texcl 
+                    ]
+# Select anime and its subclasses with number of titles corresponding to these subclasses
+SELECT ?subAnime ?subAnimeLabel (COUNT(?subAnimeInstance) AS ?count) WHERE {
+  ?subAnime wdt:P279* wd:Q1107.       # select anime subclass list
+  ?subAnimeInstance wdt:P31 ?subAnime # connect titles and their subclasses
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en,ja". }
+}
+GROUP BY ?subAnime ?subAnimeLabel
+ORDER BY DESC(?count)
+\end{lstlisting}%
+\footnotetext{Получено \num{4757} результатов в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4ABj}{https://w.wiki/4ABj}}
+
+Эта классификация не идеальна, так как есть большое смещение в сторону аниме-сериалов: из 4757 тайтлов 2917 отнесены к жанру «аниме-сериал» (61,3 \%); вероятно, классификация жанров аниме в Викиданных требует дальнейшего уточнения. Также в подклассы попали понятия, относящиеся не к общей классификации, а к отдельным аниме, например, \href{https://ru.wikipedia.org/wiki/Евангелион}{«Евангелион»}.
