@@ -224,7 +224,7 @@ WHERE
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/49v2}{Получение списка актёров озвучки и числа озвученных ими проектов}\protect\footnotemark},
-                    label=lst:voice_actors_liat,
+                    label=lst:voice_actors_list,
                     texcl 
                     ]
 # Ordered list of actors according to the quantity of projects
@@ -242,3 +242,24 @@ ORDER BY DESC(?count)	# order by number of voiced anime
 \footnotetext{Получено \num{3965} результатов в 2017 году и \num{9607} результата в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/49v2}{https://w.wiki/49v2}}
 
 Такой результат говорит о том, что сэйю могут озвучивать не только аниме, но и другие проекты, и это нужно учитывать при формировании запросов. 
+
+\section{Указана ли дата публикации у аниме?}
+
+Каждый любитель японской анимации желает знать, в каком году вышло его любимое аниме. Викиданные располагают этой информацией не в полной мере. Напишем скрипт, который бы показывал количество аниме с незаполненным полем "publication date" (дата публикации). 
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={\href{https://w.wiki/4Hcz}{Получение списка аниме, у которых не указана дата выхода на Викиданных}\protect\footnotemark},
+                    label=lst:anime_no_pub_date,
+                    texcl 
+                    ]
+# List of anime the release date of which is empty
+SELECT ?anime ?animeLabel
+WHERE
+{
+    ?anime wdt:P31/wdt:P279* wd:Q1107;                # instance of anime
+    FILTER NOT EXISTS { ?anime wdt:P577 [] }
+    SERVICE wikibase:label{bd:serviceParam
+					     wikibase:language "ru,en,ja"}
+}
+\end{lstlisting}%
+\footnotetext{Получено \num{237} результатов в 2017 году и \num{2940} результатов в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4Hcz}{https://w.wiki/4Hcz}}
