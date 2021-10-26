@@ -90,7 +90,7 @@ WHERE
 					     wikibase:language "ru,en,ja"}
 }
 \end{lstlisting}%
-\footnotetext{Получено \num{683} результата в 2018 году и \num{4757} результатов в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/49zY}{https://w.wiki/49zY}}
+\footnotetext{Получено \num{683} результата в 2017 году и \num{4757} результатов в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/49zY}{https://w.wiki/49zY}}
 
 Аниме, о которых есть наиболее полная информация на Викиданных: \href{https://www.wikidata.org/wiki/Q4277}{Гуррен-Лаганн}, \href{https://www.wikidata.org/wiki/Q4292}{Space Battleship Yamato}, \href{https://www.wikidata.org/wiki/Q4316}{Project A-ko}
 
@@ -123,7 +123,7 @@ WHERE
 GROUP BY ?seiyu		    # group by seiyu 
 ORDER BY DESC(?count)	# order by count of voiced anime
 \end{lstlisting}%
-\footnotetext{Получено \num{148} результатов в 2018 году и \num{2684} результата в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/49zz}{https://w.wiki/49zz}}
+\footnotetext{Получено \num{148} результатов в 2017 году и \num{2684} результата в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/49zz}{https://w.wiki/49zz}}
 
 \subsection{Гистограмма по числу сэйю, озвучивших одно и более аниме}
 
@@ -151,7 +151,7 @@ SELECT ?haveseiyu (COUNT(?haveseiyu) AS ?quantity) WHERE {
 GROUP BY ?haveseiyu              # group anime by seiyu quantity
 ORDER BY DESC(?haveseiyu)        # order by seiyu quantity (descending)
 \end{lstlisting}%
-\footnotetext{Получено \num{13} результатов в 2018 году и \num{58} результатов в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4HFv}{https://w.wiki/4HFv}}
+\footnotetext{Получено \num{13} результатов в 2017 году и \num{58} результатов в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4HFv}{https://w.wiki/4HFv}}
 
 Очевидно, что чем большее количество аниме берётся в расчёт, тем меньшее количество сэйю участвует в озвучке (рис. 1). Многие сэйю, как показано на диаграмме, озвучили только одно аниме. Это может быть связано с неполнотой Викиданных.
 
@@ -192,11 +192,53 @@ WHERE
   BIND(IF(?toggle,"",?anime) AS ?link).
 }
 \end{lstlisting}%
-\footnotetext{Получено \num{826} результатов в 2018 году и \num{494} результата в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4HFt}{https://w.wiki/4HFt}}
+\footnotetext{Получено \num{826} результатов в 2017 году и \num{494} результата в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4HFt}{https://w.wiki/4HFt}}
 
 \begin{figure*}[h]
-\centering
-	\includegraphics[width=0.95\textwidth]{./chapter/anime/Seiyu_graph_2021_ru.jpg}
+	\includegraphics[width=0.8\textwidth]{./chapter/anime/Seiyu_graph_2021_ru.jpg}
 	\caption[Фрагмент графа, связывающего сэйю и озвученные ими аниме, 2021.]{Фрагмент графа, связывающего сэйю и озвученные ими аниме, 2021. Граф построен на основе данных, полученных с помощью запроса~\protect\ref{lst:seiyu_graph}.}%
       \label{fig:Seiyu_graph_2021_ru}%
 \end{figure*} 
+
+\section{Полнота Викиданных}
+
+\href{https://clck.ru/YTPf9}{Русская Википедия} содержит список тайтлов, состоящий из порядка \num{1638} аниме. Также можно посмотреть \href{https://clck.ru/YTPgk}{телевизионные показы аниме в России по годам}.
+
+В \href{https://en.wikipedia.org/wiki/Lists_of_anime}{Английской Википедии} можно наблюдать примерно такой же результат. Можно просмотреть все аниме с помощью \href{https://en.wikipedia.org/wiki/Category:Lists_of_anime_by_genre}{категорий аниме}, которых на данный момент \num{17}.
+
+На сайте \href{https://shikimori.one/}{Shikimori} в списке аниме \num{801} страница по \num{20} наименований. Нетрудно посчитать, что на сайте есть информация о \num{16020} тайтлах, в то время как в Викиданных объектов, описывающих аниме, всего \num{4756}. К тому же, стоит учитывать, что скорость выхода новых аниме довольно велика. Из этого можно сделать вывод, что Викиданные крайне неполно отражают данные. То же самое касается и жанров: в \href{https://shikimori.one/animes}{разделе поиска Shikimori} доступны \num{42} жанра аниме, в то время как Викиданные содержат информацию только о \num{17}.
+
+Возможно, приведённые ниже статьи и сайты не будут являться \href{https://clck.ru/FLzh8}{АИ}, но с их помощью можно проанализировать информацию об имеющихся аниме и сделать дополнительные выводы о неполноте Викиданных.
+
+\begin{itemize}
+	\item На сайте \href{http://online.anidub.best/}{AniDub} приведён список из \num{5756} аниме.
+	\item На сайте \href{http://animespirit.tv/}{AnimeSpirit} приведён список из \num{1968} аниме.
+	\item На сайте \href{http://animeland.su/}{AnimeLand} приведён список из \num{4795} аниме.
+	\item На сайте \href{https://anistar.ew.r.appspot.com/}{AniStar} приведён список из \num{4360} аниме.
+	\item На сайте \href{https://anivost.org/}{Anivost} приведён список из \num{420} аниме.
+\end{itemize}
+
+Можно сделать вывод, что различные сайты имеют разную информацию об имеющихся аниме. Какие-то сайты появились позже, какие-то раньше, поэтому количество аниме на них может разниться, причём довольно серьёзно. Если упорядочить все приведённые сайты, данные Русской Википедии, Английской Википедии и Викиданные по количеству аниме, то Викиданные окажутся не на последнем месте, но, например, сайту \href{https://shikimori.one/}{Shikimori} они уступают почти в 4 раза. На Викиданных нельзя найти все популярные и известные японские анимации мира, что ещё раз говорит о неполноте.
+
+Вспомним ранее упомянутый запрос, в котором говорилось о \num{2684} сэйю на Викиданных. Дело в том, что поиск производился только по актёрам озвучивания, связанным с аниме, поэтому результат оказался таким скромным. Если запросить информацию о всех актёрах озвучивания (то есть убрать ограничение на категорию аниме), то результат может измениться. 
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={\href{https://w.wiki/49v2}{Получение списка актёров озвучки и числа озвученных ими проектов}\protect\footnotemark},
+                    label=lst:voice_actors_liat,
+                    texcl 
+                    ]
+# Ordered list of actors according to the quantity of projects
+# voiced by them
+SELECT ?actor (SAMPLE(?label) AS ?actorLabel) (COUNT(?anime) AS ?count)
+WHERE
+{
+  ?anime wdt:P725 ?actor.	 # instance of voice actor
+  ?actor rdfs:label ?label	 # subclass of label
+  FILTER(LANG(?label) = "ru")
+}
+GROUP BY ?actor		    # group by actor
+ORDER BY DESC(?count)	# order by number of voiced anime
+\end{lstlisting}%
+\footnotetext{Получено \num{3965} результатов в 2017 году и \num{9607} результата в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/49v2}{https://w.wiki/49v2}}
+
+Такой результат говорит о том, что сэйю могут озвучивать не только аниме, но и другие проекты, и это нужно учитывать при формировании запросов. 
