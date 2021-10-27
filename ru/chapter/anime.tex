@@ -3,7 +3,7 @@
 
 \chapter{Аниме: загадочный и поразительный мир японской анимации}
 Статья посвящена исследованию объекта Викиданных «аниме». С помощью SPARQL-запросов, вычисляемых на объектах типа «аниме»
-в Викиданных, решены такие задачи: выведен упорядоченный список сэйю по числу озвученных ими аниме, построена гистограмма по числу сэйю, озвучивших одно и более аниме, построен граф, связывающий сэйю и озвученные ими аниме. 
+в Викиданных, решены такие задачи: выведен упорядоченный список сэйю по числу озвученных ими аниме, построена гистограмма по числу сэйю, озвучивших одно и более аниме, построен граф, связывающий сэйю и озвученные ими аниме, исследован возраст, в котором сэйю озвучивают аниме. 
 
 \marginnote[0.0cm]{Сэйю — это японские актёры озвучивания. Сэйю обычно озвучивают роли персонажей в аниме, видеоиграх, фильмах, а также на радио и телевидении, или выступают в роли рассказчика в радиопостановках и аудиодрамах. Кроме того, голоса сэйю используются в рекламе, голосовых объявлениях, аудиозаписях книг и учебных материалов, а также для переозвучивания. Сэйю могут быть как мужчины, так и женщины.}
 
@@ -153,7 +153,7 @@ ORDER BY DESC(?haveseiyu)        # order by seiyu quantity (descending)
 \end{lstlisting}%
 \footnotetext{Получено \num{13} результатов в 2017 году и \num{58} результатов в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4HFv}{https://w.wiki/4HFv}}
 
-Очевидно, что чем большее количество аниме берётся в расчёт, тем меньшее количество сэйю участвует в озвучке (рис. 1). Многие сэйю, как показано на диаграмме, озвучили только одно аниме. Это может быть связано с неполнотой Викиданных.
+Очевидно, что чем большее количество аниме берётся в расчёт, тем меньшее количество сэйю участвует в озвучке (рис. ~\ref{fig:Seiyu_histogram_2021_ru}). Многие сэйю, как показано на диаграмме, озвучили только одно аниме. Это может быть связано с неполнотой Викиданных.
 
 \begin{figure*}[h]
 
@@ -166,7 +166,7 @@ ORDER BY DESC(?haveseiyu)        # order by seiyu quantity (descending)
 
 \subsection{Граф, связывающий сэйю и озвученные ими аниме}
 
-Как было сказано ранее, некоторые сэйю могут озвучивать сразу нескольких персонажей в одном аниме или озвучивать несколько аниме. Построим граф, связывающий сэйю и озвученные ими аниме, чтобы нагляднее показать эту взаимосвязь. 
+Как было сказано ранее, некоторые сэйю могут озвучивать сразу нескольких персонажей в одном аниме или озвучивать несколько аниме. Построим граф, связывающий сэйю и озвученные ими аниме, чтобы нагляднее показать эту взаимосвязь (рис. ~\ref{fig:Seiyu_graph_2021_ru}). 
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/4HFt}{Построение графа, связывающего сэйю и озвученные ими аниме}\protect\footnotemark},
@@ -195,7 +195,7 @@ WHERE
 \footnotetext{Получено \num{826} результатов в 2017 году и \num{494} результата в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4HFt}{https://w.wiki/4HFt}}
 
 \begin{figure*}[h]
-	\includegraphics[width=0.8\textwidth]{./chapter/anime/Seiyu_graph_2021_ru.jpg}
+	\includegraphics[width=0.72\textwidth]{./chapter/anime/Seiyu_graph_2021_ru.jpg}
 	\caption[Фрагмент графа, связывающего сэйю и озвученные ими аниме, 2021.]{Фрагмент графа, связывающего сэйю и озвученные ими аниме, 2021. Граф построен на основе данных, полученных с помощью запроса~\protect\ref{lst:seiyu_graph}.}%
       \label{fig:Seiyu_graph_2021_ru}%
 \end{figure*} 
@@ -263,3 +263,118 @@ WHERE
 }
 \end{lstlisting}%
 \footnotetext{Получено \num{237} результатов в 2017 году и \num{2940} результатов в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4Hcz}{https://w.wiki/4Hcz}}
+
+\section{Анализ возраста, в котором сэйю озвучивают аниме}
+
+Как и в любой другой профессии, у актёра озвучки есть возраст, когда он находится в «расцвете сил» и может озвучить множество аниме, а через несколько лет — «подать в отставку». Использование SPARQL и внешних инструментов для анализа данных, таких как \href{https://ru.wikipedia.org/wiki/Python}{язык программирования Python}, может позволить оценить такой возраст на основе информации из Викиданных.
+
+Чтобы получить исходные данные для исследования, необходимо выполнить три SPARQL-скрипта и экспортировать результаты их выполнения в формате \href{https://ru.wikipedia.org/wiki/CSV}{.csv}.
+
+Получить список всех зарегистрированных в Викиданных сэйю и их дат рождения можно двумя способами: 
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={\href{https://w.wiki/4FPq}{Получение дат рождения сэйю (вариант 1)}\protect\footnotemark},
+                    label=lst:seiyu_bd_w_service,
+                    texcl 
+                    ]
+# Get list of all seiyu objects, their names and birth dates
+SELECT ?seiyu ?seiyuLabel ?bDate WHERE {
+  ?anime (wdt:P31/(wdt:P279*)) wd:Q1107;
+    wdt:P725 ?seiyu.       # seiyu is anime voice actors
+  ?seiyu wdt:P569 ?bDate.  #       has a birthday
+    SERVICE wikibase:label{bd:serviceParam
+					     wikibase:language "ru,en,ja"}
+}
+GROUP BY ?seiyu ?seiyuLabel ?bDate
+\end{lstlisting}%
+\footnotetext{Получено \num{2515} результатов в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4FPq}{https://w.wiki/4FPq}}
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={\href{https://w.wiki/4FPn}{Получение дат рождения сэйю (вариант 2)}\protect\footnotemark},
+                    label=lst:seiyu_bd_w_rdfs,
+                    texcl 
+                    ]
+# Get list of all seiyu objects, their names and birth dates
+SELECT ?seiyu (SAMPLE(?seiyu) AS ?seiyuLabel) ?bDate WHERE {
+  ?anime (wdt:P31/(wdt:P279*)) wd:Q1107;
+    wdt:P725 ?seiyu.       # seiyu is anime voice actors
+  ?seiyu wdt:P569 ?bDate.  #       has a birthday 
+  ?seiyu rdfs:label ?label.
+}
+GROUP BY ?seiyu ?bDate
+\end{lstlisting}%
+\footnotetext{Получено \num{2515} результатов в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4FPn}{https://w.wiki/4FPn}}
+
+Различия между скриптами:
+
+\begin{itemize}
+    \item метка (имя) сэйю в первом случае получается с помощью переменной ?seiyuLabel (в таком случае нужно указать команду SERVICE для установки языков, на котором будут возвращены имена), а во втором - с помощью конструкции rdfs:label;
+    \item в первом варианте скрипта необходимо указывать ?seiyuLabel как параметр GROUP BY, чтобы связать объекты сэйю и их метки.
+\end{itemize}
+
+Получение списка всех зарегистрированных в Викиданных аниме и дат их выхода: 
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={\href{https://w.wiki/4ENc}{Получение дат выхода аниме}\protect\footnotemark},
+                    label=lst:all_anime_releases,
+                    texcl 
+                    ]
+# Get all anime objects, their names and release dates
+SELECT ?anime ?animeLabel ?animePubDate ?animeSeriesStartDate
+WHERE {
+  ?anime (wdt:P31/(wdt:P279*)) wd:Q1107.               # object of anime/subclass
+  OPTIONAL { ?anime wdt:P577 ?animePubDate. }          # release date of a movie
+  OPTIONAL { ?anime wdt:P580
+					?animeSeriesStartDate. }  # start date of a series
+    SERVICE wikibase:label{bd:serviceParam
+					     		wikibase:language "ru,en,ja"}
+}
+\end{lstlisting}%
+\footnotetext{Получено \num{5264} результатов в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4ENc}{https://w.wiki/4ENc}}
+
+Обратите внимание, что скрипт получает не только даты выхода полнометражных аниме (свойство P577), но и даты начала показа сериалов (свойство P580). 
+
+Получение ссылок между объектами сэйю и аниме, которые они озвучивали: 
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={\href{https://w.wiki/4ELh}{Получение ссылок между сэйю и аниме}\protect\footnotemark},
+                    label=lst:link_anime_seiyu,
+                    texcl 
+                    ]
+# List of links between seiyu and anime where they are involved in
+SELECT DISTINCT ?item ?itemLabel ?link ?itemType
+WHERE
+{
+  VALUES ?toggle { true false }
+  ?anime  wdt:P31/wdt:P279* wd:Q1107; # instance of anime/subclass
+          wdt:P725 ?seiyu.            # list seiyu who acted in this anime
+  
+  BIND(IF(?toggle,?anime,?seiyu) AS ?item).   # anime/seiyu link
+  BIND(IF(?toggle,?animeLabel,?seiyuLabel)
+					AS ?itemLabel).  # anime/seiyu labels link
+  BIND(IF(?toggle,?seiyu,?anime) AS ?link).   # seiyu/anime link
+  BIND(IF(?toggle,?seiyu,"seiyu")
+							AS ?itemType).
+    SERVICE wikibase:label{bd:serviceParam
+					     		wikibase:language "ru,en,ja"}
+}
+\end{lstlisting}%
+\footnotetext{Получено \num{27092} результата в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4ELh}{https://w.wiki/4ELh}}
+
+Результат анализа удобно представить в виде гистограммы. Для её построения можно воспользоваться средствами таких библиотек для Python, как \href{https://ru.wikipedia.org/wiki/Pandas}{Pandas} для обработки табличных данных и \href{https://ru.wikipedia.org/wiki/Matplotlib}{Matplotlib} для непосредственно построения графиков. Код скрипта, создающего гистограмму, опубликован на сервисе \href{https://github.com/componavt/wd_book/blob/master/programming_tasks/seiyu_age/age_act_hist.ipynb}{GitHub}.
+
+В результате получим гистограмму, по оси абсцисс которой отмечен возраст в годах, а по оси ординат — суммарное количество ролей, озвученных всеми сэйю такого возраста. Получившаяся гистограмма представлена на рис. ~\ref{fig:Seiyu_age_hist_RU}. 
+
+\begin{figure*}[h]
+
+    \setlength{\fboxsep}{0pt}%
+    \setlength{\fboxrule}{1pt}%
+    \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/anime/Seiyu_age_hist_RU.png}}
+	\caption[Гистограмма, которая отображает число аниме, озвученное сэйю разных возрастов, 2021.]{Гистограмма, которая показывает число аниме, озвученных различными сэйю, 2021. Гистограмма построена на основе данных, полученных с помощью запроса ~\protect\ref{lst:link_anime_seiyu}.}%
+    \label{fig:Seiyu_age_hist_RU}%
+\end{figure*} 
+
+Интересные наблюдения:
+\begin{itemize}
+    \item В данных есть забавные моменты, когда сэйю родился(-ась) позже, когда вышло аниме с его (её) участием. Вероятно, это связано с отсутствием информации в Викиданных о втором сезоне/перезапуске аниме. Например, на 2021 год такая ситуация наблюдается для аниме \href{https://www.wikidata.org/wiki/Q11304591}{Sazae-san} и сэйю \href{https://www.wikidata.org/wiki/Q5968283}{Нобунага Симадзаки}.
+\end{itemize}
