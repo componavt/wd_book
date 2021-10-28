@@ -21,30 +21,30 @@
 
 Переменные являются заполнителями, но абстрактными. Нам нужен физический контейнер, чтобы наполнить его вещами. Нам нужны корзины. И вершины похожие на мячи. Итак, подумайте о выполнении запроса, как о заполнении корзин мячами.
 
-Тогда образец графа будет выглядеть как на рис. ~\ref{fig:graphPattern}.
+Тогда образец графа будет выглядеть как на рис. ~\ref{fig:Query_as_filling_buckets_with_balls}.
 
 \begin{marginfigure}[-1.5cm]
 	{
 		\setlength{\fboxsep}{0pt}%
 		\setlength{\fboxrule}{1pt}%
-		\fcolorbox{gray}{gray}{\includegraphics{./intro/bucketsAndBalls/graphPattern.PNG}}
+		\fcolorbox{gray}{gray}{\includegraphics{./intro/bucketsAndBalls/Query_as_filling_buckets_with_balls.PNG}}
 	}
     \caption{Образец графа заполнения корзин мячами.}
-	\label{fig:graphPattern}
+	\label{fig:Query_as_filling_buckets_with_balls}
 \end{marginfigure}
 
 Корзина \textbf{?A} должна быть заполнена теми мячами, которые имеют отношение \textbf{R} к мячу \textbf{B}.
 
-Рисунок будет понятнее, если мы упростим его так: рис. ~\ref{fig:graphPatternBucketsBalls}: 
+Рисунок будет понятнее, если мы упростим его так: рис. ~\ref{fig:Graph_pattern_in_basket_and_balls_notation}: 
 
 \begin{marginfigure}[1.0cm]
 	{
 		\setlength{\fboxsep}{0pt}%
 		\setlength{\fboxrule}{1pt}%
-		\fcolorbox{gray}{gray}{\includegraphics{./intro/bucketsAndBalls/graphPatternBucketsBalls.PNG}}
+		\fcolorbox{gray}{gray}{\includegraphics{./intro/bucketsAndBalls/Graph_pattern_in_basket_and_balls_notation.PNG}}
 	}
     \caption{Шаблон графа в нотации <<Корзины и мячи>>.}
-	\label{fig:graphPatternBucketsBalls}
+	\label{fig:Graph_pattern_in_basket_and_balls_notation}
 \end{marginfigure}
 
 Это шаблон графа в нотации <<Корзины и мячи>>. Направление отношения R не показано, но оно всегда слева направо.
@@ -66,22 +66,22 @@
 Сделаем запрос более интересным и добавим еще одну корзину для фотографий губернаторов. Вот теперь запрос в нотации <<Корзины и мячи>> будет таким:
 
 \begin{figure*}[h!]
-    \includegraphics[width=0.7\linewidth]{./intro/bucketsAndBalls/select.PNG}
+    \includegraphics[width=0.7\linewidth]{./intro/bucketsAndBalls/Query_in_basket_and_balls_notation.PNG}
     \caption{Корзины и мячи.}
-	\label{fig:BucketsBalls}
+	\label{fig:Query_in_basket_and_balls_notation}
 \end{figure*}
 
 \newpage
-После выполнения запроса наши корзины будут выглядеть как на рис. ~\ref{fig:BucketsBallsQuery}.
+После выполнения запроса наши корзины будут выглядеть как на рис. ~\ref{fig:3_buckets_region_head_image}.
 
 \begin{marginfigure}
 	{
 		\setlength{\fboxsep}{0pt}%
 		\setlength{\fboxrule}{1pt}%
-		\fcolorbox{gray}{gray}{\includegraphics{./intro/bucketsAndBalls/query.PNG}}
+		\fcolorbox{gray}{gray}{\includegraphics{./intro/bucketsAndBalls/3_buckets_region_head_image.PNG}}
 	}
     \caption{Корзины при выполнении запроса.}
-	\label{fig:BucketsBallsQuery}
+	\label{fig:3_buckets_region_head_image}
 \end{marginfigure}
 
 Теперь перейдем к Викиданным и напишем этот запрос там. Сначала выберем корзины для заполнения.
@@ -94,23 +94,23 @@ SELECT DISTINCT ?region ?head ?image
 
 Когда нам нужно определенное отношение или мяч, нам нужно использовать его идентификатор. Викиданные предоставляют хорошую услугу, которая записывает идентификатор для вас, как только вы выбираете отношение (свойство) или мяч (элемент) по его метке. Общая часть отношений в графе знаний Викиданных сокращена с помощью wdt, а элементов (наших мячей) ~--- с помощью wd.
 
-Следуя нашему рисунку <<Корзины и мячи>> ~\ref{fig:BucketsBalls}, напишем условия для заполнения первой корзины ?region. Затем напишем первое отношение. Поскольку общей частью идентификаторов прямых отношений является wdt, мы пишем wdt:, а затем нажимаем Ctrl+пробел, чтобы запустить службу автозаполнения Викиданных рис. ~\ref{fig:BucketsBallsProperty}.
+Следуя нашему рисунку <<Корзины и мячи>> ~\ref{fig:Query_in_basket_and_balls_notation}, напишем условия для заполнения первой корзины ?region. Затем напишем первое отношение. Поскольку общей частью идентификаторов прямых отношений является wdt, мы пишем wdt:, а затем нажимаем Ctrl+пробел, чтобы запустить службу автозаполнения Викиданных рис. ~\ref{fig:WDQS_popup_instance_of}.
 
 \begin{marginfigure}[-2.5cm]
 	{
 		\setlength{\fboxsep}{0pt}%
 		\setlength{\fboxrule}{1pt}%
-		\fcolorbox{gray}{gray}{\includegraphics{./intro/bucketsAndBalls/property.PNG}}
+		\fcolorbox{gray}{gray}{\includegraphics{./intro/bucketsAndBalls/WDQS_popup_instance_of.PNG}}
 	}
     \caption{С помощью команды Ctrl+пробел открылось выпадающее контекстное меню автозаполнения свойства Викиданых.}
-	\label{fig:BucketsBallsProperty}
+	\label{fig:WDQS_popup_instance_of}
 \end{marginfigure}
 
-После этого мы воспроизведем модель из рисунка <<Корзины и мячи>> ~\ref{fig:BucketsBalls} в реальном запросе SPARQL.
+После этого мы воспроизведем модель из рисунка <<Корзины и мячи>> ~\ref{fig:Query_in_basket_and_balls_notation} в реальном запросе SPARQL.
 
 Обычно при написании SPARQL~---запроса его приравнивают к виду таблицы с тремя столбцами: субъект, предикат, объект или на языке викиданных ~--- элемент, свойство, значение.
 
-Но это укрепляет мышление. Поэтому, возможно, было бы лучше, чтобы хотя бы ваши первые запросы напоминали граф. Ставя корзину как субъект нового графа (тройной шаблон) под той же корзиной, которая является объектом предыдущего тройного шаблона, делает его более похожим на граф с рисунка корзины и шары ~\ref{fig:BucketsBalls}, который был представлен выше. Таким образом, наш запрос выглядит следующим образом:
+Но это укрепляет мышление. Поэтому, возможно, было бы лучше, чтобы хотя бы ваши первые запросы напоминали граф. Ставя корзину как субъект нового графа (тройной шаблон) под той же корзиной, которая является объектом предыдущего тройного шаблона, делает его более похожим на граф с рисунка корзины и шары ~\ref{fig:Query_in_basket_and_balls_notation}, который был представлен выше. Таким образом, наш запрос выглядит следующим образом:
 
 \begin{lstlisting}[ language=SPARQL ]
 SELECT DISTINCT ?region ?head ?image
@@ -121,24 +121,24 @@ SELECT DISTINCT ?region ?head ?image
 }
 \end{lstlisting}
 
-Теперь посмотрите, как этот запрос выглядит в Викиданных, и запустите его. Затем нажмите на значок глаза слева и выберите <<image grid>>, чтобы просмотреть результаты в виде сетки изображений ~\ref{fig:BucketsBallsImageGrid}.
+Теперь посмотрите, как этот запрос выглядит в Викиданных, и запустите его. Затем нажмите на значок глаза слева и выберите <<image grid>>, чтобы просмотреть результаты в виде сетки изображений ~\ref{fig:WDQS_drop_down_result_type}.
 
 \begin{marginfigure}[-4.5cm]
 	{
 		\setlength{\fboxsep}{0pt}%
 		\setlength{\fboxrule}{1pt}%
-		\fcolorbox{gray}{gray}{\includegraphics[width=0.5\linewidth]{./intro/bucketsAndBalls/imageGrid.PNG}}
+		\fcolorbox{gray}{gray}{\includegraphics[width=0.5\linewidth]{./intro/bucketsAndBalls/WDQS_drop_down_result_type.PNG}}
 	}
     \caption{Отображение результатов в виде сетки изображений.}
-	\label{fig:BucketsBallsImageGrid}
+	\label{fig:WDQS_drop_down_result_type}
 \end{marginfigure}
 
 Это неплохо для первого результата, но теперь на каждом изображении мы видим только идентификационные данные людей и идентификационные данные их страны. Если мы нажмем на идентификатор, мы получим много информации об этом предмете. Но было бы лучше, если бы, помимо идентификаторов, мы могли видеть их метки в результате запроса. Это похоже на наклеивание этикеток на наши корзины. 
 
 \begin{figure*}[h!]
-\includegraphics[width=0.6\linewidth]{./intro/bucketsAndBalls/selectID.PNG}
+\includegraphics[width=0.6\linewidth]{./intro/bucketsAndBalls/Query_in_basket_and_balls_notation_with_ids.png}
 \caption{Корзины и мячи. Идентификаторы объектов и свойств.}
-\label{fig:BucketsBallsID}
+\label{fig:Query_in_basket_and_balls_notation_with_ids}
 \end{figure*}
 
 Label ~--- это метка, которая отображает название объекта(мяча), а не его идентификатор. Все, что вам нужно сделать, это: добавить слово <<label>> к переменным и вызвать службу меток. Последнее вы делаете, снова нажимая Ctrl+пробел в новой строке внутри фигурных скобок, и когда вы начнете вводить <<метку>>, появится служба маркировки. По умолчанию вы получаете его с языком интерфейса и английским языком в качестве альтернативы, если метка недоступна на языке выбранного интерфейса Викиданных.
