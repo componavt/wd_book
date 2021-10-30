@@ -121,43 +121,45 @@ ORDER BY DESC(?count)	# order by count of voiced anime
 \end{lstlisting}%
 \footnotetext{Получено \num{148} результатов в 2017 году и \num{2684} результата в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/49zz}{https://w.wiki/49zz}}
 
-\subsection{Гистограмма по числу сэйю, озвучивших одно и более аниме}
+\subsection{График по числу сэйю, озвучивших одно и более аниме}
 
-Было бы интересно построить гистограмму (линейную диаграмму) из сэйю, озвучивших аниме (чем больше аниме озвучил сэйю, тем дальше на диаграмме он будет находиться, <<правее>> в данном случае).
+Было бы интересно построить график (линейную диаграмму) сэйю, озвучивших аниме. Чем больше аниме озвучил сэйю, тем правее на диаграмме он будет находиться. Сделать это можно с помощью скрипта ~\protect\ref{lst:seiyu_titles_graph}.
 
+\begin{fullwidth}
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/4HFv}{Построение гистограммы по числу сэйю, озвучивших одно и более аниме}\protect\footnotemark},
-                    label=lst:seiyu_titles_hist,
+                    caption={\href{https://w.wiki/4JvT}{Построение гистограммы по числу сэйю, озвучивших одно и более аниме}\protect\footnotemark},
+                    label=lst:seiyu_titles_graph,
                     texcl 
                     ]
-# Histogram of the number of seiyu who acted in one or more anime
+# Graph of the number of voice actings of different seiyu
 #defaultView:LineChart
-SELECT ?haveseiyu (COUNT(?haveseiyu) AS ?quantity) WHERE {
+SELECT ?seiyuRoles (COUNT(?seiyuRoles) AS ?quantity) WHERE {
+  FILTER(?seiyuRoles < 71) # limit the output as there are few seiyu that act in more than 71 anime
   {
-     SELECT (COUNT(?seiyu) AS ?haveseiyu) WHERE {
-       ?anime wdt:P31/wdt:P279* wd:Q1107;
-              wdt:P725 ?seiyu.
-    SERVICE wikibase:label{bd:serviceParam
-					     wikibase:language "ru,en,ja"}
+     SELECT (COUNT(?seiyu) AS ?seiyuRoles) WHERE {            # count quantity of voice acting by one seiyu
+       ?anime wdt:P31/wdt:P279* wd:Q1107;                     # instance of anime and its subclasses
+              wdt:P725 ?seiyu.                                # instance of seiyu
+       SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en,ja"}
      }
-     GROUP BY ?anime             # group list by number of voiced anime
-     ORDER BY DESC(?haveseiyu) 
+     GROUP BY ?anime              # group list by number of voiced anime
+     ORDER BY DESC(?seiyuRoles)   # order by voice acting quantity (descending)
   }
 }
-GROUP BY ?haveseiyu              # group anime by seiyu quantity
-ORDER BY DESC(?haveseiyu)        # order by seiyu quantity (descending)
+GROUP BY ?seiyuRoles
+ORDER BY DESC(?seiyuRoles)  # grouping and sorting seiyu by number of voice actings
 \end{lstlisting}%
-\footnotetext{Получено \num{13} результатов в 2017 году и \num{58} результатов в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4HFv}{https://w.wiki/4HFv}}
+\footnotetext{Получено \num{13} результатов в 2017 году и \num{58} результатов в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4JvT}{https://w.wiki/4JvT}}
+\end{fullwidth}
 
-Очевидно, что чем большее количество аниме берётся в расчёт, тем меньшее количество сэйю участвует в озвучке (рис. ~\ref{fig:Seiyu_histogram_2021_ru}). Многие сэйю, как показано на диаграмме, озвучили только одно аниме. Это может быть связано с неполнотой Викиданных.
+Очевидно, что чем большее количество аниме берётся в расчёт, тем меньшее количество сэйю участвует в озвучке (рис. ~\ref{fig:Seiyu_num_chart_2021_ru}). Многие сэйю, как показано на диаграмме, озвучили только одно аниме — на графике их оказалось 254. Это может быть связано с неполнотой Викиданных. 
 
 \begin{figure*}[h]
 
     \setlength{\fboxsep}{0pt}%
     \setlength{\fboxrule}{1pt}%
     \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/anime/Seiyu_histogram_2021_ru.jpg}}
-	\caption[Гистограмма, которая показывает число аниме, озвученных различными сэйю, 2021.]{Гистограмма, которая показывает число аниме, озвученных различными сэйю, 2021. Гистограмма построена на основе данных, полученных с помощью запроса~\protect\ref{lst:seiyu_titles_hist}.}%
-    \label{fig:Seiyu_histogram_2021_ru}%
+	\caption[График, который показывает число ролей, озвученных различными сэйю, 2021.]{График, который показывает число ролей, озвученных различными сэйю, 2021. График построена на основе данных, полученных с помощью запроса~\protect\ref{lst:seiyu_titles_graph}.}%
+    \label{fig:Seiyu_num_chart_2021_ru}%
 \end{figure*} 
 
 \subsection{Граф, связывающий сэйю и озвученные ими аниме}
