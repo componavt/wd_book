@@ -31,7 +31,7 @@ shikimori.one/people/seyu}, 2021}. Под словом <<тайтл>> (от ан
 
 Чтобы работать со списком аниме, о которых есть информация на Викиданных, нам понадобятся собственно объект \wdqName{<<аниме>>}{1107}, а также свойство \wdProperty{31}{<<экземпляр>>}.
 
-Получитм список всех аниме без учёта подклассов (листинг ~\protect\ref{lst:anime}):
+Получим список всех аниме без учёта подклассов (листинг ~\protect\ref{lst:anime}):
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/4ABw}{Список аниме без учёта подклассов}\protect\footnotemark},
@@ -126,6 +126,7 @@ ORDER BY DESC(?count)	# order by count of voiced anime
 Было бы интересно построить график (линейную диаграмму) сэйю, озвучивших аниме. Чем больше аниме озвучил сэйю, тем правее на диаграмме он будет находиться. Сделать это можно с помощью скрипта ~\protect\ref{lst:seiyu_titles_graph}.
 
 \begin{fullwidth}
+\lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/4JvT}{Построение гистограммы по числу сэйю, озвучивших одно и более аниме}\protect\footnotemark},
                     label=lst:seiyu_titles_graph,
@@ -149,6 +150,7 @@ GROUP BY ?seiyuRoles
 ORDER BY DESC(?seiyuRoles)  # grouping and sorting seiyu by number of voice actings
 \end{lstlisting}%
 \footnotetext{Получено \num{13} результатов в 2017 году и \num{58} результатов в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4JvT}{https://w.wiki/4JvT}}
+\lstset{numbers=none}
 \end{fullwidth}
 
 Очевидно, что чем большее количество аниме берётся в расчёт, тем меньшее количество сэйю участвует в озвучке (рис. ~\ref{fig:Seiyu_num_chart_2021_ru}). Многие сэйю, как показано на диаграмме, озвучили только одно аниме — на графике их оказалось 254. Это может быть связано с неполнотой Викиданных. 
@@ -157,15 +159,16 @@ ORDER BY DESC(?seiyuRoles)  # grouping and sorting seiyu by number of voice acti
 
     \setlength{\fboxsep}{0pt}%
     \setlength{\fboxrule}{1pt}%
-    \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/anime/Seiyu_histogram_2021_ru.jpg}}
+    \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/anime/Seiyu_chart_2021_ru.png}}
 	\caption[График, который показывает число ролей, озвученных различными сэйю, 2021.]{График, который показывает число ролей, озвученных различными сэйю, 2021. График построена на основе данных, полученных с помощью запроса~\protect\ref{lst:seiyu_titles_graph}.}%
     \label{fig:Seiyu_num_chart_2021_ru}%
 \end{figure*} 
 
 \subsection{Граф, связывающий сэйю и озвученные ими аниме}
 
-Как было сказано ранее, некоторые сэйю могут озвучивать сразу нескольких персонажей в одном аниме или озвучивать несколько аниме. Построим граф, связывающий сэйю и озвученные ими аниме, чтобы нагляднее показать эту взаимосвязь (рис. ~\ref{fig:Seiyu_graph_2021_ru}). 
+Итак, многие сэйю за свою карьеру успевают озвучить несколько аниме. Построим граф, связывающий сэйю и озвученные ими аниме, чтобы нагляднее показать эту взаимосвязь, с помощью скрипта ~\protect\ref{lst:seiyu_graph}. Фрагмент итогового графа представлен на рис. ~\ref{fig:Seiyu_graph_2021_ru}. 
 
+\lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/4HFt}{Построение графа, связывающего сэйю и озвученные ими аниме}\protect\footnotemark},
                     label=lst:seiyu_graph,
@@ -181,9 +184,9 @@ WHERE
            wd:Q233902  wd:Q1323728 wd:Q2440809 
            wd:Q355173  wd:Q957795  wd:Q50033}
   ?anime  wdt:P31/wdt:P279* wd:Q1107; # instance of anime/subclass
-          wdt:P725 ?seiyu;            # seiyu who voiced this anime 
-    SERVICE wikibase:label{bd:serviceParam
-					     wikibase:language "ru,en,ja"}
+           wdt:P725 ?seiyu;            # seiyu who voiced this anime 
+  SERVICE wikibase:label{bd:serviceParam
+					   wikibase:language "ru,en,ja"}
   BIND(IF(?toggle,?anime,?seiyu) AS ?item).
   BIND(IF(?toggle,?animeLabel,?seiyuLabel) AS ?itemLabel).
   BIND(IF(?toggle,"FFFFFF","7FFF00") AS ?rgb).
@@ -191,12 +194,18 @@ WHERE
 }
 \end{lstlisting}%
 \footnotetext{Получено \num{826} результатов в 2017 году и \num{494} результата в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4HFt}{https://w.wiki/4HFt}}
+\lstset{numbers=none}
 
+Конструкция BIND(IF(?toggle, ?variable1, ?variable2)) позволяет определить тип вершины графа: например, в строке 14 если для объекта ?toggle принимает значение true, то этот объект соответствует аниме, иначе ~--- сэйю. Аналогично в строках 15 и 16 определяется тип текстовой метки для вершины и цвет вершины.
+
+\newpage
+\begin{fullwidth}
 \begin{figure*}[h]
-	\includegraphics[width=0.72\textwidth]{./chapter/anime/Seiyu_graph_2021_ru.jpg}
+	\includegraphics[width=0.85\textwidth]{./chapter/anime/Seiyu_graph_2021_ru.jpg}
 	\caption[Фрагмент графа, связывающего сэйю и озвученные ими аниме, 2021.]{Фрагмент графа, связывающего сэйю и озвученные ими аниме, 2021. Граф построен на основе данных, полученных с помощью запроса~\protect\ref{lst:seiyu_graph}.}%
       \label{fig:Seiyu_graph_2021_ru}%
 \end{figure*} 
+\end{fullwidth}
 
 \section{Полнота Викиданных}
 
@@ -377,13 +386,14 @@ WHERE
     \item В данных есть забавные моменты, когда сэйю родился(-ась) позже, когда вышло аниме с его (её) участием. Вероятно, это связано с отсутствием информации в Викиданных о втором сезоне/перезапуске аниме. Например, на 2021 год такая ситуация наблюдается для аниме \href{https://www.wikidata.org/wiki/Q11304591}{Sazae-san} и сэйю \href{https://www.wikidata.org/wiki/Q5968283}{Нобунага Симадзаки}.
 \end{itemize}
 
-\section{Будущая работа}
+\section{Упражнения}
 
 \begin{enumerate}
-    \item Вывести 10 аниме, выпущенных в 2017 году.
-    \item Вывести 5 аниме, в которых число сэйю является наибольшим.
-    \item Построить пузырьковую диаграмму (BubbleChart) распределения аниме по жанрам (сколько аниме в каждом жанре).
+    \item Вывести 10 аниме, выпущенных в текущем году.
+    \item Вывести 5 аниме, в которых задействовано самое большое число сэйю.
+    \item Построить пузырьковую диаграмму (BubbleChart) распределения аниме по жанрам (сколько аниме в каждом жанре), воспользовавшись свойством \wdProperty{279}{<<подкласс>> (P279)}.
     \item Отметить на карте места рождения сэйю.
     \item Построить гистограмму или пузырьковую диаграмму национальностей сэйю.
     \item Построить гистограмму количества вышедших аниме по годам или количества сэйю по годам рождения.
+    \item Построить гистограммы, аналогичные рисунку ~\ref{fig:Seiyu_age_hist_RU}, но с учётом пола сэйю (одну для мужчин, другую для женщин).
 \end{enumerate}
