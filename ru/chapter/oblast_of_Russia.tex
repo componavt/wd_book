@@ -1,4 +1,4 @@
-\chapter{Области России}
+﻿\chapter{Области России}
 \label{ch:oblast-of-Russia}
 Статья посвящена исследованию свойств множества объектов Викиданных, 
 представляющих собой регионы России. С помощью SPARQL-запросов были получены 
@@ -7,6 +7,270 @@
 бывшие административно-территориальные единицы. Построен граф субъектов России, граничащих 
 с зарубежными странами (граф соседей), а также нарисована карта, на которой отмечена численность 
 населения отдельных регионов. Была выполнена оценка степени заполненности свойства Викиданных 
-"shares border with" (граничит с) у каждого субъекта РФ. Читатель познакомится с компьютерной 
+<<граничит с>> (shares border with) у каждого субъекта РФ. Читатель познакомится с компьютерной 
 обработкой Викиданных и визуализацией информации о регионах России.
 
+\section{Экземпляры объекта <<Области России>>}
+
+\begin{itemize}
+  \item Объекты: \wdqName{<<области России>>}{835714}
+  \item Свойство: \wdProperty{31}{<<экземпляры>>}
+\end{itemize}
+
+Построим список всех областей России (листинг ~\protect\ref{lst:oblast-of-Russia}).
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={\href{https://w.wiki/4D2V}{Список всех областей России}\protect\footnotemark},
+                    label=lst:oblast-of-Russia,
+                    texcl 
+                    ]
+# List of `instances of` "oblast of Russia"
+SELECT ?region ?regionLabel
+WHERE
+{
+    ?region wdt:P31 wd:Q835714. # instance of "oblast of Russia"
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "ru"}
+}
+\end{lstlisting}%
+\footnotetext{Получено \num{48} записей в 2017 году и \num{46} записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4D2V}{https://w.wiki/4D2V}}
+
+Наиболее полными и проработанными областями России на Викиданных являются: \href{https://www.wikidata.org/wiki/Q1697}{Московская область}, \href{https://www.wikidata.org/wiki/Q5824}{Тюменская область}, \href{https://www.wikidata.org/wiki/Q3178}{Курская область}.
+
+Почти пустыми и малоинформативными областями России оказались: \href{https://www.wikidata.org/wiki/Q182902}{Читинская область}, \href{https://www.wikidata.org/wiki/Q2596}{Костромская область}, \href{https://www.wikidata.org/wiki/Q5338}{Оренбургская область}.
+
+\section{Субъекты Российской Федерации}
+
+Построим список всех субъектов Российской Федерации - республики, края, области, города федерального значения, автономные области и автономные округа (листинг ~\protect\ref{lst:oblast-of-Russia}).
+
+Используются:
+\begin{itemize}
+  \item объект \wdqName{<<области России>>}{835714}
+  \item объект \wdqName{<<республики России>>}{41162}
+  \item объект \wdqName{<<города федерального значения России>>}{183342}
+  \item объект \wdqName{<<края России>>}{831740}
+  \item объект \wdqName{<<автономные области России>>}{309166}
+  \item объект \wdqName{<<автономные округа России>>}{184122}
+  \item объект \wdqName{<<бывшая административно-территориальная единица>>}{19953632}
+  \item свойство \wdProperty{31}{<<экземпляры>>}
+\end{itemize}
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={\href{https://w.wiki/4D2R}{Список всех субъектов Российской Федерации}\protect\footnotemark},
+                    label=lst:oblast-of-Russia,
+                    texcl 
+                    ]
+# List of `instances of` "subjects of Russia" 
+SELECT ?subject ?subjectLabel ?typeLabel
+WHERE
+{  
+  VALUES ?type {wd:Q835714   # Oblast of Russia
+                wd:Q41162    # Republic of Russia
+                wd:Q183342   # Federal city of Russia
+                wd:Q831740   # Krai of Russia
+                wd:Q309166   # Autonomus oblast of Russia
+                wd:Q184122}  # Autonomus okrug of Russia
+  ?subject wdt:P31 ?type.  # Selecting the type of object
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru"}
+}
+\end{lstlisting}%
+\footnotetext{Получено \num{85} записей в 2017 году и \num{86} записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4D2R}{https://w.wiki/4D2R}}
+
+\section{Соседние субъекты}
+
+Построим граф соседних субъектов РФ по свойству <<shares border with>> (листинг ~\protect\ref{lst:oblast-of-Russia}).
+
+Используются:
+\begin{itemize}
+  \item объект \wdqName{<<области России>>}{835714}
+  \item объект \wdqName{<<республики России>>}{41162}
+  \item объект \wdqName{<<города федерального значения России>>}{183342}
+  \item объект \wdqName{<<края России>>}{831740}
+  \item объект \wdqName{<<автономные области России>>}{309166}
+  \item объект \wdqName{<<автономные округа России>>}{184122}
+  \item объект \wdqName{<<бывшая административно-территориальная единица>>}{19953632}
+  \item свойство \wdProperty{47}{<<граничит>>}
+  \item свойство \wdProperty{31}{<<экземпляры>>}
+\end{itemize}
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={\href{https://w.wiki/4DKD}{Граф соседних субъектов РФ}\protect\footnotemark},
+                    label=lst:oblast-of-Russia,
+                    texcl 
+                    ]
+# Graph of "subjects of Russia" `shares border with`. 
+#defaultView:Graph
+SELECT ?sharesBorderWith ?sharesBorderWithLabel ?item ?itemLabel ?rgb
+WHERE
+{
+  VALUES ?toggle { true false }
+  
+  VALUES ?type {wd:Q835714   # Oblast of Russia
+                wd:Q41162    # Republic of Russia
+                wd:Q183342   # Federal city of Russia
+                wd:Q831740   # Krai of Russia
+                wd:Q309166   # Autonomus oblast of Russia
+                wd:Q184122}  # Autonomus okrug of Russia
+  ?subject wdt:P31 ?type.  # Selecting the type of object  
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru"}
+  
+  ?subject wdt:P47 ?sharesBorderWith   
+           
+  BIND(IF(?toggle,?subject, ?type) AS ?item).
+  BIND(IF(?toggle,?subjectLabel,?typeLable) AS ?itemLabel).
+  BIND(IF(?toggle,"FFFFFF","7FFF00") AS ?rgb).
+}
+\end{lstlisting}%
+\footnotetext{Получено \num{467} записей в 2017 году и \num{480} записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4DKD}{https://w.wiki/4DKD}}
+
+Полученное число формируется путем сложения количества соседних территорий для всех субъектов России. Результат работы скрипта - граф, отображающий соседние субъекты, представлен на рисунке ниже. На нем отчетливо видно изолированную компоненту, которая является Калининградской областью.
+
+\begin{figure*}[h]
+
+    \setlength{\fboxsep}{0pt}%
+    \setlength{\fboxrule}{1pt}%
+    \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/oblast_of_Russia/Graph_Subjects_of_Russia_Karelia.jpg}}
+	\caption[Граф субъектов России. Карелия, 2021.]{Граф субъектов России. Карелия, 2021. Граф построен на основе данных, полученных с помощью запроса~\protect\ref{lst:oblast-of-Russia}.}%
+\end{figure*} 
+
+\subsection{Полнота Викиданных}
+
+Построим список субъектов РФ с пустым свойством <<shares border with>> (граничит с) (листинг ~\protect\ref{lst:oblast-of-Russia}):
+
+Используются:
+\begin{itemize}
+  \item объект \wdqName{<<области России>>}{835714}
+  \item объект \wdqName{<<республики России>>}{41162}
+  \item объект \wdqName{<<города федерального значения России>>}{183342}
+  \item объект \wdqName{<<края России>>}{831740}
+  \item объект \wdqName{<<автономные области России>>}{309166}
+  \item объект \wdqName{<<автономные округа России>>}{184122}
+  \item объект \wdqName{<<бывшая административно-территориальная единица>>}{19953632}
+  \item свойство \wdProperty{47}{<<граничит>>}
+  \item свойство \wdProperty{31}{<<экземпляры>>}
+\end{itemize}
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={\href{https://w.wiki/4DKH}{Список субъектов РФ с пустым свойством "shares border with"}\protect\footnotemark},
+                    label=lst:oblast-of-Russia,
+                    texcl 
+                    ]
+# List of "subjects of Russia" without `shares border with`. 
+SELECT ?subject ?subjectLabel ?sharesBorderWith ?sharesBorderWithLabel
+WHERE
+{
+  { ?subject wdt:P31 wd:Q835714 } UNION  # Oblast of Russia
+  { ?subject wdt:P31 wd:Q41162 } UNION  # Republic of Russia
+  { ?subject wdt:P31 wd:Q183342 } UNION  # Federal city of Russia
+  { ?subject wdt:P31 wd:Q831740 } UNION  # Krai of Russia
+  { ?subject wdt:P31 wd:Q309166 } UNION # Autonomus oblast of Russia
+  { ?subject wdt:P31 wd:Q184122 } # Autonomus okrug of Russia
+  
+  FILTER NOT EXISTS {?subject wdt:P31 wd:Q19953632} # Former administrative territorial entity
+  MINUS { ?subject  wdt:P47 [] } . #Shares border with 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru"}
+}
+\end{lstlisting}%
+\footnotetext{Получено \num{0} записей в 2017 году и \num{1} записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4DKH}{https://w.wiki/4DKH}}
+
+Таким образом, на Викиданных нет изолированных субъектов РФ, что соответствует действительности.
+
+Информация, необходимая для решения задачи:
+\begin{itemize}
+  \item По данным Конституции Российской Федерации Россия состоит из 85 субъектов — республик, краёв, областей, городов федерального значения, автономной области, автономных округов[1].
+  \item В этой задаче не учитываются субъекты, которые на текущий момент времени не входят в состав РФ (например: \wdqName{Читинская область}{182902}), поскольку они не являются экземплярами объектов <<oblast of Russia>>, <<republic of Russia>>, <<federal city of Russia>>, <<krai of Russia>>, <<autonomus okrug of Russia>>, <<autonomus oblast of Russia>>, а относятся к объекту <<former administrative territorial entity>> (бывшая административно-территориальная единица). Для данной задачи важно то, что общее количество субъектов РФ с учётом бывших административно-территориальных единиц увеличится.(Получаем 94 объекта после выполнения SPARQL-запроса).
+  \item По данным категории <<Субъекты Российской Федерации>> Русской Википедии существует 85 субъектов РФ.
+  \item По данным категории <<\href{https://ru.wikipedia.org/wiki/en:Federal_subjects_of_Russia}{Federal subjects of Russia}>> Английской Википедии так же существует 85 субъектов РФ.
+\end{itemize}
+
+В Викиданных больше всего свойств в России и в мире (по данным \href{https://prowd.id/dashboards/68f1cfd5b84d/profile}{ProWD}) у \wdqName{Ленинградской}{2191} и \wdqName{Калининградской областей}{1749}, по 43 свойства. Число свойств для России и мира одинаковое, т.к. и для России и для мира это одни и те же объекты.
+
+\section{Численность населения отдельных субъектов Российской Федерации}
+
+Обозначим на карте субъекты Российской Федерации, разделив их на 6 групп по количеству населения. Субъекты, принадлежащие одной группе, будут отображаться на карте одним цветом, а именно:
+\begin{itemize}
+  \item субъекты с количеством населения менее \num{500000} обозначаются синим цветом
+  \item субъекты с количеством населения более \num{500000}, но менее \num{1000000} обозначаются оранжевым цветом
+  \item субъекты с количеством населения более \num{1000000}, но менее \num{3000000} обозначаются зеленым цветом
+  \item субъекты с количеством населения более \num{300000}, но менее \num{8000000} обозначаются красным цветом
+  \item субъекты с количеством населения более \num{800000}, но менее \num{10000000} найдены не были
+  \item субъекты с количеством населения более \num{1000000} обозначаются фиолетовым цветом
+\end{itemize}
+
+Используются:
+\begin{itemize}
+  \item объект \wdqName{<<области России>>}{835714}
+  \item объект \wdqName{<<республики России>>}{41162}
+  \item объект \wdqName{<<города федерального значения России>>}{183342}
+  \item объект \wdqName{<<края России>>}{831740}
+  \item объект \wdqName{<<автономные области России>>}{309166}
+  \item объект \wdqName{<<автономные округа России>>}{184122}
+  \item объект \wdqName{<<бывшая административно-территориальная единица>>}{19953632}
+  \item свойство \wdProperty{625}{<<координаты>>}
+  \item свойство \wdProperty{1082}{<<численность населения>>}
+  \item свойство \wdProperty{31}{<<экземпляры>>}
+\end{itemize}
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={\href{https://w.wiki/4DKV}{Карта населения Российской Федерации}\protect\footnotemark},
+                    label=lst:oblast-of-Russia,
+                    texcl 
+                    ]
+# Map of `population` "subject of Russia"
+# Version 2021
+#defaultView:Map
+SELECT DISTINCT ?subject ?subjectLabel ?population ?coord ?layer
+{
+  {
+    { ?subject wdt:P31 wd:Q835714 } UNION  # Oblast of Russia
+    { ?subject wdt:P31 wd:Q41162 } UNION  # Republic of Russia
+    { ?subject wdt:P31 wd:Q183342 } UNION  # Federal city of Russia
+    { ?subject wdt:P31 wd:Q831740 } UNION  # Krai of Russia
+    { ?subject wdt:P31 wd:Q309166 } UNION # Autonomus oblast of Russia
+    { ?subject wdt:P31 wd:Q184122 } # Autonomus okrug of Russia
+  }   
+  ?subject wdt:P625 ?coord; wdt:P1082 ?population.
+  
+  FILTER NOT EXISTS {?subject wdt:P31 wd:Q19953632}  # former administrative territorial entity
+  BIND(
+    IF(?population < 500000, "< 500000",
+    IF(?population < 1000000, "500000 - 1000000",
+    IF(?population < 3000000, "1000000 - 3000000",
+    IF(?population < 8000000, "3000000 - 8000000",
+    IF(?population < 10000000, "8000000 - 10000000",
+    "> 10000000")))))
+    AS ?layer).
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru"}
+}
+ORDER BY ?population
+\end{lstlisting}%
+\footnotetext{Получено \num{85} записей в 2017 году и \num{86} записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4DKV}{https://w.wiki/4DKV}}
+
+Результат работы скрипта представлен на рисунке ниже.
+
+\begin{figure*}[h]
+
+    \setlength{\fboxsep}{0pt}%
+    \setlength{\fboxrule}{1pt}%
+    \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/oblast_of_Russia/SubjectsRussia_Map.png}}
+	\caption[Карта населения Российской Федерации, 2021.]{Карта населения Российской Федерации, 2021. Карта субъектов Российской Федерации, разделенных на 6 групп по количеству населения и отмеченных разными цветами в зависимости от группы, в которую субъект входит. Карта построена на основе данных, полученных с помощью запроса~\protect\ref{lst:oblast-of-Russia}.}%
+\end{figure*} 
+
+\section{Защита страниц}
+
+На страницы Викиданных устанавливается защита для предотвращения повторяющегося вандализма или спама. Существует несколько видов защиты:
+\begin{itemize}
+  \item Частичная защита или полузащита (обозначается серым замком) разрешает редактировать страницу только автоподтверждённым/подтверждённым участникам.
+  \item Полная защита (обозначается оранжевым или красным замком) ограничивает круг редакторов администраторами.
+  \item Защита от переименования (обозначается зелёным замком) не ограничивает возможность редактировать страницу, однако переименовать её могут только администраторы. Большинство популярных страниц защищено от переименования. Защита от переименования не может быть применена к страницам элементов или свойств.
+  \item Защита от создания (как полная, так и частичная защита обозначается синим замком) может применяться к удалённым или несуществующим страницам. Однако, как и защита от переименования, она не может применяться к удалённым элементам или свойствам.
+  \begin{itemize}
+	\item При полной защите от создания страницу не может создать никто, кроме администраторов.
+	\item При частичной защите от создания страницу могут создать также автоподтверждённые и подтверждённые участники.
+  \end{itemize}
+\end{itemize}
+
+В крайне редких случаях Фонд Викимедиа может защитить страницу в качестве официального действия (office action, обозначается чёрным замком). Официальные действия совершаются только в результате формальной вневикипедийной жалобы, всегда публично объявляются и выполняются только сотрудниками Фонда Викимедиа или членами Совета попечителей.
+
+\href{https://www.wikidata.org/w/index.php?title=Wikidata:Protection_policy/ru&oldid=1413630638}{Правила защиты страниц}.
