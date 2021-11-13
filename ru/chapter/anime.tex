@@ -83,8 +83,7 @@ ORDER BY DESC(?count)
 \caption
 [Pie chart]
 {
-Pie chart жанров аниме, визуализированный с помощью сервиса \href{https://app.rawgraphs.io}{https://app.rawgraphs.io}.\newline
-2021 / Andrew Krizhanovsky / CC BY-SA 3.0
+Круговая диаграмма (pie chart) жанров аниме, визуализированный с помощью сервиса \href{https://app.rawgraphs.io}{https://app.rawgraphs.io}.\newline
 }
 \label{fig:anime_piechart}
 \end{marginfigure}
@@ -113,10 +112,11 @@ WHERE
 
 \subsection{Список сэйю, упорядоченный по числу озвученных ими аниме}
 
-Разумеется, в большинстве аниме есть не только один персонаж. Соответственно, разных персонажей озвучивают разные сэйю. Большинство сэйю озвучили за свою карьеру несколько тайтлов, а многие ~--- несколько десятков тайтлов. Талантливых сэйю приглашают озвучивать сразу несколько персонажей в одном аниме. Одним из самых популярных сэйю является \href{https://w.wiki/4L5q}{Хироси Камия}, который за свою карьеру озвучил более 180 аниме. Самым известным аниме с его участием является \href{https://w.wiki/4L5r}{<<Атака титанов>>}, где он озвучил одного из главных персонажей ~--- капитана Леви.
+Разумеется, в большинстве аниме участвует не один, а множество персонажей. Соответственно, разных персонажей озвучивают разные сэйю. Большинство сэйю озвучили за свою карьеру несколько тайтлов, а многие ~--- несколько десятков тайтлов. Талантливых сэйю приглашают озвучивать сразу несколько персонажей в одном аниме. Одним из самых популярных сэйю является \href{https://w.wiki/4L5q}{Хироси Камия}, имеющий множество наград и озвучивший более 180 аниме. Самым известным аниме с его участием является \href{https://w.wiki/4L5r}{<<Атака титанов>>}, где он озвучил одного из главных персонажей ~--- капитана Леви.
 
 Построим упорядоченный список сэйю по числу озвученных ими аниме (листинг ~\protect\ref{lst:seiyu_titles_sorted}): 
 
+\footnotetext{Получено \num{148} результатов в 2017 году и \num{2684} результата в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/49zz}{https://w.wiki/49zz}}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/49zz}{Упорядоченный список сэйю по числу озвученных ими аниме}\protect\footnotemark},
                     label=lst:seiyu_titles_sorted,
@@ -136,7 +136,6 @@ WHERE
 GROUP BY ?seiyu		    # group by seiyu 
 ORDER BY DESC(?count)	# order by count of voiced anime
 \end{lstlisting}%
-\footnotetext{Получено \num{148} результатов в 2017 году и \num{2684} результата в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/49zz}{https://w.wiki/49zz}}
 
 \subsection{График по числу сэйю, озвучивших одно и более аниме}
 
@@ -145,7 +144,7 @@ ORDER BY DESC(?count)	# order by count of voiced anime
 \begin{fullwidth}
 \lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/4JvT}{Построение гистограммы по числу сэйю, озвучивших одно и более аниме}\protect\footnotemark},
+                    caption={\href{https://w.wiki/4JvT}{Построение графика по числу сэйю, озвучивших одно и более аниме}\protect\footnotemark},
                     label=lst:seiyu_titles_graph,
                     texcl 
                     ]
@@ -179,6 +178,19 @@ ORDER BY DESC(?seiyuRoles)  # grouping and sorting seiyu by number of voice acti
     \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/anime/Seiyu_chart_2021_ru.png}}
 	\caption[График, который показывает число ролей, озвученных различными сэйю, 2021.]{График, который показывает число ролей, озвученных различными сэйю, 2021. График построена на основе данных, полученных с помощью запроса~\protect\ref{lst:seiyu_titles_graph}.}%
     \label{fig:Seiyu_num_chart_2021_ru}%
+\end{figure*} 
+
+\newpage
+
+Аналогичный график можно построить с помощью \href{https://app.rawgraphs.io}{https://app.rawgraphs.io} (рис. ~\ref{fig:anime_seiyu_rawgraphs}).
+
+\begin{figure*}[h]
+
+    \setlength{\fboxsep}{0pt}%
+    \setlength{\fboxrule}{1pt}%
+    \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/anime/anime-seiyu-rawgraphs-2021.png}}
+	\caption[График числа ролей, озвученных различными сэйю, построенный с помощью сервиса Rawgraphs, 2021.]{График числа ролей, озвученных различными сэйю, построенный с помощью сервиса Rawgraphs, 2021. График построена на основе данных, полученных с помощью запроса~\protect\ref{lst:seiyu_titles_graph}.}%
+    \label{fig:anime_seiyu_rawgraphs}%
 \end{figure*} 
 
 \subsection{Граф, связывающий сэйю и озвученные ими аниме}
