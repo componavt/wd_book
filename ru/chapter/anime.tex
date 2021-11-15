@@ -81,9 +81,9 @@ ORDER BY DESC(?count)
 	\fcolorbox{gray}{gray}{\includegraphics{chapter/anime/anime-subclasses-sunburst-diagram-2021.png}}
 }
 \caption
-[Pie chart]
+[Anime sunburst chart]
 {
-Круговая диаграмма (pie chart) жанров аниме, визуализированный с помощью сервиса \href{https://app.rawgraphs.io}{https://app.rawgraphs.io}.\newline
+Круговая диаграмма (sunburst diagram) жанров аниме, визуализированная с помощью сервиса Rawgraphs (\href{https://app.rawgraphs.io}{https://app.rawgraphs.io}).\newline
 }
 \label{fig:anime_piechart}
 \end{marginfigure}
@@ -189,7 +189,7 @@ ORDER BY DESC(?seiyuRoles)  # grouping and sorting seiyu by number of voice acti
     \setlength{\fboxsep}{0pt}%
     \setlength{\fboxrule}{1pt}%
     \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/anime/anime-seiyu-rawgraphs-2021.png}}
-	\caption[График числа ролей, озвученных различными сэйю, построенный с помощью сервиса Rawgraphs, 2021.]{График числа ролей, озвученных различными сэйю, построенный с помощью сервиса Rawgraphs, 2021. График построена на основе данных, полученных с помощью запроса~\protect\ref{lst:seiyu_titles_graph}.}%
+	\caption[График числа ролей, озвученных различными сэйю, построенный с помощью сервиса Rawgraphs, 2021.]{График числа ролей, озвученных различными сэйю, построенный с помощью сервиса Rawgraphs, 2021. График построен на основе данных, полученных с помощью запроса~\protect\ref{lst:seiyu_titles_graph}.}%
     \label{fig:anime_seiyu_rawgraphs}%
 \end{figure*} 
 
@@ -242,21 +242,22 @@ WHERE
 
 Список тайтлов в \href{https://w.wiki/4JVE}{Русской Википедии}\footnote{Проект:Аниме и манга/Списки/Список аниме. \href{https://w.wiki/4JVE}{https://w.wiki/4JVE}, 2021} содержит \num{1638} аниме. Также можно посмотреть \href{https://w.wiki/4JVH}{телевизионные показы аниме в России по годам}\footnote{Проект:Аниме и манга/Телевизионные показы аниме в России по годам. \href{https://w.wiki/4JVH}{https://w.wiki/4JVH}, 2021}.
 
-На сайте \href{https://shikimori.one/}{Shikimori}\cite{shikimori} в списке аниме \num{801} страница по \num{20} наименований. Нетрудно подсчитать, что на сайте есть информация о \num{16020} тайтлах, в то время как в Викиданных объектов, описывающих аниме, всего \num{4756} (см. листинг ~\protect\ref{lst:all_anime_list}). К тому же, стоит учитывать, что скорость выхода новых аниме довольно велика\footnote{Упражнение: с помощью SPARQL подсчитайте, сколько аниме вышло за прошлый год.}. Из этого можно сделать вывод, что Викиданные крайне неполно отражают данные (есть информация только о \num{29.6}\% аниме). То же самое касается и жанров: в \href{https://shikimori.one/animes}{разделе поиска Shikimori}\footnote{Лучшие аниме. \href{https://shikimori.one/animes}{https://shikimori.one/animes}, 2021} доступны \num{42} жанра аниме, в то время как Викиданные содержат информацию только о \num{17}\footnote{Список жанров (категорий) аниме, зарегистрированных в Викиданных, можно посмотреть по ссылке \href{https://en.wikipedia.org/wiki/Category:Lists\_of_anime\_by\_genre}{https://en.wikipedia.org/wiki/Category:Lists\_of\_anime\_by\_genre}}.
+На сайте любительской энциклопедии аниме \href{https://shikimori.one/}{Shikimori}\cite{shikimori} в списке аниме \num{801} страница по \num{20} наименований. Нетрудно подсчитать, что на сайте есть информация о \num{16020} тайтлах, в то время как в Викиданных объектов, описывающих аниме, всего \num{4756} (см. листинг ~\protect\ref{lst:all_anime_list}). К тому же, стоит учитывать, что скорость выхода новых аниме довольно велика\footnote{Упражнение: с помощью SPARQL подсчитайте, сколько аниме вышло за прошлый год.}. Из этого можно сделать вывод, что Викиданные крайне неполно отражают данные (есть информация только о \num{29.6}\% аниме). То же самое касается и жанров: в \href{https://shikimori.one/animes}{разделе поиска Shikimori}\footnote{Лучшие аниме. \href{https://shikimori.one/animes}{https://shikimori.one/animes}, 2021} доступны \num{42} жанра аниме, в то время как Викиданные содержат информацию только о \num{17}\footnote{Список жанров (категорий) аниме, указанных в Английской Википедии, можно посмотреть на странице \href{https://en.wikipedia.org/wiki/Category:Lists\_of_anime\_by\_genre}{Category:Lists of anime by genre}}.
 
 Возможно, приведённые ниже статьи и сайты не будут являться \href{https://w.wiki/3u9v}{АИ}\footnote{Авторитетный источник (АИ) ~--- это ресурс, который владеет информацией, в компетентности и актуальности которой не может быть никаких сомнений. См. \href{https://w.wiki/3u9v}{https://w.wiki/3u9v}}, но с их помощью можно проанализировать информацию об имеющихся аниме и сделать дополнительные выводы о неполноте Викиданных.
 
 \begin{itemize}
-	\item На сайте \href{http://online.anidub.best/}{AniDub}\footnote{АниДаб. \href{http://online.anidub.best/}{http://online.anidub.best/}, 2021} приведён список из \num{5756} аниме.
-	\item На сайте \href{http://animespirit.tv/}{AnimeSpirit}\footnote{AnimeSpirit. \href{http://animespirit.tv/}{http://animespirit.tv/}, 2021} приведён список из \num{1968} аниме.
-	\item На сайте \href{http://animeland.su/}{AnimeLand}\footnote{AnimeLand. \href{http://animeland.su/}{http://animeland.su/}, 2021} приведён список из \num{4795} аниме.
-	\item На сайте \href{https://anivost.org/}{Anivost}\footnote{Anivost. \href{https://anivost.org/}{https://anivost.org/}, 2021} приведён список из \num{420} аниме.
+	\item На сайте любительской озвучки \href{http://online.anidub.best/}{AniDub}\footnote{АниДаб. \href{http://online.anidub.best/}{http://online.anidub.best/}, 2021} приведён список из \num{5756} аниме.
+	\item На сайте онлайн-кинотеатра \href{http://animespirit.tv/}{AnimeSpirit}\footnote{AnimeSpirit. \href{http://animespirit.tv/}{http://animespirit.tv/}, 2021} приведён список из \num{1968} аниме.
+	\item На новостном форуме по тематике аниме \href{http://animeland.su/}{AnimeLand}\footnote{AnimeLand. \href{http://animeland.su/}{http://animeland.su/}, 2021} приведён список из \num{4795} аниме.
+	\item На сайте онлайн-кинотеатра \href{https://anivost.org/}{Anivost}\footnote{Anivost. \href{https://anivost.org/}{https://anivost.org/}, 2021} приведён список из \num{420} аниме.
 \end{itemize}
 
-Можно сделать вывод, что различные сайты имеют разную информацию об имеющихся аниме. Какие-то сайты появились позже, какие-то раньше, поэтому количество аниме на них может разниться, причём довольно серьёзно. Если упорядочить все приведённые сайты, данные Русской Википедии, Английской Википедии и Викиданные по количеству аниме, то Викиданные окажутся не на последнем месте, но, например, сайту \href{https://shikimori.one/}{Shikimori}\cite{shikimori} они уступают почти в 4 раза.
+Какие-то сайты появились позже, какие-то раньше, поэтому количество аниме на них может разниться, причём довольно серьёзно. Если упорядочить все приведённые сайты, данные Русской Википедии, Английской Википедии и Викиданные по количеству аниме, то Викиданные окажутся не на последнем месте, но, например, вышеупомянутой выше энциклопедии \href{https://shikimori.one/}{Shikimori} они уступают почти в 4 раза.
 
 Вспомним запрос ~\protect\ref{lst:seiyu_titles_sorted}, в котором говорилось о \num{2684} сэйю на Викиданных. Дело в том, что поиск производился только по актёрам озвучивания, связанным с аниме, поэтому результат оказался таким скромным. Если запросить информацию о всех актёрах озвучивания (то есть убрать ограничение на категорию аниме), то результат может измениться (листинг ~\protect\ref{lst:voice_actors_list}). 
 
+\footnotetext{Получено \num{3965} результатов в 2017 году и \num{14252} результата в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4KQY}{https://w.wiki/4KQY}}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/4KQY}{Получение списка актёров озвучки и числа озвученных ими проектов}\protect\footnotemark},
                     label=lst:voice_actors_list,
@@ -275,9 +276,22 @@ WHERE
 GROUP BY ?actor		    # group by actor
 ORDER BY DESC(?count)	# order by number of voiced projects 
 \end{lstlisting}%
-\footnotetext{Получено \num{3965} результатов в 2017 году и \num{14252} результата в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4KQY}{https://w.wiki/4KQY}}
 
-Значительный прирост числа результатов относительно вышеупомянутого запроса говорит о том, что сэйю могут озвучивать не только аниме, но и другие проекты, и это нужно учитывать при формировании запросов.
+Прирост числа результатов в \num{5} раз относительно вышеупомянутого запроса говорит о том, что сэйю могут озвучивать не только аниме, но и другие проекты, и это нужно учитывать при формировании запросов.
+
+\begin{marginfigure}[0.0cm]
+{
+	\setlength{\fboxsep}{0pt}%
+	\setlength{\fboxrule}{1pt}%
+	\fcolorbox{gray}{gray}{\includegraphics{chapter/anime/actors-role-counts-sunburst-diagram-2021.png}}
+}
+\caption
+[Actors sunburst diagram]
+{
+Круговая диаграмма (sunburst diagram) числа ролей, озвученных различными актёрами, визуализированная с помощью сервиса Rawgraphs (\href{https://app.rawgraphs.io}{https://app.rawgraphs.io}).\newline
+}
+\label{fig:roles_piechart}
+\end{marginfigure}
 
 \section{Указана ли дата публикации у аниме?}
 
