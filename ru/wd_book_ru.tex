@@ -345,6 +345,11 @@
 \newcommand{\docfilehook}[2]{\texttt{#1}\index{file hooks!#2}\index{#1@\texttt{#1}}}
 \newcommand{\doccounter}[1]{\texttt{#1}\index{#1 counter@\texttt{#1} counter}}
 
+% Short side citations: https://groups.google.com/g/tufte-latex/c/4fKzsy-VRmI?pli=1
+\newcommand{\shortcite}[1]{%
+\sidenote{\citealt{#1}}%
+}
+
 % Generates the index
 \usepackage{makeidx}
 \makeindex
