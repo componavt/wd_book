@@ -83,7 +83,7 @@ ORDER BY DESC(?count)
 \caption
 [Anime sunburst chart]
 {
-Круговая диаграмма (sunburst diagram) жанров аниме, визуализированная с помощью сервиса Rawgraphs (\href{https://app.rawgraphs.io}{https://app.rawgraphs.io}).\newline
+Диаграмма <<солнечные лучи>>\index{График!Sunburst diagram!Количество аниме по жанрам} (sunburst diagram) жанров аниме, построенная с помощью сервиса Rawgraphs (\href{https://app.rawgraphs.io}{https://app.rawgraphs.io}).\newline
 }
 \label{fig:anime_piechart}
 \end{marginfigure}
@@ -141,6 +141,7 @@ ORDER BY DESC(?count)	# order by count of voiced anime
 
 Было бы интересно построить график (линейную диаграмму) сэйю, озвучивших аниме. Чем больше аниме озвучил сэйю, тем правее на диаграмме он будет находиться. Сделать это можно с помощью скрипта ~\protect\ref{lst:seiyu_titles_graph}.
 
+\index{График!LineChart!Число сэйю, озвучивших одно и более аниме}
 \begin{fullwidth}
 \lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
@@ -184,6 +185,7 @@ ORDER BY DESC(?seiyuRoles)  # grouping and sorting seiyu by number of voice acti
 
 Итак, многие сэйю за свою карьеру успевают озвучить несколько аниме. Чтобы нагляднее показать эту взаимосвязь, построим граф, связывающий сэйю и озвученные ими аниме с помощью скрипта ~\protect\ref{lst:seiyu_graph}. Фрагмент итогового графа представлен на рис. ~\ref{fig:Seiyu_graph_2021_ru}. 
 
+\index{График!Graph!Фрагмент графа, связывающего сэйю и озвученные ими аниме}
 \lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/4HFt}{Построение графа, связывающего сэйю и озвученные ими аниме}\protect\footnotemark},
@@ -214,7 +216,7 @@ WHERE
 
 В переменную \emph{?seiyu} (7-9 строки) записан массив объектов Викиданных, соответствующих некоторым известным сэйю ~--- \wdqName{Кадзуэ Комия}{6381410} и другим.
 
-Конструкция \emph{BIND(IF(?toggle, ?anime1, ?seiyu2))} в строке 14 позволяет определить тип вершины графа: если \emph{?toggle} принимает значение true, то вершина графа соответствует аниме, иначе ~--- сэйю. Аналогично в строках 15 и 16 определяется тип текстовой метки для вершины и цвет вершины.
+Конструкция \emph{BIND\index{SPARQL!BIND!Граф, связывающий сэйю и озвученные ими аниме}(IF\index{SPARQL!IF!Граф, связывающий сэйю и озвученные ими аниме}(?toggle, ?anime1, ?seiyu2))} в строке 14 позволяет определить тип вершины графа: если \emph{?toggle} принимает значение true, то вершина графа соответствует аниме, иначе ~--- сэйю. Аналогично в строках 15 и 16 определяется тип текстовой метки для вершины и цвет вершины.
 
 \newpage
 \begin{fullwidth}
@@ -275,7 +277,7 @@ ORDER BY DESC(?count)	# order by number of voiced projects
 \caption
 [Actors sunburst diagram]
 {
-Круговая диаграмма (sunburst diagram) числа ролей, озвученных различными актёрами, визуализированная с помощью сервиса Rawgraphs (\href{https://app.rawgraphs.io}{https://app.rawgraphs.io}).\newline
+Диаграмма <<солнечные лучи>>\index{График!Sunburst diagram!Количество ролей, озвученных разными актёрами} числа ролей, озвученных различными актёрами, построенная с помощью сервиса Rawgraphs (\href{https://app.rawgraphs.io}{https://app.rawgraphs.io}).\newline
 }
 \label{fig:roles_piechart}
 \end{marginfigure}
@@ -347,8 +349,8 @@ GROUP BY ?seiyu ?bDate
 Различия между скриптами (листинги  ~\protect\ref{lst:seiyu_bd_w_service} и  ~\protect\ref{lst:seiyu_bd_w_rdfs}) заключаются в том, что:
 
 \begin{itemize}
-    \item метка (имя) сэйю в первом случае получается с помощью переменной \emph{?seiyuLabel} (в таком случае нужно указать команду \emph{SERVICE} для установки языков, на котором будут возвращены имена), а во втором ~--- с помощью конструкции \emph{rdfs:label};
-    \item в первом варианте скрипта необходимо указывать \emph{?seiyuLabel} как параметр \emph{GROUP BY}, чтобы связать объекты сэйю и их метки.
+    \item метка (имя) сэйю в первом случае получается с помощью переменной \emph{?seiyuLabel} (в таком случае нужно указать команду \emph{SERVICE}\index{SPARQL!SERVICE!Получение дат рождения сэйю} для установки языков, на котором будут возвращены имена), а во втором ~--- с помощью конструкции \emph{rdfs:label}\index{SPARQL!rdfs:label!Получение дат рождения сэйю};
+    \item в первом варианте скрипта необходимо указывать \emph{?seiyuLabel} как параметр \emph{GROUP BY}\index{SPARQL!GROUP BY!Получение дат рождения сэйю}, чтобы связать объекты сэйю и их метки.
 \end{itemize}
 
 Получим список всех зарегистрированных в Викиданных аниме и дат их выхода (листинг ~\protect\ref{lst:all_anime_releases}).\footnote{Упражнение: визуализируйте результаты работы скрипта ~\protect\ref{lst:all_anime_releases}. Можете усложнить задачу ~--- например, добавить на график даты окончания показа сериалов.} 
@@ -404,12 +406,13 @@ WHERE
 
 В результате получим гистограмму, по оси абсцисс которой отложен возраст в годах, а по оси ординат ~--- суммарное количество ролей, озвученных всеми сэйю такого возраста. Получившаяся гистограмма представлена на рис. ~\ref{fig:Seiyu_age_hist_RU}. 
 
+\index{График!Histogram!Число аниме, озвученных сэйю разных возрастов}
 \begin{figure*}[h]
 
     \setlength{\fboxsep}{0pt}%
     \setlength{\fboxrule}{1pt}%
     \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/anime/Seiyu_age_hist_RU.png}}
-	\caption[Гистограмма с числом аниме, озвученное сэйю разных возрастов, 2021.]{Гистограмма с числом аниме, озвученных различными сэйю, 2021. Гистограмма построена на основе данных, полученных с помощью запроса ~\protect\ref{lst:link_anime_seiyu}.}%
+	\caption[Гистограмма с числом аниме, озвученных сэйю разных возрастов, 2021.]{Гистограмма с числом аниме, озвученных различными сэйю, 2021. Гистограмма построена на основе данных, полученных с помощью запроса ~\protect\ref{lst:link_anime_seiyu}.}%
     \label{fig:Seiyu_age_hist_RU}%
 \end{figure*} 
  	
