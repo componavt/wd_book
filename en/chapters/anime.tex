@@ -31,3 +31,25 @@ Wikimedia Commons / numan (CC BY-SA 3.0)
 Anime is the Japanese animation. It is special because of its visual style, but there are other features that are not that obvious. For instance, anime has a significantly wider variety of genres in comparison to the American and European animation: from family comedies and movies for kids to dramatic stories, whereas in the Western cinema the stories of such genre are mostly shown in the live action movies.
 
 Each anime has its own voice actors. Further, we will call the Japanese voice actors seiyu. In the Japanese animation, the terms \emph{seiyu} and \emph{voice actor} are synonyms. Usually, the word \emph{title} means the certain anime. Generally, \emph{title} means the term which combines different kinds of products, from cinema to novel, that are based on the same literary work which has an exact name.
+
+% analog of wdProperty is needed
+In order to work with the anime list from Wikidata, we need to use the \wdqName{anime}{1107} object and the \href{https://www.wikidata.org/wiki/Property:P31}{instance of (P31)} property. Let's get the list of all anime names, without anime subclasses (listing ~\protect\ref{lst:anime}).
+
+\begin{lstlisting}[ language=SPARQL, breaklines=true, 
+                    caption={List of anime without subclasses.\\\hspace{\textwidth}
+                        The result contains \num{683} instances of anime in 2017, 
+                        \num{216} instances of anime in 2020.\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/4ABq}{w.wiki/4ABq}
+                        },
+                    label=lst:anime,
+                    texcl 
+                    ]
+# List of instances of anime
+SELECT ?anime ?animeLabel
+WHERE
+{
+    ?anime wdt:P31 wd:Q1107. # instance of anime
+    SERVICE wikibase:label{bd:serviceParam
+					     wikibase:language "en,ja"}
+}
+\end{lstlisting}%
