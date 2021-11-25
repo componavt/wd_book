@@ -77,3 +77,28 @@ ORDER BY DESC(?count)
 \end{lstlisting}%
 
 This classification of anime by genres is not perfect because there is a significant skewness to the anime television series: among \num{4875} titles, {2984} are the instances of anime series genre (\num{62,7}\%). Also, some subclasses correspond not to genres, but to the particular anime (i.e., \href{https://w.wiki/3iKe}{Evangelion}).
+
+Let's get the list of all anime names, including the titles that are the instances of anime subclasses, with script~\protect\ref{lst:all_anime_list}.
+
+\begin{lstlisting}[ language=SPARQL, breaklines=true, 
+                    caption={List of anime, including the titles that are instances of anime subclasses.\\\hspace{\textwidth}
+                        The result contains \num{4875} anime names in 2021.\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/4ABv}{https://w.wiki/4ABv}
+                        },
+                    label=lst:all_anime_list,
+                    texcl 
+                    ]
+# List of instances of anime and subclasses of anime
+SELECT ?anime ?animeLabel
+WHERE
+{
+    ?anime wdt:P31/wdt:P279* wd:Q1107. # instance of anime with
+                                                       # subclasses
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en,ja" }
+}
+\end{lstlisting}%
+
+Anime that have the most complete information on Wikidata are \wdqName{Gurren Lagann}{4277}, \wdqName{Space Battleship Yamato}{4292}, \wdqName{Project A-ko}{4316}. There are also some anime with many missing properties like \wdqName{Doraemon}{711311}, \wdqName{The Animal Conference on the Environment}{97195557} and \wdqName{Assassins Pride}{96737300}.
+
+% add Prowd link
+According to ProWD service, among all the anime titles on Wikidata, \wdqName{Fullmetal Alchemist: The Sacred Star of Milos}{1004318}\footnote{Fullmetal Alchemist: The Sacred Star of Milos is an anime movie which continues the Fullmetal Alchemist anime series. Its main characters are the alchemist brothers who use their magic to fight the criminals and forces of evil.} has the greatest number of properties (\num{24}).
