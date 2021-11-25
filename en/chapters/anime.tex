@@ -33,12 +33,12 @@ Anime is the Japanese animation. It is special because of its visual style, but 
 Each anime has its own voice actors. Further, we will call the Japanese voice actors seiyu. In the Japanese animation, the terms \emph{seiyu} and \emph{voice actor} are synonyms. Usually, the word \emph{title} means the certain anime. Generally, \emph{title} means the term which combines different kinds of products, from cinema to novel, that are based on the same literary work which has an exact name.
 
 % analog of wdProperty is needed
-In order to work with the anime list from Wikidata, we need to use the \wdqName{anime}{1107} object and the \href{https://www.wikidata.org/wiki/Property:P31}{instance of (P31)} property. Let's get the list of all anime names, without anime subclasses (listing ~\protect\ref{lst:anime}).
+In order to work with the anime list from Wikidata, we need to use the \wdqName{anime}{1107} object and the \href{https://www.wikidata.org/wiki/Property:P31}{instance of (P31)} property. Let's get the list of all anime names, without anime subclasses (listing~\protect\ref{lst:anime}).
 
 \begin{lstlisting}[ language=SPARQL, breaklines=true, 
                     caption={List of anime without subclasses.\\\hspace{\textwidth}
                         The result contains \num{683} instances of anime in 2017, 
-                        \num{216} instances of anime in 2020.\\\hspace{\textwidth}
+                        \num{216} instances of anime in 2021.\\\hspace{\textwidth}
                         SPARQL query: \href{https://w.wiki/4ABq}{w.wiki/4ABq}
                         },
                     label=lst:anime,
@@ -53,3 +53,27 @@ WHERE
 					     wikibase:language "en,ja"}
 }
 \end{lstlisting}%
+
+In fact, there are much more anime objects in Wikidata, but they are the instances not of anime, but of its subclasses, such as, for example, \wdqName{anime series}{63952888}. Let's execute the query~\protect\ref{lst:anime_genres} in order to obtain the list of anime genres and the number of anime that correspond to these genres.
+
+\begin{lstlisting}[ language=SPARQL, breaklines=true, 
+                    caption={List of genres (subclasses) of anime.\\\hspace{\textwidth}
+                        The result contains \num{11} genres of anime in 2021.\\\hspace{\textwidth}
+                        SPARQL query: \href{https://w.wiki/4ABt}{w.wiki/4ABt}
+                        },
+                    label=lst:anime_genres,
+                    texcl 
+                    ]
+# Select anime and its subclasses with number of titles
+# corresponding to these subclasses
+SELECT ?subAnime ?subAnimeLabel
+(COUNT(?subAnimeInstance) AS ?count) WHERE {
+  ?subAnime wdt:P279* wd:Q1107.
+  ?subAnimeInstance wdt:P31 ?subAnime
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,ja". }
+}
+GROUP BY ?subAnime ?subAnimeLabel
+ORDER BY DESC(?count)
+\end{lstlisting}%
+
+This classification of anime by genres is not perfect because there is a significant skewness to the anime television series: among \num{4875} titles, {2984} are the instances of anime series genre (\num{62,7}\%). Also, some subclasses correspond not to genres, but to the particular anime (i.e., \href{https://w.wiki/3iKe}{Evangelion}).
