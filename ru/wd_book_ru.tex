@@ -1,9 +1,42 @@
 %\documentclass{tufte-book}
-\documentclass[nofonts,justified]{tufte-book}% good in Ubuntu
+\documentclass[nofonts,justified,nobib]{tufte-book}% good in Ubuntu
 %\documentclass[nofonts,justified, nobib]{tufte-book}
 %                                 tufte-book modifies the \cite-command heavily, you can turn this behavior off, using the nobib-option:  
 
 \usepackage{cmap} % comment out in Ubuntu
+
+
+% https://tex.stackexchange.com/a/45949/99685 switch from natbib to biblatex in Tufte-LaTeX
+\usepackage{hyphenat}
+\usepackage[
+  style=verbose,
+  autocite=footnote,
+  citepages=omit,
+  dashed=false,
+  maxcitenames=1,
+  backend=biber
+]{biblatex}
+\addbibresource{wd_references.bib}
+\ExecuteBibliographyOptions{citetracker=true}
+
+
+% + shorttitle if twice of more references to the same biblio reference
+% https://tex.stackexchange.com/a/26084/99685
+\renewbibmacro*{cite:short}{% based on cite:short from verbose.cbx
+  \printtext[bibhyperlink]{\printnames{labelname}}%
+  \iffieldundef{shorttitle}
+    {}
+    {\setunit*{\nametitledelim}%
+     \printfield[citetitle]{labeltitle}}}
+
+\renewbibmacro*{cite:short}{% based on cite:short from verbose.cbx
+  \printtext[bibhyperlink]{\printnames{labelname}}%
+  \iffieldundef{shorttitle}
+    {}
+    {\setunit*{\nametitledelim}%
+     \printfield[citetitle]{labeltitle}}}
+
+
 
 % source tufte-latex
 %\usepackage[T1]{fontenc}
@@ -146,8 +179,7 @@
 \newcommand{\wdqName}[2]{\href{https://www.wikidata.org/wiki/Q#2}{#1~(Q#2)}}
 
 % Wikidata object property name and hyperlink
-%   \wdproperty{ID, Name} = \href{https://www.wikidata.org/wiki/Property:PID}{Name (PID)}
-% \wdproperty{607, conflict} = \href{https://www.wikidata.org/wiki/Property:P607}{conflict (P607)}
+% \wdproperty{ID}{Name} = \href{https://www.wikidata.org/wiki/Property:PID}{Name (PID)}
 \newcommand{\wdProperty}[2]{\href{https://www.wikidata.org/wiki/Property:P#1}{#2 (P#1)}}
 
 
@@ -345,10 +377,6 @@
 \newcommand{\docfilehook}[2]{\texttt{#1}\index{file hooks!#2}\index{#1@\texttt{#1}}}
 \newcommand{\doccounter}[1]{\texttt{#1}\index{#1 counter@\texttt{#1} counter}}
 
-% Short side citations: https://groups.google.com/g/tufte-latex/c/4fKzsy-VRmI?pli=1
-\newcommand{\shortcite}[1]{%
-\sidenote{\citealt{#1}}%
-}
 
 % Generates the index
 \usepackage{makeidx}
@@ -534,8 +562,9 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 
 \backmatter
 
-\bibliographystyle{plainnat}
-\bibliography{wd_references}
+%\bibliographystyle{plainnat}
+%\bibliography{wd_references}
+\printbibliography 
 
 \printindex
 
