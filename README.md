@@ -39,7 +39,7 @@ Read [the template tutorial online](https://raw.githubusercontent.com/Tufte-LaTe
 The Wikidata book in Russian (file `wd_book/ru/wd_book.tex`) can be compiled with the following:
 
     pdflatex wd_book_ru
-    bibtex wd_book_ru
+    biber wd_book_ru
     makeindex wd_book_ru.idx
     # or texindy --language english wd_book.idx
     pdflatex wd_book_ru
