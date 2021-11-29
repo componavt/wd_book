@@ -9,7 +9,7 @@ Author: \href{https://www.deviantart.com/tysontan/art/The-Magic-Stylus-570566846
 
 \marginnote[0.0cm]{Seiyu are the Japanese voice actors. Usually seiyu give voice to the characters of anime, video games, movies, work on the radio and TV. They act as storytellers on radio shows. Moreover, the seiyu's voices are used in advertisements, voice announcements, book audios and for re-sounding. Men and women, adults and children can work as seiyu.}
 
-This chapter is dedicated to \wdqName{anime}{1107} Wikidata object analysis. Using SPARQL queries executed on Wikidata objects of anime type, several tasks were accomplished. The list of seiyu ordered by number of anime voiced by them is shown, the histogram of seiyu that acted in one or more anime is presented, the graph that connects seiyu and anime voiced by them is constructed, the estimate of age of the seiyu's activity is received.
+This chapter is dedicated to \wdqName{anime}{1107} Wikidata object analysis. Using SPARQL queries executed on Wikidata objects of anime type, several tasks were accomplished. The list that contains names of seiyu and number of their roles is shown, the histogram of seiyu that acted in one or more anime is presented, the graph that connects seiyu and anime voiced by them is constructed, the seiyu's activity age is estimated.
 
 \begin{marginfigure}[0.0cm]
 {
@@ -28,16 +28,15 @@ Wikimedia Commons / numan (CC BY-SA 3.0)
 
 \section{Anime object instances}
 
-Anime is the Japanese animation. It is special because of its visual style, but there are other features that are not that obvious. For instance, anime has a significantly wider variety of genres in comparison to the American and European animation: from family comedies and movies for kids to dramatic stories, whereas in the Western cinema the stories of such genre are mostly shown in the live action movies.
+Anime is the Japanese animation. Anime has its unique visual style, but there are other features that are not that obvious. For instance, anime has a significantly wider variety of genres in comparison to the American and European animation: from family comedies and movies for kids to dramatic stories, whereas in the Western cinema the stories of such genre are mostly shown in the movies.
 
-Each anime has its own voice actors. Further, we will call the Japanese voice actors seiyu. In the Japanese animation, the terms \emph{seiyu} and \emph{voice actor} are synonyms. Usually, the word \emph{title} means the certain anime. Generally, \emph{title} means the term which combines different kinds of products, from cinema to novel, that are based on the same literary work which has an exact name.
+Each anime has its own voice actors. Here and further we will call the Japanese voice actors seiyu. In the Japanese animation the terms \emph{seiyu} and \emph{voice actor} are synonyms. Usually the word \emph{title} means the certain anime. In general \emph{title} means the term which combines different kinds of products, from cinema to novel, that are based on the same literary work which has an exact name.
 
 % analog of wdProperty is needed
-In order to work with the anime list from Wikidata, we need to use the \wdqName{anime}{1107} object and the \href{https://www.wikidata.org/wiki/Property:P31}{instance of (P31)} property. Let's get the list of all anime names, without anime subclasses (listing~\protect\ref{lst:anime}).
+In order to work with the anime list from Wikidata we need to use the \wdqName{anime}{1107} object and the \href{https://www.wikidata.org/wiki/Property:P31}{instance of (P31)} property. Let's get the list of all anime names, without anime subclasses (listing~\protect\ref{lst:anime}).
 
 \begin{lstlisting}[ language=SPARQL, breaklines=true, 
-                    caption={List of anime without subclasses.\\\hspace{\textwidth}
-                        The result contains \num{683} instances of anime in 2017, 
+                    caption={List of anime without subclasses. The result contains \num{683} instances of anime in 2017, 
                         \num{216} instances of anime in 2021.\\\hspace{\textwidth}
                         SPARQL query: \href{https://w.wiki/4ABq}{w.wiki/4ABq}
                         },
@@ -45,9 +44,7 @@ In order to work with the anime list from Wikidata, we need to use the \wdqName{
                     texcl 
                     ]
 # List of instances of anime
-SELECT ?anime ?animeLabel
-WHERE
-{
+SELECT ?anime ?animeLabel WHERE {
     ?anime wdt:P31 wd:Q1107. # instance of anime
     SERVICE wikibase:label{bd:serviceParam
 					     wikibase:language "en,ja"}
@@ -57,8 +54,7 @@ WHERE
 In fact, there are much more anime objects in Wikidata, but they are the instances not of anime, but of its subclasses, such as, for example, \wdqName{anime series}{63952888}. Let's execute the query~\protect\ref{lst:anime_genres} in order to obtain the list of anime genres and the number of anime that correspond to these genres.
 
 \begin{lstlisting}[ language=SPARQL, breaklines=true, 
-                    caption={List of genres (subclasses) of anime.\\\hspace{\textwidth}
-                        The result contains \num{11} genres of anime in 2021.\\\hspace{\textwidth}
+                    caption={List of genres (subclasses) of anime. The result contains \num{11} genres of anime in 2021.\\\hspace{\textwidth}
                         SPARQL query: \href{https://w.wiki/4ABt}{w.wiki/4ABt}
                         },
                     label=lst:anime_genres,
