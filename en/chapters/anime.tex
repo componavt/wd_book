@@ -35,9 +35,9 @@ Each anime has its own voice actors. Here and further we will call the Japanese 
 % analog of wdProperty is needed
 In order to work with the anime list from Wikidata we need to use the \wdqName{anime}{1107} object and the \href{https://www.wikidata.org/wiki/Property:P31}{instance of (P31)} property. Let's get the list of all anime names, without anime subclasses (listing~\protect\ref{lst:anime}).
 
-\begin{lstlisting}[ language=SPARQL, breaklines=true, 
+\begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,
                     caption={List of anime without subclasses. The result contains \num{683} instances of anime in 2017, 
-                        \num{216} instances of anime in 2021.\\\hspace{\textwidth}
+                        \num{216} instances of anime in 2021.
                         SPARQL query: \href{https://w.wiki/4ABq}{w.wiki/4ABq}
                         },
                     label=lst:anime,
@@ -51,10 +51,10 @@ SELECT ?anime ?animeLabel WHERE {
 }
 \end{lstlisting}%
 
-In fact, there are much more anime objects in Wikidata, but they are the instances not of anime, but of its subclasses, such as, for example, \wdqName{anime series}{63952888}. Let's execute the query~\protect\ref{lst:anime_genres} in order to obtain the list of anime genres and the number of anime that correspond to these genres.
+There are much more anime objects in Wikidata, but they are the instances not of anime, but of its subclasses, for example, \wdqName{anime series}{63952888}. Let's execute the query~\protect\ref{lst:anime_genres} in order to obtain the list of anime genres and the number of anime that correspond to these genres.
 
-\begin{lstlisting}[ language=SPARQL, breaklines=true, 
-                    caption={List of genres (subclasses) of anime. The result contains \num{11} genres of anime in 2021.\\\hspace{\textwidth}
+\begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,
+                    caption={List of genres (subclasses) of anime. The result contains \num{11} genres of anime in 2021.
                         SPARQL query: \href{https://w.wiki/4ABt}{w.wiki/4ABt}
                         },
                     label=lst:anime_genres,
@@ -66,19 +66,20 @@ SELECT ?subAnime ?subAnimeLabel
 (COUNT(?subAnimeInstance) AS ?count) WHERE {
   ?subAnime wdt:P279* wd:Q1107.
   ?subAnimeInstance wdt:P31 ?subAnime
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,ja". }
+    SERVICE wikibase:label{bd:serviceParam
+					     wikibase:language "en,ja"}
 }
 GROUP BY ?subAnime ?subAnimeLabel
 ORDER BY DESC(?count)
 \end{lstlisting}%
 
-This classification of anime by genres is not perfect because there is a significant skewness to the anime television series: among \num{4875} titles, {2984} are the instances of anime series genre (\num{62,7}\%). Also, some subclasses correspond not to genres, but to the particular anime (i.e., \href{https://w.wiki/3iKe}{Evangelion}).
+This classification of anime by genres is not perfect because there is a significant skewness to the anime television series: among \num{4875} titles, \num{2984} are the instances of anime series genre (\num{62,7}\%). Also, some subclasses correspond not to genres, but to the particular anime (i.e., \href{https://w.wiki/3iKe}{Evangelion}).
 
-Let's get the list of all anime names, including the titles that are the instances of anime subclasses, with script~\protect\ref{lst:all_anime_list}.
+Let's get the list of all anime names including the titles that are the instances of anime subclasses, with script~\protect\ref{lst:all_anime_list}.
 
-\begin{lstlisting}[ language=SPARQL, breaklines=true, 
-                    caption={List of anime, including the titles that are instances of anime subclasses.\\\hspace{\textwidth}
-                        The result contains \num{4875} anime names in 2021.\\\hspace{\textwidth}
+\begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,
+                    caption={List of anime with the titles that are instances of anime subclasses.
+                        The result contains \num{4875} anime names in 2021.
                         SPARQL query: \href{https://w.wiki/4ABv}{https://w.wiki/4ABv}
                         },
                     label=lst:all_anime_list,
@@ -88,13 +89,43 @@ Let's get the list of all anime names, including the titles that are the instanc
 SELECT ?anime ?animeLabel
 WHERE
 {
-    ?anime wdt:P31/wdt:P279* wd:Q1107. # instance of anime with
-                                                       # subclasses
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "en,ja" }
+    # instance of anime with subclasses
+    ?anime wdt:P31/wdt:P279* wd:Q1107.
+    SERVICE wikibase:label{bd:serviceParam
+					     wikibase:language "en,ja"}
 }
 \end{lstlisting}%
 
 Anime that have the most complete information on Wikidata are \wdqName{Gurren Lagann}{4277}, \wdqName{Space Battleship Yamato}{4292}, \wdqName{Project A-ko}{4316}. There are also some anime with many missing properties like \wdqName{Doraemon}{711311}, \wdqName{The Animal Conference on the Environment}{97195557} and \wdqName{Assassins Pride}{96737300}.
 
 % add Prowd link
-According to ProWD service, among all the anime titles on Wikidata, \wdqName{Fullmetal Alchemist: The Sacred Star of Milos}{1004318}\footnote{Fullmetal Alchemist: The Sacred Star of Milos is an anime movie which continues the Fullmetal Alchemist anime series. Its main characters are the alchemist brothers who use their magic to fight the criminals and forces of evil.} has the greatest number of properties (\num{24}).
+According to ProWD service, among all the anime titles on Wikidata, \wdqName{Fullmetal Alchemist: The Sacred Star of Milos}{1004318}\sidenote{Fullmetal Alchemist: The Sacred Star of Milos is an anime movie which continues the Fullmetal Alchemist anime series. Its main characters are the alchemist brothers who use their magic to fight the criminals and forces of evil.} has the greatest number of properties (\num{24}).
+
+\subsection{List of seiyu ordered by number of their roles in anime}
+
+There are multiple characters in most of anime. Consequently, different seiyu give voice to different characters. Most of seiyu took part in multiple anime, but some of them managed to work on even several dozens of titles. Talented seiyu are sometimes offered to voice different charachers in one anime. \href{https://w.wiki/4UFa}{Hiroshi Kamiya} is one of the most popular modern seiyu. He worked on more than 180 anime and earned many rewards. \href{https://w.wiki/4UFh}{Attack on Titan} is one of the most famous anime with his participation where he gave voice to captain Levi, one of the main characters.
+
+Let's create a sorted list of seiyu according to the number of anime voiced by them (listing~\protect\ref{lst:seiyu_titles_sorted}).
+
+\begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,
+                    caption={Sorted list of seiyu according to the number of anime voiced by them.
+                        \num{148} results in 2017, \num{2684} results in 2021.
+                        SPARQL query: \href{https://w.wiki/4AC5}{https://w.wiki/4AC5}
+                        },
+                    label=lst:seiyu_titles_sorted,
+                    texcl 
+                    ]
+# Ordered list of actors (seiyu) according to the number
+# of anime where they took part in.
+SELECT ?seiyu (SAMPLE(?label) AS ?seiyuLabel)
+(COUNT(?anime) AS ?count) WHERE {
+  # instance of anime/subclass
+  ?anime wdt:P31/wdt:P279* wd:Q1107;
+         wdt:P725 ?seiyu.  # instance of seiyu (voice actor)
+  ?seiyu rdfs:label ?label	# subclass of label
+  SERVICE wikibase:label{bd:serviceParam
+					   wikibase:language "en,ja"}
+}
+GROUP BY ?seiyu		 # group by seiyu 
+ORDER BY DESC(?count)	# order by count of voiced anime
+\end{lstlisting}%
