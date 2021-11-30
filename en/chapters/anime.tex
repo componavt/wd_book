@@ -101,9 +101,9 @@ Anime that have the most complete information on Wikidata are \wdqName{Gurren La
 % add Prowd link
 According to ProWD service, among all the anime titles on Wikidata, \wdqName{Fullmetal Alchemist: The Sacred Star of Milos}{1004318}\sidenote{Fullmetal Alchemist: The Sacred Star of Milos is an anime movie which continues the Fullmetal Alchemist anime series. Its main characters are the alchemist brothers who use their magic to fight the criminals and forces of evil.} has the greatest number of properties (\num{24}).
 
-\subsection{List of seiyu ordered by number of their roles in anime}
+\section{List of seiyu ordered by number of their roles in anime}
 
-There are multiple characters in most of anime. Consequently, different seiyu give voice to different characters. Most of seiyu took part in multiple anime, but some of them managed to work on even several dozens of titles. Talented seiyu are sometimes offered to voice different charachers in one anime. \href{https://w.wiki/4UFa}{Hiroshi Kamiya} is one of the most popular modern seiyu. He worked on more than 180 anime and earned many rewards. \href{https://w.wiki/4UFh}{Attack on Titan} is one of the most famous anime with his participation where he gave voice to captain Levi, one of the main characters.
+There are multiple characters in most of anime. Consequently, different seiyu give voice to different characters. Most of seiyu took part in multiple anime, but some of them managed to work on even several dozens of titles. Talented seiyu are sometimes offered to voice different charachers in one anime. \href{https://w.wiki/4UFa}{Hiroshi Kamiya} is one of the most popular modern seiyu. He worked on more than 180 anime and earned many rewards. \href{https://w.wiki/4UFh}{Attack on Titan} is one of the most famous anime with his participation where he gave voice to captain Levi who is one of the main characters.
 
 Let's create a sorted list of seiyu according to the number of anime voiced by them (listing~\protect\ref{lst:seiyu_titles_sorted}).
 
@@ -129,3 +129,47 @@ SELECT ?seiyu (SAMPLE(?label) AS ?seiyuLabel)
 GROUP BY ?seiyu		 # group by seiyu 
 ORDER BY DESC(?count)	# order by count of voiced anime
 \end{lstlisting}%
+
+\section{Chart of number of seiyu who worked on one or more anime}
+
+We can create a line chart of seiyu according to the number of their roles. The more anime the seiyu has voiced, the more to the right he is on the diagram. We can use the script~\protect\ref{lst:seiyu_titles_graph} to create the chart.
+
+\begin{lstlisting}[ language=SPARQL, breaklines=true,
+                    caption={Display the line chart with the seiyu number along X-axis and anime number along Y-axis.
+                        \num{13} results in 2017, \num{58} results in 2021.
+                        SPARQL query: \href{https://w.wiki/4UX8}{https://w.wiki/4UX8}
+                        },
+                    label=lst:seiyu_titles_graph,
+                    texcl 
+                    ]
+# Graph of the number of voice actings of different seiyu
+#defaultView:LineChart
+SELECT ?seiyuRoles (COUNT(?seiyuRoles) AS ?quantity) WHERE {
+  FILTER(?seiyuRoles < 71)
+  {
+     SELECT (COUNT(?seiyu) AS ?seiyuRoles) WHERE {
+       ?anime wdt:P31/wdt:P279* wd:Q1107;
+              wdt:P725 ?seiyu.
+       SERVICE wikibase:label { bd:serviceParam wikibase:language "en,ja"}
+     }
+     GROUP BY ?anime
+     ORDER BY DESC(?seiyuRoles)
+  }
+}
+GROUP BY ?seiyuRoles
+ORDER BY DESC(?seiyuRoles)
+}
+\end{lstlisting}%
+
+Fig.~\ref{fig:Seiyu_num_chart_2021_en} shows that the higher the number of voiced anime is, the less seiyu reach such number of roles. The line \num{4} of script~\protect\ref{lst:seiyu_titles_graph} sets the limit of \num{71} anime as there are only few seiyu that worked on bigger number of anime, and the graph expansion to the right wouldn't be informative.
+
+As the chart~\ref{fig:Seiyu_num_chart_2021_en} shows, most of the seiyu voiced only one anime in their life. There are \num{254} seiyu with one role in the chart. However, seiyu is a profession which becomes the life business for people. The fact that a person voiced only one role in his life according to Wikidata seems to be caused by the incompleteness of Wikidata.
+
+\begin{figure*}[h]
+
+    \setlength{\fboxsep}{0pt}%
+    \setlength{\fboxrule}{1pt}%
+    \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{chapter/anime/Seiyu_chart_2021_en.png}}
+	\caption[Chart of number of roles voiced by different seiyu, 2021.]{Chart of number of roles voiced by different seiyu, 2021. The chart is constructed using the output of script~\protect\ref{lst:seiyu_titles_graph}.}%
+    \label{fig:Seiyu_num_chart_2021_en}%
+\end{figure*} 
