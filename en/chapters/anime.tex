@@ -32,8 +32,7 @@ Anime is the Japanese animation. Anime has its unique visual style, but there ar
 
 Each anime has its own voice actors. Here and further we will call the Japanese voice actors seiyu. In the Japanese animation the terms \emph{seiyu} and \emph{voice actor} are synonyms. Usually the word \emph{title} means the certain anime. In general \emph{title} means the term which combines different kinds of products, from cinema to novel, that are based on the same literary work which has an exact name.
 
-% analog of wdProperty is needed
-In order to work with the anime list from Wikidata we need to use the \wdqName{anime}{1107} object and the \href{https://www.wikidata.org/wiki/Property:P31}{instance of (P31)} property. Let's get the list of all anime names, without anime subclasses (listing~\protect\ref{lst:anime}).
+In order to work with the anime list from Wikidata we need to use the \wdqName{anime}{1107} object and the \wdProperty{31}{instance of} property. Let's get the list of all anime names, without anime subclasses (listing~\protect\ref{lst:anime}).
 
 \begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,
                     caption={List of anime without subclasses. The result contains \num{683} instances of anime in 2017, 
