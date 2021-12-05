@@ -187,3 +187,51 @@ As the chart~\ref{fig:Seiyu_num_chart_2021_en} shows, most of the seiyu voiced o
 	\caption[Chart of number of roles voiced by different seiyu, 2021.]{Chart of number of roles voiced by different seiyu, 2021. The chart is constructed using the output of script~\protect\ref{lst:seiyu_titles_graph}.}%
     \label{fig:Seiyu_num_chart_2021_en}%
 \end{figure*} 
+
+\section{Graph that connects seiyu and anime that they dubbed}
+
+Most of the seiyu give voice to multiple characters from different anime. Let's create a graph which connects seiyu and anime that they dubbed (see script ~\ref{lst:seiyu_graph}).
+
+Fig.~\ref{fig:Seiyu_graph_en} shows a part of the graph for several famous seiyu.
+
+\begin{widepar}
+\begin{lstlisting}[ language=SPARQL, breaklines=true,
+                    caption={Display the graph that connects seiyu and the anime they took part in.
+                        \num{826} results in 2017, \num{496} results in 2021.
+                        SPARQL query: \href{https://w.wiki/4ACB}{https://w.wiki/4ACB}
+                        },
+                    label=lst:seiyu_graph,
+                    texcl 
+                    ]
+# Graph of seiyu and anime they took part in
+#defaultView:Graph
+SELECT DISTINCT ?item ?itemLabel ?rgb ?link
+WHERE
+{ # voice actors (seiyu) with more than one anime
+  VALUES ?toggle { true false }
+  VALUES ?seiyu { wd:Q6381410 wd:Q1347031 wd:Q1207010 
+           wd:Q233902  wd:Q1323728 wd:Q2440809 
+           wd:Q355173  wd:Q957795  wd:Q50033}
+  ?anime  wdt:P31/wdt:P279* wd:Q1107; # instance of anime or its subclass
+          wdt:P725 ?seiyu;            # seiyu who voiced this anime 
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en,ja"}
+  BIND(IF(?toggle,?anime,?seiyu) AS ?item).
+  BIND(IF(?toggle,?animeLabel,?seiyuLabel) AS ?itemLabel).
+  BIND(IF(?toggle,"FFFFFF","7FFF00") AS ?rgb).
+  BIND(IF(?toggle,"",?anime) AS ?link).
+}
+\end{lstlisting}%
+\end{widepar}
+
+The \emph{?seiyu} variable (lines \num{7}-\num{9}) contains an array of Wikidata objects which correspond to several seiyu like \wdqName{Kazue Komiya}{6381410} and others. We picked only nine seiyu for illustration purposes as the graph for more seiyu would be uncomfortable for reading.
+
+The \emph{BIND(IF(?toggle, ?anime, ?seiyu))} construction in the line \num{13} allows to determine the graph node type: if \emph{?toggle} is \emph{true}, then the node corresponds to anime, seiyu otherwise. The text label and color of node are determined in the same way in the lines \num{14} and \num{15}. The line \num{16} allows to create the edges between the seiyu and anime nodes.
+
+\begin{figure*}
+
+    \setlength{\fboxsep}{0pt}%
+    \setlength{\fboxrule}{1pt}%
+    \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{chapter/anime/Seiyu_graph_en_sm.jpg}}
+	\caption[Part of graph that connects seiyu and the anime they took part in, 2021.]{Part of graph that connects seiyu and the anime they took part in, 2021. The graph is constructed using the output of script~\protect\ref{lst:seiyu_graph}.}%
+    \label{fig:Seiyu_graph_en}%
+\end{figure*} 
