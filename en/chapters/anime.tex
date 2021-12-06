@@ -34,13 +34,10 @@ Each anime has its own voice actors. Here and further we will call the Japanese 
 
 In order to work with the anime list from Wikidata we need to use the \wdqName{anime}{1107} object and the \wdProperty{31}{instance of} property. Let's get the list of all anime names, without anime subclasses (listing~\ref{lst:anime}).
 
-\begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,
-                    caption={List of anime without subclasses. The result contained \num{683} instances of anime in 2017, 
-                        \num{216} instances of anime in 2021.
-                        SPARQL query: \href{https://w.wiki/4ABq}{w.wiki/4ABq}
-                        },
-                    label=lst:anime,
-                    texcl 
+\begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,%
+                    caption={List of anime without subclasses. The result contained \num{683} instances of anime in 2017, 216 instances of anime in 2021. SPARQL query: \href{https://w.wiki/4ABq}{w.wiki/4ABq}},%
+                    label=lst:anime,%
+                    texcl%
                     ]
 # List of instances of anime
 SELECT ?anime ?animeLabel WHERE {
@@ -50,16 +47,19 @@ SELECT ?anime ?animeLabel WHERE {
 }
 \end{lstlisting}%
 
-
 There are much more anime objects in Wikidata, but they are the instances not of anime, but of its subclasses, for example, \wdqName{anime series}{63952888}. Let's execute the query~\ref{lst:anime_genres} in order to obtain the list of anime genres and the number of anime that correspond to these genres.
 
+% full width lstlisting, format=llapwide18 (-1.8cm), see kao.sty
 \begin{widepar}%
-%\pagelayout{wide}
-\begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,
-                    caption={List of genres (subclasses) of anime. The result contained 11 genres of anime in 2021.
-                        SPARQL query: \href{https://w.wiki/4ABt}{w.wiki/4ABt}},
-                    label=lst:anime_genres,
-                    texcl 
+	\captionsetup[lstlisting]{%
+        format=llapwide18 % llap - at margin, margin - at main text
+		%indention=0pt,parindent=0pt,belowskip=0pt,aboveskip=0pt%
+	}%
+\begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,%
+                    %captionpos=t,belowcaptionskip=25pt,abovecaptionskip=25pt,%
+                    caption={List of genres (subclasses) of anime. The result contained 11 genres of anime in 2021. SPARQL query: \href{https://w.wiki/4ABt}{w.wiki/4ABt}},%
+                    label=lst:anime_genres,%
+                    texcl%
                     ]
 # Select anime and its subclasses with number of titles corresponding to these subclasses
 SELECT ?subAnime ?subAnimeLabel (COUNT(?subAnimeInstance) AS ?count) WHERE {
@@ -71,15 +71,8 @@ GROUP BY ?subAnime ?subAnimeLabel
 ORDER BY DESC(?count)
 \end{lstlisting}%
 \end{widepar}%
-%\pagelayout{margin}
 
-%\begin{marginlisting}
-%    \caption{Awesome Code}
-%    \begin{lstlisting}{bash}
-%        ls -la
-%    \end{lstlisting}
-%\end{marginlisting}
-
+%\vspace{-0.5cm}
 The distribution of anime to genres can be visualized with a sunburst diagram (Fig.~\ref{fig:anime_piechart}).
 
 This classification of anime by genres is not perfect because there is a significant skewness to the anime television series: among \num{4875} titles, \num{2984} are the instances of anime series genre (\num{62,7}\%). Also, some subclasses correspond not to genres, but to the particular anime (i.e., \href{https://w.wiki/3iKe}{Evangelion}).
@@ -203,15 +196,15 @@ Most of the seiyu give voice to multiple characters from different anime. Let's 
 
 Fig.~\ref{fig:Seiyu_graph_en} shows a part of the graph for several famous seiyu.
 
-\begin{widepar}
-\begin{lstlisting}[ language=SPARQL, breaklines=true,
-                    caption={Display the graph that connects seiyu and the anime they took part in.
-                        \num{826} results in 2017, \num{496} results in 2021.
-                        SPARQL query: \href{https://w.wiki/4ACB}{https://w.wiki/4ACB}
-                        },
+% full width lstlisting, format=llapwide18 (-1.8cm), see kao.sty
+\begin{widepar}%
+\captionsetup[lstlisting]{format=llapwide18}%
+%
+\begin{lstlisting}[ language=SPARQL, breaklines=true,%
+                    caption={Display the graph that connects seiyu and the anime they took part~in. 826 results in 2017, 496 results in 2021. SPARQL query: \href{https://w.wiki/4ACB}{https://w.wiki/4ACB}},
                     label=lst:seiyu_graph,
-                    texcl 
-                    ]
+                    texcl
+                  ]
 # Graph of seiyu and anime they took part in
 #defaultView:Graph
 SELECT DISTINCT ?item ?itemLabel ?rgb ?link
@@ -230,9 +223,9 @@ WHERE
   BIND(IF(?toggle,"",?anime) AS ?link).
 }
 \end{lstlisting}%
-\end{widepar}
+\end{widepar}%
 
-The \emph{?seiyu} variable (lines \num{7}-\num{9}) contains an array of Wikidata objects which correspond to several seiyu like \wdqName{Kazue Komiya}{6381410} and others. We picked only nine seiyu for illustration purposes as the graph for more seiyu would be uncomfortable for reading.
+The \emph{?seiyu} variable (lines 7--9) contains an array of Wikidata objects which correspond to several seiyu like \wdqName{Kazue Komiya}{6381410} and others. We picked only nine seiyu for illustration purposes as the graph for more seiyu would be uncomfortable for reading.
 
 The \emph{BIND(IF(?toggle, ?anime, ?seiyu))} construction in the line \num{13} allows to determine the graph node type: if \emph{?toggle} is \emph{true}, then the node corresponds to anime, seiyu otherwise. The text label and color of node are determined in the same way in the lines \num{14} and \num{15}. The line \num{16} allows to create the edges between the seiyu and anime nodes.
 
