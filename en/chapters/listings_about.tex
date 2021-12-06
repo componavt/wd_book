@@ -32,7 +32,7 @@ Click the ``Play'' button to execute a script in this Wikidata Query Service.
                     ]
 SELECT ?city ?cityLabel WHERE { 
   ?city wdt:P31 wd:Q515.       # instance of city 
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}%
 %\footnotetext{The result contains \num{20 800} cities in 2017 year, 
