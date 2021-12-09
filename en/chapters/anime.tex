@@ -5,11 +5,13 @@
 \labch{anime}
 
 \footnotetext{\href{https://en.wikipedia.org/wiki/Krita\#Mascot}{Kiki}, an anime-styled \href{https://en.wikipedia.org/wiki/Mascot}{mascot} of Krita, free graphical editor. 
-Author: \href{https://www.deviantart.com/tysontan/art/The-Magic-Stylus-570566846}{Tyson Tan, DeviantArt / 2015 / Creative Commons Attribution-Share Alike 3.0 Unported License}.}
+DeviantArt / \href{https://www.deviantart.com/tysontan/art/The-Magic-Stylus-570566846}{Tyson Tan} (CC-BY-SA 3.0)}
 
 \marginnote[0.0cm]{Seiyu are the Japanese voice actors. Usually seiyu give voice to the characters of anime, video games, movies, work on the radio and TV. They act as storytellers on radio shows. Moreover, the seiyu's voices are used in advertisements, voice announcements, book audios and for re-sounding. Men and women, adults and children can work as seiyu.}
 
 This chapter is dedicated to \wdqName{anime}{1107} Wikidata object analysis. Using SPARQL queries executed on Wikidata objects of anime type, several tasks were accomplished. The list that contains names of seiyu and number of their roles is shown, the histogram of seiyu that acted in one or more anime is presented, the graph that connects seiyu and anime voiced by them is constructed, the seiyu's activity age is estimated.
+
+\section{Anime objects}
 
 \begin{marginfigure}[0.0cm]
 {
@@ -26,21 +28,16 @@ Wikimedia Commons / numan (CC BY-SA 3.0)
 \label{fig:seiyu}
 \end{marginfigure}
 
-\section{Anime object instances}
-
 Anime is the Japanese animation. Anime has its unique visual style, but there are other features that are not that obvious. For instance, anime has a significantly wider variety of genres in comparison to the American and European animation: from family comedies and movies for kids to dramatic stories, whereas in the Western cinema the stories of such genre are mostly shown in the movies.
 
 Each anime has its own voice actors. Here and further we will call the Japanese voice actors seiyu. In the Japanese animation the terms \emph{seiyu} and \emph{voice actor} are synonyms. Usually the word \emph{title} means the certain anime. In general \emph{title} means the term which combines different kinds of products, from cinema to novel, that are based on the same literary work which has an exact name.
 
-In order to work with the anime list from Wikidata we need to use the \wdqName{anime}{1107} object and the \wdProperty{31}{instance of} property. Let's get the list of all anime names, without anime subclasses (listing~\protect\ref{lst:anime}).
+In order to work with the anime list from Wikidata we need to use the \wdqName{anime}{1107} object and the \wdProperty{31}{instance of} property. Let's get the list of all anime names, without anime subclasses (listing~\ref{lst:anime}).
 
-\begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,
-                    caption={List of anime without subclasses. The result contains \num{683} instances of anime in 2017, 
-                        \num{216} instances of anime in 2021.
-                        SPARQL query: \href{https://w.wiki/4ABq}{w.wiki/4ABq}
-                        },
-                    label=lst:anime,
-                    texcl 
+\begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,%
+                    caption={List of anime without subclasses. The result contained \num{683} instances of anime in 2017, 216 instances of anime in 2021. SPARQL query: \href{https://w.wiki/4ABq}{w.wiki/4ABq}},%
+                    label=lst:anime,%
+                    texcl%
                     ]
 # List of instances of anime
 SELECT ?anime ?animeLabel WHERE {
@@ -50,35 +47,41 @@ SELECT ?anime ?animeLabel WHERE {
 }
 \end{lstlisting}%
 
-There are much more anime objects in Wikidata, but they are the instances not of anime, but of its subclasses, for example, \wdqName{anime series}{63952888}. Let's execute the query~\protect\ref{lst:anime_genres} in order to obtain the list of anime genres and the number of anime that correspond to these genres.
+There are much more anime objects in Wikidata, but they are the instances not of anime, but of its subclasses, for example, \wdqName{anime series}{63952888}. Let's execute the query~\ref{lst:anime_genres} in order to obtain the list of anime genres and the number of anime that correspond to these genres.
 
-\begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,
-                    caption={List of genres (subclasses) of anime. The result contains \num{11} genres of anime in 2021.
-                        SPARQL query: \href{https://w.wiki/4ABt}{w.wiki/4ABt}
-                        },
-                    label=lst:anime_genres,
-                    texcl 
+% full width lstlisting, format=llapwide18 (-1.8cm), see kao.sty
+\begin{widepar}%
+	\captionsetup[lstlisting]{%
+        format=llapwide18 % llap - at margin, margin - at main text
+		%indention=0pt,parindent=0pt,belowskip=0pt,aboveskip=0pt%
+	}%
+\begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,%
+                    %captionpos=t,belowcaptionskip=25pt,abovecaptionskip=25pt,%
+                    caption={List of genres (subclasses) of anime. The result contained 11 genres of anime in 2021. SPARQL query: \href{https://w.wiki/4ABt}{w.wiki/4ABt}},%
+                    label=lst:anime_genres,%
+                    texcl%
                     ]
-# Select anime and its subclasses with number of titles
-# corresponding to these subclasses
-SELECT ?subAnime ?subAnimeLabel
-(COUNT(?subAnimeInstance) AS ?count) WHERE {
+# Select anime and its subclasses with number of titles corresponding to these subclasses
+SELECT ?subAnime ?subAnimeLabel (COUNT(?subAnimeInstance) AS ?count) WHERE {
   ?subAnime wdt:P279* wd:Q1107.
-  ?subAnimeInstance wdt:P31 ?subAnime
-    SERVICE wikibase:label{bd:serviceParam
-					     wikibase:language "en,ja"}
+  ?subAnimeInstance wdt:P31 ?subAnime.
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en,ja"}
 }
 GROUP BY ?subAnime ?subAnimeLabel
 ORDER BY DESC(?count)
 \end{lstlisting}%
+\end{widepar}%
+
+%\vspace{-0.5cm}
+The distribution of anime to genres can be visualized with a sunburst diagram (Fig.~\ref{fig:anime_piechart}).
 
 This classification of anime by genres is not perfect because there is a significant skewness to the anime television series: among \num{4875} titles, \num{2984} are the instances of anime series genre (\num{62,7}\%). Also, some subclasses correspond not to genres, but to the particular anime (i.e., \href{https://w.wiki/3iKe}{Evangelion}).
 
-Let's get the list of all anime names including the titles that are the instances of anime subclasses, with script~\protect\ref{lst:all_anime_list}.
+Let's get the list of all anime names including the titles that are the instances of anime subclasses, with script~\ref{lst:all_anime_list}.
 
 \begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,
                     caption={List of anime with the titles that are instances of anime subclasses.
-                        The result contains \num{4875} anime names in 2021.
+                        The result contained \num{4875} anime names in 2021.
                         SPARQL query: \href{https://w.wiki/4ABv}{https://w.wiki/4ABv}
                         },
                     label=lst:all_anime_list,
@@ -88,23 +91,37 @@ Let's get the list of all anime names including the titles that are the instance
 SELECT ?anime ?animeLabel
 WHERE
 {
-    # instance of anime with subclasses
-    ?anime wdt:P31/wdt:P279* wd:Q1107.
-    SERVICE wikibase:label{bd:serviceParam
-					     wikibase:language "en,ja"}
+  ?anime wdt:P31/wdt:P279* wd:Q1107.  # instance of anime
+                                      # with subclasses
+  SERVICE wikibase:label{ bd:serviceParam 
+                          wikibase:language "en,ja" }
 }
 \end{lstlisting}%
+
+\begin{marginfigure}[0.0cm]
+{
+	\setlength{\fboxsep}{0pt}%
+	\setlength{\fboxrule}{1pt}%
+	\fcolorbox{gray}{gray}{\includegraphics[scale=1.5]{chapter/anime/anime-genres-sunburst-en-2021.png}}
+}
+\caption
+[Anime genres on sunburst diagram, 2021.]
+{
+Sunburst diagram of anime genres created with Rawgraphs (\href{https://app.rawgraphs.io}{https://app.rawgraphs.io}).\newline
+}
+\label{fig:anime_piechart}
+\end{marginfigure}
 
 Anime that have the most complete information on Wikidata are \wdqName{Gurren Lagann}{4277}, \wdqName{Space Battleship Yamato}{4292}, \wdqName{Project A-ko}{4316}. There are also some anime with many missing properties like \wdqName{Doraemon}{711311}, \wdqName{The Animal Conference on the Environment}{97195557} and \wdqName{Assassins Pride}{96737300}.
 
 % add Prowd link
-According to ProWD service, among all the anime titles on Wikidata, \wdqName{Fullmetal Alchemist: The Sacred Star of Milos}{1004318}\sidenote{Fullmetal Alchemist: The Sacred Star of Milos is an anime movie which continues the Fullmetal Alchemist anime series. Its main characters are the alchemist brothers who use their magic to fight the criminals and forces of evil.} has the greatest number of properties (\num{24}).
+According to ProWD service \autocite{anime_prowd}, among all the anime titles on Wikidata, \wdqName{Fullmetal Alchemist: The Sacred Star of Milos}{1004318}\footnote{Fullmetal Alchemist: The Sacred Star of Milos is an anime movie which continues the Fullmetal Alchemist anime series. Its main characters are the alchemist brothers who use their magic to fight the criminals and forces of evil.} has the greatest number of properties (\num{24}).
 
 \section{List of seiyu ordered by number of their roles in anime}
 
-There are multiple characters in most of anime. Consequently, different seiyu give voice to different characters. Most of seiyu took part in multiple anime, but some of them managed to work on even several dozens of titles. Talented seiyu are sometimes offered to voice different charachers in one anime. \href{https://w.wiki/4UFa}{Hiroshi Kamiya} is one of the most popular modern seiyu. He worked on more than 180 anime and earned many rewards. \href{https://w.wiki/4UFh}{Attack on Titan} is one of the most famous anime with his participation where he gave voice to captain Levi who is one of the main characters.
+There are multiple characters in most of anime. Consequently, different seiyu give voice to different characters. Most of seiyu took part in multiple anime, but some of them managed to work on even several dozens of titles. Talented seiyu are sometimes offered to voice different charachers in one anime. \href{https://w.wiki/4UFa}{Hiroshi Kamiya} is one of the most popular modern seiyu. He worked on more than 180 anime and earned many rewards. \href{https://w.wiki/4UFh}{"Attack on Titan"} is one of the most famous anime with his participation where he dubbed captain Levi who is one of the main characters.
 
-Let's create a sorted list of seiyu according to the number of anime voiced by them (listing~\protect\ref{lst:seiyu_titles_sorted}).
+Let's create a sorted list of seiyu according to the number of anime voiced by them (listing~\ref{lst:seiyu_titles_sorted}).
 
 \begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,
                     caption={Sorted list of seiyu according to the number of anime voiced by them.
@@ -126,12 +143,12 @@ SELECT ?seiyu (SAMPLE(?label) AS ?seiyuLabel)
 					   wikibase:language "en,ja"}
 }
 GROUP BY ?seiyu		 # group by seiyu 
-ORDER BY DESC(?count)	# order by count of voiced anime
+ORDER BY DESC(?count)	# order by number of voiced anime
 \end{lstlisting}%
 
 \section{Chart of number of seiyu who worked on one or more anime}
 
-We can create a line chart of seiyu according to the number of their roles. The more anime the seiyu has voiced, the more to the right he is on the diagram. We can use the script~\protect\ref{lst:seiyu_titles_graph} to create the chart.
+We can create a line chart of seiyu according to the number of their roles. The more anime the seiyu has voiced, the more to the right he is on the diagram. We can use the script~\ref{lst:seiyu_titles_graph} to create the chart.
 
 \begin{lstlisting}[ language=SPARQL, breaklines=true,
                     caption={Display the line chart with the seiyu number along X-axis and anime number along Y-axis.
@@ -160,15 +177,63 @@ ORDER BY DESC(?seiyuRoles)
 }
 \end{lstlisting}%
 
-Fig.~\ref{fig:Seiyu_num_chart_2021_en} shows that the higher the number of voiced anime is, the less seiyu reach such number of roles. The line \num{4} of script~\protect\ref{lst:seiyu_titles_graph} sets the limit of \num{71} anime as there are only few seiyu that worked on bigger number of anime, and the graph expansion to the right wouldn't be informative.
+Fig.~\ref{fig:Seiyu_num_chart_2021_en} shows that the higher the number of voiced anime is, the less seiyu reach such number of roles. The line \num{4} of script~\ref{lst:seiyu_titles_graph} sets the limit of \num{71} anime as there are only few seiyu that worked on bigger number of anime, and the graph expansion to the right wouldn't be informative.
 
-As the chart~\ref{fig:Seiyu_num_chart_2021_en} shows, most of the seiyu voiced only one anime in their life. There are \num{254} seiyu with one role in the chart. However, seiyu is a profession which becomes the life business for people. The fact that a person voiced only one role in his life according to Wikidata seems to be caused by the incompleteness of Wikidata.
+As the chart~\ref{fig:Seiyu_num_chart_2021_en} shows, most of the seiyu voiced only one anime during their life. There are \num{254} seiyu with one role in the chart. However, seiyu is a profession which becomes the life business for people. The fact that a person voiced only one role in his life according to Wikidata seems to be caused by the incompleteness of Wikidata.
 
 \begin{figure*}[h]
 
     \setlength{\fboxsep}{0pt}%
     \setlength{\fboxrule}{1pt}%
     \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{chapter/anime/Seiyu_chart_2021_en.png}}
-	\caption[Chart of number of roles voiced by different seiyu, 2021.]{Chart of number of roles voiced by different seiyu, 2021. The chart is constructed using the output of script~\protect\ref{lst:seiyu_titles_graph}.}%
+	\caption[Chart of number of roles voiced by different seiyu, 2021.]{Chart of number of roles voiced by different seiyu, 2021. The chart is constructed using the output of script~\ref{lst:seiyu_titles_graph}.}%
     \label{fig:Seiyu_num_chart_2021_en}%
+\end{figure*} 
+
+\section{Graph that connects seiyu and anime that they dubbed}
+
+Most of the seiyu give voice to multiple characters from different anime. Let's create a graph which connects seiyu and anime that they dubbed (see script ~\ref{lst:seiyu_graph}).
+
+Fig.~\ref{fig:Seiyu_graph_en} shows a part of the graph for several famous seiyu.
+
+% full width lstlisting, format=llapwide18 (-1.8cm), see kao.sty
+\begin{widepar}%
+\captionsetup[lstlisting]{format=llapwide18}%
+%
+\begin{lstlisting}[ language=SPARQL, breaklines=true,%
+                    caption={Display the graph that connects seiyu and the anime they took part~in. 826 results in 2017, 496 results in 2021. SPARQL query: \href{https://w.wiki/4ACB}{https://w.wiki/4ACB}},
+                    label=lst:seiyu_graph,
+                    texcl
+                  ]
+# Graph of seiyu and anime they took part in
+#defaultView:Graph
+SELECT DISTINCT ?item ?itemLabel ?rgb ?link
+WHERE
+{ # voice actors (seiyu) with more than one anime
+  VALUES ?toggle { true false }
+  VALUES ?seiyu { wd:Q6381410 wd:Q1347031 wd:Q1207010 
+           wd:Q233902  wd:Q1323728 wd:Q2440809 
+           wd:Q355173  wd:Q957795  wd:Q50033}
+  ?anime  wdt:P31/wdt:P279* wd:Q1107; # instance of anime or its subclass
+          wdt:P725 ?seiyu;            # seiyu who voiced this anime 
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en,ja"}
+  BIND(IF(?toggle,?anime,?seiyu) AS ?item).
+  BIND(IF(?toggle,?animeLabel,?seiyuLabel) AS ?itemLabel).
+  BIND(IF(?toggle,"FFFFFF","7FFF00") AS ?rgb).
+  BIND(IF(?toggle,"",?anime) AS ?link).
+}
+\end{lstlisting}%
+\end{widepar}%
+
+The \emph{?seiyu} variable (lines 7--9) contains an array of Wikidata objects which correspond to several seiyu like \wdqName{Kazue Komiya}{6381410} and others. We picked only nine seiyu for illustration purposes as the graph for more seiyu would be uncomfortable for reading.
+
+The \emph{BIND(IF(?toggle, ?anime, ?seiyu))} construction in the line \num{13} allows to determine the graph node type: if \emph{?toggle} is \emph{true}, then the node corresponds to anime, seiyu otherwise. The text label and color of node are determined in the same way in the lines \num{14} and \num{15}. The line \num{16} allows to create the edges between the seiyu and anime nodes.
+
+\begin{figure*}
+
+    \setlength{\fboxsep}{0pt}%
+    \setlength{\fboxrule}{1pt}%
+    \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{chapter/anime/Seiyu_graph_en_sm.jpg}}
+	\caption[Part of graph that connects seiyu and the anime they took part in, 2021.]{Part of graph that connects seiyu and the anime they took part in, 2021. The graph is constructed using the output of script~\ref{lst:seiyu_graph}.}%
+    \label{fig:Seiyu_graph_en}%
 \end{figure*} 

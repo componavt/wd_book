@@ -771,6 +771,18 @@
 	\end{lrbox}%
 	\marginnote[0.2cm]{\usebox\mycap}%
 }
+
+
+% Declare a new caption style for lstlistings (custom margin for wide lstlisting
+\DeclareCaptionFormat{llapwide18}{%
+	\begin{lrbox}{\mycap}%
+	\begin{minipage}{\marginparwidth}%
+	\@margin@par #1:#2#3%
+	\end{minipage}%
+	\end{lrbox}%
+	\marginnote[-1.6cm]{\usebox\mycap}%
+}
+
 % Set the global caption style
 \captionsetup{
 	format=margin, % Use the style previously declared

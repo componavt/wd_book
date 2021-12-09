@@ -2,6 +2,7 @@
 \hyphenation{аудио-записях}
 
 \chapter{Аниме: загадочный и поразительный мир японской анимации}
+\label{ch:anime}
 
 \marginnote[0.0cm]{Сэйю~--- это японские актёры озвучивания. Сэйю обычно озвучивают роли персонажей в аниме, видеоиграх, фильмах, а также на радио и телевидении, или выступают в роли рассказчика в радиопостановках. Кроме того, голоса сэйю используются в рекламе, голосовых объявлениях, аудиозаписях книг и учебных материалов, а также для переозвучивания. Сэйю могут быть как мужчины, так и женщины; как взрослые, так и дети.}
 
@@ -22,8 +23,6 @@ Wikimedia Commons / numan (CC BY-SA 3.0)
 \label{fig:seiyu}
 \end{marginfigure}
 
-\label{ch:anime}
-
 \section{Экземпляры объекта <<Аниме>>}
 
 Аниме~--- это японская мультипликация. Она стоит особняком и выделяется своим визуальным стилем, однако есть и менее очевидные отличия: так, по сравнению с американской и японской анимацией у аниме значительно шире список жанров~--- от детских и семейных комедий до драматических историй, которые на Западе обычно изображаются только в фильмах с живыми актёрами\autocite{anime_vs_animation}.
@@ -31,6 +30,8 @@ Wikimedia Commons / numan (CC BY-SA 3.0)
 У каждого аниме есть свои актёры озвучивания. В дальнейшем под <<сэйю>> будем понимать японского актёра озвучивания. В японской анимации слова <<актёры озвучивания>> и <<сэйю>> являются синонимами\autocite{shikimori}. Под словом <<тайтл>> (от англ. \emph{title}, \emph{название}) обычно понимают конкретное аниме\autocite{anime_social}. В общем же смысле слово <<тайтл>> означает понятие, объединяющее различные виды продукции (от кинофильма до романа), созданные на основе конкретного произведения, за которым закреплено строго определённое название\autocite{anime_title_def}.
 
 Чтобы работать со списком аниме в Викиданных, нам понадобятся объект \wdqName{<<аниме>>}{1107} и свойство \wdProperty{31}{<<экземпляр>>}. Получим список всех аниме без учёта подклассов (листинг~\protect\ref{lst:anime}).
+
+\newpage
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/4ABw}{Список аниме без учёта подклассов}\protect\footnotemark},
@@ -68,6 +69,8 @@ GROUP BY ?subAnime ?subAnimeLabel
 ORDER BY DESC(?count)
 \end{lstlisting}%
 \footnotetext{Получено \num{11} результатов в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4ABj}{https://w.wiki/4ABj}}
+
+Визуализировать распределение аниме по жанрам можно с помощью, например, диаграммы <<солнечные лучи>> (рис.~\protect\ref{fig:anime_piechart}).
 
 Полученная классификация аниме по жанрам не идеальна, так как есть большое смещение в сторону аниме-сериалов: из \num{4875} тайтлов \num{2984} отнесены к жанру <<аниме-сериал>> (\num{62,7}\%); вероятно, классификация жанров аниме в Викиданных требует дальнейшего уточнения. Также в подклассы попали понятия, относящиеся не к общей классификации, а к отдельным аниме, например, \href{https://w.wiki/4L5p}{<<Евангелион>>}.
 
@@ -184,6 +187,8 @@ ORDER BY DESC(?seiyuRoles)  # grouping and sorting seiyu by number of voice acti
 
 Итак, многие сэйю за свою карьеру успевают озвучить несколько аниме. Чтобы нагляднее показать эту взаимосвязь, построим граф, связывающий сэйю и озвученные ими аниме с помощью скрипта~\protect\ref{lst:seiyu_graph}. Фрагмент итогового графа представлен на рис.~\ref{fig:Seiyu_graph_2021_ru}. 
 
+\newpage
+
 \index{График!Graph!Фрагмент графа, связывающего сэйю и озвученные ими аниме}
 \lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
@@ -215,7 +220,7 @@ WHERE
 
 В переменную \emph{?seiyu} (\num{7}-\num{9} строки) записан массив объектов Викиданных, соответствующих некоторым известным сэйю~--- \wdqName{Кадзуэ Комия}{6381410} и другим. Мы выбрали только девять сэйю в иллюстративных целях, поскольку для большего числа сэйю граф стал бы неудобным для восприятия.
 
-Конструкция \emph{BIND\index{SPARQL!BIND!Граф, связывающий сэйю и озвученные ими аниме}(IF\index{SPARQL!IF!Граф, связывающий сэйю и озвученные ими аниме}(?toggle, ?anime1, ?seiyu2))} в строке \num{14} позволяет определить тип вершины графа: если \emph{?toggle} принимает значение \emph{true}, то вершина графа соответствует аниме, иначе~--- сэйю. Аналогично в строках \num{15} и \num{16} определяется тип текстовой метки для вершины и цвет вершины.
+Конструкция \emph{BIND\index{SPARQL!BIND!Граф, связывающий сэйю и озвученные ими аниме}(IF\index{SPARQL!IF!Граф, связывающий сэйю и озвученные ими аниме}(?toggle, ?anime, ?seiyu))} в строке \num{14} позволяет определить тип вершины графа: если \emph{?toggle} принимает значение \emph{true}, то вершина графа соответствует аниме, иначе~--- сэйю. В строках \num{15} и \num{16} определяются тип подписи для вершины и цвет вершины. Строка \num{17} позволяет отобразить связи между сэйю и аниме.
 
 \newpage
 \begin{fullwidth}
@@ -230,7 +235,7 @@ WHERE
 
 Список тайтлов в \href{https://w.wiki/4JVE}{Русской Википедии}\footnote{Проект:Аниме и манга/Списки/Список аниме. \href{https://w.wiki/4JVE}{https://w.wiki/4JVE}, 2021} содержит \num{1638} аниме. Также можно посмотреть \href{https://w.wiki/4JVH}{телевизионные показы аниме в России по годам}\footnote{Проект:Аниме и манга/Телевизионные показы аниме в России по годам. \href{https://w.wiki/4JVH}{https://w.wiki/4JVH}, 2021}.
 
-На сайте любительской энциклопедии аниме \href{https://shikimori.one/}{Shikimori}\autocite{shikimori} в списке аниме \num{801} страница по \num{20} наименований. Нетрудно подсчитать, что на сайте есть информация о \num{16020} тайтлах, в то время как в Викиданных объектов, описывающих аниме, всего \num{4875} (см. листинг~\protect\ref{lst:all_anime_list}). К тому же, стоит учитывать, что скорость выхода новых аниме довольно велика\footnote{Упражнение: с помощью SPARQL подсчитайте, сколько аниме вышло за прошлый год.}. Из этого можно сделать вывод, что Викиданные крайне неполно отражают данные (есть информация только о \num{29.6}\% аниме). То же самое касается и жанров: в \href{https://shikimori.one/animes}{разделе поиска Shikimori}\footnote{Лучшие аниме. \href{https://shikimori.one/animes}{https://shikimori.one/animes}, 2021} доступны \num{42} жанра аниме, в то время как Викиданные содержат информацию только о \num{17}\footnote{Список жанров (категорий) аниме, указанных в Викиданных, можно посмотреть на странице \href{https://en.wikipedia.org/wiki/Category:Lists\_of_anime\_by\_genre}{Category:Lists of anime by genre}}.
+На сайте любительской энциклопедии аниме Shikimori\autocite{shikimori} в списке аниме \num{801} страница по \num{20} наименований. Нетрудно подсчитать, что на сайте есть информация о \num{16020} тайтлах, в то время как в Викиданных объектов, описывающих аниме, всего \num{4875} (см. листинг~\protect\ref{lst:all_anime_list}). К тому же, стоит учитывать, что скорость выхода новых аниме довольно велика\footnote{Упражнение: с помощью SPARQL подсчитайте, сколько аниме вышло за прошлый год.}. Из этого можно сделать вывод, что Викиданные крайне неполно отражают данные (есть информация только о \num{29.6}\% аниме). То же самое касается и жанров: в \href{https://shikimori.one/animes}{разделе поиска Shikimori}\footnote{Лучшие аниме. \href{https://shikimori.one/animes}{https://shikimori.one/animes}, 2021} доступны \num{42} жанра аниме, в то время как Викиданные содержат информацию только о \num{17}\footnote{Список жанров (категорий) аниме, указанных в Викиданных, можно посмотреть на странице \href{https://en.wikipedia.org/wiki/Category:Lists\_of_anime\_by\_genre}{Category:Lists of anime by genre}}.
 
 Возможно, приведённые ниже статьи и сайты не будут являться \href{https://w.wiki/3u9v}{АИ}\footnote{Авторитетный источник (АИ)~--- это ресурс, который владеет информацией, в компетентности и актуальности которой не может быть никаких сомнений. См. \href{https://w.wiki/3u9v}{https://w.wiki/3u9v}}, но с их помощью можно проанализировать информацию об имеющихся аниме и сделать дополнительные выводы о неполноте Викиданных.
 
@@ -286,7 +291,7 @@ ORDER BY DESC(?count)	# order by number of voiced projects
 SELECT ?anime ?animeLabel
 WHERE
 {
-    ?anime wdt:P31/wdt:P279* wd:Q1107;                # instance of anime
+    ?anime wdt:P31/wdt:P279* wd:Q1107;  # instance of anime
     FILTER NOT EXISTS { ?anime wdt:P577 [] }
     SERVICE wikibase:label{bd:serviceParam
 					     wikibase:language "ru,en,ja"}
@@ -354,8 +359,8 @@ GROUP BY ?seiyu ?bDate
 # Get all anime objects, their names and release dates
 SELECT ?anime ?animeLabel ?animePubDate ?animeSeriesStartDate
 WHERE {
-  ?anime (wdt:P31/(wdt:P279*)) wd:Q1107.               # object of anime/subclass
-  OPTIONAL { ?anime wdt:P577 ?animePubDate. }          # release date of a movie
+  ?anime (wdt:P31/(wdt:P279*)) wd:Q1107.  # object of anime/subclass
+  OPTIONAL { ?anime wdt:P577 ?animePubDate. }  # release date of a movie
   OPTIONAL { ?anime wdt:P580
 					?animeSeriesStartDate. }  # start date of a series
     SERVICE wikibase:label{bd:serviceParam
@@ -379,7 +384,7 @@ WHERE
 {
   VALUES ?toggle { true false }
   ?anime  wdt:P31/wdt:P279* wd:Q1107; # instance of anime/subclass
-          wdt:P725 ?seiyu.            # list seiyu who acted in this anime
+          wdt:P725 ?seiyu.  # list seiyu who acted in this anime
   
   BIND(IF(?toggle,?anime,?seiyu) AS ?item).   # anime/seiyu link
   BIND(IF(?toggle,?animeLabel,?seiyuLabel)

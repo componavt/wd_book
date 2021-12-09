@@ -26,15 +26,15 @@
 SELECT ?region ?regionLabel
 WHERE
 {
-    ?region wdt:P31 wd:Q835714. # instance of "oblast of Russia"
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "ru"}
+  ?region wdt:P31 wd:Q835714. # instance of "oblast of Russia"
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru"}
 }
 \end{lstlisting}%
-\footnotetext{Получено \num{48} записей в 2017 году и \num{46} записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4D2V}{https://w.wiki/4D2V}}
+\footnotetext{Получено 48 записей в 2017 году и 46 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4D2V}{https://w.wiki/4D2V}}
 
 В Викиданных больше всего свойств в России и в мире (по данным \href{https://prowd.id/dashboards/68f1cfd5b84d/profile}{ProWD}) у \wdqName{Ленинградской}{2191} и \wdqName{Калининградской областей}{1749}, по 43 свойства. Число свойств для России и мира одинаковое, т.к. и для России и для мира это одни и те же объекты.
 
-Областями России с наименьшим числом свойств оказались: \href{http://www.wikidata.org/entity/Q3129}{Орловская область} (\num{31}), \href{http://www.wikidata.org/entity/Q3178}{Курская область} (\num{31}), \href{http://www.wikidata.org/entity/Q5851}{Новосибирская область} (\num{32}). По данным сервиса ProWD\autocite{Russia_prowd}.
+Областями России с наименьшим числом свойств оказались: \href{http://www.wikidata.org/entity/Q3129}{Орловская область} (31), \href{http://www.wikidata.org/entity/Q3178}{Курская область} (31), \href{http://www.wikidata.org/entity/Q5851}{Новосибирская область} (32). По данным сервиса ProWD\autocite{Russia_prowd}.
 
 \section{Субъекты Российской Федерации}
 
@@ -76,11 +76,14 @@ WHERE
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru"}
 }
 \end{lstlisting}%
-\footnotetext{Получено \num{85} записей в 2017 году и \num{86} записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4D2R}{https://w.wiki/4D2R}. В 2021 году в список субъектов добавился город федерального значения Байконур на правах аренды комплекса <<Байконур>>\autocite{Baikonur}.}
+\footnotetext{Получено 85 записей в 2017 году и 86 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4D2R}{https://w.wiki/4D2R}. В 2021 году в список субъектов добавился город федерального значения Байконур на правах аренды комплекса <<Байконур>>}
+
 
 \section{Соседние субъекты}
 
 Построим граф соседних субъектов России по свойству \wdProperty{47}{shares border with} (листинг~\protect\ref{lst:sharesBorderWith-oblast-of-Russia}).
+
+////////// Как оформить новый скрипт, ссылка на СО в разделе Соседние субъекты/////////
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/4DKD}{Граф соседних субъектов России}\protect\footnotemark},
@@ -112,16 +115,18 @@ WHERE
   BIND(IF(?toggle,"FFFFFF","7FFF00") AS ?rgb).
 }
 \end{lstlisting}%
-\footnotetext{Получено \num{467} записей в 2017 году и \num{482} записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4DKD}{https://w.wiki/4DKD}}
+\footnotetext{Получено 467 записей в 2017 году и 482 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4DKD}{https://w.wiki/4DKD}}
 
 Количество полученных записей формируется путем сложения количества соседних территорий для всех субъектов России. Результат работы скрипта~--- это граф, отображающий соседние субъекты. Часть графа представлена на рисунке~\ref{fig:sharesBorderWith-oblast-of-Russia-Kaliningrad-fig}, на ней отчетливо видно изолированную компоненту, которая является Калининградской областью.
-\begin{figure*}[!h]
-    \includegraphics{./chapter/oblast_of_Russia/Graph_Subjects_of_Russia_Kaliningrad.jpg}
-	\caption[Граф субъектов России. Калининград, 2021.]{Граф субъектов России. Калининград, 2021. Граф построен на основе данных, полученных с помощью запроса~\protect\ref{lst:sharesBorderWith-oblast-of-Russia}.}%
-	\label{fig:sharesBorderWith-oblast-of-Russia-Kaliningrad-fig}%
-\end{figure*}
 
-\newpage
+\begin{fullwidth}
+\begin{figure*}[h]
+	\includegraphics[width=\textwidth]{./chapter/oblast_of_Russia/Graph_Subjects_of_Russia_Kaliningrad.jpg}
+	\caption[Граф субъектов России. Калининград, 2021.]{Граф субъектов России. Калининград, 2021. Граф построен на основе данных, полученных с помощью запроса~\protect\ref{lst:sharesBorderWith-oblast-of-Russia}.}%
+      \label{fig:sharesBorderWith-oblast-of-Russia-Kaliningrad-fig}%
+\end{figure*} 
+\end{fullwidth}
+
 \subsection{Полнота Викиданных}
 
 Построим список субъектов России с пустым свойством \wdProperty{47}{shares border with} (граничит с) (листинг~\protect\ref{lst:sharesBorderWith-empty-oblast-of-Russia}).
@@ -155,7 +160,7 @@ WHERE
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru"}
 }
 \end{lstlisting}%
-\footnotetext{Получено \num{0} записей в 2017 году и \num{0} записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4TBo}{https://w.wiki/4TBo}}
+\footnotetext{Получено 0 записей в 2017 году и 0 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4TBo}{https://w.wiki/4TBo}}
 
 С помощью команды FILTER (строка 12) исключаем объекты, которые являются бывшими административно-территориальными единицами. Затем с помощью MINUS (строка 13) отбираем объекты, у которых свойство \wdProperty{47}{<<граничит с>>} незаполнено.
 
@@ -177,7 +182,7 @@ WHERE
 {
 	\setlength{\fboxsep}{0pt}%
 	\setlength{\fboxrule}{1pt}%
-	\fcolorbox{gray}{gray}{\includegraphics{"chapter/oblast_of_Russia/legend_map_Russia.jpg"}}
+	\includegraphics[width=0.8\linewidth]{"chapter/oblast_of_Russia/legend_map_Russia.jpg"}
 }
 \caption [Цветовая легенда, 2021.]{Цветовая легенда, 2021.}%
 \label{fig:legend_population}%
@@ -200,7 +205,8 @@ SELECT DISTINCT ?subject ?subjectLabel ?population ?coord ?layer
     { ?subject wdt:P31 wd:Q41162 } UNION  # Republic of Russia
     { ?subject wdt:P31 wd:Q183342 } UNION  # Federal city of Russia
     { ?subject wdt:P31 wd:Q831740 } UNION  # Krai of Russia
-    { ?subject wdt:P31 wd:Q309166 } UNION # Autonomus oblast of Russia
+    { ?subject wdt:P31 wd:Q309166 } UNION # Autonomus oblast 
+                                                        of Russia
     { ?subject wdt:P31 wd:Q184122 } # Autonomus okrug of Russia
   }   
   ?subject wdt:P625 ?coord; wdt:P1082 ?population.
@@ -222,17 +228,19 @@ ORDER BY ?population
 \end{lstlisting}%
 \footnotetext{Получено \num{85} записей в 2017 году и \num{86} записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4DKV}{https://w.wiki/4DKV}}
 
-Результат работы скрипта (листинг~\protect\ref{lst:map}) представлен на рисунке~\ref{fig:oblast-of-Russia-population-fig}.
+Результат работы скрипта (листинг~\protect\ref{lst:map}) представлен на рисунке~\ref{fig:SubjectsRussiaMap}.
 
-\begin{figure*}[!h]
-    \setlength{\fboxsep}{0pt}%
-    \setlength{\fboxrule}{1pt}%
-    \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/oblast_of_Russia/SubjectsRussia_Map.png}}
-	\caption[Карта населения России, 2021.]{Карта населения Российской Федерации, 2021. Карта субъектов Российской Федерации, разделённых на 6 групп по количеству населения и отмеченных разными цветами в зависимости от группы, в которую субъект входит. Карта построена на основе данных, полученных с помощью запроса~\protect\ref{lst:oblast-of-Russia}.}%
-	\label{fig:oblast-of-Russia-population-fig}%
+\begin{fullwidth}
+\begin{figure*}[h]
+	\includegraphics[width=\textwidth]{./chapter/oblast_of_Russia/SubjectsRussia_Map.png}
+	\caption[Карта населения России, 2021.]{Карта населения Российской Федерации, 2021. Карта субъектов Российской Федерации, разделённых на 6 групп по количеству населения и отмеченных разными цветами в зависимости от группы, в которую субъект входит. Карта построена на основе данных, полученных с помощью запроса~\protect\ref{lst:map}.}%
+      \label{fig:SubjectsRussiaMap}%
 \end{figure*} 
+\end{fullwidth}
 
 \section{Защита страниц}
+
+На страницы Викиданных устанавливается защита для предотвращения повторяющегося вандализма или спама. 
 
 \begin{marginfigure}[5.0cm]
 {
@@ -265,7 +273,7 @@ ORDER BY ?population
 \label{fig:legend_population}%
 \end{marginfigure}
 
-На страницы Викиданных устанавливается защита для предотвращения повторяющегося вандализма или спама. Существует несколько видов защиты:
+Существует несколько видов защиты:
 \begin{itemize}
   \item Частичная защита или полузащита (обозначается серым замком) разрешает редактировать страницу только автоподтверждённым/подтверждённым участникам.
   \item Полная защита (обозначается оранжевым или красным замком) ограничивает круг редакторов администраторами.
