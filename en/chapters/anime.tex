@@ -232,3 +232,32 @@ The \emph{BIND(IF(?toggle, ?anime, ?seiyu))} construction in the line \num{11} a
 	\caption[Part of graph that connects seiyu and the anime they took part in, 2021.]{Part of graph that connects seiyu and the anime they took part in, 2021. The graph is constructed using the output of script~\ref{lst:seiyu_graph}.}%
     \label{fig:Seiyu_graph_en}%
 \end{figure*} 
+
+\section{Fullness of Wikidata}
+
+The list of the anime titles in \href{https://w.wiki/4Xs4}{English Wikipedia} contains around \num{1600} anime. But there are the special websites dedicated for anime like \href{https://www1.gogoanime.cm/}{Gogoanime online cinema}\sidenote{Gogoanime | Watch anime online, English anime online HD. \href{https://www1.gogoanime.cm/}{https://www1.gogoanime.cm/}, 2021} that contain the information about much more titles. At the moment of chapter writing there were \num{10072} available anime on Gogoanime (\num{74} pages per \num{136} names plus \num{8} extra anime), whereas Wikidata provides information only about \num{4875} titles (see script~\ref{lst:all_anime_list}). In addition, we should take into account the rapidness of anime releases\sidenote{Exercise: using SPARQL, count the number of anime released in the previous year.}. So we can conclude that Wikidata doesn't reflect the actual information about anime (only \num{48.4}\% titles are present).
+
+We can't consider Gogoanime as an \href{https://w.wiki/Eiw}{RS}\sidenote{Reliable source is a source of information that is true and believeable without any doubts. See \href{https://w.wiki/Eiw}{https://w.wiki/Eiw}}, but our finding about the Wikidata incompleteness allows us to enhance the further research.
+
+Let's remember the script~\protect\ref{lst:seiyu_titles_sorted} which returned \num{2910} names of seiyu on Wikidata. Its problem is that we searched only for voice actors who worked on anime. If we retrieve the information about all voice actors, without anime restriction, the number of results will increase in \num{5} times (see script~\protect\ref{lst:voice_actors_list}). Such an increase tells us that seiyu can dub not only the anime, and we should consider this fact in the future queries.
+
+\begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,
+                    caption={Sorted list of voice actors according to the number of anime voiced by them.
+                        \num{3965} results in 2017, \num{14742} results in 2021.
+                        SPARQL query: \href{https://w.wiki/4XpD}{https://w.wiki/4XpD}
+                        },
+                    label=lst:voice_actors_list,
+                    texcl 
+                    ]
+# Ordered list of actors according to the quantity
+# of projects voiced by them
+SELECT ?actor ?actorLabel (COUNT(?anime) AS ?count)
+WHERE
+{
+  ?anime wdt:P725 ?actor.	 # instance of voice actor
+  SERVICE wikibase:label{ bd:serviceParam
+			  								wikibase:language "en,ja" }
+}
+GROUP BY ?actor	?actorLabel
+ORDER BY DESC(?count)	# order by number of voiced projects
+\end{lstlisting}%
