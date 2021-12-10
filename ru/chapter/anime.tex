@@ -116,25 +116,23 @@ WHERE
 
 Построим упорядоченный список сэйю по числу озвученных ими аниме (листинг~\protect\ref{lst:seiyu_titles_sorted}).
 
-\footnotetext{Получено \num{148} результатов в 2017 году и \num{2684} результата в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/49zz}{https://w.wiki/49zz}}
+\footnotetext{Получено \num{148} результатов в 2017 году и \num{2910} результатов в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4Xph}{https://w.wiki/4Xph}}
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/49zz}{Упорядоченный список сэйю по числу озвученных ими аниме}\protect\footnotemark},
+                    caption={\href{https://w.wiki/4Xph}{Упорядоченный список сэйю по числу озвученных ими аниме}\protect\footnotemark},
                     label=lst:seiyu_titles_sorted,
                     texcl 
                     ]
-# Ordered list of seiyu according to the number of anime
+# Ordered list of actors (seiyu) according to the number of anime
 # where they took part in
-SELECT ?seiyu (SAMPLE(?label) AS ?seiyuLabel) (COUNT(?anime) AS ?count)
+SELECT ?seiyu ?seiyuLabel (COUNT(?anime) AS ?count)
 WHERE
 {
-  ?anime wdt:P31/wdt:P279* wd:Q1107;	 # instance of anime/subclass
-         wdt:P725 ?seiyu. 	             # instance of seiyu
-  ?seiyu rdfs:label ?label	             # subclass of label
-    SERVICE wikibase:label{bd:serviceParam
-					     wikibase:language "ru,en,ja"}
+  ?anime wdt:P31/wdt:P279* wd:Q1107;  # instance of anime/subclass
+         wdt:P725 ?seiyu.  # instance of seiyu (voice actor)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en,ja" }
 }
-GROUP BY ?seiyu		    # group by seiyu 
-ORDER BY DESC(?count)	# order by count of voiced anime
+GROUP BY ?seiyu ?seiyuLabel  # group by seiyu 
+ORDER BY DESC(?count)  # order by count of voiced anime
 \end{lstlisting}%
 
 \subsection{График по числу сэйю, озвучивших одно и более аниме}
@@ -250,24 +248,22 @@ WHERE
 
 Вспомним запрос~\protect\ref{lst:seiyu_titles_sorted}, в котором говорилось о \num{2684} сэйю на Викиданных. Дело в том, что поиск производился только по актёрам озвучивания, связанным с аниме, поэтому результат оказался таким скромным. Если запросить информацию о всех актёрах озвучивания (то есть убрать ограничение на категорию аниме), то количество результатов может увеличиться в \num{5} раз (листинг~\protect\ref{lst:voice_actors_list}). Такой прирост говорит о том, что сэйю могут озвучивать не только аниме, но и другие проекты, и это нужно учитывать при формировании запросов.
 
-\footnotetext{Получено \num{3965} результатов в 2017 году и \num{14252} результата в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4KQY}{https://w.wiki/4KQY}}
+\footnotetext{Получено \num{3965} результатов в 2017 году и \num{14744} результата в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4XpY}{https://w.wiki/4XpY}}
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/4KQY}{Получение списка актёров озвучки и числа озвученных ими проектов}\protect\footnotemark},
+                    caption={\href{https://w.wiki/4XpY}{Получение списка актёров озвучки и числа озвученных ими проектов}\protect\footnotemark},
                     label=lst:voice_actors_list,
                     texcl 
                     ]
 # Ordered list of actors according to the quantity of projects
 # voiced by them
-SELECT ?actor (SAMPLE(?label) AS ?actorLabel) (COUNT(?media) AS ?count)
+SELECT ?actor ?actorLabel (COUNT(?anime) AS ?count)
 WHERE
 {
-  ?media wdt:P725 ?actor.	 # instance of voice actor
-  ?actor rdfs:label ?label	 # subclass of label
-  SERVICE wikibase:label { bd:serviceParam
-                           wikibase:language "ru,en,ja" }
+  ?anime wdt:P725 ?actor.	 # instance of voice actor
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en,ja" }
 }
-GROUP BY ?actor		    # group by actor
-ORDER BY DESC(?count)	# order by number of voiced projects 
+GROUP BY ?actor  ?actorLabel
+ORDER BY DESC(?count)  # order by number of voiced projects
 \end{lstlisting}%
 
 \begin{figure*}[h]
@@ -413,8 +409,6 @@ WHERE
 \end{figure*} 
  	
 Отметим следующий забавный факт: в Викиданных нашлись случаи, когда сэйю родился позже, чем вышло аниме с его участием. Вероятно, это связано с отсутствием информации в Викиданных о втором сезоне/перезапуске аниме. Например, на 2021 год такая ситуация наблюдается для аниме \wdqName{Sazae-san}{11304591} и сэйю \wdqName{Нобунага Симадзаки}{5968283}: сэйю родился в 1988 году, а дата выхода аниме с его участием~--- 1969 год.
-
-\newpage
 
 \section{Упражнения}
 

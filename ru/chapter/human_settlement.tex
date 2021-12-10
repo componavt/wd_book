@@ -1,21 +1,19 @@
 \chapter{Населённые пункты}
 \label{ch:human-settlement}
 
-	Викиданные представляют собой базу структурированных данных. В статье исследуется объект Викиданных <<населённый пункт>> (human settlement) и его свойства. 
-В каждом из разделов представлены задачи, решённые с помощью SPARQL-запросов. В их числе: нахождение экземпляров объекта <<населённый пункт>>, построение
-упорядоченного списка стран по суммарному количеству населения, проживающего в <<населённых пунктах>>, и списка объектов, сопутствующих <<населённым 
-пунктам>> в свойстве <<экземпляр>> (instance of). Также построена диаграмма, показывающая долю населения страны, проживающего в <<населённых пунктах>>. 
-Диаграмма показывает, что высокий процент населения, проживающего в <<населённых пунктах>>, приходится на менее промышленные страны, в то время как в более 
-индустриальных странах меньшая доля населения проживает в <<населённых пунктах>>. На 2017 год Википедия описывает примерно половину населённых пунктов 
-(75 тыс.), Викиданные содержат менее 3\% таких поселений (4 тыс.) относительно данных переписи за 2010 год (155,5 тыс.). Для улучшения результатов решения 
-вышеописанных задач находили более общие объекты и указывали их в исследуемом объекте с помощью свойства <<экземляр>> (instance of). Трудность исследования 
-вызвана отсутствием чёткой типологии населённых пунктов (например, от численности населения) в законодательстве России и в Викиданных.
+	В главе исследуется объект Викиданных \wdqName{населённый пункт}{486972} и его свойства. В каждом из разделов представлены задачи, решённые с помощью SPARQL-запросов. В их числе: нахождение экземпляров объекта \href{http://www.wikidata.org/entity/Q486972}{населённый пункт}, построение упорядоченного списка стран по суммарному количеству населения, проживающего в \href{http://www.wikidata.org/entity/Q486972}{населённых пунктах}, и списка объектов, сопутствующих \href{http://www.wikidata.org/entity/Q486972}{населённым пунктам} в свойстве \wdProperty{31}{экземпляр}. Также построена диаграмма, показывающая долю населения страны, проживающего в \href{http://www.wikidata.org/entity/Q486972}{населённых пунктах}. Диаграмма показывает, что высокий процент населения, проживающего в \href{http://www.wikidata.org/entity/Q486972}{населённых пунктах}, приходится на менее промышленные страны, в то время как в более индустриальных странах меньшая доля населения проживает в \href{http://www.wikidata.org/entity/Q486972}{населённых пунктах}. 
+
+На 2017 год Википедия описывает примерно половину населённых пунктов (75 тыс.), Викиданные содержат менее 3\% таких поселений (4 тыс.) относительно данных переписи за 2010 год (155,5 тыс.). 
+
+На 2021 год Википедия описывает населённых пунктов , Викиданные содержат менее  таких поселений относительно данных переписи за 2010 год (155,5 тыс.). 
+
+Для улучшения результатов решения вышеописанных задач находили более общие классы и указывали их в исследуемом объекте с помощью свойства \href{http://www.wikidata.org/entity/P31}{экземпляры}. Трудность исследования вызвана отсутствием чёткой типологии населённых пунктов (например, от численности населения) в законодательстве России и в Викиданных.
 
 %%%%
 \section{Экземпляры объекта <<Населённый пункт>>}
 
 Для построения списка всех населённых пунктов нам потребуются объект 
-\wdqName{<<Населённый пункт>>}{486972} и свойство \wdProperty{31}{<<экземпляры>>} 
+\href{http://www.wikidata.org/entity/Q486972}{населённый пункт} и свойство \href{http://www.wikidata.org/entity/P31}{экземпляры}
 (листинг ~\protect\ref{lst:human-settlement1}).
 
 \begin{lstlisting}[ language=SPARQL, 
@@ -28,13 +26,12 @@ SELECT ?hum ?humLabel
 WHERE 
 {
   ?hum wdt:P31 wd:Q486972. # instance of human settlement  
-  SERVICE wikibase:label { bd:serviceParam wikibase:language 
-							"ru,[AUTO_LANGUAGE]"}
+  SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
 }
 \end{lstlisting}%
 \footnotetext{Получено \num{411393} записи в 2017 году.  Ссылка на SPARQL-запрос: \href{https://w.wiki/49WB}{https://w.wiki/49WB}}
 
-В 2021 году список населённых пунктов получить невозможно из-за большого числа объектов и поэтому слишком долгой работы скрипта. Произведем подсчёт всех населённых пунктов (листинг ~\protect\ref{lst:human-settlement2}).
+В 2021 году список населённых пунктов получить невозможно из-за большого числа объектов и поэтому слишком долгой работы скрипта. Для получения результата произведем подсчёт всех населённых пунктов (листинг ~\protect\ref{lst:human-settlement2}).
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/49WC}{Количество всех Населённых пунктов}\protect\footnotemark},
@@ -45,17 +42,12 @@ WHERE
 SELECT (COUNT(?hum) AS ?count) 
 WHERE {
   ?hum wdt:P31 wd:Q486972. # instance of human settlement  
-  SERVICE wikibase:label { bd:serviceParam wikibase:language 
-							"ru,[AUTO_LANGUAGE]"}
+  SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
 }
 \end{lstlisting}%
-\footnotetext{Получено \num{563126} записи в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/49WC}{https://w.wiki/49WC}}
+\footnotetext{Получено \num{563126} записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/49WC}{https://w.wiki/49WC}}
 
-Наиболее полными и проработанными населёнными пунктами на Викиданных являются:  \href{http://www.wikidata.org/entity/Q80561}{Антакья}, \href{http://www.wikidata.org/entity/Q52506}{Хенераль Рока}, \href{http://www.wikidata.org/entity/Q51063}{Падре Лас Касас}.
-
-Почти пустыми и малоинформативными населёнными пунктами оказались: \href{http://www.wikidata.org/entity/Q31913786}{Беломорск}, \href{http://www.wikidata.org/entity/Q37958167}{Сегежа}, \href{http://www.wikidata.org/entity/Q33522990}{Янишполе}.
-
-Произведено объединение дублей объектов \href{http://www.wikidata.org/entity/Q31913786}{Беломорск} с \href{http://www.wikidata.org/entity/Q104773}{Беломорск}, \href{http://www.wikidata.org/entity/Q37958167}{Сегежа} с \href{http://www.wikidata.org/entity/Q193922}{Сегежа}, \href{http://www.wikidata.org/entity/Q33522990}{Янишполе} с \href{http://www.wikidata.org/entity/Q16024734}{Янишполе}.
+Почти пустыми и малоинформативными населёнными пунктами оказались: \href{http://www.wikidata.org/entity/Q31913786}{Беломорск} (\num{25} свойств), \href{http://www.wikidata.org/entity/Q37958167}{Сегежа} (\num{22} свойства), \href{http://www.wikidata.org/entity/Q33522990}{Янишполе} (\num{20} свойств).
 
 Среди отечественных населённых пунктов в Викиданных больше всего свойств по данным ProWD у \href{http://www.wikidata.org/entity/Q128499}{Ялты} (\num{36} свойств). Лидером по всему миру является \href{http://www.wikidata.org/entity/Q1490}{Токио} (\num{73} свойства). \protect\footnotemark
 
@@ -80,17 +72,16 @@ WHERE
        wdt:P17 ?country;   # settlement in the ?country
        wdt:P1082 ?population. # settlement has ?population
   
-  SERVICE wikibase:label { bd:serviceParam wikibase:language 
-						"ru,[AUTO_LANGUAGE]"}
+  SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
 }
 GROUP BY ?country ?countryLabel 
 ORDER BY DESC (?sumPopulation)
 \end{lstlisting}%
 \footnotetext{Получено \num{161} запись в 2017 году и \num{213} записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/49W2}{https://w.wiki/49W2}}
 
-Для группирования населённых пунктов по странам, используем команду GROUP BY в предпоследней строчке скрипта выше.
+Для группирования населённых пунктов по странам, используем команду GROUP BY в предпоследней строчке скрипта (листинг ~\protect\ref{lst:human-settlement3}).
 
-Пузырьковая диаграмма ниже показывает соотношение стран по количеству населения в <<населённых пунктах>>.
+Пузырьковая диаграмма на рисунке ~\ref{fig:human-settlement-1} показывает соотношение стран по количеству населения в <<населённых пунктах>>.
 
 \begin{figure}
 \centering
@@ -106,62 +97,97 @@ ORDER BY DESC (?sumPopulation)
 	\caption[Пузырьковая диаграмма  по суммарному количеству населения в населённых пунктах, 2021.]{Пузырьковая диаграмма  по суммарному количеству населения, проживающего в объектах типа <<населённый пункт>> на 2021 год. Размер пузырька соответствует числу населения для одной страны. Ссылка на SPARQL-запрос: \href{https://w.wiki/49W2}{https://w.wiki/49W2}}
 \end{figure}
 
-Результаты запросов в 2017 и 2021 имеют сильно разные результаты. В 2017 году большее количество населения проживало в объектах <<населённый пункт>> в таких странах, как: \href{http://www.wikidata.org/entity/Q155}{Бразилия} (\num{12} млн), \href{http://www.wikidata.org/entity/Q843}{Пакистан} (\num{10} млн), \href{http://www.wikidata.org/entity/Q96}{Мексика} (\num{8} млн), \href{http://www.wikidata.org/entity/Q805}{Йемен} (\num{8} млн), \href{http://www.wikidata.org/entity/Q668}{Индия} (\num{7} млн), \href{http://www.wikidata.org/entity/Q902}{Бангладеш} (\num{7} млн). Эти страны имеют пригодные климатические и географические условия для комфортного проживания относительно небольших населённых пунктах. Однако в 2021 году список значительно изменился: \href{http://www.wikidata.org/entity/Q668}{Индия} (\num{30} млн), \href{http://www.wikidata.org/entity/Q148}{Китай} (\num{28} млн), \href{http://www.wikidata.org/entity/Q96}{Мексика} (\num{17} млн), \href{http://www.wikidata.org/entity/Q252}{Индонезия} (\num{13} млн), \href{http://www.wikidata.org/entity/Q16}{Канада} (\num{9} млн), \href{http://www.wikidata.org/entity/Q851}{Саудовская Аравия} (\num{9} млн).
+Итоги запросов в 2017 и 2021 имеют сильно различные результаты. В 2017 году большее количество населения проживало в объектах <<населённый пункт>> в таких странах, как: \href{http://www.wikidata.org/entity/Q155}{Бразилия} (\num{12} млн), \href{http://www.wikidata.org/entity/Q843}{Пакистан} (\num{10} млн), \href{http://www.wikidata.org/entity/Q96}{Мексика} (\num{8} млн), \href{http://www.wikidata.org/entity/Q805}{Йемен} (\num{8} млн), \href{http://www.wikidata.org/entity/Q668}{Индия} (\num{7} млн), \href{http://www.wikidata.org/entity/Q902}{Бангладеш} (\num{7} млн). На рисунке ~\ref{fig:human-settlement-2} можно увидеть, что в 2021 году список первых стран изменился: \href{http://www.wikidata.org/entity/Q668}{Индия} (\num{30} млн), \href{http://www.wikidata.org/entity/Q148}{Китай} (\num{28} млн), \href{http://www.wikidata.org/entity/Q96}{Мексика} (\num{17} млн), \href{http://www.wikidata.org/entity/Q252}{Индонезия} (\num{13} млн), \href{http://www.wikidata.org/entity/Q16}{Канада} (\num{9} млн), \href{http://www.wikidata.org/entity/Q851}{Саудовская Аравия} (\num{9} млн). 
+Эти страны имеют пригодные климатические и географические условия для комфортного проживания в относительно небольших населённых пунктах.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Дополнение понятия <<населенный пункт>>}
 
-%%%%%
-\subsection{Проверка правильности выполнения скрипта}
-
-Проверим правильность подсчётов вышеописанного запроса, который строит список стран по суммарному числу населения. Для этого напишем скрипт~---  \href{https://w.wiki/4CzZ}{SPARQL-запрос}, где для самой малолюдной страны будет построен список поселений с количеством их жителей. В 2017 году запрос показал, что такой страной является \href{http://www.wikidata.org/entity/Q236}{Черногория}. В 2021 году такой страной является \href{http://www.wikidata.org/entity/Q760}{Сент-Люсия}. Немного изменим тот же скрипт и выведем число жителей населённых пунктов \href{http://www.wikidata.org/entity/Q760}{Сент-Люсия}.
+Попробуем получить более полный результат стрипта (листинг ~\protect\ref{lst:human-settlement3}). Для это нужно изучить \wdqName{населенный пункт}{486972} из свойства \wdProperty{31}{экземпляр}. Если рассмотреть город \wdqName{Петрозаводск}{1895} он имеет четыре класса (\wdqName{административно-территориальная единица России}{192287}; \wdqName{город с населением более \num{100000} человек}{1549591}; \wdqName{населённый пункт}{486972}; \wdqName{город}{7930989}). Трое из этих свойств являются схожими и используются совместно с интересующим нас классом <<населенный пункт>>. Выведем список классов по суммарному упоминанию среди объектов имеющих свойство \wdProperty{1082}{численность населения} в \wdqName{России}{159} (листинг ~\protect\ref{lst:human-settlement4}).
 
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/4Cza}{Список стран по суммарному количеству населения}\protect\footnotemark},
+                    caption={\href{https://w.wiki/4XHP}{Модернизированный список стран по суммарному количеству населения}\protect\footnotemark},
                     label=lst:human-settlement4,
                     texcl 
                     ]
-# Population in settlements in the Saint Lucia 
-SELECT (sum(?population) as ?total)
+# displaying the number of different classes of a joint human 
+# settlements in Russia
+SELECT ?klass ?klassLabel (COUNT(?klass) AS ?count) 
+  (GROUP_CONCAT(DISTINCT ?humLabel; SEPARATOR = "; ") AS ?countries) 
 WHERE {
-  ?hum wdt:P31 wd:Q486972.    # instance of human settlement
-  ?hum wdt:P17 wd:Q760.       # settlement in the Saint Lucia
-  ?hum wdt:P1082 ?population. # settlement has ?population
-  SERVICE wikibase:label { bd:serviceParam wikibase:language 
-				"ru,[AUTO_LANGUAGE]"}
+ {
+  SELECT ?klass ?klassLabel ?humLabel WHERE {
+   ?hum wdt:P17 wd:Q159.  # settlement in the Russia
+   ?hum wdt:P31 wd:Q486972. # settlement has human-settlements
+   ?hum wdt:P1082 ?population. # settlement has ?population
+   ?hum wdt:P31 ?klass. # settlement has other ?klass
+   SERVICE wikibase:labe{bd:serviceParam wikibase:language"ru,en".
+     ?klass rdfs:label ?klassLabel.
+     ?hum rdfs:label ?humLabel.}
+  }
  }
+}
+GROUP BY ?klass ?klassLabel
+ORDER BY DESC (?count)
 \end{lstlisting}%
-\footnotetext{Проверка прошла успешно, так как данный скрипт подтвердил результат численности населения, проживающего в <<населённых пунктах>> \href{http://www.wikidata.org/entity/Q760}{Сент-Люсия}. Ссылка на SPARQL-запрос: \href{https://w.wiki/4Cza}{https://w.wiki/4Cza}}
+\footnotetext{Как и ожидалось класс <<населенный пункт>> оказался не на первом месте и набрал всего \num{1122} упоминаний. Ссылка на SPARQL-запрос: \href{https://w.wiki/4XHP}{https://w.wiki/4XHP}}
+
+Обратим внимание на следующие классы: \wdqName{сельское поселение в России}{634099}~--- \num{18102}, \wdqName{деревня}{5084}~--- \num{14760}, \wdqName{село}{532}~--- \num{9844}, \wdqName{посёлок}{2514025}~--- \num{4413}, \wdqName{хутор}{2023000}~--- \num{1729},  \wdqName{посёлок городского типа России}{15078955}~--- \num{665}. Попробуем получить еще раз результат скрипта (листинг ~\protect\ref{lst:human-settlement3}) используя новые классы. Это позволит избавится от подсчета городов упоминаемых как <<населенный пункт>> (листинг ~\protect\ref{lst:human-settlement5}).
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={\href{https://w.wiki/4XHv}{Список классов по суммарному упоминанию среди объектов имеющих свойство численность населения в России}\protect\footnotemark},
+                    label=lst:human-settlement5,
+                    texcl 
+                    ]
+# Modernized list of countries by population in settlements
+SELECT ?country ?countryLabel (SUM(?population) as ?sumPopulation) 
+WHERE{
+  VALUES ?type {
+        wd:Q634099
+        wd:Q5084
+        wd:Q532
+        wd:Q2514025
+        wd:Q2023000
+        wd:Q15078955
+  }
+  ?hum wdt:P31 ?type. # instance of human settlement
+  ?hum wdt:P17 ?country.   # settlement in the ?country
+  ?hum wdt:P1082 ?population. # settlement has ?population
+  SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
+}
+GROUP BY ?country ?countryLabel
+ORDER BY DESC (?count)
+\end{lstlisting}%
+\footnotetext{Как и ожидалось Россия оказалась на первом месте и набрала число населения \num{53798270}. На втором месте оказались Нидерланды с результатом \num{11893141}. Открыв от второго места 42 млн Ссылка на SPARQL-запрос: \href{https://w.wiki/4XHv}{https://w.wiki/4XHv}}
+
+Числиность насиления России в результатах скриптов (листинг ~\protect\ref{lst:human-settlement3}) и (листинг ~\protect\ref{lst:human-settlement5}) получилась \num{6494645} и \num{53798270} соответственно. Из чего следует, что нужно произвести уточнение и для других стран.
+
+ 
+
 
 %%%%%
 \subsection{Полнота Викиданных}
 
-Населённый пункт — это общее название мест с постоянными жителями \protect\footnotemark. \footnotetext{Ожегов С. И. Толковый словарь русского языка, 2003} По версии редакторов Викиданных в понятие насёленный пункт входят города, сёла, деревни и другие. Полный список можно увидеть в разделе этой статьи «Cписок объектов, сопутствующих "human\_settlement" в "instance of"». Точной информации о количестве населённых пунктов в мире не было найдено. Поэтому проверим полноту населённых пунктов, которые есть в Викиданных и которые использовались для решения задачи. Была поставлена задача: построить упорядоченный список стран по суммарному количеству населения, проживающего в \href{http://www.wikidata.org/entity/Q486972}{населённых пунктах}. Для этого напишем \href{https://w.wiki/4FUz}{SPARQL-запрос} \protect\footnotemark, который выведет населённые пункты с незаполненным свойством \href{http://www.wikidata.org/entity/P1082}{численность населения}. 
-\footnotetext{ В 2017 году этот запрос выдал \num{372997} таких населённых пунктов. Произведя расчеты получаем, что только у \num{9,3}\% населенных пунктов мира указано количество населения (свойство 'population'). Проводя ту же проверку в 2021 году, запрос выдал \num{507078} таких населённых пунктов. Получаем \num{11,2}\% населенных пунктов мира имеют свойство 'population'.} 
-А теперь посмотрим населённые пункты, у которых не указана принадлежность к какой-либо стране~--- \href{https://w.wiki/4FV8}{SPARQL-запрос}\protect\footnotemark.
+Населённый пункт — это общее название мест с постоянными жителями\footnote {Ожегов С. И. Толковый словарь русского языка, 2003}. По версии редакторов Викиданных в понятие насёленный пункт входят города, сёла, деревни и другие\footnote{Полный список можно увидеть в разделе этой главы «Cписок объектов, сопутствующих "human\_settlement" в "instance of"».}.
+Точной информации о количестве населённых пунктов в мире не было найдено. Поэтому проверим полноту населённых пунктов, которые есть в Викиданных и которые использовались для решения задачи. Была поставлена задача: построить упорядоченный список стран по суммарному количеству населения, проживающего в \href{http://www.wikidata.org/entity/Q486972}{населённых пунктах}. Для этого напишем \href{https://w.wiki/4FUz}{SPARQL-запрос} \footnotemark, который выведет населённые пункты с незаполненным свойством \href{http://www.wikidata.org/entity/P1082}{численность населения}. 
+\footnotetext{ В 2017 году этот запрос выдал \num{372997} таких населённых пунктов. Произведя расчеты получаем, что только у 9,3\% населенных пунктов мира указано количество населения (свойство \wdProperty{1082}{численность населения}). Проводя ту же проверку в 2021 году, запрос выдал \num{507078} таких населённых пунктов. Получаем 11,2\% населенных пунктов мира с заполненным свойство 'численность населения'. Ссылка на SPARQL-запрос: \href{https://w.wiki/4FUz}{https://w.wiki/4FUz}} 
+А теперь посмотрим населённые пункты, у которых не указана принадлежность к какой-либо стране~--- \href{https://w.wiki/4FV8}{SPARQL-запрос}\footnotemark.
 
-\footnotetext{В 2017 году таких нашлось \num{8427} объектов. В 2021 году таких объектов уже существенно больше - \num{27824}. Поэтому в результате решения данной задачи получились неполная картина о суммарном количестве населения в населённых пунктах по странам.}
+\footnotetext{В 2017 году таких нашлось \num{8427} объектов. В 2021 году таких объектов уже существенно больше~--- \num{27824}. Поэтому в результате решения данной задачи получились неполная картина о суммарном количестве населения в населённых пунктах по странам. Ссылка на SPARQL-запрос: \href{https://w.wiki/4FV8}{https://w.wiki/4FV8}}
 
-Рассмотрим населённые пункты России. По данным проекта "Населённые пункты России/Статистика" Русская Википедия содержит приблизительно 75000 статей о населённых пунктах России. По переписи 2010 года в России 155 510 населённых пунктов. Проверим, сколько объектов содержится в Викиданных о населённых пунктах России с помощью следующего \href{https://w.wiki/4FVE}{SPARQL-запроса}\protect\footnotemark. 
+Рассмотрим населённые пункты России. По данным проекта "Населённые пункты России/Статистика" Русская Википедия содержит приблизительно 75 тыс. статей о населённых пунктах России. По переписи 2010 года в России 155 510 населённых пунктов. Проверим, сколько объектов содержится в Викиданных о населённых пунктах России с помощью следующего \href{https://w.wiki/4FVE}{SPARQL-запроса}\protect\footnotemark. 
 
-\footnotetext{В 2017 году было получено \num{4113} объектов, что составляет \num{2,6}\% от общего числа населённых пунктов по переписи за 2010 год. В 2021 году запрос выдал \num{17425} объектов, что составляет \num{11,2}\% от общего числа населённых пунктов. Таким образом, в Викиданных содержится слишком мало информации о населённых пунктах России.}
+\footnotetext{В 2017 году было получено \num{4113} объектов, что составляет 2,6\% от общего числа населённых пунктов по переписи за 2010 год. В 2021 году запрос выдал \num{17425} объектов, что составляет 11,2\% от общего числа населённых пунктов. Таким образом, в Викиданных содержится слишком мало информации о населённых пунктах России. Ссылка на SPARQL-запрос: \href{https://w.wiki/4FVE}{https://w.wiki/4FVE}}
 
 Итак, степень заполненности Викиданных по населённым пунктам низкая. А именно, у некоторых городов, поселков, деревень и других населённых пунктов на Викиданны отсутствует свойство \href{http://www.wikidata.org/entity/Q21503252}{экземпляр}, значением которого может быть \href{http://www.wikidata.org/entity/Q486972}{населённый пункт}. Кроме того, есть почти пустые и плохо проработанные объекты. Для решения этих проблем необходимо заполнять эти свойства и связывать между собой объекты Викиданных.
 
 %%%%%
-\subsection{Заполнение Викиданных}
+\section{Доля населения страны, проживающего в human\_settlement}
 
-В ходе заполнения объектов Викиданных было решено заполнять свойство \href{http://www.wikidata.org/entity/Q21503252}{экземпляр}.
-
-Были внесены данные о \num{100} объектах России, которые не имели значения \href{http://www.wikidata.org/entity/Q486972}{населённый пункт} в свойстве \href{http://www.wikidata.org/entity/Q21503252}{экземпляр}.
-
-На 25.10.2017, после заполнения данными, Викиданные содержали \num{4207} объектов о населённых пунктах России, что составляло \num{2,6}\% от общего числа населённых пунктов по переписи за 2010 год и \num{5,6}\% от данных Русской Википедии. Это можно увидеть с помощью следующего \href{https://w.wiki/4FVE}{SPARQL-запроса}.
-
-%%%%%
-\section{Доля населения страны, проживающего в <<human\_settlement>>}
-
-Построим упорядоченный список стран доли населения (в процентах), проживающего в \href{http://www.wikidata.org/entity/Q486972}{населённых пунктах}, к числу всех жителей страны.
+Построим упорядоченный список стран доли населения (в процентах), проживающего в \href{http://www.wikidata.org/entity/Q486972}{населённых пунктах} относительно числа всех жителей страны (листинг ~\protect\ref{lst:human-settlement5}).
 
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/4Cza}{соотношение количества людей, проживающих в селе, к количеству людей, проживающих в стране.}\protect\footnotemark},
+                    caption={\href{https://w.wiki/4Cza}{соотношение количества людей, проживающих в населённых пунктах, к количеству людей, проживающих в стране}\protect\footnotemark},
                     label=lst:human-settlement5,
                     texcl 
                     ]
@@ -175,20 +201,20 @@ WHERE {
   ?hum wdt:P17 ?country.      # country 
   ?hum wdt:P1082 ?population. # population
   ?country wdt:P1082 ?pop.    # population in the country
-  SERVICE wikibase:label { bd:serviceParam wikibase:language 
-	"ru,[AUTO_LANGUAGE]"}
+
+  SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
   }
 GROUP BY ?country ?countryLabel
 ORDER BY DESC (?percentPopulation)
 \end{lstlisting}%
 \footnotetext{Получено \num{158} записей в 2017 году и \num{206} записей в 2021 году. \href{https://w.wiki/4T4s}{Ссылка.}}
 
-Столбчатая диаграмма на рисунке позволяет увидеть для каждой отдельной страны отношение количества людей, проживающих в \href{http://www.wikidata.org/entity/Q486972}{населённых пунктах} к числу жителей в стране.
+Столбчатая диаграмма на рисунке ~\ref{fig:human-settlement-3} позволяет увидеть для каждой отдельной страны отношение количества людей, проживающих в \href{http://www.wikidata.org/entity/Q486972}{населённых пунктах}, к числу жителей в стране на 2017 год.
 
 \begin{figure*}
     \setlength{\fboxsep}{0pt}%
     \setlength{\fboxrule}{1pt}%
-    \fcolorbox{gray}{gray}{\includegraphics[width=0.9\linewidth]{./chapter/human_settlement/AnnaShareHumanSettlement.png}}
+    \fcolorbox{gray}{gray}{\includegraphics[width=1\linewidth]{./chapter/human_settlement/AnnaShareHumanSettlement.png}}
 	\label{fig:human-settlement-3}
 	\caption[Диаграмма доли населения страны. Карелия, 2017.]{Диаграмма доли населения страны, проживающего в "населённых пунктах" (2017). Ссылка на SPARQL-запрос: \href{https://w.wiki/4T4s}{https://w.wiki/4T4s}.}%
 \end{figure*} 
@@ -196,26 +222,26 @@ ORDER BY DESC (?percentPopulation)
 \begin{figure*}
     \setlength{\fboxsep}{0pt}%
     \setlength{\fboxrule}{1pt}%
-    \fcolorbox{gray}{gray}{\includegraphics[width=0.9\linewidth]{./chapter/human_settlement/LeonidShareHumanSettlement.jpg}}
+    \fcolorbox{gray}{gray}{\includegraphics[width=1\linewidth]{./chapter/human_settlement/LeonidShareHumanSettlement.jpg}}
 	\label{fig:human-settlement-4}
-	\caption[Диаграмма доли населения страны, 2021.]{Диаграмма доли населения страны, проживающего в "населённых пунктах" (2021). Ссылка на SPARQL-запрос: \href{https://w.wiki/4T4s}{https://w.wiki/4T4s}.}%
+	\caption[Диаграмма доли населения страны, 2021.]{Диаграмма доли населения страны, проживающего в <<населённых пунктах>> (2021). Ссылка на SPARQL-запрос: \href{https://w.wiki/4T4s}{https://w.wiki/4T4s}}%
 \end{figure*} 
 
-Из графика видно, что наиболее высокий процент в 2017 году приходился на следующие страны: Кирибати (78\%), Ниуэ (70\%), Греция (53\%), Тувалу (48\%), Коморы (43\%), Маврикий (42\%). В 2021 году ситуация полностью поменялась: Ниуэ (72\%), Папуа — Новая Гвинея (71\%), Словения (61\%), Фарерские острова (54\%), Греция (53\%), Маршалловы Острова (51\%). Интересно заметить, что в основном это маленькие островные государства. Вероятно, большая часть жителей этих стран сконцентрирована в населённых пунктах.
+На рисунке ~\ref{fig:human-settlement-3} из графика видно, что наиболее высокий процент в 2017 году приходился на следующие страны: Кирибати (78\%), Ниуэ (70\%), Греция (53\%), Тувалу (48\%), Коморы (43\%), Маврикий (42\%). В 2021 году появились изменения : Ниуэ (72\%), Папуа — Новая Гвинея (71\%), Словения (61\%), Фарерские острова (54\%), Греция (53\%), Маршалловы Острова (51\%). Интересно заметить, что в основном это маленькие островные государства. Вероятно, большая часть жителей этих стран сконцентрирована в населённых пунктах.
 
-На 2017 год рассматривая отдельно страны большой восьмёрки, доля жителей в \href{http://www.wikidata.org/entity/Q486972}{населённых пунктах} составила: \href{http://www.wikidata.org/entity/Q159}{Россия} (\num{2.98}\%), \href{http://www.wikidata.org/entity/Q30}{США} (\num{1.76}\%), \href{http://www.wikidata.org/entity/Q17}{Япония} (\num{0.80}\%), \href{http://www.wikidata.org/entity/Q16}{Канада} (\num{0.26}\%), \href{http://www.wikidata.org/entity/Q142}{Франция} (\num{0.20}\%), \href{http://www.wikidata.org/entity/Q183}{Германия} (\num{0.24}\%), \href{http://www.wikidata.org/entity/Q145}{Великобритания} (\num{0.18}\%), \href{http://www.wikidata.org/entity/Q38}{Италия} (\num{0.07}\%). В 2011 году значения значительно снизились: \href{http://www.wikidata.org/entity/Q159}{Россия} (\num{5,6}0.045\%), \href{http://www.wikidata.org/entity/Q30}{США} (\num{0.014}\%), \href{http://www.wikidata.org/entity/Q17}{Япония} (\num{0.008}\%), \href{http://www.wikidata.org/entity/Q16}{Канада} (\num{0.23}\%), \href{http://www.wikidata.org/entity/Q142}{Франция} (\num{0.005}\%), \href{http://www.wikidata.org/entity/Q183}{Германия} (\num{0.005}\%), \href{http://www.wikidata.org/entity/Q145}{Великобритания} (\num{0.014}\%), \href{http://www.wikidata.org/entity/Q38}{Италия} (\num{0.0005}\%) Отметим, что это страны промышленно развитые.
+На 2017 год рассматривая отдельно страны большой восьмёрки, доля жителей в \href{http://www.wikidata.org/entity/Q486972}{населённых пунктах} составила: \href{http://www.wikidata.org/entity/Q159}{Россия} (\num{2.98}\%), \href{http://www.wikidata.org/entity/Q30}{США} (\num{1.76}\%), \href{http://www.wikidata.org/entity/Q17}{Япония} (\num{0.80}\%), \href{http://www.wikidata.org/entity/Q16}{Канада} (\num{0.26}\%), \href{http://www.wikidata.org/entity/Q142}{Франция} (\num{0.20}\%), \href{http://www.wikidata.org/entity/Q183}{Германия} (\num{0.24}\%), \href{http://www.wikidata.org/entity/Q145}{Великобритания} (\num{0.18}\%), \href{http://www.wikidata.org/entity/Q38}{Италия} (\num{0.07}\%). В 2021 году значения заметно снизились: \href{http://www.wikidata.org/entity/Q159}{Россия} (0.045\%), \href{http://www.wikidata.org/entity/Q30}{США} (\num{0.014}\%), \href{http://www.wikidata.org/entity/Q17}{Япония} (\num{0.008}\%), \href{http://www.wikidata.org/entity/Q16}{Канада} (\num{0.23}\%), \href{http://www.wikidata.org/entity/Q142}{Франция} (\num{0.005}\%), \href{http://www.wikidata.org/entity/Q183}{Германия} (\num{0.005}\%), \href{http://www.wikidata.org/entity/Q145}{Великобритания} (\num{0.014}\%), \href{http://www.wikidata.org/entity/Q38}{Италия} (\num{0.0005}\%). Отметим, что это страны промышленно развитые.
 
-Построенная диаграмма подтверждает следующую гипотезу: высокий процент населения страны, проживающего в \href{http://www.wikidata.org/entity/Q486972}{населённых пунктах}, указывает на более аграрную страну. В действительности имеется возможность развития сельского хозяйства в этих странах. Исходя из диаграммы и запроса видно, что наиболее высокий процент населения страны, проживающего в \href{http://www.wikidata.org/entity/Q486972}{населённых пунктах}, приходится на островные, южные, жаркие страны, в которых, по-видимому, менее развита промышленность (маленькая территория, небольшое количество населения, удаленность от материков). А индустриальные страны (большой восьмёрки) имеют очень низкий процент населения страны, проживающего в \href{http://www.wikidata.org/entity/Q486972}{населённых пунктах}.
+Построенная диаграмма подтверждает следующую гипотезу: высокий процент населения страны, проживающего в \wdqName{населённых пунктах}{486972}, указывает на более аграрную страну. В действительности имеется возможность развития сельского хозяйства в этих странах. Исходя из диаграммы и запроса видно, что наиболее высокий процент населения страны, проживающего в населённых пунктах, приходится на островные, южные, жаркие страны, в которых, по-видимому, менее развита промышленность (маленькая территория, небольшое количество населения, удалённость от материков). А индустриальные страны (большой восьмёрки) имеют очень низкий процент населения страны, проживающего в населённых пунктах.
 
 %%%%%
-\section{Cписок объектов, сопутствующих <<human\_settlement>> в <<instance of>>}
+\section{Cписок объектов, сопутствующих human\_settlement в instance of }
 
-У каждого объекта в wikidata есть свойство \href{http://www.wikidata.org/entity/Q21503252}{экземпляр}. Это свойство определяет класс или категорию к которому относится каждый объект в wikidata. Если рассмотреть город Petrozavodsk он имеет 4 класса (\href{http://www.wikidata.org/entity/Q192287}{административно-территориальная единица России}; \href{http://www.wikidata.org/entity/Q1549591}{город с населением более 100 000 человек}; \href{http://www.wikidata.org/entity/Q486972}{населённый пункт}; \href{http://www.wikidata.org/entity/Q7930989}{город}).
+Попробуем получить список объектов имеющих свойство населённый пункт. У каждого объекта в Викиданных есть свойство \wdProperty{31}{экземпляр}. Это свойство определяет класс или категорию к которому относится каждый объект в Викиданных. Если рассмотреть город \wdqName{Петрозаводск}{1895} он имеет четыре класса (\wdqName{административно-территориальная единица России}{192287}; \wdqName{город с населением более \num{100000} человек}{1549591}; \wdqName{населённый пункт}{486972}; \wdqName{город}{7930989}). Трое из этих свойств являются схожими. Один из них и есть наш исследуемый объект (населённый пункт).  
 
-Трудность исследования вызвана отсутствием чёткой типологии населённых пунктов (например, от численности населения) в законодательстве России и в Викиданных. Поэтому представляет интерес получение списка объектов, сопутствующих \href{http://www.wikidata.org/entity/Q486972}{населённый пункт} в свойстве \href{http://www.wikidata.org/entity/Q21503252}{экземпляр}, с помощью следующего скрипта.
+Главная трудность вызвана отсутствием чёткой типологии населённых пунктов (например, от численности населения) в законодательстве России и в Викиданных. Поэтому представляет интерес получение списка объектов, сопутствующих объекту населённый пункт в свойстве экземпляр, с помощью следующего скрипта (листинг ~\protect\ref{lst:human-settlement6}).
 
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/49XL}{Cписок объектов, сопутствующих <<human\_settlement>> в <<instance of>>}\protect\footnotemark},
+                    caption={\href{https://w.wiki/49XL}{Cписок объектов, сопутствующих "human\_settlement" в "instance of"}\protect\footnotemark},
                     label=lst:human-settlement6,
                     texcl 
                     ]
@@ -224,23 +250,23 @@ ORDER BY DESC (?percentPopulation)
 SELECT ?inst (COUNT(?hum) as ?sumHum) 
 WHERE{          
   ?hum wdt:P31 wd:Q486972; # instance of human settlement
-       wdt:P31 ?inst.      # other objects in instance
-  
-  SERVICE wikibase:label { bd:serviceParam wikibase:language 
-	"ru,[AUTO_LANGUAGE]"}
+         wdt:P31 ?inst.      # other objects in instance
+
+  SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
 }  
 GROUP BY ?inst
 \end{lstlisting}%
-\footnotetext{Получено \num{610} записи в 2017 году и \num{1245} записи в 2021 году.Ссылка на SPARQL-запрос: \href{https://w.wiki/49XL}{https://w.wiki/49XL}}
+\footnotetext{Получено 610 записей в 2017 году и \num{1245} записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/49XL}{https://w.wiki/49XL}}
 
-Во-первых, выключим из рассмотрения такие населённые пункты, которые имеют в списке \href{http://www.wikidata.org/entity/Q21503252}{экземпляров} только \href{http://www.wikidata.org/entity/Q486972}{населённый пункт}. Результат не ухудшится, так как в него не будут включёны экземпляры только типа \href{http://www.wikidata.org/entity/Q486972}{населённый пункт}. С этой целью внесём в наш скрипт фильтр для отбора нужных поселений.
+Во-первых, выключим из рассмотрения такие населённые пункты, которые имеют в списке экземпляров только населённый пункт. Результат не ухудшится, так как в него не будут включёны экземпляры только типа населённый пункт. С этой целью внесём в наш скрипт строку \num{9} и получим фильтр для отбора нужных поселений.
 
-Во-вторых, не будем рассматривать такие объекты переменной ?inst, которые имеют свойство \href{http://www.wikidata.org/entity/Q17}{государство}. Это позволит отсечь сотни типов населённых пунктов специфичных для отдельных стран, например, административно-территориальная единица России.
+Во-вторых, в строке \num{8} уберем такие объекты переменной \emph{?inst}, которые имеют свойство \wdqName{государство}{17}. Это позволит отсечь сотни типов населённых пунктов специфичных для отдельных стран, например, административно-территориальная единица России.
 
-Эти ограничения позволили выполнить запрос по всем странам мира за приемлемое время (\num{87} мс).
+Эти ограничения позволили выполнить запрос по всем странам мира за приемлемое время (87 мс) (листинг ~\protect\ref{lst:human-settlement7}).
 
+\lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/49XK}{Cписок объектов, сопутствующих <<human\_settlement>> в <<instance of>>}\protect\footnotemark},
+                    caption={\href{https://w.wiki/49XK}{Cписок объектов, сопутствующих "human\_settlement" в "instance of"}\protect\footnotemark},
                     label=lst:human-settlement7,
                     texcl 
                     ]
@@ -253,32 +279,32 @@ WHERE{
   
   MINUS {?inst wdt:P17 []}. # without country
   FILTER(?inst != wd:Q486972 ). # without human settlement
-  SERVICE wikibase:label { bd:serviceParam wikibase:language 
-		"ru,[AUTO_LANGUAGE]"}
+  SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
 }  
 GROUP BY ?inst ?instLabel
 \end{lstlisting}%
-\footnotetext{Получено \num{355} записи в 2017 году и \num{707} записи в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/49XK}{https://w.wiki/49XK}}
+\footnotetext{Получено 355 записей в 2017 году и 707 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/49XK}{https://w.wiki/49XK}}
 
 На 2017 год в число таких объектов входят:
 \begin{enumerate} 
-  \item \href{http://www.wikidata.org/entity/Q532}{Cёла (Village)} - \num{2844}.
-  \item \href{http://www.wikidata.org/entity/Q15284}{Муниципалитеты (municipality)} - \num{1181}.
-  \item \href{http://www.wikidata.org/entity/Q5084}{Деревни (hamlet)} - \num{662}.
-  \item \href{http://www.wikidata.org/entity/Q839954}{Археологические памятники (archaeological site)} - \num{425}.
-  \item \href{http://www.wikidata.org/entity/Q3257686}{Местные поселения (locality)} - \num{425}.
+  \item \href{http://www.wikidata.org/entity/Q532}{Cёла (Village)}~--- \num{2844}.
+  \item \href{http://www.wikidata.org/entity/Q15284}{Муниципалитеты (municipality)}~--- \num{1181}.
+  \item \href{http://www.wikidata.org/entity/Q5084}{Деревни (hamlet)}~--- \num{662}.
+  \item \href{http://www.wikidata.org/entity/Q839954}{Археологические памятники (archaeological site)}~--- \num{425}.
+  \item \href{http://www.wikidata.org/entity/Q3257686}{Местные поселения (locality)}~--- \num{425}.
 \end{enumerate}
 
 На 2021 год в число таких объектов входят:
 \begin{enumerate} 
-  \item \href{http://www.wikidata.org/entity/Q106505070}{Поселение в доисторические времена (Settlement of prehistoric times)} - \num{5021}.
-  \item \href{http://www.wikidata.org/entity/Q532}{Cёла (Village)} - \num{4853}.
-  \item \href{http://www.wikidata.org/entity/Q15303838}{Местоположение муниципалитета (Municipality seat)} - \num{3376}.
-  \item \href{http://www.wikidata.org/entity/Q106492558}{Поселение в доисторические времена (Settlement of prehistoric times)} - \num{2288}.
-  \item \href{http://www.wikidata.org/entity/Q106491339}{Поселение неолита (Neolithic settlement)} - \num{2095}.
+  \item \href{http://www.wikidata.org/entity/Q106505070}{Поселение в доисторические времена (Settlement of prehistoric times)}~--- \num{5021}.
+  \item \href{http://www.wikidata.org/entity/Q532}{Cёла (Village)}~--- \num{4853}.
+  \item \href{http://www.wikidata.org/entity/Q15303838}{Местоположение муниципалитета (Municipality seat)}~--- \num{3376}.
+  \item \href{http://www.wikidata.org/entity/Q106492558}{Поселение в доисторические времена (Settlement of prehistoric times)}~--- \num{2288}.
+  \item \href{http://www.wikidata.org/entity/Q106491339}{Поселение неолита (Neolithic settlement)}~--- \num{2095}.
 \end{enumerate}
 
 %%%%%
 \section{Сколько рождалось известных учёных разных научных направлений в сельских и городских типах населённых пунктов России?}
 
 1
+
