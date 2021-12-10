@@ -114,7 +114,6 @@ Sunburst diagram of anime genres created with Rawgraphs (\href{https://app.rawgr
 
 Anime that have the most complete information on Wikidata are \wdqName{Gurren Lagann}{4277}, \wdqName{Space Battleship Yamato}{4292}, \wdqName{Project A-ko}{4316}. There are also some anime with many missing properties like \wdqName{Doraemon}{711311}, \wdqName{The Animal Conference on the Environment}{97195557} and \wdqName{Assassins Pride}{96737300}.
 
-% add Prowd link
 According to ProWD service \autocite{anime_prowd}, among all the anime titles on Wikidata, \wdqName{Fullmetal Alchemist: The Sacred Star of Milos}{1004318}\footnote{Fullmetal Alchemist: The Sacred Star of Milos is an anime movie which continues the Fullmetal Alchemist anime series. Its main characters are the alchemist brothers who use their magic to fight the criminals and forces of evil.} has the greatest number of properties (\num{24}).
 
 \section{List of seiyu ordered by number of their roles in anime}
@@ -125,25 +124,23 @@ Let's create a sorted list of seiyu according to the number of anime voiced by t
 
 \begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,
                     caption={Sorted list of seiyu according to the number of anime voiced by them.
-                        \num{148} results in 2017, \num{2684} results in 2021.
-                        SPARQL query: \href{https://w.wiki/4AC5}{https://w.wiki/4AC5}
+                        \num{148} results in 2017, \num{2910} results in 2021.
+                        SPARQL query: \href{https://w.wiki/4Xos}{https://w.wiki/4Xos}
                         },
                     label=lst:seiyu_titles_sorted,
                     texcl 
                     ]
 # Ordered list of actors (seiyu) according to the number
 # of anime where they took part in.
-SELECT ?seiyu (SAMPLE(?label) AS ?seiyuLabel)
-(COUNT(?anime) AS ?count) WHERE {
-  # instance of anime/subclass
-  ?anime wdt:P31/wdt:P279* wd:Q1107;
-         wdt:P725 ?seiyu.  # instance of seiyu (voice actor)
-  ?seiyu rdfs:label ?label	# subclass of label
-  SERVICE wikibase:label{bd:serviceParam
-					   wikibase:language "en,ja"}
+SELECT ?seiyu ?seiyuLabel (COUNT(?anime) AS ?count)
+WHERE
+{
+  ?anime wdt:P31/wdt:P279* wd:Q1107;  # anime/subclass
+         wdt:P725 ?seiyu.  # instance of seiyu
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,ja" }
 }
-GROUP BY ?seiyu		 # group by seiyu 
-ORDER BY DESC(?count)	# order by number of voiced anime
+GROUP BY ?seiyu  ?seiyuLabel  # group by seiyu 
+ORDER BY DESC(?count)  # order by count of voiced anime
 \end{lstlisting}%
 
 \section{Chart of number of seiyu who worked on one or more anime}
@@ -201,7 +198,7 @@ Fig.~\ref{fig:Seiyu_graph_en} shows a part of the graph for several famous seiyu
 \captionsetup[lstlisting]{format=llapwide18}%
 %
 \begin{lstlisting}[ language=SPARQL, breaklines=true,%
-                    caption={Display the graph that connects seiyu and the anime they took part~in. 826 results in 2017, 496 results in 2021. SPARQL query: \href{https://w.wiki/4ACB}{https://w.wiki/4ACB}},
+                    caption={Display the graph that connects seiyu and the anime they took part in. 826 results in 2017, 496 results in 2021. SPARQL query: \href{https://w.wiki/4Xqk}{https://w.wiki/4Xqk}},
                     label=lst:seiyu_graph,
                     texcl
                   ]
@@ -211,9 +208,7 @@ SELECT DISTINCT ?item ?itemLabel ?rgb ?link
 WHERE
 { # voice actors (seiyu) with more than one anime
   VALUES ?toggle { true false }
-  VALUES ?seiyu { wd:Q6381410 wd:Q1347031 wd:Q1207010 
-           wd:Q233902  wd:Q1323728 wd:Q2440809 
-           wd:Q355173  wd:Q957795  wd:Q50033}
+  VALUES ?seiyu { wd:Q1207010 wd:Q233902 wd:Q1323728 }
   ?anime  wdt:P31/wdt:P279* wd:Q1107; # instance of anime or its subclass
           wdt:P725 ?seiyu;            # seiyu who voiced this anime 
   SERVICE wikibase:label {bd:serviceParam wikibase:language "en,ja"}
@@ -225,9 +220,9 @@ WHERE
 \end{lstlisting}%
 \end{widepar}%
 
-The \emph{?seiyu} variable (lines 7--9) contains an array of Wikidata objects which correspond to several seiyu like \wdqName{Kazue Komiya}{6381410} and others. We picked only nine seiyu for illustration purposes as the graph for more seiyu would be uncomfortable for reading.
+The \emph{?seiyu} variable (line 7) contains an array of Wikidata objects which correspond to several seiyu like \wdqName{Bin Shimada}{1323728} and others. We picked only three seiyu for illustration purposes as the graph for more seiyu would be uncomfortable for reading.
 
-The \emph{BIND(IF(?toggle, ?anime, ?seiyu))} construction in the line \num{13} allows to determine the graph node type: if \emph{?toggle} is \emph{true}, then the node corresponds to anime, seiyu otherwise. The text label and color of node are determined in the same way in the lines \num{14} and \num{15}. The line \num{16} allows to create the edges between the seiyu and anime nodes.
+The \emph{BIND(IF(?toggle, ?anime, ?seiyu))} construction in the line \num{11} allows to determine the graph node type: if \emph{?toggle} is \emph{true}, then the node corresponds to anime, seiyu otherwise. The text label and color of node are determined in the same way in the lines \num{12} and \num{13}. The line \num{14} allows to create the edges between the seiyu and anime nodes.
 
 \begin{figure*}
 
