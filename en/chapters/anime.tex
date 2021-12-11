@@ -35,7 +35,7 @@ Each anime has its own voice actors. Here and further we will call the Japanese 
 In order to work with the anime list from Wikidata we need to use the \wdqName{anime}{1107} object and the \wdProperty{31}{instance of} property. Let's get the list of all anime names, without anime subclasses (listing~\ref{lst:anime}).
 
 \begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,%
-                    caption={List of anime without subclasses. The result contained \num{683} instances of anime in 2017, 216 instances of anime in 2021. SPARQL query: \href{https://w.wiki/4ABq}{w.wiki/4ABq}},%
+                    caption={List of anime without subclasses. The result contained \num{683} instances of anime in 2017, \num{216} instances of anime in 2021. SPARQL query: \href{https://w.wiki/4ABq}{w.wiki/4ABq}},%
                     label=lst:anime,%
                     texcl%
                     ]
@@ -261,3 +261,40 @@ WHERE
 GROUP BY ?actor	?actorLabel
 ORDER BY DESC(?count)	# order by number of voiced projects
 \end{lstlisting}%
+
+\begin{figure*}
+
+    \setlength{\fboxsep}{0pt}%
+    \setlength{\fboxrule}{1pt}%
+    \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{chapter/anime/actors-rawgraphs-2021-en.png}}
+	\caption[Sunburst diagram of number of roles voiced by different actors, 2021.]{Sunburst diagram of number of roles voiced by different actors, 2021. The diagram is constructed using the output of script~\ref{lst:voice_actors_list} anf \href{https:\\app.rawgraphs.io}{Rawgraphs} service.}%
+    \label{fig:Actors_sunburst_en}%
+\end{figure*}
+
+The sunburst diagram on Fig.~\ref{fig:Actors_sunburst_en} is one of the ways to visualize the output of script~\ref{lst:voice_actors_list}. For example, such a diagram allows to find out what actor contributed the most to the voice acting industry.
+
+\section{Is the release date of anime available?}
+
+The fans of anime often wonder what's the release date of their favorite titles. Wikidata doesn't contain the complete information about the release dates. Let's get the number of anime the release date of which is not available using the script~\ref{lst:anime_no_pub_date}.
+
+\begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,
+                    caption={Number of anime the release date of which is empty.
+                        \num{237} results in 2017, \num{2940} results in 2021.
+                        SPARQL query: \href{https://w.wiki/4ACU}{https://w.wiki/4ACU}
+                        },
+                    label=lst:anime_no_pub_date,
+                    texcl 
+                    ]
+# List of anime the release date of which
+# is empty
+SELECT ?anime ?animeLabel
+WHERE
+{
+    ?anime wdt:P31/wdt:P279* wd:Q1107;  # instance of anime
+    FILTER NOT EXISTS { ?anime wdt:P577 [] } # no release date
+    SERVICE wikibase:label{ bd:serviceParam
+			  									wikibase:language "en,ja" }
+}
+\end{lstlisting}%
+
+The release dates of \num{2940} anime among \num{4875} titles on Wikidata are left empty, which is \num{60.3}\%. In 2017, \num{237} of \num{683} (\num{34.7}\%) titles don't have a release date. It seems that, unfortunately, an increase in the amount of information is not always accompanied by the increase of its quality\sidenote{Exercise: Write a script to calculate the proportion of anime that do not have a publication date, relative to all anime on Wikidata. Compare this proportion with the proportion for 2021 (\num{60.3}\%) and make a conclusion about the change of the quality of Wikidata.}.
