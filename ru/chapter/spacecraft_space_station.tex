@@ -2,4 +2,172 @@
 \label{ch:spacecraft-space-station}
 
 Статья посвящена исследованию космических кораблей и станций на основе базы знаний международного проекта Викиданные. С помощью SPARQL-скриптов построен список отечественных кораблей и станций, а также временные графики запуска кораблей в нашей стране и в мире, за период с 1960 по 2017 год. Выполнена оценка полноты Викиданных, показавшая, что многие объекты имеют неправильное значение свойства <<частный случай понятия (P31)>>.
-\marginnote{\wdProperty{31}{instance of} = \href{https://www.wikidata.org/wiki/Property:P31}{instance of (P31)}}
+\marginnote{\wdProperty{31}{instance of} = \href{https://www.wikidata.org/wiki/Property:P31}{экземпляр (P31)}}
+\section{Экземпляры объекта <<Космические корабли и станции>>}
+Исследуется свойство \href{https://www.wikidata.org/wiki/Property:P31}{instance of (P31)} и объекты \href{https://www.wikidata.org/wiki/Q25956}{космические станции (Q25956)} и \href{https://www.wikidata.org/wiki/Q40218}{космические корабли (Q40218)}.
+Построим список всех космических кораблей с помощью скрипта в листинге~\ref{lst:spaceships}.
+
+\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/4By4}{Список кораблей}}\protect\footnotemark}, label=lst:spaceships, ]
+# List of spaceсraft (Q40218) and space station (Q25956)
+SELECT  ?s ?sLabel ?typeLabel
+WHERE
+{
+  VALUES ?type {wd:Q40218 wd:Q25956}
+  ?s wdt:P31 ?type.  # Selecting the type of object
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en, [AUTO_LANGUAGE]"}
+}
+\end{lstlisting}
+\footnotetext{Найдено \num{118} объектов в 2021 г. Ссылка на SPARQL-запрос: \href{https://w.wiki/4By4}{https://w.wiki/4By4}}
+\section{Хорошие и плохие объекты}
+Примерами наиболее полно проработанных экземпляров объекта "космические станции" являются:
+\begin{itemize}
+  \item\href{https://www.wikidata.org/wiki/Q25271}{МКС};
+  \item\href{https://www.wikidata.org/wiki/Q48604}{Мир};
+  \item\href{https://www.wikidata.org/wiki/Q131500}{Тяньгун-1}.
+\end{itemize}
+Примерами плохо заполненных экземпляров объекта "космические корабли" были:
+\begin{itemize}
+  \item\href{https://www.wikidata.org/wiki/Q236448}{Дракон};
+  \item\href{https://www.wikidata.org/wiki/Q211727}{Орион};
+  \item\href{https://www.wikidata.org/wiki/Q841176}{Восход}.
+\end{itemize}
+Наиболее полным и проработанным архивом на Викиданных является \href{ https://www.wikidata.org/wiki/Q184201}{Apollo 8}.
+Почти пустым и малоинформативным архивами были: 
+\begin{itemize}
+  \item\href{https://www.wikidata.org/wiki/Q10491365}{ Europa Astrobiology Lander };
+  \item\href{https://www.wikidata.org/wiki/Q6514453 }{ Project Orbiter };
+  \item\href{https://www.wikidata.org/wiki/Q5961734 }{ LRK };
+  \item\href{https://www.wikidata.org/wiki/Q5327028 }{ EarthForce One };
+  \item\href{https://www.wikidata.org/wiki/Q60767924 }{ Soyuz GVK };
+  \item\href{https://www.wikidata.org/wiki/Q22907583 }{ CubeSat for Solar Particles }.
+\end{itemize}
+
+\section{Иерархия и вывод космических кораблей}
+Была поставлена задача: построить иерархию космических кораблей такую, чтобы в итоговый список космических кораблей включались и транспортные космические корабли, и вымышленные звездолёты, и прочий космический транспорт и на основе этой иерархии написать скрипт, который будет выводить список всех космических кораблей. Космические корабли бывают транспортные (предназначены для людей), грузовые, вымышленные и все остальные. Используем эту иерархию для решения задачи с помощью следующего скрипта~\ref{lst:spaceshipsIE}:
+
+\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/4BbU}{иерархия}}\protect\footnotemark}, label=lst:spaceshipsIE, ]
+#List of spacecraft 
+SELECT  ?spacecraft ?spacecraftLabel   
+WHERE
+{
+  {?spacecraft wdt:P31 wd:Q40218.} UNION #spacecraft
+  {?spacecraft wdt:P31 wd:Q18039177.} UNION #fictional spacecraft
+  {?spacecraft wdt:P31 wd:Q402330.} #robotic spacecraft
+  SERVICE wikibase:label { bd:serviceParam wikibase:
+    language "ru, en, [AUTO_LANGUAGE]"}
+}
+\end{lstlisting}
+\footnotetext{Найдено \num{157} кораблей всех видов в 2017 г. и \num{170} кораблей всех видов в 2021 г. Ссылка на SPARQL-запрос: \href{https://w.wiki/4BbU}{https://w.wiki/4BbU}}
+
+\section{Список отечественных кораблей}
+Найдем корабли, сконструированные В СССР или России. с помощью скрипта из листинга~\ref{lst:spaceshipsUSSR}:
+
+\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/4BbY}{Список РУ кораблей}}\protect\footnotemark}, label=lst:spaceshipsUSSR, ]
+#List of Russian and USSR spacecraft
+SELECT  ?spacecraft  ?spacecraftLabel 
+WHERE
+{
+  {?spacecraft wdt:P31 wd:Q40218.} UNION #spacecraft
+  {?spacecraft wdt:P31 wd:Q18039177.} UNION #fictional spacecraft
+  {?spacecraft wdt:P31 wd:Q402330.}#robotic spacecraft
+  {?spacecraft wdt:P17 wd:Q15180. } UNION #USSR
+  {?spacecraft wdt:P17 wd:Q159. } #Russia
+  SERVICE wikibase:label { bd:serviceParam wikibase:
+    language "ru, en, [AUTO_LANGUAGE]"}
+}
+\end{lstlisting}
+\footnotetext{Найдено \num{103} отечественных корабля в 2017 г. и \num{21}  в 2021 г. Ссылка на SPARQL-запрос: \href{https://w.wiki/4BbY}{https://w.wiki/4BbY}}
+
+\section{Анализ полноты Викиданных}
+До полноты Викиданным в области космических кораблей и станций крайне далеко. Если по запросу обо всех кораблях вывелось 48 результатов, то по запросу об отечественных кораблях всего 3. Это говорит о том, что данные далеко не полны. В статьях русской Википедии \href{https://ru.wikipedia.org/wiki/%D0%9A%D0%BE%D1%81%D0%BC%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0_%D0%A1%D0%A1%D0%A1%D0%A0}{Космическая программа СССР} и \href{https://ru.wikipedia.org/wiki/%D0%9A%D0%BE%D1%81%D0%BC%D0%BE%D0%BD%D0%B0%D0%B2%D1%82%D0%B8%D0%BA%D0%B0_%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D0%B8}{Космонавтика России} можно насчитать как минимум 45 космических кораблей, спроектированных в СССР и России. На сайте <<Энциклопедия крылатого космоса>> описаны 39 кораблей, разработанных в СССР.
+Ниже приводится скрипт~\ref{lst:spaceshipsUSSRk} построения списка отечественных кораблей:
+
+\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/4BbY}{Полнота}}\protect\footnotemark}, label=lst:spaceshipsUSSRk, ]
+#List of Russian and USSR spacecraft
+SELECT  ?spacecraft  ?spacecraftLabel 
+WHERE
+{
+  {?spacecraft wdt:P31 wd:Q40218.} UNION #spacecraft
+  {?spacecraft wdt:P31 wd:Q18039177.} UNION #fictional spacecraft
+  {?spacecraft wdt:P31 wd:Q402330.}#robotic spacecraft
+  {?spacecraft wdt:P17 wd:Q15180. } UNION #USSR
+  {?spacecraft wdt:P17 wd:Q159. } #Russia
+  SERVICE wikibase:label { bd:serviceParam wikibase:
+    language "ru, en, [AUTO_LANGUAGE]"}
+}
+\end{lstlisting}
+\footnotetext{Найдено \num{3} результата в 2017 г. и \num{21}  в 2021 г. Ссылка на SPARQL-запрос: \href{https://w.wiki/4BbY}{https://w.wiki/4BbY}}
+
+Часть кораблей имеют неправильное значение свойства \href{https://www.wikidata.org/wiki/Property:P86}{частный случай понятия (P86)}. Например, корабли, обозначенные как <<пилотируемый полёт>>.
+\section{Пополнение данных об объектах космических кораблей и станций}
+Для того чтобы получить больше записей при выполнении скрипта для поиска отечественных космических кораблей и станций, было решено заполнить свойство \href{https://www.wikidata.org/wiki/Property:P86}{частный случай понятия (P86)} у объектов типа \href{https://www.wikidata.org/wiki/Q752783}{пилотируемый полет (Q752783)}. Листинг~\ref{lst:spaceshipsADD} представлен ниже:
+\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/4BbY}{Пополнение}}\protect\footnotemark}, label=lst:spaceshipsADD, ]
+#List of Russian and USSR spacecraft
+SELECT  ?spacecraft  ?spacecraftLabel 
+WHERE
+{
+  {?spacecraft wdt:P31 wd:Q40218.} UNION #spacecraft
+  {?spacecraft wdt:P31 wd:Q18039177.} UNION #fictional spacecraft
+  {?spacecraft wdt:P31 wd:Q402330.}#robotic spacecraft
+  {?spacecraft wdt:P17 wd:Q15180. } UNION #USSR
+  {?spacecraft wdt:P17 wd:Q159. } #Russia
+  SERVICE wikibase:label { bd:serviceParam wikibase:
+    language "ru, en, [AUTO_LANGUAGE]"}
+}
+\end{lstlisting}
+\footnotetext{Найдено \num{103} результата в 2017 г. и \num{21}  в 2021 г. Ссылка на SPARQL-запрос: \href{https://w.wiki/4BbY}{https://w.wiki/4BbY}}
+У объектов было указано свойство \href{https://www.wikidata.org/wiki/Q752783}{пилотируемый полет (Q752783)}. По факту, в каждом полёте участвовал уникальный корабль, так как между полётами проводились модификации старых версий кораблей.
+
+Значение свойства \href{https://www.wikidata.org/wiki/Property:P86}{частный случай понятия (P86)} у кораблей было изменено на правильное. После данной процедуры существенно изменились графики запуска космических аппаратов в нашей стране, а также в мире. Изменившиеся графики представлены ниже.
+
+\section{Временные графики освоения космоса в нашей стране и мире}
+Скрипт построения графика запуска космических аппаратов в нашей стране, начиная с 1960-х гг.~\ref{lst:imageRU}
+Листинг~\ref{lst:spaceshipsADD} представлен ниже:
+\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/4QGX}{Запуски СССР и Россия}}\protect\footnotemark}, label=lst:imageRU, ]
+# The number of spacecraft launches in Russia every 5 years
+#defaultView:BarChart
+SELECT (STR(?lapse) AS ?lapse_str) (COUNT(?item) AS ?quantity)
+WHERE {                  # spacecraft belongs to
+        {?item wdt:P17 wd:Q15180} # Soviet Union
+  UNION {?item wdt:P17 wd:Q159}.  # or Russia
+  
+  ?item wdt:P619 ?launch. # date of spacecraft launch (P619)
+  BIND( YEAR(?launch) AS ?year) 
+  BIND(FLOOR(?year/5)*5 AS ?lapse) # count for each 5 years
+SERVICE wikibase:label {bd:serviceParam wikibase:language "ru,en"}
+} 
+GROUP BY ?lapse
+ORDER BY ?lapse # Order 1970, 1975, 1980, ...
+\end{lstlisting}
+Свойство Р619 (дата запуска космического корабля) в рамках данного скрипта заменяет набор свойств Р31 (частный случай понятия). В случае отсутствия STR в 3 строке год рассматривается как число, что приводит столбчатую диаграмму к виду графика, где горизонтальная ось отвечает за год запуска, а результаты обозначаются точками с координатами (год, запуски). UNION позволяет объединить запуски России и СССР. В строке 10 производится подсчёт количества за пятилетку, от года Х до Х+5. В строке 13 результаты группируются по пятилеткам.
+
+\begin{figure*}[h!]
+  \includegraphics[width=\linewidth]{graphics/chapter/spacecraft_space_station/ImgRU.png}
+  \caption[График Россия]{Визуализация количества запусков космических кораблей а России каждые 5 лет 2021 SPARQL}%
+  \label{fig:ImageRU5}%
+\end{figure*}
+
+Из графика можно увидеть, что самый активный период развития космонавтике в нашей стране был в 1970-1995 гг.
+Скрипт построения графика запусков космический кораблей в мире по годам и странам представлен ниже: Скрипт построения графика запуска космических аппаратов в мире представлен ниже~\ref{lst:imageALL}:
+\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/4Uqn}{Запуски в мире}}\protect\footnotemark}, label=lst:imageALL, ]
+# The number of spacecraft launches per countryes and years
+#defaultView:BarChart
+SELECT DISTINCT  (SAMPLE(?year) AS ?year) (COUNT(?year) AS ?count)
+  (SAMPLE(?launchLabel) AS ?launchLabel) WHERE {
+  ?object wdt:P619 ?launch. # date of spacecraft launch (P619)
+  BIND(str(YEAR(?launch)) AS ?year)
+  ?object wdt:P17 ?country. # get country
+  ?country rdfs:label ?launchLabel.
+  FILTER((LANG(?launchLabel)) = "en") # en label
+}
+GROUP BY ?launch ?country
+ORDER BY ?year ?launch
+\end{lstlisting}
+
+\begin{figure*}[h!]
+  \includegraphics[width=\linewidth]{graphics/chapter/spacecraft_space_station/ImgALL.png}
+  \caption[График мир]{Визуализация количества запусков космических кораблей по годам и странам 2021 SPARQL}%
+  \label{fig:ImgALL}%
+\end{figure*}
+
+Из графика можно увидеть, что по состоянию на 2021 год в Викиданных превалируют данные о запусках США. Пик запусков был в 2017 году. По информации из Викиданных российская космонавтика пребывает в стагнации.
