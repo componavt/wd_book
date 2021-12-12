@@ -298,3 +298,60 @@ WHERE
 \end{lstlisting}%
 
 The release dates of \num{2940} anime among \num{4875} titles on Wikidata are left empty, which is \num{60.3}\%. In 2017, \num{237} of \num{683} (\num{34.7}\%) titles don't have a release date. It seems that, unfortunately, an increase in the amount of information is not always accompanied by the increase of its quality\sidenote{Exercise: Write a script to calculate the proportion of anime that do not have a publication date, relative to all anime on Wikidata. Compare this proportion with the proportion for 2021 (\num{60.3}\%) and make a conclusion about the change of the quality of Wikidata.}.
+
+\section{Anaysis of age when seiyu perform voice acting}
+
+As for any other profession, voice actors have age when they dub multiple anime. Usage of SPARQL and external data mining tools like Python programming language\sidenote{Python is an interpretable programming language that is used for different purposes due to its flexibility. For example, it can be used to work with Wikidata: chapter~\ref{ch:bots} (page~\pageref{ch:bots}) describes the process of creation of bots for Wikidata.} allows to estimate such an age according to Wikidata.
+
+In order to obtain the input data for our study, we need to execute three SPARQL scripts and export their output to .csv\sidenote{CSV (comma-separated values) is a format of tabular data that stores the table as a sequence of text lines. These lines contain the values of table columns splitted by comma.} files. Next, these CSV files are used in Python script which generates the output chart. You can run Python programs on Google Colaboratory\sidenote{Google Colaboratory (Colab) is a cloud code editor which allows to write and execute Python scripts and share them with other people. In addition, Colab provides processors and graphic cards that allow to run complex algorithms such as neural networks. Colab is available at \href{https://colab.research.google.com}{https://colab.research.google.com}.}.
+
+We can get the listis of all seiyu and their birth dates on Wikidata in two ways (scripts~\ref{lst:seiyu_bd_w_service} and~\ref{lst:seiyu_bd_w_rdfs}): using \emph{SERVICE} command and \emph{rdfs:label} construction.
+
+The difference between the scripts is that:
+
+\begin{itemize}
+    \item{the label (name) of seiyu is retrieved with the \emph{?seiyuLabel} variable in the first script (the \emph{SERVICE} command that defines the languages of output should be used in this case) and with the \emph{rdfs:label} command in the second script;}
+    \item{in the first script, the \emph{?seiyuLabel} variable has to be passed as a parameter to \emph{GROUP BY} in order to connect seiyu objects and their labels.}
+\end{itemize}
+
+\begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,
+                    caption={Get seiyu and their birth dates with SERVICE command.
+                        \num{2515} results in 2021.
+                        SPARQL query: \href{https://w.wiki/4Ftb}{https://w.wiki/4Ftb}
+                        },
+                    label=lst:seiyu_bd_w_service,
+                    texcl 
+                    ]
+# Get list of all seiyu objects, their names
+# and birth dates
+SELECT ?seiyu ?seiyuLabel ?bDate
+WHERE {
+  ?anime (wdt:P31/(wdt:P279*)) wd:Q1107;
+    wdt:P725 ?seiyu.       # seiyu is anime voice actor
+  ?seiyu wdt:P569 ?bDate.  # has a birthday
+  SERVICE wikibase:label
+						{bd:serviceParam wikibase:language "en,ja"}
+}
+GROUP BY ?seiyu ?seiyuLabel ?bDate
+}
+\end{lstlisting}%
+
+\begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,
+                    caption={Get seiyu and their birth dates with rdfs:label.
+                        \num{2515} results in 2021.
+                        SPARQL query: \href{https://w.wiki/4FPn}{https://w.wiki/4FPn}
+                        },
+                    label=lst:seiyu_bd_w_rdfs,
+                    texcl 
+                    ]
+# Get list of all seiyu objects, their names
+# and birth dates
+SELECT ?seiyu (SAMPLE(?seiyu) AS ?seiyuLabel) ?bDate
+WHERE {
+  ?anime (wdt:P31/(wdt:P279*)) wd:Q1107;
+    wdt:P725 ?seiyu.       # seiyu is anime voice actor
+  ?seiyu wdt:P569 ?bDate.  # has a birthday 
+  ?seiyu rdfs:label ?label.
+}
+GROUP BY ?seiyu ?bDate
+\end{lstlisting}%
