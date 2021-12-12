@@ -355,3 +355,26 @@ WHERE {
 }
 GROUP BY ?seiyu ?bDate
 \end{lstlisting}%
+
+Let's get the list of all anime and their release dates on Wikidata with script~\ref{lst:all_anime_releases}\sidenote{Exercise: visualize the output of the script~\ref{lst:all_anime_releases}. To increase the task difficulty, you can add the dates of releases of the series final episodes to the chart.}.
+
+\begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,
+                    caption={Anime movies and series release dates.
+                        \num{5268} results in 2021.
+                        SPARQL query: \href{https://w.wiki/4EgY}{https://w.wiki/4EgY}
+                        },
+                    label=lst:all_anime_releases,
+                    texcl 
+                    ]
+# Get all anime objects, their names and release dates
+SELECT ?anime ?animeLabel ?animePubDate
+		?animeSeriesStartDate WHERE {
+  ?anime (wdt:P31/(wdt:P279*)) wd:Q1107.
+  OPTIONAL { ?anime wdt:P577 ?animePubDate. }
+  OPTIONAL { ?anime wdt:P580 ?animeSeriesStartDate. }
+  SERVICE wikibase:label { bd:serviceParam
+					wikibase:language "en,ja" }
+}
+\end{lstlisting}%
+
+Note that the movies have the \wdProperty{577}{publication dates} property, whereas the series have the \wdProperty{580}{start dates}.
