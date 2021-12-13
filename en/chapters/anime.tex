@@ -378,3 +378,59 @@ SELECT ?anime ?animeLabel ?animePubDate
 \end{lstlisting}%
 
 Note that the movies have the \wdProperty{577}{publication dates} property, whereas the series have the \wdProperty{580}{start dates}.
+
+Let's get the links between seiyu and anime dubbed by them (script~\ref{lst:link_anime_seiyu}).
+
+\begin{widepar}
+\begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,
+                    caption={Links between anime and seiyu objects.
+                        \num{27092} results in 2021.
+                        SPARQL query: \href{https://w.wiki/4ELh}{https://w.wiki/4ELhhttps://w.wiki/4EgY}
+                        },
+                    label=lst:link_anime_seiyu,
+                    texcl 
+                    ]
+# List of links between seiyu and anime where they are involved in
+SELECT DISTINCT ?item ?itemLabel ?link ?itemType
+WHERE
+{
+  VALUES ?toggle { true false }
+  ?anime  wdt:P31/wdt:P279* wd:Q1107; # instance of anime or its subclass
+          wdt:P725 ?seiyu.            # list seiyu who acted in this anime
+  
+  BIND(IF(?toggle,?anime,?seiyu) AS ?item).         # connection of "from anime to seiyu" type
+  BIND(IF(?toggle,?animeLabel,?seiyuLabel) AS ?itemLabel).  # similar connection between labels
+  BIND(IF(?toggle,?seiyu,?anime) AS ?link).            #  connection of "from seiyu to anime" type
+  BIND(IF(?toggle,?seiyu,"seiyu") AS ?itemType).    # column to distinguish seiyu and anime items
+  # if the item describes a seiyu, its value is "seiyu", the link is kept otherwise
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "ru,en,ja"}
+}
+\end{lstlisting}%
+\end{widepar}
+
+The analysis result can be shown as a histogram. To create it, we'll use such Python libraries as \href{https://en.wikipedia.org/wiki/Pandas\_(software)}{Pandas}\sidenote{Pandas is a Python library that provides multiple useful functions for tabular data processing. \href{https://en.wikipedia.org/wiki/Pandas\_(software)}{https://en.wikipedia.org/wiki/Pandas\_(software), 2021}.} and \href{https://en.wikipedia.org/wiki/Matplotlib}{Matplotlib}\sidenote{Matplotlib Python library allows to plot charts of various types. \href{https://en.wikipedia.org/wiki/Matplotlib}{https://en.wikipedia.org/wiki/Matplotlib, 2021}.}. The script which generates the final historgam is published on \href{https://git.io/J1UGA}{GitHub} service\sidenote{Script is published in the wd\_book project on GitHub: \href{https://git.io/J1UGA}{https://git.io/J1UGA}}.
+
+The histogram has age in years along its X-axis and the total number of roles dubbed by the seiyu of this age along Y-axis. The histogram is present on Fig.~\ref{fig:Seiyu_age_hist_EN}.
+
+\begin{figure*}[h]
+
+    \setlength{\fboxsep}{0pt}%
+    \setlength{\fboxrule}{1pt}%
+    \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/anime/Seiyu_age_hist_EN.png}}
+	\caption[Histogram of number of anime voiced by seiyu of different ages, 2021.]{Histogram of number of anime voiced by seiyu of different ages, 2021. The histogram is created according to the output of scripts~\protect\ref{lst:seiyu_bd_w_service} (or~\protect\ref{lst:seiyu_bd_w_rdfs}), \protect\ref{lst:all_anime_releases} and \protect\ref{lst:link_anime_seiyu}.}%
+    \label{fig:Seiyu_age_hist_EN}%
+\end{figure*} 
+
+There is a fun fact that there are occasions on Wikidata when the seiyu wass born later than the anime with his participation was released. This issue is probably related to absence of the information about the new seasons of re-starts of the anime on Wikidata. For example, in 2021 such a situation happens with the \wdqName{Sazae-san}{11304591} anime and the seiyu named \wdqName{Nobunaga Shimazaki}{5968283}. The seiyu was born in 1988, whereas the anime was published in 1969.
+
+\section{Future work}
+
+\begin{enumerate}
+	\item Display the 10 most popular anime released in the current year. Anime popularity is estimated by the number of articles in different language sections. For example, if an article about anime is present in English, Russian and Spanish Wikipedia, then its popularity is equal to three.
+	\item Find 5 anime in which the largest number of women seiyu are involved.
+	\item Create a bubble chart of the distribution of anime by genre (how many anime are in each genre) using the \wdProperty{279}{subclass} property.
+	\item Mark the voice actors' places of birth on the map.
+	\item Create a histogram or bubble chart of voice actor nationalities.
+	\item Create a histogram of the number of released anime by year or the number of voice actors by year of birth.
+	\item Create histograms similar to the figure~\ref{fig:Seiyu_age_hist_EN}, but taking into account the gender of the voice actor (one for men, the other for women).
+\end{enumerate}
