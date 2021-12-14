@@ -121,8 +121,7 @@ WHERE
 Значение свойства \href{https://www.wikidata.org/wiki/Property:P86}{частный случай понятия (P86)} у кораблей было изменено на правильное. После данной процедуры существенно изменились графики запуска космических аппаратов в нашей стране, а также в мире. Изменившиеся графики представлены ниже.
 
 \section{Временные графики освоения космоса в нашей стране и мире}
-Скрипт построения графика запуска космических аппаратов в нашей стране, начиная с 1960-х гг.~\ref{lst:imageRU}
-Листинг~\ref{lst:spaceshipsADD} представлен ниже:
+Скрипт построения графика запуска космических аппаратов в нашей стране, начиная с 1960-х гг. Листинг~\ref{lst:spaceshipsADD} представлен ниже:
 \begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/4QGX}{Запуски СССР и Россия}}\protect\footnotemark}, label=lst:imageRU, ]
 # The number of spacecraft launches in Russia every 5 years
 #defaultView:BarChart
@@ -139,6 +138,7 @@ SERVICE wikibase:label {bd:serviceParam wikibase:language "ru,en"}
 GROUP BY ?lapse
 ORDER BY ?lapse # Order 1970, 1975, 1980, ...
 \end{lstlisting}
+\footnotetext{Найдено \num{14} результата в 2021 г. Ссылка на SPARQL-запрос: \href{https://w.wiki/4QGX}{https://w.wiki/4QGX}}
 Свойство Р619 (дата запуска космического корабля) в рамках данного скрипта заменяет набор свойств Р31 (частный случай понятия). В случае отсутствия STR в 3 строке год рассматривается как число, что приводит столбчатую диаграмму к виду графика, где горизонтальная ось отвечает за год запуска, а результаты обозначаются точками с координатами (год, запуски). UNION позволяет объединить запуски России и СССР. В строке 10 производится подсчёт количества за пятилетку, от года Х до Х+5. В строке 13 результаты группируются по пятилеткам.
 
 \begin{figure*}[h!]
@@ -147,10 +147,10 @@ ORDER BY ?lapse # Order 1970, 1975, 1980, ...
   \label{fig:ImageRU5}%
 \end{figure*}
 
-Из графика можно увидеть, что самый активный период развития космонавтике в нашей стране был в 1970-1995 гг.
+Из графика ~\ref{fig:ImageRU5} можно увидеть, что самый активный период развития космонавтике в нашей стране был в 1970-1995 гг.
 Скрипт построения графика запусков космический кораблей в мире по годам и странам представлен ниже: Скрипт построения графика запуска космических аппаратов в мире представлен ниже~\ref{lst:imageALL}:
 \begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/4Uqn}{Запуски в мире}}\protect\footnotemark}, label=lst:imageALL, ]
-# The number of spacecraft launches per countryes and years
+# The number of spacecraft launches per countries and years
 #defaultView:BarChart
 SELECT DISTINCT  (SAMPLE(?year) AS ?year) (COUNT(?year) AS ?count)
   (SAMPLE(?launchLabel) AS ?launchLabel) WHERE {
@@ -163,6 +163,7 @@ SELECT DISTINCT  (SAMPLE(?year) AS ?year) (COUNT(?year) AS ?count)
 GROUP BY ?launch ?country
 ORDER BY ?year ?launch
 \end{lstlisting}
+\footnotetext{Найдено \num{363} результата в 2021 г. Ссылка на SPARQL-запрос: \href{https://w.wiki/4Uqn}{https://w.wiki/4Uqn}}
 
 \begin{figure*}[h!]
   \includegraphics[width=\linewidth]{graphics/chapter/spacecraft_space_station/ImgALL.png}
@@ -170,4 +171,4 @@ ORDER BY ?year ?launch
   \label{fig:ImgALL}%
 \end{figure*}
 
-Из графика можно увидеть, что по состоянию на 2021 год в Викиданных превалируют данные о запусках США. Пик запусков был в 2017 году. По информации из Викиданных российская космонавтика пребывает в стагнации.
+Из графика ~\ref{fig:ImgALL} можно увидеть, что по состоянию на 2021 год в Викиданных превалируют данные о запусках США. Пик запусков был в 2017 году. По информации из Викиданных российская космонавтика пребывает в стагнации.
