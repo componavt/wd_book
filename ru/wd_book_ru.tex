@@ -10,7 +10,9 @@
 \usepackage{hyphenat}
 \usepackage[
   style=verbose,
-  autocite=footnote,
+  autocite=footnote, 
+  autopunct=false, % see https://ctan.math.illinois.edu/macros/latex/contrib/biblatex/doc/biblatex.pdf
+%                  % a trailing punctuation mark will not be moved against footnote mark
   citepages=omit,
   dashed=false,
   maxcitenames=1,
