@@ -9,6 +9,7 @@
 
 Для улучшения результатов решения вышеописанных задач находили более общие классы и указывали их в исследуемом объекте с помощью свойства \href{http://www.wikidata.org/entity/P31}{экземпляры}. Трудность исследования вызвана отсутствием чёткой типологии населённых пунктов (например, от численности населения) в законодательстве России и в Викиданных.
 
+
 %%%%
 \section{Экземпляры объекта <<Населённый пункт>>}
 
@@ -162,8 +163,7 @@ ORDER BY DESC (?count)
 
 Числиность насиления России в результатах скриптов (листинг ~\protect\ref{lst:human-settlement3}) и (листинг ~\protect\ref{lst:human-settlement5}) получилась \num{6494645} и \num{53798270} соответственно. Из чего следует, что нужно произвести уточнение и для других стран.
 
- 
-
+ Как это сделать пока что не понятно, так как запрос превышает время ожидания и не выдает результатов. А перебирать каждую крупную страну плохой вариант. Возможно позже появится хорошее решиние этой задачи.
 
 %%%%%
 \subsection{Полнота Викиданных}
@@ -303,8 +303,233 @@ GROUP BY ?inst ?instLabel
   \item \href{http://www.wikidata.org/entity/Q106491339}{Поселение неолита (Neolithic settlement)}~--- \num{2095}.
 \end{enumerate}
 
+Также в 2021 году было преложеная еще одна модернизация скрипта (листинг ~\protect\ref{lst:human-settlement7}). А именно отсечь доисторические поселения таких типов, как поселения \wdqName{латенского периода}{106505016}, \wdqName{бронзового века}{106491277}каменного века и \wdqName{доисторического времени, где есть письменность}{106505070} поселение в доисторические времена, без явного указания этих трёх объектов. 
+Было изучено, что есть общего у объектов <<латенского периода>> и <<каменного века>> и <<доисторического времени, где есть письменность>> на Викиданных. Будем фильтровать объекты, которые являются подклассом такого объекта, который, в свою очередь, является экземпляром объектов \wdqName{археологической культуры}{465299}, \wdqName{исторического периода}{11514315}, \wdqName{археологического века}{15401699}, \wdqName{всемирной истории}{200325} и \wdqName{геологического периода}{392928}. В итоге получился такой скрипт (листинг ~\protect\ref{lst:human-settlement8}).
+
+\lstset{numbers=left, firstnumber=1, frame=single}
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={\href{https://w.wiki/4YpA}{Cписок объектов, сопутствующих "human\_settlement" в "instance of"}\protect\footnotemark},
+                    label=lst:human-settlement8,
+                    texcl 
+                    ]
+# Modernized list of objects accompanying "human\_settlement" in the 
+# property "instance of"
+SELECT ?inst ?instLabel (COUNT(?hum) as ?sumHum)
+WHERE{
+  VALUES ?type {
+    wd:Q465299   #archaeological culture 
+    wd:Q11514315 #historical period
+    wd:Q15401699 #archaeological age
+    wd:Q200325   #human history
+    wd:Q392928   #geological period
+  }
+  ?hum wdt:P31 wd:Q486972.    # instance of human settlement
+  ?hum wdt:P31 ?inst.#other objects in instance of human settlement
+  ?inst wdt:P31 ?test.#instance of other objects 
+  ?test wdt:P31 ?typ.#instance of instance of other objects 
+  MINUS {?inst wdt:P17 []}.   # without country
+ # without human settlement and prehistoric settlements
+  FILTER(?inst != wd:Q486972 && ?typ != wd:Q465299 
+		&& ?typ != wd:Q11514315 && ?typ != wd:Q15401699 
+		&& ?typ != wd:Q200325 && ?typ != wd:Q392928 ). 
+  SERVICE wikibase:label{bd:serviceParam wikibase:language"ru, en"}
+}
+GROUP BY ?inst ?instLabel
+ORDER BY DESC (?sumHum)
+\end{lstlisting}%
+\footnotetext{Получено 89 записей. Ссылка на SPARQL-запрос: \href{https://w.wiki/4YpA}{https://w.wiki/4YpA}}
+
+В число таких объектов входят:
+\begin{enumerate} 
+  \item \href{http://www.wikidata.org/entity/Q5084}{ деревня ()}~--- \num{8820}.
+  \item \href{http://www.wikidata.org/entity/Q2514025}{ посёлок ()}~--- \num{1590}.
+  \item \href{http://www.wikidata.org/entity/Q2593777}{ могильник ()}~--- \num{1200}.
+  \item \href{http://www.wikidata.org/entity/Q814254}{  (feature)}~--- \num{1095}.
+  \item \href{http://www.wikidata.org/entity/Q23442}{ остров ()}~--- \num{1085}.
+\end{enumerate}
+
 %%%%%
-\section{Сколько рождалось известных учёных разных научных направлений в сельских и городских типах населённых пунктов России?}
+\section{Отечественные учёные на селе и в городе}
 
-1
+Попробуем подсчитать число отечественных учёных, родившихся в сельских и городских типах населённых пунктов. И сравнить эти числа.
+Поделим это задание на четыре части:
+\begin{enumerate}
+  \item Выявить список сельских и список городских типов поселений именно в России.
+  \item Выявить способ определения отечественных ученых.
+  \item Сделать такую диаграмму на которой разным цветом будут указаны разные научные направления (математики, физики, химики и так далее) для учёных родившихся в селах.
+  \item Сделать вторую диаграмму — по городским поселениям и сравнить результаты.
+\end{enumerate}
 
+%%%%%
+\subsection{Список сельских и список городских типов поселений именно в России}
+
+Список сельских: (ссылка на раздел выше)
+
+\begin{enumerate}
+  \item \wdqName{vilage}{532}
+  \item \wdqName{ rural settlement of Russia}{634099}
+  \item \wdqName{rural settlement}{10354598}
+  \item \wdqName{ hamlet}{5084}
+  \item \wdqName{posyolok}{2514025}
+  \item \wdqName{khutor}{2023000}
+  \item \wdqName{urban-type settlement in Russia}{15078955}
+\end{enumerate}
+
+Список городских: (ссылка на главу о городах) 
+\begin{enumerate}
+  \item \wdqName{city(1m+)}{1637706}
+  \item \wdqName{city(100k+)}{1549591}
+  \item \wdqName{city+town}{7930989}
+  \item \wdqName{town}{515}
+  \item \wdqName{small town}{3957}
+\end{enumerate}
+%%%%%
+\subsection{Выявить способ определения отечественных ученых}
+
+Список гражданства:
+\begin{enumerate}
+  \item \wdqName{Russian Empire }{34266}
+  \item \wdqName{Russian Republic}{139319}
+  \item \wdqName{Soviet Union}{15180}
+  \item \wdqName{Russia}{159}
+\end{enumerate}
+
+Список академий: (ссылка на вкр + одна моя)
+\begin{enumerate}
+  \item \wdqName{academy of sciences}{414147}
+  \item \wdqName{learned society}{955824}
+  \item \wdqName{scientific society}{74801 }
+  \item \wdqName{academy}{162633}
+  \item \wdqName{research institute}{31855 }
+  \item \wdqName{educational institution}{2385804  }
+  \item \wdqName{Russian Academy of Science}{83172}
+\end{enumerate}
+%%%%%
+\subsection{Построение диаграммы на которой разным цветом будут указаны разные научные направления для учёных родившихся в селах.}
+
+
+\lstset{numbers=left, firstnumber=1, frame=single}
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={\href{https://w.wiki/4YpA}{Cписок объектов, сопутствующих "human\_settlement" в "instance of"}\protect\footnotemark},
+                    label=lst:human-settlement9,
+                    texcl 
+                    ]
+# Conclusion of the number of Russian scientists born in 
+# the settlement by occupation and year of birth
+SELECT ?hum ?_inception ?year ?specLabel ?count ?totalspec WHERE {
+  SELECT DISTINCT  (SAMPLE(?year) AS ?year) 
+	(COUNT(?humLabel) AS ?count)  
+	(GROUP_CONCAT(DISTINCT ?specLabel; SEPARATOR=", ") AS ?totalspec) 
+	WHERE {
+    VALUES ?state { # types of citizenship
+      wd:Q34266   # Russian Empire 
+      wd:Q139319  # Russian Republic
+      wd:Q15180   # Soviet Union
+      wd:Q159     # Russia
+    }
+    VALUES ?placeb { # types of settlements
+      wd:Q532        # vilage
+      wd:Q634099     # rural settlement of Russia
+      wd:Q10354598   # rural settlement
+      wd:Q5084       # hamlet
+      wd:Q2514025    # posyolok
+      wd:Q2023000    # khutor
+      wd:Q15078955   # urban-type settlement in Russia
+    }
+    VALUES ?class_academy {   # types of academy
+      wd:Q414147    # academy of sciences 
+      wd:Q955824    # learned society
+      wd:Q74801     # scientific society
+      wd:Q162633    # academy
+      wd:Q31855     # research institute
+      wd:Q2385804   # educational institution
+      wd:Q83172     # Russian Academy of Sciences
+    }
+    ?hum wdt:P463 ?class_academy. # academy participant
+    ?hum wdt:P27 ?state.          # citizenship
+    ?hum wdt:P106 ?spec.          # occupation
+    BIND(str(YEAR(?_inception)) AS ?year) # definition of year
+    ?hum wdt:P569 ?_inception.    # definition of Date of Birth
+    ?hum wdt:P19 ?place.          # place of birth
+    ?place wdt:P31 ?placeb.       # place of birth in the village
+    SERVICE wikibase:label{bd:serviceParam wikibase:language"ru,en".
+                               ?hum rdfs:label ?humLabel.
+                               ?spec rdfs:label ?specLabel.}
+    }
+  GROUP BY ?_inception ?specLabel
+  ORDER BY ?year ?_inception #order by year + inception
+}
+\end{lstlisting}%
+\footnotetext{Ссылка на SPARQL-запрос: \href{}{Длинная ссылка}}
+
+%%%%%
+\subsection{Построение диаграммы для учёных родившихся в городских поселениях и сравнение диаграмм}
+
+\lstset{numbers=left, firstnumber=1, frame=single}
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={\href{https://w.wiki/4YpA}{Cписок объектов, сопутствующих "human\_settlement" в "instance of"}\protect\footnotemark},
+                    label=lst:human-settlement10,
+                    texcl 
+                    ]
+# Conclusion of the number of Russian scientists born in the city 
+# by occupation and year of birth
+SELECT ?hum ?_inception ?year ?specLabel ?count ?totalspec WHERE {
+  SELECT DISTINCT  (SAMPLE(?year) AS ?year) 
+	(COUNT(?humLabel) AS ?count)  
+	(GROUP_CONCAT(DISTINCT ?specLabel; SEPARATOR=", ") AS ?totalspec) 
+	WHERE {
+    VALUES ?state { # types of citizenship
+      wd:Q34266   # Russian Empire 
+      wd:Q139319  # Russian Republic
+      wd:Q15180   # Soviet Union
+      wd:Q159     # Russia
+    }
+    VALUES ?placeb {  # types of settlements
+      wd:Q1637706     # city(1m+)
+      wd:Q1549591     # city(100k+)
+      wd:Q7930989     # city+town
+      wd:Q515         # town
+      wd:Q486972      # human settlement
+      wd:Q3957        # small town
+    }
+    VALUES ?class_academy {   # types of academy
+      wd:Q414147    # academy of sciences 
+      wd:Q955824    # learned society
+      wd:Q74801     # scientific society
+      wd:Q162633    # academy
+      wd:Q31855     # research institute
+      wd:Q2385804   # educational institution
+      wd:Q83172     # Russian Academy of Sciences
+    }
+    ?hum wdt:P463 ?class_academy. # academy participant
+    ?hum wdt:P27 ?state.          # citizenship
+    ?hum wdt:P106 ?spec.          # occupation
+    BIND(str(YEAR(?_inception)) AS ?year) # definition of year
+    ?hum wdt:P569 ?_inception.    # definition of Date of Birth
+    ?hum wdt:P19 ?place.          # place of birth
+    ?place wdt:P31 ?placeb.       # place of birth in the city
+    SERVICE wikibase:label{bd:serviceParam wikibase:language"ru,en".
+                               ?hum rdfs:label ?humLabel.
+                               ?spec rdfs:label ?specLabel.}
+    }
+  GROUP BY ?_inception ?specLabel
+  ORDER BY ?year ?_inception #order by year + inception
+}
+\end{lstlisting}%
+\footnotetext{Ссылка на SPARQL-запрос: \href{}{Длинная ссылка}}
+
+\begin{figure*}
+    \setlength{\fboxsep}{0pt}%
+    \setlength{\fboxrule}{1pt}%
+    \fcolorbox{gray}{gray}{\includegraphics[width=1\linewidth]{./chapter/human_settlement/RussianScientistBurnVillage.png}}
+	\label{fig:human-settlement-5}
+	\caption[Диаграмма количества ученых по родам деятельности родившихся в сельских полесениях.]{Диаграмма количества ученых по родам деятельности родившихся в сельских полесениях. Ссылка на SPARQL-запрос: \href{}{Длинная ссылка}.}%
+\end{figure*} 
+
+\begin{figure*}
+    \setlength{\fboxsep}{0pt}%
+    \setlength{\fboxrule}{1pt}%
+    \fcolorbox{gray}{gray}{\includegraphics[width=1\linewidth]{./chapter/human_settlement/RussianScientistBurnTown.png}}
+	\label{fig:human-settlement-6}
+	\caption[Диаграмма количества ученых по родам деятельности родившихся в городских полесениях.]{Диаграмма количества ученых по родам деятельности родившихся в городских полесениях. Ссылка на SPARQL-запрос: \href{}{Длинная ссылка}}%
+\end{figure*} 
