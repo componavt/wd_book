@@ -315,6 +315,113 @@ WHERE
 	\small{Вопрос на с.~\pageref{lst:List_of_historical_countries}.}
 \end{task}
 
+%%%%%%%%%%%%%% oblast_of_Russia %%%%%%%%%%%%%%
+
+\begin{task}
+	\label{answer:subjects_of_Russia_3}
+	\newthought{Флаг Московской области соответствует приведённому описанию. Ответ на вопрос можно проверить, выполнив следующий SPARQL-запрос (листинг \ref{lst:subjects_of_Russia_3_q}).}
+	
+	\begin{lstlisting}[ language=SPARQL, 
+	caption={\href{https://w.wiki/4ZUY}{Флаги субъектов России.}\protect\footnotemark},
+	label=lst:subjects_of_Russia_3_q
+	]
+#defaultView:ImageGrid
+SELECT ?subject ?subjectLabel ?flag
+WHERE
+{
+  { ?subject wdt:P31 wd:Q835714 } UNION  # Oblast of Russia
+  { ?subject wdt:P31 wd:Q41162 } UNION  # Republic of Russia
+  { ?subject wdt:P31 wd:Q183342 } UNION  # Federal city of Russia
+  { ?subject wdt:P31 wd:Q831740 } UNION  # Krai of Russia
+  { ?subject wdt:P31 wd:Q309166 } UNION # Autonomus oblast of Russia
+  { ?subject wdt:P31 wd:Q184122 } # Autonomus okrug of Russia
+  
+  # Former administrative territorial entity
+  FILTER NOT EXISTS {?subject wdt:P31 wd:Q19953632} 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
+   
+  ?subject wdt:P41 ?flag
+}
+}
+	\end{lstlisting}
+	\footnotetext{Получено 86 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4ZUY}{https://w.wiki/4ZUY}}  
+	
+	\small{Вопрос на с.~\pageref{lst:oblast-of-Russia}.}
+\end{task}
+
+\begin{task}
+	\label{answer:subjects_of_Russia_1}
+	\newthought{Карелия - это субъект, расположенный на северо-западе России, возник в \num{1923} году. Он граничит с Ленинградской, Вологодской, Архангельской и Мурманской областью. Также граничит с Финляндией на западе.  Ответ на вопрос можно проверить, выполнив следующий SPARQL-запрос (листинг \ref{lst:sharesBorderWith}).}
+	
+	\begin{marginfigure}[0.0cm]
+{
+	\setlength{\fboxsep}{0pt}%
+	\setlength{\fboxrule}{1pt}%
+	\includegraphics[width=0.8\linewidth]{"chapter/oblast_of_Russia/Flag_of_Karelia.png"}
+}
+\caption [Флаг Карелии, Россия.]{Флаг Карелии, Россия.}%
+\label{fig:Flag_of_Karelia}%
+\end{marginfigure}
+	
+	\begin{lstlisting}[ language=SPARQL, 
+	caption={\href{https://w.wiki/4Z9s}{Границы и дата возникновения по субъектам}\protect\footnotemark},
+	label=lst:sharesBorderWith
+	]
+SELECT  ?subject ?subjectLabel 
+        ?sharesBorderWith 
+        ?sharesBorderWithLabel ?year
+WHERE
+{
+  { ?subject wdt:P31 wd:Q835714 } UNION  # Oblast of Russia
+  { ?subject wdt:P31 wd:Q41162 } UNION  # Republic of Russia
+  { ?subject wdt:P31 wd:Q183342 } UNION  # Federal city of Russia
+  { ?subject wdt:P31 wd:Q831740 } UNION  # Krai of Russia
+  { ?subject wdt:P31 wd:Q309166 } UNION # Autonomus oblast of Russia
+  { ?subject wdt:P31 wd:Q184122 } # Autonomus okrug of Russia
+  
+  # Former administrative territorial entity
+  FILTER NOT EXISTS {?subject wdt:P31 wd:Q19953632} 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
+  
+  ?subject wdt:P47 ?sharesBorderWith. 
+  ?subject wdt:P571 ?year
+}
+	\end{lstlisting}
+	\footnotetext{Получено 485 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4Z9s}{https://w.wiki/4Z9s}}  
+	
+	\small{Вопрос на с.~\pageref{lst:sharesBorderWith-oblast-of-Russia}.}
+\end{task}
+
+\begin{task}
+	\label{answer:subjects_of_Russia_2}
+	\newthought{На текущий момент входят в состав Российской Федерации: Республика Адыгея, Камчатский край, Чукотский автономный округ, не входит - Читинская область. Ответ на вопрос можно проверить, выполнив следующий SPARQL-запрос (листинг \ref{lst:subjects_of_Russia_2_q}).}
+	
+	\begin{lstlisting}[ language=SPARQL, 
+	caption={\href{https://w.wiki/4ZAK}{Список субъектов России.}\protect\footnotemark},
+	label=lst:subjects_of_Russia_2_q
+	]
+#List of `instances of` "subjects of Russia" 
+SELECT ?subject ?subjectLabel
+WHERE
+{
+  { ?subject wdt:P31 wd:Q835714 } UNION  # Oblast of Russia
+  { ?subject wdt:P31 wd:Q41162 } UNION  # Republic of Russia
+  { ?subject wdt:P31 wd:Q183342 } UNION  # Federal city of Russia
+  { ?subject wdt:P31 wd:Q831740 } UNION  # Krai of Russia
+  { ?subject wdt:P31 wd:Q309166 } UNION # Autonomus oblast of Russia
+  { ?subject wdt:P31 wd:Q184122 } # Autonomus okrug of Russia
+  
+  # Former administrative territorial entity
+  FILTER NOT EXISTS {?subject wdt:P31 wd:Q19953632} 
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
+}
+}
+	\end{lstlisting}
+	\footnotetext{Получено 86 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4ZAK}{https://w.wiki/4ZAK}}  
+	
+	\small{Вопрос на с.~\pageref{lst:sharesBorderWith-empty-oblast-of-Russia}.}
+\end{task}
+
 %%%%%%%%%%%%%% Operating system chapter %%%%%%%%%%%%%%
 
 \begin{task}
