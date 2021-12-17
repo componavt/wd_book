@@ -4,12 +4,12 @@
 
 \labch{anime}
 
-\footnotetext{\href{https://en.wikipedia.org/wiki/Krita\#Mascot}{Kiki}, an anime-styled \href{https://en.wikipedia.org/wiki/Mascot}{mascot} of Krita, free graphical editor. 
+\footnotetext{\href{https://en.wikipedia.org/wiki/Krita\#Mascot}{Kiki}, the anime-styled \href{https://en.wikipedia.org/wiki/Mascot}{mascot} of Krita, a free graphics editor. 
 DeviantArt / \href{https://www.deviantart.com/tysontan/art/The-Magic-Stylus-570566846}{Tyson Tan} (CC-BY-SA 3.0)}
 
-\marginnote[0.0cm]{Seiyu are the Japanese voice actors. Usually seiyu give voice to the characters of anime, video games, movies, work on the radio and TV. They act as storytellers on radio shows. Moreover, the seiyu's voices are used in advertisements, voice announcements, book audios and for re-sounding. Men and women, adults and children can work as seiyu.}
+\marginnote[0.0cm]{Seiyu are Japanese voice actors. Typically they give voice to the characters of anime series and movies as well as video games, and do other narrative work for radio and TV productions. In addition, seiyu do advertisements, announce-ments, textbook recordings and voiceovers. Both adults and children work as seiyu.}
 
-This chapter is dedicated to \wdqName{anime}{1107} Wikidata object analysis. Using SPARQL queries executed on Wikidata objects of anime type, several tasks were accomplished. These include a list of names of seiyu (voice actors) and their number of roles, the histogram of seiyu that acted in one or more anime, the graph connecting seiyu and anime they voiced, and the seiyu's activity age is estimated.
+This chapter is dedicated to \wdqName{anime}{1107} Wikidata object analysis. Using SPARQL queries executed on Wikidata objects of anime type, several tasks were accomplished. These include a list of seiyu (voice actors) and their number of roles, a histogram of seiyu who have acted in one or more anime, a graph connecting seiyu and anime they voiced, and the seiyu's activity age is estimated.
 
 \section{Anime objects}
 
@@ -22,20 +22,20 @@ This chapter is dedicated to \wdqName{anime}{1107} Wikidata object analysis. Usi
 \caption
 [Seiyu Kenji Akabane, 2021.]
 {
-Seiyu Kenji Akabane voiced the role of Sasuke Sarutobi in Ikemen Sengoku videogame, 2018.\newline
+Seiyu Kenji Akabane voiced the character Sasuke Sarutobi in the \emph{Ikemen Sengoku} video game, 2018.\newline
 Wikimedia Commons / numan (CC BY-SA 3.0)
 }
 \label{fig:seiyu}
 \end{marginfigure}
 
-Anime is the Japanese animation. Anime has its unique visual style, but there are other features that are not that obvious. For instance, anime has a significantly wider variety of genres in comparison to the American and European animation: from family comedies and movies for kids to dramatic stories, whereas in the Western cinema the stories of such genre are mostly shown in the movies.
+Anime is Japanese animation. It has its unique visual style, but there are other features that are not so obvious. For instance, anime has a significantly wider variety of genres in comparison to American and European animation~--- from family and kids' comedies to dramas, the latter of which are usually depicted with live actors in Western cinema.
 
-Each anime has its own voice actors. Here and further we will call the Japanese voice actors seiyu. In the Japanese animation the terms \emph{seiyu} and \emph{voice actor} are synonyms. Usually the word \emph{title} means the certain anime. In general \emph{title} means the term which combines different kinds of products, from cinema to novel, that are based on the same literary work which has an exact name.
+Each anime has its own voice actors. From here on we will refer to the Japanese voice actors as seiyu. In Japanese animation the terms \emph{seiyu} and \emph{voice actor} are synonymous. The designation \emph{title} will usually reference certain anime and associated manga (Japanese comics). In general, \emph{title} is a termthat includes various media products, from novels to films, that are of the same name and are based on one or the other.
 
-In order to work with the anime list from Wikidata we need to use the \wdqName{anime}{1107} object and the \wdProperty{31}{instance of} property. Let's get the list of all anime names, without anime subclasses (listing~\ref{lst:anime}).
+In order to work with the anime list from Wikidata we need to use the \wdqName{anime}{1107} object and the \wdProperty{31}{instance of} property. Let us retrieve the list of all anime titles, without taking the subclasses into account, with query~\ref{lst:anime}.
 
 \begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,%
-                    caption={List of anime without subclasses. The result contained \num{683} instances of anime in 2017, \num{216} instances of anime in 2021. SPARQL query: \href{https://w.wiki/4ABq}{w.wiki/4ABq}},%
+                    caption={List of anime without subclasses. The result contained \num{683} instances of anime in 2017 and \num{216} in 2021. SPARQL query: \href{https://w.wiki/4ABq}{w.wiki/4ABq}},%
                     label=lst:anime,%
                     texcl%
                     ]
@@ -47,7 +47,7 @@ SELECT ?anime ?animeLabel WHERE {
 }
 \end{lstlisting}%
 
-There are much more anime objects in Wikidata, but they are the instances not of anime, but of its subclasses, for example, \wdqName{anime series}{63952888}. Let's execute the query~\ref{lst:anime_genres} in order to obtain the list of anime genres and the number of anime that correspond to these genres.
+There are many more anime objects in Wikidata, but they are not instances of anime but of its subclasses, for example, \wdqName{anime series}{63952888}. Let us execute the query~\ref{lst:anime_genres} in order to obtain the list of anime genres and the number of anime that correspond to these genres.
 
 % full width lstlisting, format=llapwide18 (-1.8cm), see kao.sty
 \begin{widepar}%
@@ -73,14 +73,14 @@ ORDER BY DESC(?count)
 \end{widepar}%
 
 %\vspace{-0.5cm}
-The distribution of anime to genres can be visualized with a sunburst diagram (Fig.~\ref{fig:anime_piechart}).
+In Fig.~\ref{fig:anime_piechart}, the distribution of anime to genres is visualized with a sunburst diagram.
 
-This classification of anime by genres is not perfect because there is a significant skewness to the anime television series: among \num{4875} titles, \num{2984} are the instances of anime series genre (\num{62,7}\%). Also, some subclasses correspond not to genres, but to the particular anime (i.e., \href{https://w.wiki/3iKe}{Evangelion}).
+This classification of anime by genre is not perfect because it is significantly skewed toward anime television series: among the \num{4875} anime titles, \num{2984} are instances of the anime series genre (\num{62.7}\%). Also, some subclasses correspond not to genres, but to particular anime (e.g., \href{https://w.wiki/3iKe}{Evangelion}).
 
-Let's get the list of all anime names including the titles that are the instances of anime subclasses, with script~\ref{lst:all_anime_list}.
+Let us retrieve the list of all anime titles that are instances of anime subclasses by using query~\ref{lst:all_anime_list}.
 
 \begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,
-                    caption={List of anime with the titles that are instances of anime subclasses.
+                    caption={List of anime with titles that are instances of anime subclasses.
                         The result contained \num{4875} anime names in 2021.
                         SPARQL query: \href{https://w.wiki/4ABv}{https://w.wiki/4ABv}
                         },
@@ -112,9 +112,9 @@ Sunburst diagram of anime genres created with Rawgraphs (\href{https://app.rawgr
 \label{fig:anime_piechart}
 \end{marginfigure}
 
-Anime that have the most complete information on Wikidata are \wdqName{Gurren Lagann}{4277}, \wdqName{Space Battleship Yamato}{4292}, \wdqName{Project A-ko}{4316}. There are also some anime with many missing properties like \wdqName{Doraemon}{711311}, \wdqName{The Animal Conference on the Environment}{97195557} and \wdqName{Assassins Pride}{96737300}.
+Anime that have the most complete information on Wikidata are \wdqName{Gurren Lagann}{4277}, \wdqName{Space Battleship Yamato}{4292}, \wdqName{Project A-ko}{4316}. There are also some anime with many missing properties, including \wdqName{Doraemon}{711311}, \wdqName{The Animal Conference on the Environment}{97195557} and \wdqName{Assassins Pride}{96737300}.
 
-According to ProWD service \autocite{anime_prowd}, among all the anime titles on Wikidata, \wdqName{Fullmetal Alchemist: The Sacred Star of Milos}{1004318}\footnote{Fullmetal Alchemist: The Sacred Star of Milos is an anime movie which continues the Fullmetal Alchemist anime series. Its main characters are the alchemist brothers who use their magic to fight the criminals and forces of evil.} has the greatest number of properties (\num{24}).
+According to a profiling of Wikidata using ProWD \autocite{anime_prowd}, among all the anime titles on Wikidata, \wdqName{Fullmetal Alchemist: The Sacred Star of Milos}{1004318}\footnote{Fullmetal Alchemist: The Sacred Star of Milos is an anime movie which continues the Fullmetal Alchemist anime series. Its main characters are the alchemist brothers who use their magic to fight the criminals and forces of evil.} has the greatest number of properties (\num{24}).
 
 \section{List of seiyu ordered by their number of roles in anime}
 
