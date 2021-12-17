@@ -70,7 +70,7 @@ ORDER BY DESC(?count)
 \end{lstlisting}%
 \footnotetext{Получено \num{11} результатов в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4ABj}{https://w.wiki/4ABj}}
 
-Визуализировать распределение аниме по жанрам можно с помощью, например, диаграммы <<солнечные лучи>> (рис.~\protect\ref{fig:anime_piechart}).
+Визуализировать распределение аниме по жанрам можно с помощью, например, диаграммы <<солнечные лучи>> (рис.~\protect\ref{fig:anime_piechart})\index{Сервисы для анализа данных!Сервисы для визуализации данных!Rawgraphs}.
 
 Полученная классификация аниме по жанрам не идеальна, так как есть большое смещение в сторону аниме-сериалов: из \num{4875} тайтлов \num{2984} отнесены к жанру <<аниме-сериал>> (\num{62,7}\%); вероятно, классификация жанров аниме в Викиданных требует дальнейшего уточнения. Также в подклассы попали понятия, относящиеся не к общей классификации, а к отдельным аниме, например, \href{https://w.wiki/4L5p}{<<Евангелион>>}.
 
@@ -81,7 +81,7 @@ ORDER BY DESC(?count)
 	\fcolorbox{gray}{gray}{\includegraphics{chapter/anime/anime-subclasses-sunburst-diagram-2021.png}}
 }
 \caption
-[Жанры аниме на круговой диаграмме, 2021.]
+[Жанры аниме на круговой диаграмме, 2021.\index{Сервисы для анализа данных!Сервисы для визуализации данных!Rawgraphs}]
 {
 Диаграмма <<солнечные лучи>>\index{График!Sunburst diagram!Количество аниме по жанрам} (sunburst diagram) жанров аниме, построенная с помощью сервиса Rawgraphs (\href{https://app.rawgraphs.io}{https://app.rawgraphs.io}).\newline
 }
@@ -139,7 +139,6 @@ ORDER BY DESC(?count)  # order by count of voiced anime
 
 Было бы интересно построить график (линейную диаграмму) сэйю, озвучивших аниме. Чем больше аниме озвучил сэйю, тем правее на диаграмме он будет находиться. Сделать это можно с помощью скрипта~\protect\ref{lst:seiyu_titles_graph}.
 
-\index{График!LineChart!Число сэйю, озвучивших одно и более аниме}
 \begin{fullwidth}
 \lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
@@ -172,6 +171,7 @@ ORDER BY DESC(?seiyuRoles)  # grouping and sorting seiyu by number of voice acti
 
 Многие сэйю, как показано на диаграмме, озвучили только одно аниме~--- на графике их оказалось \num{254}. Однако сэйю~--- это профессия, которой люди зачастую посвящают всю свою жизнь. То, что, согласно Викиданным, человек за многие годы принял участие в озвучке только одного аниме, может быть связано с отсутствием информации о других его ролях в Викиданных. 
 
+\index{График!LineChart!Число сэйю, озвучивших одно и более аниме}
 \begin{figure*}[h]
 
     \setlength{\fboxsep}{0pt}%
@@ -187,7 +187,6 @@ ORDER BY DESC(?seiyuRoles)  # grouping and sorting seiyu by number of voice acti
 
 \newpage
 
-\index{График!Graph!Фрагмент графа, связывающего сэйю и озвученные ими аниме}
 \lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/4HFt}{Построение графа, связывающего сэйю и озвученные ими аниме}\protect\footnotemark},
@@ -221,6 +220,7 @@ WHERE
 Конструкция \emph{BIND\index{SPARQL!BIND!Граф, связывающий сэйю и озвученные ими аниме}(IF\index{SPARQL!IF!Граф, связывающий сэйю и озвученные ими аниме}(?toggle, ?anime, ?seiyu))} в строке \num{14} позволяет определить тип вершины графа: если \emph{?toggle} принимает значение \emph{true}, то вершина графа соответствует аниме, иначе~--- сэйю. В строках \num{15} и \num{16} определяются тип подписи для вершины и цвет вершины. Строка \num{17} позволяет отобразить связи между сэйю и аниме.
 
 \newpage
+\index{График!Graph!Фрагмент графа, связывающего сэйю и озвученные ими аниме}
 \begin{fullwidth}
 \begin{figure*}[h]
 	\includegraphics[width=\textwidth]{./chapter/anime/Seiyu_graph_2021_ru.jpg}
@@ -266,13 +266,14 @@ GROUP BY ?actor  ?actorLabel
 ORDER BY DESC(?count)  # order by number of voiced projects
 \end{lstlisting}%
 
+\index{График!Sunburst diagram!Количество ролей, озвученных разными актёрами}
 \begin{figure*}[h]
 	\includegraphics[width=\textwidth]{./chapter/anime/actors-role-counts-sunburst-diagram-2021.png}
 	\caption[Круговая диаграмма числа ролей, озвученных различными сэйю, 2021.]{Диаграмма <<солнечные лучи>> числа ролей, озвученных различными актёрами, построенная с помощью сервиса Rawgraphs (\href{https://app.rawgraphs.io}{https://app.rawgraphs.io}).}%
       \label{fig:roles_piechart}%
 \end{figure*}
 
-Круговая диаграмма на рис.~\protect\ref{fig:roles_piechart}\index{График!Sunburst diagram!Количество ролей, озвученных разными актёрами}~--- это один из вариантов визуализации данных, полученных с помощью скрипта~\protect\ref{lst:voice_actors_list}. С помощью подобных диаграмм можно, например, оценить, какой актёр внёс наибольший вклад в развитие индустрии озвучивания.
+Круговая диаграмма\index{Сервисы для анализа данных!Сервисы для визуализации данных!Rawgraphs} на рис.~\protect\ref{fig:roles_piechart}~--- это один из вариантов визуализации данных, полученных с помощью скрипта~\protect\ref{lst:voice_actors_list}. С помощью подобных диаграмм можно, например, оценить, какой актёр внёс наибольший вклад в развитие индустрии озвучивания.
 
 \section{Указана ли дата публикации у аниме?}
 
