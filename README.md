@@ -13,8 +13,6 @@ See our course [Research in programming Wikidata](https://en.wikiversity.org/wik
 We are using the LaTeX template [fmarotta/kaobook](https://github.com/fmarotta/kaobook).
 Read [the template tutorial online](https://github.com/fmarotta/kaobook/blob/master/examples/documentation/main.pdf).
 
-## Quick Start
-
 The Wikidata book in English (file `wd_book/en/mainka.tex`) can be compiled with the following:
 
     pdflatex mainka # Compile template
@@ -33,8 +31,6 @@ See our course [Research in programming Wikidata](https://ru.wikiversity.org/wik
 
 We are using the LaTeX template [Tufte-LaTeX](https://github.com/Tufte-LaTeX/tufte-latex).
 Read [the template tutorial online](https://raw.githubusercontent.com/Tufte-LaTeX/tufte-latex/master/sample-book.pdf).
-
-## Quick Start
 
 The Wikidata book in Russian (file `wd_book/ru/wd_book.tex`) can be compiled with the following:
 
