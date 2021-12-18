@@ -101,69 +101,69 @@ ORDER BY DESC (?sumPopulation)
 
 Итоги запросов в 2017 и 2021 имеют сильно разные результаты. За 4 года в Индии прибавилось 23 млн, из этого можно сделать вывод, что информация в Викиданных стала более полной по населённым пунктам за это время.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Дополнение понятия <<населенный пункт>>}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Расширение понятия <<населённый пункт>>}
 
-Попробуем получить более полный результат стрипта (листинг ~\protect\ref{lst:human-settlement3}). Для это нужно изучить \wdqName{населенный пункт}{486972} из свойства \wdProperty{31}{экземпляр}. Если рассмотреть город \wdqName{Петрозаводск}{1895} он имеет четыре класса (\wdqName{административно-территориальная единица России}{192287}; \wdqName{город с населением более \num{100000} человек}{1549591}; \wdqName{населённый пункт}{486972}; \wdqName{город}{7930989}). Трое из этих свойств являются схожими и используются совместно с интересующим нас классом <<населенный пункт>>. Выведем список классов по суммарному упоминанию среди объектов имеющих свойство \wdProperty{1082}{численность населения} в \wdqName{России}{159} (листинг ~\protect\ref{lst:human-settlement4}).
+Далее классом будем называть каждое свойство \wdProperty{31}{экземпляра} в исследуемом объекте на Викиданных. Попробуем получить более полный результат стрипта (листинг ~\protect\ref{lst:human-settlement3}). Для это нужно изучить класс \wdqName{населенный пункт}{486972} из свойства экземпляр. Рассмотрим город \wdqName{Петрозаводск}{1895} он имеет четыре класса (\wdqName{административно-территориальная единица России}{192287}; \wdqName{город с населением более \num{100000} человек}{1549591}; \wdqName{населённый пункт}{486972}; \wdqName{город}{7930989}). Три из этих классов являются схожими по значению и используются совместно с интересующим нас классом <<населённый пункт>>. Выведем список классов по суммарному упоминанию среди объектов имеющих свойство \wdProperty{1082}{численность населения} в \wdqName{России}{159} (листинг ~\protect\ref{lst:human-settlement4}).
 
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/4XHP}{Модернизированный список стран по суммарному количеству населения}\protect\footnotemark},
+                    caption={\href{https://w.wiki/4Ztx}{список классов по суммарному упоминанию среди объектов имеющих свойство <<численность населения>> в России}\protect\footnotemark},
                     label=lst:human-settlement4,
                     texcl 
                     ]
-# displaying the number of different classes of a joint human 
-# settlements in Russia
-SELECT ?klass ?klassLabel (COUNT(?klass) AS ?count) 
-  (GROUP_CONCAT(DISTINCT ?humLabel; SEPARATOR = "; ") AS ?countries) 
-WHERE {
- {
-  SELECT ?klass ?klassLabel ?humLabel WHERE {
-   ?hum wdt:P17 wd:Q159.  # settlement in the Russia
-   ?hum wdt:P31 wd:Q486972. # settlement has human-settlements
-   ?hum wdt:P1082 ?population. # settlement has ?population
-   ?hum wdt:P31 ?klass. # settlement has other ?klass
-   SERVICE wikibase:labe{bd:serviceParam wikibase:language"ru,en".
-     ?klass rdfs:label ?klassLabel.
-     ?hum rdfs:label ?humLabel.}
+# displaying the number of different classes of settlements in Russia
+SELECT ?class ?classLabel (COUNT(?class) AS ?count) WHERE {
+  {
+    SELECT ?class ?classLabel ?humLabel WHERE {
+      ?hum wdt:P17 wd:Q159;  # settlement in the Russia
+        wdt:P1082 ?population; # settlement has ?population
+        wdt:P31 ?class. # settlement has ?klass
+      SERVICE wikibase:label{bd:serviceParam wikibase:language"ru,en"}
+    }
   }
- }
 }
-GROUP BY ?klass ?klassLabel
+GROUP BY ?class ?classLabel
 ORDER BY DESC (?count)
 \end{lstlisting}%
-\footnotetext{Как и ожидалось класс <<населенный пункт>> оказался не на первом месте и набрал всего \num{1122} упоминаний. Ссылка на SPARQL-запрос: \href{https://w.wiki/4XHP}{https://w.wiki/4XHP}}
+\footnotetext{Класс <<населенный пункт>> оказался на десятом месте и набрал всего \num{1122} упоминаний. Ссылка на SPARQL-запрос: \href{https://w.wiki/4Ztx}{https://w.wiki/4Ztx}}
 
-Обратим внимание на следующие классы: \wdqName{сельское поселение в России}{634099}~--- \num{18102}, \wdqName{деревня}{5084}~--- \num{14760}, \wdqName{село}{532}~--- \num{9844}, \wdqName{посёлок}{2514025}~--- \num{4413}, \wdqName{хутор}{2023000}~--- \num{1729},  \wdqName{посёлок городского типа России}{15078955}~--- \num{665}. Попробуем получить еще раз результат скрипта (листинг ~\protect\ref{lst:human-settlement3}) используя новые классы. Это позволит избавится от подсчета городов упоминаемых как <<населенный пункт>> (листинг ~\protect\ref{lst:human-settlement5}).
+\begin{table}[h]
+\caption{Таблица классов по суммарному упоминанию среди объектов имеющих свойство <<численность населения>> в России}
+\begin{tabular}{@{}lllll@{}}
+\toprule
+номер & название класса                       						& количество упоминаний	\\ \midrule
+1         & \wdqName{сельское поселение в России}{634099}     			&  \num{18104}                		\\
+2         & \wdqName{деревня}{5084}              						& \num{14795}                		\\
+3         & \wdqName{село}{532}								& \num{9875}               		\\ 
+4         & \wdqName{посёлок}{2514025}						& \num{4418}               		\\ 
+7         & \wdqName{хутор}{2023000}							& \num{1733}               		\\ 
+9         & \wdqName{город}{7930989}							& \num{1172}               		\\ 
+10       & \wdqName{населённый пункт}{486972}					& \num{1149}               		\\ 
+11       & \wdqName{посёлок городского типа России}{15078955}		& \num{665}               		\\ 
+21       & \wdqName{город с населением более 100 000 человек}{1549591}	& \num{108}               		\\ \hline
+\end{tabular}
+\end{table}
+
+Результаты скрипта (листинг ~\protect\ref{lst:human-settlement4}) представлены в таблице (ссылка). Посмотрев на них, видно, что класс <<населённый пункт>> используется совместно не со всеми класами поселений и часто пересекается с классами городских типов (ссылка на главу Города). Попробуем получить еще раз результат для России на основе скрипта (листинг ~\protect\ref{lst:human-settlement3}), используя классы под номерами: 1,2,3,4,7 и 11. В дальнейшем комбинация этих классов будет характеризовать сельские поселения. Произведем подсчет поселений сельского типа в России. (листинг ~\protect\ref{lst:human-settlement5}).
 
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/4XHv}{Список классов по суммарному упоминанию среди объектов имеющих свойство численность населения в России}\protect\footnotemark},
+                    caption={\href{https://w.wiki/4ZuS}{Подсчет количества населения в поселках сельского типа}\protect\footnotemark},
                     label=lst:human-settlement5,
                     texcl 
                     ]
-# Modernized list of countries by population in settlements
-SELECT ?country ?countryLabel (SUM(?population) as ?sumPopulation) 
+# total population in rural settlements in Russia
+SELECT (SUM(?population) as ?sumPopulation) 
 WHERE{
-  VALUES ?type {
-        wd:Q634099
-        wd:Q5084
-        wd:Q532
-        wd:Q2514025
-        wd:Q2023000
-        wd:Q15078955
-  }
-  ?hum wdt:P31 ?type. # instance of human settlement
-  ?hum wdt:P17 ?country.   # settlement in the ?country
-  ?hum wdt:P1082 ?population. # settlement has ?population
-  SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
+  VALUES ?type {wd:Q634099 wd:Q5084 wd:Q532 wd:Q2514025 wd:Q2023000 wd:Q15078955}
+  ?hum wdt:P31 ?type; # instance of human settlement
+    wdt:P17 wd:Q159;   # settlement in Russia
+    wdt:P1082 ?population. # settlement has ?population
 }
-GROUP BY ?country ?countryLabel
-ORDER BY DESC (?count)
+ORDER BY DESC (?sumPopulation)
 \end{lstlisting}%
-\footnotetext{Как и ожидалось Россия оказалась на первом месте и набрала число населения \num{53798270}. На втором месте оказались Нидерланды с результатом \num{11893141}. Открыв от второго места 42 млн Ссылка на SPARQL-запрос: \href{https://w.wiki/4XHv}{https://w.wiki/4XHv}}
+\footnotetext{Получили \num{53,8} млн население поселений сельского типа в России. Ссылка на SPARQL-запрос: \href{https://w.wiki/4ZuS}{https://w.wiki/4ZuS}}
 
-Числиность насиления России в результатах скриптов (листинг ~\protect\ref{lst:human-settlement3}) и (листинг ~\protect\ref{lst:human-settlement5}) получилась \num{6494645} и \num{53798270} соответственно. Из чего следует, что нужно произвести уточнение и для других стран.
-
- Как это сделать пока что не понятно, так как запрос превышает время ожидания и не выдает результатов. А перебирать каждую крупную страну плохой вариант. Возможно позже появится хорошее решиние этой задачи.
+Числиность насиления России в результатах скриптов (листинг ~\protect\ref{lst:human-settlement3}) и (листинг ~\protect\ref{lst:human-settlement5}) получилась \num{6,5} и \num{53,8} млн соответственно. Из чего следует, что класс <<населённый пункт>> мало заполнен на Викиданных. Возможно в будующем все поменяет и будет наполняться. Возможно позже появится хорошее решиние задачи по поиску суммарного количества населения по странам используя класс <<населённый пункт>>.
 
 %%%%%
 \subsection{Полнота Викиданных}
