@@ -75,13 +75,13 @@ ORDER BY DESC(?count)
 %\vspace{-0.5cm}
 In Fig.~\ref{fig:anime_piechart}, the distribution of anime to genres is visualized with a sunburst diagram.
 
-This classification of anime by genre is not perfect because it is significantly skewed toward anime television series: among the \num{4875} anime titles, \num{2984} are instances of the anime series genre (\num{62.7}\%). Also, some subclasses correspond not to genres, but to particular anime (e.g., \href{https://w.wiki/3iKe}{Evangelion}).
+This classification of anime by genre is not perfect because it is significantly skewed toward anime television series: among the \num{4875} anime titles, \num{2984} are instances of the anime series genre (\num{62.7}\%). Also, some subclasses correspond not to genres, but to particular anime (e.g., \href{https://w.wiki/3iKe}{\emph{Evangelion}}).
 
 Let us retrieve the list of all anime titles that are instances of anime subclasses by using query~\ref{lst:all_anime_list}.
 
 \begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,
                     caption={List of anime with titles that are instances of anime subclasses.
-                        The result contained \num{4875} anime names in 2021.
+                        The result contained \num{4875} anime titles in 2021.
                         SPARQL query: \href{https://w.wiki/4ABv}{https://w.wiki/4ABv}
                         },
                     label=lst:all_anime_list,
@@ -192,7 +192,7 @@ As Figure~\ref{fig:Seiyu_num_chart_2021_en} shows, most seiyu have voiced only o
 
 Most of the seiyu give voice to multiple characters from different anime. Let us create a graph that connects seiyu to anime they have voiced (query ~\ref{lst:seiyu_graph}).
 
-Figure.~\ref{fig:Seiyu_graph_en} shows part of the graph for several famous seiyu.
+Figure~\ref{fig:Seiyu_graph_en} shows part of the graph for several famous seiyu.
 
 % full width lstlisting, format=llapwide18 (-1.8cm), see kao.sty
 \begin{widepar}%
@@ -237,7 +237,7 @@ The \emph{BIND\index{SPARQL!BIND!Graph that connects seiyu to anime they have vo
 
 \section{Fullness of Wikidata}
 
-The list of the anime titles in \href{https://w.wiki/4Xs4}{English Wikipedia} contains around \num{1600} anime. But there are the special websites dedicated for anime like \href{https://www1.gogoanime.cm/}{Gogoanime online cinema}\sidenote{Gogoanime | Watch anime online, English anime online HD. \href{https://www1.gogoanime.cm/}{https://www1.gogoanime.cm/}, 2021} that contain the information about much more titles. At the moment of chapter writing there were \num{10072} available anime on Gogoanime (\num{74} pages per \num{136} names plus \num{8} extra anime), whereas Wikidata provides information only about \num{4875} titles (see script~\ref{lst:all_anime_list}). In addition, we should take into account the rapidness of anime releases\sidenote{Exercise: using SPARQL, count the number of anime released in the previous year.}. So we can conclude that Wikidata doesn't reflect the actual information about anime (only \num{48.4}\% titles are present).
+The list of anime of \href{https://w.wiki/4Xs4}{English Wikipedia} contains around \num{1600} titles. But there are special websites dedicated to anime, such as \href{https://www1.gogoanime.cm/}{Gogoanime online cinema}\sidenote{Gogoanime | Watch anime online, English anime online HD. \href{https://www1.gogoanime.cm/}{https://www1.gogoanime.cm/}, 2021} which contain information about many more titles. At the tim of writing, there were \num{10072} anime on Gogoanime (\num{74} pages of \num{136} titles each plus one page of \num{8}), whereas Wikidata provides information for only about \num{4875} titles (see query~\ref{lst:all_anime_list}). In addition, we should take into account the rapidness of anime releases\sidenote{Exercise: using SPARQL, count the number of anime released in the previous year.}. So we can conclude that Wikidata doesn't reflect the actual information about anime (only \num{48.4}\% titles are present).
 
 We can't consider Gogoanime as an \href{https://w.wiki/Eiw}{RS}\sidenote{Reliable source is a source of information that is true and believeable without any doubts. See \href{https://w.wiki/Eiw}{https://w.wiki/Eiw}}, but our finding about the Wikidata incompleteness allows us to enhance the further research.
 
