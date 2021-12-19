@@ -188,16 +188,18 @@ As Figure~\ref{fig:Seiyu_num_chart_2021_en} shows, most seiyu have voiced only o
     \label{fig:Seiyu_num_chart_2021_en}%
 \end{figure*} 
 
-\section{Graph that connects seiyu and anime that they dubbed}
+\section{Graph that connects seiyu to anime they have voiced}
 
-Most of the seiyu give voice to multiple characters from different anime. Let's create a graph which connects seiyu and anime that they dubbed (see script ~\ref{lst:seiyu_graph}). Fig.~\ref{fig:Seiyu_graph_en} shows a part of the graph for several famous seiyu.
+Most of the seiyu give voice to multiple characters from different anime. Let us create a graph that connects seiyu to anime they have voiced (query ~\ref{lst:seiyu_graph}).
+
+Figure.~\ref{fig:Seiyu_graph_en} shows part of the graph for several famous seiyu.
 
 % full width lstlisting, format=llapwide18 (-1.8cm), see kao.sty
 \begin{widepar}%
 \captionsetup[lstlisting]{format=llapwide18}%
 %
 \begin{lstlisting}[ language=SPARQL, breaklines=true,%
-                    caption={Display the graph that connects seiyu and the anime they took part in. 826 results in 2017, 496 results in 2021. SPARQL query: \href{https://w.wiki/4Xqk}{https://w.wiki/4Xqk}},
+                    caption={Graph that connects seiyu to anime they have voiced. \num{826} results in 2017, and \num{496} in 2021. SPARQL query: \href{https://w.wiki/4Xqk}{https://w.wiki/4Xqk}},
                     label=lst:seiyu_graph,
                     texcl
                   ]
@@ -219,17 +221,17 @@ WHERE
 \end{lstlisting}%
 \end{widepar}%
 
-The \emph{?seiyu} variable (line 7) contains an array of Wikidata objects which correspond to several seiyu like \wdqName{Bin Shimada}{1323728} and others. We picked only three seiyu for illustration purposes as the graph for more seiyu would be uncomfortable for reading.
+The \emph{?seiyu} variable (line 7) contains an array of Wikidata objects that correspond to several seiyu including \wdqName{Bin Shimada}{1323728} and others. We picked only three seiyu for illustrative purposes as a graph including more seiyu would be unwieldy for reading.
 
-The \emph{BIND\index{SPARQL!BIND!Graph that connects seiyu and anime voiced by them}(IF\index{SPARQL!IF!Graph that connects seiyu and anime voiced by them}(?toggle, ?anime, ?seiyu))} construction in the line \num{11} allows to determine the graph node type: if \emph{?toggle} is \emph{true}, then the node corresponds to anime, seiyu otherwise. The text label and color of node are determined in the same way in the lines \num{12} and \num{13}. The line \num{14} allows to create the edges between the seiyu and anime nodes.
+The \emph{BIND\index{SPARQL!BIND!Graph that connects seiyu to anime they have voiced}(IF\index{SPARQL!IF!Graph that connects seiyu to anime they have voiced}(?toggle, ?anime, ?seiyu))} construction in line \num{11} determines the graph node type: if \emph{?toggle} is \emph{true}, then the node corresponds to anime, and seiyu otherwise. The item label and the node color are determined in the same way in lines \num{12} and \num{13}. Line \num{14} creates the edges linking the seiyu and anime nodes.
 
-\index{Chart!Graph!Part of graph that connects seiyu and the anime they took part in}
+\index{Chart!Graph!Part of graph that connects seiyu to anime they have voiced}
 \begin{figure*}
 
     \setlength{\fboxsep}{0pt}%
     \setlength{\fboxrule}{1pt}%
     \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{chapter/anime/Seiyu_graph_en_sm.jpg}}
-	\caption[Part of graph that connects seiyu and the anime they took part in, 2021.]{Part of graph that connects seiyu and the anime they took part in, 2021. The graph is constructed using the output of script~\ref{lst:seiyu_graph}.}%
+	\caption[Part of graph that connects seiyu to anime they have voiced, 2021.]{Part of graph that connects seiyu and the anime they took part in, 2021. The graph is constructed using the output of query~\ref{lst:seiyu_graph}.}%
     \label{fig:Seiyu_graph_en}%
 \end{figure*} 
 
