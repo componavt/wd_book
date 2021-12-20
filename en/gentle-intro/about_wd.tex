@@ -3,12 +3,18 @@
 \chapter{Review Wikidata}
 \labch{ch-review-wd}
 
-\footnotetext{Hendrik Conscience Heritage Library in Antwerp. //
-\href{https://commons.wikimedia.org/wiki/File:Pile_of_books.jpg}{Wikimedia Commons / Missmarettaphotography (CC BY-SA)}.}
+\footnotetext{Background image: Hendrik Conscience Heritage Library in Antwerp. Wikimedia Commons / \href{https://commons.wikimedia.org/wiki/File:Pile_of_books.jpg}{Missmarettaphotography}  (CC BY-SA).}
 
 \section{What is Wikidata?}
 \labsec{section:what-wd}
-Wikidata is a structured and collaboratively edited database, which was created by the Wikimedia Foundation. Wikidata is a free, collaborative, multilingual, secondary database that collects structured information to support the operation of Wikipedia, Wikimedia Commons, and other Wikimedia Foundation wiki projects. \begin{marginfigure}[3.5cm]
+Wikidata is a structured and collaboratively edited database. Wikidata is a free, collaborative, multilingual, secondary database that collects structured information to support the operation of Wikipedia, Wikimedia Commons, and other Wikimedia wiki projects. 
+
+The project was officially launched on the 30th of October in 2012, and is being developed under the direction of Wikimedia Deutschlandnd~\sidecite{Wikipedia_review}. The project was created with donations from the Allen Institute for Artificial Intelligence, the Gordon and Betty Moore Foundation and Google. Wikidata is a free and open source knowledge base that can be used and edited by humans and computer programs~\sidecite{Vrandecic}.
+
+Content on Wikidata is licensed under the Creative Commons CC0 license, which allows to reuse information in a variety of ways, allowing users to copy, modify, distribute and manipulate the data for any purposes. Another feature of Wikidata is multilingualism. Anyone can edit Wikidata in over 350 languages.
+
+Wikidata is constantly updated, and new objects are being added. By 2021 there have been over 95 million pages created and over 1.5 billion edits made.\sidenote[][]{The data is taken from the official Wikidata statistics page: \href{https://www.wikidata.org/wiki/Wikidata:Statistics}{https://www.wikidata.org/wiki/Wikidata:Statistics}} Over \num{800000} edits were made to Wikidata during the year of 2019, which surpassed the number of edits on the English Wikipedia, making Wikidata the most edited Wikimedia site.\sidenote[][]{The official website of Wikidata: \href{https://www.wikidata.org/}{https://www.wikidata.org/}}
+\begin{marginfigure}[1cm]
 {
 	\setlength{\fboxsep}{0pt}%
 	\setlength{\fboxrule}{1pt}%
@@ -16,18 +22,16 @@ Wikidata is a structured and collaboratively edited database, which was created 
 }
 \caption
 {Wikidata logo. \newline
-Wikimedia Commons / Planemad 
+Wikimedia Commons / \href{https://commons.wikimedia.org/wiki/File:Wikidata-logo-en.svg}{Planemad}. 
 }
-\label{fig:seyu}
-\end{marginfigure}The project was officially launched on the 30th of October in 2012, and is being developed under the direction of Wikimedia Deutschlandnd~\sidecite{Wikipedia_review}. The project was created with donations from the Allen Institute for Artificial Intelligence, the Gordon and Betty Moore Foundation and Google. Wikidata is a free and open source knowledge base that can be used and edited by humans and computer programs~\sidecite{Vrandecic}.
-
-Content on Wikidata is licensed under the Creative Commons CC0 license, which allows to reuse information in a variety of ways, allowing users to copy, modify, distribute and manipulate the data for any purposes. Another feature of Wikidata is multilingualism. Anyone can edit Wikidata in over 350 languages.
-
-Wikidata is constantly updated, and new objects are being added. By 2021 there have been over 95 million pages created and over 1.5 billion edits made.\sidenote[][]{The data is taken from the official Wikidata statistics page: \href{https://www.wikidata.org/wiki/Wikidata:Statistics}{https://www.wikidata.org/wiki/Wikidata:Statistics}} Over \num{800000} edits were made to Wikidata during the year of 2019, which surpassed the number of edits on the English Wikipedia, making Wikidata the most edited Wikimedia site.\sidenote[][]{The official website of Wikidata: \href{https://www.wikidata.org/}{https://www.wikidata.org/}}
+\label{fig:wikidata_logo}
+\end{marginfigure}
 
 \section{Wikidata Query Service}
 \labsec{sect:WDQS}
-Any Wikidata object has its own unique identifier and properties. This information can be processed using a computer, and, in addition to that, it is understandable to users. The Wikidata site contains the ``Wikidata Query'' service, which includes a set of tools for building SPARQL queries and visualizing them in the form of tables, charts, graphs or geographic maps.
+Any Wikidata object has its own unique identifier and properties. This information can be processed using a computer, and, in addition to that, it is understandable to users. 
+\newpage
+The Wikidata site contains the ``Wikidata Query'' service\sidenote[][]{The full name of the tool is `` Wikidata Query Service '', or WDQS for short. Link: \href{https://query.wikidata.org/}{https://query.wikidata.org/}}, which includes a set of tools for building SPARQL queries and visualizing them in the form of tables, charts, graphs or geographic maps.
 
 \section{About Wikidata research}
 \labsec{section:research-wd}
@@ -36,7 +40,7 @@ is about \num{4000} users (\href{https://stats.wikimedia.org/\#/ru.wikipedia.org
 
 In fact, Wikidata has no competitors right now. However, it is customary to indicate analogs and alternatives. So, we will indicate them. There are several alternative knowledge bases:
 \begin{enumerate}
-\item Cyc is a project of Cycorp (Austin, USA) to create an ontological knowledge base that allows solving problems in the field of artificial intelligence~\sidecite{Cyc}. This knowledge base has some drawbacks: the complexity of the system (the complexity of adding data manually), lack of documentation for studying the system, and incompleteness of the system. 
+\item Cyc is a project of Cycorp (company) to create an ontological knowledge base that allows solving problems in the field of artificial intelligence~\sidecite{Cyc}. This knowledge base has some drawbacks: the complexity of the system (the complexity of adding data manually), lack of documentation for studying the system, and incompleteness of the system. 
 \item Evi (formerly True Knowledgee~\sidecite{True_Knowledge}) is a technology company in Cambridge, England that specializes in knowledge base and \textit{semantic search} 
 \sidenote[][]{Semantic search is a method and technology of information retrieval based on the use of the context (semantic) meaning of the requested phrases, instead of the dictionary meanings of individual words or expressions in a search query} software. Adding information to the knowledge base is done in two ways: import from ``trustworthy'' external databases (e.g., Wikipedia) and from users' views according to a uniform format and detailed input process. As with Wikipedia, the user can change
 data, ``agree'' or ``disagree'' with the information provided by True Knowledge. The system can reject any facts that are semantically incompatible with other validated knowledge, as opposed to Wikidata, where inconsistent data can be stored.
