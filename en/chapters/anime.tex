@@ -9,7 +9,7 @@ DeviantArt / \href{https://www.deviantart.com/tysontan/art/The-Magic-Stylus-5705
 
 \marginnote[0.0cm]{Seiyu are Japanese voice actors. Typically they give voice to the characters of anime series and movies as well as video games, and do other narrative work for radio and TV productions. In addition, seiyu do advertisements, announcements, textbook recordings and voiceovers. Both adults and children work as seiyu.}
 
-This chapter is dedicated to \wdqName{anime}{1107} Wikidata object analysis. Using SPARQL queries executed on Wikidata objects of anime type, several tasks were accomplished. These include a list of seiyu (voice actors) and their number of roles, a histogram of seiyu who have acted in one or more anime, a graph connecting seiyu and anime they voiced and estimates of the ages of seiyu at the time(s) of voice work.
+This chapter is dedicated to \wdqName{anime}{1107} Wikidata object analysis. Using SPARQL queries executed on Wikidata objects of anime type, several tasks were accomplished. These include a list of seiyu (voice actors) and their number of roles, a line chart of seiyu who have acted in one or more anime, a directed graph connecting seiyu and anime they voiced and estimates of the ages of seiyu at the time(s) of voice work.
 
 \section{Anime objects}
 
@@ -237,14 +237,14 @@ The \emph{BIND\index{SPARQL!BIND!Graph that connects seiyu to anime they have vo
 
 \section{Fullness of Wikidata}
 
-The list of anime of \href{https://w.wiki/4Xs4}{English Wikipedia} contains around \num{1600} titles. But there are special websites dedicated to anime, such as \href{https://www1.gogoanime.cm/}{Gogoanime online cinema}\sidenote{Gogoanime | Watch anime online, English anime online HD. \href{https://www1.gogoanime.cm/}{https://www1.gogoanime.cm/}, 2021} which contain information about many more titles. At the tim of writing, there were \num{10072} anime on Gogoanime (\num{74} pages of \num{136} titles each plus one page of \num{8}), whereas Wikidata provides information for only about \num{4875} titles (see query~\ref{lst:all_anime_list}). In addition, we should take into account the rapidness of anime releases\sidenote{Exercise: using SPARQL, count the number of anime released in the previous year.}. So we can conclude that Wikidata doesn't reflect the actual information about anime (only \num{48.4}\% titles are present).
+The list of anime of \href{https://w.wiki/4Xs4}{English Wikipedia} contains around \num{1600} titles. But there are special websites dedicated to anime, such as \href{https://www1.gogoanime.cm/}{Gogoanime online cinema}\sidenote{Gogoanime | Watch anime online, English anime online HD. \href{https://www1.gogoanime.cm/}{https://www1.gogoanime.cm/}, 2021} which contain information about many more titles. At the time of writing, there were \num{10072} anime on Gogoanime (\num{74} pages of \num{136} titles each plus one page of \num{8}), whereas Wikidata provides information for only about \num{4875} titles (see query~\ref{lst:all_anime_list}). In addition, we should take into account the rapidness of anime releases\sidenote{Exercise: Using SPARQL, count the number of anime released in the preceding year.}. As such, we can conclude that Wikidata does not reflect accurate information about anime (only \num{48.4}\% of titles are represented).
 
-We can't consider Gogoanime as an \href{https://w.wiki/Eiw}{RS}\sidenote{Reliable source is a source of information that is true and believeable without any doubts. See \href{https://w.wiki/Eiw}{https://w.wiki/Eiw}}, but our finding about the Wikidata incompleteness allows us to enhance the further research.
+We cannot consider Gogoanime a \href{https://w.wiki/Eiw}{reliable source (RS)}\sidenote{RS: a reliable source, according to Wikipedia, is a source of information that is first and foremost unbiased and verifiable. See \href{https://w.wiki/Eiw}{https://w.wiki/Eiw}}, but it can be used to analyze the incompleteness of Wikidata.
 
-Let's remember the script~\protect\ref{lst:seiyu_titles_sorted} which returned \num{2910} names of seiyu on Wikidata. Its problem is that we searched only for voice actors who worked on anime. If we retrieve the information about all voice actors, without anime restriction, the number of results will increase in \num{5} times (see script~\protect\ref{lst:voice_actors_list}). Such an increase tells us that seiyu can dub not only the anime, and we should consider this fact in the future queries.
+Let us recall Query~\protect\ref{lst:seiyu_titles_sorted}, which returned \num{2910} names of seiyu from Wikidata. The problem is that we searched only for voice actors who have worked on anime. When we query the names of all voice actors, without the anime restriction, the resulting number increases by a factor of five (see Query~\protect\ref{lst:voice_actors_list}). Such an increase tells us that seiyu do not only voice anime, and we should consider this fact in  future.
 
 \begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,
-                    caption={Sorted list of voice actors according to the number of anime voiced by them.
+                    caption={Creates ordered list of actors according to the number of projects voiced by them.
                         \num{3965} results in 2017, \num{14742} results in 2021.
                         SPARQL query: \href{https://w.wiki/4XpD}{https://w.wiki/4XpD}
                         },
@@ -270,11 +270,11 @@ ORDER BY DESC(?count)	# order by number of voiced projects
     \setlength{\fboxsep}{0pt}%
     \setlength{\fboxrule}{1pt}%
     \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{chapter/anime/actors-rawgraphs-2021-en.png}}
-	\caption[Sunburst diagram of number of roles voiced by different actors, 2021.]{Sunburst diagram of number of roles voiced by different actors, 2021. The diagram is constructed using the output of script~\ref{lst:voice_actors_list} and \href{https:\\app.rawgraphs.io}{Rawgraphs\index{Data analysis services!Data visualization services!Rawgraphs}} service.}%
+	\caption[Sunburst diagram of number of roles voiced by different actors, 2021.]{Sunburst diagram of number of roles voiced by different actors, 2021. The diagram is constructed using the output of Query~\ref{lst:voice_actors_list} in \href{https:\\app.rawgraphs.io}{Rawgraphs\index{Data analysis services!Data visualization services!Rawgraphs}}.}%
     \label{fig:Actors_sunburst_en}%
 \end{figure*}
 
-The sunburst diagram on Fig.~\ref{fig:Actors_sunburst_en} is one of the ways to visualize the output of script~\ref{lst:voice_actors_list}. For example, such a diagram allows to find out what actor contributed the most to the voice acting industry.
+The sunburst diagram, Figure.~\ref{fig:Actors_sunburst_en}, is one way to visualize the output of Query~\ref{lst:voice_actors_list}. Such a diagram allows us to see the actors who contributed the most to the voice acting industry.
 
 \section{Is the release date of anime available?}
 
