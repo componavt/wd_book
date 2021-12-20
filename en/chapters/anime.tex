@@ -241,22 +241,22 @@ The list of anime of \href{https://w.wiki/4Xs4}{English Wikipedia} contains arou
 
 We cannot consider Gogoanime a \href{https://w.wiki/Eiw}{reliable source (RS)}\sidenote{RS: a reliable source, according to Wikipedia, is a source of information that is first and foremost unbiased and verifiable. See \href{https://w.wiki/Eiw}{https://w.wiki/Eiw}}, but it can be used to analyze the incompleteness of Wikidata.
 
-Let us recall Query~\protect\ref{lst:seiyu_titles_sorted}, which returned \num{2910} names of seiyu from Wikidata. The problem is that we searched only for voice actors who have worked on anime. When we query the names of all voice actors, without the anime restriction, the resulting number increases by a factor of five (see Query~\protect\ref{lst:voice_actors_list}). Such an increase tells us that seiyu do not only voice anime, and we should consider this fact in  future.
+Let us recall Query~\protect\ref{lst:seiyu_titles_sorted}, which returned \num{2910} names of seiyu from Wikidata. The problem is that we searched only for voice actors who have worked on anime. A significant increase in the number of results relative to the above-mentioned query reminds us that there are many more areas in the voice-over industry than just anime~--- for example, dubbing of films and video games. Voice actors can also participate in working on such projects, and this should be taken into account when forming queries.
 
 \begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,
                     caption={Creates ordered list of actors according to the number of projects voiced by them.
                         \num{3965} results in 2017, \num{14742} results in 2021.
-                        SPARQL query: \href{https://w.wiki/4XpD}{https://w.wiki/4XpD}
+                        SPARQL query: \href{https://w.wiki/4aRB}{https://w.wiki/4aRB}
                         },
                     label=lst:voice_actors_list,
                     texcl 
                     ]
 # Ordered list of actors according to the quantity
 # of projects voiced by them
-SELECT ?actor ?actorLabel (COUNT(?anime) AS ?count)
+SELECT ?actor ?actorLabel (COUNT(?project) AS ?count)
 WHERE
 {
-  ?anime wdt:P725 ?actor.	 # instance of voice actor
+  ?project wdt:P725 ?actor.	 # instance of voice actor
   SERVICE wikibase:label{ bd:serviceParam
 			  								wikibase:language "en,ja" }
 }
