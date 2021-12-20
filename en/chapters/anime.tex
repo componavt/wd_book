@@ -278,11 +278,11 @@ The sunburst diagram, Figure.~\ref{fig:Actors_sunburst_en}, is one way to visual
 
 \section{Is the release date of anime available?}
 
-The fans of anime often wonder what's the release date of their favorite titles. Wikidata doesn't contain the complete information about the release dates. Let's get the number of anime the release date of which is not available using the script~\ref{lst:anime_no_pub_date}.
+Fans of anime often want to know the release date of their favorite titles. Wikidata does not always contain complete information on release dates. Let us retrieve the number of anime of which the release date is not available using Query~\ref{lst:anime_no_pub_date}.
 
 \begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,
-                    caption={Number of anime the release date of which is empty.
-                        \num{237} results in 2017, \num{2940} results in 2021.
+                    caption={Retrieves list of anime of which the release date is not specified.
+                        \num{237} results in 2017, and \num{2940} in 2021.
                         SPARQL query: \href{https://w.wiki/4ACU}{https://w.wiki/4ACU}
                         },
                     label=lst:anime_no_pub_date,
@@ -300,7 +300,7 @@ WHERE
 }
 \end{lstlisting}%
 
-The release dates of \num{2940} anime among \num{4875} titles on Wikidata are left empty, which is \num{60.3}\%. In 2017, \num{237} of \num{683} (\num{34.7}\%) titles don't have a release date. It seems that, unfortunately, an increase in the amount of information is not always accompanied by the increase of its quality\sidenote{Exercise: Write a script to calculate the proportion of anime that do not have a publication date, relative to all anime on Wikidata. Compare this proportion with the proportion for 2021 (\num{60.3}\%) and make a conclusion about the change of the quality of Wikidata.}.
+Release dates of \num{2940} anime out of \num{4875} titles on Wikidata are not specified, or \num{60.3}\%. In 2017, \num{237} of \num{683} titles (\num{34.7}\%) did not have a release date.It seems, unfortunately, an increase in the number of values for a list is not always accompanied by quality property information\sidenote{Exercise: Write a query to calculate the proportion of anime that do not have a specified release date, relative to all anime on Wikidata. Compare this proportion with the proportion for 2021 (\num{60.3}\%) and make a conclusion about the change of the quality of Wikidata.}.
 
 \section{Anaysis of age when seiyu perform voice acting}
 
