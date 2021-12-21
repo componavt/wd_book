@@ -9,12 +9,15 @@
 % https://tex.stackexchange.com/a/45949/99685 switch from natbib to biblatex 
 \usepackage{hyphenat}
 \usepackage[
-  style=verbose,
+%  style=verbose, citepages=omit, % too long title at margins
+%  style=authoryear, % e.g. Кузьмина 2021 or Магера 2018.
+%  
+%  style=authortitle, % Кузьмина, “Аниме:..."
+  style=authortitle-ibid,
+  dashed=true,
   autocite=footnote, 
   autopunct=false, % see https://ctan.math.illinois.edu/macros/latex/contrib/biblatex/doc/biblatex.pdf
 %                  % a trailing punctuation mark will not be moved against footnote mark
-  citepages=omit,
-  dashed=false,
   maxcitenames=1,
   backend=biber
 ]{biblatex}
@@ -247,7 +250,7 @@
 
 %%
 % Book metadata
-\title{Программирование\\Викиданных\\для школьников\\и студентов}
+\title{Программирование \\Викиданных \\для школьников \\и студентов}
 \author[Крижановский и др.]{Крижановский Андрей, Балакирева Мария, Меньшикова Екатерина, Паренченков Евгений, Потес Артём, Трубина Елизавета, Величков Иво, Обрегон Анхель}
 %\author[Крижановский А. А., Балакирева М. С., Меньшикова Е. А., Паренченков Е. О., Потес А. С., Трубина Е. Д.]{Крижановский Андрей, Балакирева Мария, Меньшикова Екатерина, Паренченков Евгений, Потес Артём, Трубина Елизавета}
 %\author[Крижановский Андрей, Иванов Иван]{Крижановский Андрей,\ Иванов Иван,\ добавьте свою фамилию и имя ...}
