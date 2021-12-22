@@ -299,62 +299,83 @@ Release dates of \num{2940} anime out of \num{4875} titles on Wikidata are not s
 
 \section{Analysis of seiyu age at time of voice work}
 
-As for any other profession, seiyu are of a certain age when they work, voicing various anime. SPARQL and external data mining tools, like Python\index{Programming languages!Examples of programming languages!Python} programming language\sidenote{Python is an interpretable programming language that is used for different purposes owing to its flexibility. For example, it can be used to work with Wikidata: Chapter~\ref{ch:bots} (page~\pageref{ch:bots}) describes the process of creating bots for Wikidata.}, allows to estimate such ages using available Wikidata.
+As for any other profession, seiyu are of a certain age when they work, voicing various anime. 
+SPARQL and external data mining tools, 
+like Python%
+\index{Programming languages!Examples of programming languages!Python} 
+programming language\sidenote[][*-3]{%
+%
+Python is an interpretable programming language that is used for different purposes owing to its flexibility. For example, it can be used to work with Wikidata: Chapter~\ref{ch:bots} (page~\pageref{ch:bots}) describes the process of creating bots for Wikidata.%
+}, 
+allows to estimate such ages using available Wikidata.
 
-In order to obtain the input data for our study, we need to execute three SPARQL queries and export their output to .csv\sidenote{CSV (comma-separated values) is a table file format that stores data as a sequence of text lines. These lines contain the values of the columns separated by commas.} files. Next, these CSV files are used in a Python script that generates a chart. You can run Python programs on Google Colaboratory\sidenote{Google Colaboratory (Colab) is a cloud code editor that allows you to write and execute Python scripts and share them with other people. In addition, Colab provides processors and graphic cards that allow you to run complex algorithms, such as neural networks. Colab is available at \href{https://colab.research.google.com}{https://colab.research.google.com}.}.
+
+In order to obtain the input data for our study, 
+we need to execute three SPARQL queries and export their output to .csv%
+\sidenote[][*-1]{%
+CSV (comma-separated values) is a table file format 
+that stores data as a sequence of text lines. 
+These lines contain the values of the columns separated by commas.%
+} 
+files. Next, these CSV files are used in a Python script that generates a chart. 
+You can run Python programs on Google Colaboratory\footnote{Google Colaboratory (Colab) is a cloud code editor that allows you to write and execute Python scripts and share them with other people. In addition, Colab provides processors and graphic cards that allow you to run complex algorithms, such as neural networks. Colab is available at \href{https://colab.research.google.com}{https://colab.research.google.com}.}.
 
 We can retrieve the lists of all seiyu and their birthdates from Wikidata with queries~\ref{lst:seiyu_bd_w_service} and~\ref{lst:seiyu_bd_w_rdfs} using the \emph{SERVICE} command and the \emph{rdfs:label} construction.
 
-The scripts of the two queries differ in the following ways:
-
-\begin{itemize}
-    \item{The label (name) of a seiyu is retrieved with the \emph{?seiyuLabel} variable in Query~\ref{lst:seiyu_bd_w_service} (the \emph{SERVICE}\index{SPARQL!SERVICE!Retrieval of seiyu birth dates} command is used to define the languages of output) and with the \emph{rdfs:label} command in Query~\ref{lst:seiyu_bd_w_rdfs}.}
-    \item{In~\ref{lst:seiyu_bd_w_service}, it is also necessary to follow the \emph{?seiyuLabel} with a \emph{GROUP BY}\index{SPARQL!GROUP BY!Retrieval of seiyu birth dates} parameter in order to connect seiyu objects with their labels.}
-\end{itemize}
-
-\begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,
-                    caption={Retrieves seiyu and their birthdates with the SERVICE command.
+\begin{widepar}% full width lstlisting, see kao.sty
+%
+\noindent\begin{minipage}[]{.43\linewidth}
+    \captionsetup[lstlisting]{format=llapwide11lines}%
+\begin{lstlisting}[ language=SPARQL, breaklines=false, numbers=none,
+                    caption={(Left) Retrieves seiyu and their birthdates with the SERVICE command.
                         \num{2515} results in 2021.
                         SPARQL query: \href{https://w.wiki/4Ftb}{https://w.wiki/4Ftb}
                         },
                     label=lst:seiyu_bd_w_service,
                     texcl 
                     ]
-# Get list of all seiyu objects, their names
-# and birth dates
+# Get list of all seiyu objects, their 
 SELECT ?seiyu ?seiyuLabel ?bDate
 WHERE {
   ?anime (wdt:P31/(wdt:P279*)) wd:Q1107;
-    wdt:P725 ?seiyu.       # seiyu is anime voice actor
-  ?seiyu wdt:P569 ?bDate.  # has a birthday
-  SERVICE wikibase:label
-						{bd:serviceParam wikibase:language "en,ja"}
+    wdt:P725 ?seiyu.       
+  ?seiyu wdt:P569 ?bDate. 
+  SERVICE wikibase:label {bd:serviceParam 
+    wikibase:language "en,ja"}
 }
 GROUP BY ?seiyu ?seiyuLabel ?bDate
-}
 \end{lstlisting}%
-
+\end{minipage}%
+\begin{minipage}[]{.55\linewidth}
+    \captionsetup[lstlisting]{format=llapwide15lines}%
 \begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,
-                    caption={Retrieves seiyu and their birthdates with \emph{rdfs:label}.
+                    caption={(Right) Retrieves seiyu and their birthdates with \emph{rdfs:label}.
                         \num{2515} results in 2021.
                         SPARQL query: \href{https://w.wiki/4FPn}{https://w.wiki/4FPn}
                         },
                     label=lst:seiyu_bd_w_rdfs,
                     texcl 
                     ]
-# Get list of all seiyu objects, their names
-# and birth dates
+# names and birth dates
 SELECT ?seiyu (SAMPLE(?seiyu) AS ?seiyuLabel) ?bDate
 WHERE {
   ?anime (wdt:P31/(wdt:P279*)) wd:Q1107;
-    wdt:P725 ?seiyu.       # seiyu is anime voice actor
-  ?seiyu wdt:P569 ?bDate.  # has a birthday 
+    wdt:P725 ?seiyu.      # seiyu is anime voice actor
+  ?seiyu wdt:P569 ?bDate. # has a birthday 
   ?seiyu rdfs:label ?label.
+
 }
 GROUP BY ?seiyu ?bDate
 \end{lstlisting}%
+\end{minipage}
+\end{widepar}%
 
-\newpage
+The scripts of the two queries differ in the following ways:
+\begin{itemize}
+    \item{The label (name) of a seiyu is retrieved with the \emph{?seiyuLabel} variable in Query~\ref{lst:seiyu_bd_w_service} (the \emph{SERVICE}\index{SPARQL!SERVICE!Retrieval of seiyu birth dates} command is used to define the languages of output) and with the \emph{rdfs:label} command in Query~\ref{lst:seiyu_bd_w_rdfs}.}
+    \item{In~\ref{lst:seiyu_bd_w_service}, it is also necessary to follow the \emph{?seiyuLabel} with a \emph{GROUP BY}\index{SPARQL!GROUP BY!Retrieval of seiyu birth dates} parameter in order to connect seiyu objects with their labels.}
+\end{itemize}
+
 
 Let us retrieve the list of all anime and their release dates from Wikidata with Query~\ref{lst:all_anime_releases}.
 
@@ -410,9 +431,6 @@ WHERE
 \end{lstlisting}%
 \end{widepar}
 
-Analysis results can be shown as a histogram, Figure~\ref{fig:Seiyu_age_hist_EN}. To create it, we will use Python libraries \href{https://en.wikipedia.org/wiki/Pandas\_(software)}{Pandas\index{Programming languages!Programming language libraries!Pandas}}\sidenote{Pandas is a Python library that provides multiple useful functions for tabular data processing. \href{https://en.wikipedia.org/wiki/Pandas\_(software)}{https://en.wikipedia.org/wiki/Pandas\_(software), 2021}.} and \href{https://en.wikipedia.org/wiki/Matplotlib}{Matplotlib\index{Programming languages!Programming language libraries!Matplotlib}}\sidenote{Matplotlib is a Python library that allows you to plot charts of various types. \href{https://en.wikipedia.org/wiki/Matplotlib}{https://en.wikipedia.org/wiki/Matplotlib, 2021}.}. The script which generates the final histogram is published on \href{https://git.io/J1UGA}{GitHub}\sidenote{The histogram script is published in the wd\_book project on GitHub: \href{https://git.io/J1UGA}{https://git.io/J1UGA}}.
-
-The histogram displays age in years along its X-axis and the total number of roles dubbed by seiyu of this age along the Y-axis.
 
 \index{Chart!Histogram!Number of anime voiced by seiyu of different ages}
 \begin{figure*}[h]
@@ -423,6 +441,11 @@ The histogram displays age in years along its X-axis and the total number of rol
 	\caption[Histogram of number of anime voiced by seiyu of different ages, 2021.]{Histogram of number of anime voiced by seiyu of different ages, 2021. The histogram was created according to the output of queries~\protect\ref{lst:seiyu_bd_w_service} (or~\protect\ref{lst:seiyu_bd_w_rdfs}), \protect\ref{lst:all_anime_releases} and \protect\ref{lst:link_anime_seiyu}.}%
     \label{fig:Seiyu_age_hist_EN}%
 \end{figure*} 
+
+
+Analysis results can be shown as a histogram, Figure~\ref{fig:Seiyu_age_hist_EN}. To create it, we will use Python libraries \href{https://en.wikipedia.org/wiki/Pandas\_(software)}{Pandas\index{Programming languages!Programming language libraries!Pandas}}\sidenote{Pandas is a Python library that provides multiple useful functions for tabular data processing. \href{https://en.wikipedia.org/wiki/Pandas\_(software)}{https://en.wikipedia.org/wiki/Pandas\_(software), 2021}.} and \href{https://en.wikipedia.org/wiki/Matplotlib}{Matplotlib\index{Programming languages!Programming language libraries!Matplotlib}}\sidenote{Matplotlib is a Python library that allows you to plot charts of various types. \href{https://en.wikipedia.org/wiki/Matplotlib}{https://en.wikipedia.org/wiki/Matplotlib, 2021}.}. The script which generates the final histogram is published on \href{https://git.io/J1UGA}{GitHub}\sidenote{The histogram script is published in the wd\_book project on GitHub: \href{https://git.io/J1UGA}{https://git.io/J1UGA}}.
+
+The histogram displays age in years along its X-axis and the total number of roles dubbed by seiyu of this age along the Y-axis.
 
 It is a fun fact that there are occasions on Wikidata when seiyu were born after the release date in which they performed. This issue is probably related to an absence of information on the new seasons of reboots of old anime series. For example, in 2021 such a situation happened with the anime series \wdqName{Sazae-san}{11304591} and the seiyu named \wdqName{Nobunaga Shimazaki}{5968283}. The seiyu was born in 1988, whereas the anime series’ initial start date is 1969.
 
