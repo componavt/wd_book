@@ -232,7 +232,15 @@ The \emph{BIND\index{SPARQL!BIND!Graph that connects seiyu to anime they have vo
 
 \section{Fullness of Wikidata}
 
-The list of anime of \href{https://w.wiki/4Xs4}{English Wikipedia} contains around \num{1600} titles. But there are special websites dedicated to anime, such as \href{https://www1.gogoanime.cm/}{Gogoanime online cinema}\sidenote{Gogoanime hosts an online collection of Japanese animation, subtitled and dubbed in English, on a number of sites, including: \href{https://www1.gogoanime.cm/}{https://www1.gogoanime.cm/}, 2021} which contain information about many more titles. At the time of writing, there were \num{10072} anime on Gogoanime (\num{74} pages of \num{136} titles each plus one page of \num{8}), whereas Wikidata provides information for only about \num{4875} titles (see Query~\ref{lst:all_anime_list}). In addition, we should take into account the rapidness of anime releases\sidenote{Exercise: Using SPARQL, count the number of anime released in the preceding year.}. As such, we can conclude that Wikidata does not reflect accurate information about anime (only \num{48.4}\% of titles are represented).
+The list of anime of \href{https://w.wiki/4Xs4}{English Wikipedia} contains around \num{1600} titles. But there are special websites dedicated to anime, such as \href{https://www1.gogoanime.cm/}{Gogoanime online cinema}%
+\sidenote{%
+Gogoanime hosts an online collection of Japanese animation, subtitled and dubbed in English, on a number of sites, including: \href{https://www1.gogoanime.cm/}{https://www1.gogoanime.cm/}, 2021%
+} %
+which contain information about many more titles. At the time of writing, there were \num{10072} anime on Gogoanime (\num{74} pages of \num{136} titles each plus one page of \num{8}), whereas Wikidata provides information for only about \num{4875} titles (see Query~\ref{lst:all_anime_list}). In addition, we should take into account the rapidness of anime releases%
+\sidenote{%
+Exercise: Using SPARQL, count the number of anime released in the preceding year.%
+}%
+. As such, we can conclude that Wikidata does not reflect accurate information about anime (only \num{48.4}\% of titles are represented).
 
 We cannot consider Gogoanime a \href{https://w.wiki/Eiw}{reliable source (RS)}\sidenote{RS: a reliable source, according to Wikipedia, is a source of information that is first and foremost unbiased and verifiable. See \href{https://w.wiki/Eiw}{https://w.wiki/Eiw}}, but it can be used to analyze the incompleteness of Wikidata.
 
@@ -295,7 +303,15 @@ WHERE
 }
 \end{lstlisting}%
 
-Release dates of \num{2940} anime out of \num{4875} titles on Wikidata are not specified, or \num{60.3}\%. In 2017, \num{237} of \num{683} titles (\num{34.7}\%) did not have a release date.It seems, unfortunately, an increase in the number of values for a list is not always accompanied by quality property information\sidenote{Exercise: Write a script for a query to calculate the proportion of anime that do not have a specified release date, relative to all anime on Wikidata. Compare this proportion with the proportion for 2021 (\num{60.3}\%) and make a conclusion about the change of the quality of Wikidata.}.
+Release dates of \num{2940} anime out of \num{4875} titles on Wikidata are not specified, 
+or \num{60.3}\%. In 2017, \num{237} of \num{683} titles (\num{34.7}\%) 
+did not have a release date. 
+It seems, unfortunately, 
+an increase in the number of values for a list 
+is not always accompanied by quality property information%
+\marginnote[*-5]{%
+Exercise: Write a script for a query to calculate the proportion of anime that do not have a specified release date, relative to all anime on Wikidata. Compare this proportion with the proportion for 2021 (\num{60.3}\%) and make a conclusion about the change of the quality of Wikidata.}%
+.
 
 \section{Analysis of seiyu age at time of voice work}
 
