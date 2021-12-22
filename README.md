@@ -5,6 +5,8 @@ Computer science book about Wikidata programming.
 
 [Petrozavodsk State University](https://en.wikipedia.org/wiki/Petrozavodsk_State_University) (PetrSU), Internet-mathematics course.
 
+See the latest Russian and English PDF files at [https://bit.ly/3lVumoT](https://bit.ly/3lVumoT).
+
 
 # Wikidata programming book (in English)
 
@@ -42,7 +44,7 @@ The Wikidata book in Russian (file `wd_book/ru/wd_book.tex`) can be compiled wit
     pdflatex wd_book_ru
     pdflatex wd_book_ru
 
-The result should look like `wd_book_ru.pdf`. See the latest file [wd_book_ru.pdf](https://bit.ly/3lVumoT).
+The result should look like `wd_book_ru.pdf`. 
 
 ## Troubleshooting
 
