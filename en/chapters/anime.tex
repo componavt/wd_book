@@ -188,14 +188,14 @@ As Figure~\ref{fig:Seiyu_num_chart_2021_en} shows, most seiyu have voiced only o
     \label{fig:Seiyu_num_chart_2021_en}%
 \end{figure*} 
 
-\section{Graph that connects seiyu to anime they have voiced}
+\section{Directed graph that connects seiyu to anime they have voiced}
 
-Most of the seiyu give voice to multiple characters from different anime. Let us create a graph that connects seiyu to anime they have voiced (query ~\ref{lst:seiyu_graph}).
+Most of the seiyu give voice to multiple characters from different anime. Let us create a directed graph that connects seiyu to anime they have voiced (query ~\ref{lst:seiyu_graph}).
 
 Figure~\ref{fig:Seiyu_graph_en} shows part of the graph for several famous seiyu.
 
 \begin{lstlisting}[ language=SPARQL, breaklines=true,%
-                    caption={Graph that connects seiyu to anime they have voiced. \num{826} results in 2017, and \num{496} in 2021. SPARQL query: \href{https://w.wiki/4Xqk}{https://w.wiki/4Xqk}},
+                    caption={Displays directed graph that connects seiyu to anime they have voiced. \num{826} results in 2017, and \num{496} in 2021. SPARQL query: \href{https://w.wiki/4Xqk}{https://w.wiki/4Xqk}},
                     label=lst:seiyu_graph,
                     texcl
                   ]
@@ -216,27 +216,27 @@ WHERE
 }
 \end{lstlisting}%
 
-The \emph{?seiyu} variable (line 7) contains an array of Wikidata objects that correspond to several seiyu including \wdqName{Bin Shimada}{1323728} and others. We picked only three seiyu for illustrative purposes as a graph including more seiyu would be unwieldy for reading.
+The \emph{?seiyu} variable (line 7) contains an array of Wikidata objects that correspond to several seiyu including \wdqName{Bin Shimada}{1323728} and others. We picked only three seiyu for illustrative purposes, as a graph including more seiyu would be unwieldy to read.
 
-The \emph{BIND\index{SPARQL!BIND!Graph that connects seiyu to anime they have voiced}(IF\index{SPARQL!IF!Graph that connects seiyu to anime they have voiced}(?toggle, ?anime, ?seiyu))} construction in line \num{11} determines the graph node type: if \emph{?toggle} is \emph{true}, then the node corresponds to anime, and seiyu otherwise. The item label and the node color are determined in the same way in lines \num{12} and \num{13}. Line \num{14} creates the edges linking the seiyu and anime nodes.
+The \emph{BIND\index{SPARQL!BIND!Graph that connects seiyu to anime they have voiced}(IF\index{SPARQL!IF!Graph that connects seiyu to anime they have voiced}(?toggle, ?anime, ?seiyu))} construction in line \num{11} determines graph node type: if \emph{?toggle} is \emph{true}, then the node corresponds to anime, and seiyu otherwise. The item label and the node color are determined in the same way in lines \num{12} and \num{13}. Line \num{14} creates the edges, i.e. directed lines, linking the seiyu and anime nodes.
 
-\index{Chart!Graph!Part of graph that connects seiyu to anime they have voiced}
+\index{Chart!Graph!Part of directed graph that connects seiyu to anime they have voiced}
 \begin{figure*}
 
     \setlength{\fboxsep}{0pt}%
     \setlength{\fboxrule}{1pt}%
     \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{chapter/anime/Seiyu_graph_en_sm.jpg}}
-	\caption[Part of graph that connects seiyu to anime they have voiced, 2021.]{Part of graph that connects seiyu and the anime they took part in, 2021. The graph is constructed using the output of query~\ref{lst:seiyu_graph}.}%
+	\caption[Part of directed graph that connects seiyu to anime they have voiced, 2021.]{Part of directed graph that connects seiyu and the anime they have voiced, 2021. The graph is constructed using the output of Query~\ref{lst:seiyu_graph}.}%
     \label{fig:Seiyu_graph_en}%
 \end{figure*} 
 
 \section{Fullness of Wikidata}
 
-The list of anime of \href{https://w.wiki/4Xs4}{English Wikipedia} contains around \num{1600} titles. But there are special websites dedicated to anime, such as \href{https://www1.gogoanime.cm/}{Gogoanime online cinema}\sidenote{Gogoanime | Watch anime online, English anime online HD. \href{https://www1.gogoanime.cm/}{https://www1.gogoanime.cm/}, 2021} which contain information about many more titles. At the time of writing, there were \num{10072} anime on Gogoanime (\num{74} pages of \num{136} titles each plus one page of \num{8}), whereas Wikidata provides information for only about \num{4875} titles (see query~\ref{lst:all_anime_list}). In addition, we should take into account the rapidness of anime releases\sidenote{Exercise: Using SPARQL, count the number of anime released in the preceding year.}. As such, we can conclude that Wikidata does not reflect accurate information about anime (only \num{48.4}\% of titles are represented).
+The list of anime of \href{https://w.wiki/4Xs4}{English Wikipedia} contains around \num{1600} titles. But there are special websites dedicated to anime, such as \href{https://www1.gogoanime.cm/}{Gogoanime online cinema}\sidenote{Gogoanime hosts an online collection of Japanese animation, subtitled and dubbed in English, on a number of sites, including: \href{https://www1.gogoanime.cm/}{https://www1.gogoanime.cm/}, 2021} which contain information about many more titles. At the time of writing, there were \num{10072} anime on Gogoanime (\num{74} pages of \num{136} titles each plus one page of \num{8}), whereas Wikidata provides information for only about \num{4875} titles (see Query~\ref{lst:all_anime_list}). In addition, we should take into account the rapidness of anime releases\sidenote{Exercise: Using SPARQL, count the number of anime released in the preceding year.}. As such, we can conclude that Wikidata does not reflect accurate information about anime (only \num{48.4}\% of titles are represented).
 
 We cannot consider Gogoanime a \href{https://w.wiki/Eiw}{reliable source (RS)}\sidenote{RS: a reliable source, according to Wikipedia, is a source of information that is first and foremost unbiased and verifiable. See \href{https://w.wiki/Eiw}{https://w.wiki/Eiw}}, but it can be used to analyze the incompleteness of Wikidata.
 
-Let us recall Query~\protect\ref{lst:seiyu_titles_sorted}, which returned \num{2910} names of seiyu from Wikidata. The problem is that we searched only for voice actors who have worked on anime. A significant increase in the number of results relative to the above-mentioned query reminds us that there are many more areas in the voice-over industry than just anime~--- for example, dubbing of films and video games. Voice actors can also participate in working on such projects, and this should be taken into account when forming queries.
+Let us recall Query~\protect\ref{lst:seiyu_titles_sorted}, which returned \num{2910} names of seiyu from Wikidata. The problem is that we searched only for seiyu, who have worked on anime. When we query the names of all voice actors, without the anime restriction, the resulting number increases by a factor of five (see Query 6.7). A significant increase in the number of results relative to the above-mentioned query reminds us that there are many more areas in the voice acting industry than just anime, for example, Western animation, podcasts and video games. This should be taken into account when forming queries.
 
 \begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,
                     caption={Creates ordered list of actors according to the number of projects voiced by them.
@@ -269,7 +269,7 @@ ORDER BY DESC(?count)	# order by number of voiced projects
     \label{fig:Actors_sunburst_en}%
 \end{figure*}
 
-The sunburst diagram, Figure.~\ref{fig:Actors_sunburst_en}, is one way to visualize the output of Query~\ref{lst:voice_actors_list}. Such a diagram allows us to see the actors who contributed the most to the voice acting industry.
+The sunburst diagram, Figure.~\ref{fig:Actors_sunburst_en}, is one way to visualize the output of Query~\ref{lst:voice_actors_list}. Such a diagram allows us to see the voice actors who contributed the most to the voice acting industry.
 
 \section{Is the release date of anime available?}
 
@@ -299,9 +299,9 @@ Release dates of \num{2940} anime out of \num{4875} titles on Wikidata are not s
 
 \section{Analysis of seiyu age at time of voice work}
 
-As for any other profession, seiyu are of a certain age when they work, voicing various anime. SPARQL and external data mining tools, like Python\index{Programming languages!Examples of programming languages!Python} programming language\sidenote{Python is an interpretable programming language that is used for different purposes owing to its flexibility. For example, it can be used to work with Wikidata: Chapter~\ref{ch:bots} (page~\pageref{ch:bots}) describes the process of creating bots for Wikidata.}, allows to estimate such ages using Wikidata.
+As for any other profession, seiyu are of a certain age when they work, voicing various anime. SPARQL and external data mining tools, like Python\index{Programming languages!Examples of programming languages!Python} programming language\sidenote{Python is an interpretable programming language that is used for different purposes owing to its flexibility. For example, it can be used to work with Wikidata: Chapter~\ref{ch:bots} (page~\pageref{ch:bots}) describes the process of creating bots for Wikidata.}, allows to estimate such ages using available Wikidata.
 
-In order to obtain the input data for our study, we need to execute three SPARQL queries and export their output to .csv\sidenote{CSV (comma-separated values) is a format of tabular data that stores data as a sequence of text lines. These lines contain the values of table columns separated by commas.} files. Next, these CSV files are used in a Python script that generates a chart. You can run Python programs on Google Colaboratory\sidenote{Google Colaboratory (Colab) is a cloud code editor that allows you to write and execute Python scripts and share them with other people. In addition, Colab provides processors and graphic cards that allow you to run complex algorithms, such as neural networks. Colab is available at \href{https://colab.research.google.com}{https://colab.research.google.com}.}.
+In order to obtain the input data for our study, we need to execute three SPARQL queries and export their output to .csv\sidenote{CSV (comma-separated values) is a table file format that stores data as a sequence of text lines. These lines contain the values of the columns separated by commas.} files. Next, these CSV files are used in a Python script that generates a chart. You can run Python programs on Google Colaboratory\sidenote{Google Colaboratory (Colab) is a cloud code editor that allows you to write and execute Python scripts and share them with other people. In addition, Colab provides processors and graphic cards that allow you to run complex algorithms, such as neural networks. Colab is available at \href{https://colab.research.google.com}{https://colab.research.google.com}.}.
 
 We can retrieve the lists of all seiyu and their birthdates from Wikidata with queries~\ref{lst:seiyu_bd_w_service} and~\ref{lst:seiyu_bd_w_rdfs} using the \emph{SERVICE} command and the \emph{rdfs:label} construction.
 
@@ -435,5 +435,5 @@ It is a fun fact that there are occasions on Wikidata when seiyu were born after
 	\item Mark the voice actors' places of birth on the map.
 	\item Create a histogram or bubble chart of voice actor nationalities.
 	\item Create a histogram of the number of released anime by year, or of the number of voice actors by year of birth.
-	\item Create histograms similar to Figure~\ref{fig:Seiyu_age_hist_EN}, but taking into account the gender of the voice actor (one for men, the other for women).
+	\item Create histograms similar to Figure~\ref{fig:Seiyu_age_hist_EN}, but taking into account the gender identity of the voice actor (one for males, one for females, and one for other).
 \end{enumerate}
