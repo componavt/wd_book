@@ -21,7 +21,7 @@ The Wikidata book in English (file `wd_book/en/mainka.tex`) can be compiled with
     bibtex mainka # Compile bibliography
     makeglossaries mainka # Compile glossary (install xindy)
     pdflatex mainka # Compile template again
-    pdflatex mainka # Compile template again
+    pdflatex mainka # and again
 
 The result should look like `mainka.pdf`.
 

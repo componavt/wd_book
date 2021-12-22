@@ -49,10 +49,10 @@ SELECT ?anime ?animeLabel WHERE {
 
 There are many more anime objects in Wikidata, but they are not instances of anime but of subclasses, for example, \wdqName{anime series}{63952888}. Let us execute Query~\ref{lst:anime_genres} in order to obtain the list of anime genres and the number of anime that correspond to these genres.
 
-% full width lstlisting, format=llapwide18 (-1.8cm), see kao.sty
+% full width lstlisting, format=llapwide16 (-1.6cm), see kao.sty
 \begin{widepar}%
 	\captionsetup[lstlisting]{%
-        format=llapwide18 % llap - at margin, margin - at main text
+        format=llapwide16 % llap - at margin, margin - at main text
 		%indention=0pt,parindent=0pt,belowskip=0pt,aboveskip=0pt%
 	}%
 \begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,%
@@ -194,10 +194,6 @@ Most of the seiyu give voice to multiple characters from different anime. Let us
 
 Figure~\ref{fig:Seiyu_graph_en} shows part of the graph for several famous seiyu.
 
-% full width lstlisting, format=llapwide18 (-1.8cm), see kao.sty
-\begin{widepar}%
-\captionsetup[lstlisting]{format=llapwide18}%
-%
 \begin{lstlisting}[ language=SPARQL, breaklines=true,%
                     caption={Graph that connects seiyu to anime they have voiced. \num{826} results in 2017, and \num{496} in 2021. SPARQL query: \href{https://w.wiki/4Xqk}{https://w.wiki/4Xqk}},
                     label=lst:seiyu_graph,
@@ -219,7 +215,6 @@ WHERE
   BIND(IF(?toggle,"",?anime) AS ?link).
 }
 \end{lstlisting}%
-\end{widepar}%
 
 The \emph{?seiyu} variable (line 7) contains an array of Wikidata objects that correspond to several seiyu including \wdqName{Bin Shimada}{1323728} and others. We picked only three seiyu for illustrative purposes as a graph including more seiyu would be unwieldy for reading.
 
@@ -382,11 +377,13 @@ SELECT ?anime ?animeLabel ?animePubDate
 }
 \end{lstlisting}%
 
-Note that movies have the \wdProperty{577}{publication dates} property, whereas the series have \wdProperty{580}{start dates}\sidenote{Exercise: Visualize the output of Query~\ref{lst:all_anime_releases}. To increase the task's difficulty, you can add the release dates of final episodes of series to the chart.}.
+Note that movies have the \wdProperty{577}{publication dates} property, whereas the series have \wdProperty{580}{start dates}\marginnote[-66pt]{Exercise: Visualize the output of Query~\ref{lst:all_anime_releases}. To increase the task's difficulty, you can add the release dates of final episodes of series to the chart.}.
 
 Let us get the links between seiyu and the anime they have voiced (Query~\ref{lst:link_anime_seiyu}).
 
-\begin{widepar}
+\begin{widepar}% full width lstlisting, see kao.sty
+    \captionsetup[lstlisting]{format=llapwide16}%
+%
 \begin{lstlisting}[ language=SPARQL, breaklines=true,
                     caption={Retrieves links between anime and seiyu objects.
                         \num{27092} results in 2021.
