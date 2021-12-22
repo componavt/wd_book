@@ -348,20 +348,23 @@ We can retrieve the lists of all seiyu and their birthdates from Wikidata with q
                         SPARQL query: \href{https://w.wiki/4Ftb}{https://w.wiki/4Ftb}
                         },
                     label=lst:seiyu_bd_w_service,
-                    texcl 
+                    texcl,
+                    escapechar=!
                     ]
 # Get list of all seiyu objects, their 
-SELECT ?seiyu ?seiyuLabel ?bDate
+SELECT ?seiyu !\colorbox{Apricot}{?seiyuLabel}! ?bDate
 WHERE {
   ?anime (wdt:P31/(wdt:P279*)) wd:Q1107;
     wdt:P725 ?seiyu.       
   ?seiyu wdt:P569 ?bDate. 
-  SERVICE wikibase:label {bd:serviceParam 
+  !\colorbox{Apricot}{SERVICE wikibase:label}! {bd:serviceParam 
     wikibase:language "en,ja"}
 }
-GROUP BY ?seiyu ?seiyuLabel ?bDate
+GROUP BY ?seiyu !\colorbox{GreenYellow}{?seiyuLabel}! ?bDate
 \end{lstlisting}%
 \end{minipage}%
+%just a break for lines between two columns of listings
+\hfill
 \begin{minipage}[]{.55\linewidth}
     \captionsetup[lstlisting]{format=llapwide15lines}%
 \begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,
@@ -370,15 +373,16 @@ GROUP BY ?seiyu ?seiyuLabel ?bDate
                         SPARQL query: \href{https://w.wiki/4FPn}{https://w.wiki/4FPn}
                         },
                     label=lst:seiyu_bd_w_rdfs,
-                    texcl 
+                    texcl,
+                    escapechar=!
                     ]
 # names and birth dates
-SELECT ?seiyu (SAMPLE(?seiyu) AS ?seiyuLabel) ?bDate
+SELECT ?seiyu (!\colorbox{SpringGreen}{SAMPLE(?seiyu) AS}! ?seiyuLabel) ?bDate
 WHERE {
   ?anime (wdt:P31/(wdt:P279*)) wd:Q1107;
     wdt:P725 ?seiyu.      # seiyu is anime voice actor
   ?seiyu wdt:P569 ?bDate. # has a birthday 
-  ?seiyu rdfs:label ?label.
+  ?seiyu !\colorbox{SpringGreen}{rdfs:label}! ?label.
 
 }
 GROUP BY ?seiyu ?bDate
@@ -388,8 +392,8 @@ GROUP BY ?seiyu ?bDate
 
 The scripts of the two queries differ in the following ways:
 \begin{itemize}
-    \item{The label (name) of a seiyu is retrieved with the \emph{?seiyuLabel} variable in Query~\ref{lst:seiyu_bd_w_service} (the \emph{SERVICE}\index{SPARQL!SERVICE!Retrieval of seiyu birth dates} command is used to define the languages of output) and with the \emph{rdfs:label} command in Query~\ref{lst:seiyu_bd_w_rdfs}.}
-    \item{In~\ref{lst:seiyu_bd_w_service}, it is also necessary to follow the \emph{?seiyuLabel} with a \emph{GROUP BY}\index{SPARQL!GROUP BY!Retrieval of seiyu birth dates} parameter in order to connect seiyu objects with their labels.}
+    \item{The label (name) of a seiyu is retrieved with the \colorbox{Apricot}{?seiyuLabel} variable in Query~\ref{lst:seiyu_bd_w_service} (the \colorbox{Apricot}{SERVICE}\index{SPARQL!SERVICE!Retrieval of seiyu birth dates} command is used to define the languages of output) and with the \colorbox{SpringGreen}{rdfs:label} command in Query~\ref{lst:seiyu_bd_w_rdfs}.}
+    \item{In~\ref{lst:seiyu_bd_w_service}, it is also necessary to follow the \colorbox{GreenYellow}{?seiyuLabel} with a \emph{GROUP BY}\index{SPARQL!GROUP BY!Retrieval of seiyu birth dates} parameter in order to connect seiyu objects with their labels.}
 \end{itemize}
 
 
