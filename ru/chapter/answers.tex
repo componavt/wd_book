@@ -319,10 +319,10 @@ WHERE
 
 \begin{task}
 	\label{answer:subjects_of_Russia_3}
-	\newthought{Флаг Московской области соответствует приведённому описанию. Ответ на вопрос можно проверить, выполнив следующий SPARQL-запрос (листинг \ref{lst:subjects_of_Russia_3_q}).}
+	\newthought{Флаг Московской области соответствует приведённому описанию. Ответ на вопрос можно проверить, выполнив следующий SPARQL-запрос (листинг \ref{lst:subjects_of_Russia_3_q})}
 	
 	\begin{lstlisting}[ language=SPARQL, 
-	caption={\href{https://w.wiki/4ZUY}{Флаги субъектов России.}\protect\footnotemark},
+	caption={\href{https://w.wiki/4bJB}{Флаги субъектов России.}\protect\footnotemark},
 	label=lst:subjects_of_Russia_3_q
 	]
 #defaultView:ImageGrid
@@ -336,22 +336,19 @@ WHERE
   { ?subject wdt:P31 wd:Q309166 } UNION # Autonomus oblast of Russia
   { ?subject wdt:P31 wd:Q184122 } # Autonomus okrug of Russia
   
-  # Former administrative territorial entity
-  FILTER NOT EXISTS {?subject wdt:P31 wd:Q19953632} 
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
    
   ?subject wdt:P41 ?flag
 }
-}
-	\end{lstlisting}
-	\footnotetext{Получено 86 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4ZUY}{https://w.wiki/4ZUY}}  
+\end{lstlisting}
+\footnotetext{Получено 86 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4bJB}{https://w.wiki/4bJB}}  
 	
-	\small{Вопрос на с.~\pageref{lst:oblast-of-Russia}.}
+\small{Вопрос на с.~\pageref{lst:oblast-of-Russia}.}
 \end{task}
 
 \begin{task}
 	\label{answer:subjects_of_Russia_1}
-	\newthought{Карелия - это субъект, расположенный на северо-западе России, возник в \num{1923} году. Он граничит с Ленинградской, Вологодской, Архангельской и Мурманской областью. Также граничит с Финляндией на западе.  Ответ на вопрос можно проверить, выполнив следующий SPARQL-запрос (листинг \ref{lst:sharesBorderWith}).}
+	\newthought{Такой регионом является Карелия. Она расположена на северо-западе России, возникла в \num{1920} году. Она граничит с Ленинградской, Вологодской, Архангельской и Мурманской областью. Также граничит с Финляндией на западе.  Ответ на вопрос можно проверить, выполнив следующий SPARQL-запрос (листинг \ref{lst:sharesBorderWith}).}
 	
 	\begin{marginfigure}[0.0cm]
 {
@@ -364,7 +361,7 @@ WHERE
 \end{marginfigure}
 	
 	\begin{lstlisting}[ language=SPARQL, 
-	caption={\href{https://w.wiki/4Z9s}{Границы и дата возникновения по субъектам}\protect\footnotemark},
+	caption={\href{https://w.wiki/4bJF}{Границы и дата возникновения субъектов РФ}\protect\footnotemark},
 	label=lst:sharesBorderWith
 	]
 SELECT  ?subject ?subjectLabel 
@@ -379,25 +376,23 @@ WHERE
   { ?subject wdt:P31 wd:Q309166 } UNION # Autonomus oblast of Russia
   { ?subject wdt:P31 wd:Q184122 } # Autonomus okrug of Russia
   
-  # Former administrative territorial entity
-  FILTER NOT EXISTS {?subject wdt:P31 wd:Q19953632} 
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
   
   ?subject wdt:P47 ?sharesBorderWith. 
   ?subject wdt:P571 ?year
 }
-	\end{lstlisting}
-	\footnotetext{Получено 485 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4Z9s}{https://w.wiki/4Z9s}}  
+\end{lstlisting}
+\footnotetext{Получено 485 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4bJF}{https://w.wiki/4bJF}}  
 	
-	\small{Вопрос на с.~\pageref{lst:sharesBorderWith-oblast-of-Russia}.}
+\small{Вопрос на с.~\pageref{lst:sharesBorderWith-oblast-of-Russia}.}
 \end{task}
 
 \begin{task}
 	\label{answer:subjects_of_Russia_2}
-	\newthought{На текущий момент входят в состав Российской Федерации: Республика Адыгея, Камчатский край, Чукотский автономный округ, не входит - Читинская область. Ответ на вопрос можно проверить, выполнив следующий SPARQL-запрос (листинг \ref{lst:subjects_of_Russia_2_q}).}
+	\newthought{Сейчас в состав Российской Федерации входят: Республика Адыгея, Камчатский край, Чукотский автономный округ, не входит~--- Читинская область. Ответ на вопрос можно проверить, выполнив следующий SPARQL-запрос (листинг \ref{lst:subjects_of_Russia_2_q}).}
 	
 	\begin{lstlisting}[ language=SPARQL, 
-	caption={\href{https://w.wiki/4ZAK}{Список субъектов России.}\protect\footnotemark},
+	caption={\href{https://w.wiki/4bJG}{Список субъектов России}\protect\footnotemark},
 	label=lst:subjects_of_Russia_2_q
 	]
 #List of `instances of` "subjects of Russia" 
@@ -411,15 +406,13 @@ WHERE
   { ?subject wdt:P31 wd:Q309166 } UNION # Autonomus oblast of Russia
   { ?subject wdt:P31 wd:Q184122 } # Autonomus okrug of Russia
   
-  # Former administrative territorial entity
-  FILTER NOT EXISTS {?subject wdt:P31 wd:Q19953632} 
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
 }
-	\end{lstlisting}
-	\footnotetext{Получено 86 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4ZAK}{https://w.wiki/4ZAK}}  
+\end{lstlisting}
+\footnotetext{Получено 86 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4bJG}{https://w.wiki/4bJG}}  
 	
-	\small{Вопрос на с.~\pageref{lst:sharesBorderWith-empty-oblast-of-Russia}.}
+\small{Вопрос на с.~\pageref{lst:sharesBorderWith-empty-oblast-of-Russia}.}
 \end{task}
 
 %%%%%%%%%%%%%% Operating system chapter %%%%%%%%%%%%%%

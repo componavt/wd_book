@@ -13,7 +13,7 @@
 
 \label{question:q_subjects_of_Russia_3}
 \marginnote{О флаге какого субъекта идет речь:
-<<Флаг этого субъекта представляет собой прямоугольное полотнище с отношением ширины к длине 2:3, красного цвета с двусторонним изображением в верхнем ближнем к древку углу основного элемента герба этого субъекта — развёрнутого к древку Святого \href{https://ru.wikipedia.org/wiki/Георгий_Победоносец}{Георгия Победоносца}. Габаритная ширина изображения основного элемента герба на флаге этого субъекта составляет 1/5 часть длины полотнища флага>>.~\pageref{answer:subjects_of_Russia_3}}
+<<Флаг этого субъекта представляет собой прямоугольное полотнище с отношением ширины к длине 2:3, красного цвета с двусторонним изображением в верхнем ближнем к древку углу основного элемента герба этого субъекта — развёрнутого к древку Святого \href{https://ru.wikipedia.org/wiki/Георгий_Победоносец}{Георгия Победоносца}. См. ответ \ref{answer:subjects_of_Russia_3} на с.~\pageref{answer:subjects_of_Russia_3}.}
 
 \section{Экземпляры объекта <<Области России>>}
 
@@ -93,15 +93,15 @@ WHERE
 Построим граф соседних субъектов России по свойству \wdProperty{47}{shares border with} (листинг~\protect\ref{lst:sharesBorderWith-oblast-of-Russia}).
 
 \label{question:q_subjects_of_Russia_1}
-\marginnote{Этот субъект, расположенный на северо-западе России, возник в \num{1923} году. Он граничит с Ленинградской, Вологодской, Архангельской и Мурманской областью. Также граничит с Финляндией на западе.
-Выберите флаг того субъекта, который подходит под прочитанное вами описание.~\pageref{answer:subjects_of_Russia_1}}
+\marginnote{Назовите регион России, расположенный на северо-западе России и образованный в \num{1920} году. Он граничит с Ленинградской, Вологодской, Архангельской и Мурманской областью. Также граничит с Финляндией на западе.
+Выберите среди следующих флагов флаг этого региона. См. ответ \ref{answer:subjects_of_Russia_1} на с.~\pageref{answer:subjects_of_Russia_1}.}
 \begin{marginfigure}[0.0cm]
 {
 	\setlength{\fboxsep}{0pt}%
 	\setlength{\fboxrule}{1pt}%
 	\includegraphics[width=0.8\linewidth]{"chapter/oblast_of_Russia/Flag_of_Leningrad_Oblast.png"}
 }
-\caption [Флаг Ленинградской области, Россия.]{Флаг Ленинградской области, Россия.}%
+\caption [Флаг Ленинградской области, Россия.]{Флаг Ленинградской области.}%
 \label{fig:Flag_of_Leningrad_Oblast}%
 \end{marginfigure}
 \begin{marginfigure}[0.0cm]
@@ -110,7 +110,7 @@ WHERE
 	\setlength{\fboxrule}{1pt}%
 	\includegraphics[width=0.8\linewidth]{"chapter/oblast_of_Russia/Flag_of_Moscow_oblast.png"}
 }
-\caption [Флаг Московской области, Россия.]{Флаг Московской области, Россия.}%
+\caption [Флаг Московской области, Россия.]{Флаг Московской области.}%
 \label{fig:Flag_of_Moscow_oblast}%
 \end{marginfigure}
 \begin{marginfigure}[0.0cm]
@@ -119,7 +119,7 @@ WHERE
 	\setlength{\fboxrule}{1pt}%
 	\includegraphics[width=0.8\linewidth]{"chapter/oblast_of_Russia/Flag_of_Karelia.png"}
 }
-\caption [Флаг Карелии, Россия.]{Флаг Карелии, Россия.}%
+\caption [Флаг Карелии, Россия.]{Флаг Карелии.}%
 \label{fig:Flag_of_Karelia}%
 \end{marginfigure}
 \begin{marginfigure}[0.0cm]
@@ -128,7 +128,7 @@ WHERE
 	\setlength{\fboxrule}{1pt}%
 	\includegraphics[width=0.8\linewidth]{"chapter/oblast_of_Russia/Flag_of_Murmansk_Oblast.png"}
 }
-\caption [Флаг Мурманской области, Россия.]{Флаг Мурманской области, Россия.}%
+\caption [Флаг Мурманской области, Россия.]{Флаг Мурманской области.}%
 \label{fig:Flag_of_Murmansk_Oblast}%
 \end{marginfigure}
 
@@ -181,14 +181,14 @@ SELECT * WHERE {
 \end{lstlisting}%
 \footnotetext{Получено 467 записей в 2017 году и 482 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://goo.su/9xHA}{Граф соседних субъектов России}}
 
-С помощью команды BIND (строки 31--35) записываем значение в переменную, при условии, что переменная, отвечающая за субъекты определённого типа, непустая. Например, в строках 31--32 в переменную ?rgb записывается цвет, при условии, что ?oblast не пустая. При этом если переменная ?rgb уже содержит значение, то его оставляем, чтобы исключить затирание цвета.
+С помощью команды \textit{BIND} (строки 31--35) записываем значение в переменную, при условии, что переменная, отвечающая за субъекты определённого типа, непустая. Например, в строках 31--32 в переменную \textit{?rgb} записывается цвет, при условии, что \textit{?oblast} не пустая. При этом если переменная \textit{?rgb} уже содержит значение, то его оставляем, чтобы исключить затирание цвета.
 
 Количество полученных записей формируется путём сложения количества соседних территорий для всех субъектов России. Результат работы скрипта~--- это граф, отображающий соседние субъекты. Причём разные типы субъектов имеют вершины разного цвета, например, республики~--- зелёные, а края~--- голубые. Часть графа представлена на рис.~\ref{fig:sharesBorderWith-oblast-of-Russia-Kaliningrad-fig}.
 
 \begin{fullwidth}
 \begin{figure*}[h]
 	\includegraphics[width=\textwidth]{./chapter/oblast_of_Russia/Graph_Subjects_of_Russia_Siberia_and_the_Far_East_2021.png}
-	\caption[Граф субъектов России. Калининград, 2021.]{Регионы России в Сибире и Дальнем востоке на 2021 год. Фрагмент графа соседние субъекты России, построенный по скрипту~\protect\ref{lst:sharesBorderWith-oblast-of-Russia}.
+	\caption[Граф субъектов России. Калининград, 2021.]{Регионы России в Сибире и Дальнем востоке на 2021 год. Фрагмент графа соседних субъектов России, построенный по скрипту~\protect\ref{lst:sharesBorderWith-oblast-of-Russia}.
 	Республики~--- вершины зелёного цвета (Якутия).
 	Автономные округа~--- вершины фиолетового цвета (Чукотский автономный округ).
 	Края~--- вершины голубого цвета (Хабаровский край).
@@ -204,18 +204,19 @@ SELECT * WHERE {
 Построим список субъектов России с пустым свойством \wdProperty{47}{shares border with} (граничит с) (листинг~\protect\ref{lst:sharesBorderWith-empty-oblast-of-Russia}), то есть попробуем найти такие субъекты, которые ни с кем не граничат.
 
 \label{question:q_subjects_of_Russia_2}
-\marginnote{Какие из представленных ниже субъектов на текущий момент входят в состав Российской Федерации, а какие-нет.~\pageref{answer:subjects_of_Russia_2}
+\marginnote{Какие из перечисленных ниже субъектов на текущий момент входят в состав Российской Федерации, а какие-нет:
 \begin{itemize}
-  \item Республика Адыгея
-  \item Камчатский край
-  \item Читинская область
-  \item Чукотский автономный округ
+  \item Республика Адыгея;
+  \item Камчатский край;
+  \item Читинская область;
+  \item Чукотский автономный округ.
 \end{itemize}
+См. ответ \ref{answer:subjects_of_Russia_2} на с.~\pageref{answer:subjects_of_Russia_2}.
 }
 
 \lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/4TBo}{Список субъектов РФ с пустым свойством \wdProperty{47}{shares border with}}\protect\footnotemark},
+                    caption={\href{https://w.wiki/4bHb}{Список субъектов РФ с пустым свойством \wdProperty{47}{shares border with}}\protect\footnotemark},
                     label=lst:sharesBorderWith-empty-oblast-of-Russia,
                     texcl 
                     ]
@@ -226,27 +227,25 @@ SELECT
 WHERE
 {
   VALUES ?type {wd:Q835714   # Oblast of Russia
-                    wd:Q41162    # Republic of Russia
-                    wd:Q183342   # Federal city of Russia
-                    wd:Q831740   # Krai of Russia
-                    wd:Q309166   # Autonomus oblast of Russia
-                    wd:Q184122}  # Autonomus okrug of Russia
+                wd:Q41162    # Republic of Russia
+                wd:Q183342   # Federal city of Russia
+                wd:Q831740   # Krai of Russia
+                wd:Q309166   # Autonomus oblast of Russia
+                wd:Q184122}  # Autonomus okrug of Russia
   
   ?subject wdt:P31 ?type.
   
   FILTER EXISTS {?subject wdt:P17 wd:Q159; wdt:P31 ?type}
   
-  # Former administrative territorial entity
-  FILTER NOT EXISTS {?subject wdt:P31 wd:Q19953632} 
   MINUS { ?subject  wdt:P47 [] } . #Shares border with 
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru"}
 }
 \end{lstlisting}%
-\footnotetext{Получено 0 записей в 2017 году и 0 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4TBo}{https://w.wiki/4TBo}}
+\footnotetext{Получено 0 записей в 2017 году и 0 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4bHb}{https://w.wiki/4bHb}}
 
-С помощью команды FILTER (строка 16) исключаем объекты, которые являются \wdqName{бывшими административно-территориальными единицами}{19953632}. Затем с помощью MINUS (строка 20) отбираем объекты, у которых свойство \wdProperty{47}{<<граничит с>>} не заполнено.
+С помощью команды \textit{FILTER} (строка 16) исключаем объекты, которые не находятся на территории России. Затем с помощью \textit{MINUS} (строка 20) отбираем объекты, у которых свойство \wdProperty{47}{<<граничит с>>} не заполнено.
 
-Таким образом, на Викиданных нет субъектов РФ с пустым свойством \wdProperty{47}{<<граничит с>>}.
+Таким образом, на Викиданных для всех субъектов России заполнено свойство \wdProperty{47}{<<граничит с>>}.
 
 \section{Численность населения отдельных субъектов Российской Федерации}
 
@@ -254,8 +253,9 @@ WHERE
 
 Для запроса (листинг~\protect\ref{lst:map}) нам потребуются свойства \wdProperty{625}{<<координаты>>} и \wdProperty{1082}{<<численность населения>>}.
 
+\index{График!Map!Карта населения России}
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/4DKV}{Карта населения России}\protect\footnotemark},
+                    caption={\href{https://w.wiki/4bHe}{Карта населения России}\protect\footnotemark},
                     label=lst:map,
                     texcl 
                     ]
@@ -275,8 +275,6 @@ SELECT DISTINCT ?subject ?subjectLabel ?population ?coord ?layer
   }   
   ?subject wdt:P625 ?coord; wdt:P1082 ?population.
   
-  # former administrative territorial entity
-  FILTER NOT EXISTS {?subject wdt:P31 wd:Q19953632}
   BIND(
     IF(?population < 500000, "< 500000",
     IF(?population < 1000000, "500000 - 1000000",
@@ -290,14 +288,14 @@ SELECT DISTINCT ?subject ?subjectLabel ?population ?coord ?layer
 }
 ORDER BY ?population
 \end{lstlisting}%
-\footnotetext{Получено \num{85} записей в 2017 году и \num{86} записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4DKV}{https://w.wiki/4DKV}}
+\footnotetext{Получено \num{85} записей в 2017 году и \num{86} записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4bHe}{https://w.wiki/4bHe}}
 
 Результат работы скрипта (листинг~\protect\ref{lst:map}) представлен на рисунке~\ref{fig:SubjectsRussiaMap}.
 
 \begin{fullwidth}
 \begin{figure*}[h]
 	\includegraphics[width=\textwidth]{./chapter/oblast_of_Russia/SubjectsRussia_Map_with_legend_RU.png}
-	\caption[Карта населения России, 2021.]{Карта населения Российской Федерации, 2021. Карта субъектов Российской Федерации, разделённых на 6 групп по количеству населения и отмеченных разными цветами в зависимости от группы, в которую субъект входит. Карта построена на основе данных, полученных с помощью запроса~\protect\ref{lst:map}.}%
+	\caption[Карта численности населения по субъектам России, 2021.]{Карта численности населения по субъектам России, 2021. Субъекты разделёны на шесть групп по количеству населения и отмечены разными цветами в зависимости от группы, в которую субъект входит. Карта построена на основе данных, полученных с помощью запроса~\protect\ref{lst:map}.}%
       \label{fig:SubjectsRussiaMap}%
 \end{figure*} 
 \end{fullwidth}
@@ -313,7 +311,7 @@ ORDER BY ?population
 	\setlength{\fboxrule}{1pt}%
 	{\includegraphics[width=0.3\linewidth]{"chapter/oblast_of_Russia/Semi_protect.png"}}
 }
-\caption []{Частичная защита или полузащита, 2021.}%
+\caption [Иконка. Частичная защита или полузащита.]{Частичная защита или полузащита.}%
 \label{fig:legend_population}%
 \end{marginfigure}
 
@@ -324,7 +322,7 @@ ORDER BY ?population
 	{\includegraphics[width=0.3\linewidth]{"chapter/oblast_of_Russia/Full_protect.png"}}
 	{\includegraphics[width=0.3\linewidth]{"chapter/oblast_of_Russia/Permanent_protect.png"}}
 }
-\caption []{Полная защита, 2021.}%
+\caption [Иконка. Полная защита.]{Полная защита..}%
 \label{fig:legend_population}%
 \end{marginfigure}
 
@@ -334,7 +332,7 @@ ORDER BY ?population
 	\setlength{\fboxrule}{1pt}%
 	{\includegraphics[width=0.3\linewidth]{"chapter/oblast_of_Russia/Move_protect.png"}}
 }
-\caption []{Защита от переименования, 2021.}%
+\caption [Иконка. Защита от переименования.]{Защита от переименования.}%
 \label{fig:legend_population}%
 \end{marginfigure}
 
@@ -356,7 +354,7 @@ ORDER BY ?population
 	\setlength{\fboxrule}{1pt}%
 	{\includegraphics[width=0.3\linewidth]{"chapter/oblast_of_Russia/Create_protect.png"}}
 }
-\caption []{Защита от создания, 2021.}%
+\caption [Иконка. Защита от создания.]{Защита от создания.}%
 \label{fig:legend_population}%
 \end{marginfigure}
 
@@ -366,11 +364,11 @@ ORDER BY ?population
 	\setlength{\fboxrule}{1pt}%
 	{\includegraphics[width=0.3\linewidth]{"chapter/oblast_of_Russia/Office_action.png"}}
 }
-\caption []{Официальное действие, 2021.}%
+\caption [Иконка. Официальное действие.]{Официальное действие.}%
 \label{fig:legend_population}%
 \end{marginfigure}
 
-В крайне редких случаях Фонд Викимедиа может защитить страницу в качестве официального действия (office action, обозначается чёрным замком). Официальные действия совершаются только в результате формальной вневикипедийной жалобы, всегда публично объявляются и выполняются только сотрудниками Фонда Викимедиа или членами Совета попечителей.
+В крайне редких случаях Фонд Викимедиа может защитить страницу в качестве официального действия (\textit{office action}, обозначается чёрным замком). Официальные действия совершаются только в результате формальной вневикипедийной жалобы, всегда публично объявляются и выполняются только сотрудниками Фонда Викимедиа или членами Совета попечителей.
 
 Документация Викиданных содержит дополнительные материалы о защите страниц\protect\footnotemark
-\footnotetext{\href{https://www.wikidata.org/wiki/Wikidata:Protection_policy}{Правила защиты страниц}}.
+\footnotetext{См. правила защиты страниц \href{https://goo-gl.me/OkHtF}{https://goo-gl.me/OkHtF}.}.
