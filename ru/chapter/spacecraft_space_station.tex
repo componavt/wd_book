@@ -98,7 +98,7 @@ SERVICE wikibase:label {bd:serviceParam wikibase:language "ru,en"}
 GROUP BY ?lapse
 ORDER BY ?lapse # Order 1970, 1975, 1980, ...
 \end{lstlisting}
-\footnotetext{Найдено \num{14} результата в 2021 г. Ссылка на SPARQL-запрос: \href{https://w.wiki/4QGX}{https://w.wiki/4QGX}}
+\footnotetext{Найдено \num{14} результата в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4QGX}{https://w.wiki/4QGX}}
 Свойство Р619 (дата запуска космического корабля) позволяет получать количество запусков кораблей в указанный период, что в рамках данного скрипта заменяет набор свойств Р31 (частный случай понятия), так как фильтрация по запускам кораблей позволяет отказаться от дополнительных фильтров для проверки корабля. В случае отсутствия функции STR в 3 строке год запуска (lapse) рассматривается как число, что приводит столбчатую диаграмму к виду графика, где горизонтальная ось отвечает за год запуска, а результаты обозначаются точками с координатами (год, запуски). UNION позволяет объединить запуски России и СССР. В строке 10 производится подсчёт количества за пятилетку, от года Х до Х+5. В строке 13 результаты группируются по пятилеткам. Переменная lapse отвечает за накопление данных за период, переменная quantity указывает, что в рамках скрипта требуется воспринимать объекты как их количество.
 
 \begin{figure*}[h!]
@@ -122,7 +122,7 @@ WHERE {
 }
 GROUP BY ?year ?country ?countryLabel
 \end{lstlisting}
-\footnotetext{Найдено \num{328} результата в 2021 г. Ссылка на SPARQL-запрос: \href{https://w.wiki/4bEu}{https://w.wiki/4bEu}}
+\footnotetext{Найдено \num{328} результата в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4bEu}{https://w.wiki/4bEu}}
 
 \begin{figure*}[h!]
   \includegraphics[width=\linewidth]{graphics/chapter/spacecraft_space_station/Visualization of the number of spacecraft launches by year and country 2021.png}
