@@ -6,7 +6,7 @@
 
 \marginnote[0.0cm]{Сэйю~--- это японские актёры озвучивания. Сэйю обычно озвучивают роли персонажей в аниме, видеоиграх, фильмах, а также на радио и телевидении, или выступают в роли рассказчика в радиопостановках. Кроме того, голоса сэйю используются в рекламе, голосовых объявлениях, аудиозаписях книг и учебных материалов, а также для переозвучивания. Сэйю могут быть как мужчины, так и женщины; как взрослые, так и дети.}
 
-В рамках этой главы исследуется объект Викиданных \wdqName{<<аниме>>}{1107}. С помощью SPARQL-запросов, вычисляемых на объектах типа <<аниме>> в Викиданных, получен список сэйю, упорядоченный по числу озвученных ими аниме, построен график числа аниме, озвученных одним сэйю, построен граф, связывающий сэйю и озвученные ими аниме, получены оценки трудоспособного возраста сэйю. 
+В рамках этой главы исследуется объект Викиданных \wdqName{<<аниме>>}{1107}. С помощью SPARQL-запросов, вычисляемых на объектах типа <<аниме>> в Викиданных, получен список сэйю, упорядоченный по числу озвученных ими аниме, построен график числа аниме, озвученных одним сэйю, построен граф, связывающий сэйю и озвученные ими аниме, получена оценка трудоспособного возраста сэйю. 
 
 \begin{marginfigure}[0.0cm]
 {
@@ -17,8 +17,8 @@
 \caption
 [Сэйю Кэндзи Акабанэ, 2021.]
 {
-Сэйю Кэндзи Акабанэ озвучивал роль персонажа Sasuke Sarutobi в видеоигре Ikemen Sengoku, 2018 г.\newline
-Wikimedia Commons / numan (CC BY-SA 3.0)
+Сэйю Кэндзи Акабанэ озвучивал роль персонажа Sasuke Sarutobi в видеоигре Ikemen Sengoku, 2018 год.\newline
+Wikimedia Commons / numan (CC BY-SA)
 }
 \label{fig:seiyu}
 \end{marginfigure}
@@ -60,7 +60,7 @@ WHERE
 # corresponding to these subclasses
 SELECT ?subAnime ?subAnimeLabel (COUNT(?subAnimeInst) AS ?count)
 WHERE {
-  ?subAnime wdt:P279* wd:Q1107.       # select anime subclass list
+  ?subAnime wdt:P279* wd:Q1107.   # select anime subclass list
   ?subAnimeInst wdt:P31 ?subAnime # link titles and subclasses
     SERVICE wikibase:label{bd:serviceParam
 					     wikibase:language "ru,en,ja"}
@@ -88,7 +88,7 @@ ORDER BY DESC(?count)
 \label{fig:anime_piechart}
 \end{marginfigure}
 
-Получим список всех аниме, включая тайтлы, относящиеся к жанрам аниме (листинг~\ref{lst:all_anime_list}):
+Получим список всех аниме, включая тайтлы, относящиеся к жанрам аниме (листинг~\ref{lst:all_anime_list}).
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/49zY}{Список всех аниме в Викиданных}\protect\footnotemark},
@@ -151,9 +151,9 @@ ORDER BY DESC(?count)  # order by count of voiced anime
 SELECT ?seiyuRoles (COUNT(?seiyuRoles) AS ?quantity) WHERE {
   FILTER(?seiyuRoles < 71) # limit the output as there are few seiyu that act in more than 71 anime
   {
-     SELECT (COUNT(?seiyu) AS ?seiyuRoles) WHERE {            # count quantity of voice acting by one seiyu
-       ?anime wdt:P31/wdt:P279* wd:Q1107;                     # instance of anime and its subclasses
-                 wdt:P725 ?seiyu.                                # instance of seiyu
+     SELECT (COUNT(?seiyu) AS ?seiyuRoles) WHERE {        # count quantity of voice acting by one seiyu
+       ?anime wdt:P31/wdt:P279* wd:Q1107;                 # instance of anime and its subclasses
+                 wdt:P725 ?seiyu.                         # instance of seiyu
        SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en,ja"}
      }
      GROUP BY ?anime              # group list by number of voiced anime
@@ -203,7 +203,7 @@ WHERE
            wd:Q233902  wd:Q1323728 wd:Q2440809 
            wd:Q355173  wd:Q957795  wd:Q50033}
   ?anime  wdt:P31/wdt:P279* wd:Q1107; # instance of anime/subclass
-           wdt:P725 ?seiyu;            # seiyu who voiced this anime 
+           wdt:P725 ?seiyu;           # seiyu who voiced this anime 
   SERVICE wikibase:label{bd:serviceParam
 					   wikibase:language "ru,en,ja"}
   BIND(IF(?toggle,?anime,?seiyu) AS ?item).
@@ -246,7 +246,7 @@ WHERE
 
 Какие-то сайты появились позже, какие-то раньше, поэтому количество аниме на них может разниться, причём довольно серьёзно. Если упорядочить все приведённые сайты, данные Русской Википедии, Английской Википедии и Викиданные по количеству аниме, то Викиданные окажутся не на последнем месте, но, например, вышеупомянутой энциклопедии \href{https://shikimori.one/}{Shikimori} они уступают почти в 4 раза.
 
-Вспомним запрос~\ref{lst:seiyu_titles_sorted}, в котором говорилось о \num{2684} сэйю на Викиданных. Дело в том, что поиск производился только по актёрам озвучивания, связанным с аниме, поэтому результат оказался таким скромным. Если запросить информацию о всех актёрах озвучивания (то есть убрать ограничение на категорию аниме), то количество результатов может увеличиться в \num{5} раз (листинг~\ref{lst:voice_actors_list}). Значительный прирост числа результатов относительно вышеупомянутого запроса напоминает нам о том, что в индустрии озвучивания гораздо больше направлений, чем только аниме - например, озвучивание фильмов и видеоигр. Сэйю могут участвовать и в работе над такими проектами, и это нужно учитывать при формировании запросов. 
+Вспомним запрос~\ref{lst:seiyu_titles_sorted}, в котором говорилось о \num{2910} сэйю на Викиданных. Дело в том, что поиск производился только по актёрам озвучивания, связанным с аниме, поэтому результат оказался таким скромным. Если запросить информацию о всех актёрах озвучивания (то есть убрать ограничение на категорию аниме), то количество результатов может увеличиться в \num{5} раз (листинг~\ref{lst:voice_actors_list}). Значительный прирост числа результатов относительно запроса~\ref{lst:seiyu_titles_sorted} напоминает нам о том, что в индустрии озвучивания гораздо больше направлений, чем только аниме ~--- например, озвучивание фильмов и видеоигр. Сэйю могут участвовать и в работе над такими проектами, и это нужно учитывать при формировании запросов. 
 
 \footnotetext{Получено \num{3965} результатов в 2017 году и \num{14744} результата в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4aQt}{https://w.wiki/4aQt}}
 \begin{lstlisting}[ language=SPARQL, 
@@ -260,7 +260,7 @@ SELECT ?actor ?actorLabel (COUNT(?project) AS ?count)
 WHERE
 {
   ?project wdt:P725 ?actor.	 # instance of voice actor
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en,ja" }
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "ru,en,ja"}
 }
 GROUP BY ?actor  ?actorLabel
 ORDER BY DESC(?count)  # order by number of voiced projects
@@ -277,8 +277,9 @@ ORDER BY DESC(?count)  # order by number of voiced projects
 
 \section{Указана ли дата публикации у аниме?}
 
-Каждый любитель японской анимации желает знать, в каком году вышло его любимое аниме. Викиданные располагают этой информацией не в полной мере. Напишем скрипт, который бы показывал количество аниме с незаполненным полем ''publication date'' (дата публикации) (листинг~\ref{lst:anime_no_pub_date}). 
+Каждый ценитель японской анимации желает знать, в каком году вышло его любимое аниме. Викиданные располагают этой информацией не в полной мере. Напишем скрипт, который бы показывал количество аниме с незаполненным полем ''publication date'' (дата публикации) (листинг~\ref{lst:anime_no_pub_date}). То, что поле должно быть пустым, указано в шестой строке с помощью пустых квадратных скобок.
 
+\lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/4Hcz}{Получение списка аниме, у которых на Викиданных не указана дата выхода}\protect\footnotemark},
                     label=lst:anime_no_pub_date,
@@ -295,14 +296,15 @@ WHERE
 }
 \end{lstlisting}%
 \footnotetext{Получено \num{237} результатов в 2017 году и \num{2940} результатов в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4Hcz}{https://w.wiki/4Hcz}}
+\lstset{numbers=none}
 
 На 2021 год из \num{4875} аниме на Викиданных (см. листинг~\ref{lst:all_anime_list}) у \num{2940}, а это \num{62}\%, не указана дата выхода. В 2017 году из \num{683} аниме на Викиданных только \num{237} (то есть \num{35}\%) не имели указанной даты выхода. Похоже, что, к сожалению, увеличение количества информации не всегда сопровождается сохранением её качества\footnote{Упражнение: напишите скрипт для вычисления доли аниме, у которых не указана дата публикации, относительно всех аниме на Викиданных. Сравните эту долю с долей за 2021 год (\num{62}\%) и сделайте вывод об изменении качества Викиданных.}.
 
 \section{Анализ возраста, в котором сэйю озвучивают аниме}
 
-Как и в любой другой профессии, у актёра озвучки есть возраст, когда он находится в <<расцвете сил>> и может озвучить множество аниме. Использование SPARQL и внешних инструментов для анализа данных, таких как язык программирования Python\index{Языки программирования!Примеры языков программирования!Python}\footnote{Язык Python~--- это интерпретируемый язык программирования, благодаря своей гибкости используемый для разнообразных задач. Его можно применять в том числе и для работы с Викиданными: например, в разделе~\ref{ch:bots} (с.~\pageref{ch:bots}) описан процесс создания программных ботов для Викиданных.}, может позволить оценить такой возраст на основе информации из Викиданных.
+Как и в любой другой профессии, у актёра озвучки есть возраст, когда он находится в <<расцвете сил>> и может озвучить множество аниме. Использование SPARQL и внешних инструментов для анализа данных, таких как язык программирования Python\index{Языки программирования!Примеры языков программирования!Python}\footnote[][-1cm]{Язык Python~--- это интерпретируемый язык программирования, благодаря своей гибкости используемый для разнообразных задач. Его можно применять в том числе и для работы с Викиданными: например, в разделе~\ref{ch:bots} (с.~\pageref{ch:bots}) описан процесс создания программных ботов для Викиданных.}, может позволить оценить такой возраст на основе информации из Викиданных.
 
-Чтобы получить исходные данные для исследования, необходимо выполнить три SPARQL-скрипта и экспортировать результаты их выполнения в формате .csv\footnote{CSV (comma-separated values)~--- это формат представления табличных данных, в котором таблица хранится в виде последовательности строк текста. Эти строки содержат значения полей таблицы, разделённые запятыми.}. CSV-файлы затем используются в скрипте на языке Python, который генерирует выходной график. Запускать программы на Python можно, например, на платформе Google Colaboratory\footnote{Google Colaboratory (Colab)~--- это облачная среда разработки от компании Google, в которой можно создавать и запускать скрипты на языке программирования Python, а также делиться результатами своей работы с другими людьми. Также этот сервис удобен тем, что предоставляет вычислительные мощности~--- как обычные процессоры, так и видеокарты для, например, работы с нейронными сетями. Сервис доступен по ссылке \href{https://colab.research.google.com}{https://colab.research.google.com}.}.
+Чтобы получить исходные данные для исследования, необходимо выполнить три SPARQL-скрипта и экспортировать результаты их выполнения в формате .csv\footnote[][-0.3cm]{CSV (comma-separated values)~--- это формат представления табличных данных, в котором таблица хранится в виде последовательности строк текста. Эти строки содержат значения полей таблицы, разделённые запятыми.}. CSV-файлы затем используются в скрипте на языке Python, который генерирует выходной график. Запускать программы на Python можно, например, на платформе Google Colaboratory\footnote[][0.2cm]{Google Colaboratory (Colab)~--- это облачная среда разработки от компании Google, в которой можно создавать и запускать скрипты на языке программирования Python, а также делиться результатами своей работы с другими людьми. Также этот сервис удобен тем, что предоставляет вычислительные мощности~--- как обычные процессоры, так и видеокарты для, например, работы с нейронными сетями. Сервис доступен по ссылке \href{https://colab.research.google.com}{https://colab.research.google.com}.}.
 
 Получить список всех зарегистрированных в Викиданных сэйю и их дат рождения можно двумя способами (листинги~\ref{lst:seiyu_bd_w_service} и \ref{lst:seiyu_bd_w_rdfs}): с помощью команды \emph{SERVICE}\index{SPARQL!SERVICE!Получение дат рождения сэйю} и с помощью конструкции \emph{rdfs:label}.
 
@@ -313,40 +315,55 @@ WHERE
     \item в первом варианте скрипта необходимо указывать \emph{?seiyuLabel} как параметр \emph{GROUP BY}\index{SPARQL!GROUP BY!Получение дат рождения сэйю}, чтобы связать объекты сэйю и их метки.
 \end{itemize}
 
-\begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/4FPq}{Получение дат рождения сэйю (вариант 1)}\protect\footnotemark},
+\begin{fullwidth}
+%
+\noindent\begin{minipage}[]{.43\linewidth}
+\begin{lstlisting}[ language=SPARQL, breaklines=false, numbers=none,
+                    caption={Получение списка дат рождения сэйю с помощью \emph{SERVICE}.
+                        },
                     label=lst:seiyu_bd_w_service,
-                    texcl 
+                    texcl,
+                    escapechar=!
                     ]
-# Get list of all seiyu objects, their names and birth dates
-SELECT ?seiyu ?seiyuLabel ?bDate WHERE {
+# Get list of all seiyu objects, their 
+SELECT ?seiyu ?seiyuLabel ?bDate
+WHERE {
   ?anime (wdt:P31/(wdt:P279*)) wd:Q1107;
-    wdt:P725 ?seiyu.       # seiyu is anime voice actors
-  ?seiyu wdt:P569 ?bDate.  #       has a birthday
-    SERVICE wikibase:label{bd:serviceParam
-					     wikibase:language "ru,en,ja"}
+    wdt:P725 ?seiyu.       
+  ?seiyu wdt:P569 ?bDate. 
+  SERVICE wikibase:label {bd:serviceParam 
+    wikibase:language "ru,en,ja"}
 }
 GROUP BY ?seiyu ?seiyuLabel ?bDate
 \end{lstlisting}%
-\footnotetext{Получено \num{2515} результатов в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4FPq}{https://w.wiki/4FPq}}
-
-\begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/4FPn}{Получение дат рождения сэйю (вариант 2)}\protect\footnotemark},
+\footnotetext{Получено \num{2515} результатов в 2021 году. SPARQL-запрос: \href{https://w.wiki/4FPq}{https://w.wiki/4FPq}}
+\end{minipage}%
+%just a break for lines between two columns of listings
+\hfill
+\begin{minipage}[]{.55\linewidth}
+\begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,
+                    caption={Получение списка дат рождения сэйю с помощью \emph{rdfs:label}.
+                        },
                     label=lst:seiyu_bd_w_rdfs,
-                    texcl 
+                    texcl,
+                    escapechar=!
                     ]
-# Get list of all seiyu objects, their names and birth dates
-SELECT ?seiyu (SAMPLE(?seiyu) AS ?seiyuLabel) ?bDate WHERE {
+# names and birth dates
+SELECT ?seiyu (SAMPLE(?seiyu) AS ?seiyuLabel) ?bDate
+WHERE {
   ?anime (wdt:P31/(wdt:P279*)) wd:Q1107;
-    wdt:P725 ?seiyu.       # seiyu is anime voice actors
-  ?seiyu wdt:P569 ?bDate.  #       has a birthday 
+    wdt:P725 ?seiyu.      # seiyu is anime voice actor
+  ?seiyu wdt:P569 ?bDate. # has a birthday 
   ?seiyu rdfs:label ?label.
+
 }
 GROUP BY ?seiyu ?bDate
 \end{lstlisting}%
-\footnotetext{Получено \num{2515} результатов в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4FPn}{https://w.wiki/4FPn}}
+\footnotetext{Получено \num{2515} результатов в 2021 году. SPARQL-запрос: \href{https://w.wiki/4FPn}{https://w.wiki/4FPn}}
+\end{minipage}
+\end{fullwidth}%
 
-Получим список всех зарегистрированных в Викиданных аниме и дат их выхода (листинг~\ref{lst:all_anime_releases})\footnote{Упражнение: визуализируйте результаты работы скрипта~\ref{lst:all_anime_releases}. Можете усложнить задачу~--- например, добавить на график даты окончания показа сериалов.}.
+Получим список всех зарегистрированных в Викиданных аниме и дат их выхода (листинг~\ref{lst:all_anime_releases})\marginnote[1cm]{Упражнение: визуализируйте результаты работы скрипта~\ref{lst:all_anime_releases}. Можете усложнить задачу~--- например, добавить на график даты окончания показа сериалов.}.
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/4ENc}{Получение дат выхода аниме}\protect\footnotemark},
@@ -405,7 +422,7 @@ WHERE
     \setlength{\fboxsep}{0pt}%
     \setlength{\fboxrule}{1pt}%
     \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/anime/Seiyu_age_hist_RU.png}}
-	\caption[Гистограмма с числом аниме, озвученных сэйю разных возрастов, 2021.]{Гистограмма с числом аниме, озвученных различными сэйю, 2021. Гистограмма построена на основе данных, полученных с помощью запросов~\protect\ref{lst:seiyu_bd_w_service} (или~\protect\ref{lst:seiyu_bd_w_rdfs}), \protect\ref{lst:all_anime_releases} и \protect\ref{lst:link_anime_seiyu}.}%
+	\caption[Гистограмма с числом аниме, озвученных сэйю разных возрастов, 2021.]{Гистограмма с числом аниме, озвученных сэйю разных возрастов, 2021. Гистограмма построена на основе данных, полученных с помощью запросов~\protect\ref{lst:seiyu_bd_w_service} (или~\protect\ref{lst:seiyu_bd_w_rdfs}), \protect\ref{lst:all_anime_releases} и \protect\ref{lst:link_anime_seiyu}.}%
     \label{fig:Seiyu_age_hist_RU}%
 \end{figure*} 
  	
@@ -414,8 +431,8 @@ WHERE
 \section{Упражнения}
 
 \begin{enumerate}
-    \item Вывести 10 самых популярных аниме, вышедших на экраны в текущем году. Популярность оценить по числу статей в разных языковых разделах. Например, если статья про аниме есть в трёх Википедиях на русском, английском и испанском языках, то его популярность равна трём. 
-    \item Вывести 5 аниме, в которых задействовано самое большое число сэйю-женщин.
+    \item Вывести 10 самых популярных аниме, вышедших на экраны в текущем году. Популярность оценить по числу статей в разных языковых разделах. Для подсчёта числа статей об объекте Викиданных используйте SPARQL-конструкцию \emph{wikibase:sitelinks}. Например, если статья про аниме есть в трёх Википедиях на русском, английском и испанском языках, то его популярность равна трём. 
+    \item Вывести пять аниме, в которых задействовано самое большое число сэйю-женщин.
     \item Построить пузырьковую диаграмму (BubbleChart) распределения аниме по жанрам (сколько аниме в каждом жанре), воспользовавшись свойством \wdProperty{279}{<<подкласс>>}.
     \item Отметить на карте места рождения сэйю.
     \item Построить гистограмму или пузырьковую диаграмму национальностей сэйю.
