@@ -99,6 +99,7 @@
 % source: https://gist.github.com/vsimko/fcc84e1e4f8e750746caa34b802db5a7
 \definecolor{LightGray}{rgb}{0.97,0.97,0.97}
 \usepackage{listings} % syntax highlighting
+\usepackage{xparse} % insert code keywords inline, see https://tex.stackexchange.com/a/286097/99685
 
 \lstdefinelanguage{SPARQL}{
   basicstyle=\small\ttfamily,
@@ -530,9 +531,10 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 \input{./chapter/aircraft.tex}
 \input{./chapter/anime.tex}
 
+\input{./chapter/human_settlement.tex}
 \input{./chapter/city.tex}
 \input{./chapter/country.tex}
-\input{./chapter/human_settlement.tex}
+
 \input{./chapter/national_park.tex}
 \input{./chapter/oblast_of_Russia.tex}
 \input{./chapter/operating_system.tex}
