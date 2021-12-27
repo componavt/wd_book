@@ -419,10 +419,11 @@ WHERE
 
 \begin{task}
 	\label{answer:os_base}
-	\newthought{На основе \href{https://w.wiki/n8W}{Ubuntu} разработано больше всего операционных систем, а именно 11. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:os_base}).}
+	\newthought{На основе \href{https://w.wiki/n8W}{Ubuntu} разработано больше всего операционных систем, а именно 11. Ответ на вопрос можно получить с помощью запроса~\ref{lst:os_base}.}
 
-	\begin{lstlisting}[ language=SPARQL, caption={
-	\href{https://w.wiki/uLR}{Список базовых операционных систем}\protect\footnotemark},
+\begin{lstlisting}[ language=SPARQL, 
+    numbers=none,
+    caption={\href{https://w.wiki/uLR}{Список базовых операционных систем}\protect\footnotemark},
 	label=lst:os_base
 	]
 SELECT ?baseLabel (COUNT(*) AS ?count)
@@ -430,81 +431,81 @@ WHERE
 {
 	?os wdt:P31 wd:Q9135. # is instance of operating system
 	?os wdt:P144 ?base.   # is based on ?base
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en"}
+	SERVICE wikibase:label {bd:serviceParam wikibase:language "ru,en"}
 }
 GROUP BY ?baseLabel
-ORDER BY DESC(?count) ASC(?baseLabel)
-	\end{lstlisting}
-	\footnotetext{118 операционных систем на 2020год. Ссылка на SPARQL-запрос: \href{https://w.wiki/uLR}{https://w.wiki/uLR}}
+ORDER BY DESC(?count) ASC(?baseLabel)\end{lstlisting}
+\footnotetext{Получено 118 операционных систем на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/uLR}{https://w.wiki/uLR}}
 
-	\small{Вопрос на с.~\pageref{lst:base_of_operating_systems}.}
+\small{Вопрос на с.~\pageref{lst:base_of_operating_systems}.}
 \end{task}
 
 \begin{task}
 	\label{answer:what_system_created}
-	\newthought{Компания \href{https://w.wiki/n8S}{Apple} разработала ОС  \href{https://w.wiki/n8P}{Newton OS}. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:os_creators}).}
+	\newthought{Компания \href{https://w.wiki/n8S}{Apple} разработала ОС~\href{https://w.wiki/n8P}{Newton OS}. Ответ на вопрос можно получить, выполнив SPARQL-запрос~\ref{lst:os_creators}.}
 
-	\begin{lstlisting}[ language=SPARQL, caption={
-	\href{https://w.wiki/n8a}{Разработчики операционных систем}\protect\footnotemark},
+\begin{lstlisting}[ language=SPARQL, 
+    numbers=none,
+    caption={\href{https://w.wiki/n8a}{Разработчики операционных систем}\protect\footnotemark},
 	label=lst:os_creators
 	]
 SELECT ?os ?osLabel ?developer ?developerLabel WHERE {
 	?os wdt:P31 wd:Q9135. # instance of operating system
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en"}
+	SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
 	OPTIONAL { ?os wdt:P178 ?developer. }
-}
-	\end{lstlisting}
-	\footnotetext{\num{1115} операционных систем на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/n8a}{https://w.wiki/n8a}}
+}\end{lstlisting}
+\footnotetext{\num{1115} операционных систем на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/n8a}{https://w.wiki/n8a}}
 
-	\small{Вопрос на с.~\pageref{lst:inception_time_of_operating_systems}.}
+\small{Вопрос на с.~\pageref{lst:inception_time_of_operating_systems}.}
 \end{task}
 
 \begin{task}
 	\label{answer:os_and_developers}
-	\newthought{Список разработчиков операционных систем можно получив выполнив следующий SPARQL-запрос (листинг \ref{lst:os_creators_2}).}
+	\newthought{Список разработчиков операционных систем формируется запросом~\ref{lst:os_creators_2}.}
 
-	\begin{lstlisting}[ language=SPARQL, caption={
-			\href{https://w.wiki/vGQ}{Разработчики операционных систем}\protect\footnotemark},
-		label=lst:os_creators_2
-		]
+\begin{lstlisting}[ language=SPARQL, 
+    numbers=none,
+    caption={\href{https://w.wiki/vGQ}{Разработчики операционных систем}\protect\footnotemark},
+    label=lst:os_creators_2
+	]
 SELECT ?os ?osLabel ?developer ?developerLabel
 WHERE {
 	?os wdt:P31 wd:Q9135. # os is instance of operating system
 	?os wdt:P178 ?developer. # os developed by developer
-SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en". }
-}
-	\end{lstlisting}
-	\footnotetext{У 548 операционных систем заполнено свойство разработчик на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vGQ}{https://w.wiki/vGQ}}
+SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en".}
+}\end{lstlisting}
+\footnotetext{У 548 операционных систем заполнено свойство <<разработчик>> на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vGQ}{https://w.wiki/vGQ}}
 
-	\small{Вопрос на с.~\pageref{tasks:operating_system_tasks}.}
+\small{Вопрос на с.~\pageref{tasks:operating_system_tasks}.}
 \end{task}
 
 \begin{task}
 \label{answer:os_and_logos}
-\newthought{Список логотипов операционных систем можно получив выполнив следующий SPARQL-запрос (листинг \ref{lst:os_logos}).}
+\newthought{Список логотипов операционных систем можно получить с помощью запроса~\ref{lst:os_logos}.}
 
-\begin{lstlisting}[ language=SPARQL, caption={
-		\href{https://w.wiki/vGQ}{Логотипы операционных систем}\protect\footnotemark},
-	label=lst:os_logos
+\begin{lstlisting}[ language=SPARQL, 
+    numbers=none,
+    caption={\href{https://w.wiki/vGQ}{Логотипы операционных систем}\protect\footnotemark},
+    label=lst:os_logos
 	]
 SELECT ?os ?osLabel ?image
 WHERE {
 	?os wdt:P31 wd:Q9135.
 	?os wdt:P18 ?image.
-SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en". }
-}
-\end{lstlisting}
-\footnotetext{У 182 операционных систем заполнено свойство логотип на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vGQ}{https://w.wiki/vGQ}}
+SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en".}
+}\end{lstlisting}
+\footnotetext{У 182 операционных систем заполнено свойство <<логотип>> на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vGQ}{https://w.wiki/vGQ}}
 
 \small{Вопрос на с.~\pageref{tasks:operating_system_tasks}.}
 \end{task}
 
 \begin{task}
 \label{answer:os_country}
-\newthought{Список стран происхождения операционных систем можно получив выполнив следующий SPARQL-запрос (листинг \ref{lst:os_development_country}).}
+\newthought{Список стран происхождения операционных систем можно получить с помощью запроса~\ref{lst:os_development_country}.}
 
-\begin{lstlisting}[ language=SPARQL, caption={
-		\href{https://w.wiki/vGX}{Логотипы операционных систем}\protect\footnotemark},
+\begin{lstlisting}[ language=SPARQL, 
+    numbers=none,
+    caption={\href{https://w.wiki/vGX}{Логотипы операционных систем}\protect\footnotemark},
 	label=lst:os_development_country
 	]
 SELECT ?os ?osLabel ?country ?countryLabel
@@ -512,8 +513,7 @@ WHERE {
 	?os wdt:P31 wd:Q9135.
 	?os wdt:P495 ?country.
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en". }
-}
-\end{lstlisting}
+}\end{lstlisting}
 \footnotetext{У 10 операционных систем заполнена страна происхождения на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vGX}{https://w.wiki/vGX}}
 
 \small{Вопрос на с.~\pageref{tasks:operating_system_tasks}.}
@@ -521,7 +521,8 @@ WHERE {
 
 \begin{task}
 \label{answer:os_and_bases}
-\newthought{Для получения дерева операционных систем на верхнем уровне, и операционных систем, основанных на них, на нижнем можно выполнив следующий SPARQL-запрос (листинг \ref{lst:os_and_bases}).}
+\newthought{Для получения такого дерева, где операционные системы верхнего уровня дерева  
+основаны на ОС, перечисленных на нижнем уровне, выполните следующий запрос~\ref{lst:os_and_bases}.}
 
 \begin{lstlisting}[ language=SPARQL, caption={
 		\href{https://w.wiki/vGc}{Дерево операционных систем и их основ}\protect\footnotemark},
