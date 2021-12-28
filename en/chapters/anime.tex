@@ -216,9 +216,15 @@ WHERE
 }
 \end{lstlisting}%
 
-The \emph{?seiyu} variable (line 7) contains an array of Wikidata objects that correspond to several seiyu including \wdqName{Bin Shimada}{1323728} and others. We picked only three seiyu for illustrative purposes, as a graph including more seiyu would be unwieldy to read.
+The \lstinline|?seiyu| variable (line 7) contains an array of Wikidata objects that correspond to several seiyu including \wdqName{Bin Shimada}{1323728} and others. We picked only three seiyu for illustrative purposes, as a graph including more seiyu would be unwieldy to read.
 
-The \emph{BIND\index{SPARQL!BIND!Graph that connects seiyu to anime they have voiced}(IF\index{SPARQL!IF!Graph that connects seiyu to anime they have voiced}(?toggle, ?anime, ?seiyu))} construction in line \num{11} determines graph node type: if \emph{?toggle} is \emph{true}, then the node corresponds to anime, and seiyu otherwise. The item label and the node color are determined in the same way in lines \num{12} and \num{13}. Line \num{14} creates the edges, i.e. directed lines, linking the seiyu and anime nodes.
+\index{SPARQL!BIND!Graph that connects seiyu to anime they have voiced}
+\index{SPARQL!IF!Graph that connects seiyu to anime they have voiced}
+The \lstinline|BIND(IF(?toggle, ?anime, ?seiyu))| 
+construction in line \num{11} determines graph node type: if \lstinline|?toggle| is \emph{true}, 
+then the node corresponds to anime, and seiyu otherwise. 
+The item label and the node color are determined in the same way in lines \num{12} and \num{13}. 
+Line \num{14} creates the edges, i.e. directed lines, linking the seiyu and anime nodes.
 
 \index{Chart!Graph!Part of directed graph that connects seiyu to anime they have voiced}
 \begin{figure*}
