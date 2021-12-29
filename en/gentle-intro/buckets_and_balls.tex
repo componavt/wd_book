@@ -16,7 +16,7 @@ Let's try to figure it out. Let's start with variables.
 		\setlength{\fboxrule}{1pt}%
 		\fcolorbox{gray}{gray}{\includegraphics{./intro/bucketsAndBalls/Wikidata_in_linked_open_data.png}}
 	}
-    \caption[Wikidata in the Linked Open Data Cloud]{Wikidata in the Linked Open Data Cloud. Databases indicated as circles (with wikidata indicated as \textit{WD}), with grey lines linking databases in the network if their data is aligned. See the wikipedia article: \href{https://en.wikipedia.org/wiki/Linked_data}{Linked data}. Wikimedia Commons / \href{https://commons.wikimedia.org/wiki/File:Wikidata_in_the_Linked_Open_Data_cloud_2020-08-20.svg}{Thomas Shafee}}
+    \caption[Wikidata in the Linked Open Data Cloud]{Wikidata in the Linked Open Data Cloud. Databases indicated as circles (with wikidata indicated as \textit{WD}), with grey lines linking databases in the network if their data is aligned. See the Wikipedia article: \href{https://en.wikipedia.org/wiki/Linked_data}{Linked data}. Wikimedia Commons / \href{https://commons.wikimedia.org/wiki/File:Wikidata_in_the_Linked_Open_Data_cloud_2020-08-20.svg}{Thomas Shafee}}
 	\label{fig:Wikidata_in_linked_open_data}
 \end{marginfigure}
 
@@ -151,7 +151,18 @@ This is not bad for the first result, but now under each photo we see only the I
 \label{fig:Query_in_basket_and_balls_notation_with_ids}
 \end{figure}
 
-A label is something that every ball has, that is, a Wikidata object. A label is a name that allows you to distinguish objects from each other. Wikidata has a service that simplifies the output of labels on request. To do this, just add the word \textit{"Label"} to the end of the variable name and call the desired service. To call this service, type Ctrl + space on a new line inside curly brackets and when you start writing the word \textit{"Label"}, then a line with this service will be added\sidenote[][]{An example of calling this service is provided in Query ~\ref{lst:regionsOfHeads}}. By default, you get a hint with the interface language and English as an alternative if the label is not available in the language of the selected Wikidata interface.
+A label is something that every ball has, that is, a Wikidata object. 
+A label is a name that allows you to distinguish objects from each other. 
+Wikidata has a service that simplifies the output of labels on request. 
+To do this, just add the word \textit{"Label"} to the end of the variable name 
+and call the desired service. 
+To call this service, type Ctrl + space on a new line inside curly brackets 
+and when you start writing the word \textit{"Label"}, 
+then a line with this service will be added\sidenote[][]{%
+%
+An example of calling this service is provided in Query~\ref{lst:regionsOfHeads} in Line 8.
+%
+}. By default, you get a hint with the interface language and English as an alternative if the label is not available in the language of the selected Wikidata interface.
 
 Wikidata is full of such wonderful services, and for the final request we will use another one. To get the result immediately in the form of a set of photos of the heads of the regions, without additional clicking on the eye icon, place the following construction for WDQS somewhere in your request:
 \begin{lstlisting}[ language=SPARQL, numbers=none ]
