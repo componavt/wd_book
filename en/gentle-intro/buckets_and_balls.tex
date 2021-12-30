@@ -1,7 +1,6 @@
-
 \setchapterimage[6cm]{intro/bucketsAndBalls/Basketball.png}
 \setchapterpreamble[u]{\margintoc}
-\chapter{Buckets and Balls\protect\footnotemark}
+\chapter[Buckets and Balls]{Buckets and Balls\protect\footnotemark}
 \labch{ch-bb}
 
 \footnotetext{Background image: A basketball ball about to fall through the hoop. Wikimedia Commons /  \href{https://commons.wikimedia.org/wiki/File:2011-06-07_Basketball_in_hoop_still_shot.jpg}{Ildar Sagdejev}.}
@@ -108,7 +107,12 @@ SELECT DISTINCT ?region ?head ?image
 
 Next, we will write the conditions for matching balls to baskets. All conditions in SPARQL should be enclosed in curly brackets, as in Figure~\ref{fig:Query_in_basket_and_balls_notation}.
 
-Whenever we need a specific relation or ball, we need to use their identifiers. Wikidata makes it easy to find an identifier and suggest it when you select a relation (property) or ball (object) by its name (label). To indicate relationships in the Wikidata knowledge graph, we use the \textit{wdt:} prefix, and for objects (our balls)~--- the \textit{wd:} prefix. 
+Whenever we need a specific relation or ball, 
+we need to use their identifiers. 
+Wikidata makes it easy to find an identifier 
+and suggest it when you select a relation (property) or ball (object) by its name (label). 
+\index{Computer Science!Knowledge graph}%
+To indicate relationships in the Wikidata knowledge graph, we use the \textit{wdt:} prefix, and for objects (our balls)~--- the \textit{wd:} prefix. 
 
 Following our notation (Figure~\ref{fig:Query_in_basket_and_balls_notation}), we will write conditions for filling the first basket \textit{?region}, then we will write the first relation. Since the common part of direct relationship identifiers is wdt, we write \textit{wdt:} and then, in the WDQS service, press Ctrl+Space to start the Wikidata hint or autocomplete service (Figure~\ref{fig:WDQS_popup_instance_of}). 
 
@@ -156,7 +160,8 @@ This is not bad for the first result, but now under each photo we see only the I
 
 \begin{figure}[h!]
 \includegraphics{./intro/bucketsAndBalls/Query_in_basket_and_balls_notation_with_ids.png}
-\caption{A query in the notation ``Buckets`n`Balls'' with the numbers of properties and objects of Wikidata.}
+\caption{A query in the notation ``Buckets`n`Balls'' with the identifiers of properties and objects of Wikidata.}
+\index{Computer Science!Knowledge graph}%
 \label{fig:Query_in_basket_and_balls_notation_with_ids}
 \end{figure}
 

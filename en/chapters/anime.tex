@@ -1,6 +1,6 @@
 \setchapterimage[6cm]{chapter/anime/Kiki.png}
 
-\chapter{Anime: the mysterious and stunning world of Japanese animation\protect\footnotemark}
+\chapter[Anime: the mysterious and stunning world of Japanese animation]{Anime: the mysterious and stunning world of Japanese animation\protect\footnotemark}
 
 \labch{anime}
 
@@ -21,7 +21,7 @@ This chapter is dedicated to \wdqName{anime}{1107} Wikidata object analysis. Usi
 }
 \caption
 [Seiyu Kenji Akabane, 2021.]
-{
+{%
 Seiyu Kenji Akabane voiced the character Sasuke Sarutobi in the video game \emph{Ikemen Sengoku}, 2018.\newline
 Wikimedia Commons / numan (CC BY-SA)
 }
@@ -107,7 +107,7 @@ WHERE
 \caption
 [Anime genres on sunburst diagram, 2021.]
 {
-Sunburst diagram of anime genres\index{Chart!Sunburst diagram!Nuber of anime per genre} created with Rawgraphs\index{Data analysis services!Data visualization services!Rawgraphs} (\href{https://app.rawgraphs.io}{https://app.rawgraphs.io}).\newline
+Sunburst diagram of anime genres\index{Chart!Sunburst diagram!Nuber of anime per genre} created with Rawgraphs\index{Wikidata services!Rawgraphs} (\href{https://app.rawgraphs.io}{https://app.rawgraphs.io}).\newline
 }
 \label{fig:anime_piechart}
 \end{marginfigure}
@@ -279,7 +279,7 @@ ORDER BY DESC(?count)	# order by number of voiced projects
     \setlength{\fboxsep}{0pt}%
     \setlength{\fboxrule}{1pt}%
     \fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{chapter/anime/actors-rawgraphs-2021-en.png}}
-	\caption[Sunburst diagram of number of roles voiced by different actors, 2021.]{Sunburst diagram of number of roles voiced by different actors, 2021. The diagram is constructed using the output of Query~\ref{lst:voice_actors_list} in \href{https:\\app.rawgraphs.io}{Rawgraphs\index{Data analysis services!Data visualization services!Rawgraphs}}.}%
+	\caption[Sunburst diagram of number of roles voiced by different actors, 2021.]{Sunburst diagram of number of roles voiced by different actors, 2021. The diagram is constructed using the output of Query~\ref{lst:voice_actors_list} in \href{https:\\app.rawgraphs.io}{Rawgraphs\index{Wikidata services!Rawgraphs}}.}%
     \label{fig:Actors_sunburst_en}%
 \end{figure*}
 
@@ -324,7 +324,7 @@ Exercise: Write a script for a query to calculate the proportion of anime that d
 As for any other profession, seiyu are of a certain age when they work, voicing various anime. 
 SPARQL and external data mining tools, 
 like Python%
-\index{Programming languages!Examples of programming languages!Python} 
+\index{Programming languages!Python} 
 programming language\sidenote[][*-3]{%
 %
 Python is an interpretable programming language that is used for different purposes owing to its flexibility. For example, it can be used to work with Wikidata: Chapter~\ref{ch:bots} (page~\pageref{ch:bots}) describes the process of creating bots for Wikidata.%
@@ -469,7 +469,7 @@ WHERE
 \end{figure*} 
 
 
-Analysis results can be shown as a histogram, Figure~\ref{fig:Seiyu_age_hist_EN}. To create it, we will use Python libraries \href{https://en.wikipedia.org/wiki/Pandas\_(software)}{Pandas\index{Programming languages!Programming language libraries!Pandas}}\sidenote{Pandas is a Python library that provides multiple useful functions for tabular data processing. \href{https://en.wikipedia.org/wiki/Pandas\_(software)}{https://en.wikipedia.org/wiki/Pandas\_(software), 2021}.} and \href{https://en.wikipedia.org/wiki/Matplotlib}{Matplotlib\index{Programming languages!Programming language libraries!Matplotlib}}\sidenote{Matplotlib is a Python library that allows you to plot charts of various types. \href{https://en.wikipedia.org/wiki/Matplotlib}{https://en.wikipedia.org/wiki/Matplotlib, 2021}.}. The script which generates the final histogram is published on \href{https://git.io/J1UGA}{GitHub}\sidenote{The histogram script is published in the wd\_book project on GitHub: \href{https://git.io/J1UGA}{https://git.io/J1UGA}}.
+Analysis results can be shown as a histogram, Figure~\ref{fig:Seiyu_age_hist_EN}. To create it, we will use Python libraries \href{https://en.wikipedia.org/wiki/Pandas\_(software)}{Pandas\index{Programming languages!Library!Pandas}}\sidenote{Pandas is a Python library that provides multiple useful functions for tabular data processing. \href{https://en.wikipedia.org/wiki/Pandas\_(software)}{https://en.wikipedia.org/wiki/Pandas\_(software), 2021}.} and \href{https://en.wikipedia.org/wiki/Matplotlib}{Matplotlib\index{Programming languages!Library!Matplotlib}}\sidenote{Matplotlib is a Python library that allows you to plot charts of various types. \href{https://en.wikipedia.org/wiki/Matplotlib}{https://en.wikipedia.org/wiki/Matplotlib, 2021}.}. The script which generates the final histogram is published on \href{https://git.io/J1UGA}{GitHub}\sidenote{The histogram script is published in the wd\_book project on GitHub: \href{https://git.io/J1UGA}{https://git.io/J1UGA}}.
 
 The histogram displays age in years along its X-axis and the total number of roles dubbed by seiyu of this age along the Y-axis.
 
