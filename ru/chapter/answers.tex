@@ -857,3 +857,74 @@ ORDER BY DESC(?beam)
 
 \small{Задание на с.~\pageref{question:ship_3}.}
 \end{task}
+
+%%%%%%%%%%%%%% spacecraft chapter %%%%%%%%%%%%%%
+
+\begin{task}
+    \label{answer:launches_USSR}
+    \newthought{В 1960х совершено 11 запусков, в 1970х 34 запуска и в 1980х 29 запусков}. 
+    Скрипт построения графика запуска космических аппаратов в нашей стране, начиная с 1960-х годов, представлен в листинге~\ref{lst:launch_USSR}.
+    \begin{lstlisting}[ language=SPARQL, numbers=none, caption={{\href{https://w.wiki/4QGX}{Запуски космический кораблей в СССР и России}}\protect\footnotemark}, label=lst:launch_USSR, ]
+    # The number of spacecraft launches in Russia every 5 years
+    #defaultView:BarChart
+    SELECT (STR(?lapse) AS ?lapse_str) (COUNT(?item) AS ?quantity)
+    WHERE {                  # spacecraft belongs to
+            {?item wdt:P17 wd:Q15180} # Soviet Union
+      UNION {?item wdt:P17 wd:Q159}.  # or Russia
+      
+      ?item wdt:P619 ?launch. # date of spacecraft launch (P619)
+      BIND( YEAR(?launch) AS ?year) 
+      BIND(FLOOR(?year/5)*5 AS ?lapse) # count for each 5 years
+    SERVICE wikibase:label {bd:serviceParam wikibase:language "ru,en"}
+    } 
+    GROUP BY ?lapse
+    ORDER BY ?lapse # Order 1970, 1975, 1980, ...
+    \end{lstlisting}
+    \footnotetext{Найдено \num{14} результата в 2021 г. Ссылка на SPARQL-запрос: \href{https://w.wiki/4QGX}{https://w.wiki/4QGX}}
+    \small{Вопрос на с.~\pageref{lst:imageRU}.}
+\end{task}
+
+\begin{task}
+    \label{answer:launches_world}
+    \newthought{Наибольшее число запусков в указанные промежутки времени зафиксированов 2000х, а наименьшее в 1970х}
+    Скрипт построения графика запусков космических кораблей в мире по годам представлен в листинге ~\ref{lst:imageWorld}:
+    \begin{lstlisting}[ language=SPARQL, numbers=none, caption={{\href{https://w.wiki/4bEu}{Запуски космических кораблей в мире}}\protect\footnotemark}, label=lst:imageWorld, ]
+    # Diagram of spacecraft launches by year and country
+    #defaultView:BarChart
+    SELECT ?year (COUNT(?obj) AS ?count) ?country ?countryLabel
+    WHERE {
+      ?obj wdt:P17 ?country. # spacecraft belongs to country 
+      ?obj wdt:P619 ?launch. # date of spacecraft launch
+      BIND(str(YEAR(?launch)) AS ?year)
+      
+      SERVICE wikibase:label {bd:serviceParam wikibase:language "ru".}
+    }
+    GROUP BY ?year ?country ?countryLabel
+    \end{lstlisting}
+    \footnotetext{Найдено \num{328} результата в 2021 г. Ссылка на SPARQL-запрос: \href{https://w.wiki/4bEu}{https://w.wiki/4bEu}}
+    \small{Вопрос на с.~\pageref{lst:imageALL}.}
+\end{task}
+
+\begin{task}
+    \label{answer:launches_country}
+    \newthought{Согласно Викиданным наибольшее число запусков (более 10 в год) имеют США и Индия}
+    Скрипт построения графика запусков космических кораблей странами-рекордсменами представлен в листинге ~\ref{lst:topLaunch}:
+    \begin{lstlisting}[ language=SPARQL, numbers=none, caption={{\href{https://w.wiki/4bEu}{Запуски космических кораблей в мире}}\protect\footnotemark}, label=lst:topLaunch, ]
+    #defaultView:BarChart
+    SELECT ?year (COUNT(?object) AS ?count) ?countryLabel 
+    WHERE {
+                     # Soviet Union, Russia, USA, India and China
+      VALUES ?countries {wd:Q15180 wd:Q159 wd:Q30 wd:Q668 wd:Q148}
+      ?object wdt:P17 ?countries. # belongs to country 
+      ?object wdt:P17 ?country.
+      
+      ?object wdt:P619 ?launch. # date of spacecraft launch
+      BIND(str(YEAR(?launch)) AS ?year)
+      
+      SERVICE wikibase:label {bd:serviceParam wikibase:language "ru".}
+    }
+    GROUP BY ?year ?country ?countryLabel
+    \end{lstlisting}
+    \footnotetext{Найдено \num{172} результата в 2021 г. Ссылка на SPARQL-запрос: \href{https://w.wiki/4bLz}{https://w.wiki/4bLz}}
+    \small{Вопрос на с.~\pageref{lst:imageALL}.}
+\end{task}
