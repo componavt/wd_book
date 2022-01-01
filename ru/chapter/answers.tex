@@ -218,7 +218,7 @@ ORDER BY DESC(?count)
 
 \begin{task}
 	\label{answer:population_density}
-	\newthought{ Площадь Израиля составляет \num{20770} км\begin{math}^2\end{math}, население  \num{9.09} млн человек, площадь Монголии составляет  \num{1566000} км\begin{math}^2\end{math}, население  \num{3.08} млн человек, площадь Республики Кореи составляет \num{100295} км\begin{math}^2\end{math}, население  \num{51.47} млн человек, а площадь Сингапура ~-- \num{719.1} км\begin{math}^2\end{math}, население  \num{5.89} млн человек. Таким образом, по возрастанию плотности населения страны будут упорядочены так:
+	\newthought{ Площадь Израиля составляет \num{20770} км\begin{math}^2\end{math}, население  \num{9.09} млн человек, площадь Монголии составляет  \num{1566000} км\begin{math}^2\end{math}, население  \num{3.08} млн человек, площадь Республики Кореи составляет \num{100295} км\begin{math}^2\end{math}, население  \num{51.47} млн человек, а площадь Сингапура~--- \num{719.1} км\begin{math}^2\end{math}, население  \num{5.89} млн человек. Таким образом, по возрастанию плотности населения страны будут упорядочены так:
 		\begin{enumerate}
 			\item Монголия (\num{1.96} человек на км\begin{math}^2\end{math}), (рис.~\ref{fig:flag_mongolia});
 			\item Израиль (\num{437.79} человек на км\begin{math}^2\end{math}), (рис.~\ref{fig:flag_israel});
@@ -597,7 +597,7 @@ ORDER BY ?year
 
 \begin{task}
     \label{answer:aircraft_company_headquarters}
-    \newthought{Штаб-квартира компании <<Камов>> находится в городе Люберцы, <<Авиадвигатель>> ~--- в Перми, <<Улан-Удэнский авиационный завод>> ~--- в городе Улан-Удэ, <<Сухой>> ~--- в Москве. Ответ на вопрос также можно получить, выполнив SPARQL-запрос, представленный на листинге~\ref{lst:aircraft_company_headquarters_lst}}. 
+    \newthought{Штаб-квартира компании <<Камов>> находится в городе Люберцы, <<Авиадвигатель>>~--- в Перми, <<Улан-Удэнский авиационный завод>>~--- в городе Улан-Удэ, <<Сухой>>~--- в Москве. Ответ на вопрос также можно получить, выполнив SPARQL-запрос, представленный на листинге~\ref{lst:aircraft_company_headquarters_lst}}. 
     
 	\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/t4X}{Штаб-квартиры компаний}\protect\footnotemark}, label=lst:aircraft_company_headquarters_lst, ]
 SELECT ?manufacturer ?manufacturerLabel ?inceptionLabel
@@ -862,9 +862,15 @@ ORDER BY DESC(?beam)
 
 \begin{task}
     \label{answer:launches_USSR}
-    \newthought{В 1960х совершено 11 запусков, в 1970х 34 запуска и в 1980х 29 запусков}. 
-    Скрипт построения графика запуска космических аппаратов в нашей стране, начиная с 1960-х годов, представлен в листинге~\ref{lst:launch_USSR}.
-    \begin{lstlisting}[ language=SPARQL, numbers=none, caption={{\href{https://w.wiki/4QGX}{Запуски космический кораблей в СССР и России}}\protect\footnotemark}, label=lst:launch_USSR, ]
+    \newthought{Запрос~\ref{lst:launch_USSR} строит график запуска} отечественных космических аппаратов по десятилетиям.
+    В 1960-е годы совершено 11 запусков, в 1970-е~--- 34 запуска и в 1980-е~--- 29 запусков
+
+    \begin{lstlisting}[ 
+                language=SPARQL, 
+                numbers=none, 
+                caption={{\href{https://w.wiki/4QGX}{Диаграмма запусков отечественных космических кораблей по десятилетиям}}\protect\footnotemark}, 
+                label=lst:launch_USSR
+              ]
     # The number of spacecraft launches in Russia every 5 years
     #defaultView:BarChart
     SELECT (STR(?lapse) AS ?lapse_str) (COUNT(?item) AS ?quantity)
@@ -886,8 +892,9 @@ ORDER BY DESC(?beam)
 
 \begin{task}
     \label{answer:launches_world}
-    \newthought{Наибольшее число запусков в указанные промежутки времени зафиксированов 2000х, а наименьшее в 1970х}
-    Скрипт построения графика запусков космических кораблей в мире по годам представлен в листинге ~\ref{lst:imageWorld}:
+    \newthought{Наибольшее число запусков в указанные периоды времени} 
+    зафиксированы в 2000-е, а наименьшее~--- в 1970-е годы. 
+    Скрипт построения графика запусков космических кораблей в мире по годам представлен в листинге~\ref{lst:imageWorld}:
     \begin{lstlisting}[ language=SPARQL, numbers=none, caption={{\href{https://w.wiki/4bEu}{Запуски космических кораблей в мире}}\protect\footnotemark}, label=lst:imageWorld, ]
     # Diagram of spacecraft launches by year and country
     #defaultView:BarChart
@@ -907,8 +914,10 @@ ORDER BY DESC(?beam)
 
 \begin{task}
     \label{answer:launches_country}
-    \newthought{Согласно Викиданным наибольшее число запусков (более 10 в год) имеют США и Индия}
-    Скрипт построения графика запусков космических кораблей странами-рекордсменами представлен в листинге ~\ref{lst:topLaunch}:
+    \newthought{Из четырёх стран — Россия, США, Индия и Китай} — больше всего запусков 
+    космических кораблей с 2015 по 2020 год было 
+    (у кого и сколько суммарно за пять лет, можно указать все страны в порядке убывания),  
+    см. запрос~\ref{lst:topLaunch}. 
     \begin{lstlisting}[ language=SPARQL, numbers=none, caption={{\href{https://w.wiki/4bEu}{Запуски космических кораблей в мире}}\protect\footnotemark}, label=lst:topLaunch, ]
     #defaultView:BarChart
     SELECT ?year (COUNT(?object) AS ?count) ?countryLabel 
