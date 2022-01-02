@@ -937,3 +937,32 @@ ORDER BY DESC(?beam)
     \footnotetext{Найдено \num{172} результата в 2021 г. Ссылка на SPARQL-запрос: \href{https://w.wiki/4bLz}{https://w.wiki/4bLz}}
     \small{Вопрос на с.~\pageref{lst:imageALL}.}
 \end{task}
+
+%%%%%%%%%%%%%% Human_settlements charpter %%%%%%%%%%%%%%
+\begin{task}
+    \label{answer:human_settlements_density}
+
+\end{task}
+
+\begin{task}
+    \label{answer:flag_human_settlements}
+    \newthought{Гербы населённых пунктов, изображенный на рис. \ref{fig:flag_question_human_settlements1},\ref{fig:flag_question_human_settlements2},\ref{fig:flag_question_human_settlements5}} принадлежат \href{https://w.wiki/myt}{Российской Федерации}. Герб населённого пункта, изображенного на рис. \ref{fig:flag_question_human_settlements3} принадлежит \href{https://w.wiki/4dUc}{Чешской Республике}. Герб населённого пункта, изображенного на рис. \ref{fig:flag_question_human_settlements4} принадлежит \href{https://w.wiki/4dUf}{Украине}. 
+
+Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:flag_question_human_settlements}). Значение свойства \href{https://www.wikidata.org/wiki/Property:P94}{coat of arms image (P94)} содержит изображение герба населённыго пункта.
+    
+    \begin{lstlisting}[ language=SPARQL, 
+                    caption={\href{https://w.wiki/4dUR}{Гербы населённых пунктов Российской Федерации}\protect\footnotemark},
+                    label=lst:flag_question_human_settlements
+                    ]
+# emblems of human settlements of the Russian Federation
+SELECT ?hum ?humLabel ?image WHERE {
+  ?hum wdt:P31 wd:Q486972; # instance of human settlement
+       wdt:P17 wd:Q159;    # in Russia
+       wdt:P94 ?image.     # coat of arms
+  SERVICE wikibase:label{bd:serviceParam wikibase:language "ru, en"}
+}
+\end{lstlisting}
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/4dUR}{https://w.wiki/4dUR}}  
+    
+    \small{Вопросы на с.~\pageref{fig:flag_question_human_settlements1}, ~\pageref{fig:flag_question_human_settlements2}, ~\pageref{fig:flag_question_human_settlements3}, ~\pageref{fig:flag_question_human_settlements4}, ~\pageref{fig:flag_question_human_settlements5}.}
+\end{task}
