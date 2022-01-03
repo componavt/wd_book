@@ -863,7 +863,7 @@ ORDER BY DESC(?beam)
 \begin{task}
     \label{answer:launches_USSR}
     \newthought{Запрос~\ref{lst:launch_USSR} строит график запуска} отечественных космических аппаратов по десятилетиям.
-    В 1960-е годы совершено 12 запусков, в 1970-е и 1980-е произведено по 38 запусков
+    В 1960-е годы совершено 12 запусков, в 1970-е и 1980-е произведено по 38 запусков.
 
     \begin{lstlisting}[ 
                 language=SPARQL, 
@@ -913,46 +913,20 @@ ORDER BY DESC(?beam)
 \end{task}
 
 \begin{task}
-    \label{answer:launches_country}
-    \newthought{Из четырёх стран — Россия, США, Индия и Китай} — больше всего запусков 
-    космических кораблей с 2015 по 2020 год было 
-    (у кого и сколько суммарно за пять лет, можно указать все страны в порядке убывания),  
-    см. запрос~\ref{lst:topLaunch}. 
-    \begin{lstlisting}[ language=SPARQL, numbers=none, caption={{\href{https://w.wiki/4bEu}{Запуски космических кораблей в мире}}\protect\footnotemark}, label=lst:topLaunch, ]
-    #defaultView:BarChart
-    SELECT ?year (COUNT(?object) AS ?count) ?countryLabel 
-    WHERE {
-                     # Soviet Union, Russia, USA, India and China
-      VALUES ?countries {wd:Q15180 wd:Q159 wd:Q30 wd:Q668 wd:Q148}
-      ?object wdt:P17 ?countries. # belongs to country 
-      ?object wdt:P17 ?country.
-      
-      ?object wdt:P619 ?launch. # date of spacecraft launch
-      BIND(str(YEAR(?launch)) AS ?year)
-      
-      SERVICE wikibase:label {bd:serviceParam wikibase:language "ru".}
-    }
-    GROUP BY ?year ?country ?countryLabel
-    \end{lstlisting}
-    \footnotetext{Найдено \num{172} результата в 2021 г. Ссылка на SPARQL-запрос: \href{https://w.wiki/4bLz}{https://w.wiki/4bLz}}
-    \small{Вопрос на с.~\pageref{question:spacecraft_3}.}
-\end{task}
-
-\begin{task}
     \label{answer:spacecraft_soyuz19}
-    Изображённый аппарат ~--- Собз-19, \newthought{спроектированыый в СССР}
+    Изображённый аппарат~--- Союз-19, \newthought{спроектированыый в СССР}
     \small{Вопрос на с.~\pageref{question:spacecraft_soyuz19}.}
 \end{task}
 
 \begin{task}
     \label{answer:spacecraft_soyuzT}
-    Изображённый аппарат ~--- Союз-T, \newthought{из серии аппаратов Союз}
+    Изображённый аппарат~--- Союз-T, \newthought{из серии аппаратов Союз}
     \small{Вопрос на с.~\pageref{question:spacecraft_soyuzT}.}
 \end{task}
 
 \begin{task}
     \label{answer:spacecraft_lunar}
-    Изображённый аппарат ~--- Лунно-посадочный корабль-модуль, \newthought{часть лунной программы СССР}
+    Изображённый аппарат~--- Лунно-посадочный корабль-модуль, \newthought{часть лунной программы СССР}
     \small{Вопрос на с.~\pageref{question:spacecraft_lunar}.}
 \end{task}
 
