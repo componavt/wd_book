@@ -8,7 +8,7 @@
 	\fcolorbox{gray}{gray}{\includegraphics{graphics/chapter/spacecraft_space_station/soyuz-19.jpg}}
 }
 \caption
-[Союз-19, 2021.\index{Иллюстрации для вопросов!Космические корабли!Союз-19}]
+[Союз-19, 2021.]
 {
 В какой стране спроектирован аппарат, изображённый на рисунке?
 См. ответ~\ref{answer:spacecraft_soyuz19} на с.~\pageref{answer:spacecraft_soyuz19}.
@@ -21,7 +21,7 @@
 нарисованы временные графики запуска кораблей в нашей стране и в мире за период с 1960 по 2021 год. 
 Выполнена оценка полноты Викиданных, показавшая, 
 что многие объекты имеют неправильное значение свойства 
-\wdProperty{31}{частный случай понятия}. В ходе работы было обнаружено, что текущие показатели росийской космонавтики по количеству запусков космических кораблей за последние годы соответствют показателям в СССР пятьдеят лет назад. 
+\wdProperty{31}{частный случай понятия}. В ходе работы было обнаружено, что текущие показатели росийской космонавтики по количеству запусков космических кораблей за последние годы соответствуют показателям в СССР пятьдесят лет назад. 
 \marginnote{<<Частный случай понятия>> или <<экземпляр>> 
     (англ. \emph{instance of})~--- это конкретный объект класса, категории, 
     это одно из основных свойств (отношений), используемых в Викиданных и позволяющих классифицировать объекты, 
@@ -34,7 +34,8 @@
 Нам потребуются объекты \wdqName{космическая станция}{25956}, 
 \wdqName{космический корабль}{40218} и отношение \wdProperty{31}{экземпляр}. 
 
-\index{SPARQL!VALUES!Получение значений из переменных}
+\index{SPARQL!VALUES!Список кораблей и станций}
+\index{SPARQL!SERVICE!Список кораблей и станций}
 \begin{lstlisting}[ language=SPARQL, numbers=none, caption={{\href{https://w.wiki/4d4f}{Список кораблей и станций}}\protect\footnotemark}, label=lst:spaceships, ]
 # List of spacecraft (Q40218) and space station (Q25956)
 SELECT  ?s ?sLabel ?typeLabel
@@ -86,7 +87,7 @@ WHERE
 	\fcolorbox{gray}{gray}{\includegraphics{graphics/chapter/spacecraft_space_station/soyuz-t.jpg}}
 }
 \caption
-[Союз-T, 2021.\index{Иллюстрации для вопросов!Космические корабли!Союз-T}]
+[Союз-T, 2021.]
 {
 Аппарат какой серии изображён на рисунке?
 См. ответ~\ref{answer:spacecraft_soyuzT} на с.~\pageref{answer:spacecraft_soyuzT}.
@@ -97,6 +98,7 @@ WHERE
 Найдём корабли и станции, сконструированные в СССР или России, 
 с помощью запроса~\ref{lst:spaceshipsUSSR}.
 
+\index{SPARQL!SERVICE!Список отечественных кораблей}
 \begin{lstlisting}[ language=SPARQL, 
                     numbers=none, 
                     caption={{\href{https://w.wiki/4d9c}{Список отечественных кораблей}}\protect\footnotemark}, 
@@ -138,7 +140,7 @@ WHERE
 	\fcolorbox{gray}{gray}{\includegraphics{graphics/chapter/spacecraft_space_station/lunar_landler.jpg}}
 }
 \caption
-[Лунный корабль, 2021.\index{Иллюстрации для вопросов!Космические корабли!Лунный корабль}]
+[Лунный корабль, 2021.]
 {
 В рамках какой программы спроектирован аппарат, который изображён на рисунке?
 См. ответ~\ref{answer:spacecraft_lunar} на с.~\pageref{answer:spacecraft_lunar}.
@@ -155,13 +157,13 @@ WHERE
 \wdProperty{619}{<<дата запуска космического корабля>>} в строке 8 
 для обхода и подсчёта таких объектов, которые были запущены в космос.  
 
-Логический оператор \lstinline|UNION|\index{SPARQL!UNION!Логический оператор для объединения объектов} в строках 5--6 
+Логический оператор \lstinline|UNION| в строках 5--6 
 позволяет объединить советские и российские запуски космолётов. 
 
-Если бы в запросе вместо переменной \lstinline|?lapse|\index{SPARQL!lapse!Переенная соержащая дату запуска} оставалась~--- \lstinline|?year|\index{SPARQL!year!Переменная для подсчёта запусков} (строки 3 и 10), 
+Если бы в запросе вместо переменной \lstinline|?lapse| оставалась~--- \lstinline|?year| (строки 3 и 10), 
 то мы получили бы на рис.~\ref{fig:launchesRussia5years} 
 число запусков за каждый год. 
-Благодаря функции округления \lstinline|FLOOR()|\index{SPARQL!FLOOR()!Функция округления} 
+Благодаря функции округления \lstinline|FLOOR()|
 и группировке%
 \sidenote[][]{
 %
@@ -173,10 +175,10 @@ WHERE
 %
 }, 
 объекты \lstinline|?item|, имеющие запуски, группируются за пятилетний период, 
-и в переменную \lstinline|?quantity|\index{SPARQL!quantity!Переменная для подсчёта количества запусков} записывается число этих объектов, 
-подсчитанное с помощью функции \lstinline|COUNT()|\index{SPARQL!COUNT()!Функция подсчёта значений}.
+и в переменную \lstinline|?quantity| записывается число этих объектов, 
+подсчитанное с помощью функции \lstinline|COUNT()|.
 
-Для представления результатов в виде столбчатой диаграммы используется стиль отображения BarChart\index{SPARQL!BarChart!Предсталение результатов в формате столбчатой диаграммы}.
+Для представления результатов в виде столбчатой диаграммы используется стиль отображения BarChart.
 
 \label{question:spacecraft_1}
 \marginnote[3cm]{
@@ -185,7 +187,15 @@ WHERE
 
 См. ответ~\ref{answer:launches_USSR} на с.~\pageref{answer:launches_USSR}.
 }
-\index{SPARQL!STR!Функция преобразования переменной к строковому типу}
+
+\index{SPARQL!STR!Запуски космических кораблей в СССР и России}
+\index{SPARQL!BIND!Запуски космических кораблей в СССР и России}
+\index{SPARQL!YEAR!Запуски космических кораблей в СССР и России}
+\index{SPARQL!FLOOR!Запуски космических кораблей в СССР и России}
+\index{SPARQL!UNION!Запуски космических кораблей в СССР и России}
+\index{SPARQL!COUNT!Запуски космических кораблей в СССР и России}
+\index{SPARQL!GROUP BY!Запуски космических кораблей в СССР и России}
+\index{SPARQL!ORDER BY!Запуски космических кораблей в СССР и России}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={{\href{https://w.wiki/4QGX}{Запуски космических кораблей в СССР и России}}\protect\footnotemark}, 
                     label=lst:launchesRussia5years,
@@ -211,7 +221,7 @@ ORDER BY ?lapse # Order 1970, 1975, 1980, ...
 \index{График!BarChart!Количетво запусков космических кораблей в СССР и России каждые 5 лет}
 \begin{figure*}[h!]
   \includegraphics[width=\linewidth]{graphics/chapter/spacecraft_space_station/ImgRU.png}
-  \caption[График Россия]{Визуализация количества запусков космических кораблей в СССР и России каждые 5 лет 2021 SPARQL}%
+  \caption[График Россия]{Визуализация количества запусков космических кораблей в СССР и России каждые 5 лет, построено с помощью скрипта~\protect\ref{lst:launchesRussia5years} в 2021 году.}%
   \label{fig:launchesRussia5years}%
 \end{figure*}
 
@@ -235,10 +245,15 @@ ORDER BY ?lapse # Order 1970, 1975, 1980, ...
 Запрос~\ref{lst:launchesWorld} строит график~\ref{fig:launchesWorld} 
 запусков космических кораблей в~мире по годам и странам.
 
+\index{SPARQL!COUNT!Запуски космических кораблей в мире}
+\index{SPARQL!YEAR!Запуски космических кораблей в мире}
+\index{SPARQL!BIND!Запуски космических кораблей в мире}
+\index{SPARQL!SERVICE!Запуски космических кораблей в мире}
+\index{SPARQL!GROUP BY!Запуски космических кораблей в мире}
 \begin{lstlisting}[ language=SPARQL, 
                     numbers=none, 
                     caption={{\href{https://w.wiki/4bEu}{Запуски космических кораблей в мире}}\protect\footnotemark}, 
-                    label=lst:launchesWorld 
+                    label=lst:launchesWorld
                   ]
 # Diagram of spacecraft launches by year and country
 #defaultView:BarChart
@@ -262,20 +277,12 @@ GROUP BY ?year ?country ?countryLabel
 }
 \footnotetext{Найдено \num{328} результатов в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4bEu}{https://w.wiki/4bEu}}
 
-\index{График!BarChart!Количетво запусков космических кораблей по годам и странам}
+\index{График!BarChart!Визуализация количества запусков космических кораблей по годам и странам}
 \begin{figure*}[h!]
   \includegraphics[width=\linewidth]{graphics/chapter/spacecraft_space_station/Visualization of the number of spacecraft launches by year and country 2021.png}
   \caption[Запуски кораблей во всём мире]{Визуализация количества запусков космических кораблей по годам и странам, построено с помощью скрипта~\protect\ref{lst:launchesWorld} в 2021 году.}
   \label{fig:launchesWorld}%
 \end{figure*}
-
-%%%%%%%%%%%%%%%% Упражнение 3 %%%%%%%%%%%%%%%% 
-\label{question:spacecraft_3}
-\marginnote[32pt]{Подсчитайте в Викиданных, в какой из стран~--- Россия, США, Индия или Китай~---  
-было больше всего запусков космических кораблей с 2015 по 2020 год?
-\newline
-См. ответ~\ref{answer:launches_country} на с.~\pageref{answer:launches_country}.
-}
 
 Из рис.~\ref{fig:launchesWorld} видно, что больше всего космических аппаратов 
 запускали Индия и США 
