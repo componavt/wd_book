@@ -958,17 +958,37 @@ ORDER BY DESC(?beam)
 
 %%%%%%%%%%%%%% Human_settlements charpter %%%%%%%%%%%%%%
 \begin{task}
-    \label{answer:human_settlements_density}
+\label{answer:human_settlements_density}
+\newthought{\href{https://w.wiki/4dNu}{Заречный} в \href{https://w.wiki/4dNy}{Свердловской области}}~--- правильный ответ. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:human_settlements_density}). Значение переменной \textit{?popArea} показывает, какая плотность населения опередленного <<населенного пункта>> России.
+ 
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={\href{https://w.wiki/4dbe}{плотность населения <<населенных пунктов>> России}\protect\footnotemark},
+                    label=lst:human_settlements_density
+                    ]
+# population density of human settlements in Russia
+SELECT ?hum ?humLabel (?population / ?area as ?popArea) WHERE {
+  ?hum wdt:P31 wd:Q486972; # instance of human settlement
+       wdt:P17 wd:Q159; # in Russia
+       wdt:P2046 ?area; # has ?area 
+       wdt:P1082 ?population. # has ?population
+  SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
+}
+ORDER BY DESC (?popArea)
+}
+\end{lstlisting}
+
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/4dbe}{https://w.wiki/4dbe}}  
+\small{Вопрос на с.~\pageref{ch:human-settlement}.}
 
 \end{task}
 
 \begin{task}
-    \label{answer:flag_human_settlements}
-    \newthought{Гербы населённых пунктов, изображенный на рис. \ref{fig:flag_question_human_settlements1},\ref{fig:flag_question_human_settlements2},\ref{fig:flag_question_human_settlements5}} принадлежат \href{https://w.wiki/myt}{Российской Федерации}. Герб населённого пункта, изображенного на рис. \ref{fig:flag_question_human_settlements3} принадлежит \href{https://w.wiki/4dUc}{Чешской Республике}. Герб населённого пункта, изображенного на рис. \ref{fig:flag_question_human_settlements4} принадлежит \href{https://w.wiki/4dUf}{Украине}. 
+\label{answer:flag_human_settlements}
+\newthought{Гербы населённых пунктов}, изображенные на рис. \ref{fig:flag_question_human_settlements1},\ref{fig:flag_question_human_settlements2},\ref{fig:flag_question_human_settlements5} принадлежат \href{https://w.wiki/myt}{Российской Федерации}. Герб населённого пункта, изображенный на рис. \ref{fig:flag_question_human_settlements3} принадлежит \href{https://w.wiki/4dUc}{Чешской Республике}. Герб населённого пункта, изображенный на рис. \ref{fig:flag_question_human_settlements4} принадлежит \href{https://w.wiki/4dUf}{Украине}. 
 
 Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:flag_question_human_settlements}). Значение свойства \href{https://www.wikidata.org/wiki/Property:P94}{coat of arms image (P94)} содержит изображение герба населённыго пункта.
     
-    \begin{lstlisting}[ language=SPARQL, 
+\begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/4dUR}{Гербы населённых пунктов Российской Федерации}\protect\footnotemark},
                     label=lst:flag_question_human_settlements
                     ]
@@ -980,7 +1000,7 @@ SELECT ?hum ?humLabel ?image WHERE {
   SERVICE wikibase:label{bd:serviceParam wikibase:language "ru, en"}
 }
 \end{lstlisting}
+
 \footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/4dUR}{https://w.wiki/4dUR}}  
-    
-    \small{Вопросы на с.~\pageref{fig:flag_question_human_settlements1}, ~\pageref{fig:flag_question_human_settlements2}, ~\pageref{fig:flag_question_human_settlements3}, ~\pageref{fig:flag_question_human_settlements4}, ~\pageref{fig:flag_question_human_settlements5}.}
+\small{Вопросы на с.~\pageref{fig:flag_question_human_settlements1}, ~\pageref{fig:flag_question_human_settlements2}, ~\pageref{fig:flag_question_human_settlements3}, ~\pageref{fig:flag_question_human_settlements4}, ~\pageref{fig:flag_question_human_settlements5}.}
 \end{task}
