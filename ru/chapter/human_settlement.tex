@@ -81,6 +81,24 @@ SELECT (COUNT(?hum) AS ?count) WHERE {
 
 Построим упорядоченный список стран по суммарному количеству населения, проживающего в <<населённых пунктах>> (листинг ~\protect\ref{lst:human-settlement3}).
 
+%%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%%
+\marginnote{
+Выберите, представленный герб относится к населённым пунктам Российской Федерации или нет, изображенный на рис. \ref{fig:flag_question_human_settlements2}?
+}
+\begin{marginfigure}[0.0cm]
+{
+\setlength{\fboxsep}{0pt}%
+\setlength{\fboxrule}{1pt}%
+\fcolorbox{gray}{gray}{\includegraphics[width=0.5\linewidth]{./chapter/human_settlement/Coat_of_Arms_of_Asbest_(Sverdlovsk_oblast).png}}%
+}
+  \caption{Герб населённого пункта.}%
+  \label{fig:flag_question_human_settlements2}%
+\end{marginfigure}
+
+\marginnote{
+См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.
+}
+
 \index{SPARQL!SUM!Список стран по суммарному количеству населения, проживающего в <<населённых пунктах>>}
 \index{SPARQL!GROUP BY!Список стран по суммарному количеству населения, проживающего в <<населённых пунктах>>}
 \lstset{numbers=left, firstnumber=1, frame=single}
@@ -125,98 +143,6 @@ ORDER BY DESC (?sumPopulation)
 На рис. ~\ref{fig:human-settlement-2} можно увидеть список стран на 2021 год: \href{http://www.wikidata.org/entity/Q668}{Индия} (\num{30} млн), \href{http://www.wikidata.org/entity/Q148}{Китай} (\num{28} млн), \href{http://www.wikidata.org/entity/Q96}{Мексика} (\num{17} млн), \href{http://www.wikidata.org/entity/Q252}{Индонезия} (\num{13} млн), \href{http://www.wikidata.org/entity/Q16}{Канада} (\num{9} млн), \href{http://www.wikidata.org/entity/Q851}{Саудовская Аравия} (\num{9} млн). 
 
 Итоги запросов в 2017 и 2021 имеют сильно разные результаты. За четыре года в Индии прибавилось 23 млн человек, из этого можно сделать вывод, что за четыре года информация в Викиданных стала более полной по населённым пунктам.
-
-%%%%%%%%%%%
-
-\subsection{Расширение понятия <<населённый пункт>>}
-
-%%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%%
-\marginnote{
-Выберите, представленный герб относится к населённым пунктам Российской Федерации или нет, изображенный на рис. \ref{fig:flag_question_human_settlements2}?
-}
-\begin{marginfigure}[0.0cm]
-{
-\setlength{\fboxsep}{0pt}%
-\setlength{\fboxrule}{1pt}%
-\fcolorbox{gray}{gray}{\includegraphics[width=0.5\linewidth]{./chapter/human_settlement/Coat_of_Arms_of_Asbest_(Sverdlovsk_oblast).png}}%
-}
-  \caption{Герб населённого пункта.}%
-  \label{fig:flag_question_human_settlements2}%
-\end{marginfigure}
-
-\marginnote{
-См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.
-}
-
-Далее классом будем называть каждое свойство \wdProperty{31}{экземпляра} в исследуемом объекте на Викиданных. Попробуем получить более полный результат стрипта (листинг ~\protect\ref{lst:human-settlement3}). Для это нужно изучить класс \wdqName{населенный пункт}{486972} из свойства экземпляр. Рассмотрим город \wdqName{Петрозаводск}{1895} он имеет четыре класса (\wdqName{административно-территориальная единица России}{192287}; \wdqName{город с населением более \num{100000} человек}{1549591}; \wdqName{населённый пункт}{486972}; \wdqName{город}{7930989}). Три из этих классов являются схожими по значению и используются совместно с интересующим нас классом <<населённый пункт>>. Выведем список классов поселений и их количество для объектов имеющих свойство \wdProperty{1082}{численность населения} и принадлежащие стране \wdqName{России}{159} (листинг ~\protect\ref{lst:human-settlement4}). 
-
-\index{SPARQL!COUNT!Список классов поселений и их количество для объектов имеющих свойство <<численность населения>> в России}
-\begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/4dBU}{Список классов поселений и их количество для объектов имеющих свойство <<численность населения>> в России}\protect\footnotemark},
-                    label=lst:human-settlement4,
-                    texcl 
-                    ]
-# List of settlement classes and their number for objects with 
-# the property "population" in Russia
-SELECT ?class ?classLabel (COUNT(?class) AS ?count) WHERE {
-  {
-  SELECT ?class ?classLabel ?humLabel WHERE {
-   ?hum wdt:P17 wd:Q159;  # settlement in the Russia
-        wdt:P1082 ?population; # has ?population
-        wdt:P31 ?class. # has ?class
-    SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
-   }
-  }
-}
-GROUP BY ?class ?classLabel
-ORDER BY DESC (?count)
-\end{lstlisting}%
-\footnotetext{Получили 216 разных классов поселений. Ссылка на SPARQL-запрос: \href{https://w.wiki/4dBU}{https://w.wiki/4dBU}}
-
-Класс <<населённый пункт>> оказался на десятом месте и набрал всего \num{1122} упоминаний. Результаты скрипта (листинг ~\protect\ref{lst:human-settlement4}) представлены в таблице ~\ref{tab:human-settlement1}.
-
-\begin{table}[h]
-\caption{Таблица классов и их количество упоминаний среди объектов имеющих свойство <<численность населения>> в России}
-\begin{tabular}{|l|l|l|}
-\hline
-номер & название класса                       						& количество упоминаний	\\ \hline
-1         & \wdqName{сельское поселение в России}{634099}     			& \num{18104}                		\\
-2         & \wdqName{деревня}{5084}              						& \num{14795}                		\\
-3         & \wdqName{село}{532}								& \num{9875}               		\\ 
-4         & \wdqName{посёлок}{2514025}						& \num{4418}               		\\ 
-7         & \wdqName{хутор}{2023000}							& \num{1733}               		\\ 
-9         & \wdqName{город}{7930989}							& \num{1172}               		\\ 
-10       & \wdqName{населённый пункт}{486972}					& \num{1149}               		\\ 
-11       & \wdqName{посёлок городского типа России}{15078955}		& \num{665}               		\\ 
-21       & \wdqName{город с населением более 100 000 человек}{1549591}	& \num{108}               		\\ \hline
-\end{tabular}
-\caption{Таблица классов и их количество упоминаний среди объектов имеющих свойство <<численность населения>> в России}
-\label{tab:human-settlement1}
-\end{table}
-
-Из результатов (листинг ~\protect\ref{lst:human-settlement4}), видно, что класс <<населённый пункт>> используется совместно не со всеми класами поселений. Попробуем получить еще раз результат для России на основе (листинг ~\protect\ref{lst:human-settlement3}), используя дополнительные классы из таблицы ~\ref{tab:human-settlement1} под номерами: 1, 2, 3, 4, 7 и 11. В дальнейшем комбинация этих классов будет упоминаться, как сельские поселения. Произведём новый подсчёт количества населения <<населённых пунктов>> в России, дополненый сельскими поселениями (листинг ~\protect\ref{lst:human-settlement5}).
-
-\index{SPARQL!SUM!Подсчет количества населения <<населённых пунктов>> и поселения сельского типа}
-\begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/4dBy}{Подсчет количества населения <<населённых пунктов>> и поселения сельского типа}\protect\footnotemark},
-                    label=lst:human-settlement5,
-                    texcl 
-                    ]
-# total population in rural settlements in Russia
-SELECT (SUM(?population) as ?sumPopulation) 
-WHERE{
-  VALUES ?type {wd:Q634099 wd:Q5084 wd:Q532 wd:Q2514025 wd:Q2023000 
-               wd:Q15078955}
-  ?hum wdt:P31 ?type; # instance of human settlement
-    wdt:P17 wd:Q159;   # settlement in Russia
-    wdt:P1082 ?population. # settlement has ?population
-}
-ORDER BY DESC (?sumPopulation)
-\end{lstlisting}%
-\footnotetext{Получили \num{60,5} млн население <<населённых пунктов>> и поселений сельского типа в России. Ссылка на SPARQL-запрос: \href{https://w.wiki/4dBy}{https://w.wiki/4dBy}}
-
-К численности населения в <<населённых пунктах>> (\num{6,5} млн человек) в результатах (листинг ~\protect\ref{lst:human-settlement3}), добавилось еще \num{54} млн человек из поселений сельского типа. Из чего следует, что класс <<населённый пункт>> мало заполнен на Викиданных. Возможно в будующем все поменяется и класс <<населённый пункт>> будет наполняться. 
-
 
 %%%%%
 \subsection{Полнота Викиданных}
@@ -335,7 +261,9 @@ ORDER BY ?proportionPopulation
 \section{Cписок классов, сопутствующих <<населённому пункту>> в свойстве <<экземпляр>>}
 \label{human-settlement:tag1}
 
-Главная цель этого раздела, получить классы в свойстве <<экземпляр>>, используемые совместно с классом \wdqName{населённый пункт}{486972}. Такие классы будем считать сопутсвующими. Для этого попробуем получить список объектов, имеющих свойство <<населённый пункт>> (листинг ~\protect\ref{lst:human-settlement7}).
+Далее классом будем называть каждый элемент в исследуемом объекте на Викиданных, связанный через свойство \wdProperty{31}{экземпляра}. Главная цель этого раздела, получить классы в свойстве <<экземпляр>>, используемые совместно с классом \wdqName{населённый пункт}{486972}. Такие классы будем считать сопутсвующими. Для этого попробуем получить список объектов, имеющих свойство <<населённый пункт>> (листинг ~\protect\ref{lst:human-settlement7}).
+
+Далее классом будем называть каждый элемент в исследуемом объекте на Викиданных, связанный через свойство \wdProperty{31}{экземпляра}
 
 %%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%%
 \marginnote{
@@ -360,11 +288,12 @@ ORDER BY ?proportionPopulation
                     label=lst:human-settlement7,
                     texcl 
                     ]
-# List of classes accompanying the human\_settlement in the property 'instance of'
+# List of classes accompanying the human\_settlement in the
+# property 'instance of'
 SELECT ?inst (COUNT(?hum) as ?sumHum) 
 WHERE{          
   ?hum wdt:P31 wd:Q486972; # instance of human settlement
-        wdt:P31 ?inst.      # other objects in instance
+       wdt:P31 ?inst.      # other objects in instance
   SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
 }  
 GROUP BY ?inst
@@ -385,7 +314,8 @@ GROUP BY ?inst
                     label=lst:human-settlement8,
                     texcl 
                     ]
-# List of objects with the class of human settlement, without country and single human settlement
+# List of objects with the class of human settlement, without 
+# country and single human settlement
 SELECT ?inst (COUNT(?hum) as ?sumHum) 
 WHERE{ 
   ?hum wdt:P31 wd:Q486972;  # instance of human settlement
@@ -429,19 +359,19 @@ ORDER BY DESC (?sumHum)
 \index{SPARQL!COUNT!Cписок классов, сопутствующих <<населённому пункту>> в свойстве <<экземпляр>>, без исторических объектов}
 \index{SPARQL!FILTER!Cписок классов, сопутствующих <<населённому пункту>> в свойстве <<экземпляр>>, без исторических объектов}
 \index{SPARQL!MINUS!Cписок классов, сопутствующих <<населённому пункту>> в свойстве <<экземпляр>>, без исторических объектов}
-\index{SPARQL!BIND!Ближайшие соседи России по числу побратимов}
 \lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/4dTq}{Cписок классов, сопутствующих <<населённому пункту>> в свойстве <<экземпляр>>, без исторических объектов}\protect\footnotemark},
                     label=lst:human-settlement9,
                     texcl 
                     ]
-# List of classes accompanying the human\_settlement in the property 'instance of' without historical objects 
+# List of classes accompanying the human\_settlement in the property
+# 'instance of' without historical objects 
 SELECT ?inst ?instLabel (COUNT(?hum) as ?sumHum) WHERE{
   ?hum wdt:P31 wd:Q486972;    # instance of human settlement
        wdt:P31 ?inst. # other objects in instance of human settlement
-  ?inst wdt:P31 ?test. # instance of other objects in instance of human settlement
-  ?test wdt:P31 ?typ. # instance of instance of other objects in instance of human settlement
+  ?inst wdt:P31 ?test. # instance of ?inst
+  ?test wdt:P31 ?typ. # instance of ?test
   MINUS {?inst wdt:P17 []}.   # without country
   # without human settlement and prehistoric settlements
   FILTER(?inst != wd:Q486972 && ?typ != wd:Q465299 
@@ -460,195 +390,231 @@ ORDER BY DESC (?sumHum)
 \section{Отечественные учёные на селе и в городе}
 
 Попробуем подсчитать число отечественных учёных, родившихся в сельских и городских типах населённых пунктов. И сравнить эти числа.
-Поделим это задание на четыре части:
+Решим эту задачу за пять шагов:
 \begin{enumerate}
-  \item Выявить список сельских и список городских типов поселений именно в России.
-  \item Выявить способ определения отечественных ученых.
-  \item Сделать такую диаграмму на которой разным цветом будут указаны разные научные направления (математики, физики, химики и так далее) для учёных родившихся в селах.
-  \item Сделать вторую диаграмму — по городским поселениям и сравнить результаты.
+  \item Выявим список сельских и список городских типов поселений именно в России.
+  \item Определим основные научные направления, представленные в Викиданных.
+  \item Выявим способ определения отечественных ученых.
+  \item Сделаем такую диаграмму, на которой разным цветом будут указаны разные научные направления (математики, физики, химики и так далее) для учёных родившихся в сельских поселениях.
+  \item Сделаем вторую диаграмму — по городским поселениям и сравнить результаты.
 \end{enumerate}
 
 %%%%%
 \subsection{Список сельских и список городских типов поселений именно в России}
 
-Список сельских: (ссылка на раздел выше)
+Выведем список классов поселений и их количество для объектов имеющих свойство \wdProperty{1082}{численность населения} и принадлежащие государству \wdqName{России}{159} (листинг ~\protect\ref{lst:human-settlement4}). 
 
-\begin{enumerate}
-  \item \wdqName{vilage}{532}
-  \item \wdqName{ rural settlement of Russia}{634099}
-  \item \wdqName{rural settlement}{10354598}
-  \item \wdqName{ hamlet}{5084}
-  \item \wdqName{posyolok}{2514025}
-  \item \wdqName{khutor}{2023000}
-  \item \wdqName{urban-type settlement in Russia}{15078955}
-\end{enumerate}
+\index{SPARQL!COUNT!Список классов поселений и их количество для объектов имеющих свойство <<численность населения>> в России}
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={\href{https://w.wiki/4dBU}{Список классов поселений и их количество для объектов имеющих свойство <<численность населения>> в России}\protect\footnotemark},
+                    label=lst:human-settlement4,
+                    texcl 
+                    ]
+# List of settlement classes and their number for objects with 
+# the property "population" in Russia
+SELECT ?class ?classLabel (COUNT(?class) AS ?count) WHERE {
+  {
+  SELECT ?class ?classLabel ?humLabel WHERE {
+   ?hum wdt:P17 wd:Q159;  # settlement in the Russia
+        wdt:P1082 ?population; # has ?population
+        wdt:P31 ?class. # has ?class
+    SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
+   }
+  }
+}
+GROUP BY ?class ?classLabel
+ORDER BY DESC (?count)
+\end{lstlisting}%
+\footnotetext{Получили 216 разных классов поселений. Ссылка на SPARQL-запрос: \href{https://w.wiki/4dBU}{https://w.wiki/4dBU}}
 
-Список городских: (ссылка на главу о городах) 
-\begin{enumerate}
-  \item \wdqName{city(1m+)}{1637706}
-  \item \wdqName{city(100k+)}{1549591}
-  \item \wdqName{city+town}{7930989}
-  \item \wdqName{town}{515}
-  \item \wdqName{small town}{3957}
-\end{enumerate}
+Основные классы (листинг ~\protect\ref{lst:human-settlement4}) представлены в таблице ~\ref{tab:human-settlement1}.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|l|}
+\hline
+номер & название класса                       						& количество упоминаний	& Население		\\ \hline
+1         & \wdqName{сельское поселение в России}{634099}     			& \num{18104}                		& \num{34043885} 		\\
+2         & \wdqName{деревня}{5084}              						& \num{14795}                		& \num{1727221}       	\\
+3         & \wdqName{село}{532}								& \num{9875}               		& \num{10584016} 		\\ 
+4         & \wdqName{посёлок}{2514025}						& \num{4418}               		& \num{3326567} 		\\ 
+7         & \wdqName{хутор}{2023000}							& \num{1733}               		& \num{509825} 		\\ 
+9         & \wdqName{город}{7930989}							& \num{1171}               		& \num{104453583} 	\\ 
+10       & \wdqName{населённый пункт}{486972}					& \num{1168}               		& \num{6643211} 		\\ 
+11       & \wdqName{посёлок городского типа России}{15078955}		& \num{665}               		& \num{3745723} 		\\ 
+21       & \wdqName{город с населением более 100 000 человек}{1549591}	& \num{108}               		& \num{58159327} 		\\ 
+54       & \wdqName{город-миллионер}{1637706}					& \num{14}               		& \num{32136227} 		\\ \hline
+\end{tabular}
+\caption{Таблица классов и их количество упоминаний среди объектов имеющих свойство <<численность населения>> в России}
+\label{tab:human-settlement1}
+\end{table}
+
+Из исследований проведенных выше мы знаем, что класс <<населённый пункт>> используется совместно с разными класами поселений. Поэтому его не будем добавлять ни к сельским, ни к городским поселениям.
+
+Далее классы из таблицы ~\ref{tab:human-settlement1} под номерами: 1, 2, 3, 4 и 7. В дальнейшем комбинация этих классов будет упоминаться, как сельские поселения. Произведём подсчёт количества населения таких поселений в России\footnote{Получили 50 млн человек. Ссылка на SPARQL-запрос: \href{https://w.wiki/4dd7}{https://w.wiki/4dd7}}.
+
+А классы из таблицы ~\ref{tab:human-settlement1} под номерами: 9, 11, 21 и 54. В дальнейшем комбинация этих классов будет упоминаться, как городские поселения. Произведём подсчёт количества населения таких поселений в России\footnote{Получили 198 млн человек. Ссылка на SPARQL-запрос: \href{https://w.wiki/4ddH}{https://w.wiki/4ddH}}.
+
+%%%%%
+\subsection{Основные научные направления, представленные в Викиданных}
+
+Выведем список профессий и их количество для людей со свойством \wdProperty{27}{гражданство} \wdqName{России}{159} (листинг ~\protect\ref{lst:human-settlement13}). 
+
+\index{SPARQL!COUNT!Список профессий или должностей граждан России}
+\lstset{numbers=left, firstnumber=1, frame=single}
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={\href{https://w.wiki/4daC}{Список профессий или должностей граждан России}\protect\footnotemark},
+                    label=lst:human-settlement13,
+                    texcl 
+                    ]
+# List of occupation or job citizens of Russia 
+SELECT DISTINCT ?job ?jobLabel (COUNT(?hum) AS ?count) WHERE {
+  ?hum wdt:P27 wd:Q159; # citizen of Russia 
+       wdt:P106 ?job. # has occupation or job
+  SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
+}
+GROUP BY ?job ?jobLabel
+ORDER BY ?count
+\end{lstlisting}%
+\footnotetext{Получено 89 результатов. Ссылка на SPARQL-запрос: \href{https://w.wiki/4daC}{https://w.wiki/4daC}}
+
+Ниже приведена таблица ~\ref{tab:human-settlement3} с выбранными научными направления из (листинг ~\protect\ref{lst:human-settlement13}).
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+номер & название класса                       		& количество упоминаний	\\ \hline
+1         & \wdqName{физик}{169470}     		& \num{991}                		\\
+2         & \wdqName{историк}{201788}              	& \num{913}                		\\
+3         & \wdqName{экономист}{188094}		& \num{880}               		\\ 
+4         & \wdqName{математик}{170790}		& \num{857}               		\\ 
+5         & \wdqName{инженер}{81096}			& \num{558}               		\\ 
+6         & \wdqName{исследователь}{1650915}	& \num{502}               		\\ 
+7       	& \wdqName{химик}{593644}			& \num{439}               		\\ 
+8      	& \wdqName{врач}{39631}			& \num{342}               		\\ 
+9     	& \wdqName{юрист}{185351}			& \num{330}               		\\ 
+10       & \wdqName{биолог}{864503}			& \num{222}               		 \\ \hline
+\end{tabular}
+\caption{Таблица научных направлений и их количество упоминаний среди людей с Росиийским гражданством}
+\label{tab:human-settlement3}
+\end{table}
+
 %%%%%
 \subsection{Выявить способ определения отечественных ученых}
 
-Список гражданства:
-\begin{enumerate}
-  \item \wdqName{Russian Empire }{34266}
-  \item \wdqName{Russian Republic}{139319}
-  \item \wdqName{Soviet Union}{15180}
-  \item \wdqName{Russia}{159}
-\end{enumerate}
+Есть два способа получения списка ученых. 
+Первый по наличию свойства \wdProperty{512}{научная степень}. Выведем список людей имеющих такое свойство (листинг ~\protect\ref{lst:human-settlement14}). 
 
-Список академий: (ссылка на вкр + одна моя)
-\begin{enumerate}
-  \item \wdqName{academy of sciences}{414147}
-  \item \wdqName{learned society}{955824}
-  \item \wdqName{scientific society}{74801 }
-  \item \wdqName{academy}{162633}
-  \item \wdqName{research institute}{31855 }
-  \item \wdqName{educational institution}{2385804  }
-  \item \wdqName{Russian Academy of Science}{83172}
-\end{enumerate}
-%%%%%
-\subsection{Построение диаграммы на которой разным цветом будут указаны разные научные направления для учёных родившихся в селах.}
-
-\index{SPARQL!COUNT!Cписок классов, сопутствующих <<населённому пункту>> в свойстве <<экземпляр>>}
-\index{SPARQL!FILTER!Ближайшие соседи России по числу побратимов}
-\index{SPARQL!MINUS!Ближайшие соседи России по числу побратимов}
-\index{SPARQL!BIND!Ближайшие соседи России по числу побратимов}
-\index{SPARQL!IF!Ближайшие соседи России по числу побратимов}
-\index{График!Map!Ближайшие соседи России по числу городов-побратимов}
-\lstset{numbers=left, firstnumber=1, frame=single}
+\index{SPARQL!COUNT!Количество людей из России с учёной степенью}
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/4YpA}{Cписок объектов, сопутствующих "human\_settlement" в "instance of"}\protect\footnotemark},
-                    label=lst:human-settlement10,
+                    caption={\href{https://w.wiki/4deJ}{Количество людей из России с учёной степенью}\protect\footnotemark},
+                    label=lst:human-settlement14,
                     texcl 
                     ]
-# Conclusion of the number of Russian scientists born in 
-# the settlement by occupation and year of birth
-SELECT ?hum ?_inception ?year ?specLabel ?count ?totalspec WHERE {
-  SELECT DISTINCT  (SAMPLE(?year) AS ?year) 
-	(COUNT(?humLabel) AS ?count)  
-	(GROUP_CONCAT(DISTINCT ?specLabel; SEPARATOR=", ") AS ?totalspec) 
-	WHERE {
-    VALUES ?state { # types of citizenship
-      wd:Q34266   # Russian Empire 
-      wd:Q139319  # Russian Republic
-      wd:Q15180   # Soviet Union
-      wd:Q159     # Russia
-    }
-    VALUES ?placeb { # types of settlements
-      wd:Q532        # vilage
-      wd:Q634099     # rural settlement of Russia
-      wd:Q10354598   # rural settlement
-      wd:Q5084       # hamlet
-      wd:Q2514025    # posyolok
-      wd:Q2023000    # khutor
-      wd:Q15078955   # urban-type settlement in Russia
-    }
-    VALUES ?class_academy {   # types of academy
-      wd:Q414147    # academy of sciences 
-      wd:Q955824    # learned society
-      wd:Q74801     # scientific society
-      wd:Q162633    # academy
-      wd:Q31855     # research institute
-      wd:Q2385804   # educational institution
-      wd:Q83172     # Russian Academy of Sciences
-    }
-    ?hum wdt:P463 ?class_academy. # academy participant
-    ?hum wdt:P27 ?state.          # citizenship
-    ?hum wdt:P106 ?spec.          # occupation
-    BIND(str(YEAR(?_inception)) AS ?year) # definition of year
-    ?hum wdt:P569 ?_inception.    # definition of Date of Birth
-    ?hum wdt:P19 ?place.          # place of birth
-    ?place wdt:P31 ?placeb.       # place of birth in the village
-    SERVICE wikibase:label{bd:serviceParam wikibase:language"ru,en".
-                               ?hum rdfs:label ?humLabel.
-                               ?spec rdfs:label ?specLabel.}
-    }
-  GROUP BY ?_inception ?specLabel
-  ORDER BY ?year ?_inception #order by year + inception
+# Count of peoples in Russian with academic degree
+SELECT (COUNT(DISTINCT ?hum) AS ?human_count) WHERE {
+  # Russian Empire, Soviet Union and Russia
+  VALUES ?ruCountries {wd:Q34266 wd:Q15180 wd:Q159}
+  ?hum wdt:P512 ?academic_degree;  # has academic degree 
+       wdt:P27 ?ruCountries. # lives (lived) in Russian countries
+  SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
 }
 \end{lstlisting}%
-\footnotetext{Ссылка на SPARQL-запрос: \href{}{Длинная ссылка}}
+\footnotetext{Получено 24297 человек. Ссылка на SPARQL-запрос: \href{https://w.wiki/4deJ}{https://w.wiki/4deJ}}
 
-%%%%%
-\subsection{Построение диаграммы для учёных родившихся в городских поселениях и сравнение диаграмм}
+Второй по наличию свойства \wdProperty{463}{участник организации} нескольких академий: \wdqName{academy of sciences}{414147}, \wdqName{learned society}{955824}, \wdqName{scientific society}{74801}, \wdqName{academy}{162633}, \wdqName{research institute}{31855}, \wdqName{educational institution}{2385804 }. Выведем список людей имеющих такое свойство (листинг ~\protect\ref{lst:human-settlement15}). 
 
-\index{SPARQL!COUNT!Cписок классов, сопутствующих <<населённому пункту>> в свойстве <<экземпляр>>}
-\index{SPARQL!FILTER!Ближайшие соседи России по числу побратимов}
-\index{SPARQL!MINUS!Ближайшие соседи России по числу побратимов}
-\index{SPARQL!BIND!Ближайшие соседи России по числу побратимов}
-\index{SPARQL!IF!Ближайшие соседи России по числу побратимов}
-\index{График!Map!Ближайшие соседи России по числу городов-побратимов}
-\lstset{numbers=left, firstnumber=1, frame=single}
+\index{SPARQL!COUNT!Количество людей из академий в России}
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/4YpA}{Cписок объектов, сопутствующих "human\_settlement" в "instance of"}\protect\footnotemark},
-                    label=lst:human-settlement11,
+                    caption={\href{https://w.wiki/4deV}{Количество людей из академий в России}\protect\footnotemark},
+                    label=lst:human-settlement15,
                     texcl 
                     ]
-# Conclusion of the number of Russian scientists born in the city 
-# by occupation and year of birth
-SELECT ?hum ?_inception ?year ?specLabel ?count ?totalspec WHERE {
-  SELECT DISTINCT  (SAMPLE(?year) AS ?year) 
-	(COUNT(?humLabel) AS ?count)  
-	(GROUP_CONCAT(DISTINCT ?specLabel; SEPARATOR=", ") AS ?totalspec) 
-	WHERE {
-    VALUES ?state { # types of citizenship
-      wd:Q34266   # Russian Empire 
-      wd:Q139319  # Russian Republic
-      wd:Q15180   # Soviet Union
-      wd:Q159     # Russia
-    }
-    VALUES ?placeb {  # types of settlements
-      wd:Q1637706     # city(1m+)
-      wd:Q1549591     # city(100k+)
-      wd:Q7930989     # city+town
-      wd:Q515         # town
-      wd:Q486972      # human settlement
-      wd:Q3957        # small town
-    }
-    VALUES ?class_academy {   # types of academy
-      wd:Q414147    # academy of sciences 
-      wd:Q955824    # learned society
-      wd:Q74801     # scientific society
-      wd:Q162633    # academy
-      wd:Q31855     # research institute
-      wd:Q2385804   # educational institution
-      wd:Q83172     # Russian Academy of Sciences
-    }
-    ?hum wdt:P463 ?class_academy. # academy participant
-    ?hum wdt:P27 ?state.          # citizenship
-    ?hum wdt:P106 ?spec.          # occupation
-    BIND(str(YEAR(?_inception)) AS ?year) # definition of year
-    ?hum wdt:P569 ?_inception.    # definition of Date of Birth
-    ?hum wdt:P19 ?place.          # place of birth
-    ?place wdt:P31 ?placeb.       # place of birth in the city
-    SERVICE wikibase:label{bd:serviceParam wikibase:language"ru,en".
-                               ?hum rdfs:label ?humLabel.
-                               ?spec rdfs:label ?specLabel.}
-    }
-  GROUP BY ?_inception ?specLabel
-  ORDER BY ?year ?_inception #order by year + inception
+# Count of peoples in Russian in academy
+SELECT (COUNT(DISTINCT ?hum) AS ?human_count) WHERE {
+  VALUES ?ruCountries {wd:Q34266 wd:Q15180 wd:Q159}
+  VALUES ?class_academy {wd:Q414147 wd:Q955824 wd:Q74801 wd:Q162633 
+                      wd:Q31855 wd:Q2385804 wd:Q83172}
+  ?hum wdt:P463 ?academy;  # has academic degree 
+       wdt:P27 ?ruCountries. # lives (lived) in countries
+  # academy is an element of the class academy
+  ?academy wdt:P31 ?class_academy. 
+  SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
 }
 \end{lstlisting}%
-\footnotetext{Ссылка на SPARQL-запрос: \href{}{Длинная ссылка}}
+\footnotetext{Получено 4170 человек. Ссылка на SPARQL-запрос: \href{https://w.wiki/4deV}{https://w.wiki/4deV}}
+
+Первый способ дает больше людей, что позволить увидеть более подробную картину на диаграммах ниже. Будем его использовать для построения диаграмм ниже.
+
+%%%%%
+\subsection{Построение диаграммы на которой разным цветом будут указаны разные научные направления для учёных родившихся в сельских поселениях}
+
+Используя вышеописанные шаги, получаем такой результат (листинг ~\protect\ref{lst:human-settlement16}).
+
+\index{SPARQL!COUNT!Диаграмма количества ученых по родам деятельности родившихся в сельских поселениях}
+\index{SPARQL!FILTER!Диаграмма количества ученых по родам деятельности родившихся в сельских поселениях}
+\index{SPARQL!FLOOR!Диаграмма количества ученых по родам деятельности родившихся в сельских поселениях}
+\index{SPARQL!YEAR!Диаграмма количества ученых по родам деятельности родившихся в сельских поселениях}
+\index{SPARQL!STR!Диаграмма количества ученых по родам деятельности родившихся в сельских поселениях}
+\index{SPARQL!BIND!Диаграмма количества ученых по родам деятельности родившихся в сельских поселениях}
+\index{SPARQL!GROUP BY!Диаграмма количества ученых по родам деятельности родившихся в сельских поселениях}
+\index{График!BarChart!Диаграмма количества ученых по родам деятельности родившихся в сельских поселениях}
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={\href{https://w.wiki/xxxx}{Диаграмма количества ученых по родам деятельности родившихся в сельских поселениях}\protect\footnotemark},
+                    label=lst:human-settlement16,
+                    texcl 
+                    ]
+# defaultView:BarChart
+# Diagram of the number of scientists by occupation in rural settlements
+
+\end{lstlisting}%
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/xxxx}{https://w.wiki/xxxx}}
+
+Диаграмма ~\ref{fig:human-settlement-5} показывает количество ученых по родам деятельности родившихся в сельских поселениях.
 
 \begin{figure*}
     \setlength{\fboxsep}{0pt}%
     \setlength{\fboxrule}{1pt}%
     \fcolorbox{gray}{gray}{\includegraphics[width=1\linewidth]{./chapter/human_settlement/RussianScientistBornVillage.png}}
 	\label{fig:human-settlement-5}
-	\caption[Диаграмма количества ученых по родам деятельности родившихся в сельских полесениях.]{Диаграмма количества ученых по родам деятельности родившихся в сельских полесениях. Ссылка на SPARQL-запрос: \href{}{Длинная ссылка}.}%
+	\caption[Диаграмма количества ученых по родам деятельности родившихся в сельских поселениях.]{Диаграмма количества ученых по родам деятельности родившихся в сельских поселениях. Ссылка на SPARQL-запрос: \href{https://w.wiki/xxxx}{https://w.wiki/xxxx}.}%
 \end{figure*} 
+
+%%%%%
+\subsection{Построение диаграммы для учёных родившихся в городских поселениях и сравнение диаграмм}
+
+Используя вышеописанные шаги, получаем такой результат (листинг ~\protect\ref{lst:human-settlement17}).
+
+\index{SPARQL!COUNT!Диаграмма количества ученых по родам деятельности родившихся в городских поселениях}
+\index{SPARQL!FILTER!Диаграмма количества ученых по родам деятельности родившихся в городских поселениях}
+\index{SPARQL!FLOOR!Диаграмма количества ученых по родам деятельности родившихся в городских поселениях}
+\index{SPARQL!YEAR!Диаграмма количества ученых по родам деятельности родившихся в городских поселениях}
+\index{SPARQL!STR!Диаграмма количества ученых по родам деятельности родившихся в городских поселениях}
+\index{SPARQL!BIND!Диаграмма количества ученых по родам деятельности родившихся в городских поселениях}
+\index{SPARQL!GROUP BY!Диаграмма количества ученых по родам деятельности родившихся в городских поселениях}
+\index{График!BarChart!Диаграмма количества ученых по родам деятельности родившихся в городских поселениях}
+
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={\href{https://w.wiki/xxxx}{Диаграмма количества ученых по родам деятельности родившихся в городских поселениях}\protect\footnotemark},
+                    label=lst:human-settlement17,
+                    texcl 
+                    ]
+# defaultView:BarChart
+# Diagram of the number of scientists by occupation in town settlements
+
+\end{lstlisting}%
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/xxxx}{https://w.wiki/xxxx}}
+
+Диаграмма ~\ref{fig:human-settlement-6} показывает количество ученых по родам деятельности родившихся в городских полесениях.
 
 \begin{figure*}
     \setlength{\fboxsep}{0pt}%
     \setlength{\fboxrule}{1pt}%
     \fcolorbox{gray}{gray}{\includegraphics[width=1\linewidth]{./chapter/human_settlement/RussianScientistBornTown.png}}
 	\label{fig:human-settlement-6}
-	\caption[Диаграмма количества ученых по родам деятельности родившихся в городских полесениях.]{Диаграмма количества ученых по родам деятельности родившихся в городских полесениях. Ссылка на SPARQL-запрос: \href{}{Длинная ссылка}}%
+	\caption[Диаграмма количества ученых по родам деятельности родившихся в городских поселениях.]{Диаграмма количества ученых по родам деятельности родившихся в городских поселениях. Ссылка на SPARQL-запрос: \href{https://w.wiki/xxxx}{https://w.wiki/xxxx}}%
 \end{figure*} 
+
+Сравнив диаграммы, видно что ученных в городских поселениях больше примерно в 3 раза, чем в сельских поселениях. Выше мы считали количество населения с этих группах, разница в населении достигает почти в 4 раза. Следовательно можно сказать, что не важно где ты родился. 
