@@ -871,63 +871,68 @@ ORDER BY DESC(?beam)
                 caption={{\href{https://w.wiki/4QGX}{Диаграмма запусков отечественных космических кораблей по десятилетиям}}\protect\footnotemark}, 
                 label=lst:launch_USSR
               ]
-    # The number of spacecraft launches in Russia every 10 years
-    #defaultView:BarChart
-    SELECT (STR(?lapse) AS ?lapse_str) (COUNT(?item) AS ?quantity)
-    WHERE {                  # spacecraft belongs to
-            {?item wdt:P17 wd:Q15180} # Soviet Union
-      UNION {?item wdt:P17 wd:Q159}.  # or Russia
-      
-      ?item wdt:P619 ?launch. # date of spacecraft launch (P619)
-      BIND( YEAR(?launch) AS ?year) 
-      BIND(FLOOR(?year/10)*10 AS ?lapse) # count for each 10 years
-    SERVICE wikibase:label {bd:serviceParam wikibase:language "ru,en"}
-    } 
-    GROUP BY ?lapse
-    ORDER BY ?lapse # Order 1960, 1970, 1980, ...
-    \end{lstlisting}
+# The number of spacecraft launches in Russia every 10 years
+#defaultView:BarChart
+SELECT (STR(?lapse) AS ?lapse_str) (COUNT(?item) AS ?quantity)
+WHERE {                  # spacecraft belongs to
+        {?item wdt:P17 wd:Q15180} # Soviet Union
+  UNION {?item wdt:P17 wd:Q159}.  # or Russia
+  
+  ?item wdt:P619 ?launch. # date of spacecraft launch (P619)
+  BIND( YEAR(?launch) AS ?year) 
+  BIND(FLOOR(?year/10)*10 AS ?lapse) # count for each 10 years
+SERVICE wikibase:label {bd:serviceParam wikibase:language "ru,en"}
+} 
+GROUP BY ?lapse
+ORDER BY ?lapse # Order 1960, 1970, 1980, ...    \end{lstlisting}
     \footnotetext{Найдено \num{7} результатов в 2021 г. Ссылка на SPARQL-запрос: \href{https://w.wiki/4dTH}{https://w.wiki/4dTH}}
     \small{Вопрос на с.~\pageref{question:spacecraft_1}.}
 \end{task}
 
 \begin{task}
     \label{answer:launches_world}
-    \newthought{Наибольшее число запусков в указанные периоды времени} 
-    зафиксированы в 2000-е, а наименьшее~--- в 1970-е годы. 
-    Скрипт построения графика запусков космических кораблей в мире по годам представлен в листинге~\ref{lst:imageWorld}:
-    \begin{lstlisting}[ language=SPARQL, numbers=none, caption={{\href{https://w.wiki/4bEu}{Запуски космических кораблей в мире}}\protect\footnotemark}, label=lst:imageWorld, ]
-    # Diagram of spacecraft launches by year and country
-    #defaultView:BarChart
-    SELECT ?year (COUNT(?obj) AS ?count) ?country ?countryLabel
-    WHERE {
-      ?obj wdt:P17 ?country. # spacecraft belongs to country 
-      ?obj wdt:P619 ?launch. # date of spacecraft launch
-      BIND(str(YEAR(?launch)) AS ?year)
-      
-      SERVICE wikibase:label {bd:serviceParam wikibase:language "ru".}
-    }
-    GROUP BY ?year ?country ?countryLabel
-    \end{lstlisting}
-    \footnotetext{Найдено \num{328} результата в 2021 г. Ссылка на SPARQL-запрос: \href{https://w.wiki/4bEu}{https://w.wiki/4bEu}}
+    \newthought{Наибольшее число запусков за десятилетие в промежуток с 1970 по 2010 год~--- 121, наименьшее~--- 63.} 
+    Скрипт подсчёта максимума и минимума запусков за 10 лет в промежуток с 1970 по 2010 год~\ref{lst:launchesWorld10}:
+    \begin{lstlisting}[ language=SPARQL, numbers=none, caption={{\href{https://w.wiki/4bEu}{Запуски космических кораблей в мире}}\protect\footnotemark}, label=lst:launchesWorld10, ]
+# Check MAX and MIN of launches per 10 years from 1970 to 2010
+SELECT (MAX (?quantity) as ?max) (MIN (?quantity) as ?min)
+WHERE {
+  SELECT (STR(?lapse) AS ?lapse_str) (COUNT(?item) AS ?quantity)
+  WHERE {                  # spacecraft belongs to
+    ?item wdt:P619 ?launch. # date of spacecraft launch (P619)
+    BIND( YEAR(?launch) AS ?year) 
+    ?item wdt:P17 ?country. # check existing country
+    BIND(FLOOR(?year/10)*10 AS ?lapse) # count for each 10 years
+    FILTER (?year > 1969 && ?year < 2010) # check date
+  } 
+  GROUP BY ?lapse
+} \end{lstlisting}
+    \footnotetext{Запрос выполнялся в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4dwH}{https://w.wiki/4dwH}}
     \small{Вопрос на с.~\pageref{question:spacecraft_2}.}
 \end{task}
 
 \begin{task}
-    \label{answer:spacecraft_soyuz19}
-    Изображённый аппарат~--- Союз-19, \newthought{спроектированый в СССР}.
-    \small{Вопрос на с.~\pageref{question:spacecraft_soyuz19}.}
-\end{task}
+    \label{answer:spacecraft_USSR}
+    \newthought{Космические аппараты}, изображённые на рисунках \ref{question:spacecraft_soyuz19}, \ref{question:spacecraft_soyuzT}, и \ref{question:spacecraft_lunar} принадлежат СССР. Убедиться в этом можно выполнив запрос~\ref{lst:imageUSSRsc}:
+    \begin{lstlisting}[ language=SPARQL, numbers=none, caption={{\href{https://w.wiki/4duz}{Набор изображений аппаратов из СССР}}\protect\footnotemark}, label=lst:imageUSSRsc, ]
+# List of images of USSR spacecraft
+#defaultView:ImageGrid
+SELECT ?obj ?name ?img
+WHERE
+{
+    {?obj wdt:P31 wd:Q40218.} UNION    #spacecraft
+    {?obj wdt:P31 wd:Q18039177.} UNION #fictional 
+    {?obj wdt:P31 wd:Q402330.}         #cargo 
+    {?obj wdt:P17 wd:Q15180. }         #USSR
+    ?obj wdt:P18 ?img.                 #image
+    OPTIONAL {
+		?obj rdfs:label ?name 
+		filter (lang(?name) = "ru")
+	}
+}    \end{lstlisting}
+    \footnotetext{Найдено семь результатов в 2021 г. Ссылка на SPARQL-запрос: \href{https://w.wiki/4duz}{https://w.wiki/4duz}}
 
-\begin{task}
-    \label{answer:spacecraft_soyuzT}
-    Изображённый аппарат~--- Союз-T, \newthought{из серии аппаратов Союз}.
-    \small{Вопрос на с.~\pageref{question:spacecraft_soyuzT}.}
-\end{task}
-
-\begin{task}
-    \label{answer:spacecraft_lunar}
-    Изображённый аппарат~--- Лунно-посадочный корабль-модуль, \newthought{часть лунной программы СССР}.
-    \small{Вопрос на с.~\pageref{question:spacecraft_lunar}.}
+    \small{Вопросы на с.~\pageref{question:spacecraft_soyuz19},~\pageref{question:spacecraft_soyuzT},~\pageref{question:spacecraft_lunar}.}
 \end{task}
 
 %%%%%%%%%%%%%% Human_settlements charpter %%%%%%%%%%%%%%
