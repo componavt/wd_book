@@ -11,7 +11,7 @@
 [Союз-19, 2021.]
 {
 В какой стране спроектирован аппарат, изображённый на рисунке?
-См. ответ~\ref{answer:spacecraft_soyuz19} на с.~\pageref{answer:spacecraft_soyuz19}.
+См. ответ~\ref{answer:spacecraft_USSR} на с.~\pageref{answer:spacecraft_USSR}.
 }
 \label{question:spacecraft_soyuz19}
 \end{marginfigure}
@@ -89,8 +89,8 @@ WHERE
 \caption
 [Союз-T, 2021.]
 {
-Аппарат какой серии изображён на рисунке?
-См. ответ~\ref{answer:spacecraft_soyuzT} на с.~\pageref{answer:spacecraft_soyuzT}.
+В какой стране спроектирован аппарат, изображённый на рисунке?
+См. ответ~\ref{answer:spacecraft_USSR} на с.~\pageref{answer:spacecraft_USSR}.
 }
 \label{question:spacecraft_soyuzT}
 \end{marginfigure}
@@ -129,7 +129,8 @@ WHERE
 то по запросу~\ref{lst:spaceshipsUSSR} об отечественных объектах~--- всего 25. 
 
 На сайте Буран.Ру в разделе кораблей СССР и России по состоянию на 2021 год содержится информация о 36 кораблях\autocite{spacecraftBuran}. То есть в Викиданных представлено не более 70\% от всех отечественных кораблей, однако ситуация в 2021 стала значительно лучше по сравнению с 2017 годом, когда по запросу~\ref{lst:spaceshipsUSSR} выдавалось менее 10\% от всех кораблей. 
-
+В советской энциклопедии "Космонавтика" от 1985 года упоминаются запуски 1992-х советских объектов 24 различных типов в период с 1957 по 1984 год\autocite{spacecraftCosmonavtika}. 
+В Американской книге приведены всего 10 советских и российских запусков космических станций\autocite{spacecraftSAA1}, 126 запусков шатла у НАСА в период с 1981 по 2008 год \autocite{spacecraftSAA2}, и 31 международный запуск\autocite{spacecraftSAA3}. 
 
 \section{Временные графики освоения космоса в~нашей стране и мире}
 
@@ -142,8 +143,8 @@ WHERE
 \caption
 [Лунный корабль, 2021.]
 {
-В рамках какой программы спроектирован аппарат, который изображён на рисунке?
-См. ответ~\ref{answer:spacecraft_lunar} на с.~\pageref{answer:spacecraft_lunar}.
+В какой стране спроектирован аппарат, изображённый на рисунке?
+См. ответ~\ref{answer:spacecraft_USSR} на с.~\pageref{answer:spacecraft_USSR}.
 }
 \label{question:spacecraft_lunar}
 \end{marginfigure}
@@ -221,7 +222,7 @@ ORDER BY ?lapse # Order 1970, 1975, 1980, ...
 \index{График!BarChart!Количетво запусков космических кораблей в СССР и России каждые 5 лет}
 \begin{figure*}[h!]
   \includegraphics[width=\linewidth]{graphics/chapter/spacecraft_space_station/ImgRU.png}
-  \caption[График Россия]{Визуализация количества запусков космических кораблей в СССР и России каждые 5 лет, построено с помощью скрипта~\protect\ref{lst:launchesRussia5years} в 2021 году.}%
+  \caption[График запусков в СССР и России (по 5 лет)]{Визуализация количества запусков космических кораблей в СССР и России каждые 5 лет, построено с помощью скрипта~\protect\ref{lst:launchesRussia5years} в 2021 году.}%
   \label{fig:launchesRussia5years}%
 \end{figure*}
 
@@ -270,8 +271,7 @@ GROUP BY ?year ?country ?countryLabel
 %%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%% 
 \label{question:spacecraft_2}
 \marginnote[-4cm]{%
-В какое из десятилетий (1970-е, 1980-е, 1990-е или 2000-е) 
-человечестро совершило наибольшее и наименьшее количество запусков космических кораблей?
+В какое наибольшее и наименьшее количество запусков космических кораблей за десятилетие совершило человечество в период с 1970 по 2010 годы?
 
 См. ответ~\ref{answer:launches_world} на с.~\pageref{answer:launches_world}.
 }
@@ -280,7 +280,7 @@ GROUP BY ?year ?country ?countryLabel
 \index{График!BarChart!Визуализация количества запусков космических кораблей по годам и странам}
 \begin{figure*}[h!]
   \includegraphics[width=\linewidth]{graphics/chapter/spacecraft_space_station/Visualization of the number of spacecraft launches by year and country 2021.png}
-  \caption[Запуски кораблей во всём мире]{Визуализация количества запусков космических кораблей по годам и странам, построено с помощью скрипта~\protect\ref{lst:launchesWorld} в 2021 году.}
+  \caption[График запусков космичесих кораблей во всём мире по годам и странам]{Визуализация количества запусков космических кораблей по годам и странам, построено с помощью скрипта~\protect\ref{lst:launchesWorld} в 2021 году.}
   \label{fig:launchesWorld}%
 \end{figure*}
 
