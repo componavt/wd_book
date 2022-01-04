@@ -933,27 +933,47 @@ ORDER BY DESC(?beam)
 %%%%%%%%%%%%%% Human_settlements charpter %%%%%%%%%%%%%%
 \begin{task}
 \label{answer:human_settlements_density}
-\newthought{\href{https://w.wiki/4dNu}{Заречный} в \href{https://w.wiki/4dNy}{Свердловской области}}~--- правильный ответ. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:human_settlements_density}). Значение переменной \textit{?popArea} показывает, какая плотность населения опередленного <<населенного пункта>> России.
- 
+    \newthought{Плотность населения} у Алейска составляет \num{648} чел./км\textsuperscript{2}, 
+        у~Барабинска~--- \num{413} чел./км\textsuperscript{2}, 
+        то есть у Алейска плотность выше. 
+
+        Плотность населения по населённым пунктам России можно получить 
+        с помощью запроса~\ref{lst:human_settlements_density}. 
+
+        Обратите внимание, что площадь может быть задана в разных единицах. 
+        Например, у \wdqName{Алейска}{11304591} площадь в Викиданных указана в гектарах, 
+        у \wdqName{Барабинска}{104609}~--- в квадратных километрах. 
+        Для нормализации данных и перевода площади в метры в 8 строке запроса~\ref{lst:human_settlements_density}
+        указан префикс \lstinline|psn:|. 
+
+        Значение переменной \lstinline|?popArea| показывает плотность населения. 
+        Во второй строке делим на миллион, чтобы перевести квадратные метры в километры. 
+
+\begin{fullwidth}
+\index{SPARQL!psn:!Нормализация площади населённого пункта}
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/4dbe}{плотность населения <<населенных пунктов>> России}\protect\footnotemark},
-                    label=lst:human_settlements_density
-                    ]
+        caption={\href{https://w.wiki/4duP}{Плотность населения <<населенных пунктов>> России}\protect\footnotemark},
+        label=lst:human_settlements_density
+                  ]
 # population density of human settlements in Russia
-SELECT ?hum ?humLabel (?population / ?area as ?popArea) WHERE {
+SELECT ?hum ?humLabel ?population ?area (?population / (?area / 1000000) as ?popArea) 
+WHERE {
   ?hum wdt:P31 wd:Q486972; # instance of human settlement
        wdt:P17 wd:Q159; # in Russia
-       wdt:P2046 ?area; # has ?area 
+       
+       # Get the area (Use the psn: prefix to normalize the values to a common unit of area)
+       p:P2046/psn:P2046/wikibase:quantityAmount ?area;
+       
        wdt:P1082 ?population. # has ?population
+       FILTER(?population>0 && ?area).
   SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
 }
 ORDER BY DESC (?popArea)
-}
 \end{lstlisting}
+\footnotetext{131 результат на 2021 год. SPARQL-запрос: \href{https://w.wiki/4duP}{https://w.wiki/4duP}}  
+\end{fullwidth}
 
-\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/4dbe}{https://w.wiki/4dbe}}  
-\small{Вопрос на с.~\pageref{ch:human-settlement}.}
-
+    \small{Вопрос на с.~\pageref{ch:human-settlement}.}
 \end{task}
 
 \begin{task}
