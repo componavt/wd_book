@@ -51,7 +51,7 @@
 %%%%%%%
 \section{Список <<Населённых пунктов>>}
 
-Для построения списка всех населённых пунктов нам потребуются объект \wdqName{населённый пункт}{486972} и свойство \wdProperty{31}{экземпляр} (листинг ~\protect\ref{lst:human-settlement1}).
+Построим список всех населённых пунктов с помощью запроса~\ref{lst:human-settlement1}.
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/4d7x}{Список всех населённых пунктов}\protect\footnotemark},
@@ -64,9 +64,12 @@ SELECT ?hum ?humLabel WHERE{
   SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
 }
 \end{lstlisting}%
-\footnotetext{Получен \num{411393} записи в 2017 году.  Ссылка на SPARQL-запрос: \href{https://w.wiki/4d7x}{https://w.wiki/4d7x}}
+\footnotetext{Получено \num{411393} пунктов в 2017 году. SPARQL-запрос: \href{https://w.wiki/4d7x}{https://w.wiki/4d7x}}
 
-В 2021 году оказалось не возможно получить список населённых пунктов из-за большого числа объектов и поэтому слишком долгой работы (листинг ~\protect\ref{lst:human-settlement1}). Для получения результата произведём подсчёт всех населённых пунктов с помощью функции \textit{COUNT()} (листинг ~\protect\ref{lst:human-settlement2}).
+В 2021 году оказалось невозможным получить список населённых пунктов 
+из-за большого числа объектов и поэтому слишком долгой работы запроса~\ref{lst:human-settlement1}. 
+Для подсчёта числа всех населённых пунктов обратимся к функции \lstinline|COUNT()| 
+в запросе~\ref{lst:human-settlement2}.
 
 \index{SPARQL!COUNT!Количество всех населённых пунктов}
 \begin{lstlisting}[ language=SPARQL, 
@@ -79,43 +82,51 @@ SELECT (COUNT(?hum) AS ?count) WHERE {
   ?hum wdt:P31 wd:Q486972. # instance of human settlement  
 }
 \end{lstlisting}%
-\footnotetext{Получили \num{563126} населённых пунктов в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4d7s}{https://w.wiki/4d7s}}
+\footnotetext{Получили \num{563126} населённых пунктов в 2021 году. SPARQL-запрос: \href{https://w.wiki/4d7s}{https://w.wiki/4d7s}}
 
-Почти пустыми и малоинформативными оказались такие населёнными пункты: \wdqName{Zangabad}{146827} (2 свойства) и \wdqName{Zapallar}{147201} (2 свойства). Среди отечественных населённых пунктов: \wdqName{Borisovo}{4093951} (3 свойства) и \wdqName{Zakhod}{18777794} (3 свойства).
+Среди отечественных населённых пунктов на Викиданных, 
+которым соответствуют статьи Русской Википедии, 
+почти пустыми являются, например, 
+бывшая деревня \wdqName{Борисово}{4093951} (3 свойства) 
+и \wdqName{Бригадирское лесничество}{21668554} (4 свойства).
 
-Среди населённых пунктов принадлежащих России в Викиданных больше всего свойств по данным ProWD у \href{http://www.wikidata.org/entity/Q128499}{Ялты} (36 свойств). Лидером по всему миру является \href{http://www.wikidata.org/entity/Q1490}{Токио} (73 свойства)\autocite{humansettlements_ProWD}.
+По данным сервиса ProWD 
+среди отечественных населённых пунктов 
+больше всего свойств (36) у \wdqName{Ялты}{128499}. 
+Лидером по всему миру является \wdqName{Токио}{1490} (73 свойства)\autocite{humansettlements_ProWD}.
+
 
 %%%%%%%
 \section{Список стран по суммарному количеству населения}
 
-Построим упорядоченный список стран по суммарному количеству населения, проживающего в <<населённых пунктах>> (листинг ~\protect\ref{lst:human-settlement3}).
-
 %%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%%
-\marginnote{
-Выберите, представленный герб относится к населённым пунктам Российской Федерации или нет, изображенный на рис. \ref{fig:flag_question_human_settlements2}?
-}
-\begin{marginfigure}[0.0cm]
+\begin{marginfigure}[1.0cm]
 {
 \setlength{\fboxsep}{0pt}%
 \setlength{\fboxrule}{1pt}%
 \fcolorbox{gray}{gray}{\includegraphics[width=0.5\linewidth]{./chapter/human_settlement/Coat_of_Arms_of_Asbest_(Sverdlovsk_oblast).png}}%
 }
-  \caption{Герб населённого пункта.}%
+  \caption{Это герб населённого пункта России или другой страны?\newline%
+См. ответ~\protect\ref{answer:flag_human_settlements} на с.~\protect\pageref{answer:flag_human_settlements}.}
   \label{fig:flag_question_human_settlements2}%
 \end{marginfigure}
 
-\marginnote{
-См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.
-}
+%\marginnote{%
+%См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.
+%}
+С помощью запроса~\ref{lst:human-settlement3} 
+построим упорядоченный список стран по суммарному количеству населения, проживающего в <<населённых пунктах>>.
 
+%\begin{minipage}{\linewidth}
+\marginnote[2cm]{Получена \num{161} страна в 2017 году и \num{213} стран в 2021 году. SPARQL-запрос: \href{https://w.wiki/4d9M}{https://w.wiki/4d9M}}
 \index{SPARQL!SUM!Список стран по суммарному количеству населения, проживающего в <<населённых пунктах>>}
 \index{SPARQL!GROUP BY!Список стран по суммарному количеству населения, проживающего в <<населённых пунктах>>}
 \lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/4d9M}{Список стран по суммарному количеству населения, проживающего в <<населённых пунктах>>}\protect\footnotemark},
-                    label=lst:human-settlement3,
-                    texcl 
-                    ]
+    caption={\href{https://w.wiki/4d9M}{Список стран по суммарному количеству населения, проживающего в <<населённых пунктах>>}},
+    label=lst:human-settlement3,
+    texcl 
+                  ]
 # List of countries by population in settlements
 SELECT ?country ?countryLabel (SUM(?population) as ?sumPopulation)
 WHERE {
@@ -127,11 +138,16 @@ WHERE {
 GROUP BY ?country ?countryLabel 
 ORDER BY DESC (?sumPopulation)
 \end{lstlisting}%
-\footnotetext{Получена \num{161} страна в 2017 году и \num{213} стран в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4d9M}{https://w.wiki/4d9M}}
+%\footnotetext{Получена \num{161} страна в 2017 году и \num{213} стран в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4d9M}{https://w.wiki/4d9M}}
+%\end{minipage}
 
-Для подсчета насления по странам, используем команду \textit{SUM()} на второй строке скрипта (листинг ~\protect\ref{lst:human-settlement3}). Для группировки населённых пунктов по странам, используем команду \textit{GROUP BY} на девятой строке скрипта (листинг ~\protect\ref{lst:human-settlement3}).
+Для подсчёта количества населения по странам 
+используем команду \lstinline|SUM()| во второй строке запроса~\ref{lst:human-settlement3}. 
+Для группировки населённых пунктов по странам 
+используем команду \lstinline|GROUP BY| на девятой строке того же запроса.
 
-Пузырьковая диаграмма на рис. ~\ref{fig:human-settlement-1} показывает соотношение стран по количеству населения в <<населённых пунктах>> в 2017 году.
+Пузырьковая диаграмма на рис.~\ref{fig:human-settlement-1} 
+показывает соотношение стран по количеству населения в <<населённых пунктах>> в 2017 году.
 
 \begin{figure}
 \centering
@@ -147,11 +163,26 @@ ORDER BY DESC (?sumPopulation)
 	\caption[Пузырьковая диаграмма  по суммарному количеству населения в населённых пунктах, 2021.]{Пузырьковая диаграмма  по суммарному количеству населения, проживающего в <<населённых пунктах>> на 2021 год. Размер пузырька соответствует количеству населения, проживающего в <<населённых пунктах>> одной страны. Ссылка на SPARQL-запрос: \href{https://w.wiki/4dAv}{https://w.wiki/4dAv}}
 \end{figure}
 
-В 2017 году больше всего количество населения проживало в объектах <<населённый пункт>> в таких странах, как: \href{http://www.wikidata.org/entity/Q155}{Бразилия} (\num{12} млн), \href{http://www.wikidata.org/entity/Q843}{Пакистан} (\num{10} млн), \href{http://www.wikidata.org/entity/Q96}{Мексика} (\num{8} млн), \href{http://www.wikidata.org/entity/Q805}{Йемен} (\num{8} млн), \href{http://www.wikidata.org/entity/Q668}{Индия} (\num{7} млн), \href{http://www.wikidata.org/entity/Q902}{Бангладеш} (\num{7} млн). 
+В 2017 году больше всего населения проживало в <<населённых пунктах>> 
+\wdqName{Бразилии}{155} (\num{12} млн), 
+\wdqName{Пакистан}{843} (\num{10} млн), 
+\wdqName{Мексика}{96} (\num{8} млн), 
+\wdqName{Йемен}{805} (\num{8} млн), 
+\wdqName{Индия}{668} (\num{7} млн), 
+\wdqName{Бангладеш}{902} (\num{7} млн). 
 
-На рис. ~\ref{fig:human-settlement-2} можно увидеть список стран на 2021 год: \href{http://www.wikidata.org/entity/Q668}{Индия} (\num{30} млн), \href{http://www.wikidata.org/entity/Q148}{Китай} (\num{28} млн), \href{http://www.wikidata.org/entity/Q96}{Мексика} (\num{17} млн), \href{http://www.wikidata.org/entity/Q252}{Индонезия} (\num{13} млн), \href{http://www.wikidata.org/entity/Q16}{Канада} (\num{9} млн), \href{http://www.wikidata.org/entity/Q851}{Саудовская Аравия} (\num{9} млн). 
+На рис.~\ref{fig:human-settlement-2} можно увидеть список стран на 2021 год: 
+\wdqName{Индия}{668} (\num{30} млн), 
+\wdqName{Китай}{148} (\num{28} млн), 
+\wdqName{Мексика}{96} (\num{17} млн), 
+\wdqName{Индонезия}{252} (\num{13} млн), 
+\wdqName{Канада}{16} (\num{9} млн), 
+\wdqName{Саудовская Аравия}{851} (\num{9} млн). 
 
-Итоги запросов в 2017 и 2021 имеют сильно разные результаты. За четыре года в Индии прибавилось 23 млн человек, из этого можно сделать вывод, что за четыре года информация в Викиданных стала более полной по населённым пунктам.
+Итак, результаты запроса~\ref{lst:human-settlement3} в 2017 и 2021 существенно разнятся. 
+По этим результатам получается, что за четыре года 
+в населённых пунктах Индии стало больше на 23 млн человек. 
+
 
 %%%%%
 \subsection{Полнота Викиданных}
