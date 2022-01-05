@@ -28,7 +28,7 @@
 \begin{marginfigure}[0.0cm] {
 \setlength{\fboxsep}{0pt}%
 \setlength{\fboxrule}{1pt}%
-\fcolorbox{gray}{gray}{\includegraphics[width=0.5\linewidth]{./chapter/human_settlement/Aznakeevskii_rayon_gerb.png}}%
+\fcolorbox{gray}{gray}{\includegraphics[width=0.9\linewidth]{./chapter/human_settlement/Aznakeevskii_rayon_gerb.png}}%
 }
   \caption{Герб отечественного или зарубежного населённого пункта изображён на рисунке?}%
   \label{fig:flag_question_human_settlements1}%
@@ -50,6 +50,17 @@
 
 %%%%%%%
 \section{Список <<Населённых пунктов>>}
+%%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%%
+\begin{marginfigure}[0.0cm]
+{
+\setlength{\fboxsep}{0pt}%
+\setlength{\fboxrule}{1pt}%
+\fcolorbox{gray}{gray}{\includegraphics[width=0.8\linewidth]{./chapter/human_settlement/Coat_of_Arms_of_Asbest_(Sverdlovsk_oblast).png}}%
+}
+  \caption{Это герб населённого пункта России или другой страны?\newline%
+См. ответ~\protect\ref{answer:flag_human_settlements} на с.~\protect\pageref{answer:flag_human_settlements}.}
+  \label{fig:flag_question_human_settlements2}%
+\end{marginfigure}
 
 Построим список всех населённых пунктов с помощью запроса~\ref{lst:human-settlement1}.
 
@@ -96,20 +107,10 @@ SELECT (COUNT(?hum) AS ?count) WHERE {
 Лидером по всему миру является \wdqName{Токио}{1490} (73 свойства)\autocite{humansettlements_ProWD}.
 
 
+
+
 %%%%%%%
 \section{Список стран по суммарному количеству населения}
-
-%%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%%
-\begin{marginfigure}[1.0cm]
-{
-\setlength{\fboxsep}{0pt}%
-\setlength{\fboxrule}{1pt}%
-\fcolorbox{gray}{gray}{\includegraphics[width=0.5\linewidth]{./chapter/human_settlement/Coat_of_Arms_of_Asbest_(Sverdlovsk_oblast).png}}%
-}
-  \caption{Это герб населённого пункта России или другой страны?\newline%
-См. ответ~\protect\ref{answer:flag_human_settlements} на с.~\protect\pageref{answer:flag_human_settlements}.}
-  \label{fig:flag_question_human_settlements2}%
-\end{marginfigure}
 
 %\marginnote{%
 %См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.
@@ -165,18 +166,18 @@ ORDER BY DESC (?sumPopulation)
 
 В 2017 году больше всего населения проживало в <<населённых пунктах>> 
 \wdqName{Бразилии}{155} (\num{12} млн), 
-\wdqName{Пакистан}{843} (\num{10} млн), 
-\wdqName{Мексика}{96} (\num{8} млн), 
-\wdqName{Йемен}{805} (\num{8} млн), 
-\wdqName{Индия}{668} (\num{7} млн), 
-\wdqName{Бангладеш}{902} (\num{7} млн). 
+\wdqName{Пакистана}{843} (\num{10} млн), 
+\wdqName{Мексики}{96} (\num{8} млн), 
+\wdqName{Йемена}{805} (\num{8} млн), 
+\wdqName{Индии}{668} (\num{7} млн) и 
+\wdqName{Бангладеша}{902} (\num{7} млн). 
 
 На рис.~\ref{fig:human-settlement-2} можно увидеть список стран на 2021 год: 
 \wdqName{Индия}{668} (\num{30} млн), 
 \wdqName{Китай}{148} (\num{28} млн), 
 \wdqName{Мексика}{96} (\num{17} млн), 
 \wdqName{Индонезия}{252} (\num{13} млн), 
-\wdqName{Канада}{16} (\num{9} млн), 
+\wdqName{Канада}{16} (\num{9} млн) и 
 \wdqName{Саудовская Аравия}{851} (\num{9} млн). 
 
 Итак, результаты запроса~\ref{lst:human-settlement3} в 2017 и 2021 существенно разнятся. 
@@ -213,23 +214,19 @@ ORDER BY DESC (?sumPopulation)
 \section{Доля населения страны, проживающего в <<населённых пунктах>>}
 
 Построим упорядоченный список стран доли населения (в процентах), проживающего в \href{http://www.wikidata.org/entity/Q486972}{населённых пунктах}, относительно числа всех жителей страны (листинг ~\protect\ref{lst:human-settlement6}).
-
+%
 %%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%%
-\marginnote{
-Выберите, представленный герб относится к населённым пунктам Российской Федерации или нет, изображенный на рис. \ref{fig:flag_question_human_settlements3}?
-}
 \begin{marginfigure}[0.0cm]
 {
 \setlength{\fboxsep}{0pt}%
 \setlength{\fboxrule}{1pt}%
-\fcolorbox{gray}{gray}{\includegraphics[width=0.5\linewidth]{./chapter/human_settlement/Loučovice_CoA.jpg}}%
+\fcolorbox{gray}{gray}{\includegraphics[width=0.9\linewidth]{./chapter/human_settlement/Loučovice_CoA.jpg}}%
 }
-  \caption{Герб населённого пункта.}%
+  \caption{Герб населённого пункта какой страны изображён?}%
   \label{fig:flag_question_human_settlements3}%
 \end{marginfigure}
-
-\marginnote{
-См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.
+\marginnote{%
+См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.%
 }
 
 \index{SPARQL!SUM!Соотношение количества людей, проживающих в населённых пунктах, к количеству всех людей в стране}
@@ -277,22 +274,19 @@ ORDER BY ?proportionPopulation
 
 На 2017 год рассматривая отдельно страны большой восьмёрки, доля жителей в \href{http://www.wikidata.org/entity/Q486972}{населённых пунктах} составила: \href{http://www.wikidata.org/entity/Q159}{Россия} (\num{2.98}\%), \href{http://www.wikidata.org/entity/Q30}{США} (\num{1.76}\%), \href{http://www.wikidata.org/entity/Q17}{Япония} (\num{0.80}\%), \href{http://www.wikidata.org/entity/Q16}{Канада} (\num{0.26}\%), \href{http://www.wikidata.org/entity/Q142}{Франция} (\num{0.20}\%), \href{http://www.wikidata.org/entity/Q183}{Германия} (\num{0.24}\%), \href{http://www.wikidata.org/entity/Q145}{Великобритания} (\num{0.18}\%), \href{http://www.wikidata.org/entity/Q38}{Италия} (\num{0.07}\%). В 2021 году значения доли населения снизились: \href{http://www.wikidata.org/entity/Q159}{Россия} (0.045\%), \href{http://www.wikidata.org/entity/Q30}{США} (\num{0.014}\%), \href{http://www.wikidata.org/entity/Q17}{Япония} (\num{0.008}\%), \href{http://www.wikidata.org/entity/Q16}{Канада} (\num{0.23}\%), \href{http://www.wikidata.org/entity/Q142}{Франция} (\num{0.005}\%), \href{http://www.wikidata.org/entity/Q183}{Германия} (\num{0.005}\%), \href{http://www.wikidata.org/entity/Q145}{Великобритания} (\num{0.014}\%), \href{http://www.wikidata.org/entity/Q38}{Италия} (\num{0.0005}\%). Отметим, что это страны промышленно развитые.
 
+
 %%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%%
-\marginnote{
-Выберите, представленный герб относится к населённым пунктам Российской Федерации или нет, изображенный на рис. \ref{fig:flag_question_human_settlements4}?
-}
 \begin{marginfigure}[0.0cm]
 {
 \setlength{\fboxsep}{0pt}%
 \setlength{\fboxrule}{1pt}%
-\fcolorbox{gray}{gray}{\includegraphics[width=0.5\linewidth]{./chapter/human_settlement/POL_Otynia_COA.png}}%
+\fcolorbox{gray}{gray}{\includegraphics[width=0.9\linewidth]{./chapter/human_settlement/POL_Otynia_COA.png}}%
 }
-  \caption{Герб населённого пункта.}%
+  \caption{Герб населённого пункта какой страны изображён?}%
   \label{fig:flag_question_human_settlements4}%
 \end{marginfigure}
-
-\marginnote{
-См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.
+\marginnote{%
+См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.%
 }
 
 Построенная диаграмма подтверждает следующую гипотезу: высокий процент населения страны, проживающего в \wdqName{населённых пунктах}{486972}, указывает на более аграрную страну. Исходя из представленных выше диаграмм видно, что наиболее высокий процент населения страны, проживающего в населённых пунктах, приходится на островные, южные, жаркие страны, в которых, по-видимому, менее развита промышленность (маленькая территория, небольшое количество населения, удалённость от материков). А индустриальные страны (большой восьмёрки) имеют очень низкий процент населения страны, проживающего в населённых пунктах.
@@ -305,22 +299,19 @@ ORDER BY ?proportionPopulation
 
 Далее классом будем называть каждый элемент в исследуемом объекте на Викиданных, связанный через свойство \wdProperty{31}{экземпляра}
 
+
 %%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%%
-\marginnote{
-Выберите, представленный герб относится к населённым пунктам Российской Федерации или нет, изображенный на рис. \ref{fig:flag_question_human_settlements5}?
-}
 \begin{marginfigure}[0.0cm]
 {
 \setlength{\fboxsep}{0pt}%
 \setlength{\fboxrule}{1pt}%
-\fcolorbox{gray}{gray}{\includegraphics[width=0.5\linewidth]{./chapter/human_settlement/Coat_of_Arms_of_Azov.png}}%
+\fcolorbox{gray}{gray}{\includegraphics[width=0.9\linewidth]{./chapter/human_settlement/Coat_of_Arms_of_Azov.png}}%
 }
-  \caption{Герб населённого пункта.}%
+  \caption{Герб населённого пункта какой страны изображён?}%
   \label{fig:flag_question_human_settlements5}%
 \end{marginfigure}
-
-\marginnote{
-См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.
+\marginnote{%
+См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.%
 }
 
 \begin{lstlisting}[ language=SPARQL, 
