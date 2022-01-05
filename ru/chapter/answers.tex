@@ -5,7 +5,7 @@
 Ставлю три звездочки. 
 Я видал в детских книжках: 
 когда человек делает прыжок к новой мысли, он ставит три звездочки\ldots
-}{Саша Чёрный, {Дневник Фокса Микки}
+}{Саша Чёрный, {Дневник Фокса Микки}%
 }
 
 \newthought{Задачи рассеяны} по всей книге, а ответы на них собраны в этом разделе.
@@ -983,23 +983,33 @@ ORDER BY DESC (?popArea)
 
 \begin{task}
 \label{answer:flag_human_settlements}
-\newthought{Гербы населённых пунктов}, изображенные на рис. \ref{fig:flag_question_human_settlements1},\ref{fig:flag_question_human_settlements2},\ref{fig:flag_question_human_settlements5} принадлежат \href{https://w.wiki/myt}{Российской Федерации}. Герб населённого пункта, изображенный на рис. \ref{fig:flag_question_human_settlements3} принадлежит \href{https://w.wiki/4dUc}{Чешской Республике}. Герб населённого пункта, изображенный на рис. \ref{fig:flag_question_human_settlements4} принадлежит \href{https://w.wiki/4dUf}{Украине}. 
+\newthought{На рисунках~\ref{fig:flag_question_human_settlements1}, 
+    \ref{fig:flag_question_human_settlements2} и 
+    \ref{fig:flag_question_human_settlements5}} 
+    изображены гербы отечественных населённых пунктов.
+    Герб на рис.~\ref{fig:flag_question_human_settlements3} 
+    принадлежит населённому пункту \ruwiki{4dUc}{Чехии}, 
+    на рис.~\ref{fig:flag_question_human_settlements4}~--- 
+    \ruwiki{4dUf}{украинскому} населённому пункту. 
 
-Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:flag_question_human_settlements}). Значение свойства \href{https://www.wikidata.org/wiki/Property:P94}{coat of arms image (P94)} содержит изображение герба населённыго пункта.
+Ответ можно получить с помощью запроса~\ref{lst:flag_question_human_settlements}. 
+    Значение свойства  \wdProperty{94}{``coat of arms image''} 
+    содержит изображение герба населённого пункта.
     
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/4dUR}{Гербы населённых пунктов Российской Федерации}\protect\footnotemark},
+                    caption={\href{https://w.wiki/4e8A}{Гербы населённых пунктов Российской Федерации}\protect\footnotemark},
                     label=lst:flag_question_human_settlements
-                    ]
-# emblems of human settlements of the Russian Federation
+                  ]
+# Emblems of human settlements in Russia
+#defaultView:ImageGrid
 SELECT ?hum ?humLabel ?image WHERE {
   ?hum wdt:P31 wd:Q486972; # instance of human settlement
        wdt:P17 wd:Q159;    # in Russia
        wdt:P94 ?image.     # coat of arms
-  SERVICE wikibase:label{bd:serviceParam wikibase:language "ru, en"}
+SERVICE wikibase:label{bd:serviceParam wikibase:language "ru, en"}
 }
 \end{lstlisting}
 
-\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/4dUR}{https://w.wiki/4dUR}}  
-\small{Вопросы на с.~\pageref{fig:flag_question_human_settlements1}, ~\pageref{fig:flag_question_human_settlements2}, ~\pageref{fig:flag_question_human_settlements3}, ~\pageref{fig:flag_question_human_settlements4}, ~\pageref{fig:flag_question_human_settlements5}.}
+\footnotetext{148 гербов на 2022 год. SPARQL-запрос: \href{https://w.wiki/4e8A}{https://w.wiki/4e8A}}  
+\small{Вопросы на с.~\pageref{fig:flag_question_human_settlements1}, \pageref{fig:flag_question_human_settlements2}, \pageref{fig:flag_question_human_settlements3}, \pageref{fig:flag_question_human_settlements4}, \pageref{fig:flag_question_human_settlements5}.}
 \end{task}
