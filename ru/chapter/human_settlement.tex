@@ -25,11 +25,8 @@
 относительно данных той же переписи за 2010 год. 
 
 %%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%%
-\begin{marginfigure}[0.0cm] {
-\setlength{\fboxsep}{0pt}%
-\setlength{\fboxrule}{1pt}%
-\fcolorbox{gray}{gray}{\includegraphics[width=0.9\linewidth]{./chapter/human_settlement/Aznakeevskii_rayon_gerb.png}}%
-}
+\begin{marginfigure}[0.0cm]{%
+\includegraphics[width=0.9\linewidth]{./chapter/human_settlement/Aznakeevskii_rayon_gerb.png}}
   \caption{Герб отечественного или зарубежного населённого пункта изображён на рисунке?}%
   \label{fig:flag_question_human_settlements1}%
 \end{marginfigure}
@@ -52,11 +49,7 @@
 \section{Список <<Населённых пунктов>>}
 %%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%%
 \begin{marginfigure}[0.0cm]
-{
-\setlength{\fboxsep}{0pt}%
-\setlength{\fboxrule}{1pt}%
-\fcolorbox{gray}{gray}{\includegraphics[width=0.8\linewidth]{./chapter/human_settlement/Coat_of_Arms_of_Asbest_(Sverdlovsk_oblast).png}}%
-}
+{\includegraphics[width=0.8\linewidth]{./chapter/human_settlement/Coat_of_Arms_of_Asbest_(Sverdlovsk_oblast).png}}
   \caption{Это герб населённого пункта России или другой страны?\newline%
 См. ответ~\protect\ref{answer:flag_human_settlements} на с.~\protect\pageref{answer:flag_human_settlements}.}
   \label{fig:flag_question_human_settlements2}%
@@ -188,19 +181,39 @@ ORDER BY DESC (?sumPopulation)
 %%%%%
 \subsection{Полнота Викиданных}
 
-Населённый пункт — это общее название мест с постоянными жителями\autocite{Humansettlements_Dictionary}. По версии редакторов Викиданных в понятие насёленный пункт входят города, сёла, деревни и другие\footnote{Полный список можно увидеть в разделе <<Cписок классов, сопутствующих <<населённому пункту>> в свойстве <<экземпляр>>>> на с.~\pageref{human-settlement:tag1}.}.
-Точной информации о количестве населённых пунктов в мире не было найдено. Поэтому проверим полноту населённых пунктов, которые есть в Викиданных и которые использовались для решения задачи. В задачах выше мы использовали свойста \wdProperty{1082}{численность населения} и \wdProperty{17}{государство} (привязанность к стране). Исходя из этого проверку полноты разделим на подзадачи: 
+Населённый пункт~--- это общее название мест с постоянными жителями\autocite{Humansettlements_Dictionary}. 
+По версии редакторов Викиданных в понятие насёленный пункт входят города, сёла, деревни 
+и другие\marginnote[4pt]{Полный список можно увидеть в разделе <<Cписок классов, сопутствующих ``населённому пункту'' в свойстве ``экземпляр''>> на с.~\pageref{human-settlement:tag1}.}.
+Точной информации о количестве населённых пунктов в мире не было найдено. 
+Поэтому проверим полноту населённых пунктов, которые есть в Викиданных 
+и которые использовались для решения задачи. 
+В задачах выше мы использовали свойста \wdProperty{1082}{численность населения} и 
+\wdProperty{17}{государство} (привязка к стране). 
+Исходя из этого проверку полноты разделим на подзадачи: 
 \begin{enumerate} 
   \item Проверка заполнености свойства <<численность населения>>.
   \item Проверка принадлежности к <<государству>>.
 \end{enumerate}
 
+
 %%%%%
 \subsection{Проверка заполнености свойства <<численность населения>> }
 
-Для этого напишем \href{https://w.wiki/4FUz}{SPARQL-запрос}\footnotemark, который выведет населённые пункты с незаполненным свойством \href{http://www.wikidata.org/entity/P1082}{численность населения}. 
-\footnotetext{ В 2017 году запрос выдал \num{372997} населённых пунктов с незаполненным свойством <<численность населения>>. Проводя ту же проверку в 2021 году, запрос выдал \num{507078} таких населённых пунктов. Ссылка на SPARQL-запрос: \href{https://w.wiki/4FUz}{https://w.wiki/4FUz}} 
-Произведя расчеты получаем, что только у 9,3\% населенных пунктов мира указано свойство <<численность населения>> на 2017 год. В 2021 получаем 11,2\% населенных пунктов мира с заполненным свойство <<численность населения>>.
+Для такой проверки напишем \href{https://w.wiki/4FUz}{SPARQL-запрос}\sidenote{
+%
+В 2017 году запрос выдал \num{372997} населённых пунктов 
+с незаполненным свойством <<численность населения>>. 
+Тот же запрос в 2021 году выдал \num{507078} таких населённых пунктов. 
+Ссылка на SPARQL-запрос: \href{https://w.wiki/4FUz}{https://w.wiki/4FUz}% 
+}, 
+который выведет населённые пункты 
+с незаполненным свойством \href{http://www.wikidata.org/entity/P1082}{численность населения}. 
+Произведя расчёты получаем, что только у 9,3\% населенных пунктов мира 
+указано свойство <<численность населения>> на 2017 год. 
+В 2021 получаем 11,2\% населенных пунктов мира с заполненным свойство <<численность населения>>. 
+Получается, что несмотря на рост числа населённых пунктов в Викиданных 
+доля пунктов с заполненным свойством <<численность населения>> постепенно увеличивается.
+
 
 %%%%%
 \subsection{Проверка принадлежности к <<государству>>}
@@ -217,11 +230,7 @@ ORDER BY DESC (?sumPopulation)
 %
 %%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%%
 \begin{marginfigure}[0.0cm]
-{
-\setlength{\fboxsep}{0pt}%
-\setlength{\fboxrule}{1pt}%
-\fcolorbox{gray}{gray}{\includegraphics[width=0.9\linewidth]{./chapter/human_settlement/Loučovice_CoA.jpg}}%
-}
+{\includegraphics[width=0.9\linewidth]{./chapter/human_settlement/Loučovice_CoA.jpg}}
   \caption{Герб населённого пункта какой страны изображён?}%
   \label{fig:flag_question_human_settlements3}%
 \end{marginfigure}
@@ -255,17 +264,13 @@ ORDER BY ?proportionPopulation
 Столбчатая диаграмма на рис. ~\ref{fig:human-settlement-3} позволяет увидеть для каждой отдельной страны отношение количества людей, проживающих в \href{http://www.wikidata.org/entity/Q486972}{населённых пунктах}, к числу жителей в стране на 2017 год.
 
 \begin{figure*}
-    \setlength{\fboxsep}{0pt}%
-    \setlength{\fboxrule}{1pt}%
-    \fcolorbox{gray}{gray}{\includegraphics[width=1\linewidth]{./chapter/human_settlement/AnnaShareHumanSettlement.png}}
+    \includegraphics[width=1\linewidth]{./chapter/human_settlement/AnnaShareHumanSettlement.png}
 	\label{fig:human-settlement-3}
 	\caption[Диаграмма доли населения страны, 2017.]{Диаграмма доли населения страны, проживающего в <<населённых пунктах>> на 2017 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/4dE3}{https://w.wiki/4dE3}}%
 \end{figure*} 
 
 \begin{figure*}
-    \setlength{\fboxsep}{0pt}%
-    \setlength{\fboxrule}{1pt}%
-    \fcolorbox{gray}{gray}{\includegraphics[width=1\linewidth]{./chapter/human_settlement/LeonidShareHumanSettlement.jpg}}
+    \includegraphics[width=1\linewidth]{./chapter/human_settlement/LeonidShareHumanSettlement.jpg}
 	\label{fig:human-settlement-4}
 	\caption[Диаграмма доли населения страны, 2021.]{Диаграмма доли населения страны, проживающего в <<населённых пунктах>> на 2021 год. В 2021 на диаграмму попали только страны с населением более 5 млн человек. Ссылка на SPARQL-запрос: \href{https://w.wiki/4dDx}{https://w.wiki/4dDx}}%
 \end{figure*} 
@@ -277,11 +282,7 @@ ORDER BY ?proportionPopulation
 
 %%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%%
 \begin{marginfigure}[0.0cm]
-{
-\setlength{\fboxsep}{0pt}%
-\setlength{\fboxrule}{1pt}%
-\fcolorbox{gray}{gray}{\includegraphics[width=0.9\linewidth]{./chapter/human_settlement/POL_Otynia_COA.png}}%
-}
+{\includegraphics[width=0.9\linewidth]{./chapter/human_settlement/POL_Otynia_COA.png}}
   \caption{Герб населённого пункта какой страны изображён?}%
   \label{fig:flag_question_human_settlements4}%
 \end{marginfigure}
@@ -302,11 +303,7 @@ ORDER BY ?proportionPopulation
 
 %%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%%
 \begin{marginfigure}[0.0cm]
-{
-\setlength{\fboxsep}{0pt}%
-\setlength{\fboxrule}{1pt}%
-\fcolorbox{gray}{gray}{\includegraphics[width=0.9\linewidth]{./chapter/human_settlement/Coat_of_Arms_of_Azov.png}}%
-}
+{\includegraphics[width=0.9\linewidth]{./chapter/human_settlement/Coat_of_Arms_of_Azov.png}}
   \caption{Герб населённого пункта какой страны изображён?}%
   \label{fig:flag_question_human_settlements5}%
 \end{marginfigure}
