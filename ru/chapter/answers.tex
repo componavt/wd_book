@@ -319,12 +319,13 @@ WHERE
 
 \begin{task}
 	\label{answer:subjects_of_Russia_3}
-	\newthought{Флаг Московской области соответствует приведённому описанию. Ответ на вопрос можно проверить, выполнив следующий SPARQL-запрос (листинг \ref{lst:subjects_of_Russia_3_q})}
+	\newthought{Приведённому описанию соответствует флаг Московской области. Ответ на вопрос можно проверить, выполнив следующий SPARQL-запрос (листинг \ref{lst:subjects_of_Russia_3_q})}
 	
 	\begin{lstlisting}[ language=SPARQL, numbers=none,
-	caption={\href{https://w.wiki/4bJB}{Флаги субъектов России.}\protect\footnotemark},
+	caption={\href{https://w.wiki/4cPg}{Флаги субъектов России.}\protect\footnotemark},
 	label=lst:subjects_of_Russia_3_q
 	]
+# List of flags of the subjects of Russia
 #defaultView:ImageGrid
 SELECT ?subject ?subjectLabel ?flag
 WHERE
@@ -341,7 +342,7 @@ WHERE
   ?subject wdt:P41 ?flag
 }
 \end{lstlisting}
-\footnotetext{Получено 86 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4bJB}{https://w.wiki/4bJB}}  
+\footnotetext{Получено 86 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4cPg}{https://w.wiki/4cPg}}  
 	
 \small{Вопрос на с.~\pageref{lst:oblast-of-Russia}.}
 \end{task}
@@ -356,14 +357,15 @@ WHERE
 	\setlength{\fboxrule}{1pt}%
 	\includegraphics[width=0.8\linewidth]{"chapter/oblast_of_Russia/Flag_of_Karelia.png"}
 }
-\caption [Флаг Карелии, Россия.]{Флаг Карелии, Россия.}%
+\caption [Флаг Карелии, Россия.]{Флаг Карелии.}%
 \label{fig:Flag_of_Karelia}%
 \end{marginfigure}
 	
 	\begin{lstlisting}[ language=SPARQL, numbers=none,
-	caption={\href{https://w.wiki/4bJF}{Границы и дата возникновения субъектов РФ}\protect\footnotemark},
+	caption={\href{https://w.wiki/4cPh}{Границы и дата возникновения субъектов РФ}\protect\footnotemark},
 	label=lst:sharesBorderWith
 	]
+# Borders and date of origin of the subjects of the Russian Federation
 SELECT  ?subject ?subjectLabel 
         ?sharesBorderWith 
         ?sharesBorderWithLabel ?year
@@ -382,36 +384,14 @@ WHERE
   ?subject wdt:P571 ?year
 }
 \end{lstlisting}
-\footnotetext{Получено 485 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4bJF}{https://w.wiki/4bJF}}  
+\footnotetext{Получено 485 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4cPh}{https://w.wiki/4cPh}}  
 	
 \small{Вопрос на с.~\pageref{lst:sharesBorderWith-oblast-of-Russia}.}
 \end{task}
 
 \begin{task}
 	\label{answer:subjects_of_Russia_2}
-	\newthought{Сейчас в состав Российской Федерации входят: Республика Адыгея, Камчатский край, Чукотский автономный округ, не входит~--- Читинская область. Ответ на вопрос можно проверить, выполнив следующий SPARQL-запрос (листинг \ref{lst:subjects_of_Russia_2_q}).}
-	
-	\begin{lstlisting}[ language=SPARQL, numbers=none,
-	caption={\href{https://w.wiki/4bJG}{Список субъектов России}\protect\footnotemark},
-	label=lst:subjects_of_Russia_2_q
-	]
-#List of `instances of` "subjects of Russia" 
-SELECT ?subject ?subjectLabel
-WHERE
-{
-  { ?subject wdt:P31 wd:Q835714 } UNION  # Oblast of Russia
-  { ?subject wdt:P31 wd:Q41162 } UNION  # Republic of Russia
-  { ?subject wdt:P31 wd:Q183342 } UNION  # Federal city of Russia
-  { ?subject wdt:P31 wd:Q831740 } UNION  # Krai of Russia
-  { ?subject wdt:P31 wd:Q309166 } UNION # Autonomus oblast of Russia
-  { ?subject wdt:P31 wd:Q184122 } # Autonomus okrug of Russia
-  
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
-}
-}
-\end{lstlisting}
-\footnotetext{Получено 86 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4bJG}{https://w.wiki/4bJG}}  
-	
+	\newthought{Сейчас в состав Российской Федерации входят: Республика Адыгея, Камчатский край, Чукотский автономный округ, не входит~--- Читинская область. Ответ на вопрос можно проверить, выполнив следующий SPARQL-запрос (листинг \ref{lst:subjects-of-Russia}).}
 \small{Вопрос на с.~\pageref{lst:sharesBorderWith-empty-oblast-of-Russia}.}
 \end{task}
 
