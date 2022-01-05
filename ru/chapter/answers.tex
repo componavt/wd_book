@@ -872,7 +872,7 @@ ORDER BY ?lapse # Order 1960, 1970, 1980, ...    \end{lstlisting}
 \begin{task}
     \label{answer:launches_world}
     \newthought{Наибольшее число запусков за десятилетие в промежуток с 1970 по 2010 год~--- 121, наименьшее~--- 63.} 
-    Скрипт подсчёта максимума и минимума запусков за 10 лет в промежуток с 1970 по 2010 год~\ref{lst:launchesWorld10}:
+    Для подсчёта максимума и минимума запусков за 10 лет в промежуток с 1970 по 2010 год удобно использовать скрипт~\ref{lst:launchesWorld10}.
     \begin{lstlisting}[ language=SPARQL, numbers=none, caption={{\href{https://w.wiki/4dwj}{Максимум и минимум запусков космических кораблей в мире}}\protect\footnotemark}, label=lst:launchesWorld10, ]
 # Check MAX and MIN of launches per 10 years from 1970 to 2010
 SELECT (MAX (?quantity) as ?max) (MIN (?quantity) as ?min)
@@ -893,24 +893,23 @@ WHERE {
 
 \begin{task}
     \label{answer:spacecraft_USSR}
-    \newthought{Космические аппараты}, изображённые на рисунках \ref{question:spacecraft_soyuz19}, \ref{question:spacecraft_soyuzT}, и \ref{question:spacecraft_lunar} принадлежат СССР. Убедиться в этом можно выполнив запрос~\ref{lst:imageUSSRsc}:
-    \begin{lstlisting}[ language=SPARQL, numbers=none, caption={{\href{https://w.wiki/4duz}{Набор изображений аппаратов из СССР}}\protect\footnotemark}, label=lst:imageUSSRsc, ]
+    \newthought{Космические аппараты}, изображённые на рисунках \ref{question:spacecraft_soyuz19} (Союз--19), \ref{question:spacecraft_soyuzT} (Союз--7К), и \ref{question:spacecraft_lunar} (лунный посадочный модуль <<Космос>>) принадлежат СССР. Убедиться в этом можно выполнив запрос~\ref{lst:imageUSSRsc}:
+    \begin{lstlisting}[ language=SPARQL, numbers=none, caption={{\href{https://w.wiki/4eCS}{Набор изображений космических аппаратов СССР}}\protect\footnotemark}, label=lst:imageUSSRsc, ]
 # List of images of USSR spacecraft
 #defaultView:ImageGrid
 SELECT ?obj ?name ?img
 WHERE
 {
-    {?obj wdt:P31 wd:Q40218.} UNION    #spacecraft
-    {?obj wdt:P31 wd:Q18039177.} UNION #fictional 
-    {?obj wdt:P31 wd:Q402330.}         #cargo 
-    {?obj wdt:P17 wd:Q15180. }         #USSR
-    ?obj wdt:P18 ?img.                 #image
+    {?obj wdt:P31 wd:Q40218.}          # spacecraft
+    {?obj wdt:P17 wd:Q15180.} UNION       # country
+    {?obj wdt:P495 wd:Q15180.}  # country of origin
+    ?obj wdt:P18 ?img.                       #image
     OPTIONAL {
 		?obj rdfs:label ?name 
-		filter (lang(?name) = "ru")
+		FILTER (lang(?name) = "ru")
 	}
 }    \end{lstlisting}
-    \footnotetext{Найдено семь результатов в 2021 г. Ссылка на SPARQL-запрос: \href{https://w.wiki/4duz}{https://w.wiki/4duz}}
+    \footnotetext{Найдено девять результатов в 2022 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4eCS}{https://w.wiki/4eCS}}
 
     \small{Вопросы на с.~\pageref{question:spacecraft_soyuz19},~\pageref{question:spacecraft_soyuzT},~\pageref{question:spacecraft_lunar}.}
 \end{task}
