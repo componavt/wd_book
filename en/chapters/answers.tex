@@ -636,12 +636,13 @@ Question from page~\pageref{tasks:operating_system_tasks}.
 \labsec{answer-languages}
 \begin{exercise}
 	\label{answer:subjects_of_Russia_3}
-	The flag of the Moscow region corresponds to the above description. The answer to the question can be checked by executing the following SPARQL query (query~\ref{lst:subjects_of_Russia_3_q})
+	The flag of the Moscow region corresponds to the description in the question. The answer to the question can be checked by executing the following SPARQL query~\ref{lst:subjects_of_Russia_3_q}.
 \end{exercise}	
 	\begin{lstlisting}[ language=SPARQL, numbers=none,
-	caption={\href{https://w.wiki/4bKd}{Flags of the subjects of Russia.}\protect\footnotemark},
+	caption={Flags of the subjects of Russia. 86 results in 2021. SPARQL query: \href{https://w.wiki/4bKd}{https://w.wiki/4bKd}},
 	label=lst:subjects_of_Russia_3_q
 	]
+# List of flags of the subjects of Russia
 #defaultView:ImageGrid
 SELECT ?subject ?subjectLabel ?flag
 WHERE
@@ -658,13 +659,12 @@ WHERE
   ?subject wdt:P41 ?flag
 }
 \end{lstlisting}
-\footnotetext{86 records were received in 2021. Link to SPARQL query: \href{https://w.wiki/4bKd}{https://w.wiki/4bKd}}  
 	
 \small{Question on the page~\pageref{lst:oblast-of-Russia}.}
 
 \begin{exercise}
 	\label{answer:subjects_of_Russia_1}
-	Such a region is Karelia. It is located in the north-west of Russia, originated in \num{1920}. It borders the Leningrad, Vologda, Arkhangelsk and Murmansk regions. It also borders Finland to the west.  The answer to the question can be checked by executing the following SPARQL query (query \ref{lst:sharesBorderWith}).
+	This region is Karelia. It is located in the north-west of Russia, founded in \num{1920}. It borders the Leningrad, Vologda, Arkhangelsk and Murmansk regions. It also borders Finland to the west.  The answer to the question can be checked by executing the SPARQL query \ref{lst:sharesBorderWith}.
 \end{exercise}	
 	\begin{marginfigure}[2.0cm]
 {
@@ -677,9 +677,10 @@ WHERE
 \end{marginfigure}
 	
 	\begin{lstlisting}[ language=SPARQL, numbers=none,
-	caption={\href{https://w.wiki/4bKg}{Borders and date of origin of the subjects of the Russian Federation}\protect\footnotemark},
+	caption={Borders and date of origin of the subjects of the Russian Federation. 485 results in 2021. SPARQL query: \href{https://w.wiki/4bKg}{https://w.wiki/4bKg}},
 	label=lst:sharesBorderWith
 	]
+# Borders and date of origin of the subjects of the Russian Federation
 SELECT  ?subject ?subjectLabel 
         ?sharesBorderWith 
         ?sharesBorderWithLabel ?year
@@ -698,34 +699,14 @@ WHERE
   ?subject wdt:P571 ?year
 }
 \end{lstlisting}
-\footnotetext{485 records were received in 2021. Link to SPARQL query: \href{https://w.wiki/4bKg}{https://w.wiki/4bKg}}  
 	
 \small{Question on the page~\pageref{lst:sharesBorderWith-oblast-of-Russia}.}
 
 \begin{exercise}
 	\label{answer:subjects_of_Russia_2}
-	Now the Russian Federation includes: the Republic of Adygea, Kamchatka Krai, Chukotka Autonomous Okrug, not included~--- Chita region. The answer to the question can be checked by executing the following SPARQL query (query \ref{lst:subjects_of_Russia_2_q}).
+	Now the Russian Federation includes: the Republic of Adygea, Kamchatka Krai, Chukotka Autonomous Okrug, not included~--- Chita region. The answer to the question can be checked by executing the  SPARQL query~\protect\ref{lst:subjects-of-Russia}.
 \end{exercise}	
-	\begin{lstlisting}[ language=SPARQL, numbers=none,
-	caption={\href{https://w.wiki/4bKi}{List of subjects of Russia}\protect\footnotemark},
-	label=lst:subjects_of_Russia_2_q
-	]
-#List of `instances of` "subjects of Russia" 
-SELECT ?subject ?subjectLabel
-WHERE
-{
-  { ?subject wdt:P31 wd:Q835714 } UNION  # Oblast of Russia
-  { ?subject wdt:P31 wd:Q41162 } UNION  # Republic of Russia
-  { ?subject wdt:P31 wd:Q183342 } UNION  # Federal city of Russia
-  { ?subject wdt:P31 wd:Q831740 } UNION  # Krai of Russia
-  { ?subject wdt:P31 wd:Q309166 } UNION # Autonomus oblast of Russia
-  { ?subject wdt:P31 wd:Q184122 } # Autonomus okrug of Russia
-  
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
-}
-\end{lstlisting}
-\footnotetext{86 records were received in 2021. Link to SPARQL query: \href{https://w.wiki/4bKi}{https://w.wiki/4bKi}}  
-	
+
 \small{Question on the page~\pageref{lst:sharesBorderWith-empty-oblast-of-Russia}.}
 
 %%%%%%%%%%%%%%%%%%end operating systems%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
