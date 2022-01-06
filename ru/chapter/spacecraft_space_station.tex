@@ -322,7 +322,7 @@ WHERE
   ?s  wdt:P31/wdt:P279* wd:Q40218; # spacecraft and subclasses
       wdt:P31/wdt:P279* wd:Q752783;# human spaceflight and subclasses
           wdt:P1029 ?naut;         # has member of the crew ?naut    
-  SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "ru,en"}
   BIND(IF(?toggle,?s,?naut) AS ?item).
   BIND(IF(?toggle,?sLabel,?nautLabel) AS ?itemLabel).
   BIND(IF(?toggle,"FFFFFF","7FFF00") AS ?rgb_source).
