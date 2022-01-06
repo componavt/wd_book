@@ -6,8 +6,8 @@
 
 This chapter of the book is devoted to the study of the Wikidata regions of Russia. 
 Note that the regions of Russia include many lands of different
-types: regions, republics, territories and others. It is these diverse regions
-that have been studied. A graph of the subjects of Russia bordering
+types: regions, republics, territories and others. It is these types of regions that have been studied.
+A graph of the subjects of Russia bordering
 on foreign countries (the graph of neighbors) was built, and a map was drawn
 on which the population of individual regions was marked. Assessment
 of the degree of occupancy of the Wikidata property <<borders with>> (shares border with) 
@@ -45,7 +45,7 @@ The regions of Russia with the least number of properties according to ProWD dat
 
 \section{Subjects of the Russian Federation}
 
-Let's build a list of all the subjects of Russia. To do this, select the following objects in Wikidata: republics, territories, regions, cities of federal significance, autonomous regions and autonomous districts (query~\protect\ref{lst:subjects-of-Russia}).
+Let's build a list of all the subjects of Russia. Let us select the following objects in Wikidata: republics, territories, regions, cities of federal significance, autonomous regions and autonomous districts (query~\protect\ref{lst:subjects-of-Russia}).
 
 \marginnote[3.0cm]{Objects used in SPARQL queries:
 \begin{itemize}
@@ -83,9 +83,8 @@ WHERE
 To build the script ~\protect\ref{lst:subjects-of-Russia} and to verify the results obtained, the following information is needed:
 \begin{itemize}
 \item According to the Constitution of the Russian Federation, Russia consists of 85 subjects~--- republics, territories, regions, cities of federal significance, autonomous regions, autonomous districts.
-  \item This task does not take into account subjects that are not currently part of the Russian Federation (for example, \wdqName{Chita region}{182902}), because they are not instances of objects \wdqName{<<Oblast of Russia>>}{835714}, \wdqName{<<Republic of Russia>>}{41162}, \wdqName{<<Federal city of Russia>>}{183342}, \wdqName{<<Krai of Russia>>}{831740}, \wdqName{<<Autonomus oblast of Russia>>}{309166}, \wdqName{<<Autonomus okrug of Russia>>}{184122}, and belong to the object \wdqName{<<Former administrative-territorial unit>>}{19953632}. (We get 86 objects after executing a SPARQL query, query~\protect\ref{lst:subjects-of-Russia}). 
-  \item According to category data <<\href{https://ru.wikipedia.org/wiki/Subjects of the Russian Federation}{Subjects of the Russian Federation}>> of the Russian Wikipedia, there are 85 subjects of the Russian Federation.
-  \item According to category data <<\href{https://ru.wikipedia.org/wiki/en:Federal_subjects_of_Russia}{Federal subjects of Russia}>> of the English Wikipedia, there are also 85 subjects of the Russian Federation.
+  \item This task does not take into account subjects that are not currently part of the Russian Federation (for example, \wdqName{Chita region}{182902}), because they are not instances of objects \wdqName{<<Oblast of Russia>>}{835714}, \wdqName{<<Republic of Russia>>}{41162}, \wdqName{<<Federal city of Russia>>}{183342}, \wdqName{<<Krai of Russia>>}{831740}, \wdqName{<<Autonomus oblast of Russia>>}{309166}, \wdqName{<<Autonomus okrug of Russia>>}{184122}, and belong to the object \wdqName{<<Former administrative-territorial unit>>}{19953632}. (We get 86 objects after executing a SPARQL query, query~\protect\ref{lst:subjects-of-Russia}).
+  \item According to category data <<\href{https://en.wikipedia.org/wiki/Category:Federal_subjects_of_Russia-related_lists}{Federal subjects of Russia}>> of the English Wikipedia, there are also 85 subjects of the Russian Federation.
 \end{itemize}
 
 \section{Neighboring entities}
@@ -94,7 +93,7 @@ Let's construct a graph of neighboring subjects of Russia by the property \wdPro
 
 \lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={Graph of neighboring subjects of Russia. 467 results in 2017 and 482 results in 2021. SPARQL query: \href{https://goo.su/9ZUj}{Graph of neighboring subjects of Russia}},
+                    caption={Graph of neighboring subjects of Russia. 467 results in 2017 and 482 results in 2021. SPARQL query: \href{https://goo.su/9ZUj}{https://goo.su/9ZUj}},
                     label=lst:sharesBorderWith-oblast-of-Russia,
                     texcl 
                     ]
@@ -199,7 +198,7 @@ Let's build a map on which the subjects of Russia bordering with foreign countri
 
 \lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={Map of the subjects of Russia bordering with foreign countries. 37 results in 2021. SPARQL query: \href{https://w.wiki/4eBf}{Map of Russian regions bordering foreign countries}},
+                    caption={Map of the subjects of Russia bordering with foreign countries. 37 results in 2021. SPARQL query: \href{https://w.wiki/4eBf}{https://w.wiki/4eBf}},
                     label=lst:sharesBorderWith-subjects-of-Russia,
                     texcl 
                     ]
@@ -249,7 +248,7 @@ Let's build a map on which foreign countries bordering on the subjects of Russia
 
 \lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={Map of foreign countries bordering the subjects of Russia. 15 results 2021. SPARQL query: \href{https://w.wiki/4eBk}{Map of foreign countries bordering the subjects of Russia}},
+                    caption={Map of foreign countries bordering the subjects of Russia. 15 results 2021. SPARQL query: \href{https://w.wiki/4eBk}{https://w.wiki/4eBk}},
                     label=lst:Maps_of_the_neighbouring_states_of_Russia,
                     texcl 
                     ]
