@@ -191,13 +191,13 @@ ORDER BY DESC (?sumPopulation)
 \wdProperty{17}{государство} (привязка к стране). 
 Исходя из этого проверку полноты разделим на подзадачи: 
 \begin{enumerate} 
-  \item Проверка заполнености свойства <<численность населения>>.
-  \item Проверка принадлежности к <<государству>>.
+  \item Проверка заполненности свойства <<численность населения>>.
+  \item Проверка принадлежности к государству.
 \end{enumerate}
 
 
 %%%%%
-\subsection{Проверка заполнености свойства <<численность населения>> }
+\subsection{Проверка заполненности свойства <<численность населения>> }
 
 Для такой проверки напишем \href{https://w.wiki/4FUz}{SPARQL-запрос}\sidenote{
 %
@@ -211,12 +211,12 @@ ORDER BY DESC (?sumPopulation)
 Произведя расчёты получаем, что только у 9,3\% населенных пунктов мира 
 указано свойство <<численность населения>> на 2017 год. 
 В 2021 получаем 11,2\% населенных пунктов мира с заполненным свойство <<численность населения>>. 
-Получается, что несмотря на рост числа населённых пунктов в Викиданных 
-доля пунктов с заполненным свойством <<численность населения>> постепенно увеличивается.
+Итак, одновременно с ростом числа населённых пунктов в Викиданных 
+растёт доля пунктов с заполненным свойством <<численность населения>>.
 
 
 %%%%%
-\subsection{Проверка принадлежности к <<государству>>}
+\subsection{Проверка принадлежности к государству}
 
 А теперь посмотрим населённые пункты, 
 у которых не указана принадлежность к какой-либо стране 
@@ -285,7 +285,7 @@ ORDER BY ?proportionPopulation
 	\caption[Диаграмма доли населения страны, 2021.]{Диаграмма доли населения страны, проживающего в <<населённых пунктах>> на 2021 год. Были выбраны страны с населением более 5 млн чел. SPARQL-запрос: \href{https://w.wiki/4dDx}{https://w.wiki/4dDx}}%
 \end{figure*} 
 
-На рис.~\ref{fig:human-settlement-3} из графика видно, 
+По рис.~\ref{fig:human-settlement-3} видно, 
 что наиболее высокий процент в 2017 году приходился на следующие страны: 
 Кирибати (78\%), Ниуэ (70\%), Греция (53\%), Тувалу (48\%), Коморы (43\%), Маврикий (42\%). 
 В 2021 году картина изменилась: Нигерия (93\%), Папуа~--- Новая Гвинея (71\%), 
@@ -293,7 +293,26 @@ ORDER BY ?proportionPopulation
 Отметим, что в основном это маленькие островные государства. 
 Вероятно, большая часть жителей этих стран сконцентрирована в населённых пунктах.
 
-На 2017 год рассматривая отдельно страны большой восьмёрки, доля жителей в \href{http://www.wikidata.org/entity/Q486972}{населённых пунктах} составила: \href{http://www.wikidata.org/entity/Q159}{Россия} (\num{2.98}\%), \href{http://www.wikidata.org/entity/Q30}{США} (\num{1.76}\%), \href{http://www.wikidata.org/entity/Q17}{Япония} (\num{0.80}\%), \href{http://www.wikidata.org/entity/Q16}{Канада} (\num{0.26}\%), \href{http://www.wikidata.org/entity/Q142}{Франция} (\num{0.20}\%), \href{http://www.wikidata.org/entity/Q183}{Германия} (\num{0.24}\%), \href{http://www.wikidata.org/entity/Q145}{Великобритания} (\num{0.18}\%), \href{http://www.wikidata.org/entity/Q38}{Италия} (\num{0.07}\%). В 2021 году значения доли населения снизились: \href{http://www.wikidata.org/entity/Q159}{Россия} (0.045\%), \href{http://www.wikidata.org/entity/Q30}{США} (\num{0.014}\%), \href{http://www.wikidata.org/entity/Q17}{Япония} (\num{0.008}\%), \href{http://www.wikidata.org/entity/Q16}{Канада} (\num{0.23}\%), \href{http://www.wikidata.org/entity/Q142}{Франция} (\num{0.005}\%), \href{http://www.wikidata.org/entity/Q183}{Германия} (\num{0.005}\%), \href{http://www.wikidata.org/entity/Q145}{Великобритания} (\num{0.014}\%), \href{http://www.wikidata.org/entity/Q38}{Италия} (\num{0.0005}\%). Отметим, что это страны промышленно развитые.
+На 2017 год в странах большой восьмёрки доля жителей 
+в \href{http://www.wikidata.org/entity/Q486972}{населённых пунктах} составила: 
+\href{http://www.wikidata.org/entity/Q159}{Россия} (\num{2.98}\%), 
+\href{http://www.wikidata.org/entity/Q30}{США} (\num{1.76}\%), 
+\href{http://www.wikidata.org/entity/Q17}{Япония} (\num{0.80}\%), 
+\href{http://www.wikidata.org/entity/Q16}{Канада} (\num{0.26}\%), 
+\href{http://www.wikidata.org/entity/Q142}{Франция} (\num{0.20}\%), 
+\href{http://www.wikidata.org/entity/Q183}{Германия} (\num{0.24}\%), 
+\href{http://www.wikidata.org/entity/Q145}{Великобритания} (\num{0.18}\%), 
+\href{http://www.wikidata.org/entity/Q38}{Италия} (\num{0.07}\%). 
+В 2021 году значения доли населения снизились (рис.~\ref{fig:human-settlement-4}): 
+\href{http://www.wikidata.org/entity/Q159}{Россия} (0.045\%), 
+\href{http://www.wikidata.org/entity/Q30}{США} (\num{0.014}\%), 
+\href{http://www.wikidata.org/entity/Q17}{Япония} (\num{0.008}\%), 
+\href{http://www.wikidata.org/entity/Q16}{Канада} (\num{0.23}\%), 
+\href{http://www.wikidata.org/entity/Q142}{Франция} (\num{0.005}\%), 
+\href{http://www.wikidata.org/entity/Q183}{Германия} (\num{0.005}\%), 
+\href{http://www.wikidata.org/entity/Q145}{Великобритания} (\num{0.014}\%), 
+\href{http://www.wikidata.org/entity/Q38}{Италия} (\num{0.0005}\%). 
+Отметим, что это страны промышленно развитые.
 
 
 %%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%%
@@ -306,7 +325,16 @@ ORDER BY ?proportionPopulation
 См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.%
 }
 
-Построенная диаграмма подтверждает следующую гипотезу: высокий процент населения страны, проживающего в \wdqName{населённых пунктах}{486972}, указывает на более аграрную страну. Исходя из представленных выше диаграмм видно, что наиболее высокий процент населения страны, проживающего в населённых пунктах, приходится на островные, южные, жаркие страны, в которых, по-видимому, менее развита промышленность (маленькая территория, небольшое количество населения, удалённость от материков). А индустриальные страны (большой восьмёрки) имеют очень низкий процент населения страны, проживающего в населённых пунктах.
+Построенная диаграмма подтверждает следующую гипотезу: 
+высокий процент населения страны, проживающего в <<населённых пунктах>>, 
+указывает на более аграрную страну. 
+Из диаграмм~\ref{fig:human-settlement-3} и~\ref{fig:human-settlement-4} видно, 
+что наиболее высокий процент населения страны, проживающего в населённых пунктах, 
+приходится на островные, южные, жаркие страны, 
+в которых, по-видимому, менее развита промышленность 
+(маленькая территория, небольшое количество населения, удалённость от материков). 
+А индустриальные страны (большой восьмёрки) имеют очень низкий процент населения страны, 
+проживающего в населённых пунктах.
 
 
 
@@ -320,13 +348,12 @@ ORDER BY ?proportionPopulation
 для которых объект \wdqName{населённый пункт}{486972} является классом, 
 и получить другие классы объекта $X$, кроме <<населённого пункта>>. 
 Эти <<другие>> классы будет называть сопутствующими <<населённому пункту>>. 
-
 С помощью запроса~\ref{lst:human-settlement7} 
 найдём объекты, сопутствующие <<населённому пункту>>. 
 
 
 %%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%%
-\begin{marginfigure}[0.0cm]
+\begin{marginfigure}[-1.0cm]
 {\includegraphics[width=0.9\linewidth]{./chapter/human_settlement/Coat_of_Arms_of_Azov.png}}
   \caption{Герб населённого пункта какой страны изображён?}%
   \label{fig:flag_question_human_settlements5}%
@@ -335,13 +362,13 @@ ORDER BY ?proportionPopulation
 См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.%
 }
 
+\marginnote[1cm]{Получено 610 результатов в 2017 году и \num{1245} результатов в 2021 году. SPARQL-запрос: \href{https://w.wiki/4dEW}{https://w.wiki/4dEW}}
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/4dEW}{Cписок объектов, сопутствующих <<населённому пункту>>}\protect\footnotemark},
-                    label=lst:human-settlement7,
-                    texcl 
-                    ]
-# List of classes accompanying the human\_settlement in the
-# property 'instance of'
+    caption={\href{https://w.wiki/4dEW}{Cписок объектов, сопутствующих <<населённому пункту>>}},
+    label=lst:human-settlement7,
+    texcl 
+                  ]
+# List of classes accompanying the human\_settlement (instance of)
 SELECT ?inst (COUNT(?hum) as ?sumHum) 
 WHERE{          
   ?hum wdt:P31 wd:Q486972; # instance of human settlement
@@ -350,9 +377,9 @@ WHERE{
 }  
 GROUP BY ?inst
 \end{lstlisting}%
-\footnotetext{Получено 610 результатов в 2017 году и \num{1245} результатов в 2021 году. SPARQL-запрос: \href{https://w.wiki/4dEW}{https://w.wiki/4dEW}}
+%\footnotetext{Получено 610 результатов в 2017 году и \num{1245} результатов в 2021 году. SPARQL-запрос: \href{https://w.wiki/4dEW}{https://w.wiki/4dEW}}
 
-Для ускорения выполнения запроса~\ref{lst:human-settlement7} выполним следующие два шага.
+Для ускорения выполнения запроса~\ref{lst:human-settlement7} выполним два шага.
  
 Во-первых, выключим из рассмотрения такие поселения, 
 которые имеют в списке экземпляров только <<населённый пункт>>. 
