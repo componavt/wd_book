@@ -228,7 +228,7 @@ For example, introducing a single element does not make much sense, normally we 
 \section{Running queries}
 \label{sec:running queries eng}
 
-First, we go to Wikidata Query Service \href{https://query.wikidata.org/}{WDQS}\footnote[][0pt]{%
+First, we go to Wikidata Query Service \href{https://query.wikidata.org/}{WDQS}\footnote{%
 See explanations of WDQS on the page~\pageref{sect:WDQS}.%
 }%
  to create our query. 
@@ -260,7 +260,6 @@ When we get a query~\ref{lst:bug-finding} that returns any person,
 we can add the query to our program, like this~\ref{lst:identify-bugs}.
 
 % caption=[Identification of users with a country-citizenship error]{Inclusion of a SPARQL-query for identification of users with a country-citizenship error using an example of Poland (Q36) to a Python program, with the output of the usernames of all such users}
-\begin{fullwidth}
 \begin{lstlisting}[ language=Python,
     numbers=none,
     caption={Identification of users with a country-citizenship error using an example of Poland(Q36) (inclusion of a SPARQL-query to a Python program)},
@@ -280,7 +279,6 @@ pages = pagegenerators.WikidataSPARQLPageGenerator(query,site=site)
 for item in pages:
   print(item.title())
 \end{lstlisting}    
-\end{fullwidth}
 
 With respect to the previous exercises we have only imported the \lstinline|pagegenerators|, a module that allows us to generate a list of items from certain filters as a SPARQL query as above (listing~\ref{lst:bug-finding}). We have saved the query in a variable called /textit{query}, and then we have passed it to the pagegenerators method called \textit{WikidataSPARQLPageGenerator()}. The data returned by this method has been traversed with a for loop and we have displayed the title of the item.
 
