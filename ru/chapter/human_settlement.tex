@@ -381,24 +381,30 @@ GROUP BY ?inst
 
 Для ускорения выполнения запроса~\ref{lst:human-settlement7} выполним два шага.
  
-Во-первых, выключим из рассмотрения такие поселения, 
-которые имеют в списке экземпляров только <<населённый пункт>>. 
-Результат не ухудшится, так как в него не будут включёны экземпляры только класса <<населённый пункт>>. 
-Для этого добавим в скрипт строку \num{9} с фильтром отбора нужных поселений.
+Во-первых, выключим из рассмотрения поселения, 
+имеющие в списке экземпляров только <<населённый пункт>>, 
+поскольку других сопутствующих классов нет. 
+Для этого добавим в скрипт~\ref{lst:human-settlement8} строку~\num{9} с фильтром, 
+требующим, чтобы у объекта \lstinline|?hum| 
+кроме \wdProperty{31}{экземпляра} <<населённый пункт>> был ещё какой-либо класс.
 
-Во-вторых, в строке \num{8} уберем такие объекты переменной \emph{?inst}, которые имеют свойство \wdqName{государство}{17}. Это позволит отсечь сотни типов населённых пунктов специфичных для отдельных стран, например, административно-территориальная единица России.
+Во-вторых, в строке \num{8} уберем такие объекты переменной \lstinline|?inst|, 
+которые имеют свойство \wdqName{государство}{17}. 
+Это позволит отсечь сотни типов населённых пунктов специфичных для отдельных стран, 
+например, административно-территориальная единица России.
 
-Эти перобразования позволили выполнить запрос по всем странам мира за приемлемое время (13 мс) (листинг~\ref{lst:human-settlement8}).
+Эти преобразования позволили выполнить запрос~\ref{lst:human-settlement8} 
+по всем странам мира за приемлемое время в 13 мс.
 
 \lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/4dTx}{Cписок классов, сопутствующих <<населённому пункту>> в свойстве <<экземпляр>>, без специфичных для отдельных стран}\protect\footnotemark},
-                    label=lst:human-settlement8,
-                    texcl 
-                    ]
+    caption={\href{https://w.wiki/4ePf}{Cписок классов, сопутствующих <<населённому пункту>> в свойстве <<экземпляр>> без специализированных классов разных стран}\protect\footnotemark},
+    label=lst:human-settlement8,
+    texcl 
+                  ]
 # List of objects with the class of human settlement, without 
 # country and single human settlement
-SELECT ?inst (COUNT(?hum) as ?sumHum) 
+SELECT ?inst ?instLabel (COUNT(?hum) as ?sumHum) 
 WHERE{ 
   ?hum wdt:P31 wd:Q486972;  # instance of human settlement
        wdt:P31 ?inst.       # other objects in instance
@@ -407,10 +413,10 @@ WHERE{
   FILTER(?inst != wd:Q486972 ). # without human settlement
   SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
 }  
-GROUP BY ?inst 
+GROUP BY ?inst ?instLabel
 ORDER BY DESC (?sumHum)
 \end{lstlisting}%
-\footnotetext{Получено 355 записей в 2017 году и 707 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4dTx}{https://w.wiki/4dTx}}
+\footnotetext{Получено 355 записей в 2017 году и 707 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4ePf}{https://w.wiki/4ePf}}
 
 В таблице~\ref{tab:human-settlement2} представлены сравнительные результаты между 2017  и 2021 годами, количества классов, сопутствующих <<населённому пункту>> в свойстве <<экземпляр>>.
 
