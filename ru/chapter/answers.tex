@@ -871,8 +871,8 @@ ORDER BY ?lapse # Order 1960, 1970, 1980, ...    \end{lstlisting}
 
 \begin{task}
     \label{answer:launches_world}
-    \newthought{Наибольшее число запусков за десятилетие в промежуток с 1970 по 2010 год~--- 121, наименьшее~--- 63.} 
-    Для подсчёта максимума и минимума запусков за 10 лет в промежуток с 1970 по 2010 год удобно использовать скрипт~\ref{lst:launchesWorld10}.
+    \newthought{Наибольшее число запусков за десятилетие в период с 1970 по 2010 год~--- 121, наименьшее~--- 63.} 
+    Для подсчёта максимума и минимума запусков за 10 лет в период с 1970 по 2010 год удобно использовать скрипт~\ref{lst:launchesWorld10}.
     \begin{lstlisting}[ language=SPARQL, numbers=none, caption={{\href{https://w.wiki/4dwj}{Максимум и минимум запусков космических кораблей в мире}}\protect\footnotemark}, label=lst:launchesWorld10, ]
 # Check MAX and MIN of launches per 10 years from 1970 to 2010
 SELECT (MAX (?quantity) as ?max) (MIN (?quantity) as ?min)
