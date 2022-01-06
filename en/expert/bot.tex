@@ -1,17 +1,424 @@
-
 \chapter{Bots in Wikidata}
-\labch{bots}
+\label{ch:bots eng}
 
-This chapter examines the automation of processes in Wikidata. On many occasions we want 
-to correct recurring errors or enter large amounts of data in Wikidata instead of modifying 
-properties one by one. For data entry we have at our disposal several tools that facilitate our 
-work, such as OpenRefine or QuickStatements, but repetitive modifications and insertions over 
-time should be done with a bot.
+This chapter examines the automation of processes in Wikidata. On many occasions we want to correct recurring errors or enter large amounts of data in Wikidata instead of modifying properties one by one. 
+For data entry we have at our disposal several tools that facilitate our work, such as OpenRefine\sidenote[][-58pt]{%
+%
+OpenRefine~--- is an open-source desktop application for data cleanup and transformation to other formats. 
+Since 2021 the program is avaliable to Wikipedia editors as an online-service. \url{https://openrefine.org/}%
+} %
+ or QuickStatements\sidenote[][0pt]{%
+%
+QuickStatements~--- is a tool that can edit Wikidata items, based on a simple set of text commands. \url{https://quickstatements.toolforge.org/}%
+%
+}, but repetitive modifications and insertions over time should be done with a bot.
 
 
 \section{Requirements}
-\labsec{section:bot-requirements}
 
-We can \dots
+\label{sec:requirements eng}
+We can program a bot in several programming languages, but to facilitate our task we can use Pywikibot, a collection of tools programmed in Python to facilitate access to information in Wikimedia Foundation projects. We have three options to run our programs:
+\begin{enumerate}
+%  \setlength{\itemindent}{2em}
+  \item using a web shell like PAWS\sidenote[][-48pt]{PAWS (a web shell)~--- a Jupyter notebook deployment hosted by Wikimedia}; 
+  \item setting up a cloud infrastructure like Toolforge\sidenote[][-24pt]{Toolforge~--- is a hosting environment for developers working on services that provide value to the Wikimedia movement \url{https://wikitech.wikimedia.org/wiki/Portal:Toolforge}};
+  \item running it on our own computer.
+\end{enumerate}
+
+Any of the three options can be used thanks to the explanations we have in the official documentation\sidenote[]{See installation guide Pywikibot: \url{https://w.wiki/4CsU}} 
+If we use our own computer we must install Python, following the instructions in the documentation.
+After the installation we can check
+if it is installed correctly
+by pressing\marginnote[0.5cm]{Installation documentation: \url{https://www.mediawiki.org/wiki/Manual:Pywikibot/Installation}}
+
+\begin{lstlisting}[ language=Python,
+                    numbers=none,
+                  ]
+python --version
+\end{lstlisting}
+in the Windows command prompt or in the Linux console (from now on everything must be done from here), and it will show us the version we are going to work with. Then we must install Pywikibot and configure it.
+
+\newpage
+This configuration has several steps:
+\begin{itemize}
+  \setlength{\itemindent}{2em}
+  \item Execute the following command to create the configuration file:\newline \lstinline|py pwb.py generate_user_files|.
+  \item Execute the following command to login: \lstinline|py pwb.py login|.
+  \item Review the files \lstinline|user-config.py| and \lstinline|user-password.py| where we can indicate the user names that will make the modifications.
+\end{itemize}
+
+To view information or perform small tests we can use our username, but in case of making many modifications in Wikidata it is recommended to create a bot account and ask for permission to run it. To have this flag it is usually required to have some knowledge of editing in Wikimedia projects, which will certify that we will not make serious mistakes and we have the support of other users.
+
+Normally to obtain this flag we will be asked to perform a specific number of test editions, to certify that such changes make sense, since we should have a low or zero error rate. We could also perform tasks with our user account, but with a low rate of edits.
+
+\section{Our first scripts}
+
+\label{sec:firstScript Eng}
+Once we have correctly configured Pywikibot we can run our first script~(listing~\ref{lst:page-get-eng}). 
+We will go to the folder where Pywikibot is located and there we create a new file called \lstinline|test.py|.
+
+We can edit the file with any text or code editor such as Visual Studio Code, Notepad++ or a simple Notepad.
+Once inside the file we will put the following lines of code~(listing~\ref{lst:page-get-eng}).
+
+\marginnote[2\baselineskip]{There in Wikidata are two rivers with the same name, which is ``Obnitsa'', one of them is in Poland, while the another in Serbia. Objects with the same names are easily distinguishable by numbers in Wikidata: \wdqName{Obnitsa}{16583338} and \wdqName{Obnitsa}{959190}.}
+%
+\begin{lstlisting}[ language=Python,
+                    caption={Receiving the content of the Wikidata page about the Obnitsa River in Poland},
+                    label=lst:page-get-eng
+                  ]
+import pywikibot
+site=pywikibot.Site('wikidata', "wikidata")
+page=pywikibot.Page(site, u"Q16583338")     # river in Poland
+print(page.get())
+\end{lstlisting}
+
+We save the file and execute it by typing the following instruction: \lstinline|py pwb.py test.py|.
+
+If everything has worked correctly we will be seeing in our console all the text written in the Obnica river article \wdqName{Obnitsa}{16583338} in Wikidata. 
+In the first line of code~\ref{lst:page-get-eng} we have imported \lstinline|Pywikibot|. 
+Then we have indicated the name of the project we want to work on, as we could do it in any Wikipedia language or Commons. Then we indicate a specific element, and finally we tell it that we want to get all the content.
 
 
+``Page''~--- is a module that contains many methods that can be useful to us\sidenote[][-14pt]{%
+%
+To learn more about it we can go to the official documentation \url{https://doc.wikimedia.org/pywikibot/master/_modules/pywikibot/page.html}}. 
+%
+In addition to the \lstinline|get()| method, we have at our disposal the possibility of knowing the title of the element using the \lstinline|title()| method~(listing~\ref{lst:page-title}).
+
+\begin{lstlisting}[ language=Python,
+                    numbers=none,
+                    caption={Receiving a header of the object with Q16583338 number},
+                    label=lst:page-title
+                  ]
+import pywikibot
+site=pywikibot.Site('wikidata', "wikidata")
+page=pywikibot.Page(site, u"Q16583338")     # river in Poland
+print(page.title())
+\end{lstlisting}
+
+We can also find out if this element is a redirect page with the \lstinline|isRedirectPage()| method. 
+For it we are going to change the previous element and we are going to indicate another one  
+(\href{https://www.wikidata.org/w/index.php?title=Q16583333&redirect=no}{Obnitsa (Q16583338)}) that is a redirect page (listing~\ref{lst:is-redirected}).
+
+\begin{lstlisting}[ language=Python,
+                    numbers=none,
+                    caption={Receiving an answer to the question if an element is a redirect page (true or false)},
+                    label=lst:is-redirected
+                  ]
+import pywikibot
+site=pywikibot.Site('wikidata', "wikidata")
+page=pywikibot.Page(site, u"Q16583333")
+print(page.title())
+print(page.isRedirectPage())
+\end{lstlisting}
+
+Caution: so far, the exercises were very simple, but as we progress we have to be careful with tabs, which let Python know what information goes inside the control structures.
+
+The previous exercise~(listing~\ref{lst:is-redirected}) only returns true or false, but the usual use of this method is to ask if it is a redirect page or not, and act accordingly, warning the user that this element is a redirect page, as in the following example~(listing~\ref{lst:attention}).
+
+\begin{lstlisting}[ language=Python,
+                    numbers=none,
+                    caption={Warning a user that the object is a redirect page},
+                    label=lst:attention
+                  ]
+import pywikibot
+site=pywikibot.Site('wikidata', "wikidata")
+page=pywikibot.Page(site, u"Q16583333")    # redirect page
+if (page.isRedirectPage()):
+  print("Attention, this is a redirect, not an element")
+\end{lstlisting}
+
+But, what happens if we are analyzing several elements and we find one that does not exist? Possibly our program would return several errors because it could not analyze the interior of the element. For this, we can catch the errors in Python, but we can also ask if the element exists or not (listing~\ref{lst:page-exists}).
+
+\begin{lstlisting}[ language=Python,
+                    numbers=none,
+                    caption={Check if the element exists or not},
+                    label=lst:page-exists
+                  ]
+import pywikibot
+site=pywikibot.Site('wikidata', "wikidata")
+page=pywikibot.Page(site, u"Q107043778")    # non-existent object
+if not page.exists():
+  print("Sorry, but this element does not exist!")
+\end{lstlisting}
+\marginnote[-2.0cm]{Find how we can capture errors in Python and improve the previous program~\ref{lst:page-exists} so that we can capture possible errors returned by the program.}
+
+Next, we are going to analyze an element in more depth, to know all those properties that it has included. To do this we can use the \lstinline|properties()| method, as we describe here (listing~\ref{lst:page-properties}).
+
+\begin{lstlisting}[ language=Python,
+                    numbers=none,
+                    caption={Receiving the list of object properties},
+                    label=lst:page-properties
+                  ]
+import pywikibot
+site=pywikibot.Site('wikidata', "wikidata")
+page=pywikibot.Page(site, u"Q16583338")     # river in Poland
+print(page.properties())
+\end{lstlisting}
+
+When executing this script~\ref{lst:page-properties}, we can see that this method \lstinline|properties| 
+returns a Python dictionary, and that is because the method returns a dictionary with the properties contained in that element. 
+For example, we can see that in the property \lstinline|page_image_free| we get the picture that appears in the element, that
+ \lstinline|wb_claims| contains the amount of properties that are entered in the element, 
+or that \lstinline|wb_sitelinks| tells us the amount of links that exist to the rest of the Wikimedia Foundation projects.
+
+The \lstinline|contributors()| method also returns a dictionary. In this case with the number of users who have contributed to the element. 
+It will show us the user name of all the contributors, as well as the number of editions of each one.
+We also have the method \lstinline|revision_count|, which returns the number of edits that have been made in total on the element, as shown below~\ref{lst:contributors-revision}.
+
+\begin{lstlisting}[ language=Python,
+                    numbers=none,
+                    caption={Making a list of Wikidata object editors and an amount of fixes},
+                    label=lst:contributors-revision
+                  ]
+import pywikibot
+site=pywikibot.Site('wikidata', "wikidata")
+page=pywikibot.Page(site, u"Q16583338")     # river in Poland
+print(page.contributors())
+print(page.revision_count())
+\end{lstlisting}
+
+There are other methods, which return more complex information than a data dictionary, such as an object.
+This is the case of the \lstinline|linkedPages| method. If we use it as up to now (listing~\ref{lst:for-loop}) it will return: 
+\lstinline|<pywikibot.data.api.PageGenerator object at 0x000002C6C7DB2FD0>|, indicating that it contains an object of type \lstinline|PageGenerator|. 
+To be able to read it we can do it with a loop \lstinline|for| loop (listing~\ref{lst:for-loop}).
+
+\begin{lstlisting}[ language=Python,
+                    numbers=none,
+                    caption={Reading an object of type \lstinline|PageGenerator|},
+                    label=lst:for-loop
+                  ]
+import pywikibot
+site=pywikibot.Site('wikidata', "wikidata")
+page=pywikibot.Page(site, u"Q16583338")     # river in Poland
+for linked in page.linkedPages():
+  print(linked)
+\end{lstlisting}
+
+As we can see the \lstinline|page.linkedPages()| method provides us with the links to which we can click from the element. 
+First, the elements will be shown and then the properties (including the information found in the references). Obviously if the selected element is not very large, the number of links will not be very large, but if we try this example with a very large element, the number of links will be very large.
+
+To know the number of elements that are linking to a specific one,
+we also have a method called \lstinline|backlinks()|, which contains an object and that we have to go through as we did in the previous exercise (listing~\ref{lst:for-loop}).
+
+Depending on the element we may find an empty list, so we will select an element that is linked to other elements (listing~\ref{lst:back-links}).
+
+\begin{lstlisting}[ language=Python,
+                    numbers=none,
+                    caption={Using method \lstinline|backlinks()| for receiving objects that referring to the specified object},
+                    label=lst:back-links
+                  ]
+import pywikibot
+site=pywikibot.Site('wikidata', "wikidata")
+page=pywikibot.Page(site, u"Q6980876")     # river in Spain
+for links in page.backlinks():
+  print(links)
+\end{lstlisting}
+
+In this case we have chosen another river (\wdqName{Pisueña}{6980876}), 
+which is linked twice: by \wdqName{another river}{14360} and by a \wdqName{redirect page}{23993869}. 
+In this way we can know the number of times a certain element (Pisueña) is being linked.
+
+\marginnote[0.0cm]{Exercise: Put into practice everything we have seen so far but using an element with a low number, which probably has much more information entered than the examples we have used so far.}
+
+In addition to the \lstinline|Page| module Pywikibot provides us with many other possibilities. 
+For example, introducing a single element does not make much sense, normally we will want to work with several elements to analyze them and if necessary modify them. For this we can make use of the queries that we have been doing throughout the course.
+
+
+\section{Running queries}
+\label{sec:running queries eng}
+
+First, we go to Wikidata Query Service \href{https://query.wikidata.org/}{WDQS}\footnote[][0pt]{%
+See explanations of WDQS on the page~\pageref{sect:WDQS}.%
+}%
+ to create our query. 
+We look for possible errors in the data entered, such as people who have a certain country in the property \wdProperty{17}{country}.
+This is a common error as many users enter \wdProperty{17}{country} instead of property \wdProperty{27}{country of nationality}.
+This query could look like this~(listing~\ref{lst:bug-finding}).
+
+\begin{lstlisting}[ language=SPARQL,
+        numbers=none,
+        caption={\href{https://w.wiki/https://w.wiki/4cBg}{Query for receiving list of users who mistakenly entered country instead of country of nationality}\protect\footnotemark},
+        label=lst:bug-finding
+                  ]
+SELECT ?item ?itemLabel WHERE 
+{
+  ?item wdt:P31 wd:Q5;  # instance of human
+        wdt:P17 wd:Q36. # has country Poland
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
+}
+\end{lstlisting}
+\footnotetext{Received 3 occupations in 2021. Link to SPARQL-query: \href{https://w.wiki/4cBg}{https://w.wiki/4cBg}}
+
+We must check if the query~\ref{lst:bug-finding} returns any value,
+since it could be that there are no errors to be solved. 
+In that case we can change the country 
+(for example, we can indicate the following country (Q37~--- Lithuania), instead of the checked one (Q36~--- Poland)), 
+since there will surely be other countries with the same error.
+
+When we get a query~\ref{lst:bug-finding} that returns any person, 
+we can add the query to our program, like this~\ref{lst:identify-bugs}.
+
+% caption=[Identification of users with a country-citizenship error]{Inclusion of a SPARQL-query for identification of users with a country-citizenship error using an example of Poland (Q36) to a Python program, with the output of the usernames of all such users}
+\begin{fullwidth}
+\begin{lstlisting}[ language=Python,
+    numbers=none,
+    caption={Identification of users with a country-citizenship error using an example of Poland(Q36) (inclusion of a SPARQL-query to a Python program)},
+    label=lst:identify-bugs
+    ]
+import pywikibot
+from pywikibot import pagegenerators
+site=pywikibot.Site('wikidata', "wikidata")
+query = """
+  SELECT DISTINCT ?item WHERE {
+    SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
+    ?item wdt:P31 wd:Q5.
+    ?item wdt:P17 wd:Q36.
+  } """
+
+pages = pagegenerators.WikidataSPARQLPageGenerator(query,site=site)
+for item in pages:
+  print(item.title())
+\end{lstlisting}    
+\end{fullwidth}
+
+With respect to the previous exercises we have only imported the \lstinline|pagegenerators|, a module that allows us to generate a list of items from certain filters as a SPARQL query as above (listing~\ref{lst:bug-finding}). We have saved the query in a variable called /textit{query}, and then we have passed it to the pagegenerators method called \textit{WikidataSPARQLPageGenerator()}. The data returned by this method has been traversed with a for loop and we have displayed the title of the item.
+
+In short, this program (~(listing~\ref{lst:identify-bugs})) shows us all the people who have Poland as a country.
+
+We can already obtain several elements at the same time. Now it is time to delve into the content of these. Instead of displaying the title of the article, we will display some parts of its content. For example, sitelinks, aliases, labels or claims~(listing~\ref{lst:display-linkslabels}).
+
+\begin{lstlisting}[ language=Python,
+                    numbers=none,
+                    caption={Displaying sitelinks, aliases, labels, claims},
+                    label=lst:display-linkslabels
+                  ]
+import pywikibot
+from pywikibot import pagegenerators
+site=pywikibot.Site('wikidata', "wikidata")
+query = """
+  SELECT DISTINCT ?item WHERE {
+    SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
+    ?item wdt:P31 wd:Q5.
+    ?item wdt:P17 wd:Q36.
+  } """
+
+pages = pagegenerators.WikidataSPARQLPageGenerator(query, site=site)
+for item in pages:
+  item.get()
+  print(item.sitelinks)
+  print(item.aliases)
+  print(item.labels)
+  print(item.claims)
+\end{lstlisting} 
+
+\marginnote[0.0cm]{Exercise: test the queries you have performed earlier in the course and display the results in your console with messages to help you know what is running.}
+
+We have shown the information in the Wikidata elements, but now let's see how we can modify them. 
+
+\section{Modifying the values entered in Wikidata}
+\label{sec:modifying the values entered in Wikidata eng}
+
+The search for errors that are repeated over time is one of the tasks of a bot programmer, because depending on the task performed by the bot, it will have to be executed regularly, and improve the search for errors over time. For example, the following query returns all professions sorted by the number of times they are being used in Wikidata~(listing~\ref{lst:occupation-list}).
+
+\begin{lstlisting}[ language=SPARQL,
+                    numbers=none,
+                    caption={\href{https://w.wiki/4bLo}{List of occupations sorted by the their use amount in Wikidata}\protect\footnotemark},
+                    label=lst:occupation-list
+                  ]
+SELECT ?instanceLabel ?value WHERE {
+  {
+    SELECT ?instance (COUNT(DISTINCT ?item) AS ?value) 
+    WHERE { ?item wdt:P106 ?instance. } #P106 - occupation
+    GROUP BY ?instance
+    ORDER BY DESC (?value)
+  }
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
+}
+ORDER BY DESC (?value)
+\end{lstlisting} 
+\footnotetext{Returned \num{16979} occupations in 2021. Link to SPARQL-query: \href{https://w.wiki/4bLo}{https://w.wiki/4bLo}}
+
+This query~\ref{lst:occupation-list} 
+can be used to check which professions are being used incorrectly, or have been introduced by vandals.
+Reviewing the list, we can see that there are some professions 
+that are not correct and have meaningless information
+such as \wdqName{Salinas de Ibargoiti}{7404672}, \wdqName{Order of Saint Basil the Great}{7319129}, \wdqName{Promoted to Glory}{7249866}, \wdqName{Princes}{7244433} and \wdqName{Point Loma Nazarene University}{7208069}. 
+We can create a list of errors and show the biographies that have these professions entered~(listing~\ref{lst:occupation-mistakeslist}).
+
+\begin{lstlisting}[ language=Python,
+                    caption={Making a list of errors and displaying users with occupation errors},
+                    label=lst:occupation-mistakeslist
+                  ]
+import pywikibot
+from pywikibot import pagegenerators
+site=pywikibot.Site('wikidata', "wikidata")
+delete_occupation={"Q7404672", "Q7319129", "Q7249866", "Q7244433", 
+"Q7208069"}
+for occupation in delete_occupation:
+  query = """
+    SELECT DISTINCT ?item WHERE {
+      SERVICE wikibase:label { bd:serviceParam wikibase:
+language "en". }
+      ?item wdt:P31 wd:Q5.     # P31 - instance of, Q5 - human
+      ?item wdt:P106 wd:""" + occupation + """.
+    } """
+
+  pages=pagegenerators.WikidataSPARQLPageGenerator(query, site=site)
+  for item in pages:
+    print("Users whose occupation is
+{occupation}: {title}" . format(occupation=occupation, 
+title=item.title()))
+\end{lstlisting} 
+\marginnote[-2.0cm]{Attention: so far we had used \lstinline|print()| 
+to show the information contained in the variables, 
+but in the previous exercise~(listing~\ref{lst:occupation-mistakeslist})
+we have used \lstinline|format()|, as it is recommended to give clarity to string.}
+
+The list has been created in the variable \textit{delete\_occupation}. We run through it with a \textit{for} loop to call the query for each of the professions that we have been adding. This time the query~(listing~\ref{lst:occupation-mistakeslist}) is not the same as before~(listing~\ref{lst:occupation-list}), now it(~listing~\ref{lst:occupation-mistakeslist} has a variable \textit{occupation} that is modified depending on the value of \textit{delete\_occupation}. The query will ask for the people who have a profession that matches the value of \textit{delete\_occupation}, and will show it on the screen.
+
+Now, if we are sure that this information is wrong and we want to delete it, we must indicate the specific property we want to delete.
+
+The problem is that a biography could have three professions, and only one of them is the one we want to delete. We cannot delete all the values of the property, we have to know the specific data to delete. In the following~(listing~\ref{lst:delete-occupation}) we will see how this can be done. 
+
+\begin{lstlisting}[ language=Python,
+                    caption={Deleting an occupation},
+                    label=lst:delete-occupation
+                  ]
+import pywikibot
+from pywikibot import pagegenerators
+site=pywikibot.Site('wikidata', "wikidata")
+delete_occupation={"Q7404672", "Q7319129", "Q7249866", "Q7244433", 
+"Q7208069"}
+for occupation in delete_occupation:
+  query = """
+    SELECT DISTINCT ?item WHERE {
+      SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
+      ?item wdt:P31 wd:Q5.
+      ?item wdt:P106 wd:""" + occupation + """.
+    } """
+
+  pages = pagegenerators.WikidataSPARQLPageGenerator(query, 
+  site=site)
+  for item in pages:
+    print("These are users who have
+{occupation} as their occupation: {title}" . format(occupation=occupation, 
+title=item.title()))
+    item.get()
+
+    for valor in item.claims['P106']:
+      if (str(valor.getTarget())=='[[wikidata:' + occupation + 
+']]'):
+        print("<<<<< Deleting {occupation} of {title} >>>>>" . 
+format(occupation=occupation, title=item.title()))
+        item.removeClaims(valor, summary=u'Deleting erroneous values in P106')
+\end{lstlisting} 
+
+In the previous code listing~\ref{lst:delete-occupation} what we have done is to maintain the previous code listing~\ref{lst:occupation-mistakeslist}, but adding the last lines, in which we go through the values contained in the property \wdProperty{106}{}, with the method \textit{claims}. If this one coincides with the occupation that we are looking for, we delete it with the method \textit{removeClaims}. This method needs the value we want to delete and the edit summary \sidenote[]{Commenting fixes allows other editors to easily understand what changes have been made to a page or Wikidata object.} to show the rest of the users what is being done.
+
+Caution: this kind of edits can cause many problems on Wikidata and administrators may block your user account. Make few changes at the beginning, and always check the edit history to see what information has been modified.
+\subsection{Exercises}
+
+\begin{enumerate} 
+\item Exercise: add more professions that are wrong in the variable \textit{delete\_occupation} and run the bot to perform the deletions of those properties.
+\end{enumerate}
