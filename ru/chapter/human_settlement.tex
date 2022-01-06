@@ -334,7 +334,7 @@ ORDER BY ?proportionPopulation
 }
 
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/4dEW}{Cписок классов, сопутствующих <<населённому пункту>> в свойстве <<экземпляр>>}\protect\footnotemark},
+                    caption={\href{https://w.wiki/4dEW}{Cписок объектов, сопутствующих <<населённому пункту>>}\protect\footnotemark},
                     label=lst:human-settlement7,
                     texcl 
                     ]
@@ -348,9 +348,9 @@ WHERE{
 }  
 GROUP BY ?inst
 \end{lstlisting}%
-\footnotetext{Получено 610 результатов в 2017 году и \num{1245} результатов в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4dEW}{https://w.wiki/4dEW}}
+\footnotetext{Получено 610 результатов в 2017 году и \num{1245} результатов в 2021 году. SPARQL-запрос: \href{https://w.wiki/4dEW}{https://w.wiki/4dEW}}
 
-Для ускорения выполнения (листинг ~\protect\ref{lst:human-settlement7}) выполним следующие два шага.
+Для ускорения выполнения запроса~\protect\ref{lst:human-settlement7} выполним следующие два шага.
  
 Во-первых, выключим из рассмотрения такие поселения, которые имеют в списке экземпляров только <<населённый пункт>>. Результат не ухудшится, так как в него не будут включёны экземпляры только класса <<населённый пункт>>. С этой целью внесём в наш скрипт строку \num{9} и получим фильтр для отбора нужных поселений.
 
