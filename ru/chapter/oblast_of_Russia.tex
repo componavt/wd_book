@@ -13,13 +13,13 @@
 
 \label{question:q_subjects_of_Russia_3}
 \marginnote{О флаге какого субъекта идет речь:
-<<Флаг этого субъекта представляет собой прямоугольное полотнище с отношением ширины к длине 2:3, красного цвета с двусторонним изображением в верхнем ближнем к древку углу основного элемента герба этого субъекта — развёрнутого к древку Святого \href{https://ru.wikipedia.org/wiki/Георгий_Победоносец}{Георгия Победоносца}. См. ответ \ref{answer:subjects_of_Russia_3} на с.~\pageref{answer:subjects_of_Russia_3}.}
+<<Флаг этого субъекта представляет собой прямоугольное полотнище с отношением ширины к длине 2:3, красного цвета с двусторонним изображением в верхнем ближнем к древку углу основного элемента герба этого субъекта~--- развёрнутого к древку Святого \href{https://ru.wikipedia.org/wiki/Георгий_Победоносец}{Георгия Победоносца}. См. ответ \ref{answer:subjects_of_Russia_3} на с.~\pageref{answer:subjects_of_Russia_3}.}
 
 \section{Экземпляры объекта <<Области России>>}
 
 Для построения списка всех областей России нам потребуются объект 
 \wdqName{<<области России>>}{835714} и свойство \wdProperty{31}{<<экземпляры>>} 
-(листинг~\protect\ref{lst:oblast-of-Russia}).
+(листинг~\ref{lst:oblast-of-Russia}).
 
 \begin{lstlisting}[ language=SPARQL, numbers=none,
                     caption={\href{https://w.wiki/4D2V}{Список всех областей России}\protect\footnotemark},
@@ -31,7 +31,7 @@ SELECT ?region ?regionLabel
 WHERE
 {
   ?region wdt:P31 wd:Q835714. # instance of "oblast of Russia"
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru"}
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
 }
 \end{lstlisting}%
 \footnotetext{Получено 48 записей в 2017 году и 46 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4D2V}{https://w.wiki/4D2V}}
@@ -40,12 +40,13 @@ WHERE
 
 Областями России с наименьшим числом свойств по данным сервиса ProWD оказались: \href{http://www.wikidata.org/entity/Q3129}{Орловская область} (31 свойство), \href{http://www.wikidata.org/entity/Q3178}{Курская область} (31 свойство), \href{http://www.wikidata.org/entity/Q5851}{Новосибирская область} (32 свойство).
 
+
 \section{Субъекты Российской Федерации}
 
-Построим список всех субъектов России. Для этого выберем следующие объекты в Викиданных: республики, края, области, города федерального значения, автономные области и автономные округа (листинг~\protect\ref{lst:subjects-of-Russia}).
+Построим список всех субъектов России. Для этого выберем следующие объекты в Викиданных: республики, края, области, города федерального значения, автономные области и автономные округа (листинг~\ref{lst:subjects-of-Russia}).
 
 %\footnotetext{
-\marginnote{Используемые в SPARQL-запросах объекты:
+\marginnote{Используемые в запросах объекты:
 \begin{itemize}
 	\item\wdqName{<<области России>>}{835714};
 	\item\wdqName{<<республики России>>}{41162};
@@ -79,10 +80,10 @@ WHERE
 \end{lstlisting}%
 \footnotetext{Получено 85 записей в 2017 году и 86 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4D2R}{https://w.wiki/4D2R}. В 2021 году в список субъектов добавился город федерального значения Байконур на правах аренды комплекса <<Байконур>>.}
 
-Для построения скрипта~\protect\ref{lst:subjects-of-Russia} и для проверки полученных результатов нужна следующая информация:
+Для построения скрипта~\ref{lst:subjects-of-Russia} и для проверки полученных результатов нужна следующая информация:
 \begin{itemize}
   \item По данным Конституции Российской Федерации Россия состоит из 85 субъектов — республик, краёв, областей, городов федерального значения, автономной области, автономных округов.
-  \item В этой задаче не учитываются субъекты, которые на текущий момент времени не входят в состав РФ (например, \wdqName{Читинская область}{182902}), поскольку они не являются экземплярами объектов \wdqName{<<области России>>}{835714}, \wdqName{<<республики России>>}{41162}, \wdqName{<<города федерального значения России>>}{183342}, \wdqName{<<края России>>}{831740}, \wdqName{<<автономные области России>>}{309166}, \wdqName{<<автономные округа России>>}{184122}, а относятся к объекту \wdqName{<<бывшая административно-территориальная единица>>}{19953632}. (Получаем 86 объекта после выполнения SPARQL-запроса, представленного на листинге~\protect\ref{lst:subjects-of-Russia}). 
+  \item В этой задаче не учитываются субъекты, которые на текущий момент времени не входят в состав РФ (например, \wdqName{Читинская область}{182902}), поскольку они не являются экземплярами объектов \wdqName{<<области России>>}{835714}, \wdqName{<<республики России>>}{41162}, \wdqName{<<города федерального значения России>>}{183342}, \wdqName{<<края России>>}{831740}, \wdqName{<<автономные области России>>}{309166}, \wdqName{<<автономные округа России>>}{184122}, а относятся к объекту \wdqName{<<бывшая административно-территориальная единица>>}{19953632}. (Получаем 86 объекта после выполнения SPARQL-запроса, представленного на листинге~\ref{lst:subjects-of-Russia}). 
   \item По данным категории <<\href{https://ru.wikipedia.org/wiki/Субъекты_Российской_Федерации}{Субъекты Российской Федерации}>> Русской Википедии существует 85 субъектов РФ.
   \item По данным категории <<\href{https://ru.wikipedia.org/wiki/en:Federal_subjects_of_Russia}{Federal subjects of Russia}>> Английской Википедии так же существует 85 субъектов РФ.
 \end{itemize}
@@ -90,7 +91,7 @@ WHERE
 
 \section{Соседние субъекты}
 
-Построим граф соседних субъектов России по свойству \wdProperty{47}{shares border with} (листинг~\protect\ref{lst:sharesBorderWith-oblast-of-Russia}).
+Построим граф соседних субъектов России по свойству \wdProperty{47}{shares border with} (листинг~\ref{lst:sharesBorderWith-oblast-of-Russia}).
 
 \label{question:q_subjects_of_Russia_1}
 \marginnote{Назовите регион России, расположенный на северо-западе России и образованный в \num{1920} году. Он граничит с Ленинградской, Вологодской, Архангельской и Мурманской областью. Также граничит с Финляндией на западе.
@@ -199,7 +200,7 @@ SELECT * WHERE {
 \end{fullwidth}
 
 \newpage
-Построим карту, на которой цветом обозначены субъекты России, граничащие с зарубежными странами. Более темным цветом обозначены субъекты, у которых большее количество пограничных стран, более светлым~--- с меньшим количеством пограничных стран. (листинг~\protect\ref{lst:sharesBorderWith-subjects-of-Russia}).
+Построим карту, на которой цветом обозначены субъекты России, граничащие с зарубежными странами. Более темным цветом обозначены субъекты, у которых большее количество пограничных стран, более светлым~--- с меньшим количеством пограничных стран. (листинг~\ref{lst:sharesBorderWith-subjects-of-Russia}).
 
 \lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
@@ -242,7 +243,7 @@ SELECT ?region ?regionLabel ?count ?shape ?rgb
 \end{lstlisting}%
 \footnotetext{Получено 37 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4e82}{Карта субъектов России, граничащих с зарубежными странами}}
 
-Результат работы скрипта (листинг~\protect\ref{lst:sharesBorderWith-subjects-of-Russia}) представлен на рисунке~\ref{fig:MapsharesBorderWithsubjectsofRussia}.
+Результат работы скрипта (листинг~\ref{lst:sharesBorderWith-subjects-of-Russia}) представлен на рисунке~\ref{fig:MapsharesBorderWithsubjectsofRussia}.
 
 \begin{fullwidth}
 \begin{figure*}[h]
@@ -253,7 +254,7 @@ SELECT ?region ?regionLabel ?count ?shape ?rgb
 \end{fullwidth}
 
 \newpage
-Построим карту, на которой цветом обозначены зарубежными странами, граничащие с субъектами России. Более темным цветом обозначены страны, у которых большее количество пограничных субъектов России, более светлым~--- с меньшим количеством пограничных субъектов России. (листинг~\protect\ref{lst:Maps_of_the_neighbouring_states_of_Russia}).
+Построим карту, на которой цветом обозначены зарубежными странами, граничащие с субъектами России. Более темным цветом обозначены страны, у которых большее количество пограничных субъектов России, более светлым~--- с меньшим количеством пограничных субъектов России. (листинг~\ref{lst:Maps_of_the_neighbouring_states_of_Russia}).
 
 \lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
@@ -293,7 +294,7 @@ SELECT ?country ?countryLabel ?count ?shape ?rgb WHERE {
 \end{lstlisting}%
 \footnotetext{Получено 15 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4e8T}{Карта зарубежных стран, граничащих с субъектами России}}
 
-Результат работы скрипта (листинг~\protect\ref{lst:Maps_of_the_neighbouring_states_of_Russia}) представлен на рисунке~\ref{fig:MapsoftheneighbouringstatesofRussia}.
+Результат работы скрипта (листинг~\ref{lst:Maps_of_the_neighbouring_states_of_Russia}) представлен на рисунке~\ref{fig:MapsoftheneighbouringstatesofRussia}.
 
 \begin{fullwidth}
 \begin{figure*}[h]
@@ -306,7 +307,7 @@ SELECT ?country ?countryLabel ?count ?shape ?rgb WHERE {
 \newpage
 \subsection{Полнота Викиданных}
 
-Построим список субъектов России с пустым свойством \wdProperty{47}{shares border with} (граничит с) (листинг~\protect\ref{lst:sharesBorderWith-empty-oblast-of-Russia}), то есть попробуем найти такие субъекты, которые ни с кем не граничат.
+Построим список субъектов России с пустым свойством \wdProperty{47}{shares border with} (граничит с) (листинг~\ref{lst:sharesBorderWith-empty-oblast-of-Russia}), то есть попробуем найти такие субъекты, которые ни с кем не граничат.
 
 \label{question:q_subjects_of_Russia_2}
 \marginnote{Какие из перечисленных ниже субъектов на текущий момент входят в состав Российской Федерации, а какие~---нет:
@@ -356,7 +357,7 @@ WHERE
 
 Обозначим на карте субъекты Российской Федерации, разделив их на шесть групп по количеству населения. Субъекты, принадлежащие одной группе, будут отображаться на карте одним цветом.
 
-Для запроса (листинг~\protect\ref{lst:map}) нам потребуются свойства \wdProperty{625}{<<координаты>>} и \wdProperty{1082}{<<численность населения>>}.
+Для запроса (листинг~\ref{lst:map}) нам потребуются свойства \wdProperty{625}{<<координаты>>} и \wdProperty{1082}{<<численность населения>>}.
 
 \index{График!Map!Карта населения России}
 \begin{lstlisting}[ language=SPARQL, numbers=none,
@@ -394,7 +395,7 @@ ORDER BY ?population
 \end{lstlisting}%
 \footnotetext{Получено \num{85} записей в 2017 году и \num{86} записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4bHe}{https://w.wiki/4bHe}}
 
-Результат работы скрипта (листинг~\protect\ref{lst:map}) представлен на рисунке~\ref{fig:SubjectsRussiaMap}.
+Результат работы скрипта (листинг~\ref{lst:map}) представлен на рисунке~\ref{fig:SubjectsRussiaMap}.
 
 \begin{fullwidth}
 \begin{figure*}[h]
