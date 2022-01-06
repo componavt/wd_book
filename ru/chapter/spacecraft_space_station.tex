@@ -302,7 +302,7 @@ GROUP BY ?year ?country ?countryLabel
 \index{SPARQL!SERVICE!Космонавты в международных полётах}
 \index{SPARQL!BIND!Космонавты в международных полётах}
 \index{SPARQL!VALUES!Космонавты в международных полётах}
-\begin{lstlisting}[ language=SPARQL, caption={{\href{https://clck.ru/agMjd}{Космонавты в международных полётах}}\protect\footnotemark}, 
+\begin{lstlisting}[ language=SPARQL, caption={{\href{https://clck.ru/agioQ}{Космонавты в международных полётах}}\protect\footnotemark}, 
                     label=lst:internationalFlights
                   ]
 # Graph of astronauts as crew of flights of different countries
@@ -341,7 +341,7 @@ WHERE
     AS ?rgb).
 }
 \end{lstlisting}
-\footnotetext{Найдено \num{68} результатов в 2022 году. Ссылка на SPARQL-запрос: \href{https://clck.ru/agMjd}{https://clck.ru/agMjd}}
+\footnotetext{Найдено \num{68} результатов в 2022 году. Ссылка на SPARQL-запрос: \href{https://clck.ru/agioQ}{https://clck.ru/agioQ}}
 
 Для работы скрипта необходимо указать начальную точку~-- космонавта, который принимал участие в международных космических полётах. Начальная точка задаётся в строке 11 скрипта и записывается в переменную \lstinline|?naut_seed|. Далее, в строке 12, выполняется поиск астронавтов, летавших совместно с тем, кого мы указали ранее. В строках 15--17 подгружаются данные о космических аппаратах, полётах и астонавтах. Булевая переменная \lstinline|?toggle| имеет значение \lstinline|?true|, если найденный объект является космическим аппаратом или  \lstinline|?false|, если найденный объект является космонавтом. В переменную \lstinline|?item| в девятнадцатой строке записывается айди объекта на Викиданных. В строке 20 в переменную \lstinline|?itemLabel| записывается название объекта, в строке 21 в переменную \lstinline|?rgb_source| записываются данные для раскраски кораблей, в строке 22 в переменную \lstinline|?link| записывается айди корабля, благодаря которому мы перешли на данного космонавта. В строке 23 подгружаются данные о гражданстве  космонавта, а в строках 26--34 космонавтам присваивается цвет в зависимости от их гражданства. 
 
