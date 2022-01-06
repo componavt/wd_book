@@ -205,13 +205,13 @@ WHERE
 # The number of spacecraft launches in Russia every 5 years
 #defaultView:BarChart
 SELECT (STR(?lapse) AS ?lapse_str) (COUNT(?item) AS ?quantity)
-WHERE {                  # spacecraft belongs to
-        {?item wdt:P17 wd:Q15180} # country = USSR
-  UNION {?item wdt:P17 wd:Q159}   # country = Russia
-  UNION {?item wdt:P495 wd:Q159}   # country of origin = Russia
+WHERE {                                  # spacecraft belongs to
+        {?item wdt:P17 wd:Q15180}               # country = USSR
+  UNION {?item wdt:P17 wd:Q159}               # country = Russia
+  UNION {?item wdt:P495 wd:Q159}    # country of origin = Russia
   UNION {?item wdt:P495 wd:Q15180}.  # country of origin =  USSR
   
-  ?item wdt:P619 ?launch. # date of spacecraft launch (P619)
+  ?item wdt:P619 ?launch. # date of spacecraft launch
   BIND( YEAR(?launch) AS ?year) 
   BIND(FLOOR(?year/5)*5 AS ?lapse) # count for each 5 years
 SERVICE wikibase:label {bd:serviceParam wikibase:language "ru,en"}
@@ -219,7 +219,7 @@ SERVICE wikibase:label {bd:serviceParam wikibase:language "ru,en"}
 GROUP BY ?lapse
 ORDER BY ?lapse # Order 1970, 1975, 1980, ...
 \end{lstlisting}
-\footnotetext{Найдено \num{14} пятилеток. SPARQL-запрос: \href{https://w.wiki/4eCm}{https://w.wiki/4eCm}}
+\footnotetext{Найдено \num{14} пятилеток. SPARQL-запрос: \href{https://w.wiki/4eGg}{https://w.wiki/4eGg}}
 
 \index{График!BarChart!Количетво запусков космических кораблей в СССР и России каждые 5 лет}
 \begin{figure*}[h!]
@@ -344,12 +344,12 @@ WHERE
 \end{lstlisting}
 \footnotetext{Найдено \num{68} результатов в 2022 году. Ссылка на SPARQL-запрос: \href{https://clck.ru/agMjd}{https://clck.ru/agMjd}}
 
-Для работы скрипта необходимо указать начальную точку~-- космонавта, который принимал участие в международных космических полётах. Начальная точка задаётся в одинадцатой строке скрипта и записывается в переменную \lstinline{?naut_seed}. Далее, в двенадцатой строке, выполняется поиск астронавтов, летавших совместно с тем, кого мы указали ранее. В строках 15--17 подгружаются данные о космических аппаратах, полётах и астонавтах. Булевая переменная \lstinline|?toggle| имеет значение \lstinline|?true|, если найденный объект является космическким аппаратом или  \lstinline|?false|, если найденный объект является космонавтом. В переменную \lstinline|?item| в девятнадцатой строке записывается айди объекта на Викиданных. В двадцатой строке в переменную \lstinline|?itemLabel| записывается название объекта, в 21й строке в переменную \lstinline{?rgb_source} записываются данные для раскраски кораблей, в 22 строке в переменную \lstinline|?link| записывается айди корабля, благодаря которому мы перешли на данного космонавта. В 23 строке подгружаются данные о гражданстве  космонавта, а в строках 26--34 космонавтам присваивается цвет в зависимости от их гражданства. 
+Для работы скрипта необходимо указать начальную точку~-- космонавта, который принимал участие в международных космических полётах. Начальная точка задаётся в одинадцатой строке скрипта и записывается в переменную \lstinline|?naut\_seed|. Далее, в двенадцатой строке, выполняется поиск астронавтов, летавших совместно с тем, кого мы указали ранее. В строках 15--17 подгружаются данные о космических аппаратах, полётах и астонавтах. Булевая переменная \lstinline|?toggle| имеет значение \lstinline|?true|, если найденный объект является космическим аппаратом или  \lstinline|?false|, если найденный объект является космонавтом. В переменную \lstinline|?item| в девятнадцатой строке записывается айди объекта на Викиданных. В двадцатой строке в переменную \lstinline|?itemLabel| записывается название объекта, в 21-й строке в переменную \lstinline|?rgb\_source| записываются данные для раскраски кораблей, в 22 строке в переменную \lstinline|?link| записывается айди корабля, благодаря которому мы перешли на данного космонавта. В 23 строке подгружаются данные о гражданстве  космонавта, а в строках 26--34 космонавтам присваивается цвет в зависимости от их гражданства. 
 
 \index{График!Graph!Космонавты в международных полётах}
 \begin{figure*}[h]
   \includegraphics[width=\linewidth]{graphics/chapter/spacecraft_space_station/Cosmonauts in international flights.png}
-  \caption[Граф c вершинами типа <<ракеты>> и <<космонавты>> с раскраской по странам]{Граф c вершинами типа <<ракеты>> и <<космонавты>> с раскраской по странам. Красный цвет соответствует СССР и России, розовый -- США, серый -- Германии, бирюзовый -- Франции, бордовый -- Австралии, а голубой -- Италии. Граф построен с помощью скрипта~\protect\ref{lst:internationalFlights} в 2022 году.}
+  \caption[Граф c вершинами типа <<ракеты>> и <<космонавты>> с раскраской по странам]{Граф c вершинами типа <<ракеты>> и <<космонавты>> с раскраской по странам. Красный цвет соответствует СССР и России, розовый ~-— США, серый ~-— Германии, бирюзовый ~-— Франции, бордовый ~-— Австралии, а голубой ~-— Италии. Граф построен с помощью скрипта~\protect\ref{lst:internationalFlights} в 2022 году.}
   \label{fig:internationalFlights}%
 \end{figure*}
 
