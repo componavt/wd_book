@@ -910,7 +910,12 @@ WHERE {
 
 \begin{task}
     \label{answer:spacecraft_USSR}
-    \newthought{Космические аппараты}, изображённые на рисунках \ref{question:spacecraft_soyuz19} (Союз--19), \ref{question:spacecraft_soyuzT} (Союз--7К), и \ref{question:spacecraft_lunar} (лунный посадочный модуль <<Космос>>) принадлежат СССР. Убедиться в этом можно выполнив запрос~\ref{lst:imageUSSRsc}:
+    \newthought{Космические аппараты}, 
+    изображённые на рисунках \ref{question:spacecraft_soyuz19} (Союз--19), 
+    \ref{question:spacecraft_soyuzT} (Союз--7К) и \ref{question:spacecraft_lunar} 
+    (лунный посадочный модуль <<Космос>>) принадлежат СССР. 
+    Убедиться в этом можно, выполнив запрос~\ref{lst:imageUSSRsc}.
+
     \begin{lstlisting}[ language=SPARQL, numbers=none, caption={{\href{https://w.wiki/4eCS}{Набор изображений космических аппаратов СССР}}\protect\footnotemark}, label=lst:imageUSSRsc, ]
 # List of images of USSR spacecraft
 #defaultView:ImageGrid
@@ -925,10 +930,11 @@ WHERE
 		?obj rdfs:label ?name 
 		FILTER (lang(?name) = "ru")
 	}
-}    \end{lstlisting}
-    \footnotetext{Найдено девять результатов в 2022 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4eCS}{https://w.wiki/4eCS}}
+}\end{lstlisting}
+\footnotetext{Найдено девять результатов в 2022 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4eCS}{https://w.wiki/4eCS}}
 
-    \small{Вопросы на с.~\pageref{question:spacecraft_soyuz19},~\pageref{question:spacecraft_soyuzT},~\pageref{question:spacecraft_lunar}.}
+\small{Вопросы на с.~\pageref{question:spacecraft_soyuz19}, 
+    \pageref{question:spacecraft_soyuzT} и \pageref{question:spacecraft_lunar}.}
 \end{task}
 
 %%%%%%%%%%%%%% Human_settlements charpter %%%%%%%%%%%%%%
