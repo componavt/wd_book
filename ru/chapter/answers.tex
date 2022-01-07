@@ -838,8 +838,14 @@ WHERE
 }
 ORDER BY DESC(?beam)
 \end{lstlisting}
-\footnotetext{Самым широким кораблем оказался незавершенный \href{https://www.wikidata.org/wiki/Q1156392}{проект авианосца Хабаккук} из льда и опилок, шириной \num{180} метров, 2021 год. Среди реально существоваших кораблей самым широким оказался норвежский корабль \href{https://www.wikidata.org/wiki/Q11987454}{M/S Isosaari (Q11987454)
-}, шириной 99 метров. Ссылка на SPARQL-запрос: \href{https://w.wiki/wKv}{https://w.wiki/wKv}}
+\footnotetext{Самым широким кораблем оказался 
+    незавершённый \href{https://www.wikidata.org/wiki/Q1156392}{проект авианосца Хабаккук} 
+    из льда и опилок, шириной \num{180} метров. 
+    Среди реально существоваших кораблей самым широким был норвежский корабль 
+    \href{https://www.wikidata.org/wiki/Q11987454}{M/S Isosaari (Q11987454)}, 
+    шириной 99 метров. 
+    SPARQL-запрос: \href{https://w.wiki/wKv}{https://w.wiki/wKv}}
+\label{answer:ship_3}
 
 \small{Задание на с.~\pageref{question:ship_3}.}
 \end{task}
@@ -849,7 +855,7 @@ ORDER BY DESC(?beam)
 \begin{task}
     \label{answer:launches_USSR}
     \newthought{Запрос~\ref{lst:launch_USSR} строит график запуска} отечественных космических аппаратов по десятилетиям.
-    В 1960-е годы совершено 16 запусков, в 1970-е~--- 42 запуска, а в 1980-е~--- 39 запусков.
+    В 1960-е годы совершено 16~запусков, в 1970-е~--- 42 запуска, а в 1980-е~--- 39 запусков.
 
     \begin{lstlisting}[ 
                 language=SPARQL, 
@@ -873,8 +879,10 @@ SERVICE wikibase:label {bd:serviceParam wikibase:language "ru,en"}
 } 
 GROUP BY ?lapse
 ORDER BY ?lapse # Order 1960, 1970, 1980, ...
-    \footnotetext{Найдено \num{7} десятилетий в 2021 г. Ссылка на SPARQL-запрос: \href{https://w.wiki/4eQK}{https://w.wiki/4eQK}}
-    \small{Вопрос на с.~\pageref{question:spacecraft_1}.}
+\end{lstlisting}
+\footnotetext{Диаграмма построена для семи десятилетий, 2021 год. SPARQL-запрос: \href{https://w.wiki/4eQK}{https://w.wiki/4eQK}}
+
+\small{Вопрос на с.~\pageref{question:spacecraft_1}.}
 \end{task}
 
 
