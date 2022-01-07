@@ -15,7 +15,7 @@ QuickStatements is a tool that can edit Wikidata items, based on a simple set of
 
 
 \section{Requirements}%
-\label{sec:requirements eng}
+\label{sec:requirements}
 We can program a bot in several programming languages, but to facilitate our task we can use Pywikibot, a collection of tools programmed in Python to facilitate access to information in Wikimedia Foundation projects. We have three options to run our programs:
 \begin{enumerate}
 %  \setlength{\itemindent}{2em}
@@ -47,17 +47,19 @@ To view information or perform small tests we can use our username, but in case 
 
 Normally to obtain this flag we will be asked to perform a specific number of test editions, to certify that such changes make sense, since we should have a low or zero error rate. We could also perform tasks with our user account, but with a low rate of edits.
 
-\section{Our first scripts}
 
-\label{sec:firstScript Eng}
-Once we have correctly configured Pywikibot we can run our first script~(listing~\ref{lst:page-get-eng}). 
+\section{Our first scripts}
+\label{sec:firstScript}
+
+Once we have correctly configured Pywikibot we can run our first script~\ref{lst:page-get-eng}. 
 We will go to the folder where Pywikibot is located and there we create a new file called \lstinline|test.py|.
 
 We can edit the file with any text or code editor such as Visual Studio Code, Notepad++ or a simple Notepad.
-Once inside the file we will put the following lines of code~(listing~\ref{lst:page-get-eng}).
+Once inside the file we will put the following lines of code~\ref{lst:page-get-eng}.
 
-\marginnote[2\baselineskip]{There in Wikidata are two rivers with the same name, which is ``Obnitsa'', one of them is in Poland, while the another in Serbia. Objects with the same names are easily distinguishable by numbers in Wikidata: \wdqName{Obnitsa}{16583338} and \wdqName{Obnitsa}{959190}.}
+\marginnote[*-6]{There are two rivers with the same name, which is ``Obnitsa'', one of them is in Poland, while the another in Serbia. Objects with the same names are easily distinguishable by identifiers in Wikidata: \wdqName{Obnitsa}{16583338} and \wdqName{Obnitsa}{959190}.}
 %
+\renewcommand{\lstlistingname}{Listing} % Query->Listing
 \begin{lstlisting}[ language=Python,
                     caption={Receiving the content of the Wikidata page about the Obnitsa River in Poland},
                     label=lst:page-get-eng
@@ -67,6 +69,7 @@ site=pywikibot.Site('wikidata', "wikidata")
 page=pywikibot.Page(site, u"Q16583338")     # river in Poland
 print(page.get())
 \end{lstlisting}
+\renewcommand{\lstlistingname}{Query} % Listing->Query
 
 We save the file and execute it by typing the following instruction: \lstinline|py pwb.py test.py|.
 
