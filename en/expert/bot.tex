@@ -256,6 +256,7 @@ SELECT ?item ?itemLabel WHERE
   SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}
+\renewcommand{\lstlistingname}{Listing} % Query->Listing
 
 We must check if the query~\ref{lst:bug-finding} returns any value,
 since it could be that there are no errors to be solved. 
@@ -269,7 +270,7 @@ we can add the query to our program, like this~\ref{lst:identify-bugs}.
 % caption=[Identification of users with a country-citizenship error]{Inclusion of a SPARQL-query for identification of users with a country-citizenship error using an example of Poland (Q36) to a Python program, with the output of the usernames of all such users}
 \begin{lstlisting}[ language=Python,
     numbers=none,
-    caption={Identification of users with a country-citizenship error using an example of Poland(Q36) (inclusion of a SPARQL-query to a Python program)},
+    caption={Identification of users with a country-citizenship error using an example of Poland (Q36) (inclusion of a SPARQL-query to a Python program).},
     label=lst:identify-bugs
     ]
 import pywikibot
@@ -282,14 +283,17 @@ query = """
     ?item wdt:P17 wd:Q36.
   } """
 
-pages = pagegenerators.WikidataSPARQLPageGenerator(query,site=site)
+pages =pagegenerators.WikidataSPARQLPageGenerator(query,site=site)
 for item in pages:
   print(item.title())
 \end{lstlisting}    
 
-With respect to the previous exercises we have only imported the \lstinline|pagegenerators|, a module that allows us to generate a list of items from certain filters as a SPARQL query as above (listing~\ref{lst:bug-finding}). We have saved the query in a variable called /textit{query}, and then we have passed it to the pagegenerators method called \textit{WikidataSPARQLPageGenerator()}. The data returned by this method has been traversed with a for loop and we have displayed the title of the item.
+With respect to the previous exercises we have only imported the \lstinline|pagegenerators|, a module that allows us to generate a list of items from certain filters as a SPARQL query as above (listing~\ref{lst:bug-finding}). 
+We have saved the query in a variable called \lstinline|query|, 
+and then we have passed it to the pagegenerators method called \lstinline|WikidataSPARQLPageGenerator()|. 
+The data returned by this method has been traversed with a \lstinline|for| loop and we have displayed the title of the item.
 
-In short, this program (~(listing~\ref{lst:identify-bugs})) shows us all the people who have Poland as a country.
+In short, this program~\ref{lst:identify-bugs} shows us all the people who have Poland as a country.
 
 We can already obtain several elements at the same time. Now it is time to delve into the content of these. Instead of displaying the title of the article, we will display some parts of its content. For example, sitelinks, aliases, labels or claims~(listing~\ref{lst:display-linkslabels}).
 
