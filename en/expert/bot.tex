@@ -4,24 +4,23 @@
 This chapter examines the automation of processes in Wikidata. On many occasions we want to correct recurring errors or enter large amounts of data in Wikidata instead of modifying properties one by one. 
 For data entry we have at our disposal several tools that facilitate our work, such as OpenRefine\sidenote[][-58pt]{%
 %
-OpenRefine~--- is an open-source desktop application for data cleanup and transformation to other formats. 
+OpenRefine is an open-source desktop application for data cleanup and transformation to other formats. 
 Since 2021 the program is avaliable to Wikipedia editors as an online-service. \url{https://openrefine.org/}%
 } %
  or QuickStatements\sidenote[][0pt]{%
 %
-QuickStatements~--- is a tool that can edit Wikidata items, based on a simple set of text commands. \url{https://quickstatements.toolforge.org/}%
+QuickStatements is a tool that can edit Wikidata items, based on a simple set of text commands. \url{https://quickstatements.toolforge.org/}%
 %
 }, but repetitive modifications and insertions over time should be done with a bot.
 
 
-\section{Requirements}
-
+\section{Requirements}%
 \label{sec:requirements eng}
 We can program a bot in several programming languages, but to facilitate our task we can use Pywikibot, a collection of tools programmed in Python to facilitate access to information in Wikimedia Foundation projects. We have three options to run our programs:
 \begin{enumerate}
 %  \setlength{\itemindent}{2em}
   \item using a web shell like PAWS\sidenote[][-48pt]{PAWS (a web shell)~--- a Jupyter notebook deployment hosted by Wikimedia}; 
-  \item setting up a cloud infrastructure like Toolforge\sidenote[][-24pt]{Toolforge~--- is a hosting environment for developers working on services that provide value to the Wikimedia movement \url{https://wikitech.wikimedia.org/wiki/Portal:Toolforge}};
+  \item setting up a cloud infrastructure like Toolforge\sidenote[][-24pt]{Toolforge is a hosting environment for developers working on services that provide value to the Wikimedia movement \url{https://wikitech.wikimedia.org/wiki/Portal:Toolforge}};
   \item running it on our own computer.
 \end{enumerate}
 
