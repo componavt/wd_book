@@ -19,25 +19,22 @@ QuickStatements is a tool that can edit Wikidata items, based on a simple set of
 We can program a bot in several programming languages, but to facilitate our task we can use Pywikibot, a collection of tools programmed in Python to facilitate access to information in Wikimedia Foundation projects. We have three options to run our programs:
 \begin{enumerate}
 %  \setlength{\itemindent}{2em}
-  \item using a web shell like PAWS\sidenote[][-48pt]{PAWS (a web shell)~--- a Jupyter notebook deployment hosted by Wikimedia}; 
+  \item using a web shell like PAWS\sidenote[][-48pt]{PAWS (a web shell)~--- a Jupyter notebook deployment hosted by Wikimedia.}; 
   \item setting up a cloud infrastructure like Toolforge\sidenote[][-24pt]{Toolforge is a hosting environment for developers working on services that provide value to the Wikimedia movement \url{https://wikitech.wikimedia.org/wiki/Portal:Toolforge}};
   \item running it on our own computer.
 \end{enumerate}
 
-Any of the three options can be used thanks to the explanations we have in the official documentation\sidenote[]{See installation guide Pywikibot: \url{https://w.wiki/4CsU}} 
+Any of the three options can be used 
+thanks to the explanations 
+we have in the official documentation\sidenote[]{See installation guide Pywikibot: \url{https://w.wiki/4CsU}}. 
 If we use our own computer we must install Python, following the instructions in the documentation.
-After the installation we can check
-if it is installed correctly
-by pressing\marginnote[0.5cm]{Installation documentation: \url{https://www.mediawiki.org/wiki/Manual:Pywikibot/Installation}}
+After the installation we can check 
+if it is installed correctly 
+by command \lstinline|python --version| 
+in the Windows command prompt or in the Linux console (from now on everything must be done from here), 
+and it will show us the version we are going to work with. 
+Then we must install Pywikibot and configure it.
 
-\begin{lstlisting}[ language=Python,
-                    numbers=none,
-                  ]
-python --version
-\end{lstlisting}
-in the Windows command prompt or in the Linux console (from now on everything must be done from here), and it will show us the version we are going to work with. Then we must install Pywikibot and configure it.
-
-\newpage
 This configuration has several steps:
 \begin{itemize}
   \setlength{\itemindent}{2em}
