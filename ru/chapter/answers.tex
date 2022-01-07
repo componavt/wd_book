@@ -4,7 +4,7 @@
 \openepigraph{%
 Ставлю три звездочки. 
 Я видал в детских книжках: 
-когда человек делает прыжок к новой мысли, он ставит три звездочки\ldots
+когда человек делает прыжок к новой мысли, он ставит три звездочки\ldots%
 }{Саша Чёрный, {Дневник Фокса Микки}%
 }
 
@@ -41,29 +41,30 @@
 \end{task}
 
 
-\begin{task}
-    \label{answer:guess_numbers_task}
-    \newthought{В алгоритме угадывания чисел} число $ a $ может быть натуральным, целым, вещественным и рациональным числом, то есть $ a \in \mathbb{N},\mathbb{Z}, \mathbb{Q}, \mathbb{R} $, но кроме иррациональных чисел из-за конечности разрядной сетки компьютера. 
-    \small{Вопрос на с.~\pageref{question:text}}
-\end{task}
+%\begin{task}
+%    \label{answer:guess_numbers_task}
+%    \newthought{В алгоритме угадывания чисел} число $ a $ может быть натуральным, целым, вещественным и рациональным числом, то есть $ a \in \mathbb{N},\mathbb{Z}, \mathbb{Q}, \mathbb{R} $, но кроме иррациональных чисел из-за конечности разрядной сетки компьютера. 
+%    \small{Вопрос на с.~\pageref{question:text}}
+%\end{task}
 
-\begin{task}
-    \label{answer:global-vars-pros-cons}
-    \newthought{Ответ такой} ... todo. 
-
-    \small{Вопрос на с.~\pageref{fig:block:proc:swap:colors}.}
-\end{task}
+%\begin{task}
+%    \label{answer:global-vars-pros-cons}
+%    \newthought{Ответ такой} ... todo. 
+%
+%    \small{Вопрос на с.~\pageref{fig:block:proc:swap:colors}.}
+%\end{task}
 
 %%%%%%%%%%%%%% City chapter %%%%%%%%%%%%%%
 \begin{task}
     \label{answer:cities_geographic_objects}
-    \newthought{В честь географических объектов} были названы Тула (\href{https://w.wiki/oLJ}{река Тулица}), Курильск (\href{https://w.wiki/oLH}{Курильские острова}) и Вологда (\href{https://w.wiki/oLG}{река Вологда}). Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:cities_geographic_objects}). Значение свойства \href{https://www.wikidata.org/wiki/Property:P138}{named after (P138)} показывает, в честь какого объекта Викиданных был назван город.
-    
-    \marginnote[-1.0cm]{
-    Поясним вторую строчку скрипта в листинге \ref{lst:cities_geographic_objects}, то есть конструкцию wdt:P31/wdt:P279*, за которой следует объект Викиданных, объединяющий \wdqName{city}{515} и \wdqName{town}{3957}, и называющийся \wdqName{city/town}{7930989}.
-    Если не имеет значения к какому конкретно типу городов относится объект Викиданных, то можно использовать конструкцию с подклассами, указав при этом единственный класс, относительно которого будет выполняться поиск. Более подробно данная конструкция рассматривается в разделе <<Полнота и недостатки Викиданных>>, в тексте, предшествующем листингу \ref{lst:example_subclasses_city} на с. \pageref{lst:example_subclasses_city}.
-    }
-    
+    \newthought{В честь географических объектов} были названы 
+    Тула (\href{https://w.wiki/oLJ}{река Тулица}), 
+    Курильск (\href{https://w.wiki/oLH}{Курильские острова}) 
+    и Вологда (\href{https://w.wiki/oLG}{река Вологда}). 
+    Ответ на вопрос можно получить, выполнив запрос~\ref{lst:cities_geographic_objects}. 
+    Значение свойства \wdProperty{138}{``named after''} 
+    показывает, в честь какого объекта Викиданных был назван город.
+   
     \index{SPARQL!FILTER!Города, названные в честь географических объектов}
     \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/otj}{Города, названные в честь географических объектов}\protect\footnotemark},
@@ -77,8 +78,16 @@ SELECT ?city ?cityLabel ?namedAfterLabel ?whatIsItLabel WHERE {
 		?city = wd:Q156046 || ?city = wd:Q1957 || ?city = wd:Q175651)
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
-    \end{lstlisting}
-    \footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/otj}{https://w.wiki/otj}}  
+    \end{lstlisting}%
+\marginnote[-4.4cm]{Во второй строчке запроса~\ref{lst:cities_geographic_objects} 
+    после конструкции \lstinline|wdt:P31/wdt:P279*| следует объект Викиданных, 
+    объединяющий \wdqName{city}{515} и \wdqName{town}{3957} 
+    и называющийся \wdqName{city/town}{7930989}. 
+    Такой поиск с помощью подклассов позволяет найти экземпляры сразу обоих типов городов. 
+    Подробности см. в разделе~<<\nameref{sect:city-completness}>>, 
+    в тексте, предшествующем листингу~\ref{lst:example_subclasses_city} на с.~\pageref{lst:example_subclasses_city}.
+    }
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/otj}{https://w.wiki/otj}}  
     \small{Вопрос на с.~\pageref{lst:population_town}.}
 \end{task}
 
@@ -995,7 +1004,7 @@ ORDER BY DESC (?popArea)
     \ruwiki{4dUf}{украинскому} населённому пункту. 
 
 Ответ можно получить с помощью запроса~\ref{lst:flag_question_human_settlements}. 
-    Значение свойства  \wdProperty{94}{``coat of arms image''} 
+    Значение свойства \wdProperty{94}{``coat of arms image''} 
     содержит изображение герба населённого пункта.
    
 \index{График!ImageGrid!Гербы населённых пунктов России}
