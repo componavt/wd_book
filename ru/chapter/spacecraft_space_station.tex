@@ -193,13 +193,15 @@ WHERE
 Для представления результатов в виде столбчатой диаграммы используется стиль отображения BarChart.
 
 \label{question:spacecraft_1}
-\marginnote[3cm]{
+\marginnote[2cm]{
 %%%%%%%%%%%%%%%% Упражнение 1 %%%%%%%%%%%%%%%% 
 Сколько кораблей было запущено в~СССР в~1960-е, 1970-е и 1980-е годы?
 
 См. ответ~\ref{answer:launches_USSR} на с.~\pageref{answer:launches_USSR}.
 }
 
+
+\marginnote[4cm]{Найдено \num{14} пятилеток. SPARQL-запрос: \href{https://w.wiki/4eGg}{https://w.wiki/4eGg}}
 \index{SPARQL!STR!Запуски космических кораблей в СССР и России}
 \index{SPARQL!BIND!Запуски космических кораблей в СССР и России}
 \index{SPARQL!YEAR!Запуски космических кораблей в СССР и России}
@@ -209,9 +211,9 @@ WHERE
 \index{SPARQL!GROUP BY!Запуски космических кораблей в СССР и России}
 \index{SPARQL!ORDER BY!Запуски космических кораблей в СССР и России}
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={{\href{https://w.wiki/4eGg}{Запуски космических кораблей в СССР и России}}\protect\footnotemark}, 
-                    label=lst:launchesRussia5years,
-                    texcl
+    caption={{\href{https://w.wiki/4eGg}{Запуски космических кораблей в СССР и России}}}, 
+    label=lst:launchesRussia5years,
+    texcl
                   ]
 # The number of spacecraft launches in Russia every 5 years
 #defaultView:BarChart
@@ -230,7 +232,7 @@ SERVICE wikibase:label {bd:serviceParam wikibase:language "ru,en"}
 GROUP BY ?lapse
 ORDER BY ?lapse # Order 1970, 1975, 1980, ...
 \end{lstlisting}
-\footnotetext{Найдено \num{14} пятилеток. SPARQL-запрос: \href{https://w.wiki/4eGg}{https://w.wiki/4eGg}}
+%\footnotetext{Найдено \num{14} пятилеток. SPARQL-запрос: \href{https://w.wiki/4eGg}{https://w.wiki/4eGg}}
 
 \index{График!BarChart!Количетво запусков космических кораблей в СССР и России каждые 5 лет}
 \begin{figure*}[h!]
