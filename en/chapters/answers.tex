@@ -682,7 +682,7 @@ WHERE
 	caption={Borders and date of origin of the subjects of the Russian Federation. 485 results in 2021. SPARQL query: \href{https://w.wiki/4bKg}{https://w.wiki/4bKg}},
 	label=lst:sharesBorderWith
 	]
-# Borders and date of origin of the subjects of the Russian Federation
+# Borders and date of origin of the subjects of the Russia
 SELECT  ?subject ?subjectLabel 
         ?sharesBorderWith 
         ?sharesBorderWithLabel ?year
@@ -692,10 +692,10 @@ WHERE
   { ?subject wdt:P31 wd:Q41162 } UNION  # Republic of Russia
   { ?subject wdt:P31 wd:Q183342 } UNION  # Federal city of Russia
   { ?subject wdt:P31 wd:Q831740 } UNION  # Krai of Russia
-  { ?subject wdt:P31 wd:Q309166 } UNION # Autonomus oblast of Russia
+  { ?subject wdt:P31 wd:Q309166 } UNION # Autonomus oblast
   { ?subject wdt:P31 wd:Q184122 } # Autonomus okrug of Russia
   
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
   
   ?subject wdt:P47 ?sharesBorderWith. 
   ?subject wdt:P571 ?year
