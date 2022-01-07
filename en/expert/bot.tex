@@ -223,7 +223,10 @@ In this case we have chosen another river (\wdqName{Pisueña}{6980876}),
 which is linked twice: by \wdqName{another river}{14360} and by a \wdqName{redirect page}{23993869}. 
 In this way we can know the number of times a certain element (Pisueña) is being linked.
 
-\marginnote[0.0cm]{Exercise: Put into practice everything we have seen so far but using an element with a low number, which probably has much more information entered than the examples we have used so far.}
+\marginnote[0.0cm]{Exercise: put into practice everything 
+we have seen so far 
+but using an element with a small number, 
+which probably has much more information entered than the examples we have used so far.}
 
 In addition to the \lstinline|Page| module Pywikibot provides us with many other possibilities. 
 For example, introducing a single element does not make much sense, normally we will want to work with several elements to analyze them and if necessary modify them. For this we can make use of the queries that we have been doing throughout the course.
@@ -232,18 +235,18 @@ For example, introducing a single element does not make much sense, normally we 
 \section{Running queries}
 \label{sec:running-queries}
 
-First, we go to Wikidata Query Service \href{https://query.wikidata.org/}{WDQS}\footnote{%
-See explanations of WDQS on the page~\pageref{sect:WDQS}.%
-}%
+First, we go to Wikidata Query Service\marginnote{%
+    See explanations of \href{https://query.wikidata.org/}{WDQS} in section ``\nameref{sec:WDQS}'' on the page~\pageref{sec:WDQS}.%
+} %
  to create our query. 
 We look for possible errors in the data entered, such as people who have a certain country in the property \wdProperty{17}{country}.
 This is a common error as many users enter \wdProperty{17}{country} instead of property \wdProperty{27}{country of nationality}.
-This query could look like this~(listing~\ref{lst:bug-finding}).
+This request could look like this query~\ref{lst:bug-finding}.
 
 \renewcommand{\lstlistingname}{Query} % Listing->Query
 \begin{lstlisting}[ language=SPARQL,
-        numbers=none,
-        caption={\href{https://w.wiki/https://w.wiki/4cBg}{Query for receiving list of users who mistakenly entered country instead of country of nationality}\protect\footnotemark},
+    numbers=none,
+    caption={Query for receiving list of users who mistakenly entered country instead of country of nationality. Received 3 occupations in 2021. SPARQL-query: \href{https://w.wiki/4eag}{https://w.wiki/4eag}},
         label=lst:bug-finding
                   ]
 SELECT ?item ?itemLabel WHERE 
@@ -253,7 +256,6 @@ SELECT ?item ?itemLabel WHERE
   SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}
-\footnotetext{Received 3 occupations in 2021. Link to SPARQL-query: \href{https://w.wiki/4cBg}{https://w.wiki/4cBg}}
 
 We must check if the query~\ref{lst:bug-finding} returns any value,
 since it could be that there are no errors to be solved. 
