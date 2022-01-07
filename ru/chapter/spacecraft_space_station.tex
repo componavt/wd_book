@@ -347,10 +347,14 @@ WHERE
 
 \index{График!Graph!Космонавты в международных полётах}
 \begin{figure*}[h]
-  \includegraphics[width=\linewidth]{graphics/chapter/spacecraft_space_station/Cosmonauts in international flights RU.png}
+  \setlength{\fboxsep}{0pt}%
+  \setlength{\fboxrule}{1pt}%
+  \fcolorbox{gray}{gray}{%
+\includegraphics[width=\linewidth]{graphics/chapter/spacecraft_space_station/Cosmonauts in international flights RU.png}}
   \caption[Граф c вершинами типа <<ракеты>> и <<космонавты>> с раскраской по странам]{Граф c вершинами типа <<ракеты>> и <<космонавты>> с раскраской по странам. Красный цвет соответствует СССР и России, розовый~--- США, серый~--- Германии, бирюзовый~--- Франции, бордовый~--- Австралии, а голубой~--- Италии. Граф построен с помощью скрипта~\protect\ref{lst:internationalFlights} в 2022 году.}
   \label{fig:internationalFlights}%
 \end{figure*}
+
 
 \section{Упражнения}
 \begin{enumerate}
