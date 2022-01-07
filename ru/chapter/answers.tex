@@ -877,8 +877,8 @@ ORDER BY ?lapse # Order 1960, 1970, 1980, ...
     \small{Вопрос на с.~\pageref{question:spacecraft_1}.}
 \end{task}
 
+
 \begin{task}
-    \label{answer:launches_world}
     \newthought{Наибольшее число запусков за десятилетие в период с 1970 по 2010 год~--- 121, наименьшее~--- 63.} 
     Для подсчёта максимума и минимума запусков за 10 лет в период с 1970 по 2010 год удобно использовать скрипт~\ref{lst:launchesWorld10}.
     \begin{lstlisting}[ language=SPARQL, numbers=none, caption={{\href{https://w.wiki/4dwj}{Максимум и минимум запусков космических кораблей в мире}}\protect\footnotemark}, label=lst:launchesWorld10, ]
@@ -897,6 +897,7 @@ WHERE {
 } \end{lstlisting}
     \footnotetext{Запрос выполнялся в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4dwH}{https://w.wiki/4dwH}}
     \small{Вопрос на с.~\pageref{question:spacecraft_2}.}
+\label{answer:max-min-space-launches}
 \end{task}
 
 \begin{task}
