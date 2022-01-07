@@ -328,12 +328,18 @@ We have shown the information in the Wikidata elements, but now let's see how we
 \section{Modifying the values entered in Wikidata}
 \label{sec:modifying the values entered in Wikidata eng}
 
-The search for errors that are repeated over time is one of the tasks of a bot programmer, because depending on the task performed by the bot, it will have to be executed regularly, and improve the search for errors over time. For example, the following query returns all professions sorted by the number of times they are being used in Wikidata~(listing~\ref{lst:occupation-list}).
+The search for errors that are repeated over time is one of the tasks of a bot programmer, 
+because depending on the task performed by the bot, 
+it will have to be executed regularly, 
+and improve the search for errors over time. 
+For example, the following query returns all professions sorted by the number of times 
+they are being used in Wikidata~(listing~\ref{lst:occupation-list}).
 
+\renewcommand{\lstlistingname}{Query} % Listing->Query
 \begin{lstlisting}[ language=SPARQL,
-                    numbers=none,
-                    caption={\href{https://w.wiki/4bLo}{List of occupations sorted by the their use amount in Wikidata}\protect\footnotemark},
-                    label=lst:occupation-list
+    numbers=none,
+    caption={List of occupations sorted by the their use amount in Wikidata. Returned \num{16979} occupations in 2021. SPARQL-query: \href{https://w.wiki/4ebi}{https://w.wiki/4ebi}},
+    label=lst:occupation-list
                   ]
 SELECT ?instanceLabel ?value WHERE {
   {
@@ -346,7 +352,7 @@ SELECT ?instanceLabel ?value WHERE {
 }
 ORDER BY DESC (?value)
 \end{lstlisting} 
-\footnotetext{Returned \num{16979} occupations in 2021. Link to SPARQL-query: \href{https://w.wiki/4bLo}{https://w.wiki/4bLo}}
+\renewcommand{\lstlistingname}{Listing} % Query->Listing
 
 This query~\ref{lst:occupation-list} 
 can be used to check which professions are being used incorrectly, or have been introduced by vandals.
@@ -355,31 +361,33 @@ that are not correct and have meaningless information
 such as \wdqName{Salinas de Ibargoiti}{7404672}, \wdqName{Order of Saint Basil the Great}{7319129}, \wdqName{Promoted to Glory}{7249866}, \wdqName{Princes}{7244433} and \wdqName{Point Loma Nazarene University}{7208069}. 
 We can create a list of errors and show the biographies that have these professions entered~(listing~\ref{lst:occupation-mistakeslist}).
 
+\begin{widepar}%
+	\captionsetup[lstlisting]{%
+        format=llapwide16 % llap - at margin, margin - at main text
+		%indention=0pt,parindent=0pt,belowskip=0pt,aboveskip=0pt%
+	}%
 \begin{lstlisting}[ language=Python,
-                    caption={Making a list of errors and displaying users with occupation errors},
-                    label=lst:occupation-mistakeslist
+    caption={Making a list of errors and displaying users with occupation errors.},
+    label=lst:occupation-mistakeslist
                   ]
 import pywikibot
 from pywikibot import pagegenerators
 site=pywikibot.Site('wikidata', "wikidata")
-delete_occupation={"Q7404672", "Q7319129", "Q7249866", "Q7244433", 
-"Q7208069"}
+delete_occupation={"Q7404672", "Q7319129", "Q7249866", "Q7244433", "Q7208069"}
 for occupation in delete_occupation:
   query = """
     SELECT DISTINCT ?item WHERE {
-      SERVICE wikibase:label { bd:serviceParam wikibase:
-language "en". }
+      SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
       ?item wdt:P31 wd:Q5.     # P31 - instance of, Q5 - human
       ?item wdt:P106 wd:""" + occupation + """.
     } """
 
-  pages=pagegenerators.WikidataSPARQLPageGenerator(query, site=site)
+  pages = pagegenerators.WikidataSPARQLPageGenerator(query, site=site)
   for item in pages:
-    print("Users whose occupation is
-{occupation}: {title}" . format(occupation=occupation, 
-title=item.title()))
-\end{lstlisting} 
-\marginnote[-2.0cm]{Attention: so far we had used \lstinline|print()| 
+    print("Users whose occupation is {occupation}: {title}".format(occupation=occupation,title=item.title()))
+\end{lstlisting}%
+\end{widepar}%
+\marginnote[0.0cm]{Attention: so far we had used \lstinline|print()| 
 to show the information contained in the variables, 
 but in the previous exercise~(listing~\ref{lst:occupation-mistakeslist})
 we have used \lstinline|format()|, as it is recommended to give clarity to string.}
