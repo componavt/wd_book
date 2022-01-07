@@ -462,6 +462,8 @@ ORDER BY DESC(?count)
 
 See question on page~\pageref{question:administrative_territorial}.
 
+
+
 %%%%%%%%%%%%%%%%%%operating systems%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Programming languages for operating systems}
@@ -715,27 +717,34 @@ WHERE
 \labsec{answer-languages}
 \begin{exercise}
     \label{answer:prog_lang_1}
-Correlate a programming language and its developer.
-	\begin{tabular}{ll}
-		Developer & Language\\
-		\hline
-		\href{https://en.wikipedia.org/wiki/Jean_Ichbiah}{J.Ichbiah} & \href{https://www.wikidata.org/wiki/Q154755}{Ada}\\
-		\href{https://en.wikipedia.org/wiki/Charles_H._Moore}{C.Moore} & \href{https://www.wikidata.org/wiki/Q275472}{Forth}\\
-		\href{https://en.wikipedia.org/wiki/Joe_Armstrong_(programmer)}{J.Armstrong} & \href{https://www.wikidata.org/wiki/Q334879}{Erlang}\\
-	\end{tabular}
+Match a programming language and its developer.
+
+\begin{tabular}{ll}
+Developer & Language\\
+\hline
+\href{https://en.wikipedia.org/wiki/Jean_Ichbiah}{J.Ichbiah} & \href{https://www.wikidata.org/wiki/Q154755}{Ada}\\
+\href{https://en.wikipedia.org/wiki/Charles_H._Moore}{C.Moore} & \href{https://www.wikidata.org/wiki/Q275472}{Forth}\\
+\href{https://en.wikipedia.org/wiki/Joe_Armstrong_(programmer)}{J.Armstrong} & \href{https://www.wikidata.org/wiki/Q334879}{Erlang}\\
+\end{tabular}
 \end{exercise}
-    The Ada programming language was developed by Jean Ichbiah, Forth was developed by Charles H. Moore, and the creator of Erlang is believed to be Joe Armstrong. The answer to the question can also be obtained by running the following SPARQL query (listing \ref{lst:prog_lang_answer_1}). 
-	\begin{lstlisting}[language=SPARQL, caption={{Programming languages developers}\protect\footnotemark}, label=lst:prog_lang_answer_1]
+
+The Ada programming language was developed by Jean Ichbiah, 
+Forth was developed by Charles H. Moore, 
+and the creator of Erlang is believed to be Joe Armstrong. 
+The answer to the question can be obtained by the SPARQL query~\ref{lst:prog_lang_answer_1}. 
+\begin{lstlisting}[language=SPARQL, 
+    caption={{Programming languages developers. SPARQL query: \href{https://w.wiki/kfZ}{https://w.wiki/kfZ}}}, 
+    label=lst:prog_lang_answer_1
+                  ]
 SELECT ?langLabel ?developerLabel
 WHERE
 {
 	?lang wdt:P31 wd:Q9143.
 	?lang wdt:P178 ?developer.
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+	SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 ORDER BY DESC (?langLabel)
-	\end{lstlisting}
-SPARQL query: \href{https://w.wiki/kfZ}{https://w.wiki/kfZ}
+\end{lstlisting}
 
 Question from page~\pageref{question:prog_lang_1}.
 
@@ -747,18 +756,22 @@ Which image is the programming language logo \href{https://www.wikidata.org/wiki
 \includegraphics[width=2cm]{./chapter/programming_language/task_2_logo_1.PNG} & \includegraphics[width=2cm]{./chapter/programming_language/task_2_logo_2.PNG} & \includegraphics[width=2cm]{./chapter/programming_language/task_2_logo_3.PNG} & \includegraphics[width=2cm]{./chapter/programming_language/task_2_logo_4.PNG}
 	\end{tabular}
 \end{exercise}
-    The third picture is the logo of the LOLCODE programming language. The answer to the question can also be obtained by running the following SPARQL query (listing \ref{lst:prog_lang_answer_1}). 
-	\begin{lstlisting}[language=SPARQL, caption={{Programmers languages logos}\protect\footnotemark}, label=lst:prog_lang_answer_1]
+The answer is that the third picture is the LOLCODE programming language logo. 
+The answer to the question can be obtained by the SPARQL query~\ref{lst:prog_lang_answer_1}. 
+
+\begin{lstlisting}[language=SPARQL, 
+    caption={Programmers languages logos. SPARQL query: \href{https://w.wiki/kfd}{https://w.wiki/kfd}}, 
+    label=lst:prog_lang_answer_1
+                ]
 #defaultView:ImageGrid
 SELECT ?langLlabel ?image
 WHERE
 {
 	?lang wdt:P31 wd:Q9143. # instances of programming language
 	?lang wdt:P154 ?image. # image
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+	SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
-	\end{lstlisting}
-SPARQL query: \href{https://w.wiki/kfd}{https://w.wiki/kfd}
+\end{lstlisting}
 
 Question from page~\pageref{question:prog_lang_2}.
 

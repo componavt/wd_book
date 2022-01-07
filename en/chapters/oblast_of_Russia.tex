@@ -6,8 +6,9 @@
 
 This chapter of the book is devoted to the study of the Wikidata regions of Russia. 
 Note that the regions of Russia include many lands of different
-types: regions, republics, territories and others. It is these types of regions that have been studied.
-A graph of the subjects of Russia bordering
+types: regions, republics, territories and others. 
+These types of regions have been investigated. 
+A graph of the subjects of Russia bordering 
 on foreign countries (the graph of neighbors) was built, and a map was drawn
 on which the population of individual regions was marked. Assessment
 of the degree of occupancy of the Wikidata property <<borders with>> (shares border with) 
@@ -23,7 +24,7 @@ information about the regions of Russia.
 
 To build a list of all regions of Russia, we will need an object 
 \wdqName{<<oblast of Russia>>}{835714} and the property \wdProperty{31}{<<instances>>}
-(query~\protect\ref{lst:oblast-of-Russia}).
+(query~\ref{lst:oblast-of-Russia}).
 
 \begin{lstlisting}[ language=SPARQL, numbers=none,
                     caption={List of all regions of Russia. 48 results in 2017 and 46 results in 2021. SPARQL query: \href{https://w.wiki/4D2W}{https://w.wiki/4D2W}},
@@ -45,7 +46,7 @@ The regions of Russia with the least number of properties according to ProWD dat
 
 \section{Subjects of the Russian Federation}
 
-Let's build a list of all the subjects of Russia. Let us select the following objects in Wikidata: republics, territories, regions, cities of federal significance, autonomous regions and autonomous districts (query~\protect\ref{lst:subjects-of-Russia}).
+Let's build a list of all the subjects of Russia. Let us select the following objects in Wikidata: republics, territories, regions, cities of federal significance, autonomous regions and autonomous districts (query~\ref{lst:subjects-of-Russia}).
 
 \marginnote[3.0cm]{Objects used in SPARQL queries:
 \begin{itemize}
@@ -80,16 +81,17 @@ WHERE
 }
 \end{lstlisting}%
 
-To build the script ~\protect\ref{lst:subjects-of-Russia} and to verify the results obtained, the following information is needed:
+To build the script~\ref{lst:subjects-of-Russia} and to verify the results obtained, the following information is needed:
 \begin{itemize}
 \item According to the Constitution of the Russian Federation, Russia consists of 85 subjects~--- republics, territories, regions, cities of federal significance, autonomous regions, autonomous districts.
-  \item This task does not take into account subjects that are not currently part of the Russian Federation (for example, \wdqName{Chita region}{182902}), because they are not instances of objects \wdqName{<<Oblast of Russia>>}{835714}, \wdqName{<<Republic of Russia>>}{41162}, \wdqName{<<Federal city of Russia>>}{183342}, \wdqName{<<Krai of Russia>>}{831740}, \wdqName{<<Autonomus oblast of Russia>>}{309166}, \wdqName{<<Autonomus okrug of Russia>>}{184122}, and belong to the object \wdqName{<<Former administrative-territorial unit>>}{19953632}. (We get 86 objects after executing a SPARQL query, query~\protect\ref{lst:subjects-of-Russia}).
-  \item According to category data <<\href{https://en.wikipedia.org/wiki/Category:Federal_subjects_of_Russia-related_lists}{Federal subjects of Russia}>> of the English Wikipedia, there are also 85 subjects of the Russian Federation.
+  \item This task does not take into account subjects that are not currently part of the Russian Federation (for example, \wdqName{Chita region}{182902}), because they are not instances of objects \wdqName{<<Oblast of Russia>>}{835714}, \wdqName{<<Republic of Russia>>}{41162}, \wdqName{<<Federal city of Russia>>}{183342}, \wdqName{<<Krai of Russia>>}{831740}, \wdqName{<<Autonomus oblast of Russia>>}{309166}, \wdqName{<<Autonomus okrug of Russia>>}{184122}, and belong to the object \wdqName{<<Former administrative-territorial unit>>}{19953632}. (We get 86 objects after executing a SPARQL query, query~\ref{lst:subjects-of-Russia}).
+% skip: since there is no 85 subjects.  \item According to category data <<\href{https://en.wikipedia.org/wiki/Category:Federal_subjects_of_Russia-related_lists}{Federal subjects of Russia}>> of the English Wikipedia, there are also 85 subjects of the Russian Federation.
 \end{itemize}
+
 
 \section{Neighboring entities}
 
-Let's construct a graph of neighboring subjects of Russia by the property \wdProperty{47}{shares border with} (query~\protect\ref{lst:sharesBorderWith-oblast-of-Russia}).
+Let's construct a graph of neighboring subjects of Russia by the property \wdProperty{47}{shares border with} (query~\ref{lst:sharesBorderWith-oblast-of-Russia}).
 
 \lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
@@ -138,10 +140,10 @@ SELECT * WHERE {
 \end{lstlisting}%
 
 \label{question:q_subjects_of_Russia_1}
-\marginnote[-13.0cm]{Name the region of Russia located in the north-west of Russia and formed in \num{1920}. It borders the Leningrad, Vologda, Arkhangelsk and Murmansk regions. It also borders Finland to the west.
+\marginnote[-11.0cm]{Name the region of Russia located in the north-west of Russia and formed in \num{1920}. It borders the Leningrad, Vologda, Arkhangelsk and Murmansk regions. It also borders Finland to the west.
 Select the flag of this region among the following flags. See the answer \ref{answer:subjects_of_Russia_1} on page~\pageref{answer:subjects_of_Russia_1}.}
 
-\begin{marginfigure}[-10.0cm]
+\begin{marginfigure}[-8.0cm]
 {
 	\setlength{\fboxsep}{0pt}%
 	\setlength{\fboxrule}{1pt}%
@@ -150,7 +152,7 @@ Select the flag of this region among the following flags. See the answer \ref{an
 \caption [Flag of the Leningrad region, Russia.]{Flag of the Leningrad region, Russia.}%
 \label{fig:Flag_of_Leningrad_Oblast}%
 \end{marginfigure}
-\begin{marginfigure}[-5.0cm]
+\begin{marginfigure}[-4.0cm]
 {
 	\setlength{\fboxsep}{0pt}%
 	\setlength{\fboxrule}{1pt}%
@@ -168,7 +170,7 @@ Select the flag of this region among the following flags. See the answer \ref{an
 \caption [Flag of Karelia, Russia.]{Flag of Karelia, Russia.}%
 \label{fig:Flag_of_Karelia}%
 \end{marginfigure}
-\begin{marginfigure}[5.0cm]
+\begin{marginfigure}[4.0cm]
 {
 	\setlength{\fboxsep}{0pt}%
 	\setlength{\fboxrule}{1pt}%
@@ -178,13 +180,18 @@ Select the flag of this region among the following flags. See the answer \ref{an
 \label{fig:Flag_of_Murmansk_Oblast}%
 \end{marginfigure}
 
-Using the \textit{BIND} command (lines 31--35) in query~\protect\ref{lst:sharesBorderWith-oblast-of-Russia}, we write the value to a variable, provided that the variable responsible for subjects of a certain type is non-empty. For example, in lines 31--32, a color is written to the variable \textit{?rgb}, provided that \textit{?oblast} is not empty. At the same time, if the variable \textit{?rgb} already contains a value, then we leave it to exclude color mashing.
+Using the \lstinline|BIND| command (lines 31--35) in query~\ref{lst:sharesBorderWith-oblast-of-Russia}, 
+we write the value to a variable, provided that the variable 
+responsible for subjects of a certain type is non-empty. 
+For example, in lines 31--32, a color is written to the variable \lstinline|?rgb|, 
+provided that \lstinline|?oblast| is not empty. 
+At the same time, if the variable \lstinline|?rgb| already contains a value, then we skip it to exclude color mashing.
 
 The number of records received is formed by adding the number of neighboring territories for all subjects of Russia. The result of the script is a graph displaying neighboring subjects. Moreover, different types of subjects have vertices of different colors, for example, the republics are green, and the edges are blue. A part of the graph is shown in Fig.~\ref{fig:sharesBorderWith-oblast-of-Russia-Kaliningrad-fig}.
 
 \begin{figure*}[h]
 	\includegraphics[width=\textwidth]{./chapter/oblast_of_Russia/Graph_Subjects_of_Russia_Siberia_and_the_Far_East_2021.png}
-	\caption[Graph of the subjects of Russia. Kaliningrad, 2021.]{Regions of Russia in Siberia and the Far East for 2021. A fragment of the graph of neighboring subjects of Russia, built according to the query~\protect\ref{lst:sharesBorderWith-oblast-of-Russia}.
+	\caption[Graph of the subjects of Russia. Kaliningrad, 2021.]{Regions of Russia in Siberia and the Far East, as of 2021. A fragment of the graph of neighboring subjects of Russia built according to the query~\protect\ref{lst:sharesBorderWith-oblast-of-Russia}.
 	Republics~--- green nodes (Yakutia).
 	Autonomous Okrugs~--- purple nodes (Chukotka Autonomous Okrug).
 	Edges~--- blue nodes (Khabarovsk Krai).
@@ -194,7 +201,7 @@ The number of records received is formed by adding the number of neighboring ter
 \end{figure*}
 
 \newpage
-Let's build a map on which the subjects of Russia bordering with foreign countries are indicated in color. The darker color indicates subjects with a larger number of border countries, the lighter~--- with a smaller number of border countries (query~\protect\ref{lst:sharesBorderWith-subjects-of-Russia}).
+Let's build a map on which the subjects of Russia bordering with foreign countries are indicated in color. The darker color indicates subjects with a larger number of border countries, the lighter~--- with a smaller number of border countries (query~\ref{lst:sharesBorderWith-subjects-of-Russia}).
 
 \lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
@@ -236,7 +243,7 @@ SELECT ?region ?regionLabel ?count ?shape ?rgb
 }
 \end{lstlisting}%
 
-The result of the query~\protect\ref{lst:sharesBorderWith-subjects-of-Russia} is shown in the figure~\ref{fig:MapsharesBorderWithsubjectsofRussia}.
+The result of the query~\ref{lst:sharesBorderWith-subjects-of-Russia} is shown in the figure~\ref{fig:MapsharesBorderWithsubjectsofRussia}.
 
 \begin{figure*}[h]
 	\includegraphics[width=\linewidth]{./chapter/oblast_of_Russia/Maps_of_the_subjects_of_Russia.png}
@@ -244,7 +251,7 @@ The result of the query~\protect\ref{lst:sharesBorderWith-subjects-of-Russia} is
       \label{fig:MapsharesBorderWithsubjectsofRussia}%
 \end{figure*}
 
-Let's build a map on which foreign countries bordering on the subjects of Russia are indicated in color. The darker color indicates the countries with a larger number of border subjects of Russia, the lighter ~--- with a smaller number of border subjects of Russia (query~\protect\ref{lst:Maps_of_the_neighbouring_states_of_Russia}).
+Let's build a map on which foreign countries bordering on the subjects of Russia are indicated in color. The darker color indicates the countries with a larger number of border subjects of Russia, the lighter~--- with a smaller number of border subjects of Russia (query~\ref{lst:Maps_of_the_neighbouring_states_of_Russia}).
 
 \lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
@@ -283,7 +290,7 @@ SELECT ?country ?countryLabel ?count ?shape ?rgb WHERE {
 }
 \end{lstlisting}%
 
-The result of the query~\protect\ref{lst:Maps_of_the_neighbouring_states_of_Russia} is shown in the figure~\ref{fig:MapsoftheneighbouringstatesofRussia}.
+The result of the query~\ref{lst:Maps_of_the_neighbouring_states_of_Russia} is shown in the figure~\ref{fig:MapsoftheneighbouringstatesofRussia}.
 
 \begin{figure*}[h]
 	\includegraphics[width=\linewidth]{./chapter/oblast_of_Russia/Maps_of_the_neighbouring_states_of_Russia.png}
@@ -294,7 +301,7 @@ The result of the query~\protect\ref{lst:Maps_of_the_neighbouring_states_of_Russ
 \newpage
 \subsection{Completeness of Wikidata}
 
-Let's build a list of subjects of Russia with an empty property \wdProperty{47}{shares border with} (borders with) (query~\protect\ref{lst:sharesBorderWith-empty-oblast-of-Russia}), that is, we will try to find such subjects that do not share border with anyone.
+Let's build a list of subjects of Russia with an empty property \wdProperty{47}{shares border with} (borders with) (query~\ref{lst:sharesBorderWith-empty-oblast-of-Russia}), that is, we will try to find such subjects that do not share border with anyone.
 
 \label{question:q_subjects_of_Russia_2}
 \marginnote[4.0cm]{Which of the following subjects are currently part of the Russian Federation, and which are not:
@@ -343,7 +350,7 @@ Thus, the \wdProperty{47}{<<shares border with>>} property is filled on Wikidata
 
 Let's mark the subjects of the Russian Federation on the map, dividing them into six groups by population. Subjects belonging to the same group will be displayed on the map in the same color.
 
-For the query~\protect\ref{lst:map} we need the properties \wdProperty{625}{<<coordinates>>} and \wdProperty{1082}{<<population>>}.
+For the query~\ref{lst:map} we need the properties \wdProperty{625}{<<coordinates>>} and \wdProperty{1082}{<<population>>}.
 
 \index{Graph!Map!Map of the population of Russia}
 
@@ -382,7 +389,7 @@ SELECT DISTINCT ?subject ?subjectLabel ?population ?coord ?layer
 ORDER BY ?population
 \end{lstlisting}%
 
-The result of the script (listing~\protect\ref{lst:map}) is shown in the figure~\ref{fig:SubjectsRussiaMap}.
+The result of the script (listing~\ref{lst:map}) is shown in the figure~\ref{fig:SubjectsRussiaMap}.
 
 %\begin{fullwidth}
 \begin{figure*}[h]
