@@ -1,13 +1,13 @@
 \setchapterimage[6cm]{chapter/spacecraft/Takhir-Salakhov-For-You-Humanity-1961-2011-title-moved.jpg}
 
 \setchapterpreamble[u]{\margintoc}
-\chapter{Spacecraft and space stations\protect\footnotemark}
+\chapter{Spacecraft and space stations}
 \labch{spacecraft}
 \footnotetext{Painting by Takhir Salakhov ``For You, Humanity!'' (1961), reproduced on the stamp of Azerbaijan in 2011 on the 50th anniversary of First Manned Space Flight (the flight of Yuri Gagarin). 
-Author: \href{https://commons.wikimedia.org/wiki/File:Stamps\_of\_Azerbaijan,\_2011-944.jpg}{Takhir Salakhov, WikiCommons / 2011 / Public Domain}.}
+Author: \href{https://commons.wikimedia.org/wiki/File:Stamps\_of\_Azerbaijan,\_2011-944.jpg}{WikiCommons}.}
 
 The chapter is devoted to research of spaceships and stations based on Wikidata. 
-Using SPARQL scripts, a list of domestic ships and stations is constructed, 
+Using SPARQL scripts, a list of Russian ships and stations is constructed, 
 a timeline of the launching of ships in our country and in the world for the period from 1960 to 2021 is drawn. 
 An evaluation of the completeness of Wikidata was performed, showing, 
 that many of the items have the wrong value of the property 
@@ -33,10 +33,22 @@ WHERE
 }
 \end{lstlisting}%
 
+\begin{marginfigure}
+{
+	\setlength{\fboxsep}{0pt}%
+	\setlength{\fboxrule}{1pt}%
+	\fcolorbox{gray}{gray}{\includegraphics{graphics/chapter/spacecraft/soyuz-19.jpg}}
+}
+\caption[Soyuz-19, 2021.]%
+{In which country is the machine shown in the picture designed?
+See the answer~\ref{answer:spacecraft_USSR} on the p.~\pageref{answer:spacecraft_USSR}.}
+\label{question:spacecraft_soyuz19}
+\end{marginfigure}
+
 \section{Depth of object development}
 
 As of 2021 on Wikidata \wdqName{Apollo-8}{184201} {wdqName} is the most complete and elaborate spacecraft, which has 30 properties.\autocite{spacecraftProWD} At the same time, only one property each has ships such as: \wdqName{Europa Astrobiology Lander}{10491365}, \wdqName{Project Orbiter}{6514453}, \wdqName{LRK}{5961734}, \wdqName{EarthForce One}{5327028}
-\sidenote[][]{
+\sidenote{
 Note the difficult fate of the object \wdqName{EarthForce One}{5327028}. This object was automatically created in Wikidata by a bot in 2013, because there was an English Wikipedia article. According to the `\href{https://en.wikipedia.org/wiki/EarthForce_One}{EarthForce One}'' English Wikipedia, the article was removed due to a lack of reliable sources proving the significance of the site. And the object has been left as an unremarkable item on Wikidata. Think of a query that would output a list of similar Wikidata items, that does not match any Wikipedia article.
 %
 }, 
@@ -64,11 +76,26 @@ WHERE
   
   # Soviet Union and Russia
   VALUES ?ruCountries {wd:Q15180 wd:Q159}
-  ?spacecraft wdt:P17 ?ruCountries. # related to Russian countries
+  ?spacecraft wdt:P17 ?ruCountries. # related to Russia
   
   SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}%
+
+\begin{marginfigure}
+{
+	\setlength{\fboxsep}{0pt}%
+	\setlength{\fboxrule}{1pt}%
+	\fcolorbox{gray}{gray}{\includegraphics{graphics/chapter/spacecraft/soyuz-t.jpg}}
+}
+\caption
+[Soyuz-T, 2021.]{%
+In which country is the machine shown in the picture designed?
+
+See the answer~\ref{answer:spacecraft_USSR} on the p.~\pageref{answer:spacecraft_USSR}.
+}
+\label{question:spacecraft_soyuzT}
+\end{marginfigure}
 
 \section{Analyzing the Completeness of Wikidata}
 
@@ -89,6 +116,13 @@ given 10 Soviet and Russian launches of space stations\autocite[296]{spacecraftS
 126 NASA shuttle launches from 1981 to 2008\autocite[288]{spacecraftSAA}
 and characteristics of 31 launch vehicles\autocite[290-291]{spacecraftSAA}.
 
+%%%%%%%%%%%%%%%% Exercise 1 %%%%%%%%%%%%%%%% 
+\label{question:spacecraft_1}
+\marginnote{
+How many ships were launched in the~USSR in the~1960s, 1970s, and 1980s?
+See answer~\ref{answer:launches_USSR} on p.~\pageref{answer:launches_USSR}.
+}
+
 \section{Time schedules of space exploration in ~ our country and the world}
 
 Temporary (since 1960s)
@@ -108,7 +142,7 @@ then we would get in fig.~\ref{fig:launchesRussia5years}
 the number of launches each year.
 Thanks to the rounding function \lstinline|FLOOR()|
 and grouping%
-\sidenote[][]{
+\sidenote{
 %
 On line 15 of the query,~\ref{lst:launchesRussia5years}
 objects launched into space are grouped by the command:
@@ -119,7 +153,7 @@ is defined on line 12, where the \lstinline|?year| divided by 5, rounded, and mu
 },
 \lstinline|?item| objects that have launches are grouped over a five-year period,
 and into the variable \lstinline|?quantity| the number of these objects is recorded,
-calculated using the \lstinline|COUNT ()| function.
+calculated using the \lstinline|COUNT()| function.
 
 The BarChart display style is used to present the results as a bar chart.
 
@@ -150,4 +184,138 @@ ORDER BY ?lapse # Order 1970, 1975, 1980, ...
   \includegraphics[width=\linewidth]{graphics/chapter/spacecraft/Visualization of the number of spacecraft launches in USSR and Russia per 5 years 2022.png}
   \caption[Schedule of spacecraft launches in the USSR and Russia (by five years)] {Visualization of the number of spacecraft launches in the USSR and Russia every 5 years, built using the script~\protect\ref{lst:launchesRussia5years} in 2022.}%
   \label{fig:launchesRussia5years}%
+\end{figure*}
+
+The horizontal axis in Figure ~\ref{fig:launchesRussia5years} is answered by the variable \mbox{\lstinline|?lapse_str|.}. 
+If you don't convert the number \lstinline|?lapse| 
+into a text variable \mbox{\lstinline|?lapse_str|}%
+\sidenote[][]{
+%
+Converting a number into text  
+in the third line of the query~\ref{lst:launchesRussia5years}:\newline
+\lstinline|(STR(?lapse) AS ?lapse_str)|.%
+%
+}, then the~X axis has a range of 0 to 2200, 
+instead of the required range of 1960 to 2025, 
+and the results are indicated by points with coordinates (five years, number of launches), 
+and the graph becomes unreadable. 
+
+From Fig.~\ref{fig:launchesRussia5years} we can see, 
+that the most active period of Russian cosmonautics development was in 1970--1995.
+
+The query~\ref{lst:launchesWorld} build fig.~\ref{fig:launchesWorld} 
+of spacecraft launches in the world by year and country.
+
+\begin{lstlisting}[ language=SPARQL, breaklines=true, %
+                    caption={Draw Visualization of the number of spacecraft launches by year and country. The result contained \num{328} objects in 2021. SPARQL query: \href{https://w.wiki/4eok}{https://w.wiki/4eok}},%
+                    label=lst:launchesWorld,%
+                    texcl%
+                    ]
+# Diagram of spacecraft launches by year and country
+#defaultView:BarChart
+SELECT ?year (COUNT(?obj) AS ?count) ?country ?countryLabel
+WHERE {
+  ?obj wdt:P17 ?country. # spacecraft belongs to country 
+  ?obj wdt:P619 ?launch. # date of spacecraft launch
+  BIND(str(YEAR(?launch)) AS ?year)
+  
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en".}
+}
+GROUP BY ?year ?country ?countryLabel
+\end{lstlisting}%
+
+\begin{figure*}[h!]
+  \includegraphics[width=\linewidth]{graphics/chapter/spacecraft/Visualization of the number of spacecraft launches by year and country 2021.png}
+  \caption[The schedule of spacecraft launches worldwide by year and country]{Visualization of the number of spacecraft launches by year and country, built using a script~\protect\ref{lst:launchesWorld} in 2021.}
+  \label{fig:launchesWorld}%
+\end{figure*}
+
+Fig.~\ref{fig:launchesWorld} shows that the most spacecraft 
+launched by India and the U.S. 
+(only they recorded more than 10 annual launches) in 2017--2018. 
+Worldwide launches peaked in 2018 (59 launches). 
+
+According to Wikidata, Russian cosmonautics ranks average in the number of launches, 
+its numbers for 2016--2019 are similar to those of the USSR in the 1970s and 1980s 
+and amount to 3--5 launches per year.
+
+%%%%%%%%%%%%%%%% Exercise 2 %%%%%%%%%%%%%%%% 
+\label{question:spacecraft_2}
+\marginnote{%
+What was the highest and lowest number of spacecraft launches humanity made in a decade between 1970 and 2010?
+See answer~\ref{answer:max-min-space-launches} on p.~\pageref{answer:max-min-space-launches}.
+}
+
+\section{Cosmonauts in international flights}
+
+Query~\ref{lst:internationalFlights} builds a graph~\ref{fig:internationalFlights} with vertices like <<spaceships>> and <<astronaut>>, colored by country.
+
+\begin{lstlisting}[ language=SPARQL, breaklines=true, %
+                    caption={Draw the graph with the vertices of the type "spaceships" and "astronauts" with coloring by country. The result contained \num{68} objects in 2022. SPARQL query: \href{https://clck.ru/agMjd}{https://clck.ru/agMjd}},%
+                    label=lst:internationalFlights,%
+                    texcl%
+                    ]
+# Graph of astronauts as crew of flights of different countries
+#defaultView:Graph
+SELECT DISTINCT ?item ?itemLabel ?rgb ?link ?naut_seed
+WHERE
+{ 
+  VALUES ?toggle { true false }
+  # Let's select a subset of astronauts
+  {
+    SELECT DISTINCT ?naut WHERE
+    { 
+      VALUES ?naut_seed {wd:Q313815}.  # Sergei Krikalev
+      ?s wdt:P1029 ?naut_seed, ?naut;  
+    }       # ?naut seed and ?naut are member of a same crew
+  }
+  ?s  wdt:P31/wdt:P279* wd:Q40218; # spacecraft
+      wdt:P31/wdt:P279* wd:Q752783;# human spaceflight
+          wdt:P1029 ?naut;  # has member of the crew ?naut    
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
+  BIND(IF(?toggle,?s,?naut) AS ?item).
+  BIND(IF(?toggle,?sLabel,?nautLabel) AS ?itemLabel).
+  BIND(IF(?toggle,"FFFFFF","7FFF00") AS ?rgb_source).
+  BIND(IF(?toggle,"",?s) AS ?link).
+  ?naut wdt:P27 ?country. # astronaut is citizen of country 
+  # ?toggle = true then spacecraft node
+  # ?toggle = false then astronaut node
+  BIND(     # Soviet and Russian astronauts have red nodes
+    IF(!?toggle && (?country=wd:Q15180||?country=wd:Q159),"FF0000",
+    IF(!?toggle && ?country=wd:Q30,"FF00FF",  # USA - fuchsia
+    IF(!?toggle && ?country=wd:Q183,"C0C0C0", # Germany - silver
+    IF(!?toggle && ?country=wd:Q142,"008080", # France - teal
+    IF(!?toggle && ?country=wd:Q40,"800000", # Austria - maroon
+    IF(!?toggle && ?country=wd:Q38,"00FFFF", # Italy - aqua
+    ?rgb_source))))))
+    AS ?rgb).
+}
+\end{lstlisting}%
+
+\begin{marginfigure}
+{
+	\setlength{\fboxsep}{0pt}%
+	\setlength{\fboxrule}{1pt}%
+	\fcolorbox{gray}{gray}{\includegraphics{graphics/chapter/spacecraft/lunar_landler.jpg}}
+}
+\caption[lunar lander, 2021.]{%
+In which country is the machine shown in the picture designed?
+
+See the answer~\ref{answer:spacecraft_USSR} on the p.~\pageref{answer:spacecraft_USSR}.}
+\label{question:spacecraft_lunar}
+\end{marginfigure}
+
+For the script to work, you must specify the starting point~-- an astronaut who has participated in international spaceflight. The starting point is set at line 11 of the script and written to the \lstinline{?naut_seed} variable. Next, at line 12, we search for astronauts who have flown with the one we specified earlier. Lines 15--17 load data about spacecraft, flights and astronauts. Boolean variable \lstinline|?toggle| has value \lstinline|?true| if the found object is a spacecraft or \lstinline|?false| if the found object is an astronaut. The selected object (spacecraft or astronaut) is written to the \lstinline|?item| variable in line 19. In line 20 the name of the object is written to the variable \lstinline|?itemLabel|, in line 21 the data for the coloring of ships is written to the variable \lstinline|?rgb_source|. 
+
+If a ship is selected, then nothing is written to the variable \lstinline|?link| in line 22. If an astronaut is selected, then his ship is written to the variable~\lstinline|?link|. On the graph this variable will correspond to the arc from the cosmonaut to the ship. 
+
+Line 23 loads the cosmonaut's citizenship data, and~ lines 26--34 assign a color to the vertices of the cosmonauts in the graph, depending on their citizenship. 
+
+\begin{figure*}[h]
+  \setlength{\fboxsep}{0pt}%
+  \setlength{\fboxrule}{1pt}%
+  \fcolorbox{gray}{gray}{%
+\includegraphics[width=\linewidth]{graphics/chapter/spacecraft/Cosmonauts in international flights EN.png}}
+  \caption[The graph with the vertices of the type "spaceships" and "astronauts" with coloring by country]{The graph with the vertices of the type "spaceships" and "astronauts" with coloring by country. Red corresponds to the USSR and Russia, fuchsia~--- the USA, silver~--- Germany, teal~--- France, maroon~--- Australia, and aqua~--- Italy. The graph is built with the script~\protect\ref{lst:internationalFlights} in 2022.}
+  \label{fig:internationalFlights}%
 \end{figure*}
