@@ -894,3 +894,89 @@ SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 In the listing~\ref{filmed_ships} and~\ref{ships_in_books} we used DISTINCT to filter duplicates. Multiple books and films may mention the same ship, so we need to filter extra images.
 
 \small{See question from page~\pageref{question:ship_3}.}
+
+%%%%%%%%%%%%%%%%%%%  spacecraft chapter  %%%%%%%%%%%%%%%%%%
+
+\section{Spacecraft and space stations}
+\labsec{answer-spacecraft}
+\label{answer:launches_USSR}
+\begin{exercise}
+	How many ships were launched in the~USSR in the~1960s, 1970s, and 1980s?
+\end{exercise}
+Answer: The query~\ref{lst:launch_USSR} plots domestic space launches by decade. In the 1960s there were 16~launches, in the 1970s~--- 42 launches, and in the 1980s~--- 39 launches.
+\begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,%
+                    caption={Draw chart of Russian spacecraft launches by decades. The result contained \num{7} decades in 2021. SPARQL query: \href{https://w.wiki/4eQK}{https://w.wiki/4eQK}},%
+                    label=lst:launch_USSR,%
+                    texcl%
+                    ]
+# The number of spacecraft launches in Russia every 10 years
+#defaultView:BarChart
+SELECT (STR(?lapse) AS ?lapse_str) (COUNT(?item) AS ?quantity)
+WHERE {                  # spacecraft belongs to
+        {?item wdt:P17 wd:Q15180}               # country = USSR
+  UNION {?item wdt:P17 wd:Q159}               # country = Russia
+  UNION {?item wdt:P495 wd:Q159}    # country of origin = Russia
+  UNION {?item wdt:P495 wd:Q15180}.  # country of origin =  USSR
+  ?item wdt:P619 ?launch. # date of spacecraft launch (P619)
+  BIND( YEAR(?launch) AS ?year) 
+  BIND(FLOOR(?year/10)*10 AS ?lapse) # count for each 10 years
+SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
+} 
+GROUP BY ?lapse
+ORDER BY ?lapse # Order 1960, 1970, 1980, ...
+\end{lstlisting}%
+\small{See question from page~\pageref{question:spacecraft_1}.}
+
+\label{answer:max-min-space-launches}
+\begin{exercise}
+	What was the highest and lowest number of spacecraft launches humanity made in a decade between 1970 and 2010?
+\end{exercise}
+Answer: The query~\ref{lst:launchesWorld10} counts the maximum and minimum number of launches in a decade from 1970 to 2010.The highest number of launches during the decade from 1970 to 2010~--- 121, the lowest~--- 63.
+\begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,%
+                    caption={Return the maximum and minimum number of launches in a decade from 1970 to 2010. In 2021 the highest number of launches during the decade from 1970 to 2010~--- 121, the lowest~--- 63. query: \href{https://w.wiki/4dwj}{https://w.wiki/4dwj}},%
+                    label=lst:launchesWorld10,%
+                    texcl%
+                    ]
+# Check MAX and MIN of launches per 10 years from 1970 to 2010
+SELECT (MAX (?quantity) as ?max) (MIN (?quantity) as ?min)
+WHERE {
+  SELECT (STR(?lapse) AS ?lapse_str) (COUNT(?item) AS ?quantity)
+  WHERE {                  # spacecraft belongs to
+    ?item wdt:P619 ?launch. # date of spacecraft launch (P619)
+    BIND( YEAR(?launch) AS ?year) 
+    ?item wdt:P17 ?country. # check existing country
+    BIND(FLOOR(?year/10)*10 AS ?lapse) # count for each 10 years
+    FILTER (?year > 1969 && ?year < 2010) # check date
+  } 
+  GROUP BY ?lapse
+}
+\end{lstlisting}%
+\small{See question from page~\pageref{question:spacecraft_2}.}
+
+\label{answer:spacecraft_USSR}
+\begin{exercise}
+	In which country is the machine shown in the picture \ref{question:spacecraft_soyuz19}, \ref{question:spacecraft_soyuzT} and \ref{question:spacecraft_lunar} designed?
+\end{exercise}
+Answer: The spacecraft depicted in \ref{question:spacecraft_soyuz19} (Soyuz-19), \ref{question:spacecraft_soyuzT} (Soyuz-7K), and \ref{question:spacecraft_lunar} (lunar landing module <<Cosmos>>) belong to the USSR. You can verify this by running the query~\ref{lst:imageUSSRsc}.
+\begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,%
+                    caption={Return images of Soviet spacecraft. Found nine results in 2022. query: \href{https://w.wiki/4eZN}{https://w.wiki/4eZN}},%
+                    label=lst:imageUSSRsc,%
+                    texcl%
+                    ]
+# List of images of USSR spacecraft
+#defaultView:ImageGrid
+SELECT ?obj ?name ?img
+WHERE
+{
+    {?obj wdt:P31 wd:Q40218.}          # spacecraft
+    {?obj wdt:P17 wd:Q15180.} UNION       # country
+    {?obj wdt:P495 wd:Q15180.}  # country of origin
+    ?obj wdt:P18 ?img.                       #image
+    OPTIONAL {
+		?obj rdfs:label ?name 
+		FILTER (lang(?name) = "en")
+	}
+}
+\end{lstlisting}%
+\small{See question from pages~\pageref{question:spacecraft_soyuz19}, \pageref{question:spacecraft_soyuzT} and \pageref{question:spacecraft_lunar}.}
+
