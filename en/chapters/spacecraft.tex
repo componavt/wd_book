@@ -6,4 +6,148 @@
 \footnotetext{Painting by Takhir Salakhov ``For You, Humanity!'' (1961), reproduced on the stamp of Azerbaijan in 2011 on the 50th anniversary of First Manned Space Flight (the flight of Yuri Gagarin). 
 Author: \href{https://commons.wikimedia.org/wiki/File:Stamps\_of\_Azerbaijan,\_2011-944.jpg}{Takhir Salakhov, WikiCommons / 2011 / Public Domain}.}
 
-The article deals with the study of spacecrafts and stations based on the Wikidata international project data. For the items classified as <<spacecraft and stations>> the queries were performed via SPARQL and the following lists were received: the list of all spacecrafts and stations, the list of spacecrafts and stations that has been designed in the USSR and Russia, the bar chart for spaceships and stations that shows the number of designed spacecrafts for decades, in the period from 1960 to 2017. Moreover, the Wikidata were evaluated from the point of their completeness. It showed that many objects have the wrong value of property <<instance of (P31)>>
+The chapter is devoted to research of spaceships and stations based on Wikidata. 
+Using SPARQL scripts, a list of domestic ships and stations is constructed, 
+a timeline of the launching of ships in our country and in the world for the period from 1960 to 2021 is drawn. 
+An evaluation of the completeness of Wikidata was performed, showing, 
+that many of the items have the wrong value of the property 
+\wdProperty{31}{instance of}. In the course of the work, it was found that the current performance of Russian astronautics in terms of the number of spacecraft launches in recent years matches that of the USSR fifty years ago. 
+
+\section{List of Space Ships and Stations}
+Let's build a query~\ref{lst:spaceships} to output a list of all spaceships and stations. 
+We need the objects \wdqName{space station}{25956}, 
+\wdqName{spacecraft}{40218} and the relation \wdProperty{31}{instance of}. 
+
+\begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,%
+                    caption={Retrieves list of all spaceships and stations. The result contained \num{145} objects in 2021. SPARQL query: \href{https://w.wiki/4eeL}{https://w.wiki/4eeL}},%
+                    label=lst:spaceships,%
+                    texcl%
+                    ]
+# List of spacecraft (Q40218) and space station (Q25956)
+SELECT  ?s ?sLabel ?typeLabel
+WHERE
+{
+  VALUES ?type {wd:Q40218 wd:Q25956}
+  ?s wdt:P31 ?type.  # Selecting the type of object
+  SERVICE wikibase:label {bd:serviceParam wikibase:language"en"}
+}
+\end{lstlisting}%
+
+\section{Depth of object development}
+
+As of 2021 on Wikidata \wdqName{Apollo-8}{184201} {wdqName} is the most complete and elaborate spacecraft, which has 30 properties.\autocite{spacecraftProWD} At the same time, only one property each has ships such as: \wdqName{Europa Astrobiology Lander}{10491365}, \wdqName{Project Orbiter}{6514453}, \wdqName{LRK}{5961734}, \wdqName{EarthForce One}{5327028}
+\sidenote[][]{
+Note the difficult fate of the object \wdqName{EarthForce One}{5327028}. This object was automatically created in Wikidata by a bot in 2013, because there was an English Wikipedia article. According to the `\href{https://en.wikipedia.org/wiki/EarthForce_One}{EarthForce One}'' English Wikipedia, the article was removed due to a lack of reliable sources proving the significance of the site. And the object has been left as an unremarkable item on Wikidata. Think of a query that would output a list of similar Wikidata items, that does not match any Wikipedia article.
+%
+}, 
+\wdqName{GVC Union}{60767924}, 
+\wdqName{CubeSat for Solar Particles}{22907583}.\autocite{spacecraftProWD} 
+To find this information, a query built with the ProWD\autocite{spacecraftProWD} service was used. 
+The same service showed that the occupancy of space objects is uneven, 
+most are less than 30\% filled.\autocite{spacecraftProWD} 
+
+\section{List of Soviet and Russian ships and stations}
+
+Find ships and stations designed in USSR or Russia, using the query~\ref{lst:spaceshipsUSSR}.
+
+\begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,%
+                    caption={Retrieves list of Soviet and Russian ships and stations. The result contained \num{3} objects in 2017 and \num{25} objects in 2021. SPARQL query: \href{https://w.wiki/4eeR}{https://w.wiki/4eeR}},%
+                    label=lst:spaceshipsUSSR,%
+                    texcl%
+                    ]
+# List of Russian and USSR spacecrafts and stations
+SELECT  ?spacecraft  ?spacecraftLabel 
+WHERE
+{
+  {?spacecraft wdt:P31 wd:Q40218.} UNION #spacecraft
+  {?spacecraft wdt:P31 wd:Q25956.} # and space station
+  
+  # Soviet Union and Russia
+  VALUES ?ruCountries {wd:Q15180 wd:Q159}
+  ?spacecraft wdt:P17 ?ruCountries. # related to Russian countries
+  
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
+}
+\end{lstlisting}%
+
+\section{Analyzing the Completeness of Wikidata}
+
+Let us analyze the degree of filling in Wikidata in the field of Soviet and Russian spaceships and stations.
+If by request~\ref{lst: spaceships} 145 results were obtained for all ships and stations,
+then by request~\ref{lst: spaceshipsUSSR} about Soviet and Russian objects~--- only 25.
+Information about~Soviet and Russian objects in 2021
+has become several times more compared to 2017,
+when on request~\ref{lst: spaceshipsUSSR} only 3 objects were returned.
+
+On the Buran.ru website in the section about the spaceships of the USSR and Russia for 2021
+contains information about 36\autocite{spacecraftBuran} ships.
+The Soviet encyclopedia <<Cosmonautics>> from 1985 mentions launches
+1992 Soviet space objects of 24 different types
+between 1957 and 1984.\autocite[498]{spacecraftCosmonavtika}
+In the American Directory of Space and Astronomy
+given 10 Soviet and Russian launches of space stations\autocite[296]{spacecraftSAA},
+126 NASA shuttle launches from 1981 to 2008\autocite[288]{spacecraftSAA}
+and characteristics of 31 launch vehicles\autocite[290-291]{spacecraftSAA}.
+
+\section{Time schedules of space exploration in ~ our country and the world}
+
+Temporary (since 1960s)
+spacecraft launch schedule in our country (fig.~\ref{fig:launchesRussia5years})
+built with request~\ref{lst:launchesRussia5years}.%
+
+Earlier, in requests to get any lists, we used the\wdProperty{31}{instance of} property.
+In the request~\ref{lst:launchesRussia5years}, we did without this property by using the relation
+\wdProperty{619}{<< spaceship launch date >>} on line 10
+for traversing and counting such objects that have been launched into space.
+
+The logical operator \lstinline|UNION| on lines 5-8
+allows you to combine Soviet and Russian spacecraft launches.
+
+If the query instead of the \lstinline|?Lapse| remained~---\lstinline|?year| (lines 3 and 12),
+then we would get in fig.~\ref{fig:launchesRussia5years}
+the number of launches each year.
+Thanks to the rounding function \lstinline|FLOOR()|
+and grouping%
+\sidenote[][]{
+%
+On line 15 of the query,~\ref{lst:launchesRussia5years}
+objects launched into space are grouped by the command:
+\mbox {\lstinline|GROUP BY ?lapse|.} \newline
+The fact that the grouping goes exactly according to five-year plans, and not, for example, six-year-olds,
+is defined on line 12, where the \lstinline|?year| divided by 5, rounded, and multiplied by 5.%
+%
+},
+\lstinline|?item| objects that have launches are grouped over a five-year period,
+and into the variable \lstinline|?quantity| the number of these objects is recorded,
+calculated using the \lstinline|COUNT ()| function.
+
+The BarChart display style is used to present the results as a bar chart.
+
+\begin{lstlisting}[ language=SPARQL, breaklines=true, %
+                    caption={Draw schedule of spacecraft launches in the USSR and Russia (by five years). Found \num{14} five-year plans in 2021. SPARQL query: \href{https://w.wiki/4eGg}{https://w.wiki/4eGg}},%
+                    label=lst:launchesRussia5years,%
+                    texcl%
+                    ]
+# The number of spacecraft launches in Russia every 5 years
+#defaultView:BarChart
+SELECT (STR(?lapse) AS ?lapse_str) (COUNT(?item) AS ?quantity)
+WHERE {                                  # spacecraft belongs to
+        {?item wdt:P17 wd:Q15180}               # country = USSR
+  UNION {?item wdt:P17 wd:Q159}               # country = Russia
+  UNION {?item wdt:P495 wd:Q159}    # country of origin = Russia
+  UNION {?item wdt:P495 wd:Q15180}.  # country of origin =  USSR
+  
+  ?item wdt:P619 ?launch. # date of spacecraft launch
+  BIND( YEAR(?launch) AS ?year) 
+  BIND(FLOOR(?year/5)*5 AS ?lapse) # count for each 5 years
+SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
+} 
+GROUP BY ?lapse
+ORDER BY ?lapse # Order 1970, 1975, 1980, ...
+\end{lstlisting}%
+
+\begin{figure*}[h!]
+  \includegraphics[width=\linewidth]{graphics/chapter/spacecraft/Visualization of the number of spacecraft launches in USSR and Russia per 5 years 2022.png}
+  \caption[Schedule of spacecraft launches in the USSR and Russia (by five years)] {Visualization of the number of spacecraft launches in the USSR and Russia every 5 years, built using the script~\protect\ref{lst:launchesRussia5years} in 2022.}%
+  \label{fig:launchesRussia5years}%
+\end{figure*}
