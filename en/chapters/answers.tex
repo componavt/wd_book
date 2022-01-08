@@ -786,7 +786,92 @@ Fill the gaps.
     
 Question from page~\pageref{question:prog_lang_3}.
 
+%%%%%%%%%%%%%% Human_settlements charpter %%%%%%%%%%%%%%
 
+\section{Human settlements}
+\labsec{answer-humansettlements}
+
+\begin{exercise}
+\label{answer:human_settlements_density}
+
+The population density in Aleisk is \num{648} people/km\textsuperscript{2},
+in~Barabinsk~--- \num{413} people/km\textsuperscript{2},
+that is, Aleisk has a higher density. 
+
+        Population density by localities in Russia can be obtained 
+                with a request~\ref{lst:human_settlements_density}. 
+
+        Note that the area can be set in different units. 
+        For example, \wdqName{Aleisk}{11304591} the area in Wikidata is indicated in hectares,
+at \wdqName{Barabinsk}{104609}~--- in square kilometers. 
+                To normalize the data and convert the area to meters in the 8th line of the query~\ref{lst:human_settlements_density}
+        the prefix \lstinline|psn:| is specified. 
+
+        The value of the variable \lstinline|?popArea| shows the population density. 
+        In the second line, divide by a million to convert square meters into kilometers.
+
+\end{exercise}
+
+\index{SPARQL!psn:!Normalization of the area of the settlement}
+\begin{lstlisting}[  language=SPARQL, numbers=none,
+        caption={Population density of human settlements in Russia. 131 results in 2021. SPARQL query: \href{https://w.wiki/4duP}{https://w.wiki/4duP}},
+        label=lst:human_settlements_density
+                  ]
+# population density of human settlements in Russia
+SELECT ?hum ?humLabel ?population ?area 
+       (?population / (?area / 1000000) as ?popArea) 
+WHERE {
+  ?hum wdt:P31 wd:Q486972; # instance of human settlement
+       wdt:P17 wd:Q159; # in Russia
+       
+       # Get the area (Use the psn: prefix to normalize 
+       # the values to a common unit of area)
+       p:P2046/psn:P2046/wikibase:quantityAmount ?area;
+       
+       wdt:P1082 ?population. # has ?population
+       FILTER(?population>0 && ?area).
+  SERVICE wikibase:label{bd:serviceParam wikibase:language"ru,en"}
+}
+ORDER BY DESC (?popArea)
+\end{lstlisting}
+
+\small{Question on the page~\pageref{ch:human-settlement}.}
+
+\begin{exercise}
+\label{answer:flag_human_settlements}
+In the figures~\ref{fig:flag_question_human_settlements1}, 
+\ref{fig:flag_question_human_settlements2} and 
+\ref{fig:flag_question_human_settlements5} 
+depict the coats of arms of domestic settlements.
+
+The coat of arms in Fig.~\ref{fig:flag_question_human_settlements3}
+belongs to the human settlement %\ruwiki{4dUc}{Czech Republic},
+in Fig.~\ref{fig:flag_question_human_settlements4}~---
+%\ruwiki{4daf}{Ukrainian} human settlement.
+
+The answer can be obtained using a request~\ref{lst:flag_question_human_settlements}. 
+    Property value \wdProperty{94}{``coat of arms image''} 
+    contains an image of the coat of arms of the human settlement.
+\end{exercise}
+   
+\index{Chart!ImageGrid!Coats of arms of Russian settlements}
+\begin{lstlisting}[ language=SPARQL, numbers=none,
+                    caption={Coats of arms of settlements of the Russian Federation. 148 results in 2021. SPARQL query: \href{https://w.wiki/4e8A}{https://w.wiki/4e8A}},
+                    label=lst:flag_question_human_settlements
+                  ]
+# Emblems of human settlements in Russia
+#defaultView:ImageGrid
+SELECT ?hum ?humLabel ?image WHERE {
+  ?hum wdt:P31 wd:Q486972; # instance of human settlement
+       wdt:P17 wd:Q159;    # in Russia
+       wdt:P94 ?image.     # coat of arms
+SERVICE wikibase:label{bd:serviceParam wikibase:language"ru, en"}
+}
+\end{lstlisting}
+
+\small{Question on the pages~\pageref{fig:flag_question_human_settlements1}, \pageref{fig:flag_question_human_settlements2}, \pageref{fig:flag_question_human_settlements3}, \pageref{fig:flag_question_human_settlements4}, \pageref{fig:flag_question_human_settlements5}.}
+
+%%%%%%%%%%%%%%%%%%end Human_settlements%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%  Ship chapter  %%%%%%%%%%%%%%%%%%
 
