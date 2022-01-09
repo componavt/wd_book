@@ -31,7 +31,7 @@ The difficulty of the study is due to the lack of a clear typology of human sett
 %%%%%%%
 \section{List of ``human settlement''}
 
-Let's build a list of all human settlements using the query~\ref{lst:human-settlement1} \footnote{List of all human settlements. \num{411393} items received in 2017. SPARQL query:\href{https://w.wiki/4d7x}{https://w.wiki/4d7x}}.
+Let's build a list of all human settlements using the query~\ref{lst:human-settlement1} \footnote{List of all human settlements. \num{411393} items received in 2017. SPARQL query:\href{https://w.wiki/4f2\$}{https://w.wiki/4f2\$}}.
 
 \begin{lstlisting}[ language=SPARQL, 
                     label=lst:human-settlement1,
@@ -40,7 +40,7 @@ Let's build a list of all human settlements using the query~\ref{lst:human-settl
 # List of all human settlements
 SELECT ?hum ?humLabel WHERE{
   ?hum wdt:P31 wd:Q486972. # instance of human settlement
-  SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
+  SERVICE wikibase:label{bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}%
 
@@ -82,7 +82,7 @@ Let's build an ordered list of countries according to the total number of people
 \index{SPARQL!GROUP BY!List of countries by population in ``human settlement''}
 \lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
-    caption={List of countries by population in settlements. The result contained \num{161} countries in 2017 and \num{213} countries in 2021. SPARQL query:\href{https://w.wiki/4d9M}{https://w.wiki/4d9M}},
+    caption={List of countries by population in settlements. The result contained \num{161} countries in 2017 and \num{213} countries in 2021. SPARQL query:\href{https://w.wiki/4f35}{https://w.wiki/4f35}},
     label=lst:human-settlement3,
     texcl 
                   ]
@@ -92,7 +92,7 @@ WHERE {
   ?hum wdt:P31 wd:Q486972;  	# instance of human settlement
        wdt:P17 ?country;    	# in the ?country
        wdt:P1082 ?population. # has ?population
-  SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
+  SERVICE wikibase:label{bd:serviceParam wikibase:language "en"}
 }
 GROUP BY ?country ?countryLabel 
 ORDER BY DESC (?sumPopulation)
@@ -117,14 +117,14 @@ shows the ratio of countries by population in ``human settlement'' in 2017.
 \centering
 	\includegraphics[width=0.9\linewidth]{./chapter/human_settlement/AnnaBubbleHumanSettlement.jpg}
 	\label{fig:human-settlement-1}
-    \caption[Bubble chart for the total population in ``human settlement'', 2017.] {Bubble chart for the total population living in ``human settlement'' for 2017. The size of the bubble corresponds to the number of people living in ``human settlement'' of one country. SPARQL query: \href{https://w.wiki/4dAv}{https://w.wiki/4dAv}}
+    \caption[Bubble chart for the total population in ``human settlement'', 2017.] {Bubble chart for the total population living in ``human settlement'' for 2017. The size of the bubble corresponds to the number of people living in ``human settlement'' of one country. SPARQL query: \href{https://w.wiki/4f37}{https://w.wiki/4f37}}
 \end{figure}
 
 \begin{figure}
 \centering
 	\includegraphics[width=0.9\linewidth]{./chapter/human_settlement/LeonidBubbleHumanSettlement.jpg}
 	\label{fig:human-settlement-2}
-	\caption[Bubble chart for the total population in ``human settlement'', 2021.] {Bubble chart for the total population living in ``human settlement'' for 2021. The size of the bubble corresponds to the number of people living in ``human settlement'' of one country. SPARQL query: \href{https://w.wiki/4dAv}{https://w.wiki/4dAv}}
+	\caption[Bubble chart for the total population in ``human settlement'', 2021.] {Bubble chart for the total population living in ``human settlement'' for 2021. The size of the bubble corresponds to the number of people living in ``human settlement'' of one country. SPARQL query: \href{https://w.wiki/4f37}{https://w.wiki/4f37}}
 \end{figure}
 
 In 2017, most of the population lived in ``human settlement'':
@@ -133,7 +133,7 @@ In 2017, most of the population lived in ``human settlement'':
 \wdqName {Mexico} {96} (\num {8} millions),
 \wdqName {Yemen} {805} (\num {8} millions),
 \wdqName {India} {668} (\num {7} millions) and
-\wdqName {Bangladesh} {902} (\ num{7} millions).
+\wdqName {Bangladesh} {902} (\num{7} millions).
 
 In Figure~\ref{fig:human-settlement-2}, you can see the list of countries for 2021:
 \wdqName {India} {668} (\num {30} millions),
@@ -167,12 +167,12 @@ Based on this, we divide the completeness check into subtasks:
 %%%%%
 \subsection{Checking the occupancy of the property ``population''}
 
-For such a check, write \href{https://w.wiki/4FUz}{SPARQL query}\sidenote {
+For such a check, write \href{https://w.wiki/4f3C}{SPARQL query}\sidenote {
 %
 In 2017, the request returned \num{372997} settlements
 with the property ``population size'' empty.
 The same request in 2021 yielded \num{507078} such settlements.
-SPARQL query link: \href{https://w.wiki/4FUz}{https://w.wiki/4FUz}%
+SPARQL query link: \href{https://w.wiki/4f3C}{https://w.wiki/4f3C}%
 },
 which will display settlements
 with an empty property \href{http://www.wikidata.org/entity/P1082}{population size}.
@@ -195,12 +195,12 @@ See~\protect\ref{answer:flag_human_settlements} on page~\protect\pageref{answer:
 
 Now let's see the settlements,
 in any country
-using \href{https://w.wiki/4FV8}{SPARQL query} \footnote {%
+using \href{https://w.wiki/4f3D}{SPARQL query} \footnote {%
 %
 In 2017, there were \num{8427} objects that did not include a record in any country.
 In 2021, there are already more such objects~--- \num{27824}.
 
-SPARQL query: \href{https://w.wiki/4FV8}{https://w.wiki/4FV8}%
+SPARQL query: \href{https://w.wiki/4f3D}{https://w.wiki/4f3D}%
 }.
 
 The query results show that the numeric value is not tied to a country that has been growing over the years.
@@ -214,7 +214,7 @@ Let's build an ordered list of countries in terms of the proportion of the popul
 
 \index{SPARQL!SUM!The ratio of the number of people living in settlements to the number of all people in the country}
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={The ratio of the number of people living in settlements to the number of all people in the country. The result contained \num{158} countries in 2017 and \num{206} countries in 2021. SPARQL query: \href{https://w.wiki/4dE3}{https://w.wiki/4dE3}},
+                    caption={The ratio of the number of people living in settlements to the number of all people in the country. The result contained \num{158} countries in 2017 and \num{206} countries in 2021. SPARQL query: \href{https://w.wiki/4f3H}{https://w.wiki/4f3H}},
                     label=lst:human-settlement6,
                     texcl 
                     ]
@@ -227,25 +227,25 @@ SELECT ?country ?countryLabel ?proportionPopulation WHERE {
        wdt:P17 ?country;         # has ?country 
        wdt:P1082 ?population.    # has ?population
   ?country wdt:P1082 ?pop.    # population in the country
-  SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
+  SERVICE wikibase:label{bd:serviceParam wikibase:language "en"}
  }
  GROUP BY ?country ?countryLabel
 }
 ORDER BY ?proportionPopulation
 \end{lstlisting}%
 
-The bar chart in Fig.~\ref{fig:human-settlement-3} allows you to see for each individual country the ratio of the number of people living in \href{http://www.wikidata.org/entity/Q486972 }{ human settlements}, to the number of inhabitants in the country for 2017.
+The bar chart in Fig.~\ref{fig:human-settlement-3} allows you to see for each individual country the ratio of the number of people living in \href{http://www.wikidata.org/entity/Q486972}{human settlements}, to the number of inhabitants in the country for 2017.
 
 \begin{figure*}
     \includegraphics[width=\linewidth]{./chapter/human_settlement/AnnaShareHumanSettlement.png}
 	\label{fig:human-settlement-3}
-	\caption[Chart of the country's population share, 2017.]{Diagram of the share of the country's population living in ``human settlements'' for 2017. SPARQL query: \href{https://w.wiki/4dE3}{https://w.wiki/4dE3}}%
+	\caption[Chart of the country's population share, 2017.]{Diagram of the share of the country's population living in ``human settlements'' for 2017. SPARQL query: \href{https://w.wiki/4f3H}{https://w.wiki/4f3H}}%
 \end{figure*} 
 
 \begin{figure*}
     \includegraphics[width=\linewidth]{./chapter/human_settlement/LeonidShareHumanSettlement.jpg}
 	\label{fig:human-settlement-4}
-	\caption[Chart of the country's population share, 2021.]{Diagram of the share of the country's population living in ``human settlements'' for 2021. Countries with a population of more than 5 million people were selected. SPARQL query: \href{https://w.wiki/4dDx}{https://w.wiki/4dDx}}%
+	\caption[Chart of the country's population share, 2021.]{Diagram of the share of the country's population living in ``human settlements'' for 2021. Countries with a population of more than 5 million people were selected. SPARQL query: \href{https://w.wiki/4f3K}{https://w.wiki/4f3K}}%
 \end{figure*} 
 
 %%%%%%%%%%%%%%%%% Exercise 2 %%%%%%%%%%%%%%%%%%
@@ -265,7 +265,7 @@ Note that these are mostly small island states.
 Probably, most of the inhabitants of these countries are concentrated in populated areas.
 
 As of 2017 , the share of residents in the G8 countries 
-in \href{http://www.wikidata.org/entity/Q486972 }{localities} made up: 
+in \href{http://www.wikidata.org/entity/Q486972}{human settlements} made up: 
 \href{http://www.wikidata.org/entity/Q159}{Russia} (\num{2.98}\%), 
 \href{http://www.wikidata.org/entity/Q30 }{USA} (\num{1.76}\%), 
 \href{http://www.wikidata.org/entity/Q17}{Japan} (\num{0.80}\%), 
@@ -310,7 +310,7 @@ With a request~\ref{lst:human-settlement7}
 we will find the objects accompanying ``human settlement''.
 
 \begin{lstlisting}[ language=SPARQL,
-    caption={List of classes accompanying the ``human settlement''  (instance of). The result contained \num{610} in 2017 and \num{1245} in 2021. SPARQL query:\href{https://w.wiki/4dEW}{https://w.wiki/4dEW}}, 
+    caption={List of classes accompanying the ``human settlement''  (instance of). The result contained \num{610} in 2017 and \num{1245} in 2021. SPARQL query:\href{https://w.wiki/4f3Q}{https://w.wiki/4f3Q}}, 
     label=lst:human-settlement7,
     texcl 
                   ]
@@ -319,7 +319,7 @@ SELECT ?inst (COUNT(?hum) as ?sumHum)
 WHERE{          
   ?hum wdt:P31 wd:Q486972; # instance of human settlement
        wdt:P31 ?inst.      # other objects in instance
-  SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
+  SERVICE wikibase:label{bd:serviceParam wikibase:language "en"}
 }  
 GROUP BY ?inst
 \end{lstlisting}%
@@ -351,7 +351,7 @@ These transformations made it possible to execute the query~\ref{lst:human-settl
 for all countries of the world in an acceptable time of 13 ms.
 
 \begin{lstlisting}[ language=SPARQL, 
-    caption={List of classes associated with ``human settlement" in the ``instance of" property without specialized classes of different countries. The result contained \num{355} in 2017 and \num{707} in 2021. SPARQL query:\href{https://w.wiki/4ePf}{https://w.wiki/4ePf}}, 
+    caption={List of classes associated with ``human settlement" in the ``instance of" property without specialized classes of different countries. The result contained \num{355} in 2017 and \num{707} in 2021. SPARQL query:\href{https://w.wiki/4f3U}{https://w.wiki/4f3U}}, 
     label=lst:human-settlement8,
     texcl 
                   ]
@@ -364,7 +364,7 @@ WHERE{
   
   MINUS {?inst wdt:P17 []}. # without country
   FILTER(?inst != wd:Q486972 ). # without human settlement
-  SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
+  SERVICE wikibase:label{bd:serviceParam wikibase:language "en"}
 }  
 GROUP BY ?inst ?instLabel
 ORDER BY DESC (?sumHum)
@@ -416,7 +416,7 @@ to cut off exactly these types of objects.
 \index{SPARQL!FILTER!List of classes associated with ``human settlements'' in ~property ``instance of'', without historical objects}
 \index{SPARQL!MINUS!List of classes associated with ``human settlements'' in ~property ``instance of'', without historical objects}
 \begin{lstlisting}[ language=SPARQL,
-    caption={List of classes associated with ``human settlements'' in ~property ``instance of'', without historical objects. The result contained \num{89} in 2021. SPARQL query:\href{https://w.wiki/4dTq}{https://w.wiki/4dTq}}, 
+    caption={List of classes associated with ``human settlements'' in ~property ``instance of'', without historical objects. The result contained \num{89} in 2021. SPARQL query:\href{https://w.wiki/4f3W}{https://w.wiki/4f3W}}, 
                     label=lst:human-settlement9,
                     texcl 
                     ]
@@ -432,7 +432,7 @@ SELECT ?inst ?instLabel (COUNT(?hum) as ?sumHum) WHERE{
   FILTER(?inst != wd:Q486972 && ?typ != wd:Q465299 
          && ?typ != wd:Q11514315 && ?typ != wd:Q15401699 
          && ?typ != wd:Q200325 && ?typ != wd:Q392928 ). 
-  SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
+  SERVICE wikibase:label{bd:serviceParam wikibase:language "en"}
 }
 GROUP BY ?inst ?instLabel
 ORDER BY DESC (?sumHum)
@@ -481,7 +481,7 @@ and belonging to \wdqName{Russia}{159} (listing~\ref{lst:human-settlement4}).
 
 \index{SPARQL!COUNT!List of settlement classes and their number for objects having the property ``population size'' in Russia}
 \begin{lstlisting}[ language=SPARQL, 
-    caption={List of settlement classes and their number for objects having the property ``population size'' in Russia. The result contained \num{216} in 2021. SPARQL query:\href{https://w.wiki/4dBU}{https://w.wiki/4dBU}}, 
+    caption={List of settlement classes and their number for objects having the property ``population size'' in Russia. The result contained \num{216} in 2021. SPARQL query:\href{https://w.wiki/4f3Y}{https://w.wiki/4f3Y}}, 
                     label=lst:human-settlement4,
                     texcl 
                     ]
@@ -493,7 +493,7 @@ SELECT ?class ?classLabel (COUNT(?class) AS ?count) WHERE {
    ?hum wdt:P17 wd:Q159;  # settlement in the Russia
         wdt:P1082 ?population; # has ?population
         wdt:P31 ?class. # has ?class
-    SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
+    SERVICE wikibase:label{bd:serviceParam wikibase:language "en"}
    }
   }
 }
@@ -525,9 +525,9 @@ number & class name                     						& number of mentions	& population 
 
 The studies conducted above show that the ``human settlements'' class is used in conjunction with different classes of settlements. Therefore, we will not add it to either rural or town settlements.
 
-Next, the classes from the table~\ref{tab:human-settlement1} are numbered: 1, 2, 3, 4 and 7. In the future, the combination of these classes will be referred to as rural settlements. Let's calculate the number of the population of such settlements in Russia\footnote{Received 50 million people. Link to SPARQL query: \href{https://w.wiki/4dd7}{https://w.wiki/4dd7}}.
+Next, the classes from the table~\ref{tab:human-settlement1} are numbered: 1, 2, 3, 4 and 7. In the future, the combination of these classes will be referred to as rural settlements. Let's calculate the number of the population of such settlements in Russia\footnote{Received 50 million people. Link to SPARQL query: \href{https://w.wiki/4f3b}{https://w.wiki/4f3b}}.
 
-And the classes from the table~\ref{tab:human-settlement1} are numbered: 9, 11, 21 and 54. In the future, the combination of these classes will be referred to as town settlements. Let's calculate the number of the population of such settlements in Russia\footnote{Received 198 million people. Link to SPARQL query: \href{https://w.wiki/4ddH}{https://w.wiki/4ddH}}.
+And the classes from the table~\ref{tab:human-settlement1} are numbered: 9, 11, 21 and 54. In the future, the combination of these classes will be referred to as town settlements. Let's calculate the number of the population of such settlements in Russia\footnote{Received 198 million people. Link to SPARQL query: \href{https://w.wiki/4f3f}{https://w.wiki/4f3f}}.
 
 %%%%%
 \subsection{The main scientific directions presented in Wikidata}
@@ -537,7 +537,7 @@ Output a list of professions and their number for people with the property \wdPr
 \index{SPARQL!COUNT!List of occupation or job citizens of Russia }
 \lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL,
-    caption={List of occupation or job citizens of Russia. The result contained \num{89} in 2021. SPARQL query:\href{https://w.wiki/4daC}{https://w.wiki/4daC}},  
+    caption={List of occupation or job citizens of Russia. The result contained \num{89} in 2021. SPARQL query:\href{https://w.wiki/4f3h}{https://w.wiki/4f3h}},  
                     label=lst:human-settlement13,
                     texcl 
                     ]
@@ -582,7 +582,7 @@ Output a list of people with this property (listing~\protect\ref{lst:human-settl
 
 \index{SPARQL!COUNT!Count of peoples in Russian with academic degree}
 \begin{lstlisting}[ language=SPARQL,
-    caption={Count of peoples in Russian with academic degree. The result contained \num{24297} in 2021. SPARQL query:\href{https://w.wiki/4deJ}{https://w.wiki/4deJ}},  
+    caption={Count of peoples in Russian with academic degree. The result contained \num{24297} in 2021. SPARQL query:\href{https://w.wiki/4f3i}{https://w.wiki/4f3i}},  
                     label=lst:human-settlement14,
                     texcl 
                     ]
@@ -592,7 +592,7 @@ SELECT (COUNT(DISTINCT ?hum) AS ?human_count) WHERE {
   VALUES ?ruCountries {wd:Q34266 wd:Q15180 wd:Q159}
   ?hum wdt:P512 ?academic_degree;  # has academic degree 
        wdt:P27 ?ruCountries. # lives (lived) in Russian countries
-  SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
+  SERVICE wikibase:label{bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}%
 
@@ -600,7 +600,7 @@ The second property \wdProperty{463}{member of the organization} of several acad
 
 \index{SPARQL!COUNT!Count of peoples in Russian in academy}
 \begin{lstlisting}[ language=SPARQL, 
-    caption={Count of peoples in Russian in academy. The result contained \num{24297} in 2021. The result contained \num{4170} in 2021. SPARQL query:\href{https://w.wiki/4deV}{https://w.wiki/4deV}},
+    caption={Count of peoples in Russian in academy. The result contained \num{24297} in 2021. The result contained \num{4170} in 2021. SPARQL query:\href{https://w.wiki/4f3n}{https://w.wiki/4f3n}},
                     label=lst:human-settlement15,
                     texcl 
                     ]
@@ -613,7 +613,7 @@ SELECT (COUNT(DISTINCT ?hum) AS ?human_count) WHERE {
        wdt:P27 ?ruCountries. # lives (lived) in countries
   # academy is an element of the class academy
   ?academy wdt:P31 ?class_academy. 
-  SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
+  SERVICE wikibase:label{bd:serviceParam wikibase:language "en"}
 }
 \end{lstlisting}%
 
