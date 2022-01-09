@@ -28,20 +28,12 @@ using the property \wdProperty{31}{instance of}.
 The difficulty of the study is due to the lack of a clear typology of human settlements
 (for example, from population size) in Russian legislation and in Wikidata.
 
-%
-%%%%%%%%%%%%%%%% Exercise 1 %%%%%%%%%%%%%%%%
-\marginnote{Calculate how many people per km \textsuperscript{2} live in %~\enwiki{4dNv}{Barabinsk}
-and in %~\enwiki{4dNt}{Aleisk}? 
-Which of these \emph{human settlements} has the highest population density?
-See~\ref{answer: human_settlements_density} on page~\pageref{answer: human_settlements_density}.}
-
 %%%%%%%
 \section{List of ``human settlement''}
 
-Let's build a list of all human settlements using the query~\ref{lst:human-settlement1}.
+Let's build a list of all human settlements using the query~\ref{lst:human-settlement1} \footnote{List of all human settlements. \num{411393} items received in 2017. SPARQL query:\href{https://w.wiki/4d7x}{https://w.wiki/4d7x}}.
 
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={List of all human settlements. \num{411393} items received in 2017. SPARQL query:\href{https://w.wiki/4d7x}{https://w.wiki/4d7x}},
                     label=lst:human-settlement1,
                     texcl 
                     ]
@@ -106,6 +98,13 @@ GROUP BY ?country ?countryLabel
 ORDER BY DESC (?sumPopulation)
 \end{lstlisting}%
 
+%
+%%%%%%%%%%%%%%%% Exercise 1 %%%%%%%%%%%%%%%%
+\marginnote{Calculate how many people per km\textsuperscript{2} live in \wdqName{Barabinsk}{104609}
+and in \wdqName{Aleisk}{102603}? 
+Which of these \emph{human settlements} has the highest population density?
+See~\ref{answer:human_settlements_density} on page~\pageref{answer:human_settlements_density}.}
+
 To calculate the number of population by country
 use the command \lstinline|SUM()| in the second line of the query~\ref{lst:human-settlement3}.
 To group settlements by country
@@ -127,16 +126,6 @@ shows the ratio of countries by population in ``human settlement'' in 2017.
 	\label{fig:human-settlement-2}
 	\caption[Bubble chart for the total population in ``human settlement'', 2021.] {Bubble chart for the total population living in ``human settlement'' for 2021. The size of the bubble corresponds to the number of people living in ``human settlement'' of one country. SPARQL query: \href{https://w.wiki/4dAv}{https://w.wiki/4dAv}}
 \end{figure}
-
-%%%%%%%%%%%%%%%% Exercise 2 %%%%%%%%%%%%%%%%
-\begin{marginfigure} [0.0cm] {%
-\includegraphics [width = 0.9\linewidth] {./chapter/human_settlement/Aznakeevskii_rayon_gerb.png}}
-   \caption {Is the coat of arms of a domestic or foreign human settlement shown in the picture?}%
-   \label {fig:flag_question_human_settlements1}%
-\end{marginfigure}
-\marginnote {
-See~\ref{answer:flag_human_settlements} on page~\pageref{answer:flag_human_settlements}.
-}
 
 In 2017, most of the population lived in ``human settlement'':
 \wdqName {Brazil} {155} (\num {12} millions),
@@ -199,7 +188,7 @@ he share of points with the filled property ``population size'' is growing.
 %%%%%%%%%%%%%%%%% Exercise 2 %%%%%%%%%%%%%%%%%%
 \begin{marginfigure} [0.0 cm]
 {\includegraphics [width = 0.8\linewidth] {./chapter/human_settlement/Coat_of_Arms_of_Asbest_(Sverdlovsk_oblast).png}}
-    \caption {Is this the emblem of a settlement in Russia or other countries? \newline%
+    \caption {Is this the emblem of a ``human settlement'' in Russia or other countries? \newline%
 See~\protect\ref{answer:flag_human_settlements} on page~\protect\pageref{answer:flag_human_settlements}.}
     \label {fig:flag_question_human_settlements2}%
 \end{marginfigure}
@@ -223,17 +212,9 @@ not completely in terms of coverage, even relative to those already in Wikidata.
 
 Let's build an ordered list of countries in terms of the proportion of the population (in percent) living in \href{http://www.wikidata.org/entity/Q486972} {human settlements}, relative to the number of all inhabitants of the country (listing ~\ref{lst:human-settlement6}).
 
-%%%%%%%%%%%%%%%%% Exercise 2 %%%%%%%%%%%%%%%%%%
-\begin{marginfigure} [0.0 cm]
-{\includegraphics [width = 0.8\linewidth] {./chapter/human_settlement/Loučovice_CoA.jpg}}
-    \caption {The coat of arms of the locality of which country is depicted? \newline%
-See~\protect\ref{answer:flag_human_settlements} on page~\protect\pageref{answer:flag_human_settlements}.}
-    \label {fig:flag_question_human_settlements3}%
-\end{marginfigure}
-
 \index{SPARQL!SUM!The ratio of the number of people living in settlements to the number of all people in the country}
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={The ratio of the number of people living in settlements to the number of all people in the country. The result contained \num{158} countries in 2017 and \num{206} countries in 2021. SPARQL query:\href{https://w.wiki/4dE3}{https://w.wiki/4dE3}},
+                    caption={The ratio of the number of people living in settlements to the number of all people in the country. The result contained \num{158} countries in 2017 and \num{206} countries in 2021. SPARQL query: \href{https://w.wiki/4dE3}{https://w.wiki/4dE3}},
                     label=lst:human-settlement6,
                     texcl 
                     ]
@@ -252,3 +233,256 @@ SELECT ?country ?countryLabel ?proportionPopulation WHERE {
 }
 ORDER BY ?proportionPopulation
 \end{lstlisting}%
+
+The bar chart in Fig.~\ref{fig:human-settlement-3} allows you to see for each individual country the ratio of the number of people living in \href{http://www.wikidata.org/entity/Q486972 }{ human settlements}, to the number of inhabitants in the country for 2017.
+
+\begin{figure*}
+    \includegraphics[width=\linewidth]{./chapter/human_settlement/AnnaShareHumanSettlement.png}
+	\label{fig:human-settlement-3}
+	\caption[Chart of the country's population share, 2017.]{Diagram of the share of the country's population living in ``human settlements'' for 2017. SPARQL query: \href{https://w.wiki/4dE3}{https://w.wiki/4dE3}}%
+\end{figure*} 
+
+\begin{figure*}
+    \includegraphics[width=\linewidth]{./chapter/human_settlement/LeonidShareHumanSettlement.jpg}
+	\label{fig:human-settlement-4}
+	\caption[Chart of the country's population share, 2021.]{Diagram of the share of the country's population living in ``human settlements'' for 2021. Countries with a population of more than 5 million people were selected. SPARQL query: \href{https://w.wiki/4dDx}{https://w.wiki/4dDx}}%
+\end{figure*} 
+
+%%%%%%%%%%%%%%%%% Exercise 2 %%%%%%%%%%%%%%%%%%
+\begin{marginfigure} [0.0 cm]
+{\includegraphics [width = 0.9\linewidth] {./chapter/human_settlement/Aznakeevskii_rayon_gerb.png}}
+    \caption {Is the coat of arms of a domestic or foreign human settlement shown in the picture? \newline%
+See~\protect\ref{answer:flag_human_settlements} on page~\protect\pageref{answer:flag_human_settlements}.}
+    \label {fig:flag_question_human_settlements1}%
+\end{marginfigure}
+
+According to Fig.~\ref{fig:human-settlement-3} it can be seen
+that the following countries accounted for the highest percentage in 2017: 
+Kiribati (78\%), Niue (70\%), Greece (53\%), Tuvalu (48\%), Comoros (43\%), Mauritius (42\%). 
+In 2021, the picture has changed: Nigeria (93\%), Papua~--- New Guinea (71\%),
+Israel (50\%), Greece (47\%), Azerbaijan (47\%), Kazakhstan (37\%). 
+Note that these are mostly small island states. 
+Probably, most of the inhabitants of these countries are concentrated in populated areas.
+
+As of 2017 , the share of residents in the G8 countries 
+in \href{http://www.wikidata.org/entity/Q486972 }{localities} made up: 
+\href{http://www.wikidata.org/entity/Q159}{Russia} (\num{2.98}\%), 
+\href{http://www.wikidata.org/entity/Q30 }{USA} (\num{1.76}\%), 
+\href{http://www.wikidata.org/entity/Q17}{Japan} (\num{0.80}\%), 
+\href{http://www.wikidata.org/entity/Q16}{Canada} (\num{0.26}\%), 
+\href{http://www.wikidata.org/entity/Q142 }{France} (\num{0.20}\%), 
+\href{http://www.wikidata.org/entity/Q183 }{Germany} (\num{0.24}\%), 
+\href{http://www.wikidata.org/entity/Q145 }{UK} (\num{0.18}\%), 
+\href{http://www.wikidata.org/entity/Q38}{Italy} (\num{0.07}\%). 
+In 2021, the values of the population share decreased (Fig.~\ref{fig:human-settlement-4}):
+\href{http://www.wikidata.org/entity/Q159 }{Russia} (0.045\%), 
+\href{http://www.wikidata.org/entity/Q30 }{USA} (\num{0.014}\%), 
+\href{http://www.wikidata.org/entity/Q17}{Japan} (\num{0.008}\%), 
+\href{http://www.wikidata.org/entity/Q16}{Canada} (\num{0.23}\%), 
+\href{http://www.wikidata.org/entity/Q142 }{France} (\num{0.005}\%), 
+\href{http://www.wikidata.org/entity/Q183 }{Germany} (\num{0.005}\%), 
+\href{http://www.wikidata.org/entity/Q145 }{UK} (\num{0.014}\%), 
+\href{http://www.wikidata.org/entity/Q38}{Italy} (\num{0.0005}\%). 
+Note that these are industrialized countries.
+
+The constructed diagram confirms the following hypothesis:
+a high percentage of the country's population living in ``human settlements'', 
+indicates a more agrarian country. 
+From diagrams~\ref{fig:human-settlement-3} and ~\ref{fig:human-settlement-4} it can be seen
+that the highest percentage of the country's population living in settlements
+falls on island, southern, hot countries,
+in which, apparently, industry is less developed 
+(small territory, small population, distance from the continents). 
+And the industrial countries (the Big Eight) have a very low percentage of the country's population
+living in populated areas.
+
+%%%%%
+\section{List of classes accompanying ``human settlements'' in ~property ``instance of''}
+\label{human-settlement:tag1}
+
+We will call ``class'' such Wikidata objects
+that are associated with any Wikidata object through the \wdProperty{31}{instance of}.
+The purpose of this section is~--- to find $X$ objects
+for which the object \wdqName{human settlement}{486972} is a class,
+and to get other classes of the object $X$, except ``human settlement''.
+These ``other'' classes will be called accompanying ``human settlement''.
+With a request~\ref{lst:human-settlement7}
+we will find the objects accompanying ``human settlement''.
+
+\begin{lstlisting}[ language=SPARQL,
+    caption={List of classes accompanying the ``human settlement''  (instance of). The result contained \num{610} in 2017 and \num{1245} in 2021. SPARQL query:\href{https://w.wiki/4dEW}{https://w.wiki/4dEW}}, 
+    label=lst:human-settlement7,
+    texcl 
+                  ]
+# List of classes accompanying the human\_settlement (instance of)
+SELECT ?inst (COUNT(?hum) as ?sumHum) 
+WHERE{          
+  ?hum wdt:P31 wd:Q486972; # instance of human settlement
+       wdt:P31 ?inst.      # other objects in instance
+  SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
+}  
+GROUP BY ?inst
+\end{lstlisting}%
+
+%%%%%%%%%%%%%%%%% Exercise 2 %%%%%%%%%%%%%%%%%%
+\begin{marginfigure} [0.0 cm]
+{\includegraphics[width=0.9\linewidth]{./chapter/human_settlement/Coat_of_Arms_of_Azov.png}}
+    \caption {The coat of arms of the ``human settlement''  of which country is depicted? \newline%
+See~\protect\ref{answer:flag_human_settlements} on page~\protect\pageref{answer:flag_human_settlements}.}
+    \label {fig:flag_question_human_settlements5}%
+\end{marginfigure}
+
+To speed up the execution of the request~\ref{lst:human-settlement7} let's do two steps.
+
+First, we will turn off the settlement from consideration, 
+having only ``human settlement'' in the ~list of instances,
+since there are no other related classes. 
+To do this, add the line ~\num{9} to the script~\ref{lst:human-settlement8} with a filter
+requiring that the object \lstinline|?hum| 
+except \wdProperty{31}{instance} ``human settlement'' there was another class.
+
+Secondly, in the line \num{8} requests~\ref{lst:human-settlement8}
+removing such objects of the variable \lstinline|?insert|, 
+which have the property \wdqName{state}{17}. 
+This will allow you to cut off hundreds of types of settlements specific to individual countries, 
+for example, ``administrative-territorial unit of Russia''.
+
+These transformations made it possible to execute the query~\ref{lst:human-settlement8}
+for all countries of the world in an acceptable time of 13 ms.
+
+\begin{lstlisting}[ language=SPARQL, 
+    caption={List of classes associated with ``human settlement" in the ``instance of" property without specialized classes of different countries. The result contained \num{355} in 2017 and \num{707} in 2021. SPARQL query:\href{https://w.wiki/4ePf}{https://w.wiki/4ePf}}, 
+    label=lst:human-settlement8,
+    texcl 
+                  ]
+# List of objects with the class of human settlement, without 
+# country and single human settlement
+SELECT ?inst ?instLabel (COUNT(?hum) as ?sumHum) 
+WHERE{ 
+  ?hum wdt:P31 wd:Q486972;  # instance of human settlement
+       wdt:P31 ?inst.       # other objects in instance
+  
+  MINUS {?inst wdt:P17 []}. # without country
+  FILTER(?inst != wd:Q486972 ). # without human settlement
+  SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
+}  
+GROUP BY ?inst ?instLabel
+ORDER BY DESC (?sumHum)
+\end{lstlisting}%
+
+The table~\ref{tab:human-settlement2} presents
+comparative results for 2017 and 2021,
+the number of classes associated with ``human settlement" in the ``instance of" property.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\textnumero & Class name     & 2017 & 2021 & $\Delta$ \\ \hline
+1 & \wdqName{Village}{532} & \num{2844} & \num{4853} & +\num{2009}	\\
+2 & \wdqName{Municipalities}{15284} & \num{1181} & \num{3376} & +\num{2195} \\
+3 & \wdqName{Villages}{5084} & \num{662} & \num{1761} &+\num{1099}	\\ 
+4 & \wdqName{Archaeological sites}{839954} & \num{425} & \num{887} & +\num{462} \\
+5 & \wdqName{Local settlements}{3257686} & \num{425} & \num{158} & -\num{257}	\\ 
+6 & \wdqName{Destroyed cities}{14616455} & \num{423} & \num{388} & -\num{40}	\\
+7 & \wdqName{Cities}{515} & \num{322} & \num{545} & +\num{223} \\
+8 & \wdqName{Small Towns}{3957} & \num{277} & \num{446} & +\num{169} \\
+9 & \wdqName{Abandoned Villages}{350895} & \num{254} & \num{474} & +\num{220}	\\ 
+10 & \wdqName{Hinterland}{2983893} & \num{207} & \num{503} & +\num{296} \\\hline
+\end{tabular}
+\caption{The number of classes accompanying ``human settlement" in~2017 and 2021, their difference ($\Delta$).}
+\label{tab:human-settlement2}
+\end{table}
+
+The query~\ref{lst:human-settlement8} showed that in 2021, 
+prehistoric settlements of three types were in the first places among the classes accompanying ``human settlement"
+: settlements
+\wdqName{<<Laten period>>}{106505016}, 
+\wdqName{<<Bronze Age>>}{106491277} 
+and settlements \wdqName{<<prehistoric time, where there is writing>>}{106505070}. 
+
+Let's try to formulate the request in such a way as to cut off all the many prehistoric settlements.  
+What do these three objects on Wikidata have in common? 
+They are instances of objects that, in turn,
+are instances of objects \wdqName{<<archaeological culture>>}{465299}, 
+\wdqName{<<historical period>>}{11514315}, 
+\wdqName{<<archaeological age>>}{15401699}, 
+\wdqName{<<world history>>}{200325} 
+and \wdqName{<<geological period>>}{392928}. 
+Let's apply such a filter in the request~\ref{lst:human-settlement9} in lines 10--12
+to cut off exactly these types of objects.
+
+\index{SPARQL!COUNT!List of classes associated with ``human settlements'' in ~property ``instance of'', without historical objects}
+\index{SPARQL!FILTER!List of classes associated with ``human settlements'' in ~property ``instance of'', without historical objects}
+\index{SPARQL!MINUS!List of classes associated with ``human settlements'' in ~property ``instance of'', without historical objects}
+\begin{lstlisting}[ language=SPARQL,
+    caption={List of classes associated with ``human settlements'' in ~property ``instance of'', without historical objects The result contained \num{89} in 2021. SPARQL query:\href{https://w.wiki/4dTq}{https://w.wiki/4dTq}}, 
+                    label=lst:human-settlement9,
+                    texcl 
+                    ]
+# List of classes accompanying the human\_settlement in the property
+# 'instance of' without historical objects 
+SELECT ?inst ?instLabel (COUNT(?hum) as ?sumHum) WHERE{
+  ?hum wdt:P31 wd:Q486972;    # instance of human settlement
+       wdt:P31 ?inst. # other objects in instance of human settlement
+  ?inst wdt:P31 ?test. # instance of ?inst
+  ?test wdt:P31 ?typ. # instance of ?test
+  MINUS {?inst wdt:P17 []}.   # without country
+  # without human settlement and prehistoric settlements
+  FILTER(?inst != wd:Q486972 && ?typ != wd:Q465299 
+         && ?typ != wd:Q11514315 && ?typ != wd:Q15401699 
+         && ?typ != wd:Q200325 && ?typ != wd:Q392928 ). 
+  SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
+}
+GROUP BY ?inst ?instLabel
+ORDER BY DESC (?sumHum)
+\end{lstlisting}%
+
+%%%%%%%%%%%%%%%%% Exercise 2 %%%%%%%%%%%%%%%%%%
+\begin{marginfigure} [0.0 cm]
+{\includegraphics [width = 0.8\linewidth] {./chapter/human_settlement/Loučovice_CoA.jpg}}
+    \caption {The coat of arms of the ``human settlement'' of which country is depicted? \newline%
+See~\protect\ref{answer:flag_human_settlements} on page~\protect\pageref{answer:flag_human_settlements}.}
+    \label {fig:flag_question_human_settlements3}%
+\end{marginfigure}
+
+As a result, 706 query classes~\ref{lst:human-settlement7} 
+we have shortened in~request~\ref{lst:human-settlement8} 
+up to 89 different classes associated with ``human settlements'' in ~property ``instance of''.
+
+%%%%%
+\section{Domestic scientists in the countryside and in the city}
+
+Let's calculate and compare the number of Russian scientists born in rural and urban types of settlements. 
+Let's solve this problem in five steps:
+
+%%%%%%%%%%%%%%%%% Exercise 2 %%%%%%%%%%%%%%%%%%
+\begin{marginfigure} [0.0 cm]
+{\includegraphics[width=0.9\linewidth]{./chapter/human_settlement/POL_Otynia_COA.png}}
+    \caption {The coat of arms of the ``human settlement'' of which country is depicted? \newline%
+See~\protect\ref{answer:flag_human_settlements} on page~\protect\pageref{answer:flag_human_settlements}.}
+    \label {fig:flag_question_human_settlements4}%
+\end{marginfigure}
+
+\begin{enumerate}
+\item We will identify a list of rural and a list of urban settlement types in Russia.
+\item We will define the main scientific directions presented in ~Wikidata.
+\item We will identify a way to identify domestic scientists.
+\item We will make such a diagram on which different scientific directions (mathematicians, physicists, chemists, and so on) will be indicated in different colors for scientists born in rural settlements.
+\item Let's make a second diagram~--- by urban settlements and compare the results.
+\end{enumerate}
+
+%%%%%
+\subsection{List of rural and list of urban settlement types in~Russia}
+
+%%%%%
+\subsection{The main scientific directions presented in Wikidata}
+
+%%%%%
+\subsection{To identify a way to identify domestic scientists}
+
+%%%%%
+\subsection{Construction of a diagram on which different scientific directions will be indicated in different colors for scientists born in rural settlements}
+
+%%%%%
+\subsection{Plotting diagrams for scientists born in urban settlements and comparing diagrams}
