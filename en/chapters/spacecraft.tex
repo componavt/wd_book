@@ -4,7 +4,7 @@
 \chapter{Spacecraft and space stations}
 \labch{spacecraft}
 \footnotetext{Painting by Takhir Salakhov ``For You, Humanity!'' (1961), reproduced on the stamp of Azerbaijan in 2011 on the 50th anniversary of First Manned Space Flight (the flight of Yuri Gagarin). 
-Author: \href{https://commons.wikimedia.org/wiki/File:Stamps\_of\_Azerbaijan,\_2011-944.jpg}{WikiCommons}.}
+\href{https://commons.wikimedia.org/wiki/File:Stamps\_of\_Azerbaijan,\_2011-944.jpg}{Wikimedia Commons}.}
 
 The chapter is devoted to research of spaceships and stations based on Wikidata. 
 Using SPARQL scripts, a list of Russian ships and stations is constructed, 
@@ -13,7 +13,7 @@ An evaluation of the completeness of Wikidata was performed, showing,
 that many of the items have the wrong value of the property 
 \wdProperty{31}{instance of}. In the course of the work, it was found that the current performance of Russian astronautics in terms of the number of spacecraft launches in recent years matches that of the USSR fifty years ago. 
 
-\section{List of Space Ships and Stations}
+\section{List of space ships and stations}
 Let's build a query~\ref{lst:spaceships} to output a list of all spaceships and stations. 
 We need the objects \wdqName{space station}{25956}, 
 \wdqName{spacecraft}{40218} and the relation \wdProperty{31}{instance of}. 
@@ -39,7 +39,7 @@ WHERE
 	\setlength{\fboxrule}{1pt}%
 	\fcolorbox{gray}{gray}{\includegraphics{graphics/chapter/spacecraft/soyuz-19.jpg}}
 }
-\caption[Soyuz-19, 2021.]%
+\caption[Soyuz-19.]%
 {In which country is the machine shown in the picture designed?
 See the answer~\ref{answer:spacecraft_USSR} on the p.~\pageref{answer:spacecraft_USSR}.}
 \label{question:spacecraft_soyuz19}
@@ -47,18 +47,17 @@ See the answer~\ref{answer:spacecraft_USSR} on the p.~\pageref{answer:spacecraft
 
 \section{Depth of object development}
 
-As of 2021 on Wikidata \wdqName{Apollo-8}{184201} {wdqName} is the most complete and elaborate spacecraft, which has 30 properties.\autocite{spacecraftProWD} At the same time, only one property each has ships such as: \wdqName{Europa Astrobiology Lander}{10491365}, \wdqName{Project Orbiter}{6514453}, \wdqName{LRK}{5961734}, \wdqName{EarthForce One}{5327028}
-\sidenote{
-Note the difficult fate of the object \wdqName{EarthForce One}{5327028}. This object was automatically created in Wikidata by a bot in 2013, because there was an English Wikipedia article. According to the `\href{https://en.wikipedia.org/wiki/EarthForce_One}{EarthForce One}'' English Wikipedia, the article was removed due to a lack of reliable sources proving the significance of the site. And the object has been left as an unremarkable item on Wikidata. Think of a query that would output a list of similar Wikidata items, that does not match any Wikipedia article.
-%
-}, 
-\wdqName{GVC Union}{60767924}, 
-\wdqName{CubeSat for Solar Particles}{22907583}.\autocite{spacecraftProWD} 
-To find this information, a query built with the ProWD\autocite{spacecraftProWD} service was used. 
-The same service showed that the occupancy of space objects is uneven, 
-most are less than 30\% filled.\autocite{spacecraftProWD} 
+As of 2021 on Wikidata \wdqName{Apollo-8}{184201} {wdqName} is the most complete and elaborate spacecraft, which has 30 properties.\autocite{spacecraftProWD} At the same time, only one property each has ships such as: \wdqName{Europa Astrobiology Lander}{10491365}, \wdqName{Project Orbiter}{6514453}, \wdqName{LRK}{5961734}, \wdqName{EarthForce One}{5327028}%
+\sidenote[][]{%
+Note the difficult fate of the object \wdqName{EarthForce One}{5327028}. This object was automatically created in Wikidata by a bot in 2013, because there was an English Wikipedia article. According to the <<\href{https://en.wikipedia.org/wiki/EarthForce_One}{EarthForce One}>> English Wikipedia, the article was removed due to a lack of reliable sources proving the significance of the site. And the object has been left as an unremarkable item on Wikidata. Think of a query that would output a list of similar Wikidata items, that does not match any Wikipedia article.%
+},%
+\wdqName{GVC Union}{60767924}, %
+\wdqName{CubeSat for Solar Particles}{22907583}.\autocite{spacecraftProWD} %
+To find this information, a query built with the ProWD\autocite{spacecraftProWD} service was used. %
+The same service showed that the number of properties of space objects is uneven, %
+most are less than 30\% filled.\autocite{spacecraftProWD} %
 
-\section{List of Soviet and Russian ships and stations}
+\section{List of Soviet and Russian spaceships and stations}
 
 Find ships and stations designed in USSR or Russia, using the query~\ref{lst:spaceshipsUSSR}.
 
@@ -89,7 +88,7 @@ WHERE
 	\fcolorbox{gray}{gray}{\includegraphics{graphics/chapter/spacecraft/soyuz-t.jpg}}
 }
 \caption
-[Soyuz-T, 2021.]{%
+[Soyuz-T.]{%
 In which country is the machine shown in the picture designed?
 
 See the answer~\ref{answer:spacecraft_USSR} on the p.~\pageref{answer:spacecraft_USSR}.
@@ -105,7 +104,14 @@ then by request~\ref{lst: spaceshipsUSSR} about Soviet and Russian objects~--- o
 Information about~Soviet and Russian objects in 2021
 has become several times more compared to 2017,
 when on request~\ref{lst: spaceshipsUSSR} only 3 objects were returned.
-
+%
+%%%%%%%%%%%%%%%% Exercise 1 %%%%%%%%%%%%%%%% 
+\label{question:spacecraft_1}
+\marginnote{%
+How many ships were launched in the~USSR in the~1960s, 1970s, and 1980s? %
+See answer~\ref{answer:launches_USSR} on p.~\pageref{answer:launches_USSR}.%
+}%
+%
 On the Buran.ru website in the section about the spaceships of the USSR and Russia for 2021
 contains information about 36\autocite{spacecraftBuran} ships.
 The Soviet encyclopedia <<Cosmonautics>> from 1985 mentions launches
@@ -115,13 +121,6 @@ In the American Directory of Space and Astronomy
 given 10 Soviet and Russian launches of space stations\autocite[296]{spacecraftSAA},
 126 NASA shuttle launches from 1981 to 2008\autocite[288]{spacecraftSAA}
 and characteristics of 31 launch vehicles\autocite[290-291]{spacecraftSAA}.
-
-%%%%%%%%%%%%%%%% Exercise 1 %%%%%%%%%%%%%%%% 
-\label{question:spacecraft_1}
-\marginnote{
-How many ships were launched in the~USSR in the~1960s, 1970s, and 1980s?
-See answer~\ref{answer:launches_USSR} on p.~\pageref{answer:launches_USSR}.
-}
 
 \section{Time schedules of space exploration in ~ our country and the world}
 
@@ -298,14 +297,14 @@ WHERE
 	\setlength{\fboxrule}{1pt}%
 	\fcolorbox{gray}{gray}{\includegraphics{graphics/chapter/spacecraft/lunar_landler.jpg}}
 }
-\caption[lunar lander, 2021.]{%
+\caption[Lunar lander.]{%
 In which country is the machine shown in the picture designed?
 
 See the answer~\ref{answer:spacecraft_USSR} on the p.~\pageref{answer:spacecraft_USSR}.}
 \label{question:spacecraft_lunar}
 \end{marginfigure}
 
-For the script to work, you must specify the starting point~-- an astronaut who has participated in international spaceflight. The starting point is set at line 11 of the script and written to the \lstinline{?naut_seed} variable. Next, at line 12, we search for astronauts who have flown with the one we specified earlier. Lines 15--17 load data about spacecraft, flights and astronauts. Boolean variable \lstinline|?toggle| has value \lstinline|?true| if the found object is a spacecraft or \lstinline|?false| if the found object is an astronaut. The selected object (spacecraft or astronaut) is written to the \lstinline|?item| variable in line 19. In line 20 the name of the object is written to the variable \lstinline|?itemLabel|, in line 21 the data for the coloring of ships is written to the variable \lstinline|?rgb_source|. 
+For the script to work, you must specify the starting point~-- an astronaut who has participated in international spaceflight. The starting point is set at line 11 of the script and written to the \lstinline{?naut_seed} variable. Next, at line 12, we search for astronauts who have flown with the one we specified earlier. Lines 15--17 load data about spacecraft, flights and astronauts. Boolean variable \lstinline|?toggle| has value \lstinline|?true| if the found object is a spacecraft or \lstinline|?false| if the found object is an astronaut. The selected object (spacecraft or astronaut) is written to the \lstinline|?item| variable in line 19. In line 20 the name of the object is written to the variable \lstinline|?itemLabel|, in line 21 the data for the coloring of ships is written to the variable \lstinline{?rgb_source}. 
 
 If a ship is selected, then nothing is written to the variable \lstinline|?link| in line 22. If an astronaut is selected, then his ship is written to the variable~\lstinline|?link|. On the graph this variable will correspond to the arc from the cosmonaut to the ship. 
 
