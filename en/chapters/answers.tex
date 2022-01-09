@@ -988,9 +988,9 @@ In the listing~\ref{filmed_ships} and~\ref{ships_in_books} we used DISTINCT to f
 \begin{exercise}
 	How many ships were launched in the~USSR in the~1960s, 1970s, and 1980s?
 \end{exercise}
-Answer: The query~\ref{lst:launch_USSR} plots domestic space launches by decade. In the 1960s there were 16~launches, in the 1970s~--- 42 launches, and in the 1980s~--- 39 launches.
+Answer: The query~\ref{lst:launch_USSR} plots Soviet space launches by decade. In the 1960s there were 16~launches, in the 1970s~--- 42 launches, and in the 1980s~--- 39 launches.
 \begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,%
-                    caption={Draw chart of Russian spacecraft launches by decades. The result contained \num{7} decades in 2021. SPARQL query: \href{https://w.wiki/4eQK}{https://w.wiki/4eQK}},%
+                    caption={Draws chart of Russian spacecraft launches by decades. The result contained \num{7} decades in 2021. SPARQL query: \href{https://w.wiki/4f9A}{https://w.wiki/4f9A}},%
                     label=lst:launch_USSR,%
                     texcl%
                     ]
@@ -1005,7 +1005,6 @@ WHERE {                  # spacecraft belongs to
   ?item wdt:P619 ?launch. # date of spacecraft launch (P619)
   BIND( YEAR(?launch) AS ?year) 
   BIND(FLOOR(?year/10)*10 AS ?lapse) # count for each 10 years
-SERVICE wikibase:label {bd:serviceParam wikibase:language "en"}
 } 
 GROUP BY ?lapse
 ORDER BY ?lapse # Order 1960, 1970, 1980, ...
@@ -1014,11 +1013,11 @@ ORDER BY ?lapse # Order 1960, 1970, 1980, ...
 
 \label{answer:max-min-space-launches}
 \begin{exercise}
-	What was the highest and lowest number of spacecraft launches humanity made in a decade between 1970 and 2010?
+	What was the highest and lowest number of spacecraft launches in a decade between 1970 and 2010 in World?
 \end{exercise}
-Answer: The query~\ref{lst:launchesWorld10} counts the maximum and minimum number of launches in a decade from 1970 to 2010.The highest number of launches during the decade from 1970 to 2010~--- 121, the lowest~--- 63.
+Answer: The query~\ref{lst:launchesWorld10} counts the maximum and minimum number of launches in a decade from 1970 to 2010. The highest number of launches during the decade from 1970 to 2010~--- 121 (from 1990 to 2000), the lowest~--- 63 (from 1970 to 1980).
 \begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,%
-                    caption={Return the maximum and minimum number of launches in a decade from 1970 to 2010. In 2021 the highest number of launches during the decade from 1970 to 2010~--- 121, the lowest~--- 63. query: \href{https://w.wiki/4dwj}{https://w.wiki/4dwj}},%
+                    caption={Return the maximum and minimum number of launches in a decade from 1970 to 2010. In 2021 the highest number of launches during the decade from 1970 to 2010~--- 121, the lowest~--- 63. query: \href{https://w.wiki/4f9N}{https://w.wiki/4f9N}},%
                     label=lst:launchesWorld10,%
                     texcl%
                     ]
@@ -1042,7 +1041,7 @@ WHERE {
 \begin{exercise}
 	In which country is the machine shown in the picture \ref{question:spacecraft_soyuz19}, \ref{question:spacecraft_soyuzT} and \ref{question:spacecraft_lunar} designed?
 \end{exercise}
-Answer: The spacecraft depicted in \ref{question:spacecraft_soyuz19} (Soyuz-19), \ref{question:spacecraft_soyuzT} (Soyuz-7K), and \ref{question:spacecraft_lunar} (lunar landing module <<Cosmos>>) belong to the USSR. You can verify this by running the query~\ref{lst:imageUSSRsc}.
+Answer: The spacecraft depicted in Figures \ref{question:spacecraft_soyuz19} (Soyuz-19), \ref{question:spacecraft_soyuzT} (Soyuz-7K), and \ref{question:spacecraft_lunar} (lunar landing module <<Cosmos>>) belong to the USSR. You can verify this by running the query~\ref{lst:imageUSSRsc}.
 \begin{lstlisting}[ language=SPARQL, breaklines=true, numbers=none,%
                     caption={Return images of Soviet spacecraft. Found nine results in 2022. query: \href{https://w.wiki/4eZN}{https://w.wiki/4eZN}},%
                     label=lst:imageUSSRsc,%
