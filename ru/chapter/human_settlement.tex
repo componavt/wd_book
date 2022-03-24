@@ -526,17 +526,17 @@ ORDER BY DESC (?sumHum)
 
 \index{SPARQL!COUNT!Список классов поселений и их количество для объектов в России, имеющих свойство <<численность населения>>}
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/4ya2}{Список классов поселений и их количество для объектов, имеющих свойство <<численность населения>> в России}\protect\footnotemark},
+                    caption={\href{https://w.wiki/4yyi}{Список классов поселений и их количество для объектов, имеющих свойство <<численность населения>> в России}\protect\footnotemark},
                     label=lst:human-settlement4,
                     texcl 
                     ]
 # List of instances of settlement with population in Russia
 SELECT ?class ?classLabel (COUNT(?class) AS ?count) WHERE {
   SELECT ?class ?classLabel WHERE {
-    [] wdt:P31 wd:Q486972; # instance of settlement
-         wdt:P17 wd:Q159;    # in Russia
-         wdt:P1082 []; # has ?population
-         wdt:P31 ?class. # instance of ?class
+    [] wdt:P31 wd:Q486972; # noname instance of settlement
+         wdt:P17 wd:Q159;  # in Russia
+         wdt:P1082 [];     # has ?population
+         wdt:P31 ?class.   # instance of ?class
     FILTER(?class != wd:Q486972).# skip settlement itself
     SERVICE wikibase:label{bd:serviceParam wikibase:language "ru"}
   }
@@ -544,7 +544,7 @@ SELECT ?class ?classLabel (COUNT(?class) AS ?count) WHERE {
 GROUP BY ?class ?classLabel
 ORDER BY DESC (?count)
 \end{lstlisting}%
-\footnotetext{Получили 36 разных классов поселений. Ссылка на SPARQL-запрос: \href{https://w.wiki/4ya2}{https://w.wiki/4ya2}}
+\footnotetext{Получили 36 разных классов поселений. Ссылка на SPARQL-запрос: \href{https://w.wiki/4yyi}{https://w.wiki/4yyi}}
 
 Основные классы, полученные с помощью запроса~\ref{lst:human-settlement4}, 
 представлены в таблице~\ref{tab:human-settlement1}. 
@@ -554,18 +554,18 @@ ORDER BY DESC (?count)
 существенно уменьшает числа в таблице~\ref{tab:human-settlement1} 
 в~столбце <<Количество>>. 
 Это связано с тем, что у многих населённых пунктов 
-не заполнено поле <<численность населения>>.\sidenote{%
+не заполнено поле <<численность населения>>\sidenote{%
 %
-Задание. 
-Используя команду FILTER~NOT~EXISTS 
+Задача. Используя команду FILTER~NOT~EXISTS, 
 измените запрос~\ref{lst:human-settlement4} так, чтобы получить число классов 
 с пустым полем <<численность населения>>. 
 
 См. пример использования этой команды в запросе~\ref{lst:anime_no_pub_date} 
 на с.~\pageref{lst:anime_no_pub_date}.%
 %
-} 
-Обратите внимание на безымянные переменные (\lstinline|[]|) в строках 4 и 6.
+}. 
+Обратите внимание на безымянные переменные (\lstinline|[]|) 
+в строках 4 и 6 запроса~\ref{lst:human-settlement4}. 
 
 
 \begin{table}[h]
@@ -588,9 +588,11 @@ ORDER BY DESC (?count)
 \label{tab:human-settlement1}
 \end{table}
 
-Исследования, проведённые выше, показывают, что класс <<населённый пункт>> 
-используется совместно с разными класами поселений. 
-Поэтому мы не будем его добавлять ни к сельским, ни к городским поселениям.
+Результаты построенных выше запросов 
+показывают, что объект Викиданных \wdqName{населённый пункт}{486972} 
+используется совместно с разными классами поселений. 
+Поэтому мы не будем его добавлять ни к сельским, ни к городским поселениям 
+при последующем анализе.
 
 Выберем из таблицы~\ref{tab:human-settlement1} классы под номерами 1, 2, 3, 4 и 7. 
 В~дальнейшем комбинация этих классов будет упоминаться как \emph{сельские поселения}. 
