@@ -390,7 +390,7 @@ GROUP BY ?inst
 поскольку других сопутствующих классов нет. 
 Для этого добавим в скрипт~\ref{lst:human-settlement8} строку~\num{9} с фильтром, 
 требующим, чтобы у объекта \lstinline|?hum| 
-кроме \wdProperty{31}{экземпляра} <<населённый пункт>> был ещё какой-либо класс.
+кроме \wdProperty{31}{экземпляра} \wdqName{населённый пункт}{486972} был ещё какой-либо класс.
 
 Во-вторых, в строке \num{8} запроса~\ref{lst:human-settlement8} 
 уберём такие объекты переменной \lstinline|?inst|, 
@@ -444,7 +444,7 @@ ORDER BY DESC (?sumHum)
 10 & \wdqName{Внутренние районы}{2983893} & \num{207}       & \num{503}	& +\num{296}	\\ \hline
 \end{tabular}
 \caption{Количество классов, сопутствующих <<населённому пункту>>, в~2017 и 2021 годы, их разница ($\Delta$). 
-    Получены данные по всему миру. В таблице представлены первые строки ответа на запрос~\protect\ref{lst:human-settlement8}.}
+    Получены данные по всему миру. В таблице представлены первые строки ответа на запрос~\protect\ref{lst:human-settlement9}.}
 \label{tab:human-settlement-classes}
 \end{table}   
 
@@ -496,8 +496,8 @@ ORDER BY DESC (?sumHum)
 \end{lstlisting}%
 \footnotetext{Получено 89 результатов. Ссылка на SPARQL-запрос: \href{https://w.wiki/4dTq}{https://w.wiki/4dTq}}
 
-В итоге, 706 классов запроса~\ref{lst:human-settlement7} 
-мы сократили в~запросе~\ref{lst:human-settlement8} 
+В итоге, 707 классов запроса~\ref{lst:human-settlement8} 
+мы сократили в~запросе~\ref{lst:human-settlement9} 
 до 89 различных классов, сопутствующих <<населённому пункту>> в свойстве <<экземпляр>>. 
 В таблице~\ref{tab:human-settlement-classes} представлены первые 10 наиболее частотных классов из 89. 
 
@@ -520,23 +520,22 @@ ORDER BY DESC (?sumHum)
 %%%%%
 \subsection{Список сельских и список городских типов поселений в~России}
 
-Выведем список классов поселений и их количество для объектов, 
+Выведем список типов поселений и их количество для объектов, 
 имеющих свойство \wdProperty{1082}{<<численность населения>>} 
-и принадлежащих \wdqName{России}{159} (листинг~\ref{lst:human-settlement4}). 
+и принадлежащих \wdqName{России}{159} (листинг запроса~\ref{lst:human-settlement4}). 
 
 \index{SPARQL!COUNT!Список классов поселений и их количество для объектов в России, имеющих свойство <<численность населения>>}
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/4yyi}{Список классов поселений и их количество для объектов, имеющих свойство <<численность населения>> в России}\protect\footnotemark},
+                    caption={\href{https://w.wiki/4zPi}{Список классов поселений и их количество для объектов, имеющих свойство <<численность населения>> в России}\protect\footnotemark},
                     label=lst:human-settlement4,
                     texcl 
                     ]
 # List of instances of settlement with population in Russia
 SELECT ?class ?classLabel (COUNT(?class) AS ?count) WHERE {
   SELECT ?class ?classLabel WHERE {
-    [] wdt:P31 wd:Q486972; # noname instance of settlement
+    [] wdt:P31 ?class; # noname instance of class
          wdt:P17 wd:Q159;  # in Russia
-         wdt:P1082 [];     # has ?population
-         wdt:P31 ?class.   # instance of ?class
+         wdt:P1082 [].     # has population
     FILTER(?class != wd:Q486972).# skip settlement itself
     SERVICE wikibase:label{bd:serviceParam wikibase:language "ru"}
   }
@@ -544,13 +543,13 @@ SELECT ?class ?classLabel (COUNT(?class) AS ?count) WHERE {
 GROUP BY ?class ?classLabel
 ORDER BY DESC (?count)
 \end{lstlisting}%
-\footnotetext{Получили 36 разных классов поселений. Ссылка на SPARQL-запрос: \href{https://w.wiki/4yyi}{https://w.wiki/4yyi}}
+\footnotetext{Получили 229 разных классов поселений в 2022 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4zPi}{https://w.wiki/4zPi}}
 
-Основные классы, полученные с помощью запроса~\ref{lst:human-settlement4}, 
+Основные классы поселений, полученные с помощью запроса~\ref{lst:human-settlement4}, 
 представлены в таблице~\ref{tab:human-settlement1}. 
 
-Строка шесть в~запросе~\ref{lst:human-settlement4} 
-(\lstinline|wdt:P1082 ?pop;|) 
+Наличие строки шесть в~запросе~\ref{lst:human-settlement4} 
+(\lstinline|wdt:P1082 []|) 
 существенно уменьшает числа в таблице~\ref{tab:human-settlement1} 
 в~столбце <<Количество>>. 
 Это связано с тем, что у многих населённых пунктов 
@@ -564,8 +563,12 @@ ORDER BY DESC (?count)
 на с.~\pageref{lst:anime_no_pub_date}.%
 %
 }. 
+
 Обратите внимание на безымянные переменные (\lstinline|[]|) 
-в строках 4 и 6 запроса~\ref{lst:human-settlement4}. 
+в строках 4~и~6 запроса~\ref{lst:human-settlement4}. 
+Эта безымянность связана с тем, что 
+важен факт указания численности населения, но не количество людей в них (строка~6),  
+нам не нужны названия сёл и деревень (строка~4).  
 
 
 \begin{table}[h]
@@ -573,26 +576,29 @@ ORDER BY DESC (?count)
 \begin{tabular}{|l|l|l|l|}
 \hline
 \textnumero & Название класса & \specialcell{Количество} & Население \\ \hline
-1 &\specialcell{Сельское поселение\\в России (Q634099)}& \num{18104} & 34 млн \\
-2 & \wdqName{деревня}{5084}   & 228           & \num{1,7} млн\\
-3 & \wdqName{село}{532}	      & \num{9875}    & \num{10,6} млн\\ 
-4 & \wdqName{посёлок}{2514025} & \num{4418}   & \num{3,3} млн\\ 
-7 & \wdqName{хутор}{2023000}  & \num{1733}    & \num{0,51} млн\\ 
-9 & \wdqName{город}{7930989}  & \num{1171}    & \num{104} млн\\ 
-10 & \wdqName{населённый пункт}{486972} & \num{1168}  & \num{6,6} млн  \\
-11 &\specialcell{посёлок городского типа\\России (Q15078955)}& \num{665} & \num{3745723} \\
-21 &\specialcell{город с населением более\\\num{100000} человек (Q1549591)}& \num{108} & \num{58159327} \\
+1 &\specialcell{Сельское поселение\\в России (Q634099)}& \num{18103} & 34 млн \\
+2 & \wdqName{деревня}{5084}   & \num{15504}   & \num{1,7} млн\\
+3 & \wdqName{село}{532}	      & \num{10203}    & \num{10,6} млн\\ 
+4 & \wdqName{посёлок}{2514025} & \num{4536}   & \num{3,3} млн\\ 
+5 & \wdqName{хутор}{2023000}  & \num{1782}    & \num{0,51} млн\\ 
+6 &\specialcell{Городское поселение\\в России (Q2661988)}& \num{1502} &  млн \\
+7 & \wdqName{город}{7930989}  & \num{1170}    & \num{104} млн\\ 
+8 & \wdqName{рабочий посёлок}{20019082}  & \num{583}    & \num{104} млн\\ 
+9 & \wdqName{станица}{748331} & \num{255}  & \num{6,6} млн  \\
+?? & \wdqName{аул}{771444} & \num{159}  & \num{6,6} млн  \\
+
+?? &\specialcell{город с населением более\\\num{100000} человек (Q1549591)}& \num{108} & \num{58159327} \\
 54 & \wdqName{город-миллионер}{1637706} & \num{14}    & \num{32136227} \\ \hline
 \end{tabular}
 \caption{Таблица классов и количество их упоминаний среди объектов, имеющих свойство <<численность населения>> в России}
 \label{tab:human-settlement1}
 \end{table}
 
-Результаты построенных выше запросов 
-показывают, что объект Викиданных \wdqName{населённый пункт}{486972} 
-используется совместно с разными классами поселений. 
-Поэтому мы не будем его добавлять ни к сельским, ни к городским поселениям 
-при последующем анализе.
+Объект Викиданных \wdqName{населённый пункт}{486972} 
+может быть указан в качестве класса (свойство \wdProperty{31}{экземпляр}) 
+как у сельских, так и у городских поселений. 
+Поэтому он нам не поможет в различении этих типов поселений 
+и мы его пропускаем с помощью строки~7 запроса~\ref{lst:human-settlement4}.
 
 Выберем из таблицы~\ref{tab:human-settlement1} классы под номерами 1, 2, 3, 4 и 7. 
 В~дальнейшем комбинация этих классов будет упоминаться как \emph{сельские поселения}. 
