@@ -768,51 +768,51 @@ ORDER BY ?count
 \subsection{Найти учёных среди людей}
 
 Есть два способа получения списка учёных. 
-Первый~--- у большинства учёных в Викиданных заполнено свойства \wdProperty{512}{научная степень}. 
+Первый~--- у большинства учёных в Викиданных заполнено свойство \wdProperty{512}{научная степень}. 
 Запросим в Викиданных россиян, имеющих такое свойство (листинг~\ref{lst:human-settlement14}), 
 и получим список отечественных учёных. 
 
-На полях: Зачем нужна команда \lstinline|DISTINCT| в~строке~??? запроса~\ref{lst:human-settlement14}? 
-Почему без этой команды число учёных не~изменится, а~число записей с~ответами увеличится?
+
+Отметим, что если учёный жил и в СССР, и в современной России, 
+то у персоны в поле \wdProperty{27}{гражданство} записаны две страны.  
+Благодаря команде \lstinline|DISTINCT| (строка~2 запроса~\ref{lst:human-settlement14}) 
+такой учёный посчитается ровно один раз. 
+Поэтому удаление команды \lstinline|DISTINCT| почти удваивает число отечественных учёных. 
 
 \index{SPARQL!COUNT!Количество людей из России с учёной степенью}
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/4deJ}{Количество людей из России с учёной степенью}\protect\footnotemark},
+                    caption={\href{https://w.wiki/537r}{Количество людей из России с учёной степенью}\protect\footnotemark},
                     label=lst:human-settlement14,
                     texcl 
                     ]
-# Count of peoples in Russian with academic degree
+# Count of peoples in Russia with academic degree
 SELECT (COUNT(DISTINCT ?hum) AS ?human_count) WHERE {
-  # Russian Empire, Soviet Union and Russia
+         # Russian Empire, Soviet Union and Russia
   VALUES ?ruCountries {wd:Q34266 wd:Q15180 wd:Q159}
-  ?hum wdt:P512 ?academic_degree;  # has academic degree 
-       wdt:P27 ?ruCountries. # lives (lived) in Russian countries
-  SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
+  ?hum wdt:P512 ?academic_degree;  # holds academic degree 
+       wdt:P27 ?ruCountries. # lives (lived) in Russia
 }
 \end{lstlisting}%
-\footnotetext{Получено 24297 человек. Ссылка на SPARQL-запрос: \href{https://w.wiki/4deJ}{https://w.wiki/4deJ}}
+\footnotetext{Получено 24297 человек на~2022 год. Ссылка на SPARQL-запрос: \url{https://w.wiki/537r}}
 
-Второй по наличию свойства \wdProperty{463}{участник организации} нескольких академий: \wdqName{academy of sciences}{414147}, \wdqName{learned society}{955824}, \wdqName{scientific society}{74801}, \wdqName{academy}{162633}, \wdqName{research institute}{31855}, \wdqName{educational institution}{2385804 }. Выведем список людей имеющих такое свойство (листинг~\protect\ref{lst:human-settlement15}). 
+Второй способ получения списка учёных~--- это проверка наличия одного из свойств 
+\wdProperty{463}{участник организации} нескольких академий: \wdqName{academy of sciences}{414147}, \wdqName{learned society}{955824}, \wdqName{scientific society}{74801}, \wdqName{academy}{162633}, \wdqName{research institute}{31855}, \wdqName{educational institution}{2385804 }. Выведем список людей имеющих такое свойство (листинг~\protect\ref{lst:human-settlement15}). 
 
 \index{SPARQL!COUNT!Количество людей из академий в России}
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/4deV}{Количество людей из академий в России}\protect\footnotemark},
+                    caption={\href{https://w.wiki/539x}{Количество людей из академий в России}\protect\footnotemark},
                     label=lst:human-settlement15,
                     texcl 
                     ]
-# Count of peoples in Russian in academy
+# Number of Russian in some academy
 SELECT (COUNT(DISTINCT ?hum) AS ?human_count) WHERE {
   VALUES ?ruCountries {wd:Q34266 wd:Q15180 wd:Q159}
-  VALUES ?class_academy {wd:Q414147 wd:Q955824 wd:Q74801 wd:Q162633 
-                      wd:Q31855 wd:Q2385804 wd:Q83172}
-  ?hum wdt:P463 ?academy;  # has academic degree 
-       wdt:P27 ?ruCountries. # lives (lived) in countries
-  # academy is an element of the class academy
-  ?academy wdt:P31 ?class_academy. 
-  SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
+  VALUES ?class_academy {wd:Q414147 wd:Q955824 wd:Q162633 wd:Q31855 wd:Q2385804 wd:Q83172}
+  ?hum wdt:P27 ?ruCountries;               # citizenship of one of countries
+       wdt:P463 [ wdt:P31 ?class_academy]. # member of ?academy
 }
 \end{lstlisting}%
-\footnotetext{Получено 4170 человек. Ссылка на SPARQL-запрос: \href{https://w.wiki/4deV}{https://w.wiki/4deV}}
+\footnotetext{Получено 4170 человек. Ссылка на SPARQL-запрос: \url{https://w.wiki/539x}}
 
 Первый способ дает больше людей, что позволить увидеть более подробную картину на диаграммах ниже. Будем его использовать для построения диаграмм ниже.
 
