@@ -1,5 +1,85 @@
 \chapter{Музыкальные композиции}
 \label{ch:musical-composition}
+Статья посвящена исследованию музыкальных композиций на основе базы знаний международного проекта Викиданные. С помощью SPARQL-запросов, вычисляемых на объектах типа ”музыкальная композиция” в Викиданных, получен список всех музыкальных композиций, список музыкальных композиций, имеющих композиторов, а также построена пузырьковая диаграмма, показывающая композиторов с наибольшим количеством композиций. Кроме того, решена задача поиска музыкальных лакун в общественном достоянии и выполнена оценка полноты Викиданных.
 
+\section{Экземпляры объекта «Музыкальные композиции»}
 
+\marginnote {Используемые в запросах объекты: \item\wdqNameqwsa {<<музыкальная композиция>>} {207628};
+Используемое свойство: \wdProperty{31}{<<экземпляр>>}
+}
+Построим список всех музыкальных композиций.
 
+\begin{lstlisting}[ language=SPARQL, numbers=none,
+                    caption={\href{https://w.wiki/52VP}{Список всех  музыкальных композиций}\protect\footnotemark},
+                    label=lst:musical-composition,
+                    texcl 
+                    ]
+#List of all musical compositions
+SELECT ?composition ?compositionLabel 
+WHERE {
+  ?composition wdt:P31 wd:Q207628.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
+}
+\end{lstlisting}%
+
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/52VP}{https://w.wiki/52VP}. 5494 записи в 2017 году.}
+Наиболее полными и проработанными музыкальными композициями на Викиданных являются: \wdqName{Волшебная флейта}{5064}, \wdqName{К Элизе}{11980}, \wdqName{Реквием}{207875}, \wdqName{Маленькая ночная серенада}{12025}.
+
+Почти пустыми и малоинформативными музыкальными композициями были: \wdqName{Полёт шмеля}{1342275}, \wdqName{Ромео и Джульетта}{763716}, \wdqName{Симфонический эпизод «Завод»}{1845909}, \wdqName{Binks’ Waltz}{28807544}, \wdqName{The Rose-bud March}{28803595}, \wdqName{Leola}{28804177}.
+
+В 2022 году тот же скрипт нашёл 453 музыкальные композиции вместо 5,5 тысяч в 2017 году. Уменьшение числа композиций связано с тем, что эти объекты Викиданных являются теперь не экземплярами объекта «музыкальные произведения», а его экземплярами различных подклассов «музыкального произведения». При поиске подклассов объекта «музыкальные произведения» можно найти такие жанры: \wdqName{драматико-музыкальное произведение}{58483083}, \wdqName{гимн}{484692}, \wdqName{баллада}{182659}.
+
+Найдём количество музыкальных композиций в каждом жанре с помощью следующего запроса.
+
+\begin{lstlisting}[ language=SPARQL, numbers=none,
+                    caption={\href{https://w.wiki/4$PC}{ Количество музыкальных композиций в каждом жанре}\protect\footnotemark},
+                    label=lst:subjects-of-Russia,
+                    texcl 
+                    ]
+# Count of pieces of music in each subclass
+SELECT ?type (COUNT(?subMusicInstance) AS ?count) ?subMusicLabel WHERE {
+  ?type wdt:P279* wd:Q207628.      # subclass of musical composition
+  ?subMusicInstance wdt:P31 ?type  # instance  of that class of which this subject is a particular example and member
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en". }
+}
+GROUP BY ?type ?subMusicLabel
+ORDER BY DESC (?count)
+\end{lstlisting}%
+
+\footnotetext{Ссылка на \href{https://w.wiki/4$PC}{SPARQL-запрос}, 232 подкласса музыкальных композиций на 2022 год.}
+
+Теперь подсчитаем общее суммарное число музыкальных произведений с учётом музыкальных композиций в подклассах. Для этого добавим в наш скрипт команду SUM() и удалим лишние строки. Получим такой код:
+
+\begin{lstlisting}[ language=SPARQL, numbers=none,
+                    caption={\href{https://w.wiki/4$Q$}{ Суммарное число музыкальных произведений с учётом музыкальных композиций в подклассах}\protect\footnotemark},
+                    label=lst:oblast-of-Russia,
+                    texcl 
+                    ]
+# The total number of musical works for all subclasses 
+SELECT (SUM(?count) AS ?sum) WHERE{
+  SELECT (COUNT(?music) AS ?count) WHERE {
+    ?type wdt:P279* wd:Q207628.  # subclass of musical composition
+    ?music wdt:P31 ?type  # instance  of that class of which this subject is a particular example and member
+  }
+}
+\end{lstlisting}%
+
+\footnotetext{Ссылка на \href{https://w.wiki/4$Q$}{SPARQL-запрос}.
+
+Можно записать этот код еще короче. Переменная ?type нам не нужна, поэтому можно обойтись без неё, а 4 и 5 строки поменяем местами.
+
+\begin{lstlisting}[ language=SPARQL, numbers=none,
+                    caption={\href{https://w.wiki/4$R3}{ Суммарное число музыкальных произведений с учётом музыкальных композиций в подклассах}\protect\footnotemark},
+                    label=lst:oblast-of-Russia,
+                    texcl 
+                    ]
+# The total number of musical works for all subclasses 
+SELECT (SUM(?count) AS ?sum) WHERE{
+  SELECT (COUNT(?music) AS ?count) WHERE {
+    ?music wdt:P31   # instance of
+          [ wdt:P279* wd:Q207628 ]. # subclass of musical composition
+  }
+}
+\end{lstlisting}%
+
+\footnotetext{Ссылка на \href{https://w.wiki/4$R3}{SPARQL-запрос}, на 1 апреля 2022 года запрос выдает 135466 музыкальных произведений. По сравнению с 2017 годом 5494 записи, число записей увеличилось в несколько раз. Это связано с тем, что за 5 лет было добавлено множество новых музыкальных произведений, а также старых, которые не учли ранее.}
