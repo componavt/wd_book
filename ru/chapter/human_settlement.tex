@@ -745,6 +745,7 @@ ORDER BY ?count
 из~результата запроса~\ref{lst:human-settlement13}, 
 которые могут соответствовать каким-либо научными направлениям.
 
+
 \begin{table}[h]
 \centering
 \begin{tabular}{|r|l|c|}
@@ -764,6 +765,9 @@ ORDER BY ?count
 \label{tab:human-settlement3}
 \end{table}
 
+
+
+
 %%%%%
 \subsection{Найти учёных среди людей}
 
@@ -774,7 +778,7 @@ ORDER BY ?count
 
 
 Отметим, что если учёный жил и в СССР, и в современной России, 
-то у персоны в поле \wdProperty{27}{гражданство} записаны две страны.  
+то у персоны в поле \wdProperty{27}{гражданство} будут указаны обе страны.  
 Благодаря команде \lstinline|DISTINCT| (строка~2 запроса~\ref{lst:human-settlement14}) 
 такой учёный посчитается ровно один раз. 
 Поэтому удаление команды \lstinline|DISTINCT| почти удваивает число отечественных учёных. 
@@ -793,10 +797,20 @@ SELECT (COUNT(DISTINCT ?hum) AS ?human_count) WHERE {
        wdt:P27 ?ruCountries. # lives (lived) in Russia
 }
 \end{lstlisting}%
-\footnotetext{Получено 24297 человек на~2022 год. Ссылка на SPARQL-запрос: \url{https://w.wiki/537r}}
+\footnotetext{Получено 24297 учёных на~2022 год. Ссылка на SPARQL-запрос: \url{https://w.wiki/537r}}
 
-Второй способ получения списка учёных~--- это проверка наличия одного из свойств 
-\wdProperty{463}{участник организации} нескольких академий: \wdqName{academy of sciences}{414147}, \wdqName{learned society}{955824}, \wdqName{scientific society}{74801}, \wdqName{academy}{162633}, \wdqName{research institute}{31855}, \wdqName{educational institution}{2385804 }. Выведем список людей имеющих такое свойство (листинг~\protect\ref{lst:human-settlement15}). 
+Второй способ получения списка учёных~--- это проверка свойства \wdProperty{463}{участник организации}. 
+Если у человека в~этом свойстве указана одна из~научных или образовательных организаций\footnote{% 
+%
+%(\wdqName{academy of sciences}{414147}, \wdqName{learned society}{955824}, \wdqName{scientific society}{748019}, \wdqName{academy}{162633}, \wdqName{research institute}{31855}, \wdqName{educational institution}{2385804}). 
+%
+Мы проверяли наличие следующих научных и образовательных организаций
+в~запросе~\ref{lst:human-settlement15}: 
+\wdqName{академия наук}{414147}, \wdqName{научная ассоциация}{955824}, 
+\wdqName{научное общество}{748019}, \wdqName{академия}{162633}, 
+\wdqName{научно-исследовательский институт}{31855}, \wdqName{образовательное учреждение}{2385804}.%
+},  % eo footnote
+то выведем список таких людей с~помощью запроса~\ref{lst:human-settlement15}. 
 
 \index{SPARQL!COUNT!Количество людей из академий в России}
 \begin{lstlisting}[ language=SPARQL, 
@@ -808,13 +822,15 @@ SELECT (COUNT(DISTINCT ?hum) AS ?human_count) WHERE {
 SELECT (COUNT(DISTINCT ?hum) AS ?human_count) WHERE {
   VALUES ?ruCountries {wd:Q34266 wd:Q15180 wd:Q159}
   VALUES ?class_academy {wd:Q414147 wd:Q955824 wd:Q162633 wd:Q31855 wd:Q2385804 wd:Q83172}
-  ?hum wdt:P27 ?ruCountries;               # citizenship of one of countries
+  ?hum wdt:P27 ?ruCountries;  # citizenship of one of countries
        wdt:P463 [ wdt:P31 ?class_academy]. # member of ?academy
 }
 \end{lstlisting}%
-\footnotetext{Получено 4170 человек. Ссылка на SPARQL-запрос: \url{https://w.wiki/539x}}
+\footnotetext{Получили 4215 учёных на 2022 год. Ссылка на SPARQL-запрос: \url{https://w.wiki/539x}}
 
-Первый способ дает больше людей, что позволить увидеть более подробную картину на диаграммах ниже. Будем его использовать для построения диаграмм ниже.
+Первым способом мы нашли почти в шесть раз больше учёных. 
+Этим способом и воспользуемся далее. 
+
 
 %%%%%
 \subsection{Построение диаграммы на которой разным цветом будут указаны разные научные направления для учёных родившихся в сельских поселениях}
