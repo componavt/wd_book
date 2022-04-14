@@ -797,7 +797,7 @@ SELECT (COUNT(DISTINCT ?hum) AS ?human_count) WHERE {
        wdt:P27 ?ruCountries. # lives (lived) in Russia
 }
 \end{lstlisting}%
-\footnotetext{Получено 24297 учёных на~2022 год. Ссылка на SPARQL-запрос: \url{https://w.wiki/537r}}
+\footnotetext{Получено 24797 учёных на~2022 год. Ссылка на SPARQL-запрос: \url{https://w.wiki/537r}}
 
 Второй способ получения списка учёных~--- это проверка свойства \wdProperty{463}{участник организации}. 
 Если у человека в~этом свойстве указана одна из~научных или образовательных организаций\footnote{% 
@@ -832,30 +832,73 @@ SELECT (COUNT(DISTINCT ?hum) AS ?human_count) WHERE {
 Этим способом и воспользуемся далее. 
 
 
+
+
 %%%%%
-\subsection{Построение диаграммы на которой разным цветом будут указаны разные научные направления для учёных родившихся в сельских поселениях}
+\subsection{Построение диаграммы с годами рождения учёных, родившихся в сельских поселениях, и научными направлениями}
 
-Используя вышеописанные шаги, получаем запрос~\protect\ref{lst:human-settlement16}.
-
-\index{SPARQL!COUNT!Диаграмма количества ученых по родам деятельности родившихся в сельских поселениях}
-\index{SPARQL!FILTER!Диаграмма количества ученых по родам деятельности родившихся в сельских поселениях}
-\index{SPARQL!FLOOR!Диаграмма количества ученых по родам деятельности родившихся в сельских поселениях}
-\index{SPARQL!YEAR!Диаграмма количества ученых по родам деятельности родившихся в сельских поселениях}
-\index{SPARQL!STR!Диаграмма количества ученых по родам деятельности родившихся в сельских поселениях}
-\index{SPARQL!BIND!Диаграмма количества ученых по родам деятельности родившихся в сельских поселениях}
-\index{SPARQL!GROUP BY!Диаграмма количества ученых по родам деятельности родившихся в сельских поселениях}
-\index{График!BarChart!Диаграмма количества ученых по родам деятельности родившихся в сельских поселениях}
+Сначала с помощью запроса~\ref{lst:scholar-degree} 
+построим список российских учёных, имеющих научную степень.
 
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/xxxx}{Диаграмма количества ученых по родам деятельности родившихся в сельских поселениях}\protect\footnotemark},
-                    label=lst:human-settlement16,
+                    caption={\href{https://w.wiki/53wx}{Список российских учёных с научной степенью}\protect\footnotemark},
+                    label=lst:scholar-degree,
                     texcl 
                     ]
-# defaultView:BarChart
-# Diagram of the number of scientists by occupation in rural settlements
-
+# List of peoples from Russia with academic degree
+SELECT DISTINCT ?hum ?humLabel WHERE {
+      # Russian Empire, Soviet Union and Russia
+    VALUES ?state { wd:Q34266 wd:Q15180 wd:Q159}
+    ?hum wdt:P27 ?state; # citizenship
+         wdt:P512 []; # has academic degree 
+    SERVICE wikibase:label{bd:serviceParam wikibase:language "ru"}
+}
 \end{lstlisting}%
-\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/xxxx}{https://w.wiki/xxxx}}
+\footnotetext{Получено \num{24797} учёных на 2022 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/53wx}{https://w.wiki/53wx}}
+
+
+
+Теперь с помощью запроса~\ref{lst:scholar-village} 
+построим диаграмму учёных, родившихся в селе, с разбивкой по десятилетиям %(?time_lapse) 
+и научным направлениям.
+
+\index{График!BarChart!Диаграмма отечественных учёных с разбивкой по годам рождений, родившихся в сельских поселениях}
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={\href{https://w.wiki/53xM}{Построение диаграммы отечественных учёных, рождённых в сёлах, по десятилетиям и занятиям}\protect\footnotemark},
+                    label=lst:scholar-village,
+                    texcl 
+                    ]
+#defaultView:BarChart
+SELECT DISTINCT (SAMPLE(?year_lapse) AS ?year) (COUNT(?hum) AS ?count) (GROUP_CONCAT(DISTINCT ?jobsLabel; SEPARATOR=", ") AS ?job) 
+WITH {
+  SELECT DISTINCT ?hum 
+  WHERE {
+          # Russian Empire, Soviet Union and Russia
+          VALUES ?state { wd:Q34266 wd:Q15180 wd:Q159}
+          ?hum wdt:P27 ?state; # citizenship
+               wdt:P512 []; # has academic degree 
+  }
+} AS %result
+WHERE {
+  INCLUDE %result
+
+  # rural settlement of Russia, hamlet, village...
+  VALUES ?placeb {wd:Q634099 wd:Q5084 wd:Q532 wd:Q2514025 wd:Q2023000 wd:20019082 wd:748331}
+  VALUES ?jobs {wd:Q169470 wd:Q201788 wd:Q188094 wd:Q170790 wd:Q81096 wd:Q1650915 wd:Q593644 wd:Q39631 wd:Q185351 wd:Q864503}
+      ?hum wdt:P106 ?jobs; # occupation
+           wdt:P19 [wdt:P31 ?placeb]; # place of birth
+           wdt:P569 ?birthday.
+  
+  BIND(str(FLOOR(YEAR(?birthday)/10)*10) AS ?year_lapse). # count for each 10 yearsr
+  FILTER(YEAR(?birthday) > 1850 && YEAR(?birthday) < 2000).
+  SERVICE wikibase:label{bd:serviceParam wikibase:language"ru".
+                         ?jobs rdfs:label ?jobsLabel.}
+}
+GROUP BY ?year_lapse ?jobsLabel
+ORDER BY ?year_lapse
+\end{lstlisting}%
+\footnotetext{Получено \num{99} записей на 2022 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/53xM}{https://w.wiki/53xM}}
+
 
 Диаграмма~\ref{fig:human-settlement-5} показывает количество учёных по родам деятельности, 
 родившихся в сельских поселениях.
@@ -867,6 +910,8 @@ SELECT (COUNT(DISTINCT ?hum) AS ?human_count) WHERE {
 	\label{fig:human-settlement-5}
 	\caption[Диаграмма количества ученых по родам деятельности родившихся в сельских поселениях.]{Диаграмма количества ученых по родам деятельности родившихся в сельских поселениях. Ссылка на SPARQL-запрос: \href{https://w.wiki/xxxx}{https://w.wiki/xxxx}.}%
 \end{figure*} 
+
+
 
 %%%%%
 \subsection{Построение диаграммы для учёных родившихся в городских поселениях и сравнение диаграмм}
