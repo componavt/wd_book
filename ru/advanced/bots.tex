@@ -429,15 +429,25 @@ title=item.title()))
 но в~листинге~\ref{lst:occupation-mistakeslist} 
 для большей наглядности использована функция \lstinline|format()|.}
 
-Список <<ошибочных>> профессий (объектов ВД), подлежащих удалению, сохранён в переменной \textit{delete\_occupation}. Мы обходим этот список с помощью цикла \textit{for}, чтобы с помощью SPARQL - запроса получить список людей для каждой <<подозрительной>> профессии. Этот~(листинг~\ref{lst:occupation-mistakeslist}) отличается от~(листинга~\ref{lst:occupation-list}) тем, что в ~листинге~\ref{lst:occupation-mistakeslist} есть переменная \textit{occupation}, которая берёт значение из массива \textit{delete\_occupation} и подставляет его в SPARQL - запрос.
+Список <<ошибочных>> профессий (объектов ВД), подлежащих удалению, сохранён в переменной 
+\textit{delete\_occupation}. 
+Мы обходим этот список с помощью цикла \textit{for}, 
+чтобы с помощью SPARQL-запроса получить список людей для каждой <<подозрительной>> профессии. 
+Этот~(листинг~\ref{lst:occupation-mistakeslist}) отличается от~(листинга~\ref{lst:occupation-list}) тем, 
+что в ~листинге~\ref{lst:occupation-mistakeslist} есть переменная \textit{occupation}, 
+которая берёт значение из массива \textit{delete\_occupation} и подставляет его в SPARQL-запрос.
 
 Теперь, если мы уверены, что информация о профессии неверна, и мы хотим ее удалить, то достаточно указать свойство, которое нужно удалить.
 
-Есть ещё одна трудность. Дело в том, что персона может и иметь несколько профессий, а удалить мы хотим только одну. Для удаления этой одной профессии нам нужно знать её значение. Вот, как можно это сделать, см.~(листинг~\ref{lst:delete-occupation}). 
+Есть ещё одна трудность. Дело в том, что персона может и иметь несколько профессий, а удалить мы хотим только одну. 
+Для удаления этой одной профессии нам нужно знать её значение. 
+Вот, как можно это сделать, см.~(листинг~\ref{lst:delete-occupation}). 
 
+\begin{fullwidth}
 \begin{lstlisting}[ language=Python,
                     caption={Корректное удаление профессии},
-                    label=lst:delete-occupation
+                    label=lst:delete-occupation, 
+                    numbers=none
                   ]
 import pywikibot
 from pywikibot import pagegenerators
@@ -455,19 +465,15 @@ for occupation in delete_occupation:
   pages = pagegenerators.WikidataSPARQLPageGenerator(query, 
   site=site)
   for item in pages:
-    print("Люди, чья профессия 
-{occupation}: {title}" . format(occupation=occupation, 
-title=item.title()))
+    print("Люди, чья профессия {occupation}: {title}".format(occupation=occupation, title=item.title()))
     item.get()
 
     for valor in item.claims['P106']:
-      if (str(valor.getTarget())=='[[wikidata:' + occupation + 
-']]'):
-        print("<<<<< Удалить {occupation} от {title} >>>>>" . 
-format(occupation=occupation, title=item.title()))
-        item.removeClaims(valor, summary=u'Удаление 
-ошибочных значений в P106')
+      if (str(valor.getTarget())=='[[wikidata:' + occupation + ']]'):
+        print("<<<<< Удалить {occupation} от {title} >>>>>" . format(occupation=occupation, title=item.title()))
+        item.removeClaims(valor, summary=u'Удаление ошибочных значений в P106')
 \end{lstlisting} 
+\end{fullwidth}
 
 В листинге~\ref{lst:delete-occupation} мы сохранили код листинга~\ref{lst:occupation-mistakeslist}, но добавили последние строки, в которых мы просматриваем значения, содержащиеся в свойстве \wdProperty{106}{}, с помощью свойства \textit{claims}. Если это совпадает с искомой профессией, мы удаляем его методом \textit{removeClaims}. При вызове этого метода нужно указать удаляемое значение и комментарий к редакторской правке (summary)\sidenote[]{Комментарии к правкам позволяют другим редактоарм быстро понять, какие изменения были внесены в страницу или объект Викиданных.}, сохраняемый в истории правок вики-страницы.
 

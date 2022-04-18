@@ -219,6 +219,20 @@
 
 
 
+
+%%% Draft or release version of the book
+\makeatletter
+\@ifundefined{c@draft}{
+  \newcounter{draft}
+  \setcounter{draft}{0} % 0 --- clean release version, without any comments, 
+}{}                     %       with only finished chapters.
+\makeatother            % 1 --- draft version, unfinished chapters included, 
+                        %       with questions and comments
+%%% eo Draft or release
+
+
+
+
 % Remove prefix from figure caption in tufte-book, see https://tex.stackexchange.com/a/106422/99685
 \makeatletter
 \newenvironment{nocapfigure}
@@ -468,10 +482,6 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 % r.5 contents
 \tableofcontents
 
-\listoffigures
-
-\listoftables
-
 % r.7 dedication
 \clearpage
 \vfill
@@ -532,8 +542,6 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 \label{part:foundation}
 
 \input{./intro/listings_about.tex}
-\input{./intro/prowd.tex}
-
 \input{./review/about_wd.tex}
 \input{./intro/buckets_and_balls.tex}
 
@@ -550,8 +558,11 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 \input{./chapter/city.tex}
 \input{./chapter/country.tex}
 
-\input{./chapter/musical_composition.tex}
-\input{./chapter/national_park.tex}
+\ifnumequal{\value{draft}}{1}{%
+  \input{./chapter/musical_composition.tex}
+  \input{./chapter/national_park.tex}
+}
+
 \input{./chapter/oblast_of_Russia.tex}
 \input{./chapter/operating_system.tex}
 \input{./chapter/programming_language.tex}
@@ -561,6 +572,7 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 
 \part{Специальные возможности вики-проектов и Викиданных}
 \label{part:advanced}
+\input{./intro/prowd.tex}
 \input{./advanced/page_protection.tex}
 \input{./advanced/bots.tex}
 
@@ -584,9 +596,19 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 
 \backmatter
 
+\cleardoublepage
+
+\phantomsection
+\addcontentsline{toc}{chapter}{\listfigurename}
+\listoffigures
+
+\phantomsection
+\addcontentsline{toc}{chapter}{\listtablename}
+\listoftables
+
 %\bibliographystyle{plainnat}
 %\bibliography{wd_references}
-\printbibliography 
+\printbibliography[heading=bibintoc]
 
 \printindex
 
