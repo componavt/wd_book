@@ -703,7 +703,7 @@ SELECT (SUM(?population) AS ?count) WHERE {
 %
 %
 в запросе~\ref{lst:human-settlement-count-total-city} 
-эту проблему не решает, поскольку это разные объекты. 
+эту проблему не решает, поскольку большой город и входящий в него маленький город~--- это разные объекты. 
 Один из вариантов решения заключается в том, 
 чтобы дополнительно проверять населённые пункты~---  
 не входят ли они в более крупные населённые пункты, 
@@ -798,7 +798,7 @@ SELECT (COUNT(DISTINCT ?hum) AS ?human_count) WHERE {
        wdt:P27 ?ruCountries. # lives (lived) in Russia
 }
 \end{lstlisting}%
-\footnotetext{Получено 24797 учёных на~2022 год. Ссылка на SPARQL-запрос: \url{https://w.wiki/537r}}
+\footnotetext{Получено \num{24797} учёных на~2022 год. Ссылка на SPARQL-запрос: \url{https://w.wiki/537r}}
 
 Второй способ получения списка учёных~--- это проверка свойства \wdProperty{463}{участник организации}. 
 Если у человека в~этом свойстве указана одна из~научных или образовательных организаций\footnote{% 
@@ -827,7 +827,7 @@ SELECT (COUNT(DISTINCT ?hum) AS ?human_count) WHERE {
        wdt:P463 [ wdt:P31 ?class_academy]. # member of ?academy
 }
 \end{lstlisting}%
-\footnotetext{Получили 4215 учёных на 2022 год. Ссылка на SPARQL-запрос: \url{https://w.wiki/539x}}
+\footnotetext{Получили \num{4215} учёных на 2022 год. Ссылка на SPARQL-запрос: \url{https://w.wiki/539x}}
 
 Первым способом мы нашли почти в шесть раз больше учёных. 
 Этим способом и воспользуемся далее. 
