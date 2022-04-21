@@ -862,18 +862,25 @@ SELECT DISTINCT ?hum ?humLabel WHERE {
 Теперь с помощью запроса~\ref{lst:scholar-village} 
 построим диаграмму учёных, родившихся в селе, с разбивкой по десятилетиям %(?time_lapse) 
 и научным направлениям. 
+Этот запрос интересен тем, что результаты одного запроса \lstinline|SELECT| 
+передаём на вход следующему запросу с помощью конструкции \lstinline|WITH { } AS ... INCLUDE|. 
 
-Этот запрос интересн тем, что результаты одного запроса SELECT 
-передаём на вход следующему запросу с помощью конструкции WITH { } AS ... INCLUDE.
+Запрос~\ref{lst:scholar-degree} как раз и является 
+первой частью запроса запроса~\ref{lst:scholar-village} (строки 2--12). 
+Полученные в этой части учёные далее в строке~21 
+отфильтровываются по месту рождения и те, кто родился в сельских поселениях (строка 17), 
+участвуют в построении графика~\ref{fig:scholars-village-color}
 
-\index{График!BarChart!Диаграмма отечественных учёных с разбивкой по годам рождений, родившихся в сельских поселениях}
+\begin{fullwidth}
+    \index{График!BarChart!Диаграмма отечественных учёных с разбивкой по годам рождений (по десятилетиям), родившихся в сельских поселениях, с фильтрацией и разбивкой по нескольким профессиям (научным направлениям)}
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/53xM}{Построение диаграммы отечественных учёных, рождённых в сёлах, по десятилетиям и занятиям}\protect\footnotemark},
+                    caption={\href{https://w.wiki/55VK}{Построение диаграммы отечественных учёных, рождённых в сёлах, по десятилетиям и занятиям}\protect\footnotemark},
                     label=lst:scholar-village,
                     texcl 
                     ]
 #defaultView:BarChart
-SELECT DISTINCT (SAMPLE(?year_lapse) AS ?year) (COUNT(?hum) AS ?count) (GROUP_CONCAT(DISTINCT ?jobsLabel; SEPARATOR=", ") AS ?job) 
+SELECT DISTINCT (SAMPLE(?year_lapse) AS ?year) (COUNT(?hum) AS ?count) 
+       (GROUP_CONCAT(DISTINCT ?jobsLabel; SEPARATOR=", ") AS ?job) 
 WITH {
   SELECT DISTINCT ?hum 
   WHERE {
@@ -888,12 +895,13 @@ WHERE {
 
   # rural settlement of Russia, hamlet, village...
   VALUES ?placeb {wd:Q634099 wd:Q5084 wd:Q532 wd:Q2514025 wd:Q2023000 wd:20019082 wd:748331}
-  VALUES ?jobs {wd:Q169470 wd:Q201788 wd:Q188094 wd:Q170790 wd:Q81096 wd:Q1650915 wd:Q593644 wd:Q39631 wd:Q185351 wd:Q864503}
-      ?hum wdt:P106 ?jobs; # occupation
-           wdt:P19 [wdt:P31 ?placeb]; # place of birth
-           wdt:P569 ?birthday.
+  VALUES ?jobs {wd:Q169470 wd:Q201788 wd:Q188094 wd:Q170790 wd:Q81096 wd:Q1650915 wd:Q593644 
+                wd:Q39631 wd:Q185351 wd:Q864503}
+  ?hum wdt:P106 ?jobs; # occupation
+       wdt:P19 [wdt:P31 ?placeb]; # place of birth
+       wdt:P569 ?birthday.
   
-  BIND(str(FLOOR(YEAR(?birthday)/10)*10) AS ?year_lapse). # count for each 10 yearsr
+  BIND(str(FLOOR(YEAR(?birthday)/10)*10) AS ?year_lapse). # count for each 10 years
   FILTER(YEAR(?birthday) > 1850 && YEAR(?birthday) < 2000).
   SERVICE wikibase:label{bd:serviceParam wikibase:language"ru".
                          ?jobs rdfs:label ?jobsLabel.}
@@ -901,19 +909,31 @@ WHERE {
 GROUP BY ?year_lapse ?jobsLabel
 ORDER BY ?year_lapse
 \end{lstlisting}%
-\footnotetext{Получено \num{99} записей на 2022 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/53xM}{https://w.wiki/53xM}}
+\footnotetext{Получено \num{99} записей на 2022 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/55VK}{https://w.wiki/55VK}}
+\end{fullwidth}
 
+Итак, диаграмма~\ref{fig:scholars-village-color} показывает количество учёных по родам деятельности, 
+родившихся в сельских поселениях. 
+В строках~18--19 запроса~\ref{lst:scholar-village} 
+в списке \lstinline|?jobs| перечислены профессии этих учёных. 
+Эти профессии мы видим в виде цветных полосок на рис.~\ref{fig:scholars-village-color}, 
+сами профессии перечислены на легенде внизу диаграммы. 
 
-Диаграмма~\ref{fig:human-settlement-5} показывает количество учёных по родам деятельности, 
-родившихся в сельских поселениях.
+TODO: не задавать явно список профессий, а получить список всех профессий учёных автоматически. 
+Возможно, с помощью дополнительного предварительного запроса SELECT.
 
 \begin{figure*}
     \setlength{\fboxsep}{0pt}%
     \setlength{\fboxrule}{1pt}%
-    \fcolorbox{gray}{gray}{\includegraphics[width=1\linewidth]{./chapter/human_settlement/RussianScientistBornVillage.png}}
-	\label{fig:human-settlement-5}
-	\caption[Диаграмма количества ученых по родам деятельности родившихся в сельских поселениях.]{Диаграмма количества ученых по родам деятельности родившихся в сельских поселениях. Ссылка на SPARQL-запрос: \href{https://w.wiki/xxxx}{https://w.wiki/xxxx}.}%
+    \fcolorbox{gray}{gray}{\includegraphics[width=1\linewidth]{./chapter/human_settlement/Russian_scholars_born_in_villages_filtered_by_profession.png}}
+	\label{fig:scholars-village-color}
+    \caption[Диаграмма количества учёных по родам деятельности, родившихся в сельских поселениях.]
+            {Диаграмма количества учёных, родившихся в сельских поселениях, с разбивкой дат рождения по десятилетиям. Фильтрация по нескольким профессиям (научным направлениям). Диаграмма построена по запросу~\ref{lst:scholar-village}.}%
 \end{figure*} 
+
+TODO про наведённую мышку на рисунке. 
+
++ TODO скрипт и диаграмма без фильтрации по профессиям: https://w.wiki/55WY
 
 
 
