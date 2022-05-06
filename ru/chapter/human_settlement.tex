@@ -521,9 +521,10 @@ ORDER BY DESC (?sumHum)
 %%%%%
 \subsection{Список сельских и список городских типов поселений в~России}
 
+С помощью запроса~\ref{lst:human-settlement-noname-count} 
 Выведем список типов поселений и их количество для объектов, 
 имеющих свойство \wdProperty{1082}{<<численность населения>>} 
-и принадлежащих \wdqName{России}{159} (листинг запроса~\ref{lst:human-settlement-noname-count}). 
+и принадлежащих \wdqName{России}{159}. 
 
 \marginnote[64pt]{%
 %
@@ -643,7 +644,8 @@ SELECT ?village ?villageLabel (SUM(?population) AS ?count) WHERE {
 }
 GROUP BY ?village ?villageLabel
 \end{lstlisting}%
-\footnotetext{Число жителей в сельских поселениях России в 2022 году представлено в таблицы~\ref{tab:human-settlement1} в столбце <<Население>>. Ссылка на SPARQL-запрос: \url{https://w.wiki/4$8w}}
+\footnotetext{Число жителей в сельских поселениях России в 2022 году представлено 
+в таблице~\ref{tab:human-settlement1} в столбце <<Население>>. Ссылка на SPARQL-запрос: \url{https://w.wiki/4$8w}}
 
 
 
@@ -801,7 +803,7 @@ SELECT (COUNT(DISTINCT ?hum) AS ?human_count) WHERE {
 \footnotetext{Получено \num{24797} учёных на~2022 год. Ссылка на SPARQL-запрос: \url{https://w.wiki/537r}}
 
 Второй способ получения списка учёных~--- это проверка свойства \wdProperty{463}{участник организации}. 
-Если у человека в~этом свойстве указана одна из~научных или образовательных организаций\footnote{% 
+У человека в~этом свойстве может быть указана одна из~научных или образовательных организаций\footnote{% 
 %
 %(\wdqName{academy of sciences}{414147}, \wdqName{learned society}{955824}, \wdqName{scientific society}{748019}, \wdqName{academy}{162633}, \wdqName{research institute}{31855}, \wdqName{educational institution}{2385804}). 
 %
@@ -810,8 +812,10 @@ SELECT (COUNT(DISTINCT ?hum) AS ?human_count) WHERE {
 \wdqName{академия наук}{414147}, \wdqName{научная ассоциация}{955824}, 
 \wdqName{научное общество}{748019}, \wdqName{академия}{162633}, 
 \wdqName{научно-исследовательский институт}{31855}, \wdqName{образовательное учреждение}{2385804}.%
-},  % eo footnote
-то выведем список таких людей с~помощью запроса~\ref{lst:human-settlement15}. 
+}.  % eo footnote
+С~помощью запроса~\ref{lst:human-settlement15} 
+получим список людей, имеющих отношение к этим организациям, 
+их мы и назовём учёными. 
 
 \index{SPARQL!COUNT!Количество людей из академий в России}
 \begin{lstlisting}[ language=SPARQL, 
@@ -836,7 +840,8 @@ SELECT (COUNT(DISTINCT ?hum) AS ?human_count) WHERE {
 
 
 %%%%%
-\subsection{Построение диаграммы с годами рождения учёных, родившихся в сельских поселениях, и научными направлениями}
+\subsection{Построение диаграммы с научными направлениями 
+и годами рождения учёных, родившихся в сельских поселениях}
 
 Сначала с помощью запроса~\ref{lst:scholar-degree} 
 построим список российских учёных, имеющих научную степень.
@@ -859,22 +864,22 @@ SELECT DISTINCT ?hum ?humLabel WHERE {
 
 
 
-Теперь с помощью запроса~\ref{lst:scholar-village} 
-построим диаграмму учёных, родившихся в селе, с разбивкой по десятилетиям %(?time_lapse) 
-и научным направлениям. 
+Теперь с помощью запроса~\ref{lst:scholar-village-profession} 
+построим диаграмму числа рождений учёных в сёлах с разбивкой по десятилетиям %(?time_lapse) 
+и научным направлениям (рис.~\ref{fig:scholars-village-color}). 
 Этот запрос интересен тем, что результаты одного запроса \lstinline|SELECT| 
-передаём на вход следующему запросу с помощью конструкции \lstinline|WITH { } AS ... INCLUDE|. 
+мы передаём на вход следующему запросу с~помощью конструкции \lstinline|WITH { } AS ... INCLUDE|. 
 
 Запрос~\ref{lst:scholar-degree} как раз и является 
-первой частью запроса запроса~\ref{lst:scholar-village} (строки 2--12). 
+первой частью запроса запроса~\ref{lst:scholar-village-profession} (строки 2--12). 
 Полученные в этой части учёные далее в строке~21 
 отфильтровываются по месту рождения и те, кто родился в сельских поселениях (строка 17), 
-участвуют в построении графика~\ref{fig:scholars-village-color}
+участвуют в построении диаграммы~\ref{fig:scholars-village-color}.
 
 \begin{fullwidth}
     \index{График!BarChart!Диаграмма рождений отечественных учёных, родившихся в сёлах для нескольких профессий}
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/55VK}{Построение диаграммы отечественных учёных, родившихся в сёлах с разбивкой по десятилетиям и занятиям}\protect\footnotemark},
+                    caption={\href{https://w.wiki/55VK}{Построение диаграммы отечественных учёных, родившихся в сёлах, с разбивкой по десятилетиям и занятиям}\protect\footnotemark},
                     label=lst:scholar-village-profession,
                     texcl 
                     ]
@@ -909,7 +914,7 @@ WHERE {
 GROUP BY ?year_lapse ?jobsLabel
 ORDER BY ?year_lapse
 \end{lstlisting}%
-\footnotetext{Получено \num{99} записей на 2022 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/55VK}{https://w.wiki/55VK}}
+\footnotetext{Построена диаграмма~\protect\ref{fig:scholars-village-color} на 2022 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/55VK}{https://w.wiki/55VK}}
 \end{fullwidth}
 
 Итак, диаграмма~\ref{fig:scholars-village-color} показывает количество учёных по родам деятельности, 
@@ -1022,7 +1027,7 @@ ORDER BY ?year_lapse
     \setlength{\fboxrule}{1pt}%
     \fcolorbox{gray}{gray}{\includegraphics[width=1\linewidth]{./chapter/human_settlement/RussianScientistBornTown.png}}
 	\label{fig:human-settlement-6}
-	\caption[Диаграмма количества ученых по родам деятельности родившихся в городских поселениях.]{Диаграмма количества ученых по родам деятельности родившихся в городских поселениях. Ссылка на SPARQL-запрос: \href{https://w.wiki/xxxx}{https://w.wiki/xxxx}}%
+	\caption[Диаграмма количества учёных по родам деятельности, родившихся в городских поселениях.]{Диаграмма количества учёных по родам деятельности, родившихся в городских поселениях. Ссылка на SPARQL-запрос: \href{https://w.wiki/xxxx}{https://w.wiki/xxxx}}%
 \end{figure*} 
 
-Сравнив диаграммы, видно что ученных в городских поселениях больше примерно в 3 раза, чем в сельских поселениях. Выше мы считали количество населения с этих группах, разница в населении достигает почти в 4 раза. Следовательно можно сказать, что не важно где ты родился. 
+Сравнив диаграммы, видно что учёных в городских поселениях больше примерно в 3 раза, чем в сельских поселениях. Выше мы считали количество населения с этих группах, разница в населении достигает почти в 4 раза. Следовательно можно сказать, что не важно где ты родился. 
