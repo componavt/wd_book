@@ -5,7 +5,7 @@ Computer science book about Wikidata programming.
 
 [Petrozavodsk State University](https://en.wikipedia.org/wiki/Petrozavodsk_State_University) (PetrSU), Internet-mathematics course.
 
-See the latest Russian and English PDF files at [https://bit.ly/3lVumoT](https://bit.ly/3lVumoT).
+See the latest Russian and English PDF files at [https://bit.ly/3lVumoT](https://www.dropbox.com/sh/0ujam53seriygmg/AAA83UtcAA5dCL2LpQ4ueOQGa).
 
 
 # Wikidata programming book (in English)
