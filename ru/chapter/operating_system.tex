@@ -82,7 +82,7 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
 \footnotetext{Получено \num{30} дат создания ОС в 2017 году, и \num{238}~--- в 2020 году. 
 Ссылка на SPARQL-запрос: \href{https://w.wiki/v5Z}{https://w.wiki/v5Z}}
 \index{SPARQL!hide!Список операционных систем с датой их создания}
-\index{График!Timeline!Часть временной шкалы с датами выпуска операционных систем с~1955 по~2020 год}
+\index{График!Timeline!Часть временной шкалы с датами выпуска ОС с~1955 по~2020 год}
 \begin{lstlisting}[ language=SPARQL, 
 	caption={\href{https://w.wiki/v5Z}{Список операционных систем с датой их создания}\protect\footnotemark},
 	label=lst:inception_time_of_operating_systems
@@ -130,7 +130,7 @@ SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
 
 \begin{figure*}[h!]
 	\includegraphics{./chapter/operating_system/os-creation.png}
-	\caption{Часть временной шкалы с датами выпуска операционных систем с~1955 по~2020 год. Шкала построена по запросу~\protect\ref{lst:inception_time_of_operating_systems}.}
+    \caption[Часть временной шкалы с датами выпуска ОС.]{Часть временной шкалы с датами выпуска операционных систем с~1955 по~2020 год. Шкала построена по запросу~\protect\ref{lst:inception_time_of_operating_systems}.}
 	\label{fig:os_creation}
 \end{figure*}
 
@@ -183,7 +183,7 @@ ORDER BY DESC(?countOS) ASC(?langLabel)
 		\setlength{\fboxrule}{1pt}%
 		\fcolorbox{gray}{gray}{\includegraphics{chapter/operating_system/prog_lang_os.png}}
 	}
-	\caption{Дерево языков программирования и написанных на них операционных систем.}
+    \caption[Дерево языков программирования и написанных на них ОС.]{Дерево языков программирования и написанных на них операционных систем.}
 	\label{fig:prog_lang_os}%
 \end{marginfigure}
 
@@ -251,7 +251,7 @@ SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
 \index{График!BarChart!Количество операционных систем по языкам программирования}
 \begin{figure*}[h!]
 	\includegraphics{./chapter/operating_system/count-os-written-on-languages.png}
-	\caption{Первые восемь языков, на которых написано больше всего операционных систем, 2020 год.}
+    \caption[Первые языки, на которых написано больше всего ОС, 2020 год.]{Первые восемь языков, на которых написано больше всего операционных систем, 2020 год.}
 	\label{fig:count-os-written-on-languages}
 \end{figure*}
 
@@ -323,7 +323,7 @@ ORDER BY DESC(?count) DESC(?osLabel)
 
 \begin{figure*}[h!]
 	\includegraphics{./chapter/operating_system/Programming-languages-and-count-of-programms-written-on-them-and-OS-2020.png}
-	\caption{Языки программирования и количество ОС, под которыми работают программы, написанные на этих языках, 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/4c7d}{https://w.wiki/4c7d}}
+    \caption[Число программ с разбивкой по языкам и ОС, 2020 год.]{Число программ с разбивкой по языкам программирования и операционным системам, под которыми работают программы, написанные на этих языках, 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/4c7d}{https://w.wiki/4c7d}}
 	\label{fig:count-software-written-on-languages}
 \end{figure*}
 

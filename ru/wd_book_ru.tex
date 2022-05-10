@@ -224,7 +224,7 @@
 \makeatletter
 \@ifundefined{c@draft}{
   \newcounter{draft}
-  \setcounter{draft}{1} % 0 --- clean release version, without any comments, 
+  \setcounter{draft}{0} % 0 --- clean release version, without any comments, 
 }{}                     %       with only finished chapters.
 \makeatother            % 1 --- draft version, unfinished chapters included, 
                         %       with questions and comments
@@ -462,21 +462,32 @@
 % v.4 copyright page
 \newpage
 \begin{fullwidth}
+УДК 378.4 \\
+ББК 74.480.2 \\
+\hphantom{ББК} К822
 ~\vfill
 \thispagestyle{empty}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{\baselineskip}
-Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 
-\par\smallcaps{Published by \thanklesspublisher}
-
-\par\href{https://w.wiki/62E}{https://ru.wikiversity.org/wiki/Программирование\_Викиданных}
-
-\par Пособие распространяется на правах свободной лицензии 
+Это учебник по Викиданным и языку SPARQL. 
+Викиданные~--- это огромная база данных, лежащая в основе Википедии и связывающая вики-проекты воедино.
+Прочитав книгу, вы сможете извлекать из Викиданных информацию с~помощью SPARQL-скриптов, 
+затем обрабатывать её и строить по ней таблицы, графики и карты. \\ 
+Учебник предназначен для школьников и студентов, 
+для тех, кто хочет научиться программировать 
+    и глубже разбираться в принципах работы самого компьютерного вики-проекта. \\
+Книга писалась одновременно с созданием учебного курса <<Программирование Викиданных>> в Викиверситете. 
+Материалы курса доступны онлайн: \href{https://w.wiki/62E}{https://ru.wikiversity.org/wiki/Программирование\_Викиданных}.
+Учебник распространяется на правах свободной лицензии 
     \href{https://creativecommons.org/licenses/by-sa/4.0/deed.ru}{Creative Commons Attribution-ShareAlike}.
 
+Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 
-\par\textit{First printing, \monthyear}
+%\par\smallcaps{Published by \thanklesspublisher}
+\par\smallcaps{\thanklesspublisher}
+
+%\par\textit{First printing, \monthyear}
 \end{fullwidth}
 
 % r.5 contents

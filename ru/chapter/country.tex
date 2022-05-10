@@ -386,7 +386,6 @@ WHERE
 GROUP BY ?bfog ?form
 ORDER BY DESC(?countries) ASC(?form)
 \end{lstlisting}
-
 \footnotetext{Получено 30 форм правления на 2017 год и 41 форма правления на 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/tfc}{https://w.wiki/tfc}}
 
 Переменная ``bfog'' (сокращение от ``basic form of government'') содержит форму правления, например, <<республику>>. 
@@ -404,8 +403,8 @@ ORDER BY DESC(?countries) ASC(?form)
 		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/Bubble_chart_forms_of_government_countries_according_to_Wikidata.png}}%
 	}
 	\caption
-	[Пузырьковая диаграмма форм правления стран, 2017]
-	{Пузырьковая диаграмма форм правления стран, 2017.
+	[Пузырьковая диаграмма форм правления стран, 2017 год.]
+	{Пузырьковая диаграмма форм правления стран, 2017 год.
 		\\			
 		По данным на 2017 год основные формы правления стран: республика (в 20 странах), конституционная монархия (в 18 странах), федеративная республика (18), парламентская республика (17) и президентская республика (12).}%
 	\label{fig:bubble_chart_forms_of_government_countries_2017}%
@@ -418,8 +417,8 @@ ORDER BY DESC(?countries) ASC(?form)
 		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/Bubble_chart_forms_of_government_countries_according_to_Wikidata_2020.png}}%
 	}
 	\caption
-	[Пузырьковая диаграмма форм правления стран, 2020]
-	{Пузырьковая диаграмма форм правления стран, 2020.
+	[Пузырьковая диаграмма форм правления стран, 2020 год.]
+	{Пузырьковая диаграмма форм правления стран, 2020 год.
 	\\
 	По данным на 2020 год  основные формы правления стран: республика (в 41 стране), конституционная монархия (32), федеративная республика (19), парламентская республика (22) и президентская республика (14).
 }%
@@ -458,8 +457,7 @@ WHERE
 		\setlength{\fboxrule}{1pt}%
 		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/Neighboring_countries_graph_in_russian_according_to_Wikidata_2017.png}}%
 	}
-	\caption{Фрагмент графа соседних стран, в центре Россия, 2017.
-	}%
+    \caption[Фрагмент графа соседних стран, 2017 год.]{Фрагмент графа соседних стран, в центре Россия, 2017 год.}
 	\label{fig:neighboring_countries_2017}%
 \end{figure}
 
@@ -469,8 +467,7 @@ WHERE
 		\setlength{\fboxrule}{1pt}%
 		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/Neighboring_countries_graph_in_russian_according_to_Wikidata_2020.png}}%
 	}
-	\caption{Фрагмент графа соседних стран, в центре Россия, 2020.
-	}%
+    \caption[Фрагмент графа соседних стран, 2020 год.]{Фрагмент графа соседних стран, в центре Россия, 2020 год.}
 	\label{fig:neighboring_countries_2020}%
 \end{figure}
 
@@ -495,7 +492,6 @@ WHERE
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
 }
 \end{lstlisting}
-
 \footnotetext{Получено 17 стран на 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/tg3}{https://w.wiki/tg3}}
 
 Строка в листинге~\ref{lst:neighboring_countries_ru} с комментарием ``is a country'' нужна, чтобы проверить, что объект, указанный как <<имеющий общуюю границу>> с Россией является страной. Это позволило исключить из списка район Грузии (Рача-лечхуми и Квемо-Сванети), и например, остров Японии (Хоккайдо), указанные в списке пограничных объектов.
@@ -509,8 +505,7 @@ WHERE
 		\setlength{\fboxrule}{1pt}%
 		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/Map_of_neighboring_countries_of_Russia_ru.png}}%
 	}
-	\caption{Карта соседних стран России, включающая 17 стран, 2021.
-	}%
+    \caption[Карта соседних стран России, 2021 год.]{Карта соседних стран России, включающая 17 стран, 2021 год.}
 	\label{fig:neighboring_countries_ru_2020}%
 \end{figure*}
 
