@@ -1,5 +1,6 @@
 %\documentclass{tufte-book}
-\documentclass[nofonts,justified,nobib]{tufte-book}% good in Ubuntu
+\documentclass[nofonts,justified,nobib,openany]{tufte-book}% good in Ubuntu
+%                                      'openany' removes blank pages between two chapters, https://stackoverflow.com/a/492148/1173350
 %\documentclass[nofonts,justified, nobib]{tufte-book}
 %                                 tufte-book modifies the \cite-command heavily, you can turn this behavior off, using the nobib-option:  
 
@@ -297,6 +298,11 @@
 % Just some sample text
 %\usepackage{lipsum}
 
+% table of contents with dots
+\usepackage{tocloft}
+\makeatletter \renewcommand{\@dotsep}{4.5} \makeatother % + dots in Table of contents
+
+
 %%
 % For nicely typeset tabular material
 \usepackage{booktabs}
@@ -417,6 +423,14 @@
 \newcommand{\doccounter}[1]{\texttt{#1}\index{#1 counter@\texttt{#1} counter}}
 
 
+% Tufte book in landscape
+% https://tex.stackexchange.com/a/413441/99685
+% text the same width, margin width ++
+%\geometry{a4paper,landscape,left=24.8mm,top=27.4mm,headsep=2\baselineskip,textwidth=107mm,marginparsep=8.2mm,marginparwidth=136.4mm,textheight=34\baselineskip,headheight=\baselineskip}
+% text = 107 mm (old) + 40 mm = 147, margin = 49.4 mm (old) + 47 = 96.4 mm
+\geometry{a4paper,landscape,left=24.8mm,top=27.4mm,headsep=2\baselineskip,textwidth=147mm,marginparsep=8.2mm,marginparwidth=96.4mm,textheight=34\baselineskip,headheight=\baselineskip}
+
+
 % Generates the index
 \usepackage{makeidx}
 \makeindex
@@ -492,10 +506,11 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 \par\smallcaps{\thanklesspublisher}
 
 %\par\textit{First printing, \monthyear}
-\end{fullwidth}
 
 % r.5 contents
 \tableofcontents
+
+\end{fullwidth}
 
 % r.7 dedication
 \clearpage
@@ -545,7 +560,7 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 
 
 % r.9 introduction
-\cleardoublepage
+%\cleardoublepage
 
 \input{./intro/intro.tex}
 
@@ -611,8 +626,9 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 
 \backmatter
 
-\cleardoublepage
+%\cleardoublepage
 
+\begin{fullwidth}
 \phantomsection
 \addcontentsline{toc}{chapter}{\listfigurename}
 \listoffigures
@@ -624,6 +640,7 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 %\bibliographystyle{plainnat}
 %\bibliography{wd_references}
 \printbibliography[heading=bibintoc]
+\end{fullwidth}
 
 \printindex
 

@@ -1,18 +1,17 @@
 \chapter{Корзины и мячи}
 \label{ch:BucketsAndBalls}
-
-\marginnote{Глава основана на статье \cite{bucketsAndBalls} с~разрешения автора.}
+\marginnote[-4\baselineskip]{Глава основана на статье \cite{bucketsAndBalls} с~разрешения автора.}
 
 Понятие <<связанные данные>> (Linked Data) по-прежнему недопонято и недооценено. Возможно, эти данные кажутся слишком сложными. 
 Попробуем разобраться. Начнём с переменных.
 
-\begin{marginfigure}[0cm]
+\begin{marginfigure}[-3\baselineskip]
 	{
 		\setlength{\fboxsep}{0pt}%
 		\setlength{\fboxrule}{1pt}%
-		\fcolorbox{gray}{gray}{\includegraphics{./intro/bucketsAndBalls/Wikidata_in_linked_open_data.png}}
+		\fcolorbox{gray}{gray}{\includegraphics[width=0.86\linewidth]{./intro/bucketsAndBalls/Wikidata_in_linked_open_data.png}}
 	}
-    \caption[Викиданные в связанном облаке открытых данных.]{Викиданные в связанном облаке открытых данных. Базы данных обозначены кружками (Викиданные обозначены как \textit{WD}) с серыми линиями, связывающими базы данных в сети, если их данные выровнены. См. статью в Английской Википедии: \href{https://en.wikipedia.org/wiki/Linked_data}{Linked data}. Wikimedia Commons / \href{https://commons.wikimedia.org/wiki/File:Wikidata_in_the_Linked_Open_Data_cloud_2020-08-20.svg}{Thomas Shafee}}
+    \caption[Викиданные в связанном облаке открытых данных.]{Викиданные в связанном облаке открытых данных. Базы данных обозначены кружками (Викиданные обозначены как \textit{WD}) с серыми линиями, связывающими базы данных в сети, если их данные выровнены. См. статью в Английской Википедии: \href{https://en.wikipedia.org/wiki/Linked_data}{Linked data}. Wikimedia Commons / \href{https://commons.wikimedia.org/wiki/File:Wikidata_in_the_Linked_Open_Data_cloud_2020-08-20.svg}{Thomas Shafee}.}
 	\label{fig:Wikidata_in_linked_open_data}
 \end{marginfigure}
 
@@ -23,7 +22,7 @@
 Хотя работа со SPARQL помогает понять, как работает граф знаний\footnote[][12pt]{%
 %
 \index{Информатика!Граф знаний}%
-Граф знаний~--- это база знаний, которая использует графовую структурированную модель данных для интеграции данных. 
+Граф знаний~--- это база знаний, которая использует графовую структурированную модель для интеграции данных. 
 Графы знаний часто используются для хранения взаимосвязанных описаний сущностей~--- объектов, 
 событий, ситуаций или абстрактных понятий. 
 Далее будет построен граф знаний (рис.~\ref{fig:Query_in_basket_and_balls_notation_with_ids}).%
@@ -38,9 +37,19 @@
 
 Тогда процесс заполнения графа мячами будет выглядеть как на рис.~\ref{fig:Query_as_filling_buckets_with_balls}. Корзина \textbf{?A} должна быть заполнена теми мячами, которые имеют отношение \textbf{R} к мячу \textbf{B}.
 
+\newpage
+\begin{marginfigure}[0cm]
+	{
+		\setlength{\fboxsep}{0pt}%
+		\setlength{\fboxrule}{1pt}%
+		\fcolorbox{gray}{gray}{\includegraphics[width=0.82\linewidth]{./intro/bucketsAndBalls/Query_as_filling_buckets_with_balls.PNG}}
+	}
+    \caption{Образец графа заполнения корзин мячами.}
+	\label{fig:Query_as_filling_buckets_with_balls}
+\end{marginfigure}
+
 Рисунок будет понятнее, если мы его упростим и нарисуем прямую линию (рис.~\ref{fig:Graph_pattern_in_basket_and_balls_notation}). Это шаблон графа в нотации <<Корзины и мячи>>. Направление отношения R не показано, но оно всегда слева направо.
 
-\newpage
 Тогда процесс написания и выполнения SPARQL-запроса будет состоять из шагов:
 \begin{enumerate}
     \item Выберите свои корзины (в них вы будете собирать нужные вам мячи).
@@ -48,21 +57,12 @@
     \item Запустите свой запрос, чтобы наполнить корзины мячами.
 \end{enumerate}
 
-\begin{marginfigure}[-4cm]
-	{
-		\setlength{\fboxsep}{0pt}%
-		\setlength{\fboxrule}{1pt}%
-		\fcolorbox{gray}{gray}{\includegraphics{./intro/bucketsAndBalls/Query_as_filling_buckets_with_balls.PNG}}
-	}
-    \caption{Образец графа заполнения корзин мячами.}
-	\label{fig:Query_as_filling_buckets_with_balls}
-\end{marginfigure}
 
-\begin{marginfigure}
+\begin{marginfigure}[2\baselineskip]
 	{
 		\setlength{\fboxsep}{0pt}%
 		\setlength{\fboxrule}{1pt}%
-		\fcolorbox{gray}{gray}{\includegraphics{./intro/bucketsAndBalls/Graph_pattern_in_basket_and_balls_notation.PNG}}
+		\fcolorbox{gray}{gray}{\includegraphics[width=0.82\linewidth]{./intro/bucketsAndBalls/Graph_pattern_in_basket_and_balls_notation.PNG}}
 	}
     \caption{Шаблон графа в нотации <<Корзины и мячи>>.}
 	\label{fig:Graph_pattern_in_basket_and_balls_notation}
@@ -77,11 +77,11 @@
 
 Сделаем запрос более интересным и добавим ещё одну корзину для фотографий губернаторов. Вот теперь запрос в нотации <<Корзины и мячи>> будет как на рис.~\ref{fig:Query_in_basket_and_balls_notation}.
 
-\begin{figure*}[h!]
-    \includegraphics[width=0.7\linewidth]{./intro/bucketsAndBalls/Query_in_basket_and_balls_notation.PNG}
+\begin{figure}[h]
+    \includegraphics[width=0.95\linewidth]{./intro/bucketsAndBalls/Query_in_basket_and_balls_notation.PNG}
     \caption[Запрос в нотации <<Корзины и мячи>> для заполнения корзин мячами.]{Запрос в нотации <<Корзины и мячи>> для заполнения корзин <<регион>> мячами <<область России>>, корзины <<руководитель>>~--- губернаторами или главами области, корзины <<изображение>>~--- их фотографиями.}
 	\label{fig:Query_in_basket_and_balls_notation}
-\end{figure*}
+\end{figure}
 
 \newpage
 После выполнения запроса (рис.~\ref{fig:Query_in_basket_and_balls_notation}) наши корзины будут выглядеть как на рис.~\ref{fig:3_buckets_region_head_image}.
