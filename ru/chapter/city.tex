@@ -545,6 +545,10 @@ ORDER BY DESC(?sisterCount)\end{lstlisting}%
   \label{fig:flag_question_city}%
 \end{marginfigure}
 
+У России нашлось больше двадцати городов-побратимов с такими странами, 
+как США~(46), Китай~(46), Германия (44), Украина (28), Болгария (25), 
+Польша (24), Франция (23) и~Италия~(22).
+
 
 \index{SPARQL!COUNT!Ближайшие соседи России по числу побратимов}
 \index{SPARQL!FILTER!Ближайшие соседи России по числу побратимов}
@@ -557,22 +561,21 @@ ORDER BY DESC(?sisterCount)\end{lstlisting}%
                     label=lst:countries_sister_cities_with_Russia
                     ]
 #defaultView:Map
-# Selecting number of distinct particular country sister cities of cities 
+# Show on the map countries that have sister cities with cities in Russia
 SELECT ?country ?countryLabel ?sisterCount ?shape ?layer WHERE {
-	{ 
-		SELECT ?country ?countryLabel 
-						(COUNT(DISTINCT ?sister) as ?sisterCount) WHERE {  
+    { 
+		SELECT ?country ?countryLabel (COUNT(DISTINCT ?sister) as ?sisterCount) WHERE {  
 			VALUES ?cityTypes {wd:Q3957 wd:Q515 wd:Q1549591 wd:Q1637706}
-			?city wdt:P31 ?cityTypes. # instances of different types of cities
-			?city wdt:P17 wd:Q159. # city belongs to Russia
-			?city wdt:P190 ?sister. # city has "sister city"
-			?sister wdt:P17 ?country. # which belongs to "country"
+			?city wdt:P31 ?cityTypes.   # instances of different types of cities
+			?city wdt:P17 wd:Q159.      # city belongs to Russia
+			?city wdt:P190 ?sister.     # city has "sister city"
+			?sister wdt:P17 ?country.   # which belongs to "country"
 			FILTER(?country NOT IN(wd:Q159)) # except the Russia
-			SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
-		}
+			SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
+        }
 		GROUP BY ?country ?countryLabel
 		ORDER BY DESC(?sisterCount)
-	}
+    }
 	OPTIONAL {?country wdt:P3896 ?shape.} # country has "geoshape"
 	BIND(
 		IF(?sisterCount < 5, "<5",
@@ -595,9 +598,6 @@ SELECT ?country ?countryLabel ?sisterCount ?shape ?layer WHERE {
 	\label{fig:Map_closest_neighbours_Russia}
 \end{figure}
 
-Больше двадцати городов-побратимов у России с такими странами, 
-как США (46), Китай~(46), Германия (44), Украина (28), Болгария (25), 
-Польша (24), Франция (23) и~Италия~(22).
 
 
 
@@ -605,14 +605,20 @@ SELECT ?country ?countryLabel ?sisterCount ?shape ?layer WHERE {
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Полнота и недостатки Викиданных}
+\section{Полнота и недостатки Викиданных: дублирование объектов}
 \label{sect:city-completness}
 
 Городом принято называть крупный населённый пункт, 
 жители которого, как правило, не заняты сельским хозяйством. 
 При этом разные страны используют различные критерии 
 при наделении поселений статусом города, 
-основным из которых является численность населения. 
+основным из которых является численность населения\marginnote{%
+%
+Вопрос отнесения населённого пункта к сельскому или городскому типу также решается 
+в~подразделе <<\nameref{sec:list-village-city-types-in-Russia}>> на с.~\pageref{sec:list-village-city-types-in-Russia}
+
+%
+}. 
 Некоторые страны и вовсе не применяют понятие города. 
 Так, во Франции используется только одна географическая единица подобного рода~--- коммуна, 
 вне зависимости от количества проживающих в ней людей и рода их деятельности. 
@@ -621,12 +627,32 @@ SELECT ?country ?countryLabel ?sisterCount ?shape ?layer WHERE {
 На практике некоторые объекты Викиданных могут одновременно являться экземплярами городов разных типов. 
 Например, \wdqName{Шанхай}{8686} отнесен к трём исследуемым объектам: 
 \wdqName{city}{515}, \wdqName{big city}{1549591}, \wdqName{city with millions of inhabitants}{1637706}. 
-Такое множественное присваивание сказывается на результатах SPARQL-запросов, 
-в частности, с использованием конструкции \href{https://en.wikibooks.org/wiki/SPARQL/UNION}{UNION}. 
-Это несложно проверить, выполнив, например, SPARQL-запрос по нахождению городов разных типов 
-(линстинг~\ref{lst:different_city_types}). \wdqName{Шанхай}{8686} встречается в результатах три раза. 
+Такое множественное присваивание влияет на результаты SPARQL-запросов. 
+Например, 
+при~использовании конструкции \href{https://en.wikibooks.org/wiki/SPARQL/UNION}{UNION}\footnote[][-15pt]{%
+%
+Более подробно о~команде~\lstinline|UNION| 
+см.~в~Английском Викиучебнике SPARQL по~ссылке: \href{https://en.wikibooks.org/wiki/SPARQL/UNION}{https://en.wikibooks.org/wiki/SPARQL/UNION}.%
+}%
+в~результатах запроса~\ref{lst:different_city_types} 
+объект \lstinline|Шанхай| встречается три раза вместо одного. 
 
-Викиданные имеют механизм наследования, выражающийся в свойстве \href{https://www.wikidata.org/wiki/Property:P279}{subclass of}. Заключается этот механизм в том, что если объект является экземпляром \wdqName{big city}{1549591}, то он является и экземпляром  \wdqName{city}{515}, так как \wdqName{big city}{1549591} -- подкласс  \wdqName{city}{515}. Таким образом, описанную выше ситуацию с \wdqName{Шанхаем}{8686} можно разрешить, оставив только один класс \wdqName{city with millions of inhabitants}{1637706}. Стоит отметить, что замена конструкции с использованием \href{https://en.wikibooks.org/wiki/SPARQL/UNION}{UNION} (листинг \ref{lst:example_union_city}) на конструкцию с учетом подклассов неэквивалентна (листинг \ref{lst:example_subclasses_city}). Рассмотренный ранее \wdqName{Шанхай}{8686} встречается в новой выборке даже четыре раза. Дело в том, что помимо части исследуемых классов есть и другие наследуемые от \wdqName{city}{515}. Например, \wdqName{lost city}{2974842}, \wdqName{free imperial city}{57318}, \wdqName{autonomous city}{1094397} и даже \wdqName{ideal city}{1656724}.
+Викиданные имеют механизм наследования, 
+выражающийся в свойстве \href{https://www.wikidata.org/wiki/Property:P279}{subclass of}. 
+Заключается этот механизм в том, что если объект является экземпляром \lstinline{big city}, 
+то он является и экземпляром объекта \lstinline{city}, 
+так как \lstinline|big city|~--- это~подкласс~\lstinline|city|. 
+Таким образом, описанную выше ситуацию с~\lstinline|Шанхаем| можно разрешить, 
+оставив только один класс, например, \mbox{\lstinline{city with millions of inhabitants}}. 
+Стоит отметить, что замена конструкции 
+с~использованием \lstinline|UNION| (листинг~\ref{lst:example_union_city}) 
+на конструкцию с учётом подклассов (листинг~\ref{lst:example_subclasses_city})
+неэквивалентна. 
+Рассмотренный ранее \lstinline|Шанхай| встречается в новой выборке даже четыре раза. 
+Дело в том, что помимо части исследуемых классов есть и другие классы, наследуемые от~\lstinline|city|. 
+Например, \wdqName{lost city}{2974842}, 
+\wdqName{free imperial city}{57318}, 
+\wdqName{autonomous city}{1094397} и даже \wdqName{ideal city}{1656724}.
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/k5T}{Пример использования конструкции UNION}\protect\footnotemark},
@@ -657,17 +683,17 @@ SELECT ?city ?cityLabel WHERE {
 \wdqName{city in Cyprus}{29556224}, \wdqName{city of Japan}{494721} и так далее. 
 Не обошла стороной эта тенденция и города России, 
 что можно было заметить при сравнении результатов SPARQL-запроса 
-для нахождения экземпляров объекта <<город>> (листинг \ref{lst:city}). 
-На 2020 год большинство из них принадлежат классу \wdqName{city/town}{7930989}.
+для~нахождения экземпляров объекта <<город>> (листинг \ref{lst:city}). 
+На 2020 год большинство из~них принадлежат классу \wdqName{city/town}{7930989}.
 
 По данным \href{https://bit.ly/2JPL34b}{всероссийской переписи населения 2010 года}\autocite{city_perepis_2010} 
-и \href{https://bit.ly/2Lflc6F}{переписи населения в Крымском федеральном округе 2014 года}\autocite{city_perepis_2014} 
-суммарное число городов России составило \num{1117} на 2014 год. 
+и \href{https://bit.ly/2Lflc6F}{переписи населения в~Крымском федеральном округе 2014 года}\autocite{city_perepis_2014} 
+суммарное число городов России составило \num{1117} на~2014 год. 
 Все \href{https://w.wiki/oLE}{города России} имеют страницу как в Русской, так и в Английской Википедии.
 
-Число объектов Викиданных, являющихся российскими городами, 
+С другой стороны, число объектов Викиданных, являющихся российскими городами, 
 составляет \href{https://w.wiki/jyP}{\num{1126}}. 
-Можно предположить, что Викиданные полностью покрывают, как минимум, российские города. 
+Можно сделать вывод, что Викиданные полностью покрывают, как минимум, российские города. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Упражнения}
