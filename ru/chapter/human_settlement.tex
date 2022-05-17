@@ -1,12 +1,12 @@
-\chapter{В каких населённых пунктах России больше рождаётся учёных, в сельских или городских?}
+\chapter[В каких населённых пунктах России больше рождаётся учёных, в сельских или городских?]{В каких населённых пунктах России больше рождаётся учёных,\\в сельских или городских?}
 \label{ch:human-settlement}
 
 В главе исследуется объект Викиданных \wdqName{населённый пункт}{486972} и его свойства. 
-В каждом из разделов представлены задачи, решённые с помощью SPARQL-запросов. 
+В~каждом из разделов представлены задачи, решённые с помощью SPARQL-запросов. 
 %
 %%%%%%%%%%%%%%%% Упражнение 1 %%%%%%%%%%%%%%%% 
-\marginnote{Подсчитайте, сколько человек на км\textsuperscript{2} живёт в \ruwiki{4dNv}{Барабинске} 
-и в~\ruwiki{4dNt}{Алейске}? В каком из этих \emph{населённых пунктов} плотность населения выше?
+\marginnote{Подсчитайте, сколько человек на км\textsuperscript{2} живёт в~\ruwiki{4dNv}{Барабинске} 
+и в~\ruwiki{4dNt}{Алейске}? В~каком из этих \emph{населённых пунктов} плотность населения выше?
 
 См. ответ~\ref{answer:human_settlements_density} на с.~\pageref{answer:human_settlements_density}.%
 }
@@ -15,7 +15,7 @@
 построены пузырьковые диаграммы с количеством населения в <<населённых пунктах>> по странам. 
 Построена диаграмма, показывающая долю населения, 
 проживающего в населённых пунктах относительно всего населения страны. 
-Диаграмма показала, что высокий процент населения, проживающего в населённых пунктах, 
+Диаграмма показала, что высокий процент населения, проживающего в~населённых пунктах, 
 приходится на сельскохозяйственные страны, в то время как в более индустриальных странах 
 меньшая доля населения проживает в населённых пунктах. 
 
@@ -26,13 +26,13 @@
 
 %%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%%
 \begin{marginfigure}[0.0cm]{%
-\includegraphics[width=0.9\linewidth]{./chapter/human_settlement/Aznakeevskii_rayon_gerb.png}}
-  \caption[Герб первого неизвестного населённого пункта.]{Герб отечественного или зарубежного населённого пункта изображён на рисунке?}%
+\includegraphics[width=5cm]{./chapter/human_settlement/Aznakeevskii_rayon_gerb.png}}
+  \caption[Герб первого неизвестного населённого пункта.]{Герб отечественного 
+    или зарубежного населённого пункта изображён на рисунке?\newline
+    См. ответ~\protect\ref{answer:flag_human_settlements} на с.~\protect\pageref{answer:flag_human_settlements}.
+    }%
   \label{fig:flag_question_human_settlements1}%
 \end{marginfigure}
-\marginnote{
-См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.
-}
 Для сравнения сельских и городских поселений 
 построены диаграммы количества учёных, сгруппированных по родам деятельности 
 и разделённых по месту рождения: сельское или городское.
@@ -41,7 +41,7 @@
 были найдены более общие классы для объекта \wdqName{населённый пункт}{486972} 
 с помощью свойства \wdProperty{31}{частный случай понятия}. 
 Трудность исследования вызвана отсутствием чёткой типологии населённых пунктов 
-(например, от численности населения) в законодательстве России и в Викиданных.
+(например, от численности населения) в законодательстве России и в~Викиданных.
 
 
 
@@ -49,7 +49,7 @@
 \section{Список <<Населённых пунктов>>}
 %%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%%
 \begin{marginfigure}[0.0cm]
-{\includegraphics[width=0.8\linewidth]{./chapter/human_settlement/Coat_of_Arms_of_Asbest_(Sverdlovsk_oblast).png}}
+{\includegraphics[width=5cm]{./chapter/human_settlement/Coat_of_Arms_of_Asbest_(Sverdlovsk_oblast).png}}
   \caption[Герб второго неизвестного населённого пункта.]{Это герб населённого пункта России или другой страны?\newline%
 См. ответ~\protect\ref{answer:flag_human_settlements} на с.~\protect\pageref{answer:flag_human_settlements}.}
   \label{fig:flag_question_human_settlements2}%
@@ -101,7 +101,6 @@ SELECT (COUNT(?hum) AS ?count) WHERE {
 
 
 
-
 %%%%%%%
 \section{Список стран по суммарному количеству населения}
 
@@ -111,51 +110,77 @@ SELECT (COUNT(?hum) AS ?count) WHERE {
 С помощью запроса~\ref{lst:human-settlement3} 
 построим упорядоченный список стран по суммарному количеству населения, проживающего в <<населённых пунктах>>.
 
+
 %\begin{minipage}{\linewidth}
-\marginnote[2cm]{Получена \num{161} страна в 2017 году и \num{213} стран в 2021 году. SPARQL-запрос: \href{https://w.wiki/4d9M}{https://w.wiki/4d9M}}
+%\marginnote[0cm]{Получена \num{161} страна в 2017 году и \num{213} стран в 2021 году. SPARQL-запрос: \href{https://w.wiki/4d9M}{https://w.wiki/4d9M}}
 \index{SPARQL!SUM!Список стран по суммарному количеству населения, проживающего в <<населённых пунктах>>}
 \index{SPARQL!GROUP BY!Список стран по суммарному количеству населения, проживающего в <<населённых пунктах>>}
 \lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
-    caption={\href{https://w.wiki/4d9M}{Список стран по суммарному количеству населения, проживающего в <<населённых пунктах>>}},
+    caption={\href{https://w.wiki/4d9M}{Список стран по суммарному количеству населения, проживающего в <<населённых пунктах>>}\protect\footnotemark},
     label=lst:human-settlement3,
     texcl 
                   ]
 # List of countries by population in settlements
 SELECT ?country ?countryLabel (SUM(?population) as ?sumPopulation)
 WHERE {
-  ?hum wdt:P31 wd:Q486972;  	# instance of human settlement
-       wdt:P17 ?country;    	# in the ?country
-       wdt:P1082 ?population. # has ?population
+  ?hum wdt:P31 wd:Q486972;      # instance of human settlement
+       wdt:P17 ?country;        # in the ?country
+       wdt:P1082 ?population.   # has ?population
   SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
 }
 GROUP BY ?country ?countryLabel 
 ORDER BY DESC (?sumPopulation)
 \end{lstlisting}%
-%\footnotetext{Получена \num{161} страна в 2017 году и \num{213} стран в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4d9M}{https://w.wiki/4d9M}}
+\footnotetext{Получена \num{161} страна в 2017 году и \num{213} стран в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4d9M}{https://w.wiki/4d9M}}
 %\end{minipage}
+
 
 Для подсчёта количества населения по странам 
 используем команду \lstinline|SUM()| во второй строке запроса~\ref{lst:human-settlement3}. 
 Для группировки населённых пунктов по странам 
 используем команду \lstinline|GROUP BY| на девятой строке того же запроса.
 
-Пузырьковая диаграмма на рис.~\ref{fig:human-settlement-1} 
-показывает соотношение стран по количеству населения в <<населённых пунктах>> в 2017 году.
+Пузырьковая диаграмма на рис.~\ref{fig:human-settlement-1} и~\ref{fig:human-settlement-2} 
+показывает соотношение стран по количеству населения в <<населённых пунктах>> 
+в~2017 и~2021~годах соответственно. 
+Размер пузырька соответствует количеству населения, проживающего в <<населённых пунктах>> одной страны. 
+Ссылка на SPARQL-запрос: \href{https://w.wiki/4dAv}{https://w.wiki/4dAv}.
 
-\begin{figure}
-\centering
-	\includegraphics[width=0.9\linewidth]{./chapter/human_settlement/AnnaBubbleHumanSettlement.jpg}
-	\label{fig:human-settlement-1}
-    \caption[Пузырьковая диаграмма с суммарным количеством населения в населённых пунктах, 2017 год.]{Пузырьковая диаграмма с суммарным количеством населения, проживающего в <<населённых пунктах>> на 2017 год. Размер пузырька соответствует количеству населения, проживающего в <<населённых пунктах>> одной страны. Ссылка на SPARQL-запрос: \href{https://w.wiki/4dAv}{https://w.wiki/4dAv}}
-\end{figure}
-
-\begin{figure}
-\centering
-	\includegraphics[width=0.9\linewidth]{./chapter/human_settlement/LeonidBubbleHumanSettlement.jpg}
+\begin{fullwidth}
+\noindent\begin{minipage}[]{.46\linewidth}
+    \centering
+	    \includegraphics[width=0.94\linewidth]{./chapter/human_settlement/AnnaBubbleHumanSettlement.jpg}
+        \captionof{figure}{Пузырьковая диаграмма с суммарным количеством населения, проживающего в <<населённых пунктах>> на 2017 год.} 
+        %Размер пузырька соответствует количеству населения, проживающего в <<населённых пунктах>> одной страны. Ссылка на SPARQL-запрос: \href{https://w.wiki/4dAv}{https://w.wiki/4dAv}}
+	    \label{fig:human-settlement-1}
+\end{minipage}%
+%just a break for lines between two columns of listings
+\hfill
+\begin{minipage}[]{.46\linewidth}
+    \centering
+	\includegraphics[width=0.95\linewidth]{./chapter/human_settlement/LeonidBubbleHumanSettlement.jpg}
+    \captionof{figure}{Пузырьковая диаграмма с суммарным количеством населения, проживающего в <<населённых пунктах>> на 2021 год.} 
+    %Размер пузырька соответствует количеству населения, проживающего в <<населённых пунктах>> одной страны. Ссылка на SPARQL-запрос: \href{https://w.wiki/4dAv}{https://w.wiki/4dAv}}
 	\label{fig:human-settlement-2}
-	\caption[Пузырьковая диаграмма с суммарным количеством населения в населённых пунктах, 2021 год.]{Пузырьковая диаграмма с суммарным количеством населения, проживающего в <<населённых пунктах>> на 2021 год. Размер пузырька соответствует количеству населения, проживающего в <<населённых пунктах>> одной страны. Ссылка на SPARQL-запрос: \href{https://w.wiki/4dAv}{https://w.wiki/4dAv}}
-\end{figure}
+\end{minipage}
+\end{fullwidth}%
+
+
+
+%\begin{figure}
+%\centering
+%	\includegraphics[width=0.9\linewidth]{./chapter/human_settlement/AnnaBubbleHumanSettlement.jpg}
+%	\label{fig:human-settlement-1}
+%    \caption[Пузырьковая диаграмма с суммарным количеством населения в населённых пунктах, 2017 год.]{Пузырьковая диаграмма с суммарным количеством населения, проживающего в <<населённых пунктах>> на 2017 год. Размер пузырька соответствует количеству населения, проживающего в <<населённых пунктах>> одной страны. Ссылка на SPARQL-запрос: \href{https://w.wiki/4dAv}{https://w.wiki/4dAv}}
+%\end{figure}
+
+%\begin{figure}
+%\centering
+%	\includegraphics[width=0.9\linewidth]{./chapter/human_settlement/LeonidBubbleHumanSettlement.jpg}
+%	\label{fig:human-settlement-2}
+%	\caption[Пузырьковая диаграмма с суммарным количеством населения в населённых пунктах, 2021 год.]{Пузырьковая диаграмма с суммарным количеством населения, проживающего в <<населённых пунктах>> на 2021 год. Размер пузырька соответствует количеству населения, проживающего в <<населённых пунктах>> одной страны. Ссылка на SPARQL-запрос: \href{https://w.wiki/4dAv}{https://w.wiki/4dAv}}
+%\end{figure}
 
 В 2017 году больше всего населения проживало в <<населённых пунктах>> 
 \wdqName{Бразилии}{155} (\num{12} млн), 
@@ -238,16 +263,6 @@ SPARQL-запрос: \href{https://w.wiki/4FV8}{https://w.wiki/4FV8}%
 
 Построим список стран, 
 упорядоченный по доли населения (в~процентах), проживающей в \href{http://www.wikidata.org/entity/Q486972}{населённых пунктах}, относительно числа всех жителей страны (листинг~\ref{lst:human-settlement6}).
-%
-%%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%%
-\begin{marginfigure}[0.0cm]
-{\includegraphics[width=0.9\linewidth]{./chapter/human_settlement/Loučovice_CoA.jpg}}
-  \caption[Герб третьего неизвестного населённого пункта.]{Герб населённого пункта какой страны изображён?}%
-  \label{fig:flag_question_human_settlements3}%
-\end{marginfigure}
-\marginnote{%
-См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.%
-}
 
 \index{SPARQL!SUM!Соотношение количества людей, проживающих в населённых пунктах, к количеству всех людей в стране}
 \begin{lstlisting}[ language=SPARQL, 
@@ -270,6 +285,17 @@ SELECT ?country ?countryLabel ?proportionPopulation WHERE {
 }
 ORDER BY ?proportionPopulation
 \end{lstlisting}%
+%
+%%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%%
+\begin{marginfigure}[-23\baselineskip]
+{\includegraphics[width=5cm]{./chapter/human_settlement/Loučovice_CoA.jpg}}
+  \caption[Герб третьего неизвестного населённого пункта.]{Герб населённого пункта какой страны изображён?\newline 
+            См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.}%
+  \label{fig:flag_question_human_settlements3}%
+\end{marginfigure}
+%\marginnote{%
+%См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.%
+%}
 \footnotetext{Получено \num{158} результатов в 2017 году и \num{206} результатов в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4dE3}{https://w.wiki/4dE3}}
 
 Столбчатая диаграмма на рис.~\ref{fig:human-settlement-3} позволяет увидеть для каждой страны 
@@ -277,25 +303,14 @@ ORDER BY ?proportionPopulation
 проживающих в~\href{http://www.wikidata.org/entity/Q486972}{населённых пунктах}, 
 к~числу жителей в~стране на 2017 год.
 
-\begin{figure*}
-    \includegraphics[width=1\linewidth]{./chapter/human_settlement/AnnaShareHumanSettlement.png}
-	\label{fig:human-settlement-3}
-	\caption[Диаграмма доли населения страны, проживающего в населённых пунктах, 2017 год.]{Диаграмма доли населения страны, проживающего в <<населённых пунктах>> на 2017 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/4dE3}{https://w.wiki/4dE3}}%
-\end{figure*} 
-
-\begin{figure*}
-    \includegraphics[width=1\linewidth]{./chapter/human_settlement/LeonidShareHumanSettlement.jpg}
-	\label{fig:human-settlement-4}
-	\caption[Диаграмма доли населения страны, проживающего в населённых пунктах, 2021 год.]{Диаграмма доли населения страны, проживающего в <<населённых пунктах>> на 2021 год. Были выбраны страны с населением более 5 млн чел. SPARQL-запрос: \href{https://w.wiki/4dDx}{https://w.wiki/4dDx}}%
-\end{figure*} 
 
 По рис.~\ref{fig:human-settlement-3} видно, 
 что наиболее высокий процент в 2017 году приходился на следующие страны: 
 Кирибати (78\%), Ниуэ (70\%), Греция (53\%), Тувалу (48\%), Коморы (43\%), Маврикий (42\%). 
-В 2021 году картина изменилась: Нигерия (93\%), Папуа~--- Новая Гвинея (71\%), 
+В 2022 году картина изменилась: Нигерия (93\%), Папуа~--- Новая Гвинея (71\%), 
 Израиль (50\%), Греция (47\%), Азербайджан (47\%), Казахстан (37\%). 
-Отметим, что в основном это маленькие островные государства. 
-Вероятно, большая часть жителей этих стран сконцентрирована в~населённых пунктах.
+
+
 
 На 2017 год в странах большой восьмёрки доля жителей 
 в \href{http://www.wikidata.org/entity/Q486972}{населённых пунктах} составила: 
@@ -307,7 +322,7 @@ ORDER BY ?proportionPopulation
 \href{http://www.wikidata.org/entity/Q183}{Германия} (\num{0.24}\%), 
 \href{http://www.wikidata.org/entity/Q145}{Великобритания} (\num{0.18}\%), 
 \href{http://www.wikidata.org/entity/Q38}{Италия} (\num{0.07}\%). 
-В 2021 году значения доли населения снизились (рис.~\ref{fig:human-settlement-4}): 
+В 2022 году значения доли населения снизились (рис.~\ref{fig:human-settlement-4}): 
 \href{http://www.wikidata.org/entity/Q159}{Россия} (0.045\%), 
 \href{http://www.wikidata.org/entity/Q30}{США} (\num{0.014}\%), 
 \href{http://www.wikidata.org/entity/Q17}{Япония} (\num{0.008}\%), 
@@ -318,32 +333,51 @@ ORDER BY ?proportionPopulation
 \href{http://www.wikidata.org/entity/Q38}{Италия} (\num{0.0005}\%). 
 Отметим, что это страны промышленно развитые.
 
+\begin{figure*}
+    \includegraphics[width=1\linewidth]{./chapter/human_settlement/AnnaShareHumanSettlement.png}
+	\label{fig:human-settlement-3}
+	\caption[Диаграмма доли населения страны, проживающего в населённых пунктах, 2017 год.]{Диаграмма доли населения страны, проживающего в <<населённых пунктах>> на 2017 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/4dE3}{https://w.wiki/4dE3}}%
+\end{figure*} 
+
+
+\begin{figure*}
+% see https://commons.wikimedia.org/wiki/File:Proportion_of_the_country%27s_population_living_in_human_settlements_for_2022.png    
+    \includegraphics[width=1\linewidth]{./chapter/human_settlement/ShareHumanSettlement_2022.png}
+	\label{fig:human-settlement-4}
+	\caption[Диаграмма доли населения страны, проживающего в населённых пунктах, 2021 год.]{Диаграмма доли населения страны, проживающего в <<населённых пунктах>> на 2022 год. Были выбраны страны с населением более 5 млн чел. SPARQL-запрос: \href{https://w.wiki/5Ajn}{https://w.wiki/5Ajn}}%
+\end{figure*}%
+
+Поставим вопрос читателю относительно запроса \href{https://w.wiki/5Ajn}{https://w.wiki/5Ajn}, 
+с помощью которого построен рис.~\ref{fig:human-settlement-4}. 
+А именно к 13 строчке: \lstinline|HAVING (?proportionPopulation > 0.1 && ?proportionPopulation < 1)|. 
+Как вы думаете, в каких случаях доля населения, живущего в~населённых пунктах может превышать 100 \%?
+
 
 %%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%%
 \begin{marginfigure}[0.0cm]
-{\includegraphics[width=0.9\linewidth]{./chapter/human_settlement/POL_Otynia_COA.png}}
-  \caption[Герб четвёртого неизвестного населённого пункта.]{Герб населённого пункта какой страны изображён?}%
+{\includegraphics[width=4cm]{./chapter/human_settlement/POL_Otynia_COA.png}}
+  \caption[Герб четвёртого неизвестного населённого пункта.]{Герб населённого пункта какой страны изображён?\newline
+См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.}%
   \label{fig:flag_question_human_settlements4}%
 \end{marginfigure}
-\marginnote{%
-См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.%
-}
+%\marginnote{%
+%См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.%
+%}
 
 Полученные диаграммы подтверждают следующую гипотезу: 
-высокий процент населения страны, проживающего в <<населённых пунктах>>, 
+высокий процент населения страны, проживающего в~<<населённых пунктах>>, 
 указывает на более аграрную страну. 
 Из диаграмм~\ref{fig:human-settlement-3} и~\ref{fig:human-settlement-4} видно, 
 что наиболее высокий процент населения, проживающего в населённых пунктах, 
-приходится на островные, южные, жаркие страны, 
-в которых, по-видимому, менее развита промышленность 
-(маленькая территория, небольшое количество населения, удалённость от материков). 
+приходится на страны, в которых, по-видимому, менее развита промышленность. 
 А индустриальные страны (например, страны большой восьмёрки) имеют очень низкий процент населения страны, 
-проживающего в населённых пунктах.
+проживающего в~населённых пунктах.
+
 
 
 
 %%%%%
-\section{Cписок классов, сопутствующих <<населённому пункту>> в~свойстве <<экземпляр>>}
+\section[Cписок классов, сопутствующих <<населённому пункту>> в~свойстве <<экземпляр>>]{Cписок классов, сопутствующих <<населённому пункту>>\\в~свойстве <<экземпляр>>}
 \label{human-settlement:tag1}
 
 Будем называть <<классом>> такие объекты Викиданных, 
@@ -357,18 +391,19 @@ ORDER BY ?proportionPopulation
 
 
 %%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%%
-\begin{marginfigure}[-1.0cm]
-{\includegraphics[width=0.9\linewidth]{./chapter/human_settlement/Coat_of_Arms_of_Azov.png}}
-  \caption[Герб пятого неизвестного населённого пункта.]{Герб населённого пункта какой страны изображён?}%
+\begin{marginfigure}[0cm]
+{\includegraphics[width=4cm]{./chapter/human_settlement/Coat_of_Arms_of_Azov.png}}
+  \caption[Герб пятого неизвестного населённого пункта.]{Герб населённого пункта какой страны изображён?\\
+См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.}%
   \label{fig:flag_question_human_settlements5}%
 \end{marginfigure}
-\marginnote{%
-См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.%
-}
+%\marginnote{%
+%См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.%
+%}
 
-\marginnote[1cm]{Получено 610 результатов в 2017 году и \num{1245} результатов в 2021 году. SPARQL-запрос: \href{https://w.wiki/4dEW}{https://w.wiki/4dEW}}
+%\marginnote[1cm]{Получено 610 результатов в 2017 году и \num{1245} результатов в 2021 году. SPARQL-запрос: \href{https://w.wiki/4dEW}{https://w.wiki/4dEW}}
 \begin{lstlisting}[ language=SPARQL, 
-    caption={\href{https://w.wiki/4dEW}{Cписок объектов, сопутствующих <<населённому пункту>>}},
+    caption={\href{https://w.wiki/4dEW}{Cписок объектов, сопутствующих <<населённому пункту>>}\protect\footnotemark},
     label=lst:human-settlement7,
     texcl 
                   ]
@@ -381,7 +416,7 @@ WHERE{
 }  
 GROUP BY ?inst
 \end{lstlisting}%
-%\footnotetext{Получено 610 результатов в 2017 году и \num{1245} результатов в 2021 году. SPARQL-запрос: \href{https://w.wiki/4dEW}{https://w.wiki/4dEW}}
+\footnotetext{Получено 610 результатов в 2017 году и \num{1245} результатов в 2021 году. SPARQL-запрос: \href{https://w.wiki/4dEW}{https://w.wiki/4dEW}}
 
 Для ускорения выполнения запроса~\ref{lst:human-settlement7} выполним два шага.
  
@@ -468,33 +503,32 @@ ORDER BY DESC (?sumHum)
 Применим такой фильтр в запросе~\ref{lst:human-settlement9} в строках 10--12, 
 чтобы отсечь именно эти типы объектов.
 
+\begin{fullwidth}
 \index{SPARQL!COUNT!Cписок классов, сопутствующих <<населённому пункту>> в свойстве <<экземпляр>>, без исторических объектов}
 \index{SPARQL!FILTER!Cписок классов, сопутствующих <<населённому пункту>> в свойстве <<экземпляр>>, без исторических объектов}
 \index{SPARQL!MINUS!Cписок классов, сопутствующих <<населённому пункту>> в свойстве <<экземпляр>>, без исторических объектов}
 \lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/4dTq}{Cписок классов, сопутствующих <<населённому пункту>> в свойстве <<экземпляр>>, без исторических объектов}\protect\footnotemark},
+                    caption={\href{https://w.wiki/5AdW}{Cписок классов, сопутствующих <<населённому пункту>> в свойстве <<экземпляр>>, без исторических объектов}\protect\footnotemark},
                     label=lst:human-settlement9,
                     texcl 
                     ]
-# List of classes accompanying the human\_settlement in the property
-# 'instance of' without historical objects 
-SELECT ?inst ?instLabel (COUNT(?hum) as ?sumHum) WHERE{
+# List of classes accompanying the human\_settlement in the property 'instance of' without historical objects 
+SELECT ?inst ?instLabel (COUNT(?hum) as ?sumHum)
+WHERE{
   ?hum wdt:P31 wd:Q486972;    # instance of human settlement
-       wdt:P31 ?inst. # other objects in instance of human settlement
-  ?inst wdt:P31 ?test. # instance of ?inst
-  ?test wdt:P31 ?typ. # instance of ?test
+       wdt:P31 ?inst.         # other objects in instance of human settlement
+  ?inst wdt:P31 [wdt:P31 ?typ]. # instance of instance
   MINUS {?inst wdt:P17 []}.   # without country
-  # without human settlement and prehistoric settlements
-  FILTER(?inst != wd:Q486972 && ?typ != wd:Q465299 
-         && ?typ != wd:Q11514315 && ?typ != wd:Q15401699 
-         && ?typ != wd:Q200325 && ?typ != wd:Q392928 ). 
+  FILTER(?inst != wd:Q486972 && ?typ != wd:Q465299 && ?typ != wd:Q11514315 && ?typ != wd:Q15401699 
+         && ?typ != wd:Q200325 && ?typ != wd:Q392928 ). # without human settlement and prehistoric settlements
   SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
 }
 GROUP BY ?inst ?instLabel
 ORDER BY DESC (?sumHum)
 \end{lstlisting}%
-\footnotetext{Получено 89 результатов. Ссылка на SPARQL-запрос: \href{https://w.wiki/4dTq}{https://w.wiki/4dTq}}
+\footnotetext{Получено 89 результатов. Ссылка на SPARQL-запрос: \href{https://w.wiki/5AdW}{https://w.wiki/5AdW}}
+\end{fullwidth}
 
 В итоге, 707 классов запроса~\ref{lst:human-settlement8} 
 мы сократили в~запросе~\ref{lst:human-settlement9} 
@@ -528,11 +562,11 @@ ORDER BY DESC (?sumHum)
 
 \marginnote[64pt]{%
 %
-Задача. Используя команду FILTER~NOT~EXISTS, 
+Задача. Используя команду \lstinline|FILTER~NOT~EXISTS|, 
 измените запрос~\ref{lst:human-settlement-noname-count} так, чтобы получить число классов 
 с пустым полем <<численность населения>>. 
 
-См. пример использования этой команды в запросе~\ref{lst:anime_no_pub_date} 
+{\noindent}См. пример использования этой команды в запросе~\ref{lst:anime_no_pub_date} 
 на с.~\pageref{lst:anime_no_pub_date}.%
 %
 }
@@ -563,7 +597,7 @@ ORDER BY DESC (?count)
 Обратите внимание на безымянные переменные (\lstinline|[]|) 
 в строках 4~и~6 запроса~\ref{lst:human-settlement-noname-count}. 
 Эта безымянность связана с тем, что 
-важен факт указания численности населения, но не количество людей в них (строка~6),  
+важен факт указания численности населения, но~не~количество людей в них (строка~6),  
 нам не нужны названия сёл и деревень (строка~4).  
 
 Наличие строки шесть в~запросе~\ref{lst:human-settlement-noname-count} 
@@ -571,7 +605,7 @@ ORDER BY DESC (?count)
 существенно уменьшает числа в таблице~\ref{tab:human-settlement1} 
 в~столбце <<Количество>>. 
 Это связано с тем, что у многих населённых пунктов 
-не заполнено поле <<численность населения>>. 
+не~заполнено поле <<численность населения>>. 
 
 
 
@@ -598,7 +632,7 @@ ORDER BY DESC (?count)
 \end{tabular}
     \caption[Сельские и городские населённые пункты, 2022 год.]{Таблица классов и количество их упоминаний среди объектов, 
     имеющих свойство <<численность населения>> в России. 
-    В таблице представлены такие первые 11 строк ответа на запрос~\protect\ref{lst:human-settlement-noname-count}, 
+    В таблице представлены такие первые 11~строк ответа на запрос~\protect\ref{lst:human-settlement-noname-count}, 
     которые можно отнести к сельским или городским населённым пунктам. 
     Число в столбце <<\textnumero>> указывает номер строки с классом поселения 
     в списке из 229 ответов на запрос~\protect\ref{lst:human-settlement-noname-count}, 
@@ -670,20 +704,20 @@ SELECT (SUM(?population) AS ?count) WHERE {
   }
 }
 \end{lstlisting}%
-\footnotetext{Число жителей в городских поселениях России в 2022 году составило \num{116,1} млн человек. 
+\footnotetext{Число жителей в городских поселениях России в 2022 году составило \num{116,1}~млн человек. 
 Ссылка на SPARQL-запрос: \url{https://w.wiki/4$D9}}
 
 Суммарное число жителей по каждому из классов \emph{городских поселений} 
 вычисляется аналогично запросу~\ref{lst:human-settlement-village-count}. 
 Полученные числа представлены в таблице~\ref{tab:human-settlement1} в столбце <<Население>>. 
 
-Таким образом, получили, что \num{55.6} млн человек живёт в сельских поселениях и \num{116.1} млн человек~--- в городских. 
+Таким образом, получили, что \num{55.6} млн человек живёт в сельских поселениях и \num{116.1}~млн человек~--- в городских. 
 Общее число составило \num{171.7} млн человек. 
 при этом по оценке Росстата в России было 145 млн человек на 2022 год. 
 Получили на 27 млн человек больше, и это с учётом того, что Викиданные достаточно неполные. 
 
 На наш взгляд, проблема подсчётов заключается в том, 
-что большие города включают в себя множество небольших городков и жители этих городков считаются дважды. 
+что большие города включают в~себя множество небольших городков и жители этих городков считаются дважды. 
 Команда \lstinline|DISTINCT|%
 %
 %
@@ -705,7 +739,7 @@ SELECT (SUM(?population) AS ?count) WHERE {
 %
 %
 в запросе~\ref{lst:human-settlement-count-total-city} 
-эту проблему не решает, поскольку большой город и входящий в него маленький город~--- это разные объекты. 
+эту проблему не решает, поскольку большой город и входящий в~него маленький город~--- это разные объекты. 
 Один из вариантов решения заключается в том, 
 чтобы дополнительно проверять населённые пункты~---  
 не входят ли они в более крупные населённые пункты, 
@@ -879,7 +913,7 @@ SELECT DISTINCT ?hum ?humLabel WHERE {
 \begin{fullwidth}
     \index{График!BarChart!Диаграмма рождений отечественных учёных, родившихся в сёлах для нескольких профессий}
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/55VK}{Построение диаграммы отечественных учёных, родившихся в сёлах, с разбивкой по десятилетиям и занятиям}\protect\footnotemark},
+                    caption={\href{https://w.wiki/55VK}{Построение диаграммы отечественных учёных, родившихся в сёлах,\\с разбивкой по десятилетиям и занятиям}\protect\footnotemark},
                     label=lst:scholar-village-profession,
                     texcl 
                     ]
@@ -937,9 +971,9 @@ ORDER BY ?year_lapse
 \begin{figure*}
     \setlength{\fboxsep}{0pt}%
     \setlength{\fboxrule}{1pt}%
-    \fcolorbox{gray}{gray}{\includegraphics[width=1\linewidth]{./chapter/human_settlement/Russian_scholars_born_in_villages_filtered_by_profession.png}}
+    \fcolorbox{gray}{gray}{\includegraphics[width=0.9\linewidth]{./chapter/human_settlement/Russian_scholars_born_in_villages_filtered_by_profession.png}}
 	\label{fig:scholars-village-color}
-    \caption[Диаграмма количества учёных по родам деятельности, родившихся в сёлах, 2022 год.]{Диаграмма количества учёных, родившихся в сельских поселениях, с разбивкой дат рождения по десятилетиям. Фильтрация по нескольким профессиям (научным направлениям). Диаграмма построена в 2022 году по запросу~\protect\ref{lst:scholar-village-profession}.}%
+    \caption[Диаграмма количества учёных по родам деятельности, родившихся в сёлах, 2022 год.]{Диаграмма количества учёных, родившихся в~сельских поселениях, с разбивкой дат рождения по десятилетиям. Фильтрация по нескольким профессиям (научным направлениям). Диаграмма построена в 2022 году по~запросу~\protect\ref{lst:scholar-village-profession}.}%
 \end{figure*} 
 
 Изменим запрос~\ref{lst:scholar-village-profession} так, 
@@ -995,19 +1029,21 @@ ORDER BY ?year_lapse
 
 
 \begin{figure*}
-    \setlength{\fboxsep}{0pt}%
-    \setlength{\fboxrule}{1pt}%
-    \fcolorbox{gray}{gray}{\includegraphics[width=1\linewidth]{./chapter/human_settlement/Russian_scholars_born_in_villages_1850-1980.png}}
+%    \setlength{\fboxsep}{0pt}%
+%    \setlength{\fboxrule}{1pt}%
+%    \fcolorbox{gray}{gray}{
+    \includegraphics[width=1\linewidth]{./chapter/human_settlement/Russian_scholars_born_in_villages_1850-1980.png}%}
 	\label{fig:scholars-village-blue}
-    \caption[Диаграмма количества отечественных учёных, родившихся в сёлах, 2022 год.]{Диаграмма количества российских и советских учёных \emph{всех направлений}, родившихся в сельских поселениях в 1850-1980 годы. Максимальное число учёных (685 человек) родилось в 1930-е годы. Диаграмма построена по запросу~\protect\ref{lst:scholar-village} в 2022 году.}%
+    \caption[Диаграмма количества отечественных учёных, родившихся в сёлах, 2022 год.]{Диаграмма количества российских и советских учёных \emph{всех направлений}, родившихся в сельских поселениях в 1850-1980 годы. Максимальное число учёных (685 человек) родилось в 1930-е годы. Диаграмма построена по~запросу~\protect\ref{lst:scholar-village} в 2022 году.}%
 \end{figure*} 
 
 \begin{figure*}
-    \setlength{\fboxsep}{0pt}%
-    \setlength{\fboxrule}{1pt}%
-    \fcolorbox{gray}{gray}{\includegraphics[width=1\linewidth]{./chapter/human_settlement/Russian_scholars_born_in_city-town_1850-1990.png}}
+%    \setlength{\fboxsep}{0pt}%
+%    \setlength{\fboxrule}{1pt}%
+%    \fcolorbox{gray}{gray}{
+    \includegraphics[width=1\linewidth]{./chapter/human_settlement/Russian_scholars_born_in_city-town_1850-1990.png}%}
 	\label{fig:scholars-city-blue}
-    \caption[Диаграмма количества отечественных учёных, родившихся в городах, 2022 год.]{Диаграмма количества российских и советских учёных \emph{всех направлений}, родившихся в городских поселениях в 1850-1990 годы. Максимальное число учёных (7900 человек) родилось в 1930-е годы. Диаграмма построена по запросу~\protect\ref{lst:scholar-city} в 2022 году.}%
+    \caption[Диаграмма количества отечественных учёных, родившихся в городах, 2022 год.]{Диаграмма количества российских и советских учёных \emph{всех направлений}, родившихся в городских поселениях в 1850-1990 годы. Максимальное число учёных (7900 человек) родилось в 1930-е годы. Диаграмма построена по~запросу~\protect\ref{lst:scholar-city} в 2022 году.}%
 \end{figure*} 
 
 %%%%%
@@ -1020,7 +1056,6 @@ ORDER BY ?year_lapse
 с числом отечественных учёных всех направлений, родившихся в~городских поселениях, 
 с разбивкой по~десятилетиям (рис.~\ref{fig:scholars-city-blue}). 
 
-\newpage
 
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/58tL}{Фрагмент запроса построения диаграммы числа отечественных учёных \emph{всех направлений}, родившихся в~городских поселениях, с~разбивкой по~десятилетиям}\protect\footnotemark},
@@ -1037,9 +1072,9 @@ ORDER BY ?year_lapse
 Построена диаграмма~\protect\ref{fig:scholars-village-blue} по данным на 2022 год.
     Ссылка на SPARQL-запрос: \href{https://w.wiki/58tL}{https://w.wiki/58tL}}
 
-Диаграмма~\ref{fig:scholars-city-blue} показывает количество учёных по родам деятельности, родившихся в городских поселениях.
+Диаграмма~\ref{fig:scholars-city-blue} показывает количество учёных по родам деятельности, родившихся в~городских поселениях.
 На этой диаграмме чётко виден провал рождаемости в десятилетие Второй мировой войны, 
-а именно: 5700 человек в 1940-е годы~--- это на 28\% меньше, чем в 1930-е годы (7900 человек), 
+а именно: 5700 человек в 1940-е годы~--- это на 28\% меньше, чем в~1930-е годы (7900 человек), 
 и на 16\% меньше, чем в 1950-е годы (родилось 6800 будущих учёных). 
 
 Сравним пик рождаемости по сёлам (рис.~\ref{fig:scholars-village-blue}) 
@@ -1052,7 +1087,7 @@ ORDER BY ?year_lapse
 то получим, что в городах по сравнению с сёлами учёных рождалось больше\sidenote{Эти численные результаты получены по Викиданным на 2022 год.%
 }:
 %в 11 (1930-е), в 9 (1940-е), в 14 (1950-е), в 22 (1960-е), в 35 раз (1970-е и 1980-е годы). 
-\begin{itemize}
+\begin{itemize}[noitemsep,topsep=0pt]
   \item в 11 раз (1930-е), 
   \item в 9 раз (1940-е), 
   \item в 14 раз (1950-е), 

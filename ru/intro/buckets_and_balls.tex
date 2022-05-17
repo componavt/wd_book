@@ -1,11 +1,11 @@
 \chapter{Корзины и мячи}
 \label{ch:BucketsAndBalls}
-\marginnote[-4\baselineskip]{Глава основана на статье \cite{bucketsAndBalls} с~разрешения автора.}
+\marginnote[-6\baselineskip]{Глава основана на статье \cite{bucketsAndBalls} с~разрешения автора.}
 
 Понятие <<связанные данные>> (Linked Data) по-прежнему недопонято и недооценено. Возможно, эти данные кажутся слишком сложными. 
 Попробуем разобраться. Начнём с переменных.
 
-\begin{marginfigure}[-3\baselineskip]
+\begin{marginfigure}[-5\baselineskip]
 	{
 		\setlength{\fboxsep}{0pt}%
 		\setlength{\fboxrule}{1pt}%
@@ -75,6 +75,8 @@
     \item Корзину для регионов привяжем к мячу <<область России>> отношением <<экземпляр>> (instance of). Тогда из множества мячей~--- объектов Викиданных~--- в эту корзину попадут только те мячи, которые являются областью России. Корзина для регионов связана с корзиной <<руководитель>> (head) отношением <<имеет руководителя>>, в нашем случае это будет губернатор или глава области.
 \end{enumerate}
 
+
+\newpage
 Сделаем запрос более интересным и добавим ещё одну корзину для фотографий губернаторов. Вот теперь запрос в нотации <<Корзины и мячи>> будет как на рис.~\ref{fig:Query_in_basket_and_balls_notation}.
 
 \begin{figure}[h]
@@ -83,16 +85,15 @@
 	\label{fig:Query_in_basket_and_balls_notation}
 \end{figure}
 
-\newpage
 После выполнения запроса (рис.~\ref{fig:Query_in_basket_and_balls_notation}) наши корзины будут выглядеть как на рис.~\ref{fig:3_buckets_region_head_image}.
 
 \begin{marginfigure}
 	{
 		\setlength{\fboxsep}{0pt}%
 		\setlength{\fboxrule}{1pt}%
-		\fcolorbox{gray}{gray}{\includegraphics{./intro/bucketsAndBalls/3_buckets_region_head_image.PNG}}
+		\fcolorbox{gray}{gray}{\includegraphics[width=0.65\linewidth]{./intro/bucketsAndBalls/3_buckets_region_head_image.PNG}}
 	}
-    \caption[Заполненные корзины после выполнении запроса.]{Корзины после выполнении запроса на рис.~\ref{fig:Query_in_basket_and_balls_notation}. \textit{?region}~--- это области России, \textit{?head}~--- это руководители, \textit{?image}~--- это фотографии руководства.}
+    \caption[Заполненные корзины после выполнении запроса.]{Корзины после выполнении запроса на рис.~\ref{fig:Query_in_basket_and_balls_notation}.\\ \textit{?region}~--- это области России, \textit{?head}~--- это руководители, \textit{?image}~--- это фотографии руководства.}
 	\label{fig:3_buckets_region_head_image}
 \end{marginfigure}
 
@@ -109,11 +110,11 @@ SELECT DISTINCT ?region ?head ?image
 
 Следуя нашей нотации (рис.~\ref{fig:Query_in_basket_and_balls_notation}), напишем условия для заполнения первой корзины \textit{?region}, затем напишем первое отношение. Поскольку общей частью идентификаторов прямых отношений является wdt, мы пишем \textit{wdt}:, а затем, в сервисе WDQS, нажимаем Ctrl+пробел, чтобы запустить службу подсказок или  автозаполнения Викиданных (рис.~\ref{fig:WDQS_popup_instance_of}).
 
-\begin{marginfigure}[-2.5cm]
+\begin{marginfigure}[0cm]
 	{
 		\setlength{\fboxsep}{0pt}%
 		\setlength{\fboxrule}{1pt}%
-		\fcolorbox{gray}{gray}{\includegraphics{./intro/bucketsAndBalls/WDQS_popup_instance_of.PNG}}
+		\fcolorbox{gray}{gray}{\includegraphics[width=0.8\linewidth]{./intro/bucketsAndBalls/WDQS_popup_instance_of.PNG}}
 	}
     \caption[Меню автозаполнения свойства Викиданых в сервисе WDQS.]{С помощью команды Ctrl+пробел открылось выпадающее контекстное меню автозаполнения свойства Викиданых.}
 	\label{fig:WDQS_popup_instance_of}
@@ -135,13 +136,14 @@ SELECT DISTINCT ?region ?head ?image
 \end{lstlisting}
 \footnotetext{Получено 44 ссылки на области России и их руководителей. Ссылка на SPARQL-запрос: \href{https://w.wiki/4NVc}{https://w.wiki/4NVc}}
 
-\newpage Теперь посмотрите, как этот запрос выглядит в сервисе WDQS, и запустите его. Затем нажмите на значок глаза слева и выберите \textit{``image grid``} (рис.~\ref{fig:WDQS_drop_down_result_type}), чтобы просмотреть результаты в виде сетки изображений.
+%\newpage 
+Теперь посмотрите, как этот запрос выглядит в сервисе WDQS, и запустите его. Затем нажмите на значок глаза слева и выберите \textit{``image grid``} (рис.~\ref{fig:WDQS_drop_down_result_type}), чтобы просмотреть результаты в виде сетки изображений.
 
 \begin{marginfigure}
 	{
 		\setlength{\fboxsep}{0pt}%
 		\setlength{\fboxrule}{1pt}%
-		\fcolorbox{gray}{gray}{\includegraphics[width=0.5\linewidth]{./intro/bucketsAndBalls/WDQS_drop_down_result_type.PNG}}
+		\fcolorbox{gray}{gray}{\includegraphics[width=0.3\linewidth]{./intro/bucketsAndBalls/WDQS_drop_down_result_type.PNG}}
 	}
     \caption[Выбор отображения результатов запроса в виде сетки изображений.]{Выбор отображения результатов запроса в виде \textit{``image grid``} (сетки изображений).}
 	\label{fig:WDQS_drop_down_result_type}
@@ -150,12 +152,13 @@ SELECT DISTINCT ?region ?head ?image
 Это неплохо для первого результата, но теперь под каждой фотографией мы видим только идентификаторы людей и областей. Если мы щёлкнем по гиперссылке идентификатора, мы получим много информации об этом объекте. Но было бы нагляднее кроме идентификаторов указать имена людей и названия областей (меток) в результате запроса. Это похоже на наклеивание этикеток на наши корзины (рис.~\ref{fig:Query_in_basket_and_balls_notation_with_ids}).
 
 \begin{figure*}[h!]
-\includegraphics[width=0.6\linewidth]{./intro/bucketsAndBalls/Query_in_basket_and_balls_notation_with_ids.png}
+\includegraphics[width=0.58\linewidth]{./intro/bucketsAndBalls/Query_in_basket_and_balls_notation_with_ids.png}
 \caption{Запрос в нотации <<Корзины и мячи>> с номерами свойств и объектов Викиданных.}
 \label{fig:Query_in_basket_and_balls_notation_with_ids}
 \end{figure*}
 
-Метка(\textit{``Label``})~--- это то, что есть у каждого мяча, то есть объекта Викиданных. Метка – это имя, позволяющее различать объекты между собой. В Викиданных есть сервис, упрощающий вывод меток по запросу. Для этого достаточно добавить в конец имени переменной слово \textit{``Label``} и вызвать нужный сервис. Чтобы вызвать этот сервис, на новой строке внутри фигурных скобок наберите Ctrl + пробел и когда вы начнёте писать слово \textit{``Label``}, тогда будет добавлена строка с этим сервисом\footnote[][12pt]{Пример вызова этого сервиса представлен в листинге~\ref{lst:regionsOfHeads}, в строке 8. В этой строке языком для меток указан русский язык (код ``ru``).}. По умолчанию вы получаете подсказку с языком интерфейса и английским языком в качестве альтернативы, если метка недоступна на языке выбранного интерфейса Викиданных.
+\newpage
+Метка (\textit{``Label``})~--- это то, что есть у каждого мяча, то есть объекта Викиданных. Метка – это имя, позволяющее различать объекты между собой. В Викиданных есть сервис, упрощающий вывод меток по запросу. Для этого достаточно добавить в конец имени переменной слово \textit{``Label``} и вызвать нужный сервис. Чтобы вызвать этот сервис, на новой строке внутри фигурных скобок наберите Ctrl + пробел, и когда вы начнёте писать слово \textit{``Label``}, тогда будет добавлена строка с этим сервисом\footnote[][12pt]{Пример вызова этого сервиса представлен в листинге~\ref{lst:regionsOfHeads}, в строке 8. В~этой строке языком для меток указан русский язык (код ``ru``).}. По умолчанию вы получаете подсказку с языком интерфейса и английским языком в качестве альтернативы, если метка недоступна на языке выбранного интерфейса Викиданных.
 
 Викиданные полны таких замечательных сервисов, и для окончательного запроса мы воспользуемся ещё одним. Чтобы получить результат сразу в виде набора фотографий глав областей, без дополнительного нажатия на значок глаза, поместите где-нибудь в своём запросе следующую конструкцию для WDQS:
 \begin{lstlisting}[ language=SPARQL ]
@@ -167,7 +170,9 @@ SELECT DISTINCT ?region ?head ?image
 Наш последний запрос представлен на листинге~\ref{lst:regionsOfHeads}. Фрагмент результата его выполнения показан на рис.~\ref{fig:Result_of_the_request}.
 
 \lstset{numbers=left, firstnumber=1, frame=single}
-\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/4ENR}{Список руководителей областей России с фотографиями}\protect\footnotemark}, label=lst:regionsOfHeads, ]
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={\href{https://w.wiki/4ENR}{Список руководителей областей России с фотографиями}\protect\footnotemark}, 
+                    label=lst:regionsOfHeads, ]
 # List of regions of the Russia and images of heads of government
 #defaultView:ImageGrid
 SELECT DISTINCT ?region ?regionLabel ?head ?headLabel ?image
@@ -178,14 +183,14 @@ SELECT DISTINCT ?region ?regionLabel ?head ?headLabel ?image
   SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"} 
 }
 \end{lstlisting}
-
 \footnotetext{Получено 44 области России и их руководителей. Ссылка на SPARQL-запрос: \href{https://w.wiki/4ENR}{https://w.wiki/4ENR}}
 
+%\begin{fullwidth}
 \begin{figure*}[h!]
-\includegraphics[width=0.6\linewidth]{./intro/bucketsAndBalls/result_of_request_for_photos_of_heads_of_government.png}
-\caption{Результат запроса в виде сетки изображений.}
-\label{fig:Result_of_the_request}
+\includegraphics[width=0.9\linewidth]{./intro/bucketsAndBalls/result_of_request_for_photos_of_heads_of_government.png}
+    \caption{Результат запроса~\protect\ref{lst:regionsOfHeads} в виде сетки изображений.}
+    \label{fig:Result_of_the_request}
 \end{figure*}
-
+%\end{fullwidth}
 
 Такое представление о запросах SPARQL, как о связанных корзинах и мячах, может быть полезным, по крайней мере, в начале освоения Викиданных. И, конечно, у каждой метафоры есть свои ограничения. Например, нельзя поместить один и тот же мяч в две разные настоящие корзины, но в эти виртуальные~--- можно. <<Корзины и мячи>> могут быть полезны, чтобы вскарабкаться на высоту абстракции Викиданных.

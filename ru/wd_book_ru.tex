@@ -92,6 +92,12 @@
 \usepackage{bookmark}% http://ctan.org/pkg/bookmark
 
 
+% do not add this package, it changes everything drastically
+%\usepackage{floatrow}   % Two figures side by side in Tufte-Latex, https://tex.stackexchange.com/a/392927/99685
+
+% How to remove the whitespace BEFORE itemize/enumerate?
+\usepackage{enumitem}% https://tex.stackexchange.com/a/86055/99685
+
 % see https://mydebianblog.blogspot.com/2014/06/latex.html
 \usepackage{epigraph} %%% to make inspirational quotes.
 
@@ -280,7 +286,7 @@
 
 %%
 % Book metadata
-\title{Программирование \\Викиданных \\для школьников \\и студентов}
+\title{Программирование \\Викиданных}% \\для школьников \\и студентов}
 \author[Крижановский и др.]{Крижановский Андрей, Балакирева Мария, Меньшикова Екатерина, \mbox{Паренченков Евгений}, Потес Артём, Трубина Елизавета, \mbox{Обрегон Анхель}}
 %\author[Крижановский А. А., Балакирева М. С., Меньшикова Е. А., Паренченков Е. О., Потес А. С., Трубина Е. Д.]{Крижановский Андрей, Балакирева Мария, Меньшикова Екатерина, Паренченков Евгений, Потес Артём, Трубина Елизавета}
 %\author[Крижановский Андрей, Иванов Иван]{Крижановский Андрей,\ Иванов Иван,\ добавьте свою фамилию и имя ...}
@@ -312,6 +318,9 @@
 \usepackage{graphicx}
 \setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
 \graphicspath{{graphics/}}
+
+% \captionof in minipage, when Two figures side by side, https://tex.stackexchange.com/a/57436/99685
+\usepackage{caption}
 
 % The fancyvrb package lets us customize the formatting of verbatim
 % environments.  We use a slightly smaller font.
@@ -429,6 +438,14 @@
 %\geometry{a4paper,landscape,left=24.8mm,top=27.4mm,headsep=2\baselineskip,textwidth=107mm,marginparsep=8.2mm,marginparwidth=136.4mm,textheight=34\baselineskip,headheight=\baselineskip}
 % text = 107 mm (old) + 40 mm = 147, margin = 49.4 mm (old) + 47 = 96.4 mm
 \geometry{a4paper,landscape,left=24.8mm,top=27.4mm,headsep=2\baselineskip,textwidth=147mm,marginparsep=8.2mm,marginparwidth=96.4mm,textheight=34\baselineskip,headheight=\baselineskip}
+
+
+% Absolutely, definitely, preventing page break, https://tex.stackexchange.com/a/94702/99685
+%\newenvironment{absolutelynopagebreak}
+%  {\par\nobreak\vfil\penalty0\vfilneg
+%   \vtop\bgroup}
+%  {\par\xdef\tpd{\the\prevdepth}\egroup
+%   \prevdepth=\tpd}
 
 
 % Generates the index
