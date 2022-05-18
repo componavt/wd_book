@@ -1,17 +1,15 @@
-\chapter[Анализ стран: возраст, формы правления и этнохоронимы]{Анализ трёх аспектов современных стран по Викиданным: возраст стран, популярные формы правления и этнохоронимы}
+\chapter[Анализ стран: возраст, формы правления и этнохоронимы]{Анализ трёх аспектов современных стран по Викиданным:\\возраст стран, популярные формы правления и этнохоронимы}
 \label{ch:country}
 
 Глава посвящена исследованию стран на основе базы знаний международного проекта Викиданные. С помощью SPARQL-запросов, вычисляемых на объектах <<страна>> в Викиданных, получены: список всех ныне существующих стран, перечень стран, упорядоченных по дате создания, список этнохоронимов стран, пузырьковая диаграмма с формами правления стран, граф соседних стран и карту соседних стран России. Кроме того, проанализирована полнота Викиданных по этой теме.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{marginfigure}[0.0cm]
-	{
-		\setlength{\fboxsep}{0pt}%
-		\setlength{\fboxrule}{1pt}%
-		\fcolorbox{gray}{gray}{\includegraphics[width=0.8\linewidth]{chapter/country/ProWD_country.png}}
-	}
-	\caption
-	[Степень заполненности свойств стран на Викиданных]%
+\begin{marginfigure}[7\baselineskip]
+%\setlength{\fboxsep}{0pt}%
+%\setlength{\fboxrule}{1pt}%
+%\fcolorbox{gray}{gray}{
+    \includegraphics[width=0.8\linewidth]{chapter/country/ProWD_country.png}
+    \caption[Степень заполненности свойств стран на Викиданных]%
 	{%
 Высокая степень заполнения по числу свойств объекта Викиданных \href{https://www.wikidata.org/wiki/Q6256}{страна (Q6256)}.  Данные получены с помощью сервиса \href{https://prowd.id/dashboards/86b6f91a8131/profile}{ProWD.id}, 2020 год. \emph{Коэффициент Джини равен 0.091.}
 	}%
@@ -24,25 +22,27 @@
 Построим список всех стран на английском и русском языках (листинг~\ref{lst:country}).
 
 \begin{lstlisting}[ language=SPARQL, 
-caption={\href{https://w.wiki/k6L}{Экземпляры объекта <<страна>>}\protect\footnotemark},
-label=lst:country, 
+    caption={\href{https://w.wiki/k6L}{Экземпляры объекта <<страна>>}\protect\footnotemark},
+    label=lst:country, 
+    numbers=none,
 ]
 #List of countries in English and Russian
-SELECT ?country ?label_en ?label_ru
-WHERE
+SELECT ?country ?label_en ?label_ru WHERE
 {
-		?country wdt:P31 wd:Q6256. # instance country
+		?country wdt:P31 wd:Q6256. # instance of country
 		?country rdfs:label ?label_en filter (lang(?label_en) = "en").
 		?country rdfs:label ?label_ru filter (lang(?label_ru) = "ru").
 }
 \end{lstlisting}
-\footnotetext{Получено 205 стран на 2017 год и 175 стран на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/k6L}{https://w.wiki/k6L}}
+\footnotetext[1][0cm]{Получено 205 стран на 2017 год и 175 стран на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/k6L}{https://w.wiki/k6L}}
 
-По степени заполненности свойств на Викиданнных можно различать <<полные>> и  <<пустые>> страны. 
+%По степени заполненности свойств на Викиданнных можно различать <<полные>> и  <<пустые>> страны. 
+%
+%Примерами наиболее полных и проработанных стран на Викиданных по данным ProWD\autocite{prowd_balakireva} являются: \wdqName{Израиль}{801} (127 свойств), \wdqName{Франция}{142} (126 свойств), \wdqName{Соединённые Штаты Америки}{30} (124 свойства).
+%
+%Наименьшее количество свойств у \wdqName{Соединённых провинций Центральной Америки}{8842993} (3 свойства) и \wdqName{Джалаириды}{8842993} (9 свойств).
 
-Примерами наиболее полных и проработанных стран на Викиданных по данным ProWD\autocite{prowd_balakireva} являются: \wdqName{Израиль}{801} (127 свойств), \wdqName{Франция}{142} (126 свойств), \wdqName{Соединённые Штаты Америки}{30} (124 свойства).
 
-Наименьшее количество свойств у \wdqName{Соединённых провинций Центральной Америки}{8842993} (3 свойства) и \wdqName{Джалаириды}{8842993} (9 свойств).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Возраст стран и почему Россия бывает не страной? О конструкции p:/ps:}
@@ -81,147 +81,168 @@ ORDER BY (?inception)
 
 \footnotetext{Получено  112 стран на 2017 год и 199 стран на 2020. Ссылка на SPARQL-запрос: \href{https://w.wiki/suP}{https://w.wiki/suP}}
 
-В результате выполнения запроса (листинг~\ref{lst:age_of_country}) получен скромный список стран, включающий на 2020 год всего 184 страны. На примере России разберемся, в чем здесь дело. Объект \wdqName{Россия}{159} в поле ``instance of'' содержит не одно, а восемь значений, в том числе \wdqName{country}{6256}.
-
-\marginnote{
-	На странице Викиданных \href{https://w.wiki/LX}{``Request a query''} одни редакторы задают вопросы, как написать тот или иной скрипт, а другие редакторы отвечают. Пользуйтесь этим форумом.
+В результате выполнения запроса (листинг~\ref{lst:age_of_country}) 
+получен скромный список стран, включающий на 2020 год всего 199 стран. 
+На примере России разберёмся, в чём здесь дело. 
+Объект \wdqName{Россия}{159} в~поле \lstinline|instance of| содержит не одно, а восемь значений, в том числе \wdqName{country}{6256}.
+%
+\marginnote{%
+На странице Викиданных \href{https://w.wiki/LX}{``Request a query''} одни редакторы задают вопросы, как написать тот или иной скрипт, а другие редакторы отвечают. Пользуйтесь этим форумом.
 }
 
 Решение и ответ на этот вопрос были найдены на странице ``Wikidata: Request a query'', а именно в разделе доступном по ссылке \href{https://w.wiki/tLm}{https://w.wiki/tLm}.
 
-Дело в том, что конструкция wdt позволяет находить только истинные значения. Для России предпочтительным ответом (англ. preferred value) в поле ``instance of'' является <<суверенное государство>>, а не страна. Чтобы проверить все варианты, представленные в поле ``instance of'' России, нужно использовать конструкцию p:/ps:.
+Дело в том, что конструкция wdt позволяет находить только истинные значения. 
+Для~России предпочтительным ответом (англ. preferred value) 
+в поле \lstinline|instance of| указано <<суверенное государство>>, а не <<страна>>. 
+Чтобы проверить все варианты, представленные в поле \lstinline|instance of| России, 
+нужно использовать конструкцию \lstinline|p:/ps:|.
 
-Таким образом, скрипт для получения всех 232 стран, отсортированных по дате создания, представлен на листинге~\ref{lst:list_of_country_instance_of}.
+Таким образом, запрос~\ref{lst:list_of_country_instance_of} 
+позволяет получить больше стран, отсортированных по дате создания. 
+В 2020 году было получено 235~стран, в 2022~--- 246~стран.
 
+
+\newpage
 \begin{lstlisting}[ language=SPARQL, 
-caption={\href{https://w.wiki/tN$}{Список стран, отсортированных по дате основания}\protect\footnotemark},
+caption={\href{https://w.wiki/5BCN}{Список стран, отсортированных по дате основания}\protect\footnotemark},
 label=lst:list_of_country_instance_of, 
 ]
 # List of countries sorted by inception date
-SELECT ?country ?countryLabel
-		(MIN(?year) AS ?min_year)
-WHERE
+SELECT ?country ?countryLabel (MIN(?year) AS ?min_year) WHERE
 {
-	?country p:P31 [ps:P31 wd:Q6256]. # instance of a country 
-	?country p:P571 [ps:P571 ?inception]. # all inception dates
-	BIND(YEAR(?inception) AS ?year)
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
+    ?country p:P31  [ps:P31 wd:Q6256];      # instance of a country 
+             p:P571 [ps:P571 ?inception].   # all inception dates
+    BIND(YEAR(?inception) AS ?year)
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
-GROUP BY ?country ?countryLabel ?min_year
+GROUP BY ?country ?countryLabel
 ORDER BY ?min_year
 \end{lstlisting}
+\footnotetext{Получено 235 стран в~2020 году, 246~стран в~2022~году. Ссылка на SPARQL-запрос: \href{https://w.wiki/5BCN}{https://w.wiki/5BCN}}
 
-\footnotetext{Получено  235 стран на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/tN\$}{https://w.wiki/tN\$}}
-
-Чтобы убрать из этого списка уже не существующие страны, то есть экземпляры объекта \wdqName{historical country}{3024240}, используем оператор MIN US.
-
-С помощью скрипта (листинг~\ref{lst:list_of_country_instance_of_}) получено 211 не исторических стран с известной датой основания.
+Чтобы убрать из этого списка уже не существующие страны, 
+то есть экземпляры объекта \wdqName{historical country}{3024240}, 
+используем оператор \lstinline|MINUS|. 
+С помощью запроса~\ref{lst:list_of_country_instance_of_} получили список действующих, 
+то есть не исторических, стран с известной датой основания.
 
 \begin{lstlisting}[ language=SPARQL, 
-caption={\href{https://w.wiki/vLF}{Список стран, отсортированных по дате основания, не включающий исторические страны}\protect\footnotemark},
+caption={\href{https://w.wiki/5BCP}{Список стран, отсортированных по дате основания, не включающий исторические страны}\protect\footnotemark},
 label=lst:list_of_country_instance_of_, 
 ]
 # List of countries sorted by inception date without historical countries
-SELECT ?country ?countryLabel 
-(MIN(?year) AS ?min_year)
-WHERE
+SELECT ?country ?countryLabel (MIN(?year) AS ?min_year) WHERE
 {
-	?country p:P31 [ps:P31 wd:Q6256]. # instance of a country 
-	MINUS {?country p:P31 [ps:P31 wd:Q3024240]}. # except historical countries
-	?country p:P571 [ps:P571 ?inception]. # all inception dates
+	?country p:P31 [ps:P31 wd:Q6256].               # instance of a country 
+	MINUS {?country p:P31 [ps:P31 wd:Q3024240]}.    # except historical countries
+	?country p:P571 [ps:P571 ?inception].           # all inception dates
 	BIND(YEAR(?inception) AS ?year)
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
-GROUP BY ?country ?countryLabel ?min_year
+GROUP BY ?country ?countryLabel
 ORDER BY ?min_year
 \end{lstlisting}
 
-\footnotetext{Получено  211 стран на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vLF}{https://w.wiki/vLF}}
+\footnotetext{Получено 211 стран в 2020 году и 212 в 2022 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/5BCP}{https://w.wiki/5BCP}}
 
-Например, \wdqName{Франция}{142}~--- 463 год, \wdqName{Россия}{159}~--- 862 год, \wdqName{Республика Косово}{1246}~--- 2008 год, \wdqName{Южный Судан}{958}~--- 2011. 
-Наибольшее количество стран появилось в 1960 (16 стран), в 1991 году (15 стран), в 1962 (6 стран) и в 1821 (6 стран).
+Например, первое упоминание о~\wdqName{Франции}{142} было в~463~году, о~\wdqName{России}{159}~--- в~862~году, о~\wdqName{Республике~Косово}{1246}~--- в~2008~году, о~\wdqName{Южном~Судане}{958}~--- в~2011~году. 
+Наибольшее количество стран появилось в 1960 году (16 стран), 
+в 1991 году (15 стран), в~1962~году (6~стран) и в~1821~году (6~стран).
 
-Выведем список стран с пустым свойством <<дата основания>> (листинг~\ref{lst:without_inception}).
+
+\newpage
+Выведем список стран с пустым свойством <<дата основания>> (листинг~\ref{lst:without_inception}). 
+Такие некомплектные объекты Викиданных могли быть созданы по ошибке или могут содержать какие-то дефекты. 
+Можно посмотреть историю правок объекта и обратиться с~вопросом к~редакторам этой статьи. 
+Подробнее о том, что такое <<история правок>> в~вики-проектах 
+и как с ней работать см. в~учебнике\autocite{Krizhanovsky2015}.
 
 \begin{lstlisting}[ language=SPARQL, 
-caption={\href{https://w.wiki/k6q}{Страны с незаполненной датой основания}\protect\footnotemark},
-label=lst:without_inception, 
+    caption={\href{https://w.wiki/k6q}{Страны с незаполненной датой основания}\protect\footnotemark},
+    label=lst:without_inception,
+    numbers=none,
 ]
 #List of `instances of` "countries without a inception" 
-SELECT ?country ?countryLabel 
-WHERE
+SELECT ?country ?countryLabel WHERE
 {
-?country wdt:P31 wd:Q6256. # country
-
-MINUS { ?country wdt:P571 [] } . # inception of country is empty
-SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+    ?country wdt:P31 wd:Q6256.      # instance of country
+    MINUS { ?country wdt:P571 [] }. # inception of country is empty
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
 \end{lstlisting}
-
 \footnotetext{Получено  100 стран на 2017 год и 7 стран на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/k6q}{https://w.wiki/k6q}}
 
-\subsection{Полнота Викиданных}
 
-Проанализируем полноту Викиданных: исторические и современные страны.
 
-По данным <<Общероссийского классификатора стран мира>>\autocite{oksm} на Земле существует 251 страна.
+
+\subsection{Объём Викиданных по современным и историческим странам}
+
+Проанализируем полноту Викиданных на примере исторических и~современных стран. 
+По данным <<Общероссийского классификатора стран мира>>\autocite{oksm} на Земле существует 251~страна.
+Отдельного анализа заслуживают древние, уже не существующие государства, например, \wdqName{Ассирия}{41137}. 
+Объекты таких стран на Викиданных являются экземплярами не~объекта ``country'', 
+а  ``historical country'' (историческая страна). 
+
+С помощью скрипта~\ref{lst:List_of_historical_countries} построим список исторических государств. 
+Таких бывших государств на 2020 год оказалось три тысячи, что на порядок больше числа современных государств.
+%
 %%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%%
-\marginnote{
-	%	Какое количество административных единиц имеют следующие страны:
-	Найдите государства, существовавшие дольше всего. 
-	См. ответ~\ref{answer:old_countries} на с.~\pageref{answer:old_countries}.
+\marginnote{%
+%	Какое количество административных единиц имеют следующие страны:
+Напишите запрос, чтобы найти государства, существовавшие дольше всех.\\
+См. ответ~\ref{answer:old_countries} на с.~\pageref{answer:old_countries}.
 }
 
-Отдельного анализа заслуживают древние, уже не существующие государства, например, \wdqName{Ассирия}{41137}. Объекты таких страны на Викиданных являются экземплярами не объекта <<country>>, а  <<historical country>> (исторические страны). 
-
-С помощью скрипта (листинг~\ref{lst:List_of_historical_countries}) построим список исторических государств. Таких бывших государств оказалось три тысячи, что на порядок больше числа современных государств.
 
 \begin{lstlisting}[ language=SPARQL, 
-caption={\href{https://w.wiki/tQN}{Список исторических стран}\protect\footnotemark},
-label=lst:List_of_historical_countries, 
+    caption={\href{https://w.wiki/tQN}{Список исторических стран}\protect\footnotemark},
+    label=lst:List_of_historical_countries, 
+    numbers=none,
 ]
 # List of historical countries
-SELECT ?country ?countryLabel
-WHERE
+SELECT ?country ?countryLabel WHERE
 {
-	?country p:P31 [ps:P31 wd:Q3024240]. # instance of a historical country 
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],ru,en"} 
+    ?country p:P31 [ps:P31 wd:Q3024240].    # instance of a historical country 
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en"} 
 }
 \end{lstlisting}
-
-\footnotetext{Получено  3026 стран на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/tQN}{https://w.wiki/tQN}}
+\footnotetext{Получено \num{3026} стран на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/tQN}{https://w.wiki/tQN}}
 
 %Отметим, что количество бывших стран (165 на 2020 год) меньше существующих ныне стран.
 
-По данным статьи <<Список государств>>\autocite{list_of_sovereign_states} Русской Википедии существует 252 страны (в  <<Общероссийском классификаторе стран мира>> недостаёт Косово).
-
-По данным статьи ``List of sovereign states''\autocite{list_of_sovereign_states_en} Английской Википедии существует 206 стран.
+По данным статей <<Список государств>>\autocite{list_of_sovereign_states} Русской Википедии 
+и статьи ``List of sovereign states''\autocite{list_of_sovereign_states_en} Английской Википедии существует 208 стран.
 
 %%%%%%%%%%%%%%%% Упражнение 3 %%%%%%%%%%%%%%%%
-\marginnote{
-	Определите по флагам страны Азии и перечислите их в порядке возрастания плотности населения.
+\marginnote{%
+Определите по флагам страны Азии и перечислите их в порядке возрастания плотности населения. 
+См. ответ~\ref{answer:population_density} на с.~\pageref{answer:population_density}.
 }
 \begin{marginfigure}[0.0cm]
-	{
-		\setlength{\fboxsep}{0pt}%
-		\setlength{\fboxrule}{1pt}%
-		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/256px-Flag_of_South_Korea.png}}%
-	}
+    \centering
+        \includegraphics[width=3cm]{./chapter/country/256px-Flag_of_South_Korea.png}
 	\caption{Флаг первой страны.}%
 	\label{fig:flag_kor}%
 \end{marginfigure}
 \begin{marginfigure}[0.0cm]
-	{
-		\setlength{\fboxsep}{0pt}%
-		\setlength{\fboxrule}{1pt}%
-		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/256px-Flag_of_Singapore.png}}%
-	}
+    \centering
+	    \setlength{\fboxsep}{0pt}%
+	    \setlength{\fboxrule}{1pt}%
+	    \fcolorbox{gray}{gray}{
+        \includegraphics[width=3cm]{./chapter/country/256px-Flag_of_Singapore.png}}
 	\caption{Флаг второй страны.}%
 	\label{fig:flag_singapore}%
 \end{marginfigure}
 
 
-У экземпляров объекта <<\href{https://www.wikidata.org/wiki/Q6256}{страна}>> обычно заполнено свойство \href{https://www.wikidata.org/wiki/Property:P571}{inception (P571)}, то есть дата основания. Однако не всегда точно можно  указать дату основания страны по разным причинам: отсутствие, недостаток или противоречие письменных источников. Например, основание Древнерусского государства связывают с призванием варяжского князя Рюрика в 862 году, но точной даты нет (объект \wdqName{Россия}{159}). Некоторым современным странам предшествовали ряд исторических предшественников, и дату образования какого из них считать за дату создания современной страны ‒ это вопрос открытый. Например, датой основания \wdqName{Монголии}{711} принято считать 29 декабря 1911 года, когда произошло провозглашение независимости от Китая. Хотя в истории Монголия появляется со времён деятельности Чингисхана, который кратковременно в начале \MakeUppercase{\romannumeral13} века объединил под своей властью большую часть Евразии.
+У экземпляров объекта <<\href{https://www.wikidata.org/wiki/Q6256}{страна}>> обычно заполнено свойство \href{https://www.wikidata.org/wiki/Property:P571}{inception (P571)}, то есть дата основания. Однако не всегда точно можно  указать дату основания страны по разным причинам: отсутствие, недостаток или противоречие письменных источников. Например, основание Древнерусского государства связывают с призванием варяжского князя Рюрика в 862 году, но точной даты нет (объект \wdqName{Россия}{159}). 
+Некоторым современным странам предшествовал ряд исторических событий, 
+и дату какого из них считать за дату создания современной страны~--- это вопрос открытый. 
+Например, датой основания \wdqName{Монголии}{711} принято считать 29 декабря 1911 года, 
+когда произошло провозглашение независимости от Китая. 
+Хотя в истории Монголия появляется со времён деятельности Чингисхана, 
+который кратковременно в начале \MakeUppercase{\romannumeral13} века объединил под своей властью большую часть Евразии.
 
 
 
@@ -229,33 +250,35 @@ WHERE
 \section{Этнохоронимы стран на русском языке}
 
 \begin{marginfigure}[0.0cm]
-	{
-		\setlength{\fboxsep}{0pt}%
-		\setlength{\fboxrule}{1pt}%
-		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/256px-Flag_of_Israel.png}}%
-	}
+    \centering
+%		\setlength{\fboxsep}{0pt}%
+%		\setlength{\fboxrule}{1pt}%
+%		\fcolorbox{gray}{gray}{
+    \includegraphics[width=3cm]{./chapter/country/256px-Flag_of_Israel.png}
 	\caption{Флаг третьей страны.}%
 	\label{fig:flag_israel}%
 \end{marginfigure}
 \begin{marginfigure}[0.0cm]
-	{
-		\setlength{\fboxsep}{0pt}%
-		\setlength{\fboxrule}{1pt}%
-		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/256px-Flag_of_Mongolia.png}}%
-	}
+    \centering
+		\includegraphics[width=3cm]{./chapter/country/256px-Flag_of_Mongolia.png}
 	\caption{Флаг четвертой страны.}%
 	\label{fig:flag_mongolia}%
 \end{marginfigure}
-\marginnote{
-	См. ответ~\ref{answer:population_density} на с.~\pageref{answer:population_density}.
-}
+%\marginnote{
+%	См. ответ~\ref{answer:population_density} на с.~\pageref{answer:population_density}.
+%}
 
-Этнохороним~--- это название жителей определённой местности, соотнесённое с топонимом. Например, этнохронимами для России будут россияне, россиянин, россиянка, для Чехии – чехи, чех, чешка.
+Этнохороним~--- это название жителей определённой местности, соотнесённое с топонимом. 
+Например, этнохронимами для России будут россияне, россиянин, россиянка, 
+для~Чехии~--- чехи, чех, чешка.
 
 Помимо географического фактора, новые лексемы, используемые для определения происхождения либо принадлежности, происходят так же от этнических, политических, религиозных характеристик людей\autocite{Zhuravleva2012}. 
 
 Этнохоронимы могут определяться названиями разных объектов земной поверхности: гор, островов, континентов. Так же обозначение места происхождения людей может зависеть от политико-административного деления. Например, для обозначения гражданства: Тайланд~--- тайландцы, Канада~--- канадцы. Внутригосударственное деление также может породить новые наименования, Крым~--- крымчане.
 
+
+
+\newpage
 Построим список стран, у которых есть этнохоронимы на русском языке (листинг~\ref{lst:demonym}).
 
 
@@ -264,8 +287,7 @@ caption={\href{https://w.wiki/tec}{Список стран с этнохорон
 label=lst:demonym, 
 ]
 # List of countries with demonyms in Russian
-SELECT ?country ?countryLabel 
-WHERE
+SELECT ?country ?countryLabel WHERE
 {
 	?country p:P31 [ps:P31 wd:Q6256]. # instance of a country
 	?country wdt:P1549 ?demonym .     # has demonym
@@ -274,8 +296,10 @@ WHERE
 }
 GROUP BY ?country ?countryLabel
 \end{lstlisting}
+\footnotetext{Получено 28 стран на 2017 год и 131~--- на 2021 год. Ссылка на~SPARQL-запрос: \href{https://w.wiki/tec}{https://w.wiki/tec}}
 
-\footnotetext{Получено  28 стран на 2017 год и 131 страна на 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/tec}{https://w.wiki/tec}}
+
+
 
 
 \subsection{Cписок этнохоронимов стран}
@@ -304,39 +328,59 @@ WHERE
 }
 \end{lstlisting}
 
-\footnotetext{Получено  83 этнохоронима на 2017 год и 296 этнохоронима на 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/teg}{https://w.wiki/teg}}
+\footnotetext{Получено  83 этнохоронима на 2017 год и 296 этнохоронимов на 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/teg}{https://w.wiki/teg}}
 
+
+
+
+\newpage
 \subsection{Страны с незаполненными этнохоронимами}
 
-Построим список стран, у которых нет этнохоронимов на русском языке (листинг~\ref{lst:without_demonym}).
+Построим список стран, у которых нет этнохоронимов на русском языке (листинг~\ref{lst:without_demonym}). 
+Этот список может быть полезен редактору для добавления этнохоронимов. 
+
+
 \index{SPARQL!FILTER!Страны с незаполненными этнохоронимами на русском языке}
 \index{SPARQL!MINUS!Страны с незаполненными этнохоронимами на русском языке}
 \begin{lstlisting}[ language=SPARQL, 
-caption={\href{https://w.wiki/teo}{Страны с незаполненными этнохоронимами на русском языке }\protect\footnotemark},
+caption={\href{https://w.wiki/teo}{Страны с незаполненными этнохоронимами на русском языке}\protect\footnotemark},
 label=lst:without_demonym, 
 ]
 #List of countries without demonyms in Russian
-SELECT ?country ?countryLabel 
-WHERE
+SELECT ?country ?countryLabel WHERE
 {
-	?country p:P31 [ps:P31 wd:Q6256].  # instance of a country
+	?country p:P31 [ps:P31 wd:Q6256].       # instance of a country
 	MINUS { ?country wdt:P1549 ?demonym.    # without demonyms
-		FILTER((LANG(?demonym)) = "ru") # in Russian
+        FILTER((LANG(?demonym)) = "ru")     # in Russian
 	}
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
 GROUP BY ?country ?countryLabel
 \end{lstlisting}
+\footnotetext{Получено 170 стран на 2017 год и 105 стран на 2021 год. Ссылка на~SPARQL-запрос: \href{https://w.wiki/teo}{https://w.wiki/teo}}
 
-\footnotetext{Получено  170 стран на 2017 год и 105 стран на 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/teo}{https://w.wiki/teo}}
+Благодаря конструкции MINUS в~строках 5--7 запроса~\ref{lst:without_demonym} 
+в итоговый список не попали страны, имеющие этнохоронимы на русском языке.
 
-Благодаря конструкции MINUS в листинге~\ref{lst:without_demonym}  в итоговый список не попали страны, имеющие этнохоронимы на русском языке. 
+
+
+
 
 \subsection{Количество заполненных этнохоронимов у стран}
 
-У одной страны может быть от нуля, если данные не заполнены, до трёх-четырёх этнохоронимов. Например, у Турции есть три названия жителей: турок, тарчанка, турки, у Эфиопии четыре: эфиоп, эфиопка, эфиопы, эфиопки.
+У одной страны может быть от нуля, если данные не заполнены, до трёх-четырёх этнохоронимов. 
+Например, у Турции есть три названия жителей: турок, тарчанка, турки, 
+у~Эфиопии~--- четыре: эфиоп, эфиопка, эфиопы, эфиопки.
 
 Выведем список стран, упорядоченный по количеству заполненных в Викиданных этнохоронимов (листинг~\ref{lst:count_demonym}).
+
+
+
+По данным на 2017 год наибольшее число этнохоронимов у Соединённых Штатов Америки (41 этнохороним), 
+затем идут Великобритания (40), 
+Германия (40) и Канада (36). 
+На 2021 год наибольшее число этнохоронимов есть у Германии (64 этнохоронима), России (61), Канады (60) и США (60). Таким образом, с 2017 по 2021 год добавилось примерно по 20 этнохоронимов на одну страну.
+
 
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/tfH}{Список стран, упорядоченный по количеству заполненных этнохоронимов  }\protect\footnotemark},
@@ -353,10 +397,8 @@ WHERE
 GROUP BY ?country ?countryLabel 
 ORDER BY DESC(?demonyms)
 \end{lstlisting}
-
 \footnotetext{Получено 199 стран на 2017 год и 215 стран на 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/tfH}{https://w.wiki/tfH}}
 
-По данным на 2017 год наибольшее число этнохоронимов у Соединённых Штатов Америки (41 этнохороним), затем идут Великобритания (40), Германия (40) и Канада (36). На 2021 год наибольшее число этнохоронимов у Германии (64 этнохоронима), России (61), Канады (60) и США (60). Таким образом, с 2017 по 2021 год добавилось примерно по 20 этнохоронимов на одну страну.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
