@@ -2,11 +2,7 @@
 \label{ch:spacecraft-space-station}
 
 \begin{marginfigure}[2.0cm]
-{
-	\setlength{\fboxsep}{0pt}%
-	\setlength{\fboxrule}{1pt}%
-	\fcolorbox{gray}{gray}{\includegraphics{graphics/chapter/spacecraft_space_station/soyuz-19.jpg}}
-}
+	\includegraphics[width=3cm]{graphics/chapter/spacecraft_space_station/soyuz-19.jpg}
 \caption[Союз-19, 2021.]%
 {В какой стране спроектирован аппарат, изображённый на рисунке?
 См. ответ~\ref{answer:spacecraft_USSR} на с.~\pageref{answer:spacecraft_USSR}.}
@@ -78,11 +74,7 @@ WHERE
 \section{Список отечественных кораблей и станций}
 
 \begin{marginfigure}
-{
-	\setlength{\fboxsep}{0pt}%
-	\setlength{\fboxrule}{1pt}%
-	\fcolorbox{gray}{gray}{\includegraphics{graphics/chapter/spacecraft_space_station/soyuz-t.jpg}}
-}
+\includegraphics[width=6cm]{graphics/chapter/spacecraft_space_station/soyuz-t.jpg}
 \caption
 [Союз-T, 2021.]{%
 В какой стране спроектирован аппарат, изображённый на рисунке?
@@ -141,11 +133,7 @@ WHERE
 \section{Временные графики освоения космоса в~нашей стране и мире}
 
 \begin{marginfigure}
-{
-	\setlength{\fboxsep}{0pt}%
-	\setlength{\fboxrule}{1pt}%
-	\fcolorbox{gray}{gray}{\includegraphics{graphics/chapter/spacecraft_space_station/lunar_landler.jpg}}
-}
+\includegraphics[width=6cm]{graphics/chapter/spacecraft_space_station/lunar_landler.jpg}
 \caption[Лунный корабль, 2021.]{%
 В какой стране спроектирован аппарат, изображённый на рисунке?
 
@@ -248,12 +236,6 @@ ORDER BY ?lapse # Order 1970, 1975, 1980, ...
 а результаты обозначаются точками с координатами (пятилетка, число запусков), 
 и график становится нечитаемым. 
 
-Из рис.~\ref{fig:launchesRussia5years} видно, 
-что самый активный период развития отечественной космонавтики был в 1970--1995 годах.
-
-Запрос~\ref{lst:launchesWorld} строит график~\ref{fig:launchesWorld} 
-запусков космических кораблей в~мире по годам и странам.
-
 \index{SPARQL!COUNT!Запуски космических кораблей в мире}
 \index{SPARQL!YEAR!Запуски космических кораблей в мире}
 \index{SPARQL!BIND!Запуски космических кораблей в мире}
@@ -266,24 +248,31 @@ ORDER BY ?lapse # Order 1970, 1975, 1980, ...
                   ]
 # Diagram of spacecraft launches by year and country
 #defaultView:BarChart
-SELECT ?year (COUNT(?obj) AS ?count) ?country ?countryLabel
-WHERE {
+SELECT ?year (COUNT(?obj) AS ?count) ?country ?countryLabel WHERE {
   ?obj wdt:P17 ?country. # spacecraft belongs to country 
   ?obj wdt:P619 ?launch. # date of spacecraft launch
   BIND(str(YEAR(?launch)) AS ?year)
-  
-  SERVICE wikibase:label {bd:serviceParam wikibase:language "ru".}
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "ru,en"}
 }
 GROUP BY ?year ?country ?countryLabel
 \end{lstlisting}
+\footnotetext{Найдено \num{328} результатов в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4bEu}{https://w.wiki/4bEu}}
+
+
+
+Из рис.~\ref{fig:launchesRussia5years} видно, 
+что самый активный период развития отечественной космонавтики был в 1970--1995 годах.
+Запрос~\ref{lst:launchesWorld} строит график~\ref{fig:launchesWorld} 
+запусков космических кораблей в~мире по годам и странам.
+%
 %%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%% 
 \label{question:spacecraft_2}
-\marginnote[-4cm]{%
+\marginnote[1cm]{%
 В какое наибольшее и наименьшее количество запусков космических кораблей за десятилетие совершило человечество в период с 1970 по 2010 годы?
 
 См. ответ~\ref{answer:max-min-space-launches} на с.~\pageref{answer:max-min-space-launches}.
 }
-\footnotetext{Найдено \num{328} результатов в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4bEu}{https://w.wiki/4bEu}}
+
 
 \index{График!BarChart!Визуализация количества запусков космических кораблей по годам и странам}
 \begin{figure*}[h!]
@@ -300,6 +289,9 @@ GROUP BY ?year ?country ?countryLabel
 По Викиданным российская космонавтика занимает средние позиции по количеству запусков, 
 её численные показатели за 2016--2019 годы схожи с показателями СССР в 1970-е и 1980-е годы 
 и составляют 3--5 запусков в год.
+
+
+
 
 \section{Космонавты в международных полётах}
 
@@ -390,11 +382,11 @@ WHERE
 
 
 \index{График!Graph!Космонавты в международных полётах}
-\begin{figure*}[h]
+\begin{figure}[h]
   \setlength{\fboxsep}{0pt}%
   \setlength{\fboxrule}{1pt}%
   \fcolorbox{gray}{gray}{%
 \includegraphics[width=\linewidth]{graphics/chapter/spacecraft_space_station/Cosmonauts in international flights RU.png}}
   \caption[Граф c вершинами типа <<ракеты>> и <<космонавты>> с раскраской по странам, 2022 год.]{Граф c вершинами типа <<ракеты>> и <<космонавты>> с раскраской по странам. Красный цвет соответствует СССР и России, розовый~--- США, серый~--- Германии, бирюзовый~--- Франции, бордовый~--- Австралии, а голубой~--- Италии. Граф построен с помощью скрипта~\protect\ref{lst:internationalFlights} в 2022 году.}
   \label{fig:internationalFlights}%
-\end{figure*}
+\end{figure}

@@ -5,11 +5,7 @@
 
 
 \begin{marginfigure}[0.0cm]
-  {
-    \setlength{\fboxsep}{0pt}%
-    \setlength{\fboxrule}{1pt}%
-    \fcolorbox{gray}{gray}{\includegraphics{chapter/ship/Russian_ships_topic_imbalance.png}}
-  }
+  \includegraphics[width=5cm]{chapter/ship/Russian_ships_topic_imbalance.png}
   \caption[График равномерности заполнения свойств объектов Викиданных.]{График равномерности заполнения по числу свойств объекта Викиданных \href{https://www.wikidata.org/wiki/Q11446}{корабль (Q11446)}, коэффициент Джини равен 0.239. Данные получены с помощью сервиса ProWD.id, 2020 год. График и коэффициент Джини показывают низкую равномерность заполнения свойств.}%
   \label{fig:prowd_ships-unbalanced}%
 \end{marginfigure}
@@ -66,6 +62,9 @@ WHERE
 \footnotetext{Найдено 107 кораблей в 2017 году, 578 кораблей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/3K\%24d}{https://w.wiki/3K\$d}}
 
 
+
+
+\newpage
 \section{Полнота Викиданных}
 
 \label{question:ship_1}
@@ -141,6 +140,11 @@ WHERE
 \end{lstlisting}
 \footnotetext{Найдено \num{10} конфликтов у \href{https://www.wikidata.org/wiki/Q4148613}{эсминца Гремящий (Q4148613)} и один конфликт у крейсера \href{https://www.wikidata.org/wiki/Q1565575}{HMS Trinidad (Q1565575)}, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vuo}{https://w.wiki/vuo}}
 
+
+
+
+
+\newpage
 Составим список отечественных кораблей, участвовавших в каких-либо военных конфликтах с помощью скрипта~\ref{lst:ships_in_war_ru}.
 
 \begin{lstlisting}[ language=SPARQL, 
@@ -220,11 +224,11 @@ WHERE {
 Также эти страны имеют выход к морю, что исторически обуславливает наличие у них флота, 
 в котором могут найтись корабли для создания музея.
 
-\begin{figure*}[h]
-  \includegraphics[width=0.8\linewidth]{chapter/ship/museum-graph-Russia-USA.png}
+\begin{figure}[h]
+  \includegraphics[width=\linewidth]{chapter/ship/museum-graph-Russia-USA.png}
   \caption[Граф стран и кораблей-музеев, 2021 год.]{Фрагмент графа стран, участвовавших в войнах. Фрагмент включает ряд кораблей-музеев России и США. Граф построен по скрипту~\protect\ref{lst:museum_graph} в 2021 году.}%
   \label{fig:museum_graph}%
-\end{figure*}
+\end{figure}
 
 При просмотре полного графа (и даже на фрагменте, рис.~\ref{fig:museum_graph}) 
 видно уникальность научно-исследовательского судна \wdqName{Витязь}{1516653}. 
@@ -238,11 +242,11 @@ WHERE {
 Вершины графа на рисунке~\ref{fig:museum_graph} кликабельны. Например, можно кликнуть на \href{https://www.wikidata.org/wiki/Q168713}{крейсер Аврора (Q168713)}, тогда появятся дополнительные вершины, соответствующие свойствам этого крейсера, см. рисунок~\ref{fig:aurora_graph}.
 
 \newpage
-\begin{figure*}[h]
+\begin{figure}[h]
   \includegraphics[width=\linewidth]{chapter/ship/aurora_graph.jpg}
   \caption[Граф свойств Авроры, 2021 год.]{Граф свойств \href{https://www.wikidata.org/wiki/Q168713}{крейсера Аврора (Q168713)} на 2021 год.}%
   \label{fig:aurora_graph}%
-\end{figure*}
+\end{figure}
 
 
 
