@@ -21,7 +21,7 @@ with open("query vul.csv", encoding='utf-8', newline = '') as csvfile:
 		if(chck1 == cor[0] and chck2 == cor[1]):
 			continue
 		print(cor[0], cor[1])
-		folium.Marker(location=[cor[1], cor[0]], popup=popup, tooltip='Вулкан').add_to(m)
+		folium.Circle(radius=500, location=[cor[1], cor[0]], popup=popup, tooltip='Вулкан', color="red").add_to(m)
 		chck1 = cor[0]
 		chck2 = cor[1]
 with open("query eq.csv", encoding='utf-8',  newline = '') as csvfile:
@@ -37,7 +37,7 @@ with open("query eq.csv", encoding='utf-8',  newline = '') as csvfile:
 		if(chck11 == cor[0] and chck22 == cor[1]):
 			continue
 		print(cor[0], cor[1])
-		folium.Marker(location=[cor[1], cor[0]], popup=popup, tooltip='Землетрясение', icon = folium.Icon(color = 'red')).add_to(m)
+		folium.Circle(radius=500, location=[cor[1], cor[0]], popup=popup, tooltip='Землетрясение', color="brown").add_to(m)
 		chck11 = cor[0]
 		chck22 = cor[1]
 m.save('Fullmap.html')
