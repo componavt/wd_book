@@ -10,16 +10,20 @@
 % https://tex.stackexchange.com/a/45949/99685 switch from natbib to biblatex 
 \usepackage{hyphenat}
 \usepackage[
+  citestyle=gost-footnote-min,
+  bibstyle=gost-footnote,
+%
 %  style=verbose, citepages=omit, % too long title at margins
 %  style=authoryear, % e.g. Кузьмина 2021 or Магера 2018.
 %  
 %  style=authortitle, % Кузьмина, “Аниме:..."
-  style=authortitle-ibid,
-  dashed=false, % in Bibliography dash if authors repeated
+%
+%% style=authortitle-ibid,
+%%  dashed=false, % in Bibliography dash if authors repeated
   autocite=footnote, 
-  autopunct=false, % see https://ctan.math.illinois.edu/macros/latex/contrib/biblatex/doc/biblatex.pdf
+%%  autopunct=false, % see https://ctan.math.illinois.edu/macros/latex/contrib/biblatex/doc/biblatex.pdf
 %                  % a trailing punctuation mark will not be moved against footnote mark
-  maxcitenames=1,
+%%  maxcitenames=1,
   backend=biber
 ]{biblatex}
 \addbibresource{wd_references.bib}
@@ -100,6 +104,7 @@
 
 % see https://mydebianblog.blogspot.com/2014/06/latex.html
 \usepackage{epigraph} %%% to make inspirational quotes.
+
 
 % https://tex.stackexchange.com/a/224875/99685
 %\usepackage{natbib}           % call natbib
@@ -260,6 +265,7 @@
     }{\endfigure}
 \makeatother
 
+
 % If too much notes: see https://tex.stackexchange.com/a/175796/99685
 %\usepackage{marginfix}
 
@@ -304,9 +310,38 @@
 % Just some sample text
 %\usepackage{lipsum}
 
-% table of contents with dots
+
+% table of contents: tocloft
 \usepackage{tocloft}
-\makeatletter \renewcommand{\@dotsep}{4.5} \makeatother % + dots in Table of contents
+\renewcommand{\cfttoctitlefont}{\huge} % The header "Contents"/"Оглавление" font size (not so huge as default)
+\renewcommand\cftchapaftersnum{.}% adds dot after chapter title in ToC
+\renewcommand\cftchapdotsep{\cftdotsep}% adds leader dots from chapter titles to page numbers
+%\makeatletter \renewcommand{\@dotsep}{4.5} \makeatother % + dots in Table of contents
+
+% "Часть" + \part{} + "."
+\dottedcontents{part}[0em]{\sffamily\bfseries\large\protect\addvspace{15pt}Часть}{-5pt}{1pc}
+\renewcommand{\thepart}{\Roman{part}.}  % adds dot after part title in ToC
+
+% separate page with "Part II \newline ornament \newline The part title
+\usepackage{pgfornament}
+\newcommand{\formatpart}[1]{%
+    \centering%
+%    \partname~\thepart%
+    \partname~\Roman{part}% without dot at the end: "Part I", not "Part I."
+    \newline%
+    \hfil\pgfornament[width=4cm]{75}\hfil%
+    \newline%
+    #1%
+    }
+
+\titleformat% Formatting the part header
+  {\part} % command
+  [block] % shape
+  {\bfseries\sc\Huge} % format
+  {} % label
+  {0pt} % sep
+  {\formatpart}
+
 
 
 %%
@@ -319,8 +354,12 @@
 \setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
 \graphicspath{{graphics/}}
 
+% Do not use package caption in Tufte LaTeX!
 % \captionof in minipage, when Two figures side by side, https://tex.stackexchange.com/a/57436/99685
-\usepackage{caption}
+%\usepackage{caption}
+
+
+
 
 % The fancyvrb package lets us customize the formatting of verbatim
 % environments.  We use a slightly smaller font.
@@ -364,17 +403,6 @@
 }
 
 
-% Prints an epigraph and speaker in sans serif, all-caps type.
-\newcommand{\openepigraph}[2]{%
-  %\sffamily\fontsize{14}{16}\selectfont
-  \begin{fullwidth}
-  \sffamily\large
-  \begin{doublespace}
-  \noindent\allcaps{#1}\\% epigraph
-  \noindent\allcaps{#2}% author
-  \end{doublespace}
-  \end{fullwidth}
-}
 
 % Inserts a blank page
 \newcommand{\blankpage}{\newpage\hbox{}\thispagestyle{empty}\newpage}
@@ -460,35 +488,13 @@
 % r.1 blank page
 %\blankpage
 
-% v.2 epigraphs
-%\newpage\thispagestyle{empty}
-%\openepigraph{%
-%The public is more familiar with bad design than good design.
-%It is, in effect, conditioned to prefer bad design, 
-%because that is what it lives with. 
-%The new becomes threatening, the old reassuring.
-%}{Paul Rand%, {\itshape Design, Form, and Chaos}
-%%}
-%\vfill
-%\openepigraph{%
-%A designer knows that he has achieved perfection 
-%not when there is nothing left to add, 
-%but when there is nothing left to take away.
-%}{Antoine de Saint-Exup\'{e}ry}
-%\vfill
-%\openepigraph{%
-%\ldots the designer of a new system must not only be the implementor and the first 
-%large-scale user; the designer should also write the first user manual\ldots 
-%If I had not participated fully in all these activities, 
-%literally hundreds of improvements would never have been made, 
-%because I would never have thought of them or perceived 
-%why they were important.
-%}{Donald E. Knuth}
-
-
 % r.3 full title page
 \maketitle
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Let's comment out this page 
+\iffalse
 
 % v.4 copyright page
 \newpage
@@ -524,56 +530,51 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 
 %\par\textit{First printing, \monthyear}
 
+
+\end{fullwidth}
+\fi 
+\begin{fullwidth}
+% eo of commented out page
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
 % r.5 contents
 \tableofcontents
 
 \end{fullwidth}
 
+
 % r.7 dedication
 \clearpage
 \vfill
 \begin{fullwidth}
-\begin{doublespace}
-\noindent\fontsize{18}{22}\selectfont\itshape
-\nohyphenation
-<<Что может быть проще примитивного нуль-передатчика? Только примитивный нуль-аккумулятор.>>
 
-<<Обитаемый остров>>, \mbox{Аркадий и Борис Стругацкие}.
-\end{doublespace}
+% a small hack to fix the hsize, to align epigraph block right
+% https://stackoverflow.com/a/31522918/1173350
+\makeatletter\setlength\hsize{\@tufte@fullwidth}\makeatother
+
+\renewcommand{\epigraphsize}{\Large}
+\renewcommand{\epigraphflush}{flushright}
+\setlength{\epigraphwidth}{.7\linewidth}
+
+\epigraph{Что может быть проще примитивного нуль-передатчика? Только примитивный нуль-аккумулятор.}{%
+Аркадий и Борис Стругацкие. Обитаемый остров}
+
+\epigraph{%
+Эта машина, подпиравшая стены железными боками, была огромна. Электроник, поглощая цифры, скоро пришёл к выводу, что ему нужно сидеть здесь несколько суток\dots\\
+---~Я всего этого не запомню,~--- скрипуче сказал Электроник. ---~Миллионы цифр! Слишком большое количество информации\dots\\
+Профессор положил руку на его плечо.\\
+---~Отключись,~--- посоветовал он. ---~Привыкать надо постепенно.%
+}{\mbox{Евгений Велтистов}. Рэсси~--- неуловимый друг}
+\vspace{36px}
+
+
+\setlength{\epigraphrule}{0pt} % rm the rule (line)
+\epigraph{%
+Издание посвящается всем изобретателям SPARQL-скриптов~--- программистам будущего.
+}{}
 \end{fullwidth}
-%\vfill
-
-
-\begin{fullwidth}
-\begin{doublespace}
-\noindent\fontsize{18}{22}\selectfont\itshape
-%\nohyphenation
-<<Эта машина, подпиравшая стены железными боками, была огромна. 
-Электроник, поглощая цифры, скоро пришёл к выводу, что ему нужно сидеть здесь несколько суток\dots.
-
----~Я всего этого не запомню,~--- скрипуче сказал Электроник. ---~Миллионы цифр!
-
-Слишком большое количество информации\dots
-
-Профессор положил руку на его плечо.
-
----~Отключись,~--- посоветовал он. ---~Привыкать надо постепенно.>>
-
-<<Рэсси~--- неуловимый друг>>, \mbox{Евгений Велтистов}.
-\end{doublespace}
-\end{fullwidth}
-%\vfill
-
-
-\begin{fullwidth}
-\begin{doublespace}
-\noindent\fontsize{18}{22}\selectfont\itshape
-\nohyphenation
-Книга посвящается всем изобретателям SPARQL-скриптов, 
-    программистам будущего.
-\end{doublespace}
-\end{fullwidth}
-%\vfill
 
 
 % r.9 introduction
@@ -585,6 +586,14 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 % Start the main matter (normal chapters)
 \mainmatter
 
+
+
+%\makeatletter
+%\renewcommand{\fnum@figure}{Рис.~\thefigure.}
+%\makeatother
+
+
+
 \part{Основы Викиданных}
 \label{part:foundation}
 
@@ -594,13 +603,13 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 
 
 
-
 \part{Исследуем объекты Викиданных}
 \label{part:research}
 
 \input{./chapter/aircraft.tex}
 \input{./chapter/anime.tex}
 
+\iffalse
 \input{./chapter/human_settlement.tex}
 \input{./chapter/city.tex}
 \input{./chapter/country.tex}
@@ -622,24 +631,17 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 \input{./intro/prowd.tex}
 \input{./advanced/page_protection.tex}
 \input{./advanced/bots.tex}
+\fi
 
-
-\part{Заключительный раздел}
+%\dottedcontents{part}[0em]{\sffamily\bfseries\large\protect\addvspace{15pt}Часть}{-5pt}{1pc}
+\dottedcontents{part}[0em]{\sffamily\bfseries\large\protect\addvspace{15pt}}{0pt}{1pc}
+\part*{Заключительная часть}
+\addcontentsline{toc}{part}{Заключительная часть}
 \label{part:conclusion}
 \input{./chapter/answers.tex}
 
-
-%\section{Typography}\label{sec:typography}
-
-%\subsection{Typefaces}\label{sec:typefaces}\index{typefaces}
-%If the Palatino, \textsf{Helvetica}, and \texttt{Bera Mono} typefaces are installed, this style
-%will use them automatically.  Otherwise, we'll fall back on the Computer Modern
-%typefaces.
-
-
 %%
 % The back matter contains appendices, bibliographies, indices, glossaries, etc.
-
 
 \backmatter
 

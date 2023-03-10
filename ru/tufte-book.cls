@@ -31,10 +31,12 @@
   %\pagestyle{plain}%
   \fancyhf{}%
   \ifthenelse{\boolean{@tufte@twoside}}%
-    {\fancyhead[LE,RO]{\thepage}}%
-    {\fancyhead[RE,RO]{\thepage}}%
+%    {\fancyhead[LE,RO]{\thepage}}%
+%    {\fancyhead[RE,RO]{\thepage}}%
+     {\fancyfoot[REF,ROF]{\thepage}}% page number in first page of Chapter - Footer Right
 }
 
+\fancyfoot[REF,ROF]{\thepage}% page number everywhere - Footer Right - Contents, Acknowledgement pages
 
 %%
 % The main matter in Tufte's /Beautiful Evidence/ doesn't restart the page
@@ -50,11 +52,15 @@
   \ifthenelse{\boolean{@tufte@twoside}}%
     {% two-side
       \renewcommand{\chaptermark}[1]{\markboth{##1}{}}%
-      \fancyhead[LE]{\thepage\quad\newlinetospace{\plaintitle}}% book title
-      \fancyhead[RO]{\newlinetospace{\leftmark}\quad\thepage}% chapter title
+%%%      \fancyhead[LE]{\thepage\quad\newlinetospace{\plaintitle}}% book title
+%%%      \fancyhead[RO]{\newlinetospace{\leftmark}\quad\thepage}% chapter title
+      \fancyhead[RO]{\newlinetospace{\leftmark}}% chapter title without page number
+      \fancyfoot[REF,ROF]{\thepage}
+
     }%
     {% one-side
       \fancyhead[RE,RO]{\newlinetospace{\plaintitle}\quad\thepage}% book title
+      \fancyfoot[REF,ROF]{\thepage}% page number everywhere - Footer Right
     }%
 }
 

@@ -1404,7 +1404,7 @@
       \@setminipage%
     \fi%
     \@tufte@caption@font\@tufte@caption@justification%
-    \noindent\csname fnum@#1\endcsname: \ignorespaces#3\par%
+    \noindent\csname fnum@#1\endcsname. \ignorespaces#3\par%
     %\@makecaption{\csname fnum@#1\endcsname}{\ignorespaces #3}\par
   \endgroup}
 
@@ -1467,9 +1467,9 @@
 \fancyhf{} % clear header and footer fields
 \ifthenelse{\boolean{@tufte@twoside}}
 % List of authors in the top of even pages
-  {\fancyhead[LE]{\thepage\quad\newlinetospace{\plainauthor}}%
-    \fancyhead[RO]{\newlinetospace{\plaintitle}\quad\thepage}}
-  {\fancyhead[RE,RO]{\newlinetospace{\plaintitle}\quad\thepage}}
+%  {\fancyhead[LE]{\thepage\quad\newlinetospace{\plainauthor}}%
+%    \fancyhead[RO]{\newlinetospace{\plaintitle}\quad\thepage}}
+%  {\fancyhead[RE,RO]{\newlinetospace{\plaintitle}\quad\thepage}}
 
 
 % The `plain' page style is used on chapter opening pages.
@@ -1482,6 +1482,7 @@
   %\ifthenelse{\boolean{@tufte@twoside}}
   %  {\fancyfoot[LE,RO]{\thepage}}
   %  {\fancyfoot[RE,RO]{\thepage}}
+\fancyfoot[REF,ROF]{\thepage}% page number everywhere - Footer Right
 }
 
 % The `empty' page style suppresses all headers and footers.
