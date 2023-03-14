@@ -1,15 +1,11 @@
-
-
-
 %\chapter{Глава для учителей: технология написания книги со~студентами}
 %\label{ch:howto-write-book}
-
 
 
 \chapter{Программы и программки}
 \label{ch:listing_about}
 
-В книге приводится \emph{программный код}\footnote[][0cm]{%
+В этом пособии приводится \emph{программный код}\footnote[][0cm]{%
     Программный код также называют  \emph{исходным кодом} или 
     \index{Программирование!Определения / Листинг} 
     \emph{листингом}.
@@ -20,18 +16,18 @@
 
 Вот пример SPARQL-скрипта (листинг~\ref{lst:cities}), 
 с помощью которого можно получить из Викиданных список городов, 
-точнее экземляров объекта\footnote{\label{question:instance-in-OOP-vs-Wikidata}Что такое экземпляр объекта? 
+точнее, экземляров объекта\footnote{\label{question:instance-in-OOP-vs-Wikidata}Что такое экземпляр объекта? 
     Какая разница между экземпляром объекта 
-    в объектно-ориентированном программировании и в Викиданных?
-    См. ответ~\ref{answer:instance-in-OOP-vs-Wikidata} на с.~\pageref{answer:instance-in-OOP-vs-Wikidata}.
+    в~объектно-ориентированном программировании и в~Викиданных?
+    См. ответ~\ref{answer:instance-in-OOP-vs-Wikidata} на~с.~\pageref{answer:instance-in-OOP-vs-Wikidata}.
     }
-\wdqName{city}{515}.
+\wdqName{city}{515}:
 
 %       escapebegin=ы,escapeend=я>
 %       escapechar=ы
 % # после знака # (то есть в комментариях) можно ставить \footnote в lstlisting
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/jcE}{Список городов.}\protect\footnotemark},
+                    caption={\href{https://w.wiki/jcE}{Список городов}\protect\footnotemark},
                     label=lst:cities,
                     texcl 
                     ]
@@ -40,21 +36,16 @@ SELECT ?city ?cityLabel WHERE {
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
 \end{lstlisting}%
-\footnotetext{Получено \num{20800} городов в 2017 году, \num{9260} городов в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/jcE}{https://w.wiki/jcE}}
+\footnotetext{Получено: \num{20800} городов в 2017 году, \num{9260} городов в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/jcE}{https://w.wiki/jcE}.}
 
 Мы будем регулярно ссылаться на объекты Викиданных. 
-Например, \wdqName{city}{515}\footnote[][0cm]{%
-%    
-    В электронной версии книги имена объектов Викиданных включают гиперссылки на соответствующие страницы Викиданных.
-} 
---- это имя объекта Викиданных. 
+Например, \wdqName{city}{515}~--- это имя объекта Викиданных. 
 Здесь \emph{city}~--- имя метки объекта (Label), 
-a \emph{Q515}~--- это уникальный идентификатор объекта 
+a \emph{Q515}~--- уникальный идентификатор объекта 
 и одновременно название страницы с описанием этого объекта на сайте Викиданных: \href{https://www.wikidata.org/wiki/Q515}{https://www.wikidata.org/wiki/Q515}.
 
 \label{WDObjectsNumbering}
-Объекты Викиданных нумеруются последовательно\marginnote[0cm]{Нумерация объектов в Викиданных.%
-}%
-, чем раньше объект создан в Викиданных, тем меньше его номер. 
+Объекты Викиданных нумеруются последовательно: чем раньше 
+объект создан в Викиданных, тем меньше его номер. 
 Так сложилось, что обычно объекты, имеющие меньший номер, являются более значимыми. 
 Например, \emph{Солнце} имеет идентификатор \wdq{525}, а менее значимый объект \emph{мушка дрозофилы}~--- \wdq{312154}.
