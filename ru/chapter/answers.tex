@@ -59,6 +59,209 @@
 %    \small{Вопрос на с.~\pageref{fig:block:proc:swap:colors}.}
 %\end{task}
 
+
+
+%%%%%%%%%%%%%% Aircraft chapter %%%%%%%%%%%%%%
+
+\begin{task}
+    \label{answer:aircraft_manufacturers}
+    \newthought{Веб-сайты есть у следующих российских производителей: Миг, Туполев и Сухой. Ответ на вопрос также можно получить, выполнив SPARQL-запрос, представленный на листинге~\ref{lst:aircraft_manufactures_lst}}. 
+    
+	\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/t4H}{Веб-сайты российских авиазаводов}\protect\footnotemark}, label=lst:aircraft_manufactures_lst, ]
+SELECT ?manufacturer ?manufacturerLabel ?site
+WHERE
+{
+  ?manufacturer wdt:P31 wd:Q936518. # instance of aerospace manufacturer
+  ?manufacturer wdt:P17 wd:Q159. # country Russia
+  ?manufacturer wdt:P856 ?site # official website
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
+}
+\end{lstlisting}
+\footnotetext{Получено 14 авиазаводов в России с веб-сайтами на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/t4H}{https://w.wiki/t4H} }
+    
+    \small{Вопрос на с.~\pageref{lst:lang2}.}
+\end{task}
+
+\begin{task}
+    \label{answer:aircraft_company_foundation_date}
+    \newthought{Компания 
+<<Туполев>> была основана в 1922 году, 
+<<МиГ>> и <<Сухой>>~--- в 1939 
+и <<Вымпел>>~--- в 1949 году.
+    Ответ на вопрос можно получить, выполнив SPARQL-запрос~\ref{lst:aircraft_company_foundation_date_lst}}. 
+    
+	\begin{lstlisting}[ language=SPARQL, 
+    caption={\href{https://w.wiki/vaH}{Даты основания отечественных авиазаводов}\protect\footnotemark}, label=lst:aircraft_company_foundation_date_lst, ]
+# Russian aircraft factories sorted by inception years
+SELECT ?manufacturer ?manufacturerLabel
+       (YEAR(?inception) AS ?year)
+WHERE
+{
+  ?manufacturer wdt:P31 wd:Q936518; # is aerospace manufacturer
+                wdt:P17 wd:Q159;    # country Russia
+                wdt:P571 ?inception.# foundation date
+SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
+}
+ORDER BY ?year
+\end{lstlisting}
+\footnotetext{Получено 15 отечественных авиазаводов с датой основания, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vaH}{https://w.wiki/vaH}}
+    
+    \small{Вопрос на с.~\pageref{aircraft_question_2}.}
+\end{task}
+
+\begin{task}
+    \label{answer:aircraft_company_headquarters}
+    \newthought{Штаб-квартира компании <<Камов>> находится в городе Люберцы, <<Авиадвигатель>>~--- в Перми, <<Улан-Удэнский авиационный завод>>~--- в городе Улан-Удэ, <<Сухой>>~--- в Москве. Ответ на вопрос также можно получить, выполнив SPARQL-запрос, представленный на листинге~\ref{lst:aircraft_company_headquarters_lst}}. 
+    
+	\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/t4X}{Штаб-квартиры компаний}\protect\footnotemark}, label=lst:aircraft_company_headquarters_lst, ]
+SELECT ?manufacturer ?manufacturerLabel ?inceptionLabel
+WHERE
+{
+    ?manufacturer wdt:P31 wd:Q936518. # instance of aerospace manufacturer
+  	?manufacturer wdt:P17 wd:Q159. # country Russia
+  	?manufacturer wdt:P159 ?inception # headquarters location
+    SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
+}
+\end{lstlisting}
+\footnotetext{Получено 16 российских авиазаводов, имеющих штаб-квартиры, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/t4X}{https://w.wiki/t4X} }
+    
+    \small{Вопрос на с.~\pageref{aircraft_question_3}.}
+\end{task}
+
+\begin{task}
+    \label{answer:aircraft_question_airship}
+    \newthought{Воздушным судном, удерживаемым в воздухе огромным баллоном с горючим и смертельно опасным газом, расположенным прямо над головами пассажиров, является дирижабль}. 
+    
+    \small{Вопрос на с.~\pageref{aircraft_question_4}.}
+\end{task}
+
+
+% Unknown old Soviet airship on black and white photo
+%
+\begin{marginfigure}[3.2cm]
+\centering\includegraphics[width=7cm]{./chapter/aircraft/airship-SSSR-V6.jpg}
+\caption[Дирижабль СССР--В6 <<Осоавиахим>>.]{Дирижабль \ruwiki{wKY}{СССР--В6 <<Осоавиахим>>} (1934--1938). 
+             Дирижабль В--6 установил мировой рекорд в~1937 году, 
+             пролетев 130 с~половиной часов без посадки.\\
+    }%
+    \label{fig:airship-stamp}%
+\end{marginfigure}
+% 
+\begin{task}
+    \label{answer:aircraft_question_airship_2}
+\newthought{Воздушное судно}, изображенное на рис.~\ref{fig:airship-stamp},~--- это дирижабль. 
+    Выполнив SPARQL-запрос, 
+    представленный на листинге~\ref{lst:aircraft_airship_photo_lst}, 
+    можно получить иллюстрации дирижаблей.
+    
+	\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/t4c}{Изображения дирижаблей}\protect\footnotemark}, label=lst:aircraft_airship_photo_lst, ]
+#defaultView:ImageGrid
+SELECT ?airship ?airshipLabel ?image WHERE
+{
+    ?airship wdt:P31 wd:Q133585. # instance of airship
+  	?airship wdt:P18 ?image # image airship
+    SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
+}
+\end{lstlisting}
+\footnotetext{Получено 18 дирижаблей с иллюстрациями, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/t4c}{https://w.wiki/t4c} }
+    
+\small{Вопрос на с.~\pageref{fig:airship_question_aircraft}.}
+\end{task}
+%eo Aircraft chapter %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%% Anime charpter %%%%%%%%%%%%%%
+%eo Anime chapter %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%% Human_settlements charpter %%%%%%%%%%
+\begin{task}
+\label{answer:human_settlements_density}
+    \newthought{Плотность населения} у Алейска составляет \num{648} чел./км\textsuperscript{2}, 
+        у~Барабинска~--- \num{413} чел./км\textsuperscript{2}, 
+        то есть у Алейска плотность выше. 
+
+        Плотность населения по населённым пунктам России можно получить 
+        с помощью запроса~\ref{lst:human_settlements_density}. 
+
+        Обратите внимание, что площадь может быть задана в разных единицах. 
+        Например, у \wdqName{Алейска}{11304591} площадь в Викиданных указана в гектарах, 
+        у \wdqName{Барабинска}{104609}~--- в квадратных километрах. 
+        Для нормализации данных и перевода площади в метры в 8 строке запроса~\ref{lst:human_settlements_density}
+        указан префикс \lstinline|psn:|. 
+
+        Значение переменной \lstinline|?popArea| показывает плотность населения. 
+        Во второй строке делим на миллион, чтобы перевести квадратные метры в километры. 
+
+
+\newpage
+\index{SPARQL!psn:!Нормализация площади населённого пункта}
+\begin{lstlisting}[ language=SPARQL, 
+        caption={\href{https://w.wiki/4duP}{Плотность населения <<населенных пунктов>> России}\protect\footnotemark},
+        label=lst:human_settlements_density
+                  ]
+# population density of human settlements in Russia
+SELECT ?hum ?humLabel ?population ?area (?population / (?area / 1000000) as ?popArea) 
+WHERE {
+  ?hum wdt:P31 wd:Q486972; # instance of human settlement
+       wdt:P17 wd:Q159; # in Russia
+       
+       # Get the area (Use the psn: prefix to normalize the values to a common unit of area)
+       p:P2046/psn:P2046/wikibase:quantityAmount ?area;
+       
+       wdt:P1082 ?population. # has ?population
+       FILTER(?population>0 && ?area).
+  SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
+}
+ORDER BY DESC (?popArea)
+\end{lstlisting}
+\footnotetext{131 результат на 2021 год. SPARQL-запрос: \href{https://w.wiki/4duP}{https://w.wiki/4duP}}  
+
+    \small{Вопрос на с.~\pageref{ch:human-settlement}.}
+\end{task}
+
+
+
+\begin{task}
+\label{answer:flag_human_settlements}
+\newthought{На рисунках~\ref{fig:flag_question_human_settlements1}, 
+    \ref{fig:flag_question_human_settlements2} и 
+    \ref{fig:flag_question_human_settlements5}} 
+    изображены гербы отечественных населённых пунктов.
+    Герб на рис.~\ref{fig:flag_question_human_settlements3} 
+    принадлежит населённому пункту \ruwiki{4dUc}{Чехии}, 
+    на рис.~\ref{fig:flag_question_human_settlements4}~--- 
+    \ruwiki{4dUf}{украинскому} населённому пункту. 
+
+Ответ можно получить с помощью запроса~\ref{lst:flag_question_human_settlements}. 
+    Значение свойства \wdProperty{94}{``coat of arms image''} 
+    содержит изображение герба населённого пункта.
+   
+\index{График!ImageGrid!Гербы населённых пунктов России}
+\begin{lstlisting}[ language=SPARQL, 
+                    caption={\href{https://w.wiki/4e8A}{Гербы населённых пунктов Российской Федерации}\protect\footnotemark},
+                    label=lst:flag_question_human_settlements
+                  ]
+# Emblems of human settlements in Russia
+#defaultView:ImageGrid
+SELECT ?hum ?humLabel ?image WHERE {
+  ?hum wdt:P31 wd:Q486972; # instance of human settlement
+       wdt:P17 wd:Q159;    # in Russia
+       wdt:P94 ?image.     # coat of arms
+SERVICE wikibase:label{bd:serviceParam wikibase:language "ru, en"}
+}
+\end{lstlisting}
+
+\footnotetext{148 гербов на 2022 год. SPARQL-запрос: \href{https://w.wiki/4e8A}{https://w.wiki/4e8A}}  
+\small{Вопросы на с.~\pageref{fig:flag_question_human_settlements1}, \pageref{fig:flag_question_human_settlements2}, \pageref{fig:flag_question_human_settlements3}, \pageref{fig:flag_question_human_settlements4}, \pageref{fig:flag_question_human_settlements5}.}
+\end{task}
+% eo Human_settlements charpter %%%%%%%%%%%%%%%%%%%%%%
+
+
+
 %%%%%%%%%%%%%% City chapter %%%%%%%%%%%%%%
 \begin{task}
     \label{answer:cities_geographic_objects}
@@ -578,116 +781,9 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
 
 \small{Вопрос на с.~\pageref{tasks:operating_system_tasks}.}
 \end{task}
-
-%%%%%%%%%%%%%% Aircraft chapter %%%%%%%%%%%%%%
-
-\begin{task}
-    \label{answer:aircraft_manufacturers}
-    \newthought{Веб-сайты есть у следующих российских производителей: Миг, Туполев и Сухой. Ответ на вопрос также можно получить, выполнив SPARQL-запрос, представленный на листинге~\ref{lst:aircraft_manufactures_lst}}. 
-    
-	\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/t4H}{Веб-сайты российских авиазаводов}\protect\footnotemark}, label=lst:aircraft_manufactures_lst, ]
-SELECT ?manufacturer ?manufacturerLabel ?site
-WHERE
-{
-  ?manufacturer wdt:P31 wd:Q936518. # instance of aerospace manufacturer
-  ?manufacturer wdt:P17 wd:Q159. # country Russia
-  ?manufacturer wdt:P856 ?site # official website
-  SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
-}
-\end{lstlisting}
-\footnotetext{Получено 14 авиазаводов в России с веб-сайтами на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/t4H}{https://w.wiki/t4H} }
-    
-    \small{Вопрос на с.~\pageref{lst:lang2}.}
-\end{task}
-
-\begin{task}
-    \label{answer:aircraft_company_foundation_date}
-    \newthought{Компания 
-<<Туполев>> была основана в 1922 году, 
-<<МиГ>> и <<Сухой>>~--- в 1939 
-и <<Вымпел>>~--- в 1949 году.
-    Ответ на вопрос можно получить, выполнив SPARQL-запрос~\ref{lst:aircraft_company_foundation_date_lst}}. 
-    
-	\begin{lstlisting}[ language=SPARQL, 
-    caption={\href{https://w.wiki/vaH}{Даты основания отечественных авиазаводов}\protect\footnotemark}, label=lst:aircraft_company_foundation_date_lst, ]
-# Russian aircraft factories sorted by inception years
-SELECT ?manufacturer ?manufacturerLabel
-       (YEAR(?inception) AS ?year)
-WHERE
-{
-  ?manufacturer wdt:P31 wd:Q936518; # is aerospace manufacturer
-                wdt:P17 wd:Q159;    # country Russia
-                wdt:P571 ?inception.# foundation date
-SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
-}
-ORDER BY ?year
-\end{lstlisting}
-\footnotetext{Получено 15 отечественных авиазаводов с датой основания, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vaH}{https://w.wiki/vaH}}
-    
-    \small{Вопрос на с.~\pageref{aircraft_question_2}.}
-\end{task}
-
-\begin{task}
-    \label{answer:aircraft_company_headquarters}
-    \newthought{Штаб-квартира компании <<Камов>> находится в городе Люберцы, <<Авиадвигатель>>~--- в Перми, <<Улан-Удэнский авиационный завод>>~--- в городе Улан-Удэ, <<Сухой>>~--- в Москве. Ответ на вопрос также можно получить, выполнив SPARQL-запрос, представленный на листинге~\ref{lst:aircraft_company_headquarters_lst}}. 
-    
-	\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/t4X}{Штаб-квартиры компаний}\protect\footnotemark}, label=lst:aircraft_company_headquarters_lst, ]
-SELECT ?manufacturer ?manufacturerLabel ?inceptionLabel
-WHERE
-{
-    ?manufacturer wdt:P31 wd:Q936518. # instance of aerospace manufacturer
-  	?manufacturer wdt:P17 wd:Q159. # country Russia
-  	?manufacturer wdt:P159 ?inception # headquarters location
-    SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
-}
-\end{lstlisting}
-\footnotetext{Получено 16 российских авиазаводов, имеющих штаб-квартиры, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/t4X}{https://w.wiki/t4X} }
-    
-    \small{Вопрос на с.~\pageref{aircraft_question_3}.}
-\end{task}
-
-\begin{task}
-    \label{answer:aircraft_question_airship}
-    \newthought{Воздушным судном, удерживаемым в воздухе огромным баллоном с горючим и смертельно опасным газом, расположенным прямо над головами пассажиров, является дирижабль}. 
-    
-    \small{Вопрос на с.~\pageref{aircraft_question_4}.}
-\end{task}
-
-
-% Unknown old Soviet airship on black and white photo
-%
-\begin{marginfigure}[3.2cm]
-\centering\includegraphics[width=7cm]{./chapter/aircraft/airship-SSSR-V6.jpg}
-\caption[Дирижабль СССР--В6 <<Осоавиахим>>.]{Дирижабль \ruwiki{wKY}{СССР--В6 <<Осоавиахим>>} (1934--1938). 
-             Дирижабль В--6 установил мировой рекорд в~1937 году, 
-             пролетев 130 с~половиной часов без посадки.\\
-    }%
-    \label{fig:airship-stamp}%
-\end{marginfigure}
-% 
-\begin{task}
-    \label{answer:aircraft_question_airship_2}
-\newthought{Воздушное судно}, изображенное на рис.~\ref{fig:airship-stamp},~--- это дирижабль. 
-    Выполнив SPARQL-запрос, 
-    представленный на листинге~\ref{lst:aircraft_airship_photo_lst}, 
-    можно получить иллюстрации дирижаблей.
-    
-	\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/t4c}{Изображения дирижаблей}\protect\footnotemark}, label=lst:aircraft_airship_photo_lst, ]
-#defaultView:ImageGrid
-SELECT ?airship ?airshipLabel ?image WHERE
-{
-    ?airship wdt:P31 wd:Q133585. # instance of airship
-  	?airship wdt:P18 ?image # image airship
-    SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
-}
-\end{lstlisting}
-\footnotetext{Получено 18 дирижаблей с иллюстрациями, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/t4c}{https://w.wiki/t4c} }
-    
-\small{Вопрос на с.~\pageref{fig:airship_question_aircraft}.}
-\end{task}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{task}
 \label{answer:prog_lang_1}
 \newthought{Язык программирования \href{https://ru.wikipedia.org/wiki/Ада_(язык_программирования)}{Ада}} 
@@ -1039,84 +1135,3 @@ WHERE
     \pageref{question:spacecraft_soyuzT} и \pageref{question:spacecraft_lunar}.}
 \end{task}
 
-%%%%%%%%%%%%%% Human_settlements charpter %%%%%%%%%%%%%%
-\begin{task}
-\label{answer:human_settlements_density}
-    \newthought{Плотность населения} у Алейска составляет \num{648} чел./км\textsuperscript{2}, 
-        у~Барабинска~--- \num{413} чел./км\textsuperscript{2}, 
-        то есть у Алейска плотность выше. 
-
-        Плотность населения по населённым пунктам России можно получить 
-        с помощью запроса~\ref{lst:human_settlements_density}. 
-
-        Обратите внимание, что площадь может быть задана в разных единицах. 
-        Например, у \wdqName{Алейска}{11304591} площадь в Викиданных указана в гектарах, 
-        у \wdqName{Барабинска}{104609}~--- в квадратных километрах. 
-        Для нормализации данных и перевода площади в метры в 8 строке запроса~\ref{lst:human_settlements_density}
-        указан префикс \lstinline|psn:|. 
-
-        Значение переменной \lstinline|?popArea| показывает плотность населения. 
-        Во второй строке делим на миллион, чтобы перевести квадратные метры в километры. 
-
-
-\newpage
-\index{SPARQL!psn:!Нормализация площади населённого пункта}
-\begin{lstlisting}[ language=SPARQL, 
-        caption={\href{https://w.wiki/4duP}{Плотность населения <<населенных пунктов>> России}\protect\footnotemark},
-        label=lst:human_settlements_density
-                  ]
-# population density of human settlements in Russia
-SELECT ?hum ?humLabel ?population ?area (?population / (?area / 1000000) as ?popArea) 
-WHERE {
-  ?hum wdt:P31 wd:Q486972; # instance of human settlement
-       wdt:P17 wd:Q159; # in Russia
-       
-       # Get the area (Use the psn: prefix to normalize the values to a common unit of area)
-       p:P2046/psn:P2046/wikibase:quantityAmount ?area;
-       
-       wdt:P1082 ?population. # has ?population
-       FILTER(?population>0 && ?area).
-  SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
-}
-ORDER BY DESC (?popArea)
-\end{lstlisting}
-\footnotetext{131 результат на 2021 год. SPARQL-запрос: \href{https://w.wiki/4duP}{https://w.wiki/4duP}}  
-
-    \small{Вопрос на с.~\pageref{ch:human-settlement}.}
-\end{task}
-
-
-
-\begin{task}
-\label{answer:flag_human_settlements}
-\newthought{На рисунках~\ref{fig:flag_question_human_settlements1}, 
-    \ref{fig:flag_question_human_settlements2} и 
-    \ref{fig:flag_question_human_settlements5}} 
-    изображены гербы отечественных населённых пунктов.
-    Герб на рис.~\ref{fig:flag_question_human_settlements3} 
-    принадлежит населённому пункту \ruwiki{4dUc}{Чехии}, 
-    на рис.~\ref{fig:flag_question_human_settlements4}~--- 
-    \ruwiki{4dUf}{украинскому} населённому пункту. 
-
-Ответ можно получить с помощью запроса~\ref{lst:flag_question_human_settlements}. 
-    Значение свойства \wdProperty{94}{``coat of arms image''} 
-    содержит изображение герба населённого пункта.
-   
-\index{График!ImageGrid!Гербы населённых пунктов России}
-\begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/4e8A}{Гербы населённых пунктов Российской Федерации}\protect\footnotemark},
-                    label=lst:flag_question_human_settlements
-                  ]
-# Emblems of human settlements in Russia
-#defaultView:ImageGrid
-SELECT ?hum ?humLabel ?image WHERE {
-  ?hum wdt:P31 wd:Q486972; # instance of human settlement
-       wdt:P17 wd:Q159;    # in Russia
-       wdt:P94 ?image.     # coat of arms
-SERVICE wikibase:label{bd:serviceParam wikibase:language "ru, en"}
-}
-\end{lstlisting}
-
-\footnotetext{148 гербов на 2022 год. SPARQL-запрос: \href{https://w.wiki/4e8A}{https://w.wiki/4e8A}}  
-\small{Вопросы на с.~\pageref{fig:flag_question_human_settlements1}, \pageref{fig:flag_question_human_settlements2}, \pageref{fig:flag_question_human_settlements3}, \pageref{fig:flag_question_human_settlements4}, \pageref{fig:flag_question_human_settlements5}.}
-\end{task}

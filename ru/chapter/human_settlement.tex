@@ -1,11 +1,13 @@
 \chapter[В каких населённых пунктах России больше рождаётся учёных, в сельских или городских?]{В каких населённых пунктах России больше рождаётся учёных,\\в сельских или городских?}
 \label{ch:human-settlement}
 
-В главе исследуется объект Викиданных \wdqName{населённый пункт}{486972} и его свойства. 
+В главе исследуется объект Викиданных <<\wdqName{населённый пункт}{486972}>> и его свойства. 
 В~каждом из разделов представлены задачи, решённые с помощью SPARQL-запросов. 
 %
 %%%%%%%%%%%%%%%% Упражнение 1 %%%%%%%%%%%%%%%% 
-\marginnote{Подсчитайте, сколько человек на км\textsuperscript{2} живёт в~\ruwiki{4dNv}{Барабинске} 
+\marginnote{%
+    \MarginQuestion
+    Подсчитайте, сколько человек на~1~км\textsuperscript{2} живёт в~\ruwiki{4dNv}{Барабинске} 
 и в~\ruwiki{4dNt}{Алейске}? В~каком из этих \emph{населённых пунктов} плотность населения выше?
 
 См. ответ~\ref{answer:human_settlements_density} на с.~\pageref{answer:human_settlements_density}.%
@@ -18,35 +20,36 @@
 Диаграмма показала, что высокий процент населения, проживающего в~населённых пунктах, 
 приходится на сельскохозяйственные страны, в то время как в более индустриальных странах 
 меньшая доля населения проживает в населённых пунктах. 
+%
+%%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%%
+\marginnote{%
+\MarginQuestion Герб какого отечественного или зарубежного населённого пункта изображён на рисунке?
+
+    \includegraphics[width=2cm]{./chapter/human_settlement/Aznakeevskii_rayon_gerb.png}
+
+    См. ответ~\protect\ref{answer:flag_human_settlements} на с.~\protect\pageref{answer:flag_human_settlements}.
+%  \label{fig:flag_question_human_settlements1}%
+}
 
 На 2017 год Википедия описывала примерно половину населённых пунктов (75 тыс.), 
-Викиданные содержали менее 3\% таких поселений (4 тыс.) относительно данных переписи за 2010 год (155,5 тыс.). 
-На 2021 год Викиданные содержат менее 12\% таких поселений (17 тыс.) 
+Викиданные содержали менее 3\,\% таких поселений (4 тыс.) относительно данных переписи за 2010 год (155,5 тыс.). 
+На 2021 год Викиданные содержат менее 12\,\% таких поселений (17 тыс.) 
 относительно данных той же переписи за 2010 год. 
 
-%%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%%
-\begin{marginfigure}[0.0cm]{%
-\includegraphics[width=5cm]{./chapter/human_settlement/Aznakeevskii_rayon_gerb.png}}
-  \caption[Герб первого неизвестного населённого пункта.]{Герб отечественного 
-    или зарубежного населённого пункта изображён на рисунке?\newline
-    См. ответ~\protect\ref{answer:flag_human_settlements} на с.~\protect\pageref{answer:flag_human_settlements}.
-    }%
-  \label{fig:flag_question_human_settlements1}%
-\end{marginfigure}
 Для сравнения сельских и городских поселений 
 построены диаграммы количества учёных, сгруппированных по родам деятельности 
-и разделённых по месту рождения: сельское или городское.
+и разделённых по месту рождения~--- сельское или городское.
 
 Для поиска более полных ответов на поставленные выше задачи  
-были найдены более общие классы для объекта \wdqName{населённый пункт}{486972} 
-с помощью свойства \wdProperty{31}{частный случай понятия}. 
+были найдены более общие классы для объекта <<\wdqName{населённый пункт}{486972}>> 
+с помощью свойства <<\wdProperty{31}{частный случай понятия}>>. 
 Трудность исследования вызвана отсутствием чёткой типологии населённых пунктов 
 (например, от численности населения) в законодательстве России и в~Викиданных.
 
 
 
 %%%%%%%
-\section{Список <<Населённых пунктов>>}
+\section{Список <<населённых пунктов>>}
 %%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%%
 \begin{marginfigure}[0.0cm]
 {\includegraphics[width=5cm]{./chapter/human_settlement/Coat_of_Arms_of_Asbest_(Sverdlovsk_oblast).png}}
@@ -86,7 +89,7 @@ SELECT (COUNT(?hum) AS ?count) WHERE {
   ?hum wdt:P31 wd:Q486972. # instance of human settlement  
 }
 \end{lstlisting}%
-\footnotetext{Получили \num{563126} населённых пунктов в 2021 году. SPARQL-запрос: \href{https://w.wiki/4d7s}{https://w.wiki/4d7s}}
+\footnotetext{Получено: \num{563126} населённых пунктов в 2021 году. SPARQL-запрос: \href{https://w.wiki/4d7s}{https://w.wiki/4d7s}.}
 
 Среди отечественных населённых пунктов на Викиданных, 
 которым соответствуют статьи Русской Википедии, 
@@ -94,7 +97,7 @@ SELECT (COUNT(?hum) AS ?count) WHERE {
 бывшая деревня \wdqName{Борисово}{4093951} (3 свойства) 
 и \wdqName{Бригадирское лесничество}{21668554} (4 свойства).
 
-По данным сервиса ProWD 
+По данным сервиса ProWD, 
 среди отечественных населённых пунктов 
 больше всего свойств (36) у \wdqName{Ялты}{128499}. 
 Лидером по всему миру является \wdqName{Токио}{1490} (73 свойства)\autocite{humansettlements_ProWD}.
@@ -132,7 +135,7 @@ WHERE {
 GROUP BY ?country ?countryLabel 
 ORDER BY DESC (?sumPopulation)
 \end{lstlisting}%
-\footnotetext{Получена \num{161} страна в 2017 году и \num{213} стран в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4d9M}{https://w.wiki/4d9M}}
+\footnotetext{Получено: \num{161} страна в 2017 году и \num{213} стран в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4d9M}{https://w.wiki/4d9M}.}
 %\end{minipage}
 
 
@@ -147,24 +150,28 @@ ORDER BY DESC (?sumPopulation)
 Размер пузырька соответствует количеству населения, проживающего в <<населённых пунктах>> одной страны. 
 Ссылка на SPARQL-запрос: \href{https://w.wiki/4dAv}{https://w.wiki/4dAv}.
 
-\begin{fullwidth}
-\noindent\begin{minipage}[]{.46\linewidth}
-    \centering
+%\begin{fullwidth}
+%\noindent\begin{minipage}[]{.46\linewidth}
+%    \centering
+\begin{marginfigure}[0.0cm]
 	    \includegraphics[width=0.94\linewidth]{./chapter/human_settlement/AnnaBubbleHumanSettlement.jpg}
-        \captionof{figure}{Пузырьковая диаграмма с суммарным количеством населения, проживающего в <<населённых пунктах>> на 2017 год.} 
+        \caption[Сколько населения проживает в населённых пунктах, 2017.]{Пузырьковая диаграмма с суммарным количеством населения, проживающего в <<населённых пунктах>> на 2017 год} 
         %Размер пузырька соответствует количеству населения, проживающего в <<населённых пунктах>> одной страны. Ссылка на SPARQL-запрос: \href{https://w.wiki/4dAv}{https://w.wiki/4dAv}}
 	    \label{fig:human-settlement-1}
-\end{minipage}%
+\end{marginfigure}
+%\end{minipage}%
 %just a break for lines between two columns of listings
-\hfill
-\begin{minipage}[]{.46\linewidth}
-    \centering
+%\hfill
+%\begin{minipage}[]{.46\linewidth}
+%    \centering
+\begin{marginfigure}[0.0cm]
 	\includegraphics[width=0.95\linewidth]{./chapter/human_settlement/LeonidBubbleHumanSettlement.jpg}
-    \captionof{figure}{Пузырьковая диаграмма с суммарным количеством населения, проживающего в <<населённых пунктах>> на 2021 год.} 
+    \caption[Сколько населения проживает в населённых пунктах, 2021.]{Пузырьковая диаграмма с суммарным количеством населения, проживающего в <<населённых пунктах>> на 2021 год} 
     %Размер пузырька соответствует количеству населения, проживающего в <<населённых пунктах>> одной страны. Ссылка на SPARQL-запрос: \href{https://w.wiki/4dAv}{https://w.wiki/4dAv}}
 	\label{fig:human-settlement-2}
-\end{minipage}
-\end{fullwidth}%
+\end{marginfigure}
+%\end{minipage}
+%\end{fullwidth}%
 
 
 
@@ -250,7 +257,7 @@ ORDER BY DESC (?sumPopulation)
 В 2017 году нашлось \num{8427} объектов, у которых не указана принадлежность к какой-либо стране. 
 В 2021 году таких объектов уже больше~--- \num{27824}. 
 
-SPARQL-запрос: \href{https://w.wiki/4FV8}{https://w.wiki/4FV8}%
+SPARQL-запрос: \href{https://w.wiki/4FV8}{https://w.wiki/4FV8}.%
 }. 
 
 Результаты запроса показывают, что число пунктов без привязки к стране растёт с годами. 
@@ -296,7 +303,7 @@ ORDER BY ?proportionPopulation
 %\marginnote{%
 %См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.%
 %}
-\footnotetext{Получено \num{158} результатов в 2017 году и \num{206} результатов в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4dE3}{https://w.wiki/4dE3}}
+\footnotetext{Получено: \num{158} результатов в 2017 году и \num{206} результатов в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4dE3}{https://w.wiki/4dE3}}
 
 Столбчатая диаграмма на рис.~\ref{fig:human-settlement-3} позволяет увидеть для каждой страны 
 отношение количества людей, 
@@ -416,7 +423,7 @@ WHERE{
 }  
 GROUP BY ?inst
 \end{lstlisting}%
-\footnotetext{Получено 610 результатов в 2017 году и \num{1245} результатов в 2021 году. SPARQL-запрос: \href{https://w.wiki/4dEW}{https://w.wiki/4dEW}}
+\footnotetext{Получено: 610 результатов в 2017 году и \num{1245} результатов в 2021 году. SPARQL-запрос: \href{https://w.wiki/4dEW}{https://w.wiki/4dEW}}
 
 Для ускорения выполнения запроса~\ref{lst:human-settlement7} выполним два шага.
  

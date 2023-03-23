@@ -117,7 +117,8 @@
 \usepackage{listings} % syntax highlighting
 \usepackage{xparse} % insert code keywords inline, see https://tex.stackexchange.com/a/286097/99685
 
-\lstdefinelanguage{SPARQL}{
+
+\lstdefinelanguage{SPARQL}{%
   basicstyle=\small\ttfamily,
   backgroundcolor=\color{LightGray},
   columns=fullflexible,
@@ -185,7 +186,7 @@
 \usepackage{colortbl}
 
 % see https://tex.stackexchange.com/a/79985/99685
-\usepackage{siunitx} % \num{12345,67890}
+\usepackage{siunitx}[=v2] % \num{12345,67890}
 
 
 % links to Russian Wikipedia articles \ruwiki{short w.wiki link}{Москва}
@@ -342,7 +343,16 @@
   {0pt} % sep
   {\formatpart}
 
-
+\usepackage{figchild}
+\newcommand{\MarginQuestion}{% Lamp image from the package figchild, in the beginning of the questions on margins
+\noindent\reflectbox{{% Mirroring the lamp to right (to a question text)
+\fcTableLight{0.1}{black}{1}%
+}}%
+}
+%\fcBinoculars{0.1}{black}{1}
+%\fcFlyingSaucer{0.6}{black}{1}
+%\fcPuppy{0.1}{black}{1}
+%\fcSeahorse{0.1}{black}{1}
 
 %%
 % For nicely typeset tabular material
@@ -593,7 +603,12 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 %\makeatletter
 %\renewcommand{\fnum@figure}{Рис.~\thefigure.}
 %\makeatother
-
+%\captionof{listings}{#2\label{#3}
+\renewcommand\lstlistingname{Запрос}% Listing -> Query
+%\renewcommand{\lstlistingname}{Запрос}
+%\captionsetup[lstlisting]{% remove semicolon Query: N -> Query. N
+%  labelsep=period
+%}
 
 
 \part{Основы Викиданных}
@@ -611,8 +626,8 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 \input{./chapter/aircraft.tex}
 \input{./chapter/anime.tex}
 
-\iffalse
 \input{./chapter/human_settlement.tex}
+\iffalse
 \input{./chapter/city.tex}
 \input{./chapter/country.tex}
 
@@ -627,13 +642,13 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 \input{./chapter/ship.tex}
 \input{./chapter/spacecraft_space_station.tex}
 
+\fi
 
 \part{Специальные возможности вики-проектов и Викиданных}
 \label{part:advanced}
 \input{./intro/prowd.tex}
 \input{./advanced/page_protection.tex}
 \input{./advanced/bots.tex}
-\fi
 
 %\dottedcontents{part}[0em]{\sffamily\bfseries\large\protect\addvspace{15pt}Часть}{-5pt}{1pc}
 \dottedcontents{part}[0em]{\sffamily\bfseries\large\protect\addvspace{15pt}}{0pt}{1pc}
