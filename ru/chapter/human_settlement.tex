@@ -50,13 +50,15 @@
 
 %%%%%%%
 \section{Список <<населённых пунктов>>}
-%%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%%
-\begin{marginfigure}[0.0cm]
-{\includegraphics[width=5cm]{./chapter/human_settlement/Coat_of_Arms_of_Asbest_(Sverdlovsk_oblast).png}}
-  \caption[Герб второго неизвестного населённого пункта.]{Это герб населённого пункта России или другой страны?\newline%
-См. ответ~\protect\ref{answer:flag_human_settlements} на с.~\protect\pageref{answer:flag_human_settlements}.}
-  \label{fig:flag_question_human_settlements2}%
-\end{marginfigure}
+%%%%%%%%%%%%%%%% Упражнение 3 %%%%%%%%%%%%%%%%
+\marginnote[-\baselineskip]{%
+    \MarginQuestion Это герб населённого пункта России или другой страны?
+
+    \includegraphics[width=2cm]{./chapter/human_settlement/Coat_of_Arms_of_Asbest_(Sverdlovsk_oblast).png}
+
+    См. ответ~\protect\ref{answer:flag_human_settlements} на с.~\protect\pageref{answer:flag_human_settlements}.%
+%  \label{fig:flag_question_human_settlements2}%
+}
 
 Построим список всех населённых пунктов с помощью запроса~\ref{lst:human-settlement1}.
 
@@ -71,7 +73,7 @@ SELECT ?hum ?humLabel WHERE{
   SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
 }
 \end{lstlisting}%
-\footnotetext{Получено \num{411393} пунктов в 2017 году. SPARQL-запрос: \href{https://w.wiki/4d7x}{https://w.wiki/4d7x}}
+\footnotetext{Получено: \num{411393} пункта в 2017 году. SPARQL-запрос: \href{https://w.wiki/4d7x}{https://w.wiki/4d7x}.}
 
 В 2021 году оказалось невозможным получить список населённых пунктов 
 из-за большого числа объектов и поэтому слишком долгой работы запроса~\ref{lst:human-settlement1}. 
@@ -94,7 +96,7 @@ SELECT (COUNT(?hum) AS ?count) WHERE {
 Среди отечественных населённых пунктов на Викиданных, 
 которым соответствуют статьи Русской Википедии, 
 почти пустыми являются, например, 
-бывшая деревня \wdqName{Борисово}{4093951} (3 свойства) 
+бывшая деревня \wdqName{Борисово}{4093951} (3~свойства) 
 и \wdqName{Бригадирское лесничество}{21668554} (4 свойства).
 
 По данным сервиса ProWD, 
@@ -104,8 +106,16 @@ SELECT (COUNT(?hum) AS ?count) WHERE {
 
 
 
+\newpage
 %%%%%%%
 \section{Список стран по суммарному количеству населения}
+
+\begin{marginfigure}[0.0cm]
+    \includegraphics[width=0.94\linewidth]{./chapter/human_settlement/AnnaBubbleHumanSettlement.jpg}
+    \caption[Сколько населения проживает в населённых пунктах, 2017.]{Пузырьковая диаграмма с суммарным количеством населения, проживающего в <<населённых пунктах>> на 2017 год} 
+%Размер пузырька соответствует количеству населения, проживающего в <<населённых пунктах>> одной страны. Ссылка на SPARQL-запрос: \href{https://w.wiki/4dAv}{https://w.wiki/4dAv}}
+    \label{fig:human-settlement-1}
+\end{marginfigure}
 
 %\marginnote{%
 %См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.
@@ -140,32 +150,32 @@ ORDER BY DESC (?sumPopulation)
 
 
 Для подсчёта количества населения по странам 
-используем команду \lstinline|SUM()| во второй строке запроса~\ref{lst:human-settlement3}. 
+используем команду \lstinline|SUM()| в~строке~2 запроса~\ref{lst:human-settlement3}. 
 Для группировки населённых пунктов по странам 
-используем команду \lstinline|GROUP BY| на девятой строке того же запроса.
+используем команду \lstinline|GROUP BY|\, в~строке~9 того~же запроса.
 
 Пузырьковая диаграмма на рис.~\ref{fig:human-settlement-1} и~\ref{fig:human-settlement-2} 
 показывает соотношение стран по количеству населения в <<населённых пунктах>> 
 в~2017 и~2021~годах соответственно. 
 Размер пузырька соответствует количеству населения, проживающего в <<населённых пунктах>> одной страны. 
-Ссылка на SPARQL-запрос: \href{https://w.wiki/4dAv}{https://w.wiki/4dAv}.
+SPARQL-запрос для построения такой диаграммы доступен по ссылке: \href{https://w.wiki/4dAv}{https://w.wiki/4dAv}.
 
 %\begin{fullwidth}
 %\noindent\begin{minipage}[]{.46\linewidth}
 %    \centering
-\begin{marginfigure}[0.0cm]
-	    \includegraphics[width=0.94\linewidth]{./chapter/human_settlement/AnnaBubbleHumanSettlement.jpg}
-        \caption[Сколько населения проживает в населённых пунктах, 2017.]{Пузырьковая диаграмма с суммарным количеством населения, проживающего в <<населённых пунктах>> на 2017 год} 
+%\begin{marginfigure}[0.0cm]
+%	    \includegraphics[width=0.94\linewidth]{./chapter/human_settlement/AnnaBubbleHumanSettlement.jpg}
+%        \caption[Сколько населения проживает в населённых пунктах, 2017.]{Пузырьковая диаграмма с суммарным количеством населения, проживающего в <<населённых пунктах>> на 2017 год} 
         %Размер пузырька соответствует количеству населения, проживающего в <<населённых пунктах>> одной страны. Ссылка на SPARQL-запрос: \href{https://w.wiki/4dAv}{https://w.wiki/4dAv}}
-	    \label{fig:human-settlement-1}
-\end{marginfigure}
+%	    \label{fig:human-settlement-1}
+%\end{marginfigure}
 %\end{minipage}%
 %just a break for lines between two columns of listings
 %\hfill
 %\begin{minipage}[]{.46\linewidth}
 %    \centering
 \begin{marginfigure}[0.0cm]
-	\includegraphics[width=0.95\linewidth]{./chapter/human_settlement/LeonidBubbleHumanSettlement.jpg}
+	\includegraphics[width=0.75\linewidth]{./chapter/human_settlement/LeonidBubbleHumanSettlement.jpg}
     \caption[Сколько населения проживает в населённых пунктах, 2021.]{Пузырьковая диаграмма с суммарным количеством населения, проживающего в <<населённых пунктах>> на 2021 год} 
     %Размер пузырька соответствует количеству населения, проживающего в <<населённых пунктах>> одной страны. Ссылка на SPARQL-запрос: \href{https://w.wiki/4dAv}{https://w.wiki/4dAv}}
 	\label{fig:human-settlement-2}
@@ -190,16 +200,16 @@ ORDER BY DESC (?sumPopulation)
 %\end{figure}
 
 В 2017 году больше всего населения проживало в <<населённых пунктах>> 
-\wdqName{Бразилии}{155} (\num{12} млн), 
+\wdqName{Бразилии}{155} (12~млн), 
 \wdqName{Пакистана}{843} (\num{10} млн), 
 \wdqName{Мексики}{96} (\num{8} млн), 
 \wdqName{Йемена}{805} (\num{8} млн), 
 \wdqName{Индии}{668} и 
-\wdqName{Бангладеша}{902} (по \num{7} млн). 
+\wdqName{Бангладеш}{902} (по \num{7} млн). 
 
 На рис.~\ref{fig:human-settlement-2} можно увидеть список стран на 2021 год: 
 \wdqName{Индия}{668} (\num{30} млн), 
-\wdqName{Китай}{148} (\num{28} млн), 
+\wdqName{Китай}{148} (28~млн), 
 \wdqName{Мексика}{96} (\num{17} млн), 
 \wdqName{Индонезия}{252} (\num{13} млн), 
 \wdqName{Канада}{16} (\num{9} млн) и 
@@ -214,14 +224,14 @@ ORDER BY DESC (?sumPopulation)
 \subsection{Полнота Викиданных}
 
 Населённый пункт~--- это общее название мест с постоянными жителями\autocite{Humansettlements_Dictionary}. 
-По версии редакторов Викиданных в понятие насёленный пункт входят города, сёла, деревни 
+По версии редакторов Викиданных в понятие <<насёленный пункт>> входят города, сёла, деревни 
 и другие\marginnote[4pt]{Полный список можно увидеть в разделе <<Cписок классов, сопутствующих ``населённому пункту'' в свойстве ``экземпляр''>> на с.~\pageref{human-settlement:tag1}.}.
 Точной информации о количестве населённых пунктов в мире мы не нашли. 
 Поэтому проверим полноту тех населённых пунктов, которые есть в Викиданных 
 и которые использовались для решения задачи. 
-В задачах выше мы использовали свойста \wdProperty{1082}{численность населения} и 
-\wdProperty{17}{государство} (привязка к стране). 
-Исходя из этого проверку полноты разделим на подзадачи: 
+В~задачах выше мы использовали свойства <<\wdProperty{1082}{численность населения}>> и 
+<<\wdProperty{17}{государство}>> (привязка к стране). 
+Исходя из этого, проверку полноты разделим на подзадачи: 
 \begin{enumerate} 
   \item Проверка заполненности свойства <<численность населения>>.
   \item Проверка принадлежности к государству.
@@ -233,16 +243,16 @@ ORDER BY DESC (?sumPopulation)
 
 Для такой проверки напишем \href{https://w.wiki/4FUz}{SPARQL-запрос}\sidenote{
 %
-В 2017 году запрос выдал \num{372997} населённых пунктов 
-с незаполненным свойством <<численность населения>>. 
-Тот же запрос в 2021 году выдал \num{507078} таких населённых пунктов. 
-Ссылка на SPARQL-запрос: \href{https://w.wiki/4FUz}{https://w.wiki/4FUz}% 
+    В 2017 году запрос выдал \num{372997} населённых пунктов 
+    с незаполненным свойством <<численность населения>>. 
+    Тот же запрос в 2021 году выдал \num{507078} таких населённых пунктов. 
+    Ссылка на SPARQL-запрос: \href{https://w.wiki/4FUz}{https://w.wiki/4FUz}.% 
 }, 
 который выведет населённые пункты 
-с незаполненным свойством \href{http://www.wikidata.org/entity/P1082}{численность населения}. 
-Произведя расчёты получаем, что только у 9,3\% населенных пунктов мира 
+с незаполненным свойством <<\href{http://www.wikidata.org/entity/P1082}{численность населения}>>. 
+Произведя расчёты, получаем, что только у 9,3\,\% населенных пунктов мира 
 указано свойство <<численность населения>> на 2017 год. 
-В 2021 получаем 11,2\% населенных пунктов мира с заполненным свойство <<численность населения>>. 
+В 2021 получаем 11,2\,\% населенных пунктов мира с заполненным свойство <<численность населения>>. 
 Итак, одновременно с ростом числа населённых пунктов в Викиданных 
 растёт доля пунктов с заполненным свойством <<численность населения>>.
 
@@ -251,27 +261,36 @@ ORDER BY DESC (?sumPopulation)
 \subsection{Проверка принадлежности к государству}
 
 А теперь посмотрим населённые пункты, 
-у которых не указана принадлежность к какой-либо стране 
+у которых не указана принадлежность к какой-либо стране, 
 с помощью \href{https://w.wiki/4FV8}{SPARQL-запроса}\footnote{%
 %
-В 2017 году нашлось \num{8427} объектов, у которых не указана принадлежность к какой-либо стране. 
-В 2021 году таких объектов уже больше~--- \num{27824}. 
-
-SPARQL-запрос: \href{https://w.wiki/4FV8}{https://w.wiki/4FV8}.%
+    В 2017 году нашлось \num{8427} объектов, у которых не указана принадлежность к какой-либо стране. 
+    В 2021 году таких объектов уже больше~--- \num{27824}.\newline
+    SPARQL-запрос: \href{https://w.wiki/4FV8}{https://w.wiki/4FV8}.%
 }. 
 
 Результаты запроса показывают, что число пунктов без привязки к стране растёт с годами. 
 Поэтому вычисления, связанные с населёнными пунктами и странами, 
-по определению будут не полными даже относительно тех пунктов, которые уже есть в Викиданных. 
+по определению будут неполными даже относительно тех пунктов, которые уже есть в Викиданных. 
 
 
+%%%%%%%%%%%%%%%% Упражнение 4 %%%%%%%%%%%%%%%%
+\marginnote{%[-\baselineskip]{%
+    \MarginQuestion Герб населённого пункта какой страны изображён?
+
+    \includegraphics[width=2cm]{./chapter/human_settlement/Loučovice_CoA.jpg}
+
+    См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.%
+%  \label{fig:flag_question_human_settlements3}%
+}% eo marginnote
 %%%%%
 \section{Доля населения страны, проживающего в <<населённых пунктах>>}
 
 Построим список стран, 
 упорядоченный по доли населения (в~процентах), проживающей в \href{http://www.wikidata.org/entity/Q486972}{населённых пунктах}, относительно числа всех жителей страны (листинг~\ref{lst:human-settlement6}).
 
-\index{SPARQL!SUM!Соотношение количества людей, проживающих в населённых пунктах, к количеству всех людей в стране}
+
+\index{SPARQL!SUM!Соотношение количества людей, проживающих в населённых пунктах, к~количеству всех людей в стране}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/4dE3}{Соотношение количества людей, проживающих в населённых пунктах, к количеству всех людей в стране}\protect\footnotemark},
                     label=lst:human-settlement6,
@@ -292,58 +311,53 @@ SELECT ?country ?countryLabel ?proportionPopulation WHERE {
 }
 ORDER BY ?proportionPopulation
 \end{lstlisting}%
-%
-%%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%%
-\begin{marginfigure}[-23\baselineskip]
-{\includegraphics[width=5cm]{./chapter/human_settlement/Loučovice_CoA.jpg}}
-  \caption[Герб третьего неизвестного населённого пункта.]{Герб населённого пункта какой страны изображён?\newline 
-            См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.}%
-  \label{fig:flag_question_human_settlements3}%
-\end{marginfigure}
-%\marginnote{%
-%См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.%
-%}
-\footnotetext{Получено: \num{158} результатов в 2017 году и \num{206} результатов в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4dE3}{https://w.wiki/4dE3}}
+%%%%%%%%%%%%%%%% Упражнение 5 %%%%%%%%%%%%%%%%
+\marginnote[-15\baselineskip]{%
+    \MarginQuestion Герб населённого пункта какой страны изображён?
+    
+    \includegraphics[width=2cm]{./chapter/human_settlement/POL_Otynia_COA.png}
+    
+    См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.%
+%  \label{fig:flag_question_human_settlements4}%
+} 
+\footnotetext{Получено: \num{158} результатов в 2017 году и \num{206} результатов в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4dE3}{https://w.wiki/4dE3}.}
+
 
 Столбчатая диаграмма на рис.~\ref{fig:human-settlement-3} позволяет увидеть для каждой страны 
 отношение количества людей, 
 проживающих в~\href{http://www.wikidata.org/entity/Q486972}{населённых пунктах}, 
 к~числу жителей в~стране на 2017 год.
-
-
-По рис.~\ref{fig:human-settlement-3} видно, 
-что наиболее высокий процент в 2017 году приходился на следующие страны: 
-Кирибати (78\%), Ниуэ (70\%), Греция (53\%), Тувалу (48\%), Коморы (43\%), Маврикий (42\%). 
-В 2022 году картина изменилась: Нигерия (93\%), Папуа~--- Новая Гвинея (71\%), 
-Израиль (50\%), Греция (47\%), Азербайджан (47\%), Казахстан (37\%). 
-
+Наиболее высокий процент приходился на следующие страны: 
+Кирибати (78\,\%), Ниуэ (70\,\%), Греция (53\,\%), Тувалу (48\,\%), Коморы (43\,\%), Маврикий (42\,\%). 
+В 2022 году картина изменилась: Нигерия (93\,\%), Папуа~--- Новая Гвинея (71\,\%), 
+Израиль (50\,\%), Греция (47\,\%), Азербайджан (47\,\%), Казахстан (37\,\%). 
 
 
 На 2017 год в странах большой восьмёрки доля жителей 
 в \href{http://www.wikidata.org/entity/Q486972}{населённых пунктах} составила: 
-\href{http://www.wikidata.org/entity/Q159}{Россия} (\num{2.98}\%), 
-\href{http://www.wikidata.org/entity/Q30}{США} (\num{1.76}\%), 
-\href{http://www.wikidata.org/entity/Q17}{Япония} (\num{0.80}\%), 
-\href{http://www.wikidata.org/entity/Q16}{Канада} (\num{0.26}\%), 
-\href{http://www.wikidata.org/entity/Q142}{Франция} (\num{0.20}\%), 
-\href{http://www.wikidata.org/entity/Q183}{Германия} (\num{0.24}\%), 
-\href{http://www.wikidata.org/entity/Q145}{Великобритания} (\num{0.18}\%), 
-\href{http://www.wikidata.org/entity/Q38}{Италия} (\num{0.07}\%). 
+\href{http://www.wikidata.org/entity/Q159}{Россия} (\num{2.98}\,\%), 
+\href{http://www.wikidata.org/entity/Q30}{США} (\num{1.76}\,\%), 
+\href{http://www.wikidata.org/entity/Q17}{Япония} (\num{0.80}\,\%), 
+\href{http://www.wikidata.org/entity/Q16}{Канада} (\num{0.26}\,\%), 
+\href{http://www.wikidata.org/entity/Q142}{Франция} (\num{0.20}\,\%), 
+\href{http://www.wikidata.org/entity/Q183}{Германия} (\num{0.24}\,\%), 
+\href{http://www.wikidata.org/entity/Q145}{Великобритания} (\num{0.18}\,\%), 
+\href{http://www.wikidata.org/entity/Q38}{Италия} (\num{0.07}\,\%). 
 В 2022 году значения доли населения снизились (рис.~\ref{fig:human-settlement-4}): 
-\href{http://www.wikidata.org/entity/Q159}{Россия} (0.045\%), 
-\href{http://www.wikidata.org/entity/Q30}{США} (\num{0.014}\%), 
-\href{http://www.wikidata.org/entity/Q17}{Япония} (\num{0.008}\%), 
-\href{http://www.wikidata.org/entity/Q16}{Канада} (\num{0.23}\%), 
-\href{http://www.wikidata.org/entity/Q142}{Франция} (\num{0.005}\%), 
-\href{http://www.wikidata.org/entity/Q183}{Германия} (\num{0.005}\%), 
-\href{http://www.wikidata.org/entity/Q145}{Великобритания} (\num{0.014}\%), 
-\href{http://www.wikidata.org/entity/Q38}{Италия} (\num{0.0005}\%). 
+\href{http://www.wikidata.org/entity/Q159}{Россия} (0.045\,\%), 
+\href{http://www.wikidata.org/entity/Q30}{США} (\num{0.014}\,\%), 
+\href{http://www.wikidata.org/entity/Q17}{Япония} (\num{0.008}\,\%), 
+\href{http://www.wikidata.org/entity/Q16}{Канада} (\num{0.23}\,\%), 
+\href{http://www.wikidata.org/entity/Q142}{Франция} (\num{0.005}\,\%), 
+\href{http://www.wikidata.org/entity/Q183}{Германия} (\num{0.005}\,\%), 
+\href{http://www.wikidata.org/entity/Q145}{Великобритания} (\num{0.014}\,\%), 
+\href{http://www.wikidata.org/entity/Q38}{Италия} (\num{0.0005}\,\%). 
 Отметим, что это страны промышленно развитые.
 
 \begin{figure*}
     \includegraphics[width=1\linewidth]{./chapter/human_settlement/AnnaShareHumanSettlement.png}
 	\label{fig:human-settlement-3}
-	\caption[Диаграмма доли населения страны, проживающего в населённых пунктах, 2017 год.]{Диаграмма доли населения страны, проживающего в <<населённых пунктах>> на 2017 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/4dE3}{https://w.wiki/4dE3}}%
+	\caption[Доля населения страны, проживающего в населённых пунктах, 2017 год.]{Доля населения страны, проживающего в <<населённых пунктах>>, по~странам на~2017 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/4dE3}{https://w.wiki/4dE3}}%
 \end{figure*} 
 
 
@@ -351,25 +365,20 @@ ORDER BY ?proportionPopulation
 % see https://commons.wikimedia.org/wiki/File:Proportion_of_the_country%27s_population_living_in_human_settlements_for_2022.png    
     \includegraphics[width=1\linewidth]{./chapter/human_settlement/ShareHumanSettlement_2022.png}
 	\label{fig:human-settlement-4}
-	\caption[Диаграмма доли населения страны, проживающего в населённых пунктах, 2021 год.]{Диаграмма доли населения страны, проживающего в <<населённых пунктах>> на 2022 год. Были выбраны страны с населением более 5 млн чел. SPARQL-запрос: \href{https://w.wiki/5Ajn}{https://w.wiki/5Ajn}}%
+	\caption[Доля населения страны, проживающего в населённых пунктах, 2021 год.]{Доля населения страны, проживающего в <<населённых пунктах>>, по~странам на~2022 год. Были выбраны страны с населением более 5 млн чел. SPARQL-запрос: \href{https://w.wiki/5Ajn}{https://w.wiki/5Ajn}}%
 \end{figure*}%
 
-Поставим вопрос читателю относительно запроса \href{https://w.wiki/5Ajn}{https://w.wiki/5Ajn}, 
-с помощью которого построен рис.~\ref{fig:human-settlement-4}. 
-А именно к 13 строчке: \lstinline|HAVING (?proportionPopulation > 0.1 && ?proportionPopulation < 1)|. 
-Как вы думаете, в каких случаях доля населения, живущего в~населённых пунктах может превышать 100 \%?
-
-
-%%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%%
-\begin{marginfigure}[0.0cm]
-{\includegraphics[width=4cm]{./chapter/human_settlement/POL_Otynia_COA.png}}
-  \caption[Герб четвёртого неизвестного населённого пункта.]{Герб населённого пункта какой страны изображён?\newline
-См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.}%
-  \label{fig:flag_question_human_settlements4}%
-\end{marginfigure}
-%\marginnote{%
-%См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.%
-%}
+%%%%%%%%%%%%%%%% Упражнение 5+ %%%%%%%%%%%%%%%%
+\marginnote[-\baselineskip]{%
+    \MarginQuestion 
+    Рис.~\ref{fig:human-settlement-4} построен с помощью запроса \href{https://w.wiki/5Ajn}{https://w.wiki/5Ajn}. 
+    В строке 13 этого запроса есть любопытное ограничение: 
+    \mbox{\texttt{HAVING (\ldots\, ?proportionPopulation < 1)}}. 
+    Как вы думаете, в~каких случаях доля населения страны, 
+    живущего в~населённых пунктах, 
+    может превышать 100\,\%, 
+    то есть переменная \texttt{?proportionPopulation} будет больше единицы?%
+} 
 
 Полученные диаграммы подтверждают следующую гипотезу: 
 высокий процент населения страны, проживающего в~<<населённых пунктах>>, 
@@ -387,6 +396,15 @@ ORDER BY ?proportionPopulation
 \section[Cписок классов, сопутствующих <<населённому пункту>> в~свойстве <<экземпляр>>]{Cписок классов, сопутствующих <<населённому пункту>>\\в~свойстве <<экземпляр>>}
 \label{human-settlement:tag1}
 
+%%%%%%%%%%%%%%%% Упражнение 6 %%%%%%%%%%%%%%%%
+\marginnote{%
+    \MarginQuestion Герб населённого пункта какой страны изображён?
+    
+    \includegraphics[width=2cm]{./chapter/human_settlement/Coat_of_Arms_of_Azov.png}
+
+    См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.%
+%  \label{fig:flag_question_human_settlements5}%
+} 
 Будем называть <<классом>> такие объекты Викиданных, 
 которые связаны с каким-либо объектом Викиданных посредством свойства \wdProperty{31}{экземпляр}. 
 Цель этого раздела~--- найти объекты $X$, 
@@ -397,16 +415,6 @@ ORDER BY ?proportionPopulation
 найдём объекты, сопутствующие <<населённому пункту>>. 
 
 
-%%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%%
-\begin{marginfigure}[0cm]
-{\includegraphics[width=4cm]{./chapter/human_settlement/Coat_of_Arms_of_Azov.png}}
-  \caption[Герб пятого неизвестного населённого пункта.]{Герб населённого пункта какой страны изображён?\\
-См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.}%
-  \label{fig:flag_question_human_settlements5}%
-\end{marginfigure}
-%\marginnote{%
-%См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.%
-%}
 
 %\marginnote[1cm]{Получено 610 результатов в 2017 году и \num{1245} результатов в 2021 году. SPARQL-запрос: \href{https://w.wiki/4dEW}{https://w.wiki/4dEW}}
 \begin{lstlisting}[ language=SPARQL, 
