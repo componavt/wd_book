@@ -209,8 +209,8 @@ SELECT ?seiyuRoles (COUNT(?seiyuRoles) AS ?quantity) WHERE {
                  wdt:P725 ?seiyu.        # instance of seiyu
       SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en,ja"}
     }
-    GROUP BY ?anime              # group list by number of voiced anime
-    ORDER BY DESC(?seiyuRoles)   # order by voice acting quantity (descending)
+    GROUP BY ?anime            # group list by number of voiced anime
+    ORDER BY DESC(?seiyuRoles) # order by voice acting quantity (descending)
   }
 }
 GROUP BY ?seiyuRoles       # grouping and
@@ -565,8 +565,8 @@ GROUP BY ?seiyu ?bDate
 # Get all anime objects, their names and release dates
 SELECT ?anime ?animeLabel ?animePubDate ?animeSeriesStartDate
 WHERE {
-  ?anime (wdt:P31/(wdt:P279*)) wd:Q1107.            # object of anime/subclass
-  OPTIONAL { ?anime wdt:P577 ?animePubDate. }        # release date of a movie
+  ?anime (wdt:P31/(wdt:P279*)) wd:Q1107.          # object of anime/subclass
+  OPTIONAL { ?anime wdt:P577 ?animePubDate. }       # release date of a movie
   OPTIONAL { ?anime wdt:P580 ?animeSeriesStartDate. } # start date of a series
   SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en,ja"}
 }

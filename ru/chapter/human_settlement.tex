@@ -365,7 +365,7 @@ ORDER BY ?proportionPopulation
 % see https://commons.wikimedia.org/wiki/File:Proportion_of_the_country%27s_population_living_in_human_settlements_for_2022.png    
     \includegraphics[width=1\linewidth]{./chapter/human_settlement/ShareHumanSettlement_2022.png}
 	\label{fig:human-settlement-4}
-	\caption[Доля населения страны, проживающего в населённых пунктах, 2021 год.]{Доля населения страны, проживающего в <<населённых пунктах>>, по~странам на~2022 год. Были выбраны страны с населением более 5 млн чел. SPARQL-запрос: \href{https://w.wiki/5Ajn}{https://w.wiki/5Ajn}}%
+	\caption[Доля населения страны, проживающего в населённых пунктах, 2021 год.]{Доля населения страны, проживающего в <<населённых пунктах>>, по~странам на~2022 год. Выбраны страны с населением более 5 млн чел. SPARQL-запрос: \href{https://w.wiki/5Ajn}{https://w.wiki/5Ajn}}%
 \end{figure*}%
 
 %%%%%%%%%%%%%%%% Упражнение 5+ %%%%%%%%%%%%%%%%
@@ -383,10 +383,10 @@ ORDER BY ?proportionPopulation
 Полученные диаграммы подтверждают следующую гипотезу: 
 высокий процент населения страны, проживающего в~<<населённых пунктах>>, 
 указывает на более аграрную страну. 
-Из диаграмм~\ref{fig:human-settlement-3} и~\ref{fig:human-settlement-4} видно, 
+На рис.~\ref{fig:human-settlement-3} и~\ref{fig:human-settlement-4} видно, 
 что наиболее высокий процент населения, проживающего в населённых пунктах, 
-приходится на страны, в которых, по-видимому, менее развита промышленность. 
-А индустриальные страны (например, страны большой восьмёрки) имеют очень низкий процент населения страны, 
+приходится на страны, в которых, по-видимому, менее развита промышленность, 
+а индустриальные страны (например, страны большой восьмёрки) имеют очень низкий процент населения страны, 
 проживающего в~населённых пунктах.
 
 
@@ -408,9 +408,9 @@ ORDER BY ?proportionPopulation
 Будем называть <<классом>> такие объекты Викиданных, 
 которые связаны с каким-либо объектом Викиданных посредством свойства \wdProperty{31}{экземпляр}. 
 Цель этого раздела~--- найти объекты $X$, 
-для которых объект \wdqName{населённый пункт}{486972} является \emph{классом}, 
+для которых объект <<\wdqName{населённый пункт}{486972}>> является \emph{классом}, 
 и получить другие классы объекта $X$, кроме <<населённого пункта>>. 
-Эти <<другие>> классы будет называть сопутствующими <<населённому пункту>>. 
+Эти <<другие>> классы будем называть сопутствующими <<населённому пункту>>. 
 С помощью запроса~\ref{lst:human-settlement7} 
 найдём объекты, сопутствующие <<населённому пункту>>. 
 
@@ -431,26 +431,28 @@ WHERE{
 }  
 GROUP BY ?inst
 \end{lstlisting}%
-\footnotetext{Получено: 610 результатов в 2017 году и \num{1245} результатов в 2021 году. SPARQL-запрос: \href{https://w.wiki/4dEW}{https://w.wiki/4dEW}}
+\footnotetext{Получено: 610 результатов в 2017 году и \num{1245} результатов в 2021 году. SPARQL-запрос: \href{https://w.wiki/4dEW}{https://w.wiki/4dEW}.}
 
 Для ускорения выполнения запроса~\ref{lst:human-settlement7} выполним два шага.
  
 Во-первых, выключим из рассмотрения поселения, 
 имеющие в~списке экземпляров только <<населённый пункт>>, 
-поскольку других сопутствующих классов нет. 
+поскольку тогда других сопутствующих классов нет. 
 Для этого добавим в скрипт~\ref{lst:human-settlement8} строку~\num{9} с фильтром, 
-требующим, чтобы у объекта \lstinline|?hum| 
-кроме \wdProperty{31}{экземпляра} \wdqName{населённый пункт}{486972} был ещё какой-либо класс.
+требующим, чтобы у объекта \lstinline|?hum|, 
+кроме \wdProperty{31}{экземпляра} <<\wdqName{населённый пункт}{486972}>>, был ещё какой-либо класс.
 
 Во-вторых, в строке \num{8} запроса~\ref{lst:human-settlement8} 
 уберём такие объекты переменной \lstinline|?inst|, 
-которые имеют свойство \wdqName{государство}{17}. 
-Это позволит отсечь сотни типов населённых пунктов специфичных для отдельных стран, 
-например, <<административно-территориальная единица России>>.
+которые имеют свойство <<\wdqName{государство}{17}>>. 
+Это позволит отсечь сотни типов населённых пунктов, специфичных для отдельных стран, 
+например <<административно-территориальная единица России>>.
 
 Эти преобразования позволили выполнить запрос~\ref{lst:human-settlement8} 
 по всем странам мира за приемлемое время в 13 мс.
 
+
+\newpage
 \lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
     caption={\href{https://w.wiki/4ePf}{Cписок классов, сопутствующих <<населённому пункту>> в свойстве <<экземпляр>> без специализированных классов разных стран}\protect\footnotemark},
@@ -471,14 +473,19 @@ WHERE{
 GROUP BY ?inst ?instLabel
 ORDER BY DESC (?sumHum)
 \end{lstlisting}%
-\footnotetext{Получено 355 записей в 2017 году и 707 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4ePf}{https://w.wiki/4ePf}}
+\footnotetext{Получено: 355 записей в 2017 году и 707 записей в 2021 году. Ссылка на~SPARQL-запрос: \href{https://w.wiki/4ePf}{https://w.wiki/4ePf}.}
 
-В таблице~\ref{tab:human-settlement-classes} представлены классы, 
+В табл.~\ref{tab:human-settlement-classes} представлены классы, 
 сопутствующие <<населённому пункту>> в свойстве <<экземпляр>>, 
-и сравнение количества этих классов за 2017 и 2021 годы.
+и сравнение количества этих классов за 2017 и 2021 годы. 
+Получены данные по всему миру, представлены первые строки ответа на запрос~\ref{lst:human-settlement9}.
 
-\begin{table}[h]
+\begin{margintable}[0.0cm]
+%\begin{table}[h]
+%\footnotesize
 \centering
+
+\caption[Сопутствующие населённому пункту классы, 2017 и 2021 годы.]{Количество классов, сопутствующих <<населённому пункту>>, в~2017 и 2021 годы, их разница ($\Delta$)\vspace{1pt}}
 \begin{tabular}{|l|l|l|l|l|}
 \hline
 \textnumero & Название класса населённого пункта & 2017 & 2021 & $\Delta$ \\ \hline
@@ -493,11 +500,9 @@ ORDER BY DESC (?sumHum)
 9 & \wdqName{Заброшенные деревни}{350895} & \num{254}       & \num{474}	& +\num{220}	\\ 
 10 & \wdqName{Внутренние районы}{2983893} & \num{207}       & \num{503}	& +\num{296}	\\ \hline
 \end{tabular}
-    \caption[Сопутствующие населённому пункту классы, 2017 и 2021 годы.]{Количество классов, сопутствующих <<населённому пункту>>, в~2017 и 2021 годы, их разница ($\Delta$). 
-    Получены данные по всему миру. В таблице представлены первые строки ответа на запрос~\protect\ref{lst:human-settlement9}.}
 \label{tab:human-settlement-classes}
-\end{table}   
-
+%\end{table}   
+\end{margintable}
 
 
 Запрос~\ref{lst:human-settlement8} показал, что на 2021 год на первых местах 
@@ -518,13 +523,22 @@ ORDER BY DESC (?sumHum)
 Применим такой фильтр в запросе~\ref{lst:human-settlement9} в строках 10--12, 
 чтобы отсечь именно эти типы объектов.
 
-\begin{fullwidth}
+В итоге 707 классов запроса~\ref{lst:human-settlement8} 
+мы сократили в~запросе~\ref{lst:human-settlement9} 
+до 89 различных классов, сопутствующих <<населённому пункту>> в свойстве <<экземпляр>>. 
+В табл.~\ref{tab:human-settlement-classes} были представлены 
+первые 10 наиболее частотных классов из 89. 
+
+
+
+\newpage
+%\begin{fullwidth}
 \index{SPARQL!COUNT!Cписок классов, сопутствующих <<населённому пункту>> в свойстве <<экземпляр>>, без исторических объектов}
 \index{SPARQL!FILTER!Cписок классов, сопутствующих <<населённому пункту>> в свойстве <<экземпляр>>, без исторических объектов}
 \index{SPARQL!MINUS!Cписок классов, сопутствующих <<населённому пункту>> в свойстве <<экземпляр>>, без исторических объектов}
 \lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/5AdW}{Cписок классов, сопутствующих <<населённому пункту>> в свойстве <<экземпляр>>, без исторических объектов}\protect\footnotemark},
+    caption={\href{https://w.wiki/5AdW}{Cписок классов, сопутствующих <<населённому пункту>> в свойстве <<экземпляр>>,\\без~исторических объектов}\protect\footnotemark},
                     label=lst:human-settlement9,
                     texcl 
                     ]
@@ -542,16 +556,11 @@ WHERE{
 GROUP BY ?inst ?instLabel
 ORDER BY DESC (?sumHum)
 \end{lstlisting}%
-\footnotetext{Получено 89 результатов. Ссылка на SPARQL-запрос: \href{https://w.wiki/5AdW}{https://w.wiki/5AdW}}
-\end{fullwidth}
-
-В итоге, 707 классов запроса~\ref{lst:human-settlement8} 
-мы сократили в~запросе~\ref{lst:human-settlement9} 
-до 89 различных классов, сопутствующих <<населённому пункту>> в свойстве <<экземпляр>>. 
-В таблице~\ref{tab:human-settlement-classes} представлены первые 10 наиболее частотных классов из 89. 
+\footnotetext{Получено: 89 результатов. Ссылка на SPARQL-запрос: \href{https://w.wiki/5AdW}{https://w.wiki/5AdW}.}
+%\end{fullwidth}
 
 
-\newpage
+
 
 %%%%%
 \section{Отечественные учёные на селе и в городе}
@@ -562,30 +571,34 @@ ORDER BY DESC (?sumHum)
   \item Выявим список сельских и список городских типов поселений именно в России.
   \item Определим основные научные направления, представленные в~Викиданных.
   \item Выявим способ определения отечественных учёных.
-  \item Сделаем такую диаграмму, на которой разным цветом будут указаны разные научные направления (математики, физики, химики и так далее) для учёных, родившихся в \emph{сельских поселениях}.
+  \item Сделаем такую диаграмму, на которой разным цветом будут указаны разные научные направления (математики, физики, химики и так далее) для учёных, родившихся в~\emph{сельских поселениях}.
   \item Сделаем аналогичную диаграмму, но уже по \emph{городским поселениям} и сравним результаты.
 \end{enumerate}
 
 
+
+
+\newpage
 %%%%%
 \subsection{Список сельских и список городских типов поселений в~России}%
 \label{sec:list-village-city-types-in-Russia}
 
 С помощью запроса~\ref{lst:human-settlement-noname-count} 
-Выведем список типов поселений и их количество для объектов, 
+выведем список типов поселений и их количество для объектов, 
 имеющих свойство \wdProperty{1082}{<<численность населения>>} 
 и принадлежащих \wdqName{России}{159}. 
 
 \marginnote[64pt]{%
 %
-Задача. Используя команду \lstinline|FILTER~NOT~EXISTS|, 
-измените запрос~\ref{lst:human-settlement-noname-count} так, чтобы получить число классов 
-с пустым полем <<численность населения>>. 
+    \MarginQuestion 
+    Используя команду \texttt{FILTER~NOT~EXISTS},\, 
+    измените запрос~\ref{lst:human-settlement-noname-count} так, чтобы получить число классов 
+    с пустым полем <<численность населения>>. 
 
 {\noindent}См. пример использования этой команды в запросе~\ref{lst:anime_no_pub_date} 
 на с.~\pageref{lst:anime_no_pub_date}.%
 %
-}
+}% eo marginnote
 \index{SPARQL!COUNT!Список классов поселений и их количество для объектов в России, имеющих свойство <<численность населения>>}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/4zPi}{Список классов поселений и их количество для объектов, имеющих свойство <<численность населения>> в России}\protect\footnotemark},
@@ -605,10 +618,43 @@ SELECT ?class ?classLabel (COUNT(?class) AS ?count) WHERE {
 GROUP BY ?class ?classLabel
 ORDER BY DESC (?count)
 \end{lstlisting}%
-\footnotetext{Получили 229 разных классов поселений в 2022 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4zPi}{https://w.wiki/4zPi}}
+\footnotetext{Получено: 229 разных классов поселений в 2022 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4zPi}{https://w.wiki/4zPi}.}
 
 Основные классы поселений, полученные с помощью запроса~\ref{lst:human-settlement-noname-count}, 
 представлены в таблице~\ref{tab:human-settlement1}. 
+В таблице представлены такие первые 11~строк ответа на запрос~\protect\ref{lst:human-settlement-noname-count}, 
+    которые можно отнести к сельским или городским населённым пунктам. 
+    Число в столбце <<\textnumero>> указывает номер строки с классом поселения 
+    в списке из 229 ответов на запрос~\ref{lst:human-settlement-noname-count}, 
+    упорядоченных по их количству.
+
+
+
+\begin{margintable}
+\centering
+    \caption[Сельские и городские населённые пункты, 2022 год.]{Классы и количество их упоминаний среди объектов, 
+    имеющих свойство <<численность населения>> в России\vspace{3pt}}
+\begin{tabular}{|r|l|c|c|}
+\hline
+\textnumero & Название класса & \specialcell{Количество} & Население \\ \hline
+1 &\specialcell{Сельское поселение\\в России (\wdq{634099})}& \num{18103} & \num{34} млн \\
+2 & \wdqName{Деревня}{5084}   & \num{15517}   & \num{1,8} млн\\
+3 & \wdqName{Село}{532}	      & \num{10204}   & \num{10,9} млн\\ 
+4 & \wdqName{Посёлок}{2514025} & \num{4536}   & \num{3,4} млн\\ 
+7 & \wdqName{Хутор}{2023000}  & \num{1782}    & \num{0,52} млн\\ 
+\rowcolor{LightCyan} 
+8 &\specialcell{Городское поселение\\в России (\wdq{2661988})}& \num{1502} & \num{20.0} млн \\
+\rowcolor{LightCyan} 
+9 & \wdqName{Город}{7930989}  & \num{1170}    & \num{103.6} млн\\ 
+11 & \wdqName{Рабочий посёлок}{20019082} & \num{583} & \num{3,7} млн\\ 
+13 & \wdqName{Станица}{748331} & \num{255}    & \num{1,5} млн \\
+\rowcolor{LightCyan} 
+20 &\specialcell{Город с населением более\\\num{100000} человек (\wdq{1549591})}& \num{107} & \num{58} млн \\
+\rowcolor{LightCyan} 
+55 & \wdqName{Город-миллионер}{1637706} & \num{14}    & \num{32.1} млн \\ \hline
+\end{tabular}
+\label{tab:human-settlement1}
+\end{margintable}
 
 Обратите внимание на безымянные переменные (\lstinline|[]|) 
 в строках 4~и~6 запроса~\ref{lst:human-settlement-noname-count}. 
@@ -618,68 +664,38 @@ ORDER BY DESC (?count)
 
 Наличие строки шесть в~запросе~\ref{lst:human-settlement-noname-count} 
 (\lstinline|wdt:P1082 []|) 
-существенно уменьшает числа в таблице~\ref{tab:human-settlement1} 
+существенно уменьшает числа в табл.~\ref{tab:human-settlement1} 
 в~столбце <<Количество>>. 
 Это связано с тем, что у многих населённых пунктов 
 не~заполнено поле <<численность населения>>. 
 
-
-
-\begin{table}[h]
-\centering
-\begin{tabular}{|r|l|c|c|}
-\hline
-\textnumero & Название класса & \specialcell{Количество} & Население \\ \hline
-1 &\specialcell{сельское поселение\\в России (\wdq{634099})}& \num{18103} & \num{34} млн \\
-2 & \wdqName{деревня}{5084}   & \num{15517}   & \num{1,8} млн\\
-3 & \wdqName{село}{532}	      & \num{10204}   & \num{10,9} млн\\ 
-4 & \wdqName{посёлок}{2514025} & \num{4536}   & \num{3,4} млн\\ 
-7 & \wdqName{хутор}{2023000}  & \num{1782}    & \num{0,52} млн\\ 
-\rowcolor{LightCyan} 
-8 &\specialcell{городское поселение\\в России (\wdq{2661988})}& \num{1502} & \num{20.0} млн \\
-\rowcolor{LightCyan} 
-9 & \wdqName{город}{7930989}  & \num{1170}    & \num{103.6} млн\\ 
-11 & \wdqName{рабочий посёлок}{20019082} & \num{583} & \num{3,7} млн\\ 
-13 & \wdqName{станица}{748331} & \num{255}    & \num{1,5} млн \\
-\rowcolor{LightCyan} 
-20 &\specialcell{город с населением более\\\num{100000} человек (\wdq{1549591})}& \num{107} & \num{58} млн \\
-\rowcolor{LightCyan} 
-55 & \wdqName{город-миллионер}{1637706} & \num{14}    & \num{32.1} млн \\ \hline
-\end{tabular}
-    \caption[Сельские и городские населённые пункты, 2022 год.]{Таблица классов и количество их упоминаний среди объектов, 
-    имеющих свойство <<численность населения>> в России. 
-    В таблице представлены такие первые 11~строк ответа на запрос~\protect\ref{lst:human-settlement-noname-count}, 
-    которые можно отнести к сельским или городским населённым пунктам. 
-    Число в столбце <<\textnumero>> указывает номер строки с классом поселения 
-    в списке из 229 ответов на запрос~\protect\ref{lst:human-settlement-noname-count}, 
-    упорядоченных по их количству.}
-\label{tab:human-settlement1}
-\end{table}
-
-Объект Викиданных \wdqName{населённый пункт}{486972} 
-может быть указан в качестве класса (свойство \wdProperty{31}{экземпляр}) 
+Объект Викиданных <<\wdqName{населённый пункт}{486972}>> 
+может быть указан в качестве класса (свойство <<\wdProperty{31}{экземпляр}>>) 
 как у сельских, так и у городских поселений. 
 Поэтому он нам не поможет в различении этих типов поселений 
 и мы его пропускаем с помощью строки~7 запроса~\ref{lst:human-settlement-noname-count}.
 
-Выберем из таблицы~\ref{tab:human-settlement1} строки без подсветки, 
-то есть классы под номерами 1, 2, 3, 4, 7, 11 и 13. 
-В~дальнейшем комбинацию этих классов будем называть \emph{сельские поселения}. 
-Подсчитаем, сколько всего людей живёт в таких поселениях в России\footnote{Получили \num{55,6} млн человек. 
-Ссылка на SPARQL-запрос: \url{https://w.wiki/4$D6}%
-}. 
+
 
 \newpage
+Выберем из табл.~\ref{tab:human-settlement1} строки без подсветки, 
+то есть классы под номерами 1, 2, 3, 4, 7, 11 и 13. 
+В~дальнейшем комбинацию этих классов будем называть \emph{сельские поселения}. 
+Подсчитаем, сколько всего людей живёт в таких поселениях в России. 
+Получилось \num{55,6} млн человек\footnote{%
+Ссылка на SPARQL-запрос: \url{https://w.wiki/4$D6}.%
+}. 
+
 Суммарное число жителей по каждому из классов \emph{сельских поселений} 
 вычислим с помощью запроса~\ref{lst:human-settlement-village-count}. 
-Полученные числа представлены в таблице~\ref{tab:human-settlement1} в столбце <<Население>>. 
+Полученные числа представлены в табл.~\ref{tab:human-settlement1} в столбце <<Население>>. 
 Если запрос~\ref{lst:human-settlement-village-count} выполняется слишком долго, 
 вы можете закомментировать или удалить часть классов в строках 3--4 
 и тем самым упростить и ускорить обработку запроса. 
 
 \index{SPARQL!VALUES!Классы сельских поселений}
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/4$8w}{Список классов сельских поселений в России и суммарное число жителей по каждому классу}\protect\footnotemark},
+                    caption={\href{https://w.wiki/4$8w}{Список классов сельских поселений в России и суммарное число жителей по~каждому классу}\protect\footnotemark},
                     label=lst:human-settlement-village-count,
                     texcl 
                     ]
@@ -695,14 +711,14 @@ SELECT ?village ?villageLabel (SUM(?population) AS ?count) WHERE {
 GROUP BY ?village ?villageLabel
 \end{lstlisting}%
 \footnotetext{Число жителей в сельских поселениях России в 2022 году представлено 
-в таблице~\ref{tab:human-settlement1} в столбце <<Население>>. Ссылка на SPARQL-запрос: \url{https://w.wiki/4$8w}}
+в~табл.~\ref{tab:human-settlement1} в~столбце <<Население>>. Ссылка на SPARQL-запрос: \url{https://w.wiki/4$8w}.}
 
 
 
-А набор классов под номерами 8, 9, 20 и 55 в таблице~\ref{tab:human-settlement1} 
+Набор классов под номерами 8, 9, 20 и 55 в табл.~\ref{tab:human-settlement1} 
 назовём \emph{городскими поселениями}. 
 Подсчитаем суммарное число жителей в~городских поселениях России 
-с помощью запроса~\ref{lst:human-settlement-count-total-city}. 
+с~помощью запроса~\ref{lst:human-settlement-count-total-city}. 
 
 
 \begin{lstlisting}[ language=SPARQL, 
@@ -721,35 +737,35 @@ SELECT (SUM(?population) AS ?count) WHERE {
 }
 \end{lstlisting}%
 \footnotetext{Число жителей в городских поселениях России в 2022 году составило \num{116,1}~млн человек. 
-Ссылка на SPARQL-запрос: \url{https://w.wiki/4$D9}}
+Ссылка на SPARQL-запрос: \url{https://w.wiki/4$D9}.}
 
 Суммарное число жителей по каждому из классов \emph{городских поселений} 
 вычисляется аналогично запросу~\ref{lst:human-settlement-village-count}. 
-Полученные числа представлены в таблице~\ref{tab:human-settlement1} в столбце <<Население>>. 
+Полученные числа представлены в табл.~\ref{tab:human-settlement1} в столбце <<Население>>. 
 
 Таким образом, получили, что \num{55.6} млн человек живёт в сельских поселениях и \num{116.1}~млн человек~--- в городских. 
-Общее число составило \num{171.7} млн человек. 
-при этом по оценке Росстата в России было 145 млн человек на 2022 год. 
-Получили на 27 млн человек больше, и это с учётом того, что Викиданные достаточно неполные. 
+Общее число составило \num{171.7} млн человек, 
+при этом, по оценке Росстата, в России было 145 млн человек на 2022 год. 
+Получили на 27 млн человек больше, и это с~учётом~того, что Викиданные достаточно неполные. 
 
 На наш взгляд, проблема подсчётов заключается в том, 
 что большие города включают в~себя множество небольших городков и жители этих городков считаются дважды. 
 Команда \lstinline|DISTINCT|%
 %
 %
-\TFfootnote{Команда \lstinline|DISTINCT| в~строке~3 запроса~\ref{lst:human-settlement-count-total-city} 
-нужна для учёта случаев, когда одному населённому пункту \lstinline|?city| 
-соответствует несколько значений списка \lstinline|?city_list| в~строке~7. 
+\sidenote{Команда \texttt{DISTINCT} в~строке~3 запроса~\ref{lst:human-settlement-count-total-city} 
+нужна для учёта случаев, когда одному населённому пункту \texttt{?city} 
+соответствует несколько значений списка \texttt{?city\_list} в~строке~7. 
 То есть населённый пункт может одновременно быть \wdProperty{31}{экземпляром} 
-\wdqName{города}{7930989} и \wdqName{города-миллионера}{1637706}. 
+и~\wdqName{города}{7930989}, и~\wdqName{города-миллионера}{1637706}. 
 
-Команда \lstinline|DISTINCT| во внутреннем цикле \lstinline|SELECT| (строки~3--8) 
-позволяет получить эти города (\lstinline|?city|) без дублирования. 
-Если убрать слово \lstinline|DISTINCT| из запроса, 
-то численность населения вырастет со \num{116.1} млн до \num{187.2} млн человек. 
+Команда \texttt{DISTINCT} во внутреннем цикле \texttt{SELECT} (строки~3--8) 
+позволяет получить эти города (\texttt{?city}) без~дублирования. 
+Если убрать слово \texttt{DISTINCT}, % из~запроса, 
+то~численность населения вырастет со \num{116.1} млн до \num{187.2} млн человек. 
 
-Отметим, что если сложить численность разных типов городов в таблице~\ref{tab:human-settlement1}, 
-то получим $20 + 103.6 + 58 + 32.1 = 213.7$. 
+Отметим, что если сложить численность разных типов городов в табл.~\ref{tab:human-settlement1}, 
+то~получим $20 + 103.6 + 58 + 32.1 = 213.7$. 
 Очевидно, что списки разных типов городских поселений пересекаются, поэтому получилось такое большое число.%
 } 
 %
@@ -759,7 +775,7 @@ SELECT (SUM(?population) AS ?count) WHERE {
 Один из вариантов решения заключается в том, 
 чтобы дополнительно проверять населённые пункты~---  
 не входят ли они в более крупные населённые пункты, 
-и если входят, то не считать их население повторно. 
+a~если~входят, то не считать их население повторно. 
 
 
 
@@ -768,11 +784,11 @@ SELECT (SUM(?population) AS ?count) WHERE {
 
 Получим список профессий и количество работников, 
 имеющих российское гражданство. 
-Этим запросом (листинг~\ref{lst:human-settlement13}) 
+Этим запросом~\ref{lst:human-settlement13} 
 мы ищем такие объекты Викиданных, 
-у которых есть свойство \wdProperty{27}{гражданство} 
-и значением этого свойства является объект \wdqName{Россия}{159}. 
-Очевидно, что объект, имеющий свойство <<гражданство>>, будет человеком 
+у которых есть свойство <<\wdProperty{27}{гражданство}>> 
+и значением этого свойства является объект <<\wdqName{Россия}{159}>>. 
+Очевидно, что объект, имеющий свойство <<гражданство>>, будет человеком, 
 или в терминологии вики-проектов~--- персоной. 
 
 
@@ -792,31 +808,38 @@ SELECT DISTINCT ?job ?jobLabel (COUNT(?hum) AS ?count) WHERE {
 GROUP BY ?job ?jobLabel
 ORDER BY ?count
 \end{lstlisting}%
-\footnotetext{Получено 2023 профессии на 2022 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/4daC}{https://w.wiki/4daC}}
+\footnotetext{Получено: 2023 профессии на 2022 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/4daC}{https://w.wiki/4daC}.}
 
-В таблице~\ref{tab:human-settlement3} представлены такие профессии  
+
+
+
+
+
+
+\newpage
+В табл.~\ref{tab:human-settlement3} представлены такие профессии  
 из~результата запроса~\ref{lst:human-settlement13}, 
 которые могут соответствовать каким-либо научными направлениям.
 
 
-\begin{table}[h]
+\begin{margintable}
 \centering
+\caption{Научные направления и число отечественных специалистов, 2022 год}
 \begin{tabular}{|r|l|c|}
 \hline
 \textnumero & Профессия (объект) & Число людей \\ \hline
-1 & \wdqName{физик}{169470}     & \num{991} \\
-2 & \wdqName{историк}{201788}   & \num{913} \\
-3 & \wdqName{экономист}{188094}	& \num{880} \\ 
-4 & \wdqName{математик}{170790}	& \num{857} \\ 
-5 & \wdqName{инженер}{81096}	& \num{558} \\ 
-7 & \wdqName{химик}{593644}		& \num{439} \\ 
-8 & \wdqName{врач}{39631}		& \num{342} \\ 
-9 & \wdqName{юрист}{185351}		& \num{330} \\ 
-10 & \wdqName{биолог}{864503}	& \num{222} \\ \hline
+1 & \wdqName{Физик}{169470}     & \num{991} \\
+2 & \wdqName{Историк}{201788}   & \num{913} \\
+3 & \wdqName{Экономист}{188094}	& \num{880} \\ 
+4 & \wdqName{Математик}{170790}	& \num{857} \\ 
+5 & \wdqName{Инженер}{81096}	& \num{558} \\ 
+7 & \wdqName{Химик}{593644}		& \num{439} \\ 
+8 & \wdqName{Врач}{39631}		& \num{342} \\ 
+9 & \wdqName{Юрист}{185351}		& \num{330} \\ 
+10 & \wdqName{Биолог}{864503}	& \num{222} \\ \hline
 \end{tabular}
-\caption{Научные направления и число отечественных специалистов, 2022 год.}
 \label{tab:human-settlement3}
-\end{table}
+\end{margintable}
 
 
 
@@ -825,34 +848,34 @@ ORDER BY ?count
 \subsection{Найти учёных среди людей}
 
 Есть два способа получения списка учёных. 
-Первый~--- у большинства учёных в Викиданных заполнено свойство \wdProperty{512}{научная степень}. 
-Запросим в Викиданных россиян, имеющих такое свойство (листинг~\ref{lst:human-settlement14}), 
+Первый: у большинства учёных в Викиданных заполнено свойство <<\wdProperty{512}{научная степень}>>. 
+Запросим в Викиданных россиян, имеющих такое свойство (запрос~\ref{lst:human-settlement14}), 
 и получим список отечественных учёных. 
 
 
 Отметим, что если учёный жил и в СССР, и в современной России, 
-то у персоны в поле \wdProperty{27}{гражданство} будут указаны обе страны.  
+то у персоны в поле <<\wdProperty{27}{гражданство}>> будут указаны обе страны.  
 Благодаря команде \lstinline|DISTINCT| (строка~2 запроса~\ref{lst:human-settlement14}) 
 такой учёный посчитается ровно один раз. 
 Поэтому удаление команды \lstinline|DISTINCT| почти удваивает число отечественных учёных. 
 
+%# Count of peoples in Russia with academic degree
 \index{SPARQL!COUNT!Количество людей из России с учёной степенью}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/537r}{Количество людей из России с учёной степенью}\protect\footnotemark},
                     label=lst:human-settlement14,
                     texcl 
                     ]
-# Count of peoples in Russia with academic degree
 SELECT (COUNT(DISTINCT ?hum) AS ?human_count) WHERE {
          # Russian Empire, Soviet Union and Russia
   VALUES ?ruCountries {wd:Q34266 wd:Q15180 wd:Q159}
   ?hum wdt:P512 ?academic_degree;  # holds academic degree 
-       wdt:P27 ?ruCountries. # lives (lived) in Russia
-}
+       wdt:P27 ?ruCountries.} # lives (lived) in Russia
 \end{lstlisting}%
-\footnotetext{Получено \num{24797} учёных на~2022 год. Ссылка на SPARQL-запрос: \url{https://w.wiki/537r}}
+\footnotetext{Получено: \num{24797} учёных на~2022 год. Ссылка на SPARQL-запрос: \url{https://w.wiki/537r}}
 
-Второй способ получения списка учёных~--- это проверка свойства \wdProperty{463}{участник организации}. 
+Второй способ получения списка учёных~--- это проверка свойства 
+<<\wdProperty{463}{участник организации}>>. 
 У человека в~этом свойстве может быть указана одна из~научных или образовательных организаций\footnote{% 
 %
 %(\wdqName{academy of sciences}{414147}, \wdqName{learned society}{955824}, \wdqName{scientific society}{748019}, \wdqName{academy}{162633}, \wdqName{research institute}{31855}, \wdqName{educational institution}{2385804}). 
@@ -867,31 +890,31 @@ SELECT (COUNT(DISTINCT ?hum) AS ?human_count) WHERE {
 получим список людей, имеющих отношение к этим организациям, 
 их мы и назовём учёными. 
 
+Первым способом мы нашли почти в 6 раз больше учёных. 
+Этим способом и воспользуемся далее. 
+
+%# Number of Russian in some academy
 \index{SPARQL!COUNT!Количество людей из академий в России}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/539x}{Количество людей из академий в России}\protect\footnotemark},
                     label=lst:human-settlement15,
                     texcl 
                     ]
-# Number of Russian in some academy
 SELECT (COUNT(DISTINCT ?hum) AS ?human_count) WHERE {
   VALUES ?ruCountries {wd:Q34266 wd:Q15180 wd:Q159}
   VALUES ?class_academy {wd:Q414147 wd:Q955824 wd:Q162633 wd:Q31855 wd:Q2385804 wd:Q83172}
   ?hum wdt:P27 ?ruCountries;  # citizenship of one of countries
-       wdt:P463 [ wdt:P31 ?class_academy]. # member of ?academy
-}
+       wdt:P463 [ wdt:P31 ?class_academy].} # member of ?academy
 \end{lstlisting}%
-\footnotetext{Получили \num{4215} учёных на 2022 год. Ссылка на SPARQL-запрос: \url{https://w.wiki/539x}}
+\footnotetext{Получено: \num{4215} учёных на 2022 год. Ссылка на SPARQL-запрос: \url{https://w.wiki/539x}}
 
-Первым способом мы нашли почти в шесть раз больше учёных. 
-Этим способом и воспользуемся далее. 
 
 
 
 
 %%%%%
 \subsection{Построение диаграммы с научными направлениями 
-и годами рождения учёных, родившихся в сельских поселениях}
+и годами рождения учёных, \mbox{родившихся} в сельских поселениях}
 
 Сначала с помощью запроса~\ref{lst:scholar-degree} 
 построим список российских учёных, имеющих научную степень.
@@ -910,7 +933,7 @@ SELECT DISTINCT ?hum ?humLabel WHERE {
     SERVICE wikibase:label{bd:serviceParam wikibase:language "ru"}
 }
 \end{lstlisting}%
-\footnotetext{Получено \num{24797} учёных на 2022 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/53wx}{https://w.wiki/53wx}}
+\footnotetext{Получено: \num{24797} учёных на 2022 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/53wx}{https://w.wiki/53wx}}
 
 
 
@@ -921,12 +944,33 @@ SELECT DISTINCT ?hum ?humLabel WHERE {
 мы передаём на вход следующему запросу с~помощью конструкции \lstinline|WITH { } AS ... INCLUDE|. 
 
 Запрос~\ref{lst:scholar-degree} как раз и является 
-первой частью запроса запроса~\ref{lst:scholar-village-profession} (строки 2--12). 
+первой частью запроса запроса~\ref{lst:scholar-village-profession} (строки 5--12). 
 Полученные в этой части учёные далее в строке~21 
-отфильтровываются по месту рождения и те, кто родился в сельских поселениях (строка 17), 
-участвуют в построении диаграммы~\ref{fig:scholars-village-color}.
+отфильтровываются по месту рождения, и те, кто родился в~сельских поселениях (строки 17 и 21), 
+участвуют в построении диаграммы (рис.~\ref{fig:scholars-village-color}).
 
-\begin{fullwidth}
+
+Итак, рис.~\ref{fig:scholars-village-color} показывает количество учёных по родам деятельности, 
+родившихся в сельских поселениях. 
+В строках~18--19 запроса~\ref{lst:scholar-village-profession} 
+в списке \lstinline|?jobs| перечислены 10 профессий этих учёных. 
+%
+\marginnote{
+    \MarginQuestion
+    Попробуйте изменить запрос~\ref{lst:scholar-village-profession} так, 
+    чтобы не задавать список профессий явно, 
+    а~получить список \emph{всех} профессий учёных автоматически. 
+    Вероятно, это возможно с помощью дополнительного предварительного запроса \lstinline|SELECT|.}% 
+%
+Каждой из этих профессий на рис.~\ref{fig:scholars-village-color} 
+соответствует полоска определённого цвета, см. легенду внизу диаграммы. 
+
+При наведении курсора на цветную полоску на рис.~\ref{fig:scholars-village-color} 
+всплывает окошко с~информацией о~названии профессии, десятилетии и числе родившихся в сёлах будущих учёных. 
+Мы видим, что в~1940-е годы в~советских сёлах родились 24 известных Викиданным экономиста.%
+
+\newpage
+%\begin{fullwidth}
     \index{График!BarChart!Диаграмма рождений отечественных учёных, родившихся в сёлах для нескольких профессий}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/55VK}{Построение диаграммы отечественных учёных, родившихся в сёлах,\\с разбивкой по десятилетиям и занятиям}\protect\footnotemark},
@@ -955,8 +999,8 @@ WHERE {
   ?hum wdt:P106 ?jobs; # occupation
        wdt:P19 [wdt:P31 ?placeb]; # place of birth
        wdt:P569 ?birthday.
-  
-  BIND(str(FLOOR(YEAR(?birthday)/10)*10) AS ?year_lapse). # count for each 10 years
+                               # count for each 10 years
+  BIND(str(FLOOR(YEAR(?birthday)/10)*10) AS ?year_lapse). 
   FILTER(YEAR(?birthday) > 1850 && YEAR(?birthday) < 2000).
   SERVICE wikibase:label{bd:serviceParam wikibase:language"ru".
                          ?jobs rdfs:label ?jobsLabel.}
@@ -964,49 +1008,36 @@ WHERE {
 GROUP BY ?year_lapse ?jobsLabel
 ORDER BY ?year_lapse
 \end{lstlisting}%
-\footnotetext{Построена диаграмма~\protect\ref{fig:scholars-village-color} по данным на 2022 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/55VK}{https://w.wiki/55VK}}
-\end{fullwidth}
+\footnotetext{Построена диаграмма (рис.~\protect\ref{fig:scholars-village-color}) по данным на 2022 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/55VK}{https://w.wiki/55VK}.}
+%\end{fullwidth}
 
-Итак, диаграмма~\ref{fig:scholars-village-color} показывает количество учёных по родам деятельности, 
-родившихся в сельских поселениях. 
-В строках~18--19 запроса~\ref{lst:scholar-village-profession} 
-в списке \lstinline|?jobs| перечислены 10 профессий этих учёных. 
-%
-\marginnote{Попробуйте изменить запрос~\ref{lst:scholar-village-profession} так, 
-чтобы не задавать список профессий явно, 
-а получить список \emph{всех} профессий учёных автоматически. 
-Вероятно, это возможно с помощью дополнительного предварительного запроса \lstinline|SELECT|.} % 
-%
-Каждой из этих профессий на рис.~\ref{fig:scholars-village-color} 
-соответствует полоска определённого цвета, см. легенду внизу диаграммы. 
 
-При наведении курсора на цветную полоску на рис.~\ref{fig:scholars-village-color} 
-всплывает окошко с~информацией о названии профессии, десятилетии и числе родившихся в сёлах будущих учёных. 
-На этом рисунке мы видим, что в 1940-е годы в советских сёлах родилось 24 известных Викиданным экономиста.%
-
+\newpage
 \begin{figure*}
     \setlength{\fboxsep}{0pt}%
     \setlength{\fboxrule}{1pt}%
-    \fcolorbox{gray}{gray}{\includegraphics[width=0.9\linewidth]{./chapter/human_settlement/Russian_scholars_born_in_villages_filtered_by_profession.png}}
+    \fcolorbox{gray}{gray}{\includegraphics[width=0.99\linewidth]{./chapter/human_settlement/Russian_scholars_born_in_villages_filtered_by_profession.png}}
 	\label{fig:scholars-village-color}
-    \caption[Диаграмма количества учёных по родам деятельности, родившихся в сёлах, 2022 год.]{Диаграмма количества учёных, родившихся в~сельских поселениях, с разбивкой дат рождения по десятилетиям. Фильтрация по нескольким профессиям (научным направлениям). Диаграмма построена в 2022 году по~запросу~\protect\ref{lst:scholar-village-profession}.}%
+    \caption[Диаграмма количества учёных по родам деятельности, родившихся в сёлах, 2022 год.]{Диаграмма количества учёных, родившихся в~сельских поселениях, с разбивкой дат рождения по десятилетиям. Фильтрация по нескольким профессиям (научным направлениям)}% TODO uncomment: Диаграмма построена в 2022 году по~запросу~\protect\ref{lst:scholar-village-profession}}%
 \end{figure*} 
 
+
+\newpage
 Изменим запрос~\ref{lst:scholar-village-profession} так, 
 чтобы были представлены не 10 профессий, а учёные всех направлений. 
 Получили запрос~\ref{lst:scholar-village}, 
 который строит диаграмму количества российских и советских учёных, 
-родившихся в сельских поселениях в 1850--1980 годы (рис.~\ref{fig:scholars-village-blue}). 
+родившихся в сельских поселениях в 1850--1980 годах (рис.~\ref{fig:scholars-village-blue}). 
 
 Обратим внимание на разницу в пиках на этих диаграммах. 
 При фильтрации по 10 направлениям максимум рождений учёных в сёлах (132 человека) 
 пришёлся на 1940-е годы (рис.~\ref{fig:scholars-village-color}). 
 Без фильтра максимум сместился на 1930-е годы, а именно: 
-в сёлах родилось 685 малышей~--- будущих известных учёных (рис.~\ref{fig:scholars-village-blue}). 
+в сёлах родились 685 малышей~--- будущих известных учёных (рис.~\ref{fig:scholars-village-blue}). 
 
 
 
-\begin{fullwidth}
+%\begin{fullwidth}
     \index{График!BarChart!Диаграмма рождений отечественных учёных, родившихся в сёлах}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/55WY}{Построение диаграммы отечественных учёных \emph{всех направлений}, родившихся в~сёлах с~разбивкой по~десятилетиям}\protect\footnotemark},
@@ -1032,16 +1063,16 @@ WHERE {
       ?hum wdt:P106 ?job; # occupation
            wdt:P19 [wdt:P31 ?placeb]; # place of birth
            wdt:P569 ?birthday.
-  
-  BIND(str(FLOOR(YEAR(?birthday)/10)*10) AS ?year_lapse). # count for each 10 years
+                               # count for each 10 years
+  BIND(str(FLOOR(YEAR(?birthday)/10)*10) AS ?year_lapse). 
   FILTER(YEAR(?birthday) > 1850 && YEAR(?birthday) < 2000).
   SERVICE wikibase:label{bd:serviceParam wikibase:language "ru"}
 }
 GROUP BY ?year_lapse ?jobsLabel
 ORDER BY ?year_lapse
 \end{lstlisting}%
-\footnotetext{Построена диаграмма~\protect\ref{fig:scholars-village-blue} по данным на 2022 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/55WY}{https://w.wiki/55WY}}
-\end{fullwidth}
+\footnotetext{Построена диаграмма (рис.~\protect\ref{fig:scholars-village-blue}) по данным на 2022 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/55WY}{https://w.wiki/55WY}.}
+%\end{fullwidth}
 
 
 \begin{figure*}
@@ -1050,27 +1081,23 @@ ORDER BY ?year_lapse
 %    \fcolorbox{gray}{gray}{
     \includegraphics[width=1\linewidth]{./chapter/human_settlement/Russian_scholars_born_in_villages_1850-1980.png}%}
 	\label{fig:scholars-village-blue}
-    \caption[Диаграмма количества отечественных учёных, родившихся в сёлах, 2022 год.]{Диаграмма количества российских и советских учёных \emph{всех направлений}, родившихся в сельских поселениях в 1850-1980 годы. Максимальное число учёных (685 человек) родилось в 1930-е годы. Диаграмма построена по~запросу~\protect\ref{lst:scholar-village} в 2022 году.}%
+    \caption[Количество отечественных учёных, родившихся в сёлах, 2022 год.]{Количество российских и советских учёных \emph{всех направлений}, родившихся в сельских поселениях в 1850--1980-е годы}% TODO uncomment. Максимальное число учёных (685 человек) родилось в 1930-е годы. Диаграмма построена по~запросу~\protect\ref{lst:scholar-village} в 2022 году}%
 \end{figure*} 
 
-\begin{figure*}
-%    \setlength{\fboxsep}{0pt}%
-%    \setlength{\fboxrule}{1pt}%
-%    \fcolorbox{gray}{gray}{
-    \includegraphics[width=1\linewidth]{./chapter/human_settlement/Russian_scholars_born_in_city-town_1850-1990.png}%}
-	\label{fig:scholars-city-blue}
-    \caption[Диаграмма количества отечественных учёных, родившихся в городах, 2022 год.]{Диаграмма количества российских и советских учёных \emph{всех направлений}, родившихся в городских поселениях в 1850-1990 годы. Максимальное число учёных (7900 человек) родилось в 1930-е годы. Диаграмма построена по~запросу~\protect\ref{lst:scholar-city} в 2022 году.}%
-\end{figure*} 
+
+
+
+
 
 %%%%%
 \subsection{Построение диаграммы числа учёных, родившихся в городских поселениях, и сравнение диаграмм}
 
-Возьмём из таблицы~\ref{tab:human-settlement1} объекты, соответствующие городским поселениям, 
+Возьмём из табл.~\ref{tab:human-settlement1} объекты, соответствующие городским поселениям, 
 и заменим в строке~16 запроса~\ref{lst:scholar-village} сельские поселения на городские. 
 % (укажем объекты \lstinline|wd:Q7930989, wd:Q2661988, wd:Q1549591, wd:Q1637706|) 
 Получим запрос~\ref{lst:scholar-city} для построения диаграммы 
-с числом отечественных учёных всех направлений, родившихся в~городских поселениях, 
-с разбивкой по~десятилетиям (рис.~\ref{fig:scholars-city-blue}). 
+с~числом отечественных учёных всех направлений, родившихся в~городских поселениях, 
+с~разбивкой по~десятилетиям (рис.~\ref{fig:scholars-city-blue}). 
 
 
 \begin{lstlisting}[ language=SPARQL, 
@@ -1085,18 +1112,29 @@ ORDER BY ?year_lapse
   ...
 \end{lstlisting}%
 \footnotetext{
-Построена диаграмма~\protect\ref{fig:scholars-village-blue} по данным на 2022 год.
-    Ссылка на SPARQL-запрос: \href{https://w.wiki/58tL}{https://w.wiki/58tL}}
+Построена диаграмма (рис.~\protect\ref{fig:scholars-village-blue}) по данным на 2022 год.
+    Ссылка на SPARQL-запрос: \href{https://w.wiki/58tL}{https://w.wiki/58tL}.}
 
-Диаграмма~\ref{fig:scholars-city-blue} показывает количество учёных по родам деятельности, родившихся в~городских поселениях.
-На этой диаграмме чётко виден провал рождаемости в десятилетие Второй мировой войны, 
-а именно: 5700 человек в 1940-е годы~--- это на 28\% меньше, чем в~1930-е годы (7900 человек), 
-и на 16\% меньше, чем в 1950-е годы (родилось 6800 будущих учёных). 
+
+\begin{figure*}
+%    \setlength{\fboxsep}{0pt}%
+%    \setlength{\fboxrule}{1pt}%
+%    \fcolorbox{gray}{gray}{
+    \includegraphics[width=1\linewidth]{./chapter/human_settlement/Russian_scholars_born_in_city-town_1850-1990.png}%}
+	\label{fig:scholars-city-blue}
+    \caption[Количество отечественных учёных, родившихся в городах, 2022 год.]{Количество российских и советских учёных \emph{всех направлений}, родившихся в городских поселениях в 1850--1990-е годы}% TODO uncomment Максимальное число учёных (7900 человек) родилось в 1930-е годы. Диаграмма построена по~запросу~\protect\ref{lst:scholar-city} в 2022 году}%
+\end{figure*} 
+
+
+Диаграмма на рис.~\ref{fig:scholars-city-blue} показывает количество учёных по родам деятельности, родившихся в~городских поселениях.
+На ней чётко виден провал рождаемости в десятилетие Второй мировой войны, 
+а именно: 5700 человек в 1940-е годы, что на 28\,\% меньше, чем в~1930-е годы (7900 человек), 
+и~на~16\,\% меньше, чем в 1950-е годы (6800 будущих учёных). 
 
 Сравним пик рождаемости по сёлам (рис.~\ref{fig:scholars-village-blue}) 
                        и городам (рис.~\ref{fig:scholars-city-blue}), 
-который на обоих диаграммах приходится на 1930-е годы. 
-В городах СССР в это десятилетие родилось 7900 человек, а в сёлах и деревнях~--- 700 человек. 
+который на обеих диаграммах приходится на 1930-е годы. 
+В городах СССР в это десятилетие родилось 7900 учёных, а в сёлах и деревнях~--- 700 учёных. 
 
 Если последовательно по десятилетиям с 1930-х по 1980-е годы 
 сравнить, во сколько раз в городах рождалось больше учёных, чем в сёлах, 
