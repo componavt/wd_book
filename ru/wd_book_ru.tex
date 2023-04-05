@@ -5,7 +5,7 @@
 %                                 tufte-book modifies the \cite-command heavily, you can turn this behavior off, using the nobib-option:  
 
 \usepackage{cmap} % comment out in Ubuntu
-%test line
+
 
 % https://tex.stackexchange.com/a/45949/99685 switch from natbib to biblatex 
 \usepackage{hyphenat}
@@ -350,6 +350,13 @@
 \fcTableLight{0.1}{black}{1}%
 }}%
 }
+\newcommand{\MarginInternalLink}{% Pencil image, reference to other sections
+\noindent\reflectbox{{% Mirroring the lamp to right (to a question text)
+\fcPencilA{0.06}{black}{1}%
+}}\,\,\,% % some space \,%
+}
+
+
 %\fcBinoculars{0.1}{black}{1}
 %\fcFlyingSaucer{0.6}{black}{1}
 %\fcPuppy{0.1}{black}{1}
@@ -628,8 +635,9 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 \input{./chapter/anime.tex}
 
 \input{./chapter/human_settlement.tex}
-\iffalse
 \input{./chapter/city.tex}
+
+%\iffalse
 \input{./chapter/country.tex}
 
 \ifnumequal{\value{draft}}{1}{%
@@ -637,6 +645,8 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
   \input{./chapter/national_park.tex}
 }
 
+
+\iffalse
 \input{./chapter/oblast_of_Russia.tex}
 \input{./chapter/operating_system.tex}
 \input{./chapter/programming_language.tex}
