@@ -11,6 +11,7 @@
 по количеству заполненных этнохоронимов у~стран. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
 \begin{marginfigure}[7\baselineskip]
 %\setlength{\fboxsep}{0pt}%
 %\setlength{\fboxrule}{1pt}%
@@ -41,7 +42,7 @@ SELECT ?country ?label_en ?label_ru WHERE
 		?country rdfs:label ?label_ru filter (lang(?label_ru) = "ru").
 }
 \end{lstlisting}
-\footnotetext[1][0cm]{Получено 205 стран на 2017 год и 175 стран на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/k6L}{https://w.wiki/k6L}}
+\footnotetext[1][0cm]{Получено: 205 стран на 2017 год и 175 стран на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/k6L}{https://w.wiki/k6L}}
 
 %По степени заполненности свойств на Викиданнных можно различать <<полные>> и  <<пустые>> страны. 
 %
@@ -249,7 +250,9 @@ SELECT ?country ?countryLabel WHERE
 Например, датой основания \wdqName{Монголии}{711} принято считать 29 декабря 1911 года, 
 когда произошло провозглашение независимости от~Китая. 
 Хотя в истории Монголия появляется со времён деятельности Чингисхана, 
-который кратковременно в начале \MakeUppercase{\romannumeral13} века объединил под своей властью большую часть Евразии.
+который кратковременно в начале XIII 
+%\MakeUppercase{\romannumeral13} 
+века объединил под своей властью большую часть Евразии.
 
 
 
@@ -471,7 +474,7 @@ ORDER BY DESC(?countries) ASC(?form)
 \noindent\begin{minipage}[]{.484\linewidth}
     \centering
 	    \includegraphics[width=0.94\linewidth]{./chapter/country/Bubble_chart_forms_of_government_countries_according_to_Wikidata.png}
-        \captionof{figure}{Пузырьковая диаграмма форм правления стран, 2017 год. По данным на 2017 год основные формы правления стран: республика (в 20 странах), конституционная монархия (в 18 странах), федеративная республика (18), парламентская республика (17) и президентская республика (12).} 
+        \caption{Пузырьковая диаграмма форм правления стран, 2017 год. По данным на 2017 год основные формы правления стран: республика (в 20 странах), конституционная монархия (в 18 странах), федеративная республика (18), парламентская республика (17) и президентская республика (12).} 
 	    \label{fig:bubble_chart_forms_of_government_countries_2017}%
 \end{minipage}%
 %just a break for lines between two columns of listings
@@ -479,7 +482,7 @@ ORDER BY DESC(?countries) ASC(?form)
 \begin{minipage}[]{.46\linewidth}
     \centering
 	\includegraphics[width=0.95\linewidth]{./chapter/country/Bubble_chart_forms_of_government_countries_according_to_Wikidata_2020.png}
-    \captionof{figure}{Пузырьковая диаграмма форм правления стран, 2020 год.
+    \caption{Пузырьковая диаграмма форм правления стран, 2020 год.
 	\\
 	По данным на 2020 год  основные формы правления стран: республика (в~41~стране), конституционная монархия (32), федеративная республика (19), парламентская республика (22) и президентская республика (14).} 
 	\label{fig:bubble_chart_forms_of_government_countries_2020}%
@@ -635,4 +638,3 @@ SELECT ?border_country ?border_countryLabel ?coords ?layer WHERE
 	\item Постройте столбчатую диаграмму, демонстрирующую распределение количества стран по формам правления.
 	\item Выведите список стран, упорядоченных по числу соседей. У каких стран больше всего и~меньше всего соседей, какое среднее число соседей? Есть ли корреляция между этим показателем и каким-либо другим параметром стран?
 \end{enumerate}
-
