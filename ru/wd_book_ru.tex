@@ -102,6 +102,10 @@
 % How to remove the whitespace BEFORE itemize/enumerate?
 \usepackage{enumitem}% https://tex.stackexchange.com/a/86055/99685
 
+\newenvironment{compactitemize}{%
+    \begin{itemize}[noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt]}{\end{itemize}}
+%\begin{compactitemize} 
+
 % see https://mydebianblog.blogspot.com/2014/06/latex.html
 \usepackage{epigraph} %%% to make inspirational quotes.
 
@@ -112,11 +116,35 @@
 %\bibliographystyle{plainnat}  % use the plainnat instead of plain
 
 
+
+
+
+% documentation: https://mirror.truenetwork.ru/CTAN/macros/latex/contrib/ccaption/ccaption.pdf
+%\newcommand{\captiondelim}[1]{\def\@contdelim{#1}}
+%\captiondelim{--- }
+
 % source: https://gist.github.com/vsimko/fcc84e1e4f8e750746caa34b802db5a7
 \definecolor{LightGray}{rgb}{0.97,0.97,0.97}
 \usepackage{listings} % syntax highlighting
 \usepackage{xparse} % insert code keywords inline, see https://tex.stackexchange.com/a/286097/99685
 
+% Listing N: Title -> Query N. Title
+% before \usepackage{listings}
+\renewcommand{\lstlistingname}{Запрос}
+\makeatletter
+\long\def\@makecaption#1#2{%
+%    \renewcommand{\lstlistingname{\protect\text{Query}}}{}
+    \renewcommand{\lstlistingname}{Запрос}
+\centering%
+#1. #2\par%
+%XX1#1.XX2 YY1#2YY2\par%
+%\vspace{\belowcaptionskip}% too large vertical gap
+\vspace{5pt}%
+}%
+\makeatother
+
+% Listing -> Query
+%\renewcommand\lstlistingname{Запрос}
 
 \lstdefinelanguage{SPARQL}{%
   basicstyle=\small\ttfamily,
@@ -162,7 +190,7 @@
 
 \lstloadlanguages{Python}
 \input{listings-python.prf}
-\lstset{
+\lstset{%
    language=Python,
    extendedchars=\true,
    keepspaces=true,
@@ -180,6 +208,7 @@
 }
 % see https://alexanius-blog.blogspot.com/2012/09/lstlistings.html
 % extendedchars=\true,
+
 
 % color row in table via \rowcolor{LightCyan}
 % https://texblog.org/2011/04/19/highlight-table-rowscolumns-with-color/
@@ -248,24 +277,45 @@
 
 
 % Remove prefix from figure caption in tufte-book, see https://tex.stackexchange.com/a/106422/99685
-\makeatletter
-\newenvironment{nocapfigure}
-  {\let\H@refstepcounter\@gobble%
-   \long\def\@caption##1[##2]##3{%
-   \par%
+%\makeatletter
+%\newenvironment{nocapfigure}
+%  {\let\H@refstepcounter\@gobble%
+%   \long\def\@caption##1[##2]##3{%
+%   \par%
    %\addcontentsline{\csname ext@##1\endcsname}{##1}%
    %  {\protect\numberline{\csname the##1\endcsname}{\ignorespaces ##2}}%
-   \begingroup%
-     \@parboxrestore%
-     \if@minipage%
-       \@setminipage%
-     \fi%
-     \@tufte@caption@font\@tufte@caption@justification%
-     \noindent\ignorespaces##3\par%\noindent\csname fnum@#1\endcsname: \ignorespaces#3\par%
+%   \begingroup%
+%     \@parboxrestore%
+%     \if@minipage%
+%       \@setminipage%
+%     \fi%
+%     \@tufte@caption@font\@tufte@caption@justification%
+%     \noindent\ignorespaces##3\par%\noindent\csname fnum@#1\endcsname: \ignorespaces#3\par%
      %\@makecaption{\csname fnum@#1\endcsname}{\ignorespaces #3}\par
-   \endgroup}\figure
-    }{\endfigure}
-\makeatother
+%   \endgroup}\figure
+%    }{\endfigure}
+%\makeatother
+
+
+
+% -> "Рис. 8.4. Карта соседних стран..."
+%\makeatletter
+%\long\def\@caption#1[#2]#3{%
+%  \par
+%  \addcontentsline{\csname ext@#1\endcsname}{#1}%
+%    {\protect\numberline{\csname the#1\endcsname}{\ignorespaces #2}}%
+%  \begingroup
+%    \@parboxrestore
+%    \if@minipage
+%      \@setminipage
+%    \fi
+%    \@tufte@caption@font\@tufte@caption@justification
+%    \noindent\csname fnum@#1\endcsname. \ignorespaces#3\par% changed : to .
+%%    \noindent ss \csname fnum@#1\endcsname. ll \ignorespaces#3 ii\par% changed : to .
+%  \endgroup}
+%\makeatother
+
+
 
 
 % If too much notes: see https://tex.stackexchange.com/a/175796/99685
@@ -608,15 +658,8 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 
 
 
-%\makeatletter
-%\renewcommand{\fnum@figure}{Рис.~\thefigure.}
-%\makeatother
-%\captionof{listings}{#2\label{#3}
-\renewcommand\lstlistingname{Запрос}% Listing -> Query
-%\renewcommand{\lstlistingname}{Запрос}
-%\captionsetup[lstlisting]{% remove semicolon Query: N -> Query. N
-%  labelsep=period
-%}
+
+
 
 
 \part{Основы Викиданных}
@@ -637,7 +680,6 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 \input{./chapter/human_settlement.tex}
 \input{./chapter/city.tex}
 
-%\iffalse
 \input{./chapter/country.tex}
 
 \ifnumequal{\value{draft}}{1}{%
@@ -646,8 +688,9 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 }
 
 
-\iffalse
 \input{./chapter/oblast_of_Russia.tex}
+
+\iffalse
 \input{./chapter/operating_system.tex}
 \input{./chapter/programming_language.tex}
 \input{./chapter/ship.tex}
@@ -664,7 +707,7 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 %\dottedcontents{part}[0em]{\sffamily\bfseries\large\protect\addvspace{15pt}Часть}{-5pt}{1pc}
 \dottedcontents{part}[0em]{\sffamily\bfseries\large\protect\addvspace{15pt}}{0pt}{1pc}
 \part*{Заключительная часть}
-\addcontentsline{toc}{part}{Заключительная часть}
+%\addcontentsline{toc}{part}{Заключительная часть}
 \label{part:conclusion}
 \input{./chapter/answers.tex}
 
@@ -684,9 +727,13 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 \addcontentsline{toc}{chapter}{\listtablename}
 \listoftables
 
+% source biblatex-gost URL: page 24, https://ctan.math.illinois.edu/macros/latex/contrib/biblatex-contrib/biblatex-gost/doc/biblatex-gost.pdf
+\newrefcontext[sorting=ntvy]
+\printbibliography[env=gostbibliography]
+
 %\bibliographystyle{plainnat}
 %\bibliography{wd_references}
-\printbibliography[heading=bibintoc]
+%\printbibliography[heading=bibintoc]
 \end{fullwidth}
 
 \printindex

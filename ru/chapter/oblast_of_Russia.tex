@@ -2,18 +2,20 @@
 \label{ch:oblast-of-Russia}
 %
 \label{question:q_subjects_of_Russia_3}
-\marginnote[0.6\baselineskip]{О флаге какого региона идёт речь:
-<<Флаг этого субъекта представляет собой прямоугольное полотнище с отношением ширины к длине 2:3, 
-красного цвета с двусторонним изображением в верхнем 
-ближнем к древку углу основного элемента герба этого субъекта~--- 
-развёрнутого к древку Святого \href{https://ru.wikipedia.org/?curid=151255}{Георгия Победоносца}.\\ \\
-См. ответ \ref{answer:subjects_of_Russia_3} на с.~\pageref{answer:subjects_of_Russia_3}.%
+\marginnote[0.6\baselineskip]{
+    \MarginQuestion
+    О флаге какого региона идёт речь:
+    <<Флаг этого субъекта представляет собой прямоугольное полотнище с отношением ширины к длине 2:3, 
+    красного цвета с двусторонним изображением в верхнем 
+    ближнем к~древку углу основного элемента герба этого субъекта~--- 
+    развёрнутого к~древку Святого \href{https://ru.wikipedia.org/?curid=151255}{Георгия Победоносца}.
+
+    См. ответ \ref{answer:subjects_of_Russia_3} на с.~\pageref{answer:subjects_of_Russia_3}.%
 }
 
 
-Эта глава посвящена исследованию в Викиданных регионов России. 
-Отметим, что регионы России включают в себя множество земель разного 
-типа: области, республики, края и другие. Именно эти разнотипные регионы 
+Исследуем в Викиданных регионы России, которые включают в себя множество земель разного 
+типа: области, республики, края~и~др. Именно эти разнотипные регионы 
 и были исследованы. 
 Был построен граф субъектов России, граничащих с зарубежными странами (граф соседей), 
 а также нарисована карта, 
@@ -22,19 +24,18 @@
 показала, что у~каждого субъекта России эти данные заполнены полностью. 
 Были построены две карты, на которых цветом обозначены граничные регионы и пограничные страны.
 Читатель познакомится с компьютерной обработкой Викиданных и визуализацией 
-информации о регионах России.
+информации о~регионах России.
 
 
 \section{Экземпляры объекта <<Области России>>}
 
 Для построения списка всех областей России нам потребуются объект 
 \wdqName{<<области России>>}{835714} и свойство \wdProperty{31}{<<экземпляры>>} 
-(листинг~\ref{lst:oblast-of-Russia}).
+(запрос~\ref{lst:oblast-of-Russia}).
 
 
-\begin{marginfigure}[-5\baselineskip]
 \begin{lstlisting}[ language=SPARQL, numbers=none,
-                    caption={\href{https://w.wiki/4D2V}{Список всех областей России}},
+                    caption={\href{https://w.wiki/4D2V}{Список всех областей России}\protect\footnotemark},
                     label=lst:oblast-of-Russia,
                     numbers=none,
                     texcl 
@@ -43,16 +44,15 @@
 SELECT ?region ?regionLabel WHERE
 {
   ?region wdt:P31 wd:Q835714. # is "oblast of Russia"
-  SERVICE wikibase:label { bd:serviceParam 
-                           wikibase:language "ru" }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
 \end{lstlisting}%
-Получено 48 записей в 2017 году и 46 записей в 2021 году. Ссылка на~SPARQL-запрос: \href{https://w.wiki/4D2V}{https://w.wiki/4D2V}.\\
-\end{marginfigure}
+\footnotetext{Получено: 48 записей в 2017 году и 46 записей в 2021 году. Ссылка на~SPARQL-запрос: \href{https://w.wiki/4D2V}{https://w.wiki/4D2V}.}
 
 
+\newpage
 В Викиданных больше всего свойств в России и в мире у \wdqName{Ленинградской}{2191} 
-и~\wdqName{Калининградской областей}{1749}, по 43 свойства\autocite{Russia_prowd}. 
+и~\wdqName{Калининградской}{1749} областей, по 43 свойства\autocite{Russia_prowd}. 
 Число свойств у этих областей для России и мира одинаковое, так как и для России, и для мира это одни и те же объекты.
 
 Областями России с наименьшим числом свойств по данным сервиса ProWD оказались: 
@@ -65,11 +65,11 @@ SELECT ?region ?regionLabel WHERE
 
 Построим список всех субъектов России. 
 Для этого выберем следующие объекты в Викиданных: 
-республики, края, области, города федерального значения, автономные области и~автономные округа (листинг~\ref{lst:subjects-of-Russia}).
-
+республики, края, области, города федерального значения, автономные области и~автономные округа (запрос~\ref{lst:subjects-of-Russia}). 
 %\footnotetext{
-\marginnote{Используемые в запросах объекты:
-\begin{itemize}
+%\marginnote{
+Далее в запросах мы будем использовать использовать следующие объекты:
+\begin{compactitemize}
 	\item\wdqName{<<области России>>}{835714};
 	\item\wdqName{<<республики России>>}{41162};
 	\item\wdqName{<<города федерального значения России>>}{183342};
@@ -77,9 +77,9 @@ SELECT ?region ?regionLabel WHERE
 	\item\wdqName{<<автономные области России>>}{309166};
 	\item\wdqName{<<автономные округа России>>}{184122};
 	\item\wdqName{<<бывшая административно-территориальная единица>>}{19953632}.
-\end{itemize}
-Используемое свойство~--- \wdProperty{31}{<<экземпляры>>}
-}
+\end{compactitemize}
+Используемое свойство~--- \wdProperty{31}{<<экземпляры>>}.
+%}
 
 \begin{lstlisting}[ language=SPARQL, numbers=none,
                     caption={\href{https://w.wiki/4D2R}{Список всех субъектов России}\protect\footnotemark},
@@ -99,11 +99,50 @@ SELECT ?subject ?subjectLabel ?typeLabel WHERE
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
 \end{lstlisting}%
-\footnotetext{Получено 85 записей в 2017 году и 86 записей в 2021 году. Ссылка на~SPARQL-запрос: \href{https://w.wiki/4D2R}{https://w.wiki/4D2R}. В 2021 году в список субъектов добавился город федерального значения Байконур на правах аренды комплекса <<Байконур>>.}
+\footnotetext{Получено: 85 записей в 2017 году и 86 записей в 2021 году. 
+    Ссылка на~SPARQL-запрос: \href{https://w.wiki/4D2R}{https://w.wiki/4D2R}. 
+    В 2021 году в список субъектов добавился город федерального значения Байконур на правах аренды комплекса <<Байконур>>.}
 
-Для построения скрипта~\ref{lst:subjects-of-Russia} и проверки результатов учтём следующую информацию:
+
+
+
+\newpage
+%%%%%%%%%%%%%%%% Упражнение %%%%%%%%%%%%%%%%
+\marginnote[1\baselineskip]{%
+    \MarginQuestion
+    \label{question:q_subjects_of_Russia_1}
+    Назовите регион России, 
+    расположенный на~северо-западе страны и~образованный в 1920 году. 
+    Он граничит с Вологодской и Архангельской областями. 
+    Также граничит с Финляндией на~западе.
+    Выберите среди следующих флагов флаг этого региона.
+
+\vspace{5pt}
+%\centering
+\begin{tabular}{ c  c }
+\setlength{\fboxsep}{0pt}%
+\setlength{\fboxrule}{1pt}%
+\fcolorbox{gray}{gray}{%
+    \includegraphics[width=3cm]{./chapter/oblast_of_Russia/Flag_of_Leningrad_Oblast.png}}
+& 
+    \includegraphics[width=3cm]{./chapter/oblast_of_Russia/Flag_of_Moscow_oblast.png} \\
+ Ленинградская область & Московская область \\
+ \vspace{1pt} & \\ % empty line
+\includegraphics[width=3cm]{./chapter/oblast_of_Russia/Flag_of_Karelia.png} 
+& \includegraphics[width=3cm]{./chapter/oblast_of_Russia/Flag_of_Murmansk_Oblast.png} \\
+ Карелия & Мурманская область  \\
+\end{tabular}
+
+\vspace{5pt}
+    См. ответ \ref{answer:subjects_of_Russia_1} на с.~\pageref{answer:subjects_of_Russia_1}.%
+}% eo of marginnote
+% eo Упражнение %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+Для построения запроса~\ref{lst:subjects-of-Russia} и проверки результатов учтём следующую информацию:
 \begin{itemize}
-  \item По данным Конституции Российской Федерации Россия состоит из 85 субъектов~--- республик, краёв, областей, городов федерального значения, автономной области, автономных округов.
+  \item По данным Конституции Российской Федерации, на 2021 год Россия состояла из 85 субъектов~--- республик, краёв, областей, городов федерального значения, автономной области, автономных округов.
   \item При построении списка объектов не нужно в него включать такие субъекты, 
       которые на~текущий момент не входят в состав РФ (например, \wdqName{Читинская область}{182902}). 
       Такие объекты легко отсеить, поскольку 
@@ -114,8 +153,9 @@ SELECT ?subject ?subjectLabel ?typeLabel WHERE
         \wdqName{<<автономные области России>>}{309166}, 
         \wdqName{<<автономные округа России>>}{184122}, 
       а~относятся к~объекту \wdqName{<<бывшая административно-территориальная единица>>}{19953632}. 
-  \item В статье Русской Википедии <<\href{https://ru.wikipedia.org/?curid=1042}{Субъекты Российской Федерации}>> 
-        и в статье Английской Википедии ``\href{https://en.wikipedia.org/wiki/Federal_subjects_of_Russia}{Federal subjects of Russia}'' 
+  \item На 2021 год в~статье Русской Википедии <<\href{https://ru.wikipedia.org/?curid=1042}{Субъекты Российской Федерации}>> 
+        и в~статье Английской Википедии 
+        \href{https://en.wikipedia.org/wiki/Federal_subjects_of_Russia}{Federal subjects of Russia} 
         перечислено по 85 субъектов РФ.
 \end{itemize}
 
@@ -128,38 +168,6 @@ SELECT ?subject ?subjectLabel ?typeLabel WHERE
 Построим граф соседних субъектов России, используя свойство \wdProperty{47}{shares border with}, 
 с помощью запроса~\ref{lst:sharesBorderWith-oblast-of-Russia}.
 
-\label{question:q_subjects_of_Russia_1}
-\marginnote[-1\baselineskip]{Назовите регион России, 
-расположенный на~северо-западе России 
-и~образованный в \num{1920} году. 
-Он граничит с Ленинградской, Вологодской, Архангельской и Мурманской областью. 
-Также граничит с Финляндией на~западе.
-Выберите среди следующих флагов флаг этого региона.\\ \\
-См. ответ \ref{answer:subjects_of_Russia_1} на с.~\pageref{answer:subjects_of_Russia_1}.}
-\begin{marginfigure}[0.0cm]
-\centering\includegraphics[width=3cm]{"chapter/oblast_of_Russia/Flag_of_Leningrad_Oblast.png"}
-\caption [Флаг Ленинградской области.]{Флаг Ленинградской области.}%
-\label{fig:Flag_of_Leningrad_Oblast}%
-\end{marginfigure}
-
-\begin{marginfigure}[0.0cm]
-\centering\includegraphics[width=3cm]{"chapter/oblast_of_Russia/Flag_of_Moscow_oblast.png"}
-\caption [Флаг Московской области.]{Флаг Московской области.}%
-\label{fig:Flag_of_Moscow_oblast}%
-\end{marginfigure}
-
-\begin{marginfigure}[0.0cm]
-\centering\includegraphics[width=3cm]{"chapter/oblast_of_Russia/Flag_of_Karelia.png"}
-\caption [Флаг Карелии.]{Флаг Карелии.}%
-\label{fig:Flag_of_Karelia}%
-\end{marginfigure}
-
-\begin{marginfigure}[0.0cm]
-\centering\includegraphics[width=3cm]{"chapter/oblast_of_Russia/Flag_of_Murmansk_Oblast.png"}
-\caption [Флаг Мурманской области.]{Флаг Мурманской области.}%
-\label{fig:Flag_of_Murmansk_Oblast}%
-\end{marginfigure}
-
 
 \lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
@@ -167,7 +175,7 @@ SELECT ?subject ?subjectLabel ?typeLabel WHERE
                     label=lst:sharesBorderWith-oblast-of-Russia,
                     texcl 
                     ]
-# Graph of "subjects of Russia" `shares border with`. 
+# Graph of "subjects of Russia" which "shares border with"
 #defaultView:Graph
 SELECT * WHERE 
 {
@@ -255,7 +263,7 @@ SELECT * WHERE
   }
 }
 \end{lstlisting}%
-\footnotetext[3][-14\baselineskip]{Получено 467 записей в 2017 году 
+\footnotetext[3][-14\baselineskip]{Получено: 467 записей в 2017 году 
 и 482 записи в 2021 году. Ссылку на~SPARQL-запрос не приводим из-за её чрезмерной длины. 
 Вот ссылка на исходный запрос (\url{https://w.wiki/4DKD}), 
 от которого мы отталкивались для построения этого мега запроса. 
@@ -318,7 +326,7 @@ SELECT * WHERE
 Построим карту, на которой цветом обозначены субъекты России, 
 граничащие с зарубежными странами. 
 Более тёмным цветом обозначены субъекты, у которых большее количество пограничных стран, 
-более светлым~--- с меньшим количеством пограничных стран (листинг~\ref{lst:sharesBorderWith-subjects-of-Russia}).
+более светлым~--- с меньшим количеством пограничных стран (запрос~\ref{lst:sharesBorderWith-subjects-of-Russia}).
 
 Результат работы запроса~\ref{lst:sharesBorderWith-subjects-of-Russia} 
 представлен на рис.~\ref{fig:MapsharesBorderWithsubjectsofRussia}.
@@ -368,7 +376,7 @@ SELECT ?region ?regionLabel ?count ?shape ?rgb
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }  
 }
 \end{lstlisting}%
-\footnotetext{Получено 37 записей в 2021 году. SPARQL-запрос: \href{https://w.wiki/4e82}{https://w.wiki/4e82}}
+\footnotetext{Получено: 37 записей в 2021 году. SPARQL-запрос: \href{https://w.wiki/4e82}{https://w.wiki/4e82}.}
 
 
 
@@ -416,8 +424,8 @@ SELECT ?country ?countryLabel ?count ?shape ?rgb WHERE {
   SERVICE wikibase:label {bd:serviceParam wikibase:language "ru".}
 }
 \end{lstlisting}%
-\footnotetext{Получено 15 записей в 2021 году. 
-SPARQL-запрос: \href{https://w.wiki/4e8T}{https://w.wiki/4e8T}}
+\footnotetext{Получено: 15 записей в 2021 году. 
+SPARQL-запрос: \href{https://w.wiki/4e8T}{https://w.wiki/4e8T}.}
 
 
 
@@ -477,7 +485,7 @@ WHERE
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru"}
 }
 \end{lstlisting}%
-\footnotetext{Получено 0 записей в 2017 и 2021 годах. SPARQL-запрос: \href{https://w.wiki/5CHV}{https://w.wiki/5CHV}}
+\footnotetext{Получено: 0 записей в 2017 и 2021 годах. SPARQL-запрос: \href{https://w.wiki/5CHV}{https://w.wiki/5CHV}.}
 
 
 
@@ -525,7 +533,7 @@ SELECT DISTINCT ?subject ?subjectLabel ?population ?coord ?layer
 }
 ORDER BY ?population
 \end{lstlisting}%
-\footnotetext{Получено \num{85} записей в 2017 году и \num{86} записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4bHe}{https://w.wiki/4bHe}}
+\footnotetext{Получено: 85 записей в 2017 году и 86 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4bHe}{https://w.wiki/4bHe}.}
 
 Результат работы запроса~\ref{lst:population-map-of-Russia} представлен на рис.~\ref{fig:SubjectsRussiaMap}.
 

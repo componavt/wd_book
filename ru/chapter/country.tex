@@ -231,8 +231,8 @@ SELECT ?country ?countryLabel WHERE
 
 %Отметим, что количество бывших стран (165 на 2020 год) меньше существующих ныне стран.
 
-По данным статей <<Список государств>>\autocite{list_of_sovereign_states} Русской Википедии 
-и статьи ``List of sovereign states''\autocite{list_of_sovereign_states_en} Английской Википедии, 
+По данным статьи <<Список государств>>\autocite{list_of_sovereign_states} Русской Википедии 
+и статьи List of sovereign states\autocite{list_of_sovereign_states_en} Английской Википедии, 
 существует 208 стран.
 
 
@@ -297,10 +297,10 @@ SELECT ?country ?countryLabel WHERE
 и дату какого из них считать за дату создания современной страны~--- это вопрос открытый. 
 Например, датой основания \wdqName{Монголии}{711} принято считать 29 декабря 1911 года, 
 когда произошло провозглашение независимости от~Китая. 
-Хотя в истории Монголия появляется со времён деятельности Чингисхана, 
+Хотя в истории Монголия появляется во времена деятельности Чингисхана, 
 который кратковременно в начале XIII 
 %\MakeUppercase{\romannumeral13} 
-века объединил под своей властью большую часть Евразии.
+века объединил под~своей властью большую часть Евразии.
 
 
 
@@ -311,19 +311,26 @@ SELECT ?country ?countryLabel WHERE
 Например, этнохронимами для России будут россияне, россиянин, россиянка, 
 для~Чехии~--- чехи, чех, чешка.
 
-Помимо географического фактора, новые лексемы, используемые для определения происхождения либо принадлежности, происходят так же от этнических, политических, религиозных характеристик людей\autocite{Zhuravleva2012}. 
+Помимо географического фактора, новые лексемы, 
+    используемые для определения происхождения либо принадлежности, 
+    происходят также от этнических, политических, религиозных характеристик людей\autocite{Zhuravleva2012}. 
 
-Этнохоронимы могут определяться названиями разных объектов земной поверхности: гор, островов, континентов. Так же обозначение места происхождения людей может зависеть от политико-административного деления. Например, для обозначения гражданства: Тайланд~--- тайландцы, Канада~--- канадцы. Внутригосударственное деление также может породить новые наименования, Крым~--- крымчане.
+Этнохоронимы могут определяться названиями разных объектов земной поверхности: 
+    гор, островов, континентов. 
+    Также обозначение места происхождения людей может зависеть от политико-административного деления. 
+    Например, для обозначения гражданства: Таиланд~--- таиландцы, Канада~--- канадцы. 
+    Внутригосударственное деление также может породить новые наименования: Крым~--- крымчане.
 
 
 
 \newpage
-Построим список стран, у которых есть этнохоронимы на русском языке (листинг~\ref{lst:demonym}).
+Построим список стран, у которых есть этнохоронимы на русском языке (запрос~\ref{lst:demonym}).
 
 
 \begin{lstlisting}[ language=SPARQL, 
-caption={\href{https://w.wiki/tec}{Список стран с этнохоронимами на русском языке}\protect\footnotemark},
-label=lst:demonym, 
+    caption={\href{https://w.wiki/tec}{Список стран с этнохоронимами на русском языке}\protect\footnotemark},
+    label=lst:demonym, 
+    numbers=none,
 ]
 # List of countries with demonyms in Russian
 SELECT ?country ?countryLabel WHERE
@@ -335,7 +342,7 @@ SELECT ?country ?countryLabel WHERE
 }
 GROUP BY ?country ?countryLabel
 \end{lstlisting}
-\footnotetext{Получено: 28 стран на 2017 год и 131~--- на 2021 год. Ссылка на~SPARQL-запрос: \href{https://w.wiki/tec}{https://w.wiki/tec}.}
+\footnotetext{Получено: 28 стран на 2017 год и 131~страна на 2021 год. Ссылка на~SPARQL-запрос: \href{https://w.wiki/tec}{https://w.wiki/tec}.}
 
 
 
@@ -345,16 +352,21 @@ GROUP BY ?country ?countryLabel
 
 %%%%%%%%%%%%%%%% Упражнение 4 %%%%%%%%%%%%%%%%
 \marginnote{%
-Какие из языков \href{https://w.wiki/myv}{абазинский}, \href{https://w.wiki/myx}{мокшанский}, \href{https://w.wiki/myy}{эрзянский}, \href{https://w.wiki/myz}{белорусский} являются официальными в \href{https://w.wiki/myt}{России}?%
-См. ответ~\ref{answer:official_language} на с.~\pageref{answer:official_language}.
+    \MarginQuestion
+    Какие из языков~--- \href{https://w.wiki/myv}{абазинский}, \href{https://w.wiki/myx}{мокшанский}, 
+    \href{https://w.wiki/myy}{эрзянский}, \href{https://w.wiki/myz}{белорусский}~--- 
+    являются официальными в \href{https://w.wiki/myt}{России}? 
+
+    \noindent См. ответ~\ref{answer:official_language} на с.~\pageref{answer:official_language}.
 }
 
-Построим список этнохоронимов стран на русском языке (листинг~\ref{lst:list_demonym}).
+Построим список этнохоронимов стран на русском языке (запрос~\ref{lst:list_demonym}).
 
 \index{SPARQL!FILTER!Cписок этнохоронимов}
 \begin{lstlisting}[ language=SPARQL, 
-caption={\href{https://w.wiki/teg}{Cписок этнохоронимов}\protect\footnotemark},
-label=lst:list_demonym, 
+    caption={\href{https://w.wiki/teg}{Cписок этнохоронимов}\protect\footnotemark},
+    label=lst:list_demonym, 
+    numbers=none,
 ]
 # List of demonyms of countries in Russian
 SELECT ?country ?countryLabel ?demonym
@@ -372,20 +384,22 @@ WHERE
 
 
 
-\newpage
 \subsection{Страны с незаполненными этнохоронимами}
 
-Построим список стран, у которых нет этнохоронимов на русском языке (листинг~\ref{lst:without_demonym}). 
-Этот список может быть полезен редактору для добавления этнохоронимов. 
+Построим список стран, у которых нет этнохоронимов на русском языке (запрос~\ref{lst:without_demonym}). 
+Этот список может быть полезен редактору для добавления этнохоронимов в Викиданные. 
 
+Благодаря конструкции MINUS в~строках 5--7 запроса~\ref{lst:without_demonym} 
+в итоговый список не попали страны, имеющие этнохоронимы на русском языке.
 
+\newpage
 \index{SPARQL!FILTER!Страны с незаполненными этнохоронимами на русском языке}
 \index{SPARQL!MINUS!Страны с незаполненными этнохоронимами на русском языке}
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/teo}{Страны с незаполненными этнохоронимами на русском языке}\protect\footnotemark},
 label=lst:without_demonym, 
 ]
-#List of countries without demonyms in Russian
+# List of countries without demonyms in Russian
 SELECT ?country ?countryLabel WHERE
 {
 	?country p:P31 [ps:P31 wd:Q6256].       # instance of a country
@@ -398,46 +412,43 @@ GROUP BY ?country ?countryLabel
 \end{lstlisting}
 \footnotetext{Получено: 170 стран на 2017 год и 105 стран на 2021 год. Ссылка на~SPARQL-запрос: \href{https://w.wiki/teo}{https://w.wiki/teo}.}
 
-Благодаря конструкции MINUS в~строках 5--7 запроса~\ref{lst:without_demonym} 
-в итоговый список не попали страны, имеющие этнохоронимы на русском языке.
 
 
 
 
 
 \subsection{Количество заполненных этнохоронимов у стран}
-%
-\begin{marginfigure}[-5\baselineskip]
+
+У одной страны может быть от нуля (если данные не заполнены) до трёх-четырёх этнохоронимов. 
+Например, у Турции есть три названия жителей: турок, тарчанка, турки, 
+у~Эфиопии~--- четыре: эфиоп, эфиопка, эфиопы, эфиопки.
+Получим список стран, упорядоченный по количеству заполненных в Викиданных этнохоронимов 
+на разных языках (запрос~\ref{lst:count_demonym}). 
+
+%\begin{marginfigure}[-5\baselineskip]
+% # List of countries ordered by number of demonyms
 \begin{lstlisting}[ 
     language=SPARQL, 
     caption={\href{https://w.wiki/5BX5}{Список стран, упорядоченный по количеству заполненных этнохоронимов}},%\protect\footnotemark},
     label=lst:count_demonym, 
     numbers=none,
 ]
-# List of countries ordered by number of demonyms
 SELECT  ?country ?countryLabel (COUNT(*) AS ?demonyms) 
 WHERE
 {
   ?country p:P31 [ps:P31 wd:Q6256]; # instance of a country
            p:P1549 [ps:P1549 []].   # has demonym
-  SERVICE wikibase:label {bd:serviceParam 
-                          wikibase:language "ru"}
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
 }
 GROUP BY ?country ?countryLabel 
 ORDER BY DESC(?demonyms)
 \end{lstlisting}
-%\footnotetext{Получено 199 стран на 2017 год и 215 стран на 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/5BX5}{https://w.wiki/5BX5}}
-Получено 199 стран на 2017 год и 215 стран на 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/5BX5}{https://w.wiki/5BX5}
-\end{marginfigure}%
+\footnotetext{Получено: 199 стран на 2017 год и 215 стран на 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/5BX5}{https://w.wiki/5BX5}.}
+%Получено 199 стран на 2017 год и 215 стран на 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/5BX5}{https://w.wiki/5BX5}
+%\end{marginfigure}%
 
 
-У одной страны может быть от нуля, если данные не заполнены, до трёх-четырёх этнохоронимов. 
-Например, у Турции есть три названия жителей: турок, тарчанка, турки, 
-у~Эфиопии~--- четыре: эфиоп, эфиопка, эфиопы, эфиопки.
-
-Получим список стран, упорядоченный по количеству заполненных в Викиданных этнохоронимов 
-на разных языках (листинг~\ref{lst:count_demonym}). 
-По данным на 2017 год больше всего этнохоронимов у~Соединённых Штатов Америки (41 этнохороним), 
+По данным на 2017 год, больше всего этнохоронимов у~Соединённых Штатов Америки (41~этнохороним), 
 затем идут Великобритания (40), 
 Германия (40) и Канада (36). 
 В~2021~году лидером стала Германия с 64 этнохоронимами, 
@@ -445,16 +456,21 @@ ORDER BY DESC(?demonyms)
 Таким образом, с 2017 по 2021 год добавилось примерно по~20~этнохоронимов на одну страну.
 
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vbox{%
 \section{Формы правления стран}
+%\vspace{-\baselineskip}
 
-Построим пузырьковую диаграмму форм правления стран (листинг~\ref{lst:form_of_government}), где размер пузырка будет соответствовать числу стран с той или иной формой правления.
-
+Построим пузырьковую диаграмму форм правления стран (запрос~\ref{lst:form_of_government}), 
+где размер пузырка будет соответствовать числу стран с той или иной формой правления.
+}
 
 %%%%%%%%%%%%%%%% Упражнение 4 (TODO: добавить ответ) %%%%%%%%%%%%%%%%
 \marginnote[2cm]{%
-Какая строка в запросе~\ref{lst:form_of_government} является лишней? То есть её можно удалить и~результат не~изменится. 
-Речь не о первой строке с комментарием.%
+    \MarginQuestion
+    Какая строка в запросе~\ref{lst:form_of_government} является лишней? То есть её можно удалить и~результат не~изменится. 
+    Речь идёт не~о~первой строке с~комментарием.%
 }
 \index{График!BubbleChart!Число стран с разными формами правления}
 \begin{lstlisting}[ language=SPARQL, 
@@ -481,42 +497,58 @@ ORDER BY DESC(?countries) ASC(?form)
 
 
 
-Переменная \lstinline|bfog| (сокращение от ``basic form of government'') содержит форму правления, например, <<республику>>. 
-Последняя сточка в листинге~\ref{lst:form_of_government} содержит команды упорядочения 
-сначала по убыванию (DESC) и затем по возрастанию (ASC). 
+Переменная \lstinline|bfog| (сокращение от basic form of government) 
+содержит форму правления, например <<республику>>. 
+Последняя строчка в~запросе~\ref{lst:form_of_government} содержит команды упорядочения 
+сначала по~убыванию (DESC) и затем по возрастанию (ASC). 
 Таким образом, формы правления сначала сортируются по числу стран \lstinline|?countries|. 
 Затем, если стран оказалось поровну, то формы правления сортируются лексикографически\footnote{%
 %
 Лексикографический (словарный) порядок~--- это способ упорядочивания и сортировки слов, 
-который обычно используется в словарях, энциклопедиях и алфавитных указателях. 
-Например, А < АА < ААА < ААБ < ААВ < АБ < Б < … < ЯЯЯ.%
+который обычно используется в словарях, энциклопедиях и алфавитных указателях, 
+например: А < АА < ААА < ААБ < ААВ < АБ < Б < … < ЯЯЯ.%
 }.
 
 В результате выполнения запроса мы получаем пузырьковую диаграмму с наиболее распространенными формами правления в странах на 2017 год (рис.~\ref{fig:bubble_chart_forms_of_government_countries_2017}) и на 2020 год (рис.~\ref{fig:bubble_chart_forms_of_government_countries_2020}).
-Видим, что за период с 2017 по 2020 год 
+Видим, что с~2017 по~2020 год 
 форма правления <<республика>> стала более <<популярной>> 
 (размер кружка относительно других стал больше). 
 Значительно уменьшилось количество стран, имеющих форму  <<смешанная республика>>.
 
+\begin{figure*}
+    \centering
+    \includegraphics[width=0.66\linewidth]{./chapter/country/Bubble_chart_forms_of_government_countries_according_to_Wikidata.png}
+    \caption[Формы правления стран, 2017 год.]{Пузырьковая диаграмма форм правления стран, 2017 год. Основные формы правления стран: республика (20~стран), конституционная монархия (18 стран), федеративная республика (18), парламентская республика (17), президентская республика (12~стран).} 
+	\label{fig:bubble_chart_forms_of_government_countries_2017}%
+\end{figure*} 
 
-\begin{fullwidth}
-\noindent\begin{minipage}[]{.484\linewidth}
+
+\begin{figure*}
     \centering
-	    \includegraphics[width=0.94\linewidth]{./chapter/country/Bubble_chart_forms_of_government_countries_according_to_Wikidata.png}
-        \caption{Пузырьковая диаграмма форм правления стран, 2017 год. По данным на 2017 год основные формы правления стран: республика (в 20 странах), конституционная монархия (в 18 странах), федеративная республика (18), парламентская республика (17) и президентская республика (12).} 
-	    \label{fig:bubble_chart_forms_of_government_countries_2017}%
-\end{minipage}%
-%just a break for lines between two columns of listings
-\hfill
-\begin{minipage}[]{.46\linewidth}
-    \centering
-	\includegraphics[width=0.95\linewidth]{./chapter/country/Bubble_chart_forms_of_government_countries_according_to_Wikidata_2020.png}
-    \caption{Пузырьковая диаграмма форм правления стран, 2020 год.
-	\\
-	По данным на 2020 год  основные формы правления стран: республика (в~41~стране), конституционная монархия (32), федеративная республика (19), парламентская республика (22) и президентская республика (14).} 
+    \includegraphics[width=0.66\linewidth]{./chapter/country/Bubble_chart_forms_of_government_countries_according_to_Wikidata_2020.png}
+    \caption[Формы правления стран, 2020 год.]{Пузырьковая диаграмма форм правления стран, 2020 год.
+	Основные формы правления стран: республика (41~страна), конституционная монархия (32), федеративная республика (19), парламентская республика (22), президентская республика (14 стран).} 
 	\label{fig:bubble_chart_forms_of_government_countries_2020}%
-\end{minipage}
-\end{fullwidth}%
+\end{figure*} 
+
+%%\begin{fullwidth}
+%%\noindent\begin{minipage}[]{.484\linewidth}
+%%    \centering
+%	    \includegraphics[width=0.94\linewidth]{./chapter/country/Bubble_chart_forms_of_government_countries_according_to_Wikidata.png}
+%        \caption{Пузырьковая диаграмма форм правления стран, 2017 год. Основные формы правления стран: республика (20~стран), конституционная монархия (18 стран), федеративная республика (18), парламентская республика (17) и президентская республика (12~стран).} 
+%	    \label{fig:bubble_chart_forms_of_government_countries_2017}%
+%\end{minipage}%
+%%just a break for lines between two columns of listings
+%\hfill
+%\begin{minipage}[]{.46\linewidth}
+%    \centering
+%	\includegraphics[width=0.95\linewidth]{./chapter/country/Bubble_chart_forms_of_government_countries_according_to_Wikidata_2020.png}
+%    \caption{Пузырьковая диаграмма форм правления стран, 2020 год.
+%	\\
+%	По данным на 2020 год  основные формы правления стран: республика (в~41~стране), конституционная монархия (32), федеративная республика (19), парламентская республика (22) и президентская республика (14).} 
+%	\label{fig:bubble_chart_forms_of_government_countries_2020}%
+%\end{minipage}
+%\end{fullwidth}%
 
 
 %\begin{figure}
@@ -557,7 +589,7 @@ ORDER BY DESC(?countries) ASC(?form)
 		\setlength{\fboxrule}{1pt}%
 		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/Neighboring_countries_graph_in_russian_according_to_Wikidata_2017.png}}%
 	}
-    \caption[Фрагмент графа соседних стран, 2017 год.]{Фрагмент графа соседних стран, в центре Россия, 2017 год.}
+    \caption[Фрагмент графа соседних стран, 2017 год.]{Фрагмент графа соседних стран, в центре Россия, 2017 год}
 	\label{fig:neighboring_countries_2017}%
 \end{marginfigure}
 
@@ -565,12 +597,13 @@ ORDER BY DESC(?countries) ASC(?form)
 У стран существует такое свойство, как общая граница. 
 В Викиданных это свойство называется 
 \href{https://www.wikidata.org/wiki/Property:P47}{shares border with (P47)}. 
-Используя это свойство, построим граф соседних стран (листинг~\ref{lst:neighboring_countries}).
+Используя его, построим граф соседних стран (запрос~\ref{lst:neighboring_countries}).
 
 \index{График!Graph!Соседние стран}
 \begin{lstlisting}[ language=SPARQL, 
-caption={\href{https://w.wiki/5Bsy}{Соседние страны}\protect\footnotemark},
-label=lst:neighboring_countries, 
+    caption={\href{https://w.wiki/5Bsy}{Соседние страны}\protect\footnotemark},
+    label=lst:neighboring_countries, 
+    numbers=none,
 ]
 # Graph of countries which share border
 #defaultView:Graph
@@ -595,10 +628,10 @@ SELECT DISTINCT ?country ?countryLabel ?border ?sharesBorderWith WHERE
 Поэтому теперь этот граф будет представлять одну связную компоненту. 
 
 Обратите внимание, что полученный граф (рис.~\ref{fig:neighboring_countries_2017}) 
-включает также исторические страны, например, СССР. 
+включает также исторические страны, например СССР. 
 Постройте аналогичный граф, но только с современными странами. 
 Для этого посмотрите на запрос~\ref{lst:list_of_country_instance_of_}, где показано, 
-как <<выключить>> исторические страны и оставить только действующие страны. 
+как <<выключить>> исторические страны и оставить только действующие. 
 
 \begin{marginfigure}
 	{
@@ -606,7 +639,7 @@ SELECT DISTINCT ?country ?countryLabel ?border ?sharesBorderWith WHERE
 		\setlength{\fboxrule}{1pt}%
 		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/Neighboring_countries_graph_in_russian_according_to_Wikidata_2020.png}}%
 	}
-    \caption[Фрагмент графа соседних стран, 2020 год.]{Фрагмент графа соседних стран, в центре Россия, 2020 год.}
+    \caption[Фрагмент графа соседних стран, 2020 год.]{Фрагмент графа соседних стран, в центре Россия, 2020 год}
 	\label{fig:neighboring_countries_2020}%
 \end{marginfigure}
 
@@ -621,7 +654,7 @@ SELECT DISTINCT ?country ?countryLabel ?border ?sharesBorderWith WHERE
 		\setlength{\fboxrule}{1pt}%
 		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/Map_of_neighboring_countries_of_Russia_ru.png}}%
 	}
-    \caption[Карта соседних стран России, 2021 год.]{Карта соседних стран России, включающая 17~стран, 2021 год.}
+    \caption[Карта соседних стран России, 2021 год.]{Карта соседних стран России, включающая 17~стран, 2021 год}
 	\label{fig:neighboring_countries_ru_2020}%
 \end{marginfigure}
 
@@ -629,7 +662,7 @@ SELECT DISTINCT ?country ?countryLabel ?border ?sharesBorderWith WHERE
 Построим карту соседних стран России с помощью запроса~\ref{lst:neighboring_countries_ru}.
 Строка~6 запроса~\ref{lst:neighboring_countries_ru} 
 фильтрует и оставляет в переменной \lstinline|?border_country| только страны.
-Это позволило исключить, например, район Грузии (Рача-лечхуми и Квемо-Сванети) 
+Это позволило исключить, например, район Грузии (Рача-Лечхуми и Квемо-Сванети) 
 и остров Японии (Хоккайдо), указанные в списке пограничных объектов России.
 
 В результате выполнения запроса~\ref{lst:neighboring_countries_ru} мы получили 
@@ -640,8 +673,8 @@ SELECT DISTINCT ?country ?countryLabel ?border ?sharesBorderWith WHERE
 
 \index{График!Map!Соседние страны России}
 \begin{lstlisting}[ language=SPARQL, 
-caption={\href{https://w.wiki/tg3}{Соседние страны России}\protect\footnotemark},
-label=lst:neighboring_countries_ru, 
+    caption={\href{https://w.wiki/tg3}{Соседние страны России}\protect\footnotemark},
+    label=lst:neighboring_countries_ru, 
 ]
 # Map of neighboring countries of Russia
 #defaultView:Map
@@ -665,5 +698,7 @@ SELECT ?border_country ?border_countryLabel ?coords ?layer WHERE
 	\item Отметьте на карте столицы современных стран.
 	\item В каждой части света вычислите первые пять стран с наибольшей плотностью населения.
 	\item Постройте столбчатую диаграмму, демонстрирующую распределение количества стран по формам правления.
-	\item Выведите список стран, упорядоченных по числу соседей. У каких стран больше всего и~меньше всего соседей, какое среднее число соседей? Есть ли корреляция между этим показателем и каким-либо другим параметром стран?
+	\item Выведите список стран, упорядоченных по числу соседей. 
+        У каких стран больше всего и~меньше всего соседей? Какое среднее число соседей? 
+        Есть ли корреляция между этим показателем и каким-либо другим параметром стран?
 \end{enumerate}
