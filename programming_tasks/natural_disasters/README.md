@@ -2,9 +2,13 @@
 
 The Python3.7 program displays an html map with volcano and earthquake markers for 2022 using the folium library from the data of CVS files
 
----Сылка на html страницу с картой---
+---Сылка на html страницу с картой вулканов и землетрясений---
 
 https://kappa.cs.petrsu.ru/~ermoshke/course_work/Fullmap.html
+
+---Сылка на html страницу с картой вулканов, землетрясений и связями между ними---
+
+https://kappa.cs.petrsu.ru/~ermoshke/course_work/Connections_Between_objects.html
 
 ---Сылка на страницу Викиверситета Программирование Викиданных/Естественные катастрофы---
 
