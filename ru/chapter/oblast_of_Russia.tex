@@ -166,8 +166,14 @@ SELECT ?subject ?subjectLabel ?typeLabel WHERE
 \section{Соседние субъекты}
 
 Построим граф соседних субъектов России, используя свойство \wdProperty{47}{shares border with}, 
-с помощью запроса~\ref{lst:sharesBorderWith-oblast-of-Russia}.
-
+с~помощью запроса~\ref{lst:sharesBorderWith-oblast-of-Russia}.
+Получено: 467 записей в 2017 году 
+и 482 записи в 2021 году. Ссылку на~SPARQL-запрос не приводим из-за её чрезмерной длины. 
+Вот ссылка на исходный запрос~--- \url{https://w.wiki/4DKD}, 
+от которого мы отталкивались для построения этого огромного запроса. 
+Подумайте, как можно сократить или свернуть 
+этот огромный запрос~~\ref{lst:sharesBorderWith-oblast-of-Russia}, 
+сделать его компактным и элегантным?
 
 \lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
@@ -263,30 +269,31 @@ SELECT * WHERE
   }
 }
 \end{lstlisting}%
-\footnotetext[3][-14\baselineskip]{Получено: 467 записей в 2017 году 
-и 482 записи в 2021 году. Ссылку на~SPARQL-запрос не приводим из-за её чрезмерной длины. 
-Вот ссылка на исходный запрос (\url{https://w.wiki/4DKD}), 
-от которого мы отталкивались для построения этого мега запроса. 
-Подумайте, как можно сократить или свернуть этот огромный запрос, сделать его компактным и элегантным?%
-}
-%
-%
-\begin{marginfigure}[1\baselineskip]
+%\footnotetext[3][-14\baselineskip]{Получено: 467 записей в 2017 году 
+%и 482 записи в 2021 году. Ссылку на~SPARQL-запрос не приводим из-за её чрезмерной длины. 
+%Вот ссылка на исходный запрос (\url{https://w.wiki/4DKD}), 
+%от которого мы отталкивались для построения этого мегазапроса. 
+%Подумайте, как можно сократить или свернуть этот огромный запрос, сделать его компактным и элегантным?%
+%}
+
+
+\newpage
+\begin{marginfigure}[0\baselineskip]
 	\includegraphics[width=1\textwidth]{./chapter/oblast_of_Russia/Graph_Subjects_of_Russia_Siberia_and_the_Far_East_2021.png}
-	\caption[Фрагмент графа субъектов России, 2021 год.]{Регионы России в Сибире и Дальнем востоке на~2021 год. 
-    Фрагмент графа соседних субъектов России, построенный по скрипту~\protect\ref{lst:sharesBorderWith-oblast-of-Russia}.
-	Республики~--- вершины зелёного цвета (Якутия).
-	Автономные округа~--- вершины фиолетового цвета (Чукотский автономный округ).
-	Края~--- вершины голубого цвета (Хабаровский край).
-	Области~--- вершины розового цвета (Амурская область).
-	Автономные области~--- вершины салатового цвета (Еврейская автономная область).}%
+	\caption[Фрагмент графа субъектов России, 2021 год.]{Регионы России в Сибире и на Дальнем Востоке на~2021 год. 
+    Фрагмент графа соседних субъектов России, 
+    построенный по скрипту~\protect\ref{lst:sharesBorderWith-oblast-of-Russia}: 
+	республики~--- вершины зелёного цвета (Якутия); 
+	автономные округа~--- вершины фиолетового цвета (Чукотский автономный округ);
+	края~--- вершины голубого цвета (Хабаровский край);
+	области~--- вершины розового цвета (Амурская область);
+	автономные области~--- вершины салатового цвета (Еврейская автономная область)}%
       \label{fig:sharesBorderWith-oblast-of-Russia-Kaliningrad-fig}%
 \end{marginfigure}
-
-
+%
 %\marginnote[-15\baselineskip]{
 С помощью команды \lstinline|BIND| (строки 83--84) 
-записываем значения в~переменные \lstinline|?rgb| и~\mbox{\lstinline|?subject|}, 
+записываем значения в~переменные \lstinline|?rgb| и~\mbox{\lstinline|?subject|} 
 при условии, что эти переменные были пустыми. 
 
 Переменная \lstinline|?oblast| ищется в строках 80--82. 
@@ -315,36 +322,24 @@ SELECT * WHERE
 Количество полученных записей формируется путём сложения количества соседних территорий для всех субъектов России. 
 Результат работы скрипта~--- это граф, 
 отображающий соседние субъекты. 
-Причём разные типы субъектов имеют вершины разного цвета, например, 
-республики~--- зелёные, а края~--- голубые. 
+Причём разные типы субъектов имеют вершины разного цвета, 
+например республики~--- зелёные, а края~--- голубые. 
 Часть графа представлена на рис.~\ref{fig:sharesBorderWith-oblast-of-Russia-Kaliningrad-fig}.%
-
 
 
 
 \newpage
 Построим карту, на которой цветом обозначены субъекты России, 
 граничащие с зарубежными странами. 
-Более тёмным цветом обозначены субъекты, у которых большее количество пограничных стран, 
-более светлым~--- с меньшим количеством пограничных стран (запрос~\ref{lst:sharesBorderWith-subjects-of-Russia}).
-
-Результат работы запроса~\ref{lst:sharesBorderWith-subjects-of-Russia} 
-представлен на рис.~\ref{fig:MapsharesBorderWithsubjectsofRussia}.
-
-
-%\begin{fullwidth}
-\begin{marginfigure}
-	\includegraphics[width=\textwidth]{./chapter/oblast_of_Russia/Maps_of_the_subjects_of_Russia.png}
-	\caption[Карта пограничных субъектов России, 2021 год.]{Карта субъектов России, граничащих с зарубежными странами, 2021 год. Карта построена с помощью запроса~\protect\ref{lst:sharesBorderWith-subjects-of-Russia}.}%
-      \label{fig:MapsharesBorderWithsubjectsofRussia}%
-\end{marginfigure}
-%\end{fullwidth}
+Более тёмным цветом обозначены субъекты, у которых большее количество заграничных соседей, 
+более светлым~--- с меньшим количеством (запрос~\ref{lst:sharesBorderWith-subjects-of-Russia}).
 
 \lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/4e82}{Карта субъектов России, граничащих с зарубежными странами}\protect\footnotemark},
+                    caption={\href{https://w.wiki/4e82}{Карта субъектов России, граничащих с зарубежными странами}},
                     label=lst:sharesBorderWith-subjects-of-Russia,
-                    texcl 
+                    texcl,
+                    numbers=none,
                     ]
 # Map of countries around Russia with the number of neighboring regions of Russia
 #defaultView:Map\{"hide":["?shape", "?rgb"], "layer": "?regionLabel" \}
@@ -376,39 +371,57 @@ SELECT ?region ?regionLabel ?count ?shape ?rgb
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }  
 }
 \end{lstlisting}%
-\footnotetext{Получено: 37 записей в 2021 году. SPARQL-запрос: \href{https://w.wiki/4e82}{https://w.wiki/4e82}.}
+%\footnotetext{Получено: 37 записей в 2021 году. SPARQL-запрос: \href{https://w.wiki/4e82}{https://w.wiki/4e82}.}
+%\begin{figure*}%[h]
+\begin{marginfigure}[-42\baselineskip]
+	\includegraphics[width=\textwidth]{./chapter/oblast_of_Russia/Maps_of_the_subjects_of_Russia.png}
+	\caption[Карта пограничных субъектов России, 2021 год.]{Карта субъектов России, 
+            граничащих с зарубежными странами, 2021 год}%. 
+            %Карта построена с помощью 
+            %запроса~\ref{lst:sharesBorderWith-subjects-of-Russia}.}%
+            %запроса~\protect\ref{lst:sharesBorderWith-subjects-of-Russia}.}%
+      \label{fig:MapsharesBorderWithsubjectsofRussia}%
+\end{marginfigure}
+%\end{figure*}
+
+На рис.~\ref{fig:MapsharesBorderWithsubjectsofRussia} представлен 
+результат работы 
+запроса~\ref{lst:sharesBorderWith-subjects-of-Russia} (\href{https://w.wiki/4e82}{https://w.wiki/4e82}).
+По этому запросу в 2021 году получено 37 субъектов России, граничащих с зарубежными странами. 
 
 
 
-
-Построим карту (рис.~\ref{fig:MapsoftheneighbouringstatesofRussia}), 
-на которой цветом обозначены зарубежные страны, 
-граничащие с субъектами России. 
-Более тёмным цветом обозначены страны, у которых большее количество пограничных субъектов России, 
-более светлым~--- с меньшим количеством пограничных субъектов России 
-(запрос~\ref{lst:Maps_of_the_neighbouring_states_of_Russia}).
-%
-%\begin{fullwidth}
-%\begin{figure}[h]
+\newpage
+%\begin{figure*}[h]
 \begin{marginfigure}[0\baselineskip]
 	\includegraphics[width=\textwidth]{./chapter/oblast_of_Russia/Maps_of_the_neighbouring_states_of_Russia.png}
-	\caption[Карта стран, граничащих с Россией, 2021 год.]{Карта стран, граничащих с субъектами России, 2021. Карта построена с помощью запроса~\protect\ref{lst:Maps_of_the_neighbouring_states_of_Russia}.}%
+	\caption[Карта стран, граничащих с Россией, 2021 год.]{Карта стран, граничащих с субъектами России, 2021}%
       \label{fig:MapsoftheneighbouringstatesofRussia}%
 \end{marginfigure} 
-%\end{fullwidth}
+%\end{figure*}
+Построим карту (рис.~\ref{fig:MapsoftheneighbouringstatesofRussia}), 
+на которой цветом обозначены зарубежные страны, 
+граничащие с~субъектами России. 
+Более тёмным цветом обозначены страны, 
+граничащие с~большим количеством субъектов России, 
+более светлым~--- с~меньшим количеством. 
+Карта построена с помощью запроса~\protect\ref{lst:Maps_of_the_neighbouring_states_of_Russia}.
 
 \lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/4e8T}{Карта стран, граничащих с субъектами России}\protect\footnotemark},
                     label=lst:Maps_of_the_neighbouring_states_of_Russia,
-                    texcl 
+                    texcl,
+                    numbers=none,
                     ]
-# Map of countries around Russia with the number of neighboring regions of Russia
+# Map of countries around Russia 
+#   with the number of neighboring regions of Russia
 #defaultView:Map\{"hide":["?shape", "?rgb"], "layer": "?countryLabel"\}
 SELECT ?country ?countryLabel ?count ?shape ?rgb WHERE {
 {
     SELECT ?country (COUNT(DISTINCT ?region) AS ?count) WHERE {
-      VALUES ?type {wd:Q835714 wd:Q41162 wd:Q183342 wd:Q831740 wd:Q309166 wd:Q184122}
+      VALUES ?type {wd:Q835714 wd:Q41162 wd:Q183342 
+                    wd:Q831740 wd:Q309166 wd:Q184122}
       ?region wdt:P31 ?type;
               wdt:P47 [wdt:P17 ?country].
       FILTER (?country != wd:Q159) # foreign country is not Russia
@@ -429,17 +442,18 @@ SPARQL-запрос: \href{https://w.wiki/4e8T}{https://w.wiki/4e8T}.}
 
 
 
-
 \newpage
 \subsection{Полнота Викиданных}
 
 С помощью запроса~\ref{lst:sharesBorderWith-empty-oblast-of-Russia} 
 построим список субъектов России 
-с~пустым свойством \wdProperty{47}{``shares border with''} (граничит с), 
+с~пустым свойством \wdProperty{47}{shares border with} (граничит~с), 
 то есть попробуем найти такие субъекты, которые ни с кем не граничат.
 
+\marginnote{
 \label{question:q_subjects_of_Russia_2}
-\marginnote{Какие из перечисленных далее субъектов входят в состав Российской Федерации, а какие~--- нет:
+    \MarginQuestion
+    Какие из перечисленных субъектов входят в состав Российской Федерации, а какие не входят?
 \begin{itemize}
   \item Республика Адыгея;
   \item Камчатский край;
@@ -489,7 +503,7 @@ WHERE
 
 
 
-
+\newpage
 \section{Численность населения по субъектам Российской Федерации}
 
 Обозначим на карте субъекты Российской Федерации, 
@@ -498,6 +512,8 @@ WHERE
 
 Для запроса~\ref{lst:population-map-of-Russia} нам потребуются свойства \wdProperty{625}{<<координаты>>} 
 и \wdProperty{1082}{<<численность населения>>}.
+Результат работы запроса~\ref{lst:population-map-of-Russia} представлен на рис.~\ref{fig:SubjectsRussiaMap}.
+
 
 \index{График!Map!Карта населения России}
 \begin{lstlisting}[ language=SPARQL, numbers=none,
@@ -535,12 +551,11 @@ ORDER BY ?population
 \end{lstlisting}%
 \footnotetext{Получено: 85 записей в 2017 году и 86 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4bHe}{https://w.wiki/4bHe}.}
 
-Результат работы запроса~\ref{lst:population-map-of-Russia} представлен на рис.~\ref{fig:SubjectsRussiaMap}.
 
 \begin{fullwidth}
 \begin{figure*}[h]
 	\includegraphics[width=\textwidth]{./chapter/oblast_of_Russia/SubjectsRussia_Map_with_legend_RU.png}
-	\caption[Карта численности населения по субъектам России, 2021 год.]{Карта численности населения по субъектам России, 2021 год. Субъекты разделёны на шесть групп по количеству населения и отмечены разными цветами в зависимости от группы, в которую субъект входит. Карта построена с~помощью запроса~\protect\ref{lst:population-map-of-Russia}.}%
+    \caption[Численность населения по субъектам России, 2021 год.]{Численность населения в субъектах России, 2021 год}%. Субъекты разделёны на шесть групп по количеству населения и отмечены разными цветами в зависимости от группы, в которую субъект входит. Карта построена с~помощью запроса~\protect\ref{lst:population-map-of-Russia}.}%
       \label{fig:SubjectsRussiaMap}%
 \end{figure*} 
 \end{fullwidth}

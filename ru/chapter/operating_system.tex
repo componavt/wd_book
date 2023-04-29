@@ -2,25 +2,25 @@
 \label{ch:operating-sysmets}
 
 В главе исследуется объект Викиданных <<операционная система>> (operating system) и его свойства. 
-Построен список операционных систем (ОС), включающий информацию об их <<предках>>\footnote{%
+Построен список операционных систем (ОС), включающий информацию о~их~<<предках>>\footnote{%
 %
-<<Предки>> здесь~--- это операционные системы, послуживших основой для создания новых ОС.%
+<<Предки>>~--- здесь операционные системы, послужившие основой для создания новых ОС.%
 %
 }, 
-времени их создания, языках программирования, на которых написана ОС. 
-Также построена гистограмма, показывающая количество программ, написанных на том или ином языке программирования 
-с указанием операционной системы. 
+времени создания, языках программирования, на которых написаны ОС. 
+Также построена гистограмма, показывающая количество программ, 
+написанных на том или ином языке программирования с~указанием операционной системы. 
 У большого количества ОС в Викиданных не указан язык программирования, 
-на котором она разрабатывалась, а именно: на 2020 год это свойство указано всего у 29\% из общего количества систем. 
-Викиданные стремительно пополняются новой информацией и это особенно отрадно, поскольку они играют большую роль в документировании программного обеспечения.
+на котором она разрабатывалась, а именно: 
+на 2020 год это свойство указано всего у 29\,\% из общего количества систем. 
+Викиданные стремительно пополняются новой информацией, что особенно отрадно, 
+поскольку они играют большую роль в документировании программного обеспечения.
 
 
 
 \section{Список операционных систем}
 С помощью запроса~\ref{lst:all_operating_systems} получим список всех операционных систем.
-
-
-\begin{marginfigure}[-11\baselineskip]
+%\begin{marginfigure}[-11\baselineskip]
 \begin{lstlisting}[ language=SPARQL, 
                 caption={\href{https://w.wiki/n89}{Список всех операционных систем}\protect\footnotemark},
                 numbers=none,
@@ -29,13 +29,14 @@
 SELECT ?os ?osLabel WHERE
 {
     ?os wdt:P31 wd:Q9135. # instance of operating system
-    SERVICE wikibase:label { bd:serviceParam 
-                             wikibase:language "ru, en"}
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en"}
 }
 \end{lstlisting}
-Получено \num{510} операционных систем в 2017 году, и \num{1086} в 2020 году.  Ссылка на SPARQL-запрос: \href{https://w.wiki/n89}{https://w.wiki/n89}
-\end{marginfigure}
+\footnotetext{Получено: 510 операционных систем в 2017 году и 1086 в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/n89}{https://w.wiki/n89}.}
+%\end{marginfigure}
 
+
+\newpage
 Наиболее полными и проработанными операционными системами на Викиданных оказались 
 \wdqName{Microsoft Windows}{1406}, 
 \wdqName{Windows 8}{5046}, 
@@ -45,23 +46,29 @@ SELECT ?os ?osLabel WHERE
 \wdqName{MagiC}{1884068}, \wdqName{KallistiOS}{1722492}, \wdqName{Novell DOS}{3345389} и ряд других. 
 У этих систем было заполнено всего одно свойство\autocite{prowd_os_link}.
 
-По данным ProWD у единственной в Викиданных отечественной операционной системы 
+По данным ProWD, у единственной в Викиданных отечественной ОС 
 \wdqName{Miraculix}{4044344} заполнено 10 свойств\autocite{prowd_os_link_ru}.
 
 
 
 
-\section{Предшественники операционных систем}
+\section{Предшественники операционных систем и даты выпуска}
 
-В листинге~\ref{lst:base_of_operating_systems} представлен SPARQL-запрос для получения списка \href{https://www.wikidata.org/wiki/Property_talk:P144}{базовых (P144)} операционных систем. Этот запрос показывает соответствие между \wdqName{операционной системой}{9135} и её <<предком>>, то есть предшествующей операционной системой, на котором она основана.
+Запрос~\ref{lst:base_of_operating_systems} позволяет получить 
+список \href{https://www.wikidata.org/wiki/Property_talk:P144}{базовых (P144)} операционных систем. 
+Этот запрос показывает соответствие 
+между \wdqName{операционной системой}{9135} и её <<предком>>, 
+то есть предшествующей операционной системой, на которой она основана.
 
-\marginnote{
-	Выберите ОС, на основе какой из операционных систем
+\marginnote[3\baselineskip]{
+    \MarginQuestion
+	На основе какой из операционных систем
 	\href{https://w.wiki/n8U}{Debian}, 
 	\href{https://w.wiki/n8V}{Android}, 
 	\href{https://w.wiki/n8W}{Ubuntu}, 
 	\href{https://w.wiki/n8X}{ядро Linux} 
-	было создано больше всего других операционных систем?\\
+	было создано больше всего других операционных систем?
+
 	См. ответ~\ref{answer:os_base} на с.~\pageref{answer:os_base}.
 }
 
@@ -77,24 +84,26 @@ SELECT ?os ?osLabel ?base ?baseLabel WHERE
     SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
 }
 \end{lstlisting}
-\footnotetext{Получено \num{47} базовых операционных систем в 2017 году и \num{118} в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/5CKF}{https://w.wiki/5CKF}}
+\footnotetext{Получено: 47 базовых операционных систем в 2017 году и 118 в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/5CKF}{https://w.wiki/5CKF}.}
 
 
 
 
-\section{Дата выпуска операционных систем}
+%\section{Дата выпуска операционных систем}
 
 Список операционных систем с указанием даты их создания 
 получим с помощью запроса~\ref{lst:inception_time_of_operating_systems}.
 %
-\marginnote{%
-Какую из операционных систем 
-\href{https://w.wiki/n8P}{Newton OS}, 
-\href{https://w.wiki/n8Q}{Ubuntu Touch} или 
-\href{https://w.wiki/n8R}{JavaOS} 
-разработала компания \href{https://w.wiki/n8S}{Apple}?
+\marginnote[3\baselineskip]{%
+    \MarginQuestion
+    Какую из операционных систем 
+    \href{https://w.wiki/n8P}{Newton OS}, 
+    \href{https://w.wiki/n8Q}{Ubuntu Touch} или 
+    \href{https://w.wiki/n8R}{JavaOS} 
+    разработала компания \href{https://w.wiki/n8S}{Apple}?
 
-См. ответ~\ref{answer:what_system_created} на с.~\pageref{answer:what_system_created}.}
+    См. ответ~\ref{answer:what_system_created} на с.~\pageref{answer:what_system_created}.%
+}
 
 \index{SPARQL!hide!Список операционных систем с датой их создания}
 \index{График!Timeline!Часть временной шкалы с датами выпуска ОС с~1955 по~2020 год}
@@ -111,23 +120,27 @@ SELECT DISTINCT ?os ?osLabel ?when (YEAR(?when) as ?date) ?pic WHERE
     SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
 }
 \end{lstlisting}
-\footnotetext{Получено \num{30} дат создания ОС в 2017 году, и \num{238}~--- в 2020 году. 
-Ссылка на SPARQL-запрос: \href{https://w.wiki/5CKS}{https://w.wiki/5CKS}}
+\footnotetext{Получено: 30 дат создания ОС в 2017 году и 238~--- в 2020 году. 
+    Ссылка на SPARQL-запрос: \href{https://w.wiki/5CKS}{https://w.wiki/5CKS}.}
 
 
-\marginnote[0.3cm]{%
-%
-Команда \lstinline|#defaultView:Timeline| выглядит как комментарий, 
-а в действительности является инструкцией для сервиса WDQS (см. описание сервиса на с.~\pageref{sect:WDQS}), 
-обеспечивающей представление результата в виде временной шкалы (рис.~\ref{lst:count_os_on_languages}).%
-}%
+\newpage
+Команда \lstinline|#defaultView:Timeline| в первой строке 
+запроса~\ref{lst:inception_time_of_operating_systems} 
+похожа на комментарий, 
+а~в~действительности является инструкцией для сервиса WDQS\footnote{%
+    См. описание сервиса WDQS (Wikidata Query Service)~на~с.~\pageref{sect:WDQS}.%
+}. 
+Эта инструкция позволяет получить диаграмму на~рис.~\ref{fig:os_creation} 
+в виде временной шкалы.
+
 В первой строке запроса~\ref{lst:inception_time_of_operating_systems} 
 параметры \lstinline|{"hide": "?when"}| 
 команды \lstinline|#defaultView:Timeline| позволяют скрыть вывод переменной \lstinline|?when|, 
 оставив от даты только год (переменная \lstinline|?date|) 
 и название ОС (переменная \lstinline|?osLabel|). 
 Благодаря этому мы видим в центре рис.~\ref{fig:os_creation} 
-под изображением смартфона не ``1 January 1993'', а только ``1993''. 
+под изображением смартфона не 1 January 1993, а только 1993. 
 
 Таким образом, результатом запроса~\ref{lst:inception_time_of_operating_systems} 
 является временная шкала (англ. \textit{timeline}) создания (точнее, выпуска\sidenote[][-8pt]{%
@@ -141,8 +154,8 @@ SELECT DISTINCT ?os ?osLabel ?when (YEAR(?when) as ?date) ?pic WHERE
 Кроме временной шкалы, есть много других способов представления результатов запросов 
 в графической форме, описанных в документации\autocite{WQSResultViews}. 
 Количество полученных результатов запроса~\ref{lst:inception_time_of_operating_systems} 
-составляет только 238 операционных систем (то есть 22\% от всего количества ОС) на 2020 год. 
-Связано это с тем, что у 78\% ОС поле <<дата создания>> не заполнено.
+составляет только 238 операционных систем (то есть 22\,\% от всего количества ОС) на 2020 год. 
+Связано это с тем, что у 78\,\% ОС поле <<дата создания>> не заполнено.
 
 \begin{figure*}[h!]
 	\includegraphics{./chapter/operating_system/os-creation.png}
@@ -173,10 +186,10 @@ SELECT ?lang ?langLabel (COUNT(*) AS ?countOS) WHERE
 GROUP BY ?lang ?langLabel
 ORDER BY DESC(?countOS) ASC(?langLabel)
 \end{lstlisting}
-\footnotetext{Получено \num{24} языка программирования с количеством 
+\footnotetext{Получено: 24 языка программирования с количеством 
 написанных на~них операционных систем в 2017 году 
-и \num{36} языков~--- в 2021 году. 
-Ссылка на SPARQL-запрос: \href{https://w.wiki/uat}{https://w.wiki/uat}}
+и 36 языков~--- в 2021 году. 
+Ссылка на SPARQL-запрос: \href{https://w.wiki/uat}{https://w.wiki/uat}.}
 
 
 Команда \lstinline|ORDER BY DESC(?countOS) ASC(?langLabel)| в~запросе~\ref{lst:count_os_on_languages} 
@@ -228,7 +241,7 @@ WHERE
 SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
 }
 \end{lstlisting}
-\footnotetext{Получено \num{146} языков программирования с написанными на них операционными системами в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/ucB}{https://w.wiki/ucB}}
+\footnotetext{Получено: 146 языков программирования с написанными на них операционными системами в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/ucB}{https://w.wiki/ucB}.}
 
 %\marginnote[0cm]{
 Сложное задание для самостоятельной работы. Измените запрос~\ref{lst:lang_tree} (\href{https://w.wiki/ucB}{https://w.wiki/ucB}) так, чтобы рядом с языком программирования было написано число операционных систем, написанных на этом языке.
@@ -261,7 +274,7 @@ SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
 а именно: за три года (с 2017) количество операционных систем более чем удвоилось с 510 до 1086. 
 Однако большое количество объектов по-прежнему плохо заполнены, 
 например, по результатам запроса \ref{lst:inception_time_of_operating_systems} 
-информация о дате выпуска заполнена всего у \num{238} ОС. 
+информация о дате выпуска заполнена всего у 238 ОС. 
 Из этого можно сделать вывод, что хотя Викиданные неполны, но стремительно наполняются.
 
 
