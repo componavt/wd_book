@@ -42,7 +42,7 @@ SELECT ?os ?osLabel WHERE
 \wdqName{Windows 8}{5046}, 
 \wdqName{GNU}{44571}, 
 \wdqName{Windows 10}{18168774}, имеющие по 24 заполненных свойства\autocite{prowd_os_link}.
-Почти пустыми и малоинформативными операционными системами оказались: 
+Почти пустыми и малоинформативными операционными системами на~2021 год были: 
 \wdqName{MagiC}{1884068}, \wdqName{KallistiOS}{1722492}, \wdqName{Novell DOS}{3345389} и ряд других. 
 У этих систем было заполнено всего одно свойство\autocite{prowd_os_link}.
 
@@ -109,7 +109,8 @@ SELECT ?os ?osLabel ?base ?baseLabel WHERE
 \index{График!Timeline!Часть временной шкалы с датами выпуска ОС с~1955 по~2020 год}
 \begin{lstlisting}[ language=SPARQL, 
 	caption={\href{https://w.wiki/5CKS}{Список операционных систем с датой их создания}\protect\footnotemark},
-	label=lst:inception_time_of_operating_systems
+	label=lst:inception_time_of_operating_systems,
+    numbers=none,
 	]
 #defaultView:Timeline{"hide": "?when"}
 SELECT DISTINCT ?os ?osLabel ?when (YEAR(?when) as ?date) ?pic WHERE
@@ -120,7 +121,7 @@ SELECT DISTINCT ?os ?osLabel ?when (YEAR(?when) as ?date) ?pic WHERE
     SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
 }
 \end{lstlisting}
-\footnotetext{Получено: 30 дат создания ОС в 2017 году и 238~--- в 2020 году. 
+\footnotetext{Получено: 30 дат создания ОС в 2017 году, 238~--- в 2020 году. 
     Ссылка на SPARQL-запрос: \href{https://w.wiki/5CKS}{https://w.wiki/5CKS}.}
 
 
@@ -137,10 +138,10 @@ SELECT DISTINCT ?os ?osLabel ?when (YEAR(?when) as ?date) ?pic WHERE
 В первой строке запроса~\ref{lst:inception_time_of_operating_systems} 
 параметры \lstinline|{"hide": "?when"}| 
 команды \lstinline|#defaultView:Timeline| позволяют скрыть вывод переменной \lstinline|?when|, 
-оставив от даты только год (переменная \lstinline|?date|) 
+оставив от даты только год (функция \lstinline|YEAR()|) 
 и название ОС (переменная \lstinline|?osLabel|). 
 Благодаря этому мы видим в центре рис.~\ref{fig:os_creation} 
-под изображением смартфона не 1 January 1993, а только 1993. 
+под изображением смартфона не <<1 January 1993>>, а только <<1993>>. 
 
 Таким образом, результатом запроса~\ref{lst:inception_time_of_operating_systems} 
 является временная шкала (англ. \textit{timeline}) создания (точнее, выпуска\sidenote[][-8pt]{%
@@ -159,7 +160,8 @@ SELECT DISTINCT ?os ?osLabel ?when (YEAR(?when) as ?date) ?pic WHERE
 
 \begin{figure*}[h!]
 	\includegraphics{./chapter/operating_system/os-creation.png}
-    \caption[Часть временной шкалы с датами выпуска ОС.]{Часть временной шкалы с датами выпуска операционных систем с~1955 по~2020 год. Шкала построена по запросу~\protect\ref{lst:inception_time_of_operating_systems}.}
+    \caption[Часть временной шкалы с датами выпуска ОС.]{Часть временной шкалы с датами выпуска операционных систем с~1955 по~2020 год}%
+    %Шкала построена по запросу~\protect\ref{lst:inception_time_of_operating_systems}.}
 	\label{fig:os_creation}
 \end{figure*}
 
@@ -174,6 +176,7 @@ SELECT DISTINCT ?os ?osLabel ?when (YEAR(?when) as ?date) ?pic WHERE
 \index{SPARQL!COUNT!Языки программирования и число операционных систем}
 \begin{lstlisting}[ language=SPARQL, 
 	caption={\href{https://w.wiki/uat}{Список языков программирования и количество написанных на них операционных систем}\protect\footnotemark},
+    numbers=none,
 	label=lst:count_os_on_languages
 	]
 # Languages and number of OS written in these languages
@@ -192,10 +195,13 @@ ORDER BY DESC(?countOS) ASC(?langLabel)
 Ссылка на SPARQL-запрос: \href{https://w.wiki/uat}{https://w.wiki/uat}.}
 
 
+
+\newpage
 Команда \lstinline|ORDER BY DESC(?countOS) ASC(?langLabel)| в~запросе~\ref{lst:count_os_on_languages} 
 используется для двойной сортировки значений в таблице. 
-Все языки программирования будут отсортированы в~порядке убывания количества операционных систем, 
-написанных на них, а при равном их количестве будут отсортированы в алфавитном порядке по названию.
+Все языки программирования сначала сортируются по убыванию количества операционных систем, 
+которые написаны на них. Затем, если для каких-либо языков это число совпадает, 
+то сортировка идёт по именам языков.
 
 Результат SPARQL-запроса \ref{lst:count_os_on_languages} показывает, 
 что преимущественно ОС пишут на языках Си (известно 46 операционных система, написанных на языке Си) и ассемблер (42 ОС). 
@@ -204,26 +210,27 @@ ORDER BY DESC(?countOS) ASC(?langLabel)
 
 
 \newpage
-С помощью запроса \ref{lst:lang_tree} можно получить диаграмму языков программирования 
-и написанных на них операционных систем в виде дерева (рис.~\ref{fig:prog_lang_os}).
-
+С помощью запроса~\ref{lst:lang_tree} можно получить диаграмму языков программирования 
+и написанных на них операционных систем в виде дерева (рис.~\ref{fig:prog_lang_os}). 
+В этом дереве каждая строчка~--- это язык программирования. 
+По щелчку мыши можно развернуть язык и увидеть список операционных систем, 
+написанных с использованием этого языка. 
+Если язык или система имеют рисунок или логотип в Викиданных, 
+то они используются в качестве иконок.
+%
 \begin{marginfigure}[0.0cm]
     \includegraphics[width=7cm]{chapter/operating_system/prog_lang_os.png}
     \caption[Дерево языков программирования и написанных на них ОС.]{Дерево языков программирования и написанных на них операционных систем.}
 	\label{fig:prog_lang_os}%
 \end{marginfigure}
-
-В этом дереве (рис.~\ref{fig:prog_lang_os}) каждая строчка~--- это язык программирования. 
-По щелчку мыши можно развернуть язык и увидеть список операционных систем, 
-написанных с использованием этого языка. 
-Если язык или система имеют рисунок или логотип в Викиданных, 
-то они используются в качестве иконок.
+%
 
 
 \index{SPARQL!OPTIONAL!Список языков программирования и написанных на них операционных систем}
 \index{График!Tree!Дерево языков программирования и написанных на них операционных систем}
 \begin{lstlisting}[ language=SPARQL, 
 	caption={\href{https://w.wiki/ucB}{Список языков программирования и написанных на них операционных систем}\protect\footnotemark},
+    numbers=none,
 	label=lst:lang_tree
 	]
 # Languages and operating systems written in these languages
