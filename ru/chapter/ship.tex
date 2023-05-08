@@ -5,61 +5,101 @@
 
 
 \begin{marginfigure}[0.0cm]
-  \includegraphics[width=5cm]{chapter/ship/Russian_ships_topic_imbalance.png}
-  \caption[График равномерности заполнения свойств объектов Викиданных.]{График равномерности заполнения по числу свойств объекта Викиданных \href{https://www.wikidata.org/wiki/Q11446}{корабль (Q11446)}, коэффициент Джини равен 0.239. Данные получены с помощью сервиса ProWD.id, 2020 год. График и коэффициент Джини показывают низкую равномерность заполнения свойств.}%
+  \includegraphics[width=0.9\linewidth]{chapter/ship/Russian_ships_topic_imbalance.png}
+  \caption[График равномерности заполнения свойств объектов Викиданных.]{График равномерности заполнения по числу свойств объекта Викиданных \href{https://www.wikidata.org/wiki/Q11446}{корабль (Q11446)}, коэффициент Джини равен 0.239. Данные получены с~помощью сервиса ProWD.id, 2020 год. График и коэффициент Джини показывают низкую равномерность заполнения свойств}%
   \label{fig:prowd_ships-unbalanced}%
 \end{marginfigure}
 
 
 \section{Список кораблей}
 
-\marginnote{
-\href{https://www.wikidata.org/wiki/Q11446}{Корабль (Q11446)} -- это крупное морское судно.
-
-Исследуемые свойства:
-\begin{itemize}
-  \item\href{https://www.wikidata.org/wiki/Property:P31}{Экземпляр (P31)};
-  \item\href{https://www.wikidata.org/wiki/Property:P137}{Оператор (P137)};
-  \item\href{https://www.wikidata.org/wiki/Property:P17}{Государство (P17)};
-  \item\href{https://www.wikidata.org/wiki/Property:P607}{Конфликт (P607)}.
-\end{itemize}
-}
-
+Нам потребуются объект \wdqName{корабль}{11446} и свойства:
+   \wdProperty{31}{экземпляр}, 
+   \wdProperty{137}{оператор}, 
+   \wdProperty{17}{государство} и  
+   \wdProperty{607}{конфликт}.
 Построим список всех кораблей с помощью запроса~\ref{lst:ships_ru}.
 
-\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/wX6}{Список кораблей}}\protect\footnotemark}, label=lst:ships_ru, ]
+
+\begin{lstlisting}[ language=SPARQL, 
+            caption={{\href{https://w.wiki/wX6}{Список кораблей}}\protect\footnotemark}, 
+            label=lst:ships_ru, 
+            numbers=none
+            ]
 # List of ships
-SELECT ?ship ?shipLabel
-WHERE
-{
+SELECT ?ship ?shipLabel WHERE {
   ?ship wdt:P31 wd:Q11446. # instance of ship
   SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
 }
 \end{lstlisting}
-\footnotetext{Найдено \num{19820} кораблей в 2017, \num{50681} в 2020, \num{71203} в 2021. Ссылка на SPARQL-запрос: \href{https://w.wiki/wX6}{https://w.wiki/wX6}}
+\footnotetext{Получено: \num{19820} кораблей в 2017 году, 
+                        \num{50681}~--- в 2020-м, 
+                        \num{71203}~--- в 2021 году. 
+        Ссылка на~SPARQL-запрос: \href{https://w.wiki/wX6}{https://w.wiki/wX6}.}
 
-По данным ProWD больше всего свойств (34 свойства) имеет \href{https://www.wikidata.org/wiki/Q281147}{ледокол Красин (Q281147)}, а меньше всего, по пять свойств, у кораблей \href{https://www.wikidata.org/wiki/Q99198666}{Ливень (Q99198666)} и \href{https://www.wikidata.org/wiki/Q28155282}{Dispatch (Q28155282)}~\autocite{ProWD_ru_ships}.
 
-В Викиданных как правило записывается не прямая принадлежность корабля стране, а принадлежность некоторому оператору. Чаще всего это какая-либо организация, например, \href{https://www.wikidata.org/wiki/Q465283}{Военно-морской Флот Российской Федерации (Q465283)}. Составим список кораблей, операторы которых находятся или находились в России, СССР или Российской империи (см. листинг~\ref{lst:ships_with_ru_op}).
+\newpage
+По данным ProWD, больше всего свойств (34 свойства) имеет 
+\href{https://www.wikidata.org/wiki/Q281147}{ледокол Красин (Q281147)}, 
+а~меньше всего, по~пять свойств, у~кораблей 
+\href{https://www.wikidata.org/wiki/Q99198666}{Ливень (Q99198666)} и 
+\href{https://www.wikidata.org/wiki/Q28155282}{Dispatch (Q28155282)}~\autocite{ProWD_ru_ships}.
 
-\begin{lstlisting}[ language=SPARQL, 
-    caption={\href{https://w.wiki/3K$d}{Cписок кораблей, операторы которых находятся или находились в России, СССР или Российской Империи}\protect\footnotemark}, 
+В Викиданных, как правило, записывается не прямая принадлежность корабля стране, 
+а~принадлежность некоторому оператору. 
+Чаще всего это какая-либо организация, 
+например 
+\href{https://www.wikidata.org/wiki/Q465283}{Военно-морской Флот Российской Федерации (Q465283)}. 
+Составим список кораблей, 
+операторы которых находятся или находились в России, СССР или Российской империи 
+(см. запрос~\ref{lst:ships_with_ru_op}). 
+
+\marginnote{%
+    \label{question:ship_1}
+    \MarginQuestion
+    Найдите <<корабль Гиннесса>> по какому-либо параметру. 
+    Например, напишите скрипт для поиска самого большого, самого длинного 
+    или самого вместительного корабля.
+
+    Ответ на с.~\pageref{answer:ship_Guinness}.
+}
+
+
+\begin{lstlisting}[ 
+    language=SPARQL, 
+    caption={\href{https://w.wiki/6gHD}{Cписок кораблей, операторы которых находятся или находились в России, 
+            СССР или Российской империи}\protect\footnotemark}, 
     label=lst:ships_with_ru_op 
                   ]
 # List of ships from Russia, Soviet Union and Russian Empire
-SELECT ?ship ?shipLabel
-WHERE
-{
+SELECT ?ship ?shipLabel WHERE {
   VALUES ?country {wd:Q34266 # Russian Empire
                    wd:Q15180 # Soviet Union
                    wd:Q159}  # Russia
-  ?ship wdt:P31 wd:Q11446; # instance of ship
+  ?ship wdt:P31 wd:Q11446;         # instance of ship
         wdt:P137/wdt:P17 ?country; # operator in country
-
   SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
 }
 \end{lstlisting}
-\footnotetext{Найдено 107 кораблей в 2017 году, 578 кораблей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/3K\%24d}{https://w.wiki/3K\$d}}
+\footnotetext{Получено: 107 кораблей в 2017 году, 578 кораблей в 2021 году. Ссылка на~SPARQL-запрос: \href{https://w.wiki/6gHD}{https://w.wiki/6gHD}.}
+
+Обратите внимание на~строку~7 в~запросе~\ref{lst:ships_with_ru_op}. 
+В~этой строке записаны последовательно два свойста \texttt{wdt:P137/wdt:P17}:
+\begin{itemize}
+	\item \texttt{wdt:P137}~--- свойство \wdProperty{137}{operator} связывает корабль и оператора судов;
+	\item \texttt{wdt:P17}~--- свойство \wdProperty{17}{country} связывает оператора судов и страну.
+\end{itemize}
+Таким образом, эта строка позволяет кратко и напрямую задать страну для корабля 
+посредством свойства <<оператор>>. 
+Такое последовательное указание свойств (\texttt{wdt:P137/wdt:P17}) 
+является аналогом безымянных переменных (\lstinline|[]|),
+\marginnote[-2\baselineskip]{
+    \MarginInternalLink
+    Пример использования безымянной переменной (\lstinline|[]|) 
+    см.~в~запросе~\ref{lst:human-settlement-noname-count} на~с.~\pageref{lst:human-settlement-noname-count}.%
+} %
+поскольку в текущем запросе~\ref{lst:ships_with_ru_op} 
+мы не~получаем в~явном виде никаких операторов судов. 
 
 
 
@@ -67,38 +107,49 @@ WHERE
 \newpage
 \section{Полнота Викиданных}
 
-\label{question:ship_1}
-\marginnote{Найдите <<корабль Гиннесса>> по какому-либо параметру. Например, напишите скрипт для поиска самого большого, самого длинного или самого вместительного корабля.\\ Ответ на странице~\pageref{answer:ship_Guinness}.}
-
 Поиск точного количества кораблей в мире~--- трудная задача. 
-Ведь данные о некоторых из них являются совершенно секретными, другие~--- частные судна и информации о них тоже нет. 
+Ведь данные о некоторых из них являются совершенно секретными, 
+другие~--- частные судна, информации о них тоже нет. 
 Предположим, что общее число кораблей примерно равно \num{1600000}, 
 как указано в базе данных судов~\autocite{FleetMon}. 
-На 2021 год Викиданные содержали только \num{71206} корабля, что составило только 4.5\% от их общего числа.
+На 2021 год Викиданные содержали только \num{71206} кораблей, 
+что составило только 4,5\,\% от~их~общего числа.
 
 
-Что касается российских кораблей, в состав российский военных и гражданских флотов входит \num{17657} кораблей~\autocite{RussianShips}. В это же время скрипт в листинге~\ref{lst:ships_with_ru_op} показывает лишь 578 кораблей, что составляет 3.27\% от общего числа российских кораблей. 
+Что касается российских кораблей, 
+то~в~состав российский военных и гражданских флотов входит \num{17657} кораблей~\autocite{RussianShips}. 
+В это же время запросе~\ref{lst:ships_with_ru_op} возвращает лишь 578 кораблей, 
+что составляет 3,27\,\% от общего числа российских кораблей. 
 
 В обоих случаях разница между фактическим количеством кораблей и результатом запросов огромная, что говорит о неполноте Викиданных.
 
-\label{question:ship_2}
-\marginnote{На рисунке~\ref{fig:grem_question} представлен самый известный советский эсминец \ruwiki{vgC}{проекта 7}, удостоенный звания <<Гвардейский>>, назовите его.  Ответ можно найти на странице~\pageref{answer:ship_2}.}
+\marginnote{%
+    \label{question:ship_2}
+    \MarginQuestion
+    На марке, выпущенной в 1982 году, изображён самый известный советский эсминец \ruwiki{vgC}{проекта~7}, 
+    удостоенный звания <<Гвардейский>>. Назовите его.
+    
+    \vspace{4pt}
+    \includegraphics{chapter/ship/Secret_Grem_ship.jpg}
 
-\begin{marginfigure}[0.0cm]
-  {
-    \setlength{\fboxsep}{0pt}%
-    \setlength{\fboxrule}{1pt}%
-    \fcolorbox{gray}{gray}{\includegraphics{chapter/ship/Secret_Grem_ship.jpg}}
-  }
-  \caption[Известный советский миноносец.]{Почтовая марка, на которой изображен известный советский \ruwiki{vgD}{эскадренный миноносец} \ruwiki{vgC}{проекта 7}, CCCP, 1982.}%
-  \label{fig:grem_question}%
-\end{marginfigure}
+    Ответ на с.~\pageref{answer:ship_2}.\\
+}
+
+
+
+
 
 \section{Полнота свойств объектов военных кораблей}
 
-Составим список кораблей, участвовавших в каких-либо конфликтах с помощью скрипта в листинге~\ref{lst:ships_in_conflict_ru}.
+Составим список кораблей, участвовавших в каких-либо конфликтах, 
+с~помощью запроса~\ref{lst:ships_in_conflict_ru}.
 
-\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/vum}{Список кораблей, участвовавших в каких-либо конфликтах}}\protect\footnotemark}, label=lst:ships_in_conflict_ru, ]
+\begin{lstlisting}[ 
+        language=SPARQL, 
+        caption={{\href{https://w.wiki/vum}{Список кораблей, участвовавших в каких-либо конфликтах}}\protect\footnotemark}, 
+        label=lst:ships_in_conflict_ru, 
+        numbers=none,
+        ]
 # List of ships with countries and war conflicts
 SELECT ?ship ?shipLabel ?countryLabel ?conflict ?conflictLabel
 WHERE
@@ -109,25 +160,50 @@ WHERE
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
 }
 \end{lstlisting}
-\footnotetext{Найдено \num{1400} кораблей в 2017 году, \num{3567} в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/vum}{https://w.wiki/vum}}
+\footnotetext{Получено: 1400 кораблей в 2017 году, 3567~--- в 2021 году. Ссылка на~SPARQL-запрос: \href{https://w.wiki/vum}{https://w.wiki/vum}.}
 
-У военных кораблей, участвовавших в сражениях, указывается свойство \href{https://www.wikidata.org/wiki/Property:P607}{conflict (P607)} (война/сражение). В то же время военные конфликты и военные операции, которые являются частью войн, являются разными понятиями. Корабли на Викиданных можно условно по делить на два типа:
+
+
+\newpage
+У военных кораблей, участвовавших в сражениях, 
+указывается свойство 
+\href{https://www.wikidata.org/wiki/Property:P607}{conflict (P607)} (война/сражение). 
+В~то~же время военные конфликты и военные операции, 
+которые являются частью войн,~--- это разные понятия. 
+Корабли на Викиданных можно условно поделить на два типа:
 
 \begin{enumerate}
-  \item Корабли, у которых военные операции объединены с военными конфликтами. Например, у \href{https://www.wikidata.org/wiki/Q4148613}{эсминца Гремящий (Q4148613)} 10 войн/сражений, см. листинг~\ref{lst:grem_wars}. Такое большое число связано с тем, что корабль принял участие во многих \href{https://ru.wikipedia.org/wiki/Арктические_конвои}{арктических конвоях}, которые являются военными операциями.
+  \item Корабли, у которых военные операции объединены с военными конфликтами. 
+      Например, у~\href{https://www.wikidata.org/wiki/Q4148613}{эсминца Гремящий (Q4148613)} 10 войн/сражений, 
+        см. запрос~\ref{lst:grem_wars}. 
+        Такое большое число связано с тем, 
+        что корабль принял участие во многих 
+        \href{https://ru.wikipedia.org/wiki/Арктические_конвои}{арктических конвоях}, 
+        которые являются военными операциями.
+
   \item Корабли, у которых военные операции отделены от военных конфликтов. Например, у британского крейсера \href{https://www.wikidata.org/wiki/Q1565575}{HMS Trinidad (Q1565575)} участие в военной кампании и арктическом конвое указаны как часть Второй мировой войны с помощью квалификатора \href{https://www.wikidata.org/wiki/Property:P1012}{including (P1012)}. Таким образом, в Викиданных у этого крейсера указана одна война/сражение.
 \end{enumerate}
 
 У кораблей первого типа при поиске по свойству~\wdProperty{607}{conflict} будет отображаться больше войн/сражений, чем у кораблей второго типа. 
 %Но в этом случае операция \href{https://ru.wikipedia.org/wiki/Одесская_оборона_(1941)}{Одесская оборона} будет стоять наряду с \href{https://ru.wikipedia.org/wiki/Великая_Отечественная_война}{Великой Отечественной войной}, хотя она является частью этой войны. В такой ситуации выводимые данные будут не точными.
 
-\label{question:ship_3}
-\marginnote{Найдите изображения кораблей, заснятых в кино или описанных в книгах. 
+\marginnote{
+    \MarginQuestion
+    \label{question:ship_3}
+    Найдите изображения кораблей, которые были сняты в кинофильмах 
+    или описаны в книгах. 
 
-Ответ на странице~\pageref{answer:ship_3}}
+    Ответ на с.~\pageref{answer:ship_3}
+}
 
 
-\begin{lstlisting}[ language=SPARQL, caption={{\href{https://w.wiki/vuo}{Военные конфликты, в которых участвовали \href{https://www.wikidata.org/wiki/Q4148613}{эсминец Гремящий (Q4148613)} и \href{https://www.wikidata.org/wiki/Q1565575}{HMS Trinidad (Q1565575)}}}\protect\footnotemark}, label=lst:grem_wars, ]
+\begin{lstlisting}[ 
+        language=SPARQL, 
+        caption={{\href{https://w.wiki/vuo}{Военные конфликты, в которых участвовали 
+            \wdqName{эсминец Гремящий}{4148613} и \wdqName{HMS Trinidad}{1565575}}}\protect\footnotemark}, 
+            label=lst:grem_wars, 
+            numbers=none,
+            ]
 # List of military conflicts of the two ships 
 SELECT ?ship ?shipLabel ?conflict ?conflictLabel
 WHERE
@@ -138,14 +214,15 @@ WHERE
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
 }
 \end{lstlisting}
-\footnotetext{Найдено \num{10} конфликтов у \href{https://www.wikidata.org/wiki/Q4148613}{эсминца Гремящий (Q4148613)} и один конфликт у крейсера \href{https://www.wikidata.org/wiki/Q1565575}{HMS Trinidad (Q1565575)}, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vuo}{https://w.wiki/vuo}}
-
+\footnotetext{Получено: 10 конфликтов у \href{https://www.wikidata.org/wiki/Q4148613}{эсминца Гремящий (Q4148613)} и один конфликт у крейсера \href{https://www.wikidata.org/wiki/Q1565575}{HMS Trinidad (Q1565575)}, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vuo}{https://w.wiki/vuo}.}
 
 
 
 
 \newpage
-Составим список отечественных кораблей, участвовавших в каких-либо военных конфликтах с помощью скрипта~\ref{lst:ships_in_war_ru}.
+Составим список отечественных кораблей, 
+участвовавших в каких-либо военных конфликтах, 
+с~помощью скрипта~\ref{lst:ships_in_war_ru}.
 
 \begin{lstlisting}[ language=SPARQL, 
         caption={{\href{https://w.wiki/wXA}{Список отечественных кораблей, участвовавших в каких-либо военных конфликтах}}\protect\footnotemark}, 
@@ -164,13 +241,14 @@ WHERE
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
 }
 \end{lstlisting}
-\footnotetext{Найдено \num{105} кораблей в 2017 году, \num{82} корабля в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/wXA}{https://w.wiki/wXA}}
+\footnotetext{Получено: 105 кораблей в 2017 году, 82 корабля в 2021 году. 
+            Ссылка на SPARQL-запрос: \href{https://w.wiki/wXA}{https://w.wiki/wXA}.}
 
 Особенность результатов скрипта~\ref{lst:ships_in_war_ru} в том, 
 что полученные корабли не обязательно связаны только с Российской империей, 
 СССР или Россией. 
 Например, корабль \href{https://www.wikidata.org/wiki/Q653477}{Kasato Maru (Q653477)}~--- японский. 
-Дело в том, что этот корабль принадлежал России в 1900--1905 годы, а Японии с 1906 года.
+Дело в том, что этот корабль принадлежал России в 1900--1905 годах, а Японии~--- с 1906 года.
 
 
 \section{Корабли-музеи в странах мира}
@@ -204,7 +282,7 @@ WHERE {
 }
 \end{lstlisting}
 %\end{minipage}
-\footnotetext{Найдено 117 вершин графа в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/wz8}{https://w.wiki/wz8}.}
+\footnotetext{Получено: 117 вершин графа в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/wz8}{https://w.wiki/wz8}.}
 \marginnote[-7.3cm]{%
     При определении \wdqName{страны}{6256} для переменных $v1$ и $v2$ 
     используется конструкция ``p:/ps:''.
@@ -232,7 +310,7 @@ WHERE {
 
 При просмотре полного графа (и даже на фрагменте, рис.~\ref{fig:museum_graph}) 
 видно уникальность научно-исследовательского судна \wdqName{Витязь}{1516653}. 
-По Викиданным (листинг~\ref{lst:museum_graph}), 
+По Викиданным (запрос~\ref{lst:museum_graph}), 
 это единственный музей-корабль России, связывающий Россию с другими странами. 
 Изначально этот теплоход был построен и находился на службе Германии, 
 что отражено в свойстве Витязя 
