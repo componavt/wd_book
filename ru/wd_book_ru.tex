@@ -100,7 +100,7 @@
 %\usepackage{floatrow}   % Two figures side by side in Tufte-Latex, https://tex.stackexchange.com/a/392927/99685
 
 % How to remove the whitespace BEFORE itemize/enumerate?
-\usepackage{enumitem}% https://tex.stackexchange.com/a/86055/99685
+\usepackage[shortlabels]{enumitem}% https://tex.stackexchange.com/a/86055/99685
 
 \newenvironment{compactitemize}{%
     \begin{itemize}[noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt]}{\end{itemize}}
@@ -130,7 +130,9 @@
 
 % Listing N: Title -> Query N. Title
 % before \usepackage{listings}
-\renewcommand{\lstlistingname}{Запрос}
+\renewcommand{\lstlistingname}{Запрос}  % Листинг -> Запрос
+%\renewcommand{\lstlistingname}{Листинг} % Запрос -> Листинг
+
 \makeatletter
 \long\def\@makecaption#1#2{%
 %    \renewcommand{\lstlistingname{\protect\text{Query}}}{}
@@ -406,6 +408,12 @@
 }}\,\,\,% % some space \,%
 }
 
+\newcommand{\MarginNB}{% rocket image, Attention, NotaBene
+\noindent\fcRocketA{0.1}{black}{1}%
+\,\,\,% % some space \,%
+}
+
+
 
 %\fcBinoculars{0.1}{black}{1}
 %\fcFlyingSaucer{0.6}{black}{1}
@@ -674,6 +682,7 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 \part{Исследуем объекты Викиданных}
 \label{part:research}
 
+\iffalse
 \input{./chapter/aircraft.tex}
 \input{./chapter/anime.tex}
 
@@ -693,9 +702,8 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 \input{./chapter/operating_system.tex}
 \input{./chapter/programming_language.tex}
 \input{./chapter/ship.tex}
-\iffalse
-\input{./chapter/spacecraft_space_station.tex}
 
+\input{./chapter/spacecraft_space_station.tex}
 \fi
 
 \part{Специальные возможности вики-проектов и Викиданных}

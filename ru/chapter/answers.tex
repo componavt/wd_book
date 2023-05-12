@@ -106,7 +106,7 @@ SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
 }
 ORDER BY ?year
 \end{lstlisting}
-\footnotetext{Получено 15 отечественных авиазаводов с датой основания, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vaH}{https://w.wiki/vaH}}
+\footnotetext{Получено 15 отечественных авиазаводов с датой основания, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vaH}{https://w.wiki/vaH}.}
     
     \small{Вопрос на с.~\pageref{aircraft_question_2}.}
 \end{task}
@@ -125,7 +125,7 @@ WHERE
     SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
 }
 \end{lstlisting}
-\footnotetext{Получено 16 российских авиазаводов, имеющих штаб-квартиры, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/t4X}{https://w.wiki/t4X} }
+\footnotetext{Получено 16 российских авиазаводов, имеющих штаб-квартиры, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/t4X}{https://w.wiki/t4X}.}
     
     \small{Вопрос на с.~\pageref{aircraft_question_3}.}
 \end{task}
@@ -165,7 +165,7 @@ SELECT ?airship ?airshipLabel ?image WHERE
     SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
 }
 \end{lstlisting}
-\footnotetext{Получено 18 дирижаблей с иллюстрациями, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/t4c}{https://w.wiki/t4c} }
+\footnotetext{Получено 18 дирижаблей с иллюстрациями, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/t4c}{https://w.wiki/t4c}.}
     
 \small{Вопрос на с.~\pageref{fig:airship_question_aircraft}.}
 \end{task}
@@ -220,7 +220,7 @@ WHERE {
 }
 ORDER BY DESC (?popArea)
 \end{lstlisting}
-\footnotetext{131 результат на 2021 год. SPARQL-запрос: \href{https://w.wiki/4duP}{https://w.wiki/4duP}}  
+\footnotetext{131 результат на 2021 год. SPARQL-запрос: \href{https://w.wiki/4duP}{https://w.wiki/4duP}.}
 
     \small{Вопрос на с.~\pageref{ch:human-settlement}.}
 \end{task}
@@ -257,7 +257,7 @@ SERVICE wikibase:label{bd:serviceParam wikibase:language "ru, en"}
 }
 \end{lstlisting}
 
-\footnotetext{148 гербов на 2022 год. SPARQL-запрос: \href{https://w.wiki/4e8A}{https://w.wiki/4e8A}}  
+\footnotetext{148 гербов на 2022 год. SPARQL-запрос: \href{https://w.wiki/4e8A}{https://w.wiki/4e8A}.}
 \small{Вопросы на с.~\pageref{fig:flag_question_human_settlements1}, \pageref{fig:flag_question_human_settlements2}, \pageref{fig:flag_question_human_settlements3}, \pageref{fig:flag_question_human_settlements4}, \pageref{fig:flag_question_human_settlements5}.}
 \end{task}
 % eo Human_settlements charpter %%%%%%%%%%%%%%%%%%%%%%
@@ -297,7 +297,7 @@ SELECT ?city ?cityLabel ?namedAfterLabel ?whatIsItLabel WHERE {
     Подробности см. в разделе~<<\nameref{sect:city-completness}>>, 
     в тексте, предшествующем листингу~\ref{lst:example_subclasses_city} на с.~\pageref{lst:example_subclasses_city}.
     }
-\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/otj}{https://w.wiki/otj}}  
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/otj}{https://w.wiki/otj}.}
     \small{Вопрос на с.~\pageref{lst:population_town}.}
 \end{task}
 
@@ -335,7 +335,7 @@ SELECT ?city ?cityLabel (YEAR(?inceptionDate) AS ?year) WHERE {
 GROUP BY ?city ?cityLabel ?inceptionDate
 ORDER BY ASC(?year)
 \end{lstlisting}
-\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/t5u}{https://w.wiki/t5u}} 
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/t5u}{https://w.wiki/t5u}.} 
 
 У объекта Викиданных \wdqName{Москва}{649} 
     свойство \href{https://www.wikidata.org/wiki/Property:P571}{inception} 
@@ -372,7 +372,7 @@ SELECT ?city ?cityLabel ?flag ?countryLabel WHERE {
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
 \end{lstlisting}
-\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/t5q}{https://w.wiki/t5q}}  
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/t5q}{https://w.wiki/t5q}.}
     
     \small{Вопрос на с.~\pageref{lst:countries_sister_cities_with_Russia}.}
 \end{task}
@@ -403,7 +403,7 @@ SELECT ?country ?countryLabel  (count(*) as ?count) WHERE
 GROUP BY ?country ?countryLabel
 ORDER BY DESC(?count)
 \end{lstlisting}
-\footnotetext{Получено 199 стран на 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/tiN}{https://w.wiki/tiN}}  
+\footnotetext{Получено: 199 стран на 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/tiN}{https://w.wiki/tiN}.}
 	
 \small{Вопрос на с.~\pageref{lst:age_of_country}.}
 \end{task}
@@ -443,7 +443,7 @@ ORDER BY DESC(?count)
 	GROUP BY ?country ?countryLabel ?min_year ?max_year ?age
 	ORDER BY DESC(?age)
 	\end{lstlisting}
-	\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/tYc}{https://w.wiki/tYc}}  
+	\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/tYc}{https://w.wiki/tYc}.}
 	
 	\small{Вопрос на с.~\pageref{lst:List_of_historical_countries}.}
 \end{task}
@@ -512,7 +512,7 @@ SELECT ?country ?countryLabel ?flag ?area ?population
 }
 ORDER BY DESC(?populationDensity)
 \end{lstlisting}
-\footnotetext{Получено 53 страны в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/tkD}{https://w.wiki/tkD}}
+\footnotetext{Получено 53 страны в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/tkD}{https://w.wiki/tkD}.}
 	
 	
 \newthought{Результаты работы} вы можете увидеть в виде <<плиточки>> из флагов. 
@@ -545,7 +545,7 @@ WHERE
 	SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
 } ORDER BY ?lanquageLabel
 \end{lstlisting}
-\footnotetext{Получено 37 языков в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/tky}{https://w.wiki/tky}}  
+\footnotetext{Получено: 37 языков в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/tky}{https://w.wiki/tky}.}
 	
 \small{Вопрос на с.~\pageref{lst:List_of_historical_countries}.}
 \end{task}
@@ -579,7 +579,7 @@ WHERE
   ?subject wdt:P41 ?flag
 }
 \end{lstlisting}
-\footnotetext{Получено 86 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4cPg}{https://w.wiki/4cPg}}  
+\footnotetext{Получено 86 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4cPg}{https://w.wiki/4cPg}.} 
 	
 \small{Вопрос на с.~\pageref{lst:oblast-of-Russia}.}
 \end{task}
@@ -624,7 +624,7 @@ WHERE
   ?subject wdt:P571 ?year
 }
 \end{lstlisting}
-\footnotetext{Получено 485 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4cPh}{https://w.wiki/4cPh}}  
+\footnotetext{Получено 485 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4cPh}{https://w.wiki/4cPh}.} 
 	
 \small{Вопрос на с.~\pageref{lst:sharesBorderWith-oblast-of-Russia}.}
 \end{task}
@@ -666,7 +666,7 @@ WHERE
 }
 GROUP BY ?baseLabel
 ORDER BY DESC(?count) ASC(?baseLabel)\end{lstlisting}
-\footnotetext{Получено 118 операционных систем на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/uLR}{https://w.wiki/uLR}}
+\footnotetext{Получено 118 операционных систем на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/uLR}{https://w.wiki/uLR}.}
 
 \small{Вопрос на с.~\pageref{lst:base_of_operating_systems}.}
 \end{task}
@@ -687,7 +687,7 @@ SELECT ?os ?osLabel ?developer ?developerLabel WHERE {
 	SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
 	OPTIONAL { ?os wdt:P178 ?developer. }
 }\end{lstlisting}
-\footnotetext{\num{1115} операционных систем на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/n8a}{https://w.wiki/n8a}}
+\footnotetext{\num{1115} операционных систем на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/n8a}{https://w.wiki/n8a}.}
 
 \small{Вопрос на с.~\pageref{lst:inception_time_of_operating_systems}.}
 \end{task}
@@ -710,7 +710,7 @@ SELECT ?os ?osLabel ?developer ?developerLabel WHERE {
     ?os wdt:P178 ?developer. # os developed by developer
     SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
 }\end{lstlisting}
-\footnotetext{У 548 операционных систем заполнено свойство <<разработчик>> на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vGQ}{https://w.wiki/vGQ}}
+\footnotetext{У 548 операционных систем заполнено свойство <<разработчик>> на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vGQ}{https://w.wiki/vGQ}.}
 
 \small{Вопрос на с.~\pageref{tasks:operating_system_tasks}.}
 \end{task}
@@ -730,7 +730,7 @@ SELECT ?os ?osLabel ?image WHERE {
     ?os wdt:P18 ?image.
     SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
 }\end{lstlisting}
-\footnotetext{У 182 операционных систем заполнено свойство <<логотип>> на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vGQ}{https://w.wiki/vGQ}}
+\footnotetext{У 182 операционных систем заполнено свойство <<логотип>> на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vGQ}{https://w.wiki/vGQ}.}
 
 \small{Вопрос на с.~\pageref{tasks:operating_system_tasks}.}
 \end{task}
@@ -749,7 +749,7 @@ SELECT ?os ?osLabel ?country ?countryLabel WHERE {
 	?os wdt:P495 ?country.
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
 }\end{lstlisting}
-\footnotetext{У 10 операционных систем заполнено свойство <<страна происхождения>> на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vGX}{https://w.wiki/vGX}}
+\footnotetext{У 10 операционных систем заполнено свойство <<страна происхождения>> на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vGX}{https://w.wiki/vGX}.}
 
 \small{Вопрос на с.~\pageref{tasks:operating_system_tasks}.}
 \end{task}
@@ -779,7 +779,7 @@ WHERE
 SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
 }
 \end{lstlisting}
-\footnotetext{\num{136} операционных систем имеют предков на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vGc}{https://w.wiki/vGc}}
+\footnotetext{136 операционных систем имеют предков на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vGc}{https://w.wiki/vGc}.}
 
 \small{Вопрос на с.~\pageref{tasks:operating_system_tasks}.}
 \end{task}
@@ -805,7 +805,7 @@ SELECT ?itemLabel ?developerLabel WHERE {
 }
 ORDER BY DESC (?item_label)
 \end{lstlisting}
-\footnotetext{В 2020 году найдено 520 разработчика. Ссылка на SPARQL-запрос: \href{https://w.wiki/v4Q}{https://w.wiki/v4Q}}
+\footnotetext{В 2020 году найдено 520 разработчика. Ссылка на SPARQL-запрос: \href{https://w.wiki/v4Q}{https://w.wiki/v4Q}.}
 
 \small{Вопрос на с.~\pageref{question:prog_lang_1}.}
 \end{task}
@@ -826,7 +826,7 @@ WHERE
  ?item wdt:P154 ?image. # image
 }
 \end{lstlisting}
-\footnotetext{В 2020 году получено 87066 логотипов. Ссылка на SPARQL-запрос: \href{https://w.wiki/v4U}{https://w.wiki/v4U}}
+\footnotetext{В 2020 году получено 87066 логотипов. Ссылка на SPARQL-запрос: \href{https://w.wiki/v4U}{https://w.wiki/v4U}.}
 
 \small{Вопрос на с.~\pageref{question:prog_lang_2}.}
 \end{task}
@@ -847,7 +847,7 @@ WHERE {
 }
 	\end{lstlisting}
 \footnotetext{В 2020 году результат запроса~--- три языка программирования. 
-    Ссылка на SPARQL-запрос: \href{https://w.wiki/v4e}{https://w.wiki/v4e}}
+    Ссылка на SPARQL-запрос: \href{https://w.wiki/v4e}{https://w.wiki/v4e}.}
     
     \small{Задание на с.~\pageref{prog_lang_test}.}
 \end{task}
@@ -869,7 +869,7 @@ WHERE {
   FILTER(year(?age) < 1992)
 }
 \end{lstlisting}
-\footnotetext{Результатом запроса в 2020 году были 207 языков. Ссылка на SPARQL-запрос: \href{https://w.wiki/v4f}{https://w.wiki/v4f} }
+\footnotetext{Результатом запроса в 2020 году были 207 языков. Ссылка на SPARQL-запрос: \href{https://w.wiki/v4f}{https://w.wiki/v4f}.}
     
 \small{Задание на с.~\pageref{prog_lang_test}.}
 \end{task}
@@ -890,7 +890,7 @@ WHERE
 GROUP BY ?langLabel
 ORDER BY DESC(?count)
 \end{lstlisting}
-\footnotetext{Результатом запроса в 2020 году были 3 языка программирования. Ссылка на SPARQL-запрос: \href{https://w.wiki/v4h}{https://w.wiki/v4h}}
+\footnotetext{Результатом запроса в 2020 году были 3 языка программирования. Ссылка на SPARQL-запрос: \href{https://w.wiki/v4h}{https://w.wiki/v4h}.}
     
 \small{Задание на с.~\pageref{prog_lang_test}.}
 \end{task}
@@ -924,7 +924,7 @@ WHERE
 	SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
 }
 \end{lstlisting}
-\footnotetext{Найдено четыре изображения кораблей, снятых в кинолетнах, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/waV}{https://w.wiki/waV}}
+\footnotetext{Найдено четыре изображения кораблей, снятых в кинолентах, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/waV}{https://w.wiki/waV}.}
 
 
 
@@ -947,7 +947,7 @@ WHERE
 	SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
 }
 \end{lstlisting}
-\footnotetext{Найдено пять изображений кораблей, о которых было написано в книгах, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/wXF}{https://w.wiki/wXF}}
+\footnotetext{Найдено пять изображений кораблей, о которых было написано в книгах, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/wXF}{https://w.wiki/wXF}.}
 	
 \small{Задание на с.~\pageref{question:ship_1}.}
 \end{task}
@@ -1006,7 +1006,7 @@ SELECT ?ship ?shipLabel ?max_length WHERE {
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
 }  
 \end{lstlisting}
-\footnotetext{Самым длинным кораблем оказался \Wikiref{NMS Mircea} длиной в \num{3600} метров. Ссылка на SPARQL-запрос: \wwiki{3L2R}}
+\footnotetext{Самым длинным кораблем оказался \Wikiref{NMS Mircea} длиной в 3600 метров. Ссылка на SPARQL-запрос: \wwiki{3L2R}.}
 
 Внутренний \lstinline|SELECT| запроса~\ref{lst:long_ship} находит максимальную длину корабля, 
     а внешний \lstinline|SELECT| находит корабль с такой длиной.
@@ -1037,7 +1037,7 @@ ORDER BY DESC(?beam)
     Среди реально существоваших кораблей самым широким был норвежский корабль 
     \href{https://www.wikidata.org/wiki/Q11987454}{M/S Isosaari (Q11987454)}, 
     шириной 99 метров. 
-    SPARQL-запрос: \href{https://w.wiki/wKv}{https://w.wiki/wKv}}
+    SPARQL-запрос: \href{https://w.wiki/wKv}{https://w.wiki/wKv}.}
 \label{answer:ship_3}
 
 \small{Задание на с.~\pageref{question:ship_3}.}
@@ -1047,10 +1047,46 @@ ORDER BY DESC(?beam)
 
 
 %%%%%%%%%%%%%% spacecraft chapter %%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{task}
+    \label{answer:spacecraft_USSR}
+    Космические аппараты, 
+    изображённые на с.~\pageref{question:spacecraft_soyuz19} (Союз--19), 
+    с.~\pageref{question:spacecraft_soyuzT} (Союз--7К) и с.~\pageref{question:spacecraft_lunar} 
+    (лунный посадочный модуль <<Космос>>), принадлежат СССР. 
+    Убедиться в этом можно, выполнив запрос~\ref{lst:imageUSSRsc}.
+
+    \begin{lstlisting}[ 
+        language=SPARQL, 
+        numbers=none, 
+        caption={{\href{https://w.wiki/4eCS}{Набор изображений космических аппаратов СССР}}\protect\footnotemark}, 
+        label=lst:imageUSSRsc, 
+        ]
+# List of images of USSR spacecraft
+#defaultView:ImageGrid
+SELECT ?obj ?name ?img WHERE
+{
+    {?obj wdt:P31 wd:Q40218.}          # spacecraft
+    {?obj wdt:P17 wd:Q15180.} UNION       # country
+    {?obj wdt:P495 wd:Q15180.}  # country of origin
+    ?obj wdt:P18 ?img.                       #image
+    OPTIONAL {
+		?obj rdfs:label ?name 
+		FILTER (lang(?name) = "ru")
+	}
+}\end{lstlisting}
+\footnotetext{Найдено девять результатов в 2022 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4eCS}{https://w.wiki/4eCS}.}
+
+\small{Вопросы на с.~\pageref{question:spacecraft_soyuz19}, 
+    \pageref{question:spacecraft_soyuzT} и \pageref{question:spacecraft_lunar}.}
+\end{task}
+
+
 
 \begin{task}
 \label{answer:launches_USSR}
-\newthought{Запрос~\ref{lst:launch_USSR} строит график запуска} отечественных космических аппаратов по десятилетиям.
+Запрос~\ref{lst:launch_USSR} строит график запуска отечественных космических аппаратов по десятилетиям.
     В 1960-е годы совершено 16~запусков, в 1970-е~--- 42 запуска, а в 1980-е~--- 39.% запусков.
 
 \begin{lstlisting}[ 
@@ -1076,7 +1112,7 @@ SERVICE wikibase:label {bd:serviceParam wikibase:language "ru,en"}
 GROUP BY ?lapse
 ORDER BY ?lapse # Order 1960, 1970, 1980, ...
 \end{lstlisting}
-\footnotetext{Диаграмма построена для семи десятилетий, 2021 год. SPARQL-запрос: \href{https://w.wiki/4eQK}{https://w.wiki/4eQK}}
+\footnotetext{Диаграмма построена для семи десятилетий, 2021 год. SPARQL-запрос: \href{https://w.wiki/4eQK}{https://w.wiki/4eQK}.}
 
 \small{Вопрос на с.~\pageref{question:spacecraft_1}.}
 \end{task}
@@ -1104,36 +1140,4 @@ WHERE {
 \label{answer:max-min-space-launches}
 \end{task}
 
-
-
-
-\newpage
-\begin{task}
-    \label{answer:spacecraft_USSR}
-    \newthought{Космические аппараты}, 
-    изображённые на рисунках \ref{question:spacecraft_soyuz19} (Союз--19), 
-    \ref{question:spacecraft_soyuzT} (Союз--7К) и \ref{question:spacecraft_lunar} 
-    (лунный посадочный модуль <<Космос>>) принадлежат СССР. 
-    Убедиться в этом можно, выполнив запрос~\ref{lst:imageUSSRsc}.
-
-    \begin{lstlisting}[ language=SPARQL, numbers=none, caption={{\href{https://w.wiki/4eCS}{Набор изображений космических аппаратов СССР}}\protect\footnotemark}, label=lst:imageUSSRsc, ]
-# List of images of USSR spacecraft
-#defaultView:ImageGrid
-SELECT ?obj ?name ?img
-WHERE
-{
-    {?obj wdt:P31 wd:Q40218.}          # spacecraft
-    {?obj wdt:P17 wd:Q15180.} UNION       # country
-    {?obj wdt:P495 wd:Q15180.}  # country of origin
-    ?obj wdt:P18 ?img.                       #image
-    OPTIONAL {
-		?obj rdfs:label ?name 
-		FILTER (lang(?name) = "ru")
-	}
-}\end{lstlisting}
-\footnotetext{Найдено девять результатов в 2022 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4eCS}{https://w.wiki/4eCS}}
-
-\small{Вопросы на с.~\pageref{question:spacecraft_soyuz19}, 
-    \pageref{question:spacecraft_soyuzT} и \pageref{question:spacecraft_lunar}.}
-\end{task}
 
