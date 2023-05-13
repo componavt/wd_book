@@ -63,6 +63,7 @@
 %\usepackage[scaled=.85]{PTMono}
 
 %\usepackage[babel=true]{microtype} % good in Ubuntu see https://tex.stackexchange.com/a/355726/99685
+\usepackage{csquotes}
 
 % Select font you like
 \usepackage{paratype} % very good in Ubuntu
@@ -388,7 +389,7 @@
     #1%
     }
 
-\titleformat% Formatting the part header
+\titleformat% Formatting the part header 
   {\part} % command
   [block] % shape
   {\bfseries\sc\Huge} % format
@@ -455,6 +456,14 @@
 %%
 % Prints a trailing space in a smart way.
 \usepackage{xspace}
+
+% $\blackinwhitediamond$ in Answers
+\usepackage[notextcomp]{stix} % notexcomp since textcomp is loaded in tufte-common.def
+\newcommand{\AnswerBackref}{% 
+$\blackinwhitediamond$ %
+}
+
+
 
 %%
 % Some shortcuts for Tufte's book titles.  The lowercase commands will
@@ -712,8 +721,28 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 \input{./advanced/page_protection.tex}
 \input{./advanced/bots.tex}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Заключительная часть 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\dottedcontents{part}[0em]{\sffamily\bfseries\large\protect\addvspace{15pt}Часть}{-5pt}{1pc}
 \dottedcontents{part}[0em]{\sffamily\bfseries\large\protect\addvspace{15pt}}{0pt}{1pc}
+
+% "Заключительная часть" without "Часть III"
+\renewcommand{\formatpart}[1]{%
+    \centering%
+    \hfil\pgfornament[width=4cm]{75}\hfil%
+    \newline%
+    #1%
+    }
+\titleformat% Formatting the part header 
+  {\part} % command
+  [block] % shape
+  {\bfseries\sc\Huge} % format
+  {} % label
+  {0pt} % sep
+  {\formatpart}
+
 \part*{Заключительная часть}
 %\addcontentsline{toc}{part}{Заключительная часть}
 \label{part:conclusion}

@@ -490,17 +490,14 @@ delete_occupation={"Q7404672", "Q7319129", "Q7249866", "Q7244433",
 for occupation in delete_occupation:
   query = """
     SELECT DISTINCT ?item WHERE {
-      SERVICE wikibase:label { bd:serviceParam wikibase:
-language "ru,en". }
-      ?item wdt:P31 wd:Q5.     # P31 - instance of, Q5 - human
+      SERVICE wikibase:label {bd:serviceParam wikibase:language "ru,en".}
+      ?item wdt:P31 wd:Q5.     # is human
       ?item wdt:P106 wd:""" + occupation + """.
     } """
 
   pages=pagegenerators.WikidataSPARQLPageGenerator(query, site=site)
   for item in pages:
-    print("Люди, чья профессия 
-{occupation}: {title}" . format(occupation=occupation, 
-title=item.title()))
+    print("Люди, чья профессия {occupation}: {title}" . format(occupation=occupation, title=item.title()))
 \end{lstlisting} 
 \marginnote[-2.0cm]{
         \MarginNB
@@ -511,22 +508,28 @@ title=item.title()))
         для большей наглядности использована функция \mbox{\lstinline|format()|}.%
 }
 
-Итак, список <<ошибочных>> профессий (объектов Викиданных), подлежащих удалению, сохранён в~переменной 
-\lstinline|delete_occupation|. 
+Итак, список <<ошибочных>> профессий (объектов Викиданных), подлежащих удалению, 
+сохранён в~массиве \lstinline|delete_occupation|. 
 Мы обходим этот список с помощью цикла \lstinline|for|, 
 чтобы с помощью SPARQL-запроса получить список людей для каждой <<подозрительной>> профессии. 
-В~отличие от листинга~\ref{lst:occupation-list}, в~листинге~\ref{lst:occupation-mistakeslist} есть переменная \lstinline|occupation|, 
+В~отличие от~листинга~\ref{lst:occupation-list} 
+в~листинге~\ref{lst:occupation-mistakeslist} есть переменная \lstinline|occupation|, 
 которая берёт значение из массива \lstinline|delete_occupation| и подставляет его в SPARQL-запрос.
 
 Теперь, если мы уверены, что информация о профессии неверна, и мы хотим ее удалить, то достаточно указать свойство, которое нужно удалить.
 
-Есть ещё одна трудность. Дело в том, что персона может и иметь несколько профессий, а удалить мы хотим только одну. 
+Есть ещё одна трудность. 
+Дело в том, что персона может иметь несколько профессий, а удалить мы хотим только одну. 
 Для удаления этой одной профессии нам нужно знать её значение. 
-Вот, как можно это сделать, см.~(листинг~\ref{lst:delete-occupation}). 
+Пример такого удаления професии по известному значению 
+показан в~листинге~\ref{lst:delete-occupation}. 
 
-\begin{fullwidth}
+
+
+\newpage
+%\begin{fullwidth}
 \begin{lstlisting}[ language=Python,
-                    caption={Корректное удаление профессии},
+                    caption={Корректное удаление значения в поле «профессия>>},
                     label=lst:delete-occupation, 
                     numbers=none
                   ]
@@ -543,8 +546,7 @@ for occupation in delete_occupation:
       ?item wdt:P106 wd:""" + occupation + """.
     } """
 
-  pages = pagegenerators.WikidataSPARQLPageGenerator(query, 
-  site=site)
+  pages = pagegenerators.WikidataSPARQLPageGenerator(query, site=site)
   for item in pages:
     print("Люди, чья профессия {occupation}: {title}".format(occupation=occupation, title=item.title()))
     item.get()
@@ -552,19 +554,38 @@ for occupation in delete_occupation:
     for valor in item.claims['P106']:
       if (str(valor.getTarget())=='[[wikidata:' + occupation + ']]'):
         print("<<<<< Удалить {occupation} от {title} >>>>>" . format(occupation=occupation, title=item.title()))
-        item.removeClaims(valor, summary=u'Удаление ошибочных значений в P106')
+        item.removeClaims(valor, summary=u'Удаление ошибочных знач. в P106')
 \end{lstlisting} 
-\end{fullwidth}
+%\end{fullwidth}
 
-В листинге~\ref{lst:delete-occupation} мы сохранили код листинга~\ref{lst:occupation-mistakeslist}, но добавили последние строки, в которых мы просматриваем значения, содержащиеся в свойстве \wdProperty{106}{}, с помощью свойства \textit{claims}. Если это совпадает с искомой профессией, мы удаляем его методом \textit{removeClaims}. При вызове этого метода нужно указать удаляемое значение и комментарий к редакторской правке (summary)\sidenote[]{Комментарии к правкам позволяют другим редактоарм быстро понять, какие изменения были внесены в страницу или объект Викиданных.}, сохраняемый в истории правок вики-страницы.
+\marginnote[-2.0cm]{
+        \MarginQuestion
+        Добавьте больше ошибочных и неправильных профессий 
+        в переменную \lstinline|delete_occupation| 
+        и запустите бота для удаления этих свойств.%
+}
 
-Обратите внимание, что такие изменения могут вызвать множество проблем с Викиданными, и администраторы могут заблокировать вашу учетную запись. Сначала внесите несколько изменений вначале и всегда проверяйте историю изменений, чтобы узнать, какая информация была изменена.
+В листинге~\ref{lst:delete-occupation} 
+мы сохранили код листинга~\ref{lst:occupation-mistakeslist}, 
+но добавили последние строки, 
+в которых просматриваем значения, содержащиеся в свойстве \wdProperty{106}{}, 
+с помощью свойства \lstinline|claims|. 
+Если это совпадает с искомой профессией, мы удаляем его методом \lstinline|removeClaims|. 
+При вызове этого метода нужно указать удаляемое значение и комментарий к редакторской правке\sidenote[]{%
+        Комментарии к правкам (или~summary) позволяют другим редакторам быстро понять, 
+        какие изменения были внесены на~страницу или в~объект Викиданных.%
+%
+}, сохраняемый в истории правок вики-страницы.
 
-\subsection{Упражнения}
 
-\begin{enumerate} 
-\item Добавьте больше ошибочных и неправильных профессий в переменную \textit{delete\_occupation} и запустите бота для удаления этих свойств.
-\end{enumerate}
+Обратите внимание, 
+что такие изменения могут вызвать множество проблем с Викиданными 
+и администраторы могут заблокировать вашу учётную запись. 
+Вначале внесите несколько изменений и всегда проверяйте историю изменений, 
+чтобы узнать, какая информация была изменена.
+
+
+
 
 
 
