@@ -81,7 +81,7 @@
     \label{answer:aircraft_manufacturers}
     Веб-сайты есть у следующих российских производителей: 
     Миг, Туполев и Сухой. 
-    Ответ на вопрос также можно получить, выполнив запрос~\ref{lst:aircraft_manufactures_lst}. 
+    Эти сайты можно получить с помощью запроса~\ref{lst:aircraft_manufactures_lst}. 
 
 \begin{lstlisting}[ 
             language=SPARQL, 
@@ -97,7 +97,7 @@ SELECT ?manufacturer ?manufacturerLabel ?site WHERE
   SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
 }
 \end{lstlisting}
-\footnotetext{Получено 14 авиазаводов в России с веб-сайтами на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/t4H}{https://w.wiki/t4H} }
+\footnotetext{Получено: 14 авиазаводов в России с веб-сайтами на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/t4H}{https://w.wiki/t4H}.}
     
     \small{\AnswerBackref Вопрос на с.~\pageref{lst:lang2}.}
 \end{task}
@@ -289,7 +289,7 @@ SERVICE wikibase:label{bd:serviceParam wikibase:language "ru, en"}
 
 \begin{task}
     \label{answer:cities_geographic_objects}
-    \newthought{В честь географических объектов} были названы 
+    В честь географических объектов были названы 
     Тула (\href{https://w.wiki/oLJ}{река Тулица}), 
     Курильск (\href{https://w.wiki/oLH}{Курильские острова}) 
     и Вологда (\href{https://w.wiki/oLG}{река Вологда}). 
@@ -305,8 +305,8 @@ SERVICE wikibase:label{bd:serviceParam wikibase:language "ru, en"}
                     ]
 SELECT ?city ?cityLabel ?namedAfterLabel ?whatIsItLabel WHERE {
     ?city wdt:P31/wdt:P279* wd:Q7930989. # "city/town" subclasses
-    ?city wdt:P138 ?namedAfter.          # with filled property "named after"
-    ?namedAfter wdt:P31 ?whatIsIt.       # which is instance of
+    ?city wdt:P138 ?namedAfter.      # with filled property "named after"
+    ?namedAfter wdt:P31 ?whatIsIt.   # which is instance of
     FILTER(?city = wd:Q1341 || ?city = wd:Q2770 || ?city = wd:Q5655 ||
            ?city = wd:Q156046 || ?city = wd:Q1957 || ?city = wd:Q175651)
     SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
@@ -326,24 +326,27 @@ SELECT ?city ?cityLabel ?namedAfterLabel ?whatIsItLabel WHERE {
 
 \begin{task}
     \label{answer:cities_over_400_age}
-    \newthought{Более 400 лет назад} были основаны Казань (1005 год), Москва (1147), Астрахань (1558), Воронеж (1586) и Самара (1586). Самым молодым городом оказался Саров, основанный в 1691 году. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:cities_over_400_age}). Значение свойства \href{https://www.wikidata.org/wiki/Property:P571}{inception (P571)} содержит дату основания города.
+    Более 400 лет назад были основаны Казань (1005 год), Москва (1147), 
+    Астрахань (1558), Воронеж (1586) и Самара (1586). 
+    Самым молодым городом оказался Саров, основанный в 1691 году. 
+    Ответ на вопрос можно получить, выполнив запрос~\ref{lst:cities_over_400_age}. 
 
     
-    \index{SPARQL!FILTER!Города, основанные более 400 лет назад}
-    \index{SPARQL!YEAR!Города, основанные более 400 лет назад}
+    \index{SPARQL!FILTER!Дата основания городов}
+    \index{SPARQL!YEAR!Дата основания городов}
     \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/t5u}{Города, основанные более 400 лет назад}\protect\footnotemark},
+                    caption={\href{https://w.wiki/t5u}{Города, основанные более 400 лет назад в России}\protect\footnotemark},
                     label=lst:cities_over_400_age,
                     xleftmargin=18pt, 
                     ]
 SELECT ?city ?cityLabel (YEAR(?inceptionDate) AS ?year) WHERE {
-	?city wdt:P31/wdt:P279* wd:Q7930989. # "city/town" subclasses
-	?city wdt:P17 wd:Q159. # belonging to Russia
-	?city wdt:P571 ?inceptionDate. # with filled property "inception"  
-	FILTER (YEAR(?inceptionDate) < 1620). # 2020 - 400 years
-	FILTER(?city = wd:Q649 || ?city = wd:Q193522 || ?city = wd:Q900 ||
-		?city = wd:Q3927 || ?city = wd:Q894 || ?city = wd:Q3426)
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
+    ?city wdt:P31/wdt:P279* wd:Q7930989. # "city/town" subclasses
+    ?city wdt:P17 wd:Q159. # city in Russia
+    ?city wdt:P571 ?inceptionDate. # with filled property "inception"  
+    FILTER (YEAR(?inceptionDate) < 1620). # 2020 - 400 years
+    FILTER(?city = wd:Q649 || ?city = wd:Q193522 || ?city = wd:Q900 ||
+           ?city = wd:Q3927 || ?city = wd:Q894 || ?city = wd:Q3426)
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
 GROUP BY ?city ?cityLabel ?inceptionDate
 ORDER BY ASC(?year)
@@ -351,47 +354,54 @@ ORDER BY ASC(?year)
 \footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/t5u}{https://w.wiki/t5u}.} 
 
 Подумайте, какие строки в~запросе~\ref{lst:cities_over_400_age} нужно закомментировать, 
-    чтобы получить список всех отечественных городов, основанных более 400 лет назад?
-	Чтобы получить список всех городов мира, основанных в те же годы?
+    чтобы получить список всех отечественных городов 
+    список городов всего мира, основанных более 400 лет назад? 
 
-\marginnote[0.5cm]{
-Может ли в листинге \ref{lst:cities_over_400_age} переменная ?year принимать отрицательные значения? Почему?
-}
-
-
+Как вы думаете, может ли в запросе~\ref{lst:cities_over_400_age} 
+    переменная \lstinline|?year| принимать отрицательные значения? 
+    Если <<да>>, то почему?
 
 
+    Значение свойства 
+    \wdProperty{571}{inception} 
+    содержит дату основания города.
 У объекта Викиданных \wdqName{Москва}{649} 
-    свойство \href{https://www.wikidata.org/wiki/Property:P571}{inception} 
-    принимает значение <<unknown value>> (неизвестное значение) 
+    свойство inception 
+    принимает значение unknown value (неизвестное значение) 
     с квалификатором <<самое позднее упоминание>> 
-    (\href{https://www.wikidata.org/wiki/Property:P1326}{latest date}) равным 4 апреля 1147 года. 
-    Вероятно, по этой причине в листинге \ref{lst:cities_over_400_age} 
+    (\wdProperty{1326}{latest date}), равным 4~апреля 1147 года. 
+    Вероятно, по этой причине в~запросе~\ref{lst:cities_over_400_age} 
     переменная \lstinline|?year| принимает для Москвы пустое значение, 
     и Москва ошибочно не попадает в список правильных ответов. 
-    Таким образом, чтобы извлечь 1147 год, необходимо доработать имеющийся скрипт, что мы оставим читателю. 
+    Таким образом, чтобы извлечь 1147 год, 
+    необходимо доработать имеющийся скрипт, что мы и предоставим читателю. 
 
 \marginnote[-1.0cm]{%
-О типах данных и наборах свойств, связанных с датой и временем, см.~\href{https://w.wiki/NdT}{Help:Dates}.
+О типах данных и наборах свойств, связанных с датой и временем, 
+    см.~справку на~странице Викиданных \href{https://w.wiki/NdT}{Help:Dates}.
 }
-
 
     \small{\AnswerBackref Вопрос на с.~\pageref{fig:city_relation_Russia_S_N}.}
 \end{task}
 
+
 \begin{task}
     \label{answer:cities_flags}
-    \newthought{Флаг, изображенный на рис. \ref{fig:flag_question_city}} принадлежит городу \href{https://w.wiki/oLF}{Карабулак}. Ответ на вопрос также можно получить, выполнив следующий SPARQL-запрос (листинг \ref{lst:cities_flags}). Значение свойства \href{https://www.wikidata.org/wiki/Property:P41}{flag image (P41)} содержит изображение флага города.
+    Флаг, изображенный на рисунке, 
+    принадлежит городу \href{https://w.wiki/oLF}{Карабулак}. 
+    Ответ на вопрос можно получить с помощью запроса~\ref{lst:cities_flags}. 
+    Значение свойства \wdProperty{41}{flag image} 
+    содержит изображение флага города.
     
     \index{SPARQL!FILTER!Флаги городов}
     \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/t5q}{Флаги городов}\protect\footnotemark},
+                    caption={\href{https://w.wiki/t5q}{Флаги городов в России}\protect\footnotemark},
                     label=lst:cities_flags
                     ]
 #defaultView:ImageGrid
 SELECT ?city ?cityLabel ?flag ?countryLabel WHERE {
 	?city wdt:P31/wdt:P279* wd:Q7930989. # "city/town" subclasses
-	?city wdt:P17 wd:Q159. # belonging to Russia	
+	?city wdt:P17 wd:Q159. # city in Russia	
 	?city wdt:P41 ?flag. # with filled property "flag"
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
@@ -411,14 +421,18 @@ SELECT ?city ?cityLabel ?flag ?countryLabel WHERE {
 \begin{task}
 	\label{answer:administrative_territorial}
 	\newthought{ 
-		Речь идет о количестве административно-территориальных единиц в каждой из стран. 
+		Речь идёт о количестве 
+        административно-территориальных единиц в каждой из стран. 
 		%Количество административно-территориальных единиц у \href{https://w.wiki/mzN}{Латвии}  119, у \href{https://w.wiki/mzP}{Таиланда} 77, у \href{https://w.wiki/mzR}{Дании} 5, а у \href{https://w.wiki/myt}{России} 81. 
-		Ответ на вопрос можно проверить, выполнив следующий SPARQL-запрос (листинг \ref{lst:administrative_territorial_entity}).}
+		Количество административно-территориальных единиц по~странам 
+        можно получить с~помощью запроса~\ref{lst:administrative_territorial_entity}.}
 	
 \begin{lstlisting}[ language=SPARQL, 
 	caption={\href{https://w.wiki/tiN}{
 	Список стран, упорядоченных по количеству административно-территориальных единиц}\protect\footnotemark},
-	label=lst:administrative_territorial_entity	]
+	label=lst:administrative_territorial_entity,
+    numbers=none,
+    ]
 # Countries sorted by number of administrative territories
 SELECT ?country ?countryLabel  (count(*) as ?count) WHERE
 {
@@ -436,94 +450,77 @@ ORDER BY DESC(?count)
 
 
 
-\newpage
 \begin{task}
 	\label{answer:old_countries}
-	\newthought{% 
-Результатом работы скрипта (листинг \ref{lst:old_countries}) будет список империй и небольших стран, исчезнувших с лица земли. Две с половиной тысячи лет и больше просуществовали только семь государств: \href{https://w.wiki/vAT}{Угарит} (4810 лет), \href{https://w.wiki/vAU}{Тамла} (3740 лет), \href{https://w.wiki/vAX}{Древний Египет} (3544 лет), \href{https://w.wiki/vAY}{Майя} (3521 год), \href{https://w.wiki/vAZ}{Идалион} (2550 год), \href{https://w.wiki/vAb}{Мероитское царство} (2529 лет) и город-государство \href{https://w.wiki/vAf}{Дильмун} (2500 лет).
-	}
-\index{SPARQL!FILTER EXISTS!Страны, отсортированных по дате основания}
-	\begin{lstlisting}[ language=SPARQL, 
-	caption={\href{https://w.wiki/tYc}{
-	Список исторических стран, отсортированных по дате основания}\protect\footnotemark},
-	label=lst:old_countries	]
-	# List of historical countries sorted by inception date
-	SELECT ?country ?countryLabel 
-	(MIN(?start) AS ?min_year)
-	(MAX(?end)   AS ?max_year) 
-	(?max_year - ?min_year as ?age)
-	WHERE
-	{
-	?country p:P31 [ps:P31 wd:Q3024240]. # instance of a historical country
+Результатом выполнения запроса~\ref{lst:old_countries} будет список империй и небольших стран, 
+    исчезнувших с лица земли. 
+    Две с половиной тысячи лет и больше просуществовали только семь государств: 
+    \href{https://w.wiki/vAT}{Угарит} (4810 лет), 
+    \href{https://w.wiki/vAU}{Тамла} (3740 лет), 
+    \href{https://w.wiki/vAX}{Древний Египет} (3544 лет), 
+    \href{https://w.wiki/vAY}{Майя} (3521 год), 
+    \href{https://w.wiki/vAZ}{Идалион} (2550 год), 
+    \href{https://w.wiki/vAb}{Мероитское царство} (2529 лет) 
+    и город-государство \href{https://w.wiki/vAf}{Дильмун} (2500 лет).
+
+
+\newpage
+\index{SPARQL!FILTER EXISTS!Страны, упорядоченные по дате основания}
+\begin{lstlisting}[ 
+        language=SPARQL, 
+	    caption={\href{https://w.wiki/tYc}{Список исторических стран, упорядоченных по дате основания}\protect\footnotemark},
+	    label=lst:old_countries,
+        numbers=none,
+        ]
+# List of historical countries sorted by inception date
+SELECT ?country ?countryLabel 
+(MIN(?start) AS ?min_year)
+(MAX(?end)   AS ?max_year) 
+(?max_year - ?min_year as ?age) WHERE
+{
+    ?country p:P31 [ps:P31 wd:Q3024240]. # instance of a historical country
 	
-	FILTER EXISTS {?country wdt:P571 []}.# skip countries without inception date
-	FILTER EXISTS {?country wdt:P576 []}.# skip countries without dissolution date
+    FILTER EXISTS {?country wdt:P571 []}.# skip countries without inception date
+    FILTER EXISTS {?country wdt:P576 []}.# skip countries without dissolution date
 	
-	OPTIONAL {?country p:P571 [ps:P571 ?inception].}# any inception date
-	OPTIONAL {?country p:P576 [ps:P576 ?dissolution].}# any dissolution date
+    OPTIONAL {?country p:P571 [ps:P571 ?inception].}# any inception date
+    OPTIONAL {?country p:P576 [ps:P576 ?dissolution].}# any dissolution date
 	
-	BIND(YEAR(?inception) AS ?start)
-	BIND(YEAR(?dissolution) AS ?end)  
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,[AUTO_LANGUAGE],en" }
-	}
-	GROUP BY ?country ?countryLabel ?min_year ?max_year ?age
-	ORDER BY DESC(?age)
-	\end{lstlisting}
-	\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/tYc}{https://w.wiki/tYc}.}
+    BIND(YEAR(?inception) AS ?start)
+    BIND(YEAR(?dissolution) AS ?end)  
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en" }
+}
+GROUP BY ?country ?countryLabel ?min_year ?max_year ?age
+ORDER BY DESC(?age)
+\end{lstlisting}
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/tYc}{https://w.wiki/tYc}.}
 	
 	\small{\AnswerBackref Вопрос на с.~\pageref{lst:List_of_historical_countries}.}
 \end{task}
 
 
-
-
-\newpage
 \begin{task}
 \label{answer:population_density}
 %
-\begin{marginfigure}[1\baselineskip]
-\centering\includegraphics[width=3cm]{./chapter/country/256px-Flag_of_Mongolia.png}%
-\caption[Флаг Монголии.]{Флаг \href{https://w.wiki/mze}{Монголии}.}%
-\label{fig:flag_mongolia}%
-\end{marginfigure}
-
-\begin{marginfigure}[1\baselineskip]
-\centering\includegraphics[width=3cm]{./chapter/country/256px-Flag_of_Israel.png}
-\caption[Флаг Израиля.]{Флаг \href{https://w.wiki/mzh}{Израиля}.}%
-\label{fig:flag_israel}%
-\end{marginfigure}
-
-\begin{marginfigure}[1\baselineskip]
-\centering\includegraphics[width=3cm]{./chapter/country/256px-Flag_of_South_Korea.png}
-\caption[Флаг Республики Кореи.]{Флаг \href{https://w.wiki/mzc}{Республики Кореи}.}%
-\label{fig:flag_kor}%
-\end{marginfigure}
-
-\begin{marginfigure}[1\baselineskip]
-\centering{%
-\setlength{\fboxsep}{0pt}%
-\setlength{\fboxrule}{1pt}%
-\fcolorbox{gray}{gray}{\includegraphics[width=3cm]{./chapter/country/256px-Flag_of_Singapore.png}}%
-}
-\caption[Флаг Сингапура.]{Флаг \href{https://w.wiki/mzd}{Cингапура}.}%
-\label{fig:flag_singapore}%
-\end{marginfigure}
-%
-\newthought{Площадь Израиля составляет \num{20770} км\begin{math}^2\end{math}, население  \num{9.09} млн человек, площадь Монголии составляет  \num{1566000} км\begin{math}^2\end{math}, население  \num{3.08} млн человек, площадь Республики Кореи составляет \num{100295} км\begin{math}^2\end{math}, население  \num{51.47} млн человек, а площадь Сингапура~--- \num{719.1} км\begin{math}^2\end{math}, население  \num{5.89} млн человек. Таким образом, по возрастанию плотности населения страны будут упорядочены так:
+Площадь Израиля составляет \num{20770} км$^2$ с~населением \num{9.09} млн человек, 
+    площадь Монголии~--- \num{1566000} км$^2$ с~населением \num{3.08} млн человек, 
+    площадь Республики Корея~--- \num{100295}~км$^2$ с населением \num{51.47} млн человек, 
+    а~площадь Сингапура~--- \num{719.1} км$^2$ с населением \num{5.89} млн человек. 
+    Таким образом, по возрастанию плотности населения страны будут упорядочены так:
 		\begin{enumerate}
-			\item Монголия (\num{1.96} человек на км\begin{math}^2\end{math}), (рис.~\ref{fig:flag_mongolia});
-			\item Израиль (\num{437.79} человек на км\begin{math}^2\end{math}), (рис.~\ref{fig:flag_israel});
-			\item Корея (\num{513.15} человек на км\begin{math}^2\end{math}), (рис.~\ref{fig:flag_kor});
-			\item Сингапур (\num{8189.30} человек на км\begin{math}^2\end{math}), (рис.~\ref{fig:flag_singapore}).
-		\end{enumerate}	
-	}
+            \item Монголия (\num{1.96} человек на км$^2$);
+			\item Израиль (\num{437.79} человек на км$^2$);
+			\item Корея (\num{513.15} человек на км$^2$);
+			\item Сингапур (\num{8189.30} человек на км$^2$).
+		\end{enumerate}
 	
-Ответ на вопрос можно проверить, выполнив запрос~\ref{lst:population_density}.
+Ответ на вопрос можно получить с помощью запроса~\ref{lst:population_density}.
 	
 	\begin{lstlisting}[ language=SPARQL, 
 	caption={\href{https://w.wiki/tkD}{
 	Плотность населения в странах Азии}\protect\footnotemark},
-	label=lst:population_density
+	label=lst:population_density,
+    numbers=none,
 	]
 # Population density in Asian countries
 SELECT ?country ?countryLabel ?flag ?area ?population 
