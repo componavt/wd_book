@@ -173,7 +173,7 @@ ORDER BY ?min_year
 Такие некомплектные объекты Викиданных могли быть созданы по ошибке или могут содержать какие-то дефекты. 
 Можно посмотреть историю правок объекта и обратиться с~вопросом к~редакторам этой статьи. 
 Подробнее о том, что такое <<история правок>> в~вики-проектах 
-и как с ней работать см. в~учебнике\sidenote{\fullcite{Krizhanovsky2015}.}.
+и как~с~ней работать см. в~учебнике\sidenote{\fullcite{Krizhanovsky2015}.}.
 
 \begin{lstlisting}[ language=SPARQL, 
     caption={\href{https://w.wiki/k6q}{Страны с незаполненной датой основания}\protect\footnotemark},
@@ -188,7 +188,7 @@ SELECT ?country ?countryLabel WHERE
     SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
 \end{lstlisting}
-\footnotetext{Получено: 100 стран на 2017 год и 7 стран на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/k6q}{https://w.wiki/k6q}.}
+\footnotetext{Получено: 100 стран на 2017 год и 7 стран на 2020 год. Ссылка на~SPARQL-запрос: \href{https://w.wiki/k6q}{https://w.wiki/k6q}.}
 
 
 
@@ -236,11 +236,13 @@ SELECT ?country ?countryLabel WHERE
 существует 208 стран.
 
 
-\newpage
 %%%%%%%%%%%%%%%% Упражнение 3 %%%%%%%%%%%%%%%%
-\marginnote{%
+\marginnote[\baselineskip]
+{%
     \MarginQuestion
     Определите по флагам страны Азии и перечислите их\\в порядке возрастания плотности населения. 
+
+\vspace{3pt}
 %    \centering
 
   \begin{tabular}{ c  c }
@@ -258,6 +260,8 @@ SELECT ?country ?countryLabel WHERE
  3 & 4  \\
 \end{tabular}
 
+
+    \vspace{3pt}
     См. ответ~\ref{answer:population_density} на с.~\pageref{answer:population_density}.
 }
 
@@ -393,8 +397,8 @@ WHERE
 в итоговый список не попали страны, имеющие этнохоронимы на русском языке.
 
 \newpage
-\index{SPARQL!FILTER!Страны с незаполненными этнохоронимами на русском языке}
-\index{SPARQL!MINUS!Страны с незаполненными этнохоронимами на русском языке}
+\index{SPARQL!FILTER!Страны без русских этнохоронимов}
+\index{SPARQL!MINUS!Страны без русских этнохоронимов}
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/teo}{Страны с незаполненными этнохоронимами на русском языке}\protect\footnotemark},
 label=lst:without_demonym, 
@@ -433,8 +437,7 @@ GROUP BY ?country ?countryLabel
     label=lst:count_demonym, 
     numbers=none,
 ]
-SELECT  ?country ?countryLabel (COUNT(*) AS ?demonyms) 
-WHERE
+SELECT ?country ?countryLabel (COUNT(*) AS ?demonyms) WHERE
 {
   ?country p:P31 [ps:P31 wd:Q6256]; # instance of a country
            p:P1549 [ps:P1549 []].   # has demonym
@@ -472,7 +475,7 @@ ORDER BY DESC(?demonyms)
     Какая строка в запросе~\ref{lst:form_of_government} является лишней? То есть её можно удалить и~результат не~изменится. 
     Речь идёт не~о~первой строке с~комментарием.%
 }
-\index{График!BubbleChart!Число стран с разными формами правления}
+\index{График!BubbleChart!Страны с разными формами правления}
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/5BVh}{Число стран с разными формами правления}\protect\footnotemark},
 label=lst:form_of_government, 

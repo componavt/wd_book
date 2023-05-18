@@ -28,7 +28,7 @@
     \includegraphics[width=2cm]{./chapter/human_settlement/Aznakeevskii_rayon_gerb.png}
 
     См. ответ~\protect\ref{answer:flag_human_settlements} на с.~\protect\pageref{answer:flag_human_settlements}.
-%  \label{fig:flag_question_human_settlements1}%
+    \label{fig:flag_question_human_settlements1}%
 }
 
 На 2017 год Википедия описывала примерно половину населённых пунктов (75 тыс.), 
@@ -57,7 +57,7 @@
     \includegraphics[width=2cm]{./chapter/human_settlement/Coat_of_Arms_of_Asbest_(Sverdlovsk_oblast).png}
 
     См. ответ~\protect\ref{answer:flag_human_settlements} на с.~\protect\pageref{answer:flag_human_settlements}.%
-%  \label{fig:flag_question_human_settlements2}%
+    \label{fig:flag_question_human_settlements2}%
 }
 
 Построим список всех населённых пунктов с помощью запроса~\ref{lst:human-settlement1}.
@@ -126,8 +126,8 @@ SELECT (COUNT(?hum) AS ?count) WHERE {
 
 %\begin{minipage}{\linewidth}
 %\marginnote[0cm]{Получена \num{161} страна в 2017 году и \num{213} стран в 2021 году. SPARQL-запрос: \href{https://w.wiki/4d9M}{https://w.wiki/4d9M}}
-\index{SPARQL!SUM!Список стран по суммарному количеству населения, проживающего в <<населённых пунктах>>}
-\index{SPARQL!GROUP BY!Список стран по суммарному количеству населения, проживающего в <<населённых пунктах>>}
+\index{SPARQL!SUM!Жителей в населённых пунктах по странам}
+\index{SPARQL!GROUP BY!Жителей в населённых пунктах по странам}
 \lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
     caption={\href{https://w.wiki/4d9M}{Список стран по суммарному количеству населения, проживающего в <<населённых пунктах>>}\protect\footnotemark},
@@ -225,13 +225,27 @@ SPARQL-запрос для~построения такой диаграммы д
 
 Населённый пункт~--- это общее название мест с постоянными жителями\autocite{Humansettlements_Dictionary}. 
 По версии редакторов Викиданных в понятие <<насёленный пункт>> входят города, сёла, деревни 
-и другие\marginnote[4pt]{Полный список можно увидеть в разделе <<Cписок классов, сопутствующих ``населённому пункту'' в свойстве ``экземпляр''>> на с.~\pageref{human-settlement:tag1}.}.
+и другие\footnote{%
+    Полный список можно увидеть в разделе 
+    <<Cписок классов, сопутствующих ``населённому пункту'' в свойстве ``экземпляр''>> 
+    на~с.~\pageref{human-settlement:tag1}.%
+}. 
 Точной информации о количестве населённых пунктов в мире мы не нашли. 
 Поэтому проверим полноту тех населённых пунктов, которые есть в Викиданных 
 и которые использовались для решения задачи. 
 В~задачах выше мы использовали свойства <<\wdProperty{1082}{численность населения}>> и 
 <<\wdProperty{17}{государство}>> (привязка к стране). 
 Исходя из этого, проверку полноты разделим на подзадачи: 
+%%%%%%%%%%%%%%%% Упражнение 4 %%%%%%%%%%%%%%%%
+\marginnote[-2\baselineskip]{%
+    \MarginQuestion Герб населённого пункта какой страны изображён?
+
+    \includegraphics[width=2cm]{./chapter/human_settlement/Loučovice_CoA.jpg}
+
+    См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.%
+    \label{fig:flag_question_human_settlements3}%
+}% eo marginnote
+%%%%%
 \begin{enumerate} 
   \item Проверка заполненности свойства <<численность населения>>.
   \item Проверка принадлежности к государству.
@@ -274,23 +288,14 @@ SPARQL-запрос для~построения такой диаграммы д
 по определению будут неполными даже относительно тех пунктов, которые уже есть в Викиданных. 
 
 
-%%%%%%%%%%%%%%%% Упражнение 4 %%%%%%%%%%%%%%%%
-\marginnote{%[-\baselineskip]{%
-    \MarginQuestion Герб населённого пункта какой страны изображён?
 
-    \includegraphics[width=2cm]{./chapter/human_settlement/Loučovice_CoA.jpg}
-
-    См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.%
-%  \label{fig:flag_question_human_settlements3}%
-}% eo marginnote
-%%%%%
 \section{Доля населения страны, проживающего в <<населённых пунктах>>}
 
 Построим список стран, 
 упорядоченный по доли населения (в~процентах), проживающей в \href{http://www.wikidata.org/entity/Q486972}{населённых пунктах}, относительно числа всех жителей страны (листинг~\ref{lst:human-settlement6}).
 
 
-\index{SPARQL!SUM!Соотношение количества людей, проживающих в населённых пунктах, к~количеству всех людей в стране}
+\index{SPARQL!SUM!Доля людей в населённых пунктах}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/4dE3}{Соотношение количества людей, проживающих в населённых пунктах, к количеству всех людей в стране}\protect\footnotemark},
                     label=lst:human-settlement6,
@@ -318,7 +323,7 @@ ORDER BY ?proportionPopulation
     \includegraphics[width=2cm]{./chapter/human_settlement/POL_Otynia_COA.png}
     
     См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.%
-%  \label{fig:flag_question_human_settlements4}%
+    \label{fig:flag_question_human_settlements4}%
 } 
 \footnotetext{Получено: \num{158} результатов в 2017 году и \num{206} результатов в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4dE3}{https://w.wiki/4dE3}.}
 
@@ -403,7 +408,7 @@ ORDER BY ?proportionPopulation
     \includegraphics[width=2cm]{./chapter/human_settlement/Coat_of_Arms_of_Azov.png}
 
     См. ответ~\ref{answer:flag_human_settlements} на с.~\pageref{answer:flag_human_settlements}.%
-%  \label{fig:flag_question_human_settlements5}%
+    \label{fig:flag_question_human_settlements5}%
 } 
 Будем называть <<классом>> такие объекты Викиданных, 
 которые связаны с каким-либо объектом Викиданных посредством свойства \wdProperty{31}{экземпляр}. 
@@ -533,9 +538,9 @@ ORDER BY DESC (?sumHum)
 
 \newpage
 %\begin{fullwidth}
-\index{SPARQL!COUNT!Cписок классов, сопутствующих <<населённому пункту>> в свойстве <<экземпляр>>, без исторических объектов}
-\index{SPARQL!FILTER!Cписок классов, сопутствующих <<населённому пункту>> в свойстве <<экземпляр>>, без исторических объектов}
-\index{SPARQL!MINUS!Cписок классов, сопутствующих <<населённому пункту>> в свойстве <<экземпляр>>, без исторических объектов}
+\index{SPARQL!COUNT!Классы, сопутствующие н. п. в свойстве <<экземпляр>>}
+\index{SPARQL!FILTER!Классы, сопутствующие н. п. в свойстве <<экземпляр>>}
+\index{SPARQL!MINUS!Классы, сопутствующие н. п. в свойстве <<экземпляр>>}
 \lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
     caption={\href{https://w.wiki/5AdW}{Cписок классов, сопутствующих <<населённому пункту>> в свойстве <<экземпляр>>,\\без~исторических объектов}\protect\footnotemark},
@@ -599,7 +604,7 @@ ORDER BY DESC (?sumHum)
 на с.~\pageref{lst:anime_no_pub_date}.%
 %
 }% eo marginnote
-\index{SPARQL!COUNT!Список классов поселений и их количество для объектов в России, имеющих свойство <<численность населения>>}
+\index{SPARQL!COUNT!Классы поселений с населением}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/4zPi}{Список классов поселений и их количество для объектов, имеющих свойство <<численность населения>> в России}\protect\footnotemark},
                     label=lst:human-settlement-noname-count,
@@ -681,8 +686,9 @@ ORDER BY DESC (?count)
 Выберем из табл.~\ref{tab:human-settlement-Russia} строки без подсветки, 
 то есть классы под номерами 1, 2, 3, 4, 7, 11 и 13. 
 В~дальнейшем комбинацию этих классов будем называть \emph{сельские поселения}. 
-Подсчитаем, сколько всего людей живёт в таких поселениях в России. 
-Получилось \num{55,6} млн человек\footnote{%
+%Подсчитаем, сколько всего людей живёт в таких поселениях в России. 
+Подсчёты показывают, что в таких поселениях в России живёт 
+\num{55,6} млн человек\footnote{%
 Ссылка на SPARQL-запрос: \url{https://w.wiki/4$D6}.%
 }. 
 
@@ -717,7 +723,7 @@ GROUP BY ?village ?villageLabel
 
 Набор классов под номерами 8, 9, 20 и 55 в табл.~\ref{tab:human-settlement-Russia} 
 назовём \emph{городскими поселениями}. 
-Подсчитаем суммарное число жителей в~городских поселениях России 
+Подсчитаем общее число жителей в~городских поселениях России 
 с~помощью запроса~\ref{lst:human-settlement-count-total-city}. 
 
 
@@ -737,7 +743,7 @@ SELECT (SUM(?population) AS ?count) WHERE {
 }
 \end{lstlisting}%
 \footnotetext{Число жителей в городских поселениях России в 2022 году составило \num{116,1}~млн человек. 
-Ссылка на SPARQL-запрос: \url{https://w.wiki/4$D9}.}
+Ссылка на SPARQL-запрос: \href{https://w.wiki/4$D9}{https://w.wiki/4\$D9}.}
 
 Суммарное число жителей по каждому из классов \emph{городских поселений} 
 вычисляется аналогично запросу~\ref{lst:human-settlement-village-count}. 
@@ -792,7 +798,7 @@ a~если~входят, то не считать их население пов
 или в терминологии вики-проектов~--- персоной. 
 
 
-\index{SPARQL!COUNT!Список профессий или должностей граждан России}
+\index{SPARQL!COUNT!Профессии граждан России}
 \lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/4daC}{Список профессий или должностей граждан России}\protect\footnotemark},
@@ -860,7 +866,7 @@ ORDER BY ?count
 Поэтому удаление команды \lstinline|DISTINCT| почти удваивает число отечественных учёных. 
 
 %# Count of peoples in Russia with academic degree
-\index{SPARQL!COUNT!Количество людей из России с учёной степенью}
+\index{SPARQL!COUNT!Количество науч. сотрудников}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/537r}{Количество людей из России с учёной степенью}\protect\footnotemark},
                     label=lst:human-settlement14,
@@ -971,7 +977,7 @@ SELECT DISTINCT ?hum ?humLabel WHERE {
 
 \newpage
 %\begin{fullwidth}
-    \index{График!BarChart!Диаграмма рождений отечественных учёных, родившихся в сёлах для нескольких профессий}
+    \index{График!BarChart!Рождения отечественных учёных в сёлах}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/55VK}{Построение диаграммы отечественных учёных, родившихся в сёлах,\\с разбивкой по десятилетиям и занятиям}\protect\footnotemark},
                     label=lst:scholar-village-profession,
@@ -1038,7 +1044,7 @@ ORDER BY ?year_lapse
 
 
 %\begin{fullwidth}
-    \index{График!BarChart!Диаграмма рождений отечественных учёных, родившихся в сёлах}
+    \index{График!BarChart!Отечественные учёные, родившихся в сёлах}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/55WY}{Построение диаграммы отечественных учёных \emph{всех направлений}, родившихся в~сёлах с~разбивкой по~десятилетиям}\protect\footnotemark},
                     label=lst:scholar-village,

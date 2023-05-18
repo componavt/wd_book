@@ -36,8 +36,7 @@
 \index{SPARQL!SERVICE!Список кораблей и станций}
 \begin{lstlisting}[ language=SPARQL, numbers=none, caption={{\href{https://w.wiki/4d4f}{Список кораблей и станций}}\protect\footnotemark}, label=lst:spaceships, ]
 # List of spacecraft (Q40218) and space station (Q25956)
-SELECT  ?s ?sLabel ?typeLabel WHERE
-{
+SELECT  ?s ?sLabel ?typeLabel WHERE {
   VALUES ?type {wd:Q40218 wd:Q25956}
   ?s wdt:P31 ?type.  # Selecting the type of object
   SERVICE wikibase:label {bd:serviceParam wikibase:language"ru,en"}
@@ -56,7 +55,7 @@ SELECT  ?s ?sLabel ?typeLabel WHERE
 имеющий 30 свойств\autocite{spacecraftProWD}. 
 При этом всего по одному свойству имеют такие корабли, как\autocite{spacecraftProWD}:
 \begin{compactitemize}
-    \item \wdqName{Europa Astrobiology Lander}{10491365}; 
+    \item \wdqName{Europa Astrobiology Lander}{10491365}, 
     \item \wdqName{Project Orbiter}{6514453}, 
     \item \wdqName{LRK}{5961734}, 
     \item \wdqName{EarthForce One}{5327028}\sidenote[][]{%
@@ -112,8 +111,8 @@ SELECT  ?spacecraft  ?spacecraftLabel WHERE
   SERVICE wikibase:label {bd:serviceParam wikibase:language "ru,en"}
 }
 \end{lstlisting}
-\footnotetext{Получено: три отечественных корабля и станции 
-в 2017 году и 25~--- в 2021 году. SPARQL-запрос: \href{https://w.wiki/4BbY}{https://w.wiki/4d9c}.}
+\footnotetext{Получено: 3 отечественных корабля и станции 
+в~2017~году и 25~--- в~2021 году. SPARQL-запрос: \href{https://w.wiki/4BbY}{https://w.wiki/4d9c}.}
 
 
 
@@ -170,7 +169,7 @@ SELECT  ?spacecraft  ?spacecraftLabel WHERE
 
 Если бы в запросе~\ref{lst:launchesRussia5years} 
 вместо переменной \lstinline|?lapse| оставалась~--- \lstinline|?year| (строки 3 и 12), 
-то мы получили бы на рис.~\ref{fig:launchesRussia5years} 
+то~мы~получили бы на рис.~\ref{fig:launchesRussia5years} 
 число запусков за каждый год. 
 Благодаря функции округления \mbox{\lstinline|FLOOR()|} 
 и оператору \lstinline|GROUP| выполняется группировка%
@@ -181,10 +180,10 @@ SELECT  ?spacecraft  ?spacecraftLabel WHERE
         запущенные в космос объекты группируются командой: 
         \mbox{\lstinline|GROUP BY ?lapse|.} 
         То, что группировка идёт именно по~пятилеткам, а~не,~например шестилеткам, 
-        определяется в строке 12, где переменная \lstinline|?year| делится на 5, округляется и умножается на 5.%
+        определяется в строке 12, где переменная \lstinline|?year| делится на 5, округляется, умножается на 5.%
 } 
  кораблей, запущенных в~течение пяти лет. 
-При~этом~в~переменную \lstinline|?quantity| записывается число этих объектов за пятилетку, 
+При~этом~в~переменную \lstinline|?quantity| записывается число этих объектов за~пятилетку, 
 подсчитанное с помощью функции \lstinline|COUNT()|.
 
 Для представления результатов в виде столбчатой диаграммы используется стиль отображения BarChart 
@@ -194,7 +193,7 @@ SELECT  ?spacecraft  ?spacecraftLabel WHERE
 
 
 \begin{figure*}[h!]
-    \index{График!BarChart!Количетво запусков космических кораблей в СССР и России каждые 5 лет}
+    \index{График!BarChart!Запуски космических кораблей в России}
     \includegraphics[width=\linewidth]{graphics/chapter/spacecraft_space_station/Visualization of the number of spacecraft launches in USSR and Russia per 5 years 2022.png}
     \caption[График запусков космических кораблей в СССР и России, 2022 год.]{Диаграмма количества запусков космических кораблей в СССР и России по пятилеткам}%
     \label{fig:launchesRussia5years}%
@@ -235,14 +234,14 @@ SELECT  ?spacecraft  ?spacecraftLabel WHERE
         См. ответ~\ref{answer:launches_USSR} на с.~\pageref{answer:launches_USSR}.%
 }
 
-\index{SPARQL!STR!Запуски космических кораблей в СССР и России}
-\index{SPARQL!BIND!Запуски космических кораблей в СССР и России}
-\index{SPARQL!YEAR!Запуски космических кораблей в СССР и России}
-\index{SPARQL!FLOOR!Запуски космических кораблей в СССР и России}
-\index{SPARQL!UNION!Запуски космических кораблей в СССР и России}
-\index{SPARQL!COUNT!Запуски космических кораблей в СССР и России}
-\index{SPARQL!GROUP BY!Запуски космических кораблей в СССР и России}
-\index{SPARQL!ORDER BY!Запуски космических кораблей в СССР и России}
+\index{SPARQL!STR!Запуски космических кораблей в России}
+\index{SPARQL!BIND!Запуски космических кораблей в России}
+\index{SPARQL!YEAR!Запуски космических кораблей в России}
+\index{SPARQL!FLOOR!Запуски космических кораблей в России}
+\index{SPARQL!UNION!Запуски космических кораблей в России}
+\index{SPARQL!COUNT!Запуски космических кораблей в России}
+\index{SPARQL!GROUP BY!Запуски космических кораблей в России}
+\index{SPARQL!ORDER BY!Запуски космических кораблей в России}
 \begin{lstlisting}[ language=SPARQL, 
     caption={{\href{https://w.wiki/4eGg}{Запуски космических кораблей в СССР и России}}\protect\footnotemark}, 
     label=lst:launchesRussia5years,
@@ -305,7 +304,7 @@ GROUP BY ?year ?country ?countryLabel
 
 \newpage
 
-\index{График!BarChart!Визуализация количества запусков космических кораблей по годам и странам}
+\index{График!BarChart!Запуски космических кораблей по годам и странам}
 \begin{figure*}[h!]
   \includegraphics[width=\linewidth]{graphics/chapter/spacecraft_space_station/Visualization of the number of spacecraft launches by year and country 2021.png}
   \caption[График запусков космических кораблей в мире по годам и странам, 2021 год.]{Диаграмма ежегодного суммарного количества запусков космических кораблей по всем странам}
@@ -411,7 +410,7 @@ WHERE
         отправленных на \wdqName{Марс}{111}, 
         по отношению к числу кораблей, отправленных на \wdqName{Луну}{405}.
   \item Подсчитайте количество \wdqName{успешных}{7632586} космических запусков 
-      относительно \wdqName{неудачных}{1121708}\sidenote[][-32pt]{%
+      относительно \wdqName{неудачных}{1121708}\sidenote[][-24pt]{%
 %
 Например, у объекта \wdqName{<<космическая программа Луна>>}{192372} 
 в свойстве \wdProperty{793}{<<ключевое событие>>} 

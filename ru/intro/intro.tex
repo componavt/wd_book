@@ -1,11 +1,42 @@
+% Remove number from Zero chapter
+% 0. Introduction -> Introduction
+\makeatletter
+\titleformat{\chapter}%
+  [display]% shape
+  {\relax\ifthenelse{\NOT\boolean{@tufte@symmetric}}{\begin{fullwidth}}{}}% format applied to label+text
+%  {\itshape\huge\thechapter}% label
+  {}% label
+  {0pt}% horizontal separation between label and title body
+  {\huge\rmfamily\itshape}%\thechapter. }% before the title body
+  [\ifthenelse{\NOT\boolean{@tufte@symmetric}}{\end{fullwidth}}{}]% after the title body
+\makeatother
+
+
 \chapter*{Предисловие}
 \label{ch:intro}
 \addcontentsline{toc}{chapter}{Предисловие}
 %\addcontentsline{toc}{part}{Предисловие}
 
-Это издание адресовано не только студентам, но и школьникам. 
-Оно знакомит с работой базы Викиданных и языком запросов SPARQL, 
-с помощью которого можно работать с этой базой. 
+
+% Return back a number before chapter
+% Chapter -> 1. Chapter
+\makeatletter
+\titleformat{\chapter}%
+  [display]% shape
+  {\relax\ifthenelse{\NOT\boolean{@tufte@symmetric}}{\begin{fullwidth}}{}}% format applied to label+text
+%  {\itshape\huge\thechapter}% label
+  {}% label
+  {0pt}% horizontal separation between label and title body
+  {\huge\rmfamily\itshape\thechapter. }% before the title body
+  [\ifthenelse{\NOT\boolean{@tufte@symmetric}}{\end{fullwidth}}{}]% after the title body
+\makeatother
+
+
+Это издание адресовано не только студентам, но и школьникам, изучающим информатику. 
+Оно поможет тем, кто хочет развить свои аналитические навыки, 
+научиться программировать 
+и глубже разбираться в принципах работы самого компьютерного вики-проекта.
+Вы познакомитесь с работой базы Викиданных и языком запросов SPARQL. 
 Прочитав пособие, вы сможете извлекать из Викиданных информацию с~помощью SPARQL-скриптов, 
 затем обрабатывать её и строить по ней таблицы, графики и карты.
 
@@ -13,14 +44,14 @@
 которая, как огромный кит, лежит в основе громадной планеты 
 Википедии. Впечатляет скорость роста этого кита, во многих главах мы будем обращать на это внимание.
 Если изначально проект Викиданные создавался для обслуживания нужд Википедии, 
-то сейчас он применяется крайне широко и в самых разных целях.
+то сейчас он применяется крайне широко и в~самых разных целях.
 
 В первой части пособия\sidenote{%
 %
 Часть <<\nameref{part:foundation}>> на с.~\pageref{part:foundation}.%
 %
 } объясняется, 
-что такое листинги программ, как ими пользоваться, даны базовые понятия об объектах Викиданных. 
+что такое запросы и листинги программ, как ими пользоваться, даны базовые понятия об объектах Викиданных. 
 Глава <<Обзор Викиданных>> включает историческую справку, 
 вопрос качества данных и связи с Википедией. 
 Описан сервис WDQS, к~которому мы будем обращаться на каждой странице. 
@@ -43,6 +74,8 @@
 с помощью графиков, таблиц, диаграмм~--- проанализировать и нарисовать его образ. 
 
 
+
+\newpage
 В третьей части пособия\sidenote{%
 %
 Часть <<\nameref{part:advanced}>> на с.~\pageref{part:advanced}.%
@@ -50,29 +83,24 @@
 } % 
 рассмотрен вопрос защиты страниц в вики-проектах, 
 рассказано о~сервисе балансировки ProWD и о том, 
-как можно последовательно двигаться от SPARQL-запросов 
+как можно последовательно двигаться от~SPARQL-запросов 
 к~языку Python при создании компьютерных программ (ботов), редактирующих Викиданные. 
 
 
-В заключительной части\sidenote{%
-%
-<<\nameref{part:conclusion}>> на с.~\pageref{part:conclusion}.%
-%
-} % 
+В заключительной части 
 даны ответы на вопросы, рассеянные по всему пособию, приведены список литературы 
 и индекс ключевых слов для удобного постраничного поиска.
 
 
-
-
-
-\newpage
 В исследовании объектов Викиданных приняли участие студенты ПетрГУ в рамках курса <<Программирование Викиданных>>. 
 Материалы этого онлайн-курса доступны на сайте Викиверситета\sidenote{%
 % 
 Курс 
 \href{https://ru.wikiversity.org/?curid=23388}{https://ru.wikiversity.org/wiki/Программирование\_Викиданных}.%
 }. 
+
+Учебное пособие распространяется на правах свободной лицензии 
+\href{https://creativecommons.org/licenses/by-sa/4.0/deed.ru}{Creative Commons Attribution-ShareAlike}.
 
 Потребовалось несколько лет работы со студентами в Википедии, прежде чем мы пришли с ними к таким проектам, 
 как Викиверситет и Викиданные. 
@@ -108,11 +136,14 @@
 Надеемся, что благодаря этому пособию одним из первых компьютерных языков, 
 изучаемых в~школе, станет язык Викиданных.
 
-\begin{marginfigure}[0.0cm]
+
+
+\newpage
+\begin{marginfigure}%[baselineskip]
 {
 \setlength{\fboxsep}{0pt}%
 \setlength{\fboxrule}{1pt}%
-\fcolorbox{gray}{gray}{\includegraphics[width=0.65\linewidth]{./intro/WDQS_play_button.png}}
+\fcolorbox{gray}{gray}{\includegraphics[width=0.7\linewidth]{./intro/WDQS_play_button.png}}
 }
 \caption[Выполнение скрипта в сервисе Wikidata Query Service.]{Кнопка Play запуска скрипта в сервисе Wikidata Query Service. Также скрипт можно выполнить при одновременном нажатии кнопок Ctrl и Enter на~клавиатуре}%
 \label{fig:WDQS_play_button}%

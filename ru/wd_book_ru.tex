@@ -579,7 +579,7 @@ $\blackinwhitediamond$ %
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Let's comment out this page 
-\iffalse
+%\iffalse
 
 % v.4 copyright page
 \newpage
@@ -611,13 +611,15 @@ $\blackinwhitediamond$ %
 Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 
 %\par\smallcaps{Published by \thanklesspublisher}
-\par\smallcaps{\thanklesspublisher}
+%\par\smallcaps{\thanklesspublisher}
+\par{\thanklesspublisher}
 
 %\par\textit{First printing, \monthyear}
 
 
 \end{fullwidth}
-\fi 
+\newpage
+%\fi 
 \begin{fullwidth}
 % eo of commented out page
 %%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -691,7 +693,6 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 \part{Исследуем объекты Викиданных}
 \label{part:research}
 
-\iffalse
 \input{./chapter/aircraft.tex}
 \input{./chapter/anime.tex}
 
@@ -713,7 +714,6 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 \input{./chapter/ship.tex}
 
 \input{./chapter/spacecraft_space_station.tex}
-\fi
 
 \part{Специальные возможности вики-проектов и Викиданных}
 \label{part:advanced}

@@ -36,7 +36,6 @@ SELECT ?os ?osLabel WHERE
 %\end{marginfigure}
 
 
-\newpage
 Наиболее полными и проработанными операционными системами на Викиданных оказались 
 \wdqName{Microsoft Windows}{1406}, 
 \wdqName{Windows 8}{5046}, 
@@ -105,8 +104,8 @@ SELECT ?os ?osLabel ?base ?baseLabel WHERE
     См. ответ~\ref{answer:what_system_created} на с.~\pageref{answer:what_system_created}.%
 }
 
-\index{SPARQL!hide!Список операционных систем с датой их создания}
-\index{График!Timeline!Часть временной шкалы с датами выпуска ОС с~1955 по~2020 год}
+\index{SPARQL!hide!ОС с датами создания}
+\index{График!Timeline!ОС с датами создания}
 \begin{lstlisting}[ language=SPARQL, 
 	caption={\href{https://w.wiki/5CKS}{Список операционных систем с датой их создания}\protect\footnotemark},
 	label=lst:inception_time_of_operating_systems,
@@ -173,7 +172,7 @@ SELECT DISTINCT ?os ?osLabel ?when (YEAR(?when) as ?date) ?pic WHERE
 
 В листинге~\ref{lst:count_os_on_languages} представлен SPARQL-запрос для получения списка языков программирования с выводом количества написанных на них ОС.
 
-\index{SPARQL!COUNT!Языки программирования и число операционных систем}
+\index{SPARQL!COUNT!ЯП и число ОС}
 \begin{lstlisting}[ language=SPARQL, 
 	caption={\href{https://w.wiki/uat}{Список языков программирования и количество написанных на них операционных систем}\protect\footnotemark},
     numbers=none,
@@ -198,6 +197,13 @@ ORDER BY DESC(?countOS) ASC(?langLabel)
 
 \newpage\phantom{blabla}
 \newpage
+%
+\begin{marginfigure}[0\baselineskip]
+    \includegraphics[width=6cm]{chapter/operating_system/prog_lang_os.png}
+    \caption[Дерево языков программирования и написанных на них ОС.]{Дерево языков программирования и написанных на них операционных систем}
+	\label{fig:prog_lang_os}%
+\end{marginfigure}
+%
 Команда \lstinline|ORDER BY DESC(?countOS) ASC(?langLabel)| в~запросе~\ref{lst:count_os_on_languages} 
 используется для двойной сортировки значений в таблице. 
 Все языки программирования в этой таблице сначала сортируются по убыванию количества операционных систем, 
@@ -217,13 +223,6 @@ ORDER BY DESC(?countOS) ASC(?langLabel)
 написанных с использованием этого языка. 
 Если язык или система имеют рисунок или логотип в Викиданных, 
 то они используются в качестве иконок.
-%
-\begin{marginfigure}[-4\baselineskip]
-    \includegraphics[width=6cm]{chapter/operating_system/prog_lang_os.png}
-    \caption[Дерево языков программирования и написанных на них ОС.]{Дерево языков программирования и написанных на них операционных систем}
-	\label{fig:prog_lang_os}%
-\end{marginfigure}
-%
 \marginnote[1\baselineskip]{
     \MarginQuestion
     Сложное задание для самостоятельной работы. 
@@ -231,10 +230,17 @@ ORDER BY DESC(?countOS) ASC(?langLabel)
     чтобы рядом с языком программирования было дано число операционных систем, написанных на этом языке.
 }
 %
+\marginnote[2pt]{%
+    \MarginQuestion
+    Простое задание. 
+    <<Переверните>> запрос~\ref{lst:lang_tree}, 
+    то есть строчки верхнего уровня пусть содержат не языки программирования, 
+    а операционные системы. 
+    При <<разворачивании>> мы должны видеть список языков, на которых написана система.%
+}
 
-
-\index{SPARQL!OPTIONAL!Список языков программирования и написанных на них операционных систем}
-\index{График!Tree!Дерево языков программирования и написанных на них операционных систем}
+\index{SPARQL!OPTIONAL!ЯП и написанные на них ОС}
+\index{График!Tree!Дерево ЯП и написанные на них ОС}
 \begin{lstlisting}[ language=SPARQL, 
 	caption={\href{https://w.wiki/ucB}{Список языков программирования и написанных на них операционных систем}\protect\footnotemark},
     numbers=none,
@@ -257,14 +263,6 @@ SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
 \end{lstlisting}
 \footnotetext{Получено: 146 языков программирования с написанными на них операционными системами в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/ucB}{https://w.wiki/ucB}.}
 %
-\marginnote[2pt]{%
-    \MarginQuestion
-    Простое задание для самостоятельной работы. 
-    <<Переверните>> запрос~\ref{lst:lang_tree}, 
-    то есть строчки верхнего уровня пусть содержат не языки программирования, 
-    а операционные системы. 
-    При <<разворачивании>> мы должны видеть список языков, на которых написана система.%
-}
 
 
 
@@ -297,7 +295,7 @@ SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
 
 \section{Языки программирования, используемые для написания операционных систем}
 %
-\index{График!BarChart!Количество операционных систем по языкам программирования}
+\index{График!BarChart!Количество ОС по ЯП}
 %\begin{figure}[h]
 \begin{marginfigure}[0\baselineskip]
 	\includegraphics{./chapter/operating_system/count-os-written-on-languages.png}
@@ -327,7 +325,7 @@ SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
 
 \newpage
 %\begin{marginfigure}[-3\baselineskip]
-\index{SPARQL!COUNT!Список операционных систем с количеством программ}
+\index{SPARQL!COUNT!Список ОС с количеством программ}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/ugp}{Количество программ для каждой операционной системы}\protect\footnotemark},
                     numbers=none,
@@ -371,7 +369,7 @@ ORDER BY DESC(?softCounter)
     если переменная \texttt{?osLang} используется в~скрипте только в~этой строке? 
 Можно ли её заменить на безымянную переменную?%
 }% 
-\index{SPARQL!COUNT!Список языков программирования с количеством написанного для него программ}
+\index{SPARQL!COUNT!ОС и количество программ на ЯП}
 \begin{lstlisting}[ language=SPARQL, 
 	caption={\href{https://w.wiki/vDv}{Гистограмма операционных систем с~количеством программ, написанных на~каком-либо языке программирования}\protect\footnotemark},
 	label=lst:count_soft_on_os_with_lang
@@ -434,6 +432,8 @@ JavaScript используется для написания клиентско
 
 
 
+
+\newpage
 \section{Документирование программного обеспечения}
 Викиданные играют большую роль в документировании программного обеспечения. 
 Это показано в~статье 2020~года\autocite{Samuel2020DocumentingWiki} на примере программ, входящих в среды GNOME и KDE. 

@@ -117,7 +117,7 @@ SELECT ?lang ?lang_label WHERE {
 \subsection{Операции над множествами в SPARQL}
 %%
 Получим список всех языков программирования, 
-являющихся открытым программным обеспечением (free software) 
+являющихся открытым программным обеспечением %(free software) 
 и испытавших на себе влияние хотя бы одного из следующих языков программирования: 
 \href{https://en.wikipedia.org/wiki/C_(programming_language)}{Си}, 
 \href{https://ru.wikipedia.org/wiki/Python}{Python}, 
@@ -128,11 +128,11 @@ SELECT ?lang ?lang_label WHERE {
 Таким образом, из множества <<открытых>> языков 
 нужно выбрать множество языков, окружающих Си, Python, Java, 
 и вычесть языки двух фирм. 
-То есть, действительно, в итоговом запросе~\ref{lst:free_license_languages} 
+В итоговом запросе~\ref{lst:free_license_languages} 
 нужно выполнить операции над множествами с~помощью команд \texttt{UNION} и \texttt{MINUS}. 
 
 
-\index{SPARQL!MINUS!Список свободных языков программирования на русском языке}
+\index{SPARQL!MINUS!Список свободных ЯП}
 \begin{lstlisting}[
 	language=SPARQL,
 	label=lst:free_license_languages,
@@ -164,7 +164,7 @@ SELECT DISTINCT ?prog ?progLabel WHERE
 
 %%
 \subsection{Пермиссивные лицензии}
-\index{Языки программирования!Определения!Пермиссивные лицензии}%
+\index{Информатика!Пермиссивная лицензия}%
 %%
 С помощью запроса~\ref{lst:permessive_license} 
 построим список языков программирования, 
@@ -287,7 +287,7 @@ SELECT (COUNT(?not_free)* 100 / (COUNT(?free)) as ?total) WHERE
 %%
 В зависимости от языка программирования 
 файлы с исходным кодом программ могут иметь разные расширения. 
-\index{Языки программирования!Определения!Расширение имени файла}%
+\index{Информатика!Расширение имени файла}%
 Расширение имени файла~--- это последовательность символов, 
 добавляемых к имени файла и предназначенных для идентификации типа (формата) файла. 
 Это один из распространённых способов, 
@@ -298,8 +298,11 @@ SELECT (COUNT(?not_free)* 100 / (COUNT(?free)) as ?total) WHERE
 \newpage
 \begin{marginfigure}
 \centering
-	\includegraphics[width=0.74\linewidth]{./chapter/programming_language/File_extensions_quantity_of_source_code_2017.png}
-    \caption[Число форматов файлов для языков программирования, 2017 год.]{Пузырьковая диаграмма с числом форматов файлов исходного кода для разных языков программирования, 2017 год. Размер пузырька соответствует числу форматов для одного языка. Ссылка на SPARQL-запрос: \href{https://w.wiki/uGQ}{https://w.wiki/uGQ}}
+	\includegraphics[width=0.7\linewidth]{./chapter/programming_language/File_extensions_quantity_of_source_code_2017.png}
+    \caption[Число форматов файлов для языков программирования, 2017 год.]{Пузырьковая диаграмма 
+            с числом форматов файлов исходного кода для разных языков программирования, 2017 год. 
+            Размер пузырька соответствует числу форматов для одного языка. 
+            Ссылка на~SPARQL-запрос: \href{https://w.wiki/uGQ}{https://w.wiki/uGQ}}
 	\label{fig:source-format-2017}
 \end{marginfigure}
 %
@@ -310,7 +313,7 @@ SELECT (COUNT(?not_free)* 100 / (COUNT(?free)) as ?total) WHERE
 
 На рис.~\ref{fig:source-format-2017} видно, что на 2017 год самыми исторически богатыми на форматы и расширения файлов оказались такие языки программирования, как: \href{https://en.wikipedia.org/wiki/C++}{C++} (10 форматов), \href{https://en.wikipedia.org/wiki/Geometric_Description_Language}{Geometric Description Language} (8 форматов), \href{https://en.wikipedia.org/wiki/Racket_(programming_language)}{Racket} (7 форматов). Таким образом, одному языку программирования может соответствовать больше одного расширения имени файла. Например, файлы с программой на языке \href{https://en.wikipedia.org/wiki/Racket_(programming_language)}{Racket} могут иметь расширения rkt, rktl, rktd, scrbl, plt, ss или scm.
 
-\index{График!BubbleChart!Количество форматов файлов исходного кода}
+\index{График!BubbleChart!Форматы файлов кода}
 \begin{lstlisting}[
 	language=SPARQL,
 	label=lst:source_formats,
@@ -335,8 +338,8 @@ ORDER BY DESC(?count)
 
 \begin{marginfigure}[2\baselineskip]
 \centering
-	\includegraphics[width=0.8\linewidth]{./chapter/programming_language/File_extensions_quantity_of_source_code_2020.png}
-	\caption[Число форматов файлов для языков программирования, 2020 год.]{Пузырьковая диаграмма с числом форматов файлов исходного кода для 108 языков программирования, 2020 год. Размер пузырька соответствует числу форматов для одного языка. Ссылка на SPARQL-запрос: \href{https://w.wiki/uGQ}{https://w.wiki/uGQ}}
+	\includegraphics[width=0.74\linewidth]{./chapter/programming_language/File_extensions_quantity_of_source_code_2020.png}
+	\caption[Число форматов файлов для языков программирования, 2020 год.]{Пузырьковая диаграмма с числом форматов файлов исходного кода для 108 языков программирования, 2020 год. Размер пузырька соответствует числу форматов для одного языка. Ссылка на~SPARQL-запрос: \href{https://w.wiki/uGQ}{https://w.wiki/uGQ}}
 	\label{fig:source-format-2020}
 \end{marginfigure}
 
@@ -389,7 +392,7 @@ ORDER BY DESC(?count)
 например эти данные заполнены на странице Альберта Эйнштейна (рис.~\ref{fig:Einstein-residence}). 
 Поэтому в~запросе~\ref{lst:countries_map} мы ограничились учётом только места рождения. 
 
-\index{График!Map!Карта с указанием места жительства или работы разработчиков языков программирования}
+\index{График!Map!Место жительства/работы разработчиков ЯП}
 \begin{lstlisting}[
 	language=SPARQL,
 	label=lst:countries_map,
@@ -477,7 +480,7 @@ WHERE
     В~каком году было изобретено максимальное число языков?%
 }
 
-\index{График!BubbleChart!Пузырьковая диаграмма благоприятных стран для появления разработчиков языков программирования}
+\index{График!BubbleChart!Благоприятные страны для разработчиков ЯП}
 \begin{lstlisting}[
 	language=SPARQL,
 	caption={\href{https://w.wiki/6fxx}{Пузырьковая диаграмма благоприятных стран для появления разработчиков языков программирования}},
@@ -486,8 +489,7 @@ WHERE
 	texcl
 ]
 #defaultView:BubbleChart
-SELECT ?stateLabel (count(*) as ?count)
-WHERE {
+SELECT ?stateLabel (count(*) as ?count) WHERE {
   ?lang wdt:P31 wd:Q9143. # instances of programming language
   ?lang wdt:P178 ?developer. # developer
   	
@@ -513,7 +515,10 @@ ORDER BY DESC(?count)
 
 
 Отобразим (запрос~\ref{lst:developer_university}) на карте учебные заведения, в которых учились студенты, впоследствии разработавшие языки программирования.
-По рис.~\ref{fig:universities_2017} и~\ref{fig:universities_2020} видно, что большая часть людей, причастных к созданию языков программирования, учились в Европе или в США и динамика не~сильно изменилась за три года.
+По рис.~\ref{fig:universities_2017} и~\ref{fig:universities_2020} видно, 
+что большая часть людей, 
+причастных к созданию языков программирования, 
+учились в Европе или в~США и динамика не~сильно изменилась за три года.
 %
 \begin{marginfigure}[3\baselineskip]
 \centering
@@ -523,7 +528,7 @@ ORDER BY DESC(?count)
 \end{marginfigure}
 
 
-\index{График!Map!Карта с указанием университетов, в которых учились разработчики языков программирования}
+\index{График!Map!Университеты разработчиков ЯП}
 \begin{lstlisting}[
 	language=SPARQL,
 	label=lst:developer_university,
@@ -532,8 +537,7 @@ ORDER BY DESC(?count)
 	texcl
 ]
 #defaultView:Map
-SELECT ?langLabel ?developerLabel ?educational_institutionLabel ?coord 
-WHERE {
+SELECT ?langLabel ?developerLabel ?educational_institutionLabel ?coord WHERE {
   ?lang wdt:P31 wd:Q9143.    # instances of programming language
   ?lang wdt:P178 ?developer. # developer
   ?developer wdt:P69 ?educational_institution. # educated at
@@ -575,7 +579,7 @@ WHERE {
 
 \newpage
 %\begin{marginfigure}[-12\baselineskip]
-\index{График!BubbleChart!Университеты, в которых учились разработчики языков программирования}
+\index{График!BubbleChart!Университеты разработчиков ЯП}
 \begin{lstlisting}[
 	language=SPARQL,
 	label=lst:developer_universities_bubble,
@@ -618,7 +622,7 @@ ORDER BY DESC(?count)
 на~рис.~\ref{fig:2017_profession} и~\ref{fig:2020_profession} соответственно.
 
 
-\index{График!BubbleChart!Профессии создателей языков программирования}
+\index{График!BubbleChart!Профессии создателей ЯП}
 \begin{lstlisting}[
 	language=SPARQL,
 	label=lst:developer_profession,
@@ -791,7 +795,7 @@ SELECT ?lang ?langLabel ?developer ?developerLabel WHERE {
 Ответ на~с.~\pageref{answer:prog_langs_4}.
 
 \marginnote[21pt]{%
-        \index{Языки программирования!Определения!Хештег}Хештег (\#)~--- 
+        \index{Информатика!Хештег}Хештег (\#)~--- 
         ключевое слово, 
         используемое в микроблогах и социальных сетях, 
         облегчающее поиск сообщений по теме или содержанию 

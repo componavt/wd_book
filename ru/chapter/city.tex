@@ -275,7 +275,7 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Города-побратимы}
 
-\index{Город!Города-побратимы / Определение}
+%\index{Город!Города-побратимы / Определение}
 \href{https://w.wiki/pRe}{Города-побратимы (породнённые города)} -- это города различных государств, установившие между собой постоянные дружественные связи с целью укрепления международных отношений в областях культуры, экономики, создания и управления городской инфраструктурой, 
 функционирования гражданского общества и~т.~д.\autocite{sister_city}
 
@@ -285,7 +285,7 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
 
 Запрос~\ref{lst:without_sister_cities} подсчитывает число городов, не имеющих побратимов.
 
-\index{SPARQL!COUNT!Количество городов, не имеющих побратимов}
+\index{SPARQL!COUNT!Количество городов без побратимов}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/jgv}{Количество городов, не имеющих побратимов}\protect\footnotemark},
                     label=lst:without_sister_cities
@@ -318,7 +318,7 @@ SELECT (COUNT(?city) as ?count) WHERE {
 и~запрос~\ref{lst:ordered_by_sister_cities_Russia} для получения городов России, 
 при этом все они упорядочен по числу побратимов.
 
-\index{SPARQL!COUNT!Упорядоченный список городов по числу побратимов}
+\index{SPARQL!COUNT!Список городов по числу побратимов}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/sY4}{Упорядоченный список городов по числу побратимов}\protect\footnotemark},
                     label=lst:ordered_by_sister_cities,
@@ -382,8 +382,8 @@ ORDER BY DESC(?sisterCount) # Sorting by number of sister cities
 \label{fig:city_relation_S_N}
 \end{marginfigure}
 
-\index{SPARQL!COUNT!Число городов с определённым числом побратимов}
-\index{График!LineChart!Зависимость числа городов всего мира (N) от числа имеющихся у этих городов побратимов (S)}
+\index{SPARQL!COUNT!Число городов с побратимами}
+\index{График!LineChart!Число городов мира по числу побратимов}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/pM9}{Число городов с определённым числом побратимов}\protect\footnotemark},
                     label=lst:city_relation_S_N
@@ -444,7 +444,7 @@ ORDER BY DESC(?sisterCount) # Order by number of sister cities
 См. ответ~\ref{answer:cities_over_400_age} на с.~\pageref{answer:cities_over_400_age}.
 }
 
-\index{График!LineChart!Зависимость числа городов России (N) от числа имеющихся у этих городов побратимов (S)}
+\index{График!LineChart!Зависимость числа городов России от числа побратимов}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/pMA}{Число городов России с определённым числом побратимов}\protect\footnotemark},
                     label=lst:city_relation_Russia_S_N,
@@ -490,7 +490,7 @@ ORDER BY DESC(?sisterCount) # Order by number of sister cities
 пузырьковую диаграмму (рис.~\ref{fig:Bubble_countries_sister_cities}), 
 показывающую соотношение количества городов-побратимов между странами.
 
-\index{SPARQL!COUNT!Упорядоченный список стран по числу побратимов}
+\index{SPARQL!COUNT!Список стран по числу побратимов}
 \index{График!BubbleChart!Число побратимов у страны}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/5At7}{Пузырьковая диаграмма стран мира, упорядоченных по количеству городов-побратимов}\protect\footnotemark},
@@ -499,8 +499,8 @@ ORDER BY DESC(?sisterCount) # Order by number of sister cities
                     ]
 #defaultView:BubbleChart
 # Ordered list of countries by number of sister cities
-SELECT DISTINCT ?country ?countryLabel (COUNT(?sister) as ?sisterCount) WHERE {
-  VALUES ?cityTypes {wd:Q3957 wd:Q515 wd:Q1549591 wd:Q1637706}
+SELECT DISTINCT ?country ?countryLabel (COUNT(?sister) as ?sisterCount) WHERE
+{ VALUES ?cityTypes {wd:Q3957 wd:Q515 wd:Q1549591 wd:Q1637706}
   ?city wdt:P31 ?cityTypes;    # instance of some type of city
         wdt:P17 ?country;      # belongs to country
         wdt:P190 ?sister.      # has a sister city
@@ -533,14 +533,14 @@ ORDER BY DESC(?sisterCount)
 
 
 % # List of countries that have sister cities with cities in Germany
-\index{SPARQL!COUNT!Список стран, имеющих побратимов с городами Германии}
+\index{SPARQL!COUNT!Страны с побратимами в Германии}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/5As4}{Список стран, имеющих города-побратимы с городами Германии}\protect\footnotemark},
                     label=lst:sister_cities_with_Germany,
                     numbers=none,
                     ]
-SELECT ?country ?countryLabel (COUNT(DISTINCT ?sister) as ?sisterCount) WHERE {
-  VALUES ?cityTypes {wd:Q3957 wd:Q515 wd:Q1549591 wd:Q1637706}
+SELECT ?country ?countryLabel (COUNT(DISTINCT ?sister) as ?sisterCount) WHERE
+{ VALUES ?cityTypes {wd:Q3957 wd:Q515 wd:Q1549591 wd:Q1637706}
   ?city wdt:P31 ?cityTypes; # instance of one of the city types
         wdt:P17 wd:Q183;    # belongs to Germany
         wdt:P190 ?sister.   # has a sister city
@@ -549,7 +549,9 @@ SELECT ?country ?countryLabel (COUNT(DISTINCT ?sister) as ?sisterCount) WHERE {
 }
 GROUP BY ?country ?countryLabel
 ORDER BY DESC(?sisterCount)\end{lstlisting}%
-\footnotetext{Получено: 93 страны в 2020 году и~100~стран в~2022~году. На первом месте находится Франция, у неё 268 городов, имеющих побратимов в Германии в 2022 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/5As4}{https://w.wiki/5As4}.}
+\footnotetext{Получено: 93 страны в 2020 году и~100~стран в~2022~году. 
+              На первом месте находится Франция, у неё 268 городов, имеющих побратимов в Германии в 2022 году. 
+              SPARQL-запрос: \href{https://w.wiki/5As4}{https://w.wiki/5As4}.}
 
 
 
@@ -610,13 +612,13 @@ ORDER BY DESC(?sisterCount)\end{lstlisting}%
 Польша (24), Франция (23) и~Италия~(22).
 
 
-\index{SPARQL!COUNT!Ближайшие соседи России по числу побратимов}
-\index{SPARQL!NOT IN!Ближайшие соседи России по числу побратимов}
-\index{SPARQL!FILTER!Ближайшие соседи России по числу побратимов}
-\index{SPARQL!OPTIONAL!Ближайшие соседи России по числу побратимов}
-\index{SPARQL!BIND!Ближайшие соседи России по числу побратимов}
-\index{SPARQL!IF!Ближайшие соседи России по числу побратимов}
-\index{График!Map!Ближайшие соседи России по числу городов-побратимов}
+\index{SPARQL!COUNT!Соседи России по числу побратимов}
+\index{SPARQL!NOT IN!Соседи России по числу побратимов}
+\index{SPARQL!FILTER!Соседи России по числу побратимов}
+\index{SPARQL!OPTIONAL!Соседи России по числу побратимов}
+\index{SPARQL!BIND!Соседи России по числу побратимов}
+\index{SPARQL!IF!Соседи России по числу побратимов}
+\index{График!Map!Соседи России по числу побратимов}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/q5Z}{Ближайшие соседи России по числу побратимов}\protect\footnotemark},
                     label=lst:countries_sister_cities_with_Russia,
@@ -656,7 +658,7 @@ SELECT ?country ?countryLabel ?sisterCount ?shape ?layer WHERE {
 \setlength{\fboxrule}{1pt}%
 \fcolorbox{gray}{gray}{\includegraphics[width=0.96\linewidth]{./chapter/city/Map_of_closest_neighbours_of_Russia_by_number_of_sister_cities,_2020.png}}
 }
-	\caption{Карта ближайших соседей России по числу городов-побратимов,\\2020 год}
+	\caption{Карта ближайших соседей России по числу городов-побратимов, 2020 год}
 	\label{fig:Map_closest_neighbours_Russia}
 \end{figure*}
 
@@ -746,7 +748,7 @@ SELECT ?city ?cityLabel WHERE {
 \end{lstlisting}
 \footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/jyB}{https://w.wiki/jyB}.}
 
-Также, вероятно, в связи с неоднозначностью критериев присвоения статуса города 
+Вероятно, в связи с неоднозначностью критериев присвоения статуса города 
 были созданы подклассы для конкретных стран~--- это \wdqName{city in Chile}{25412763}, 
 \wdqName{city in Cyprus}{29556224}, \wdqName{city of Japan}{494721} и т.~д. 
 Не обошла стороной эта тенденция и города России: 

@@ -106,36 +106,48 @@ SELECT ?manufacturer ?manufacturerLabel ?site WHERE
     \label{answer:aircraft_company_foundation_date}
     \newthought{Компания 
 <<Туполев>> была основана в 1922 году, 
-<<МиГ>> и <<Сухой>>~--- в 1939 
-и <<Вымпел>>~--- в 1949 году.
-    Ответ на вопрос можно получить, выполнив SPARQL-запрос~\ref{lst:aircraft_company_foundation_date_lst}}. 
+<<МиГ>> и <<Сухой>>~--- в 1939-м, 
+<<Вымпел>>~--- в 1949 году.
+    Ответ на вопрос можно получить, выполнив запрос~\ref{lst:aircraft_company_foundation_date_lst}}. 
     
-	\begin{lstlisting}[ language=SPARQL, 
-    caption={\href{https://w.wiki/vaH}{Даты основания отечественных авиазаводов}\protect\footnotemark}, label=lst:aircraft_company_foundation_date_lst, ]
+	\begin{lstlisting}[ 
+            language=SPARQL, 
+            caption={\href{https://w.wiki/vaH}{Даты основания отечественных авиазаводов}\protect\footnotemark}, 
+            label=lst:aircraft_company_foundation_date_lst, 
+            numbers=none,
+            ]
 # Russian aircraft factories sorted by inception years
-SELECT ?manufacturer ?manufacturerLabel
-       (YEAR(?inception) AS ?year)
-WHERE
+SELECT ?manufacturer ?manufacturerLabel (YEAR(?inception) AS ?year) WHERE 
 {
-  ?manufacturer wdt:P31 wd:Q936518; # is aerospace manufacturer
-                wdt:P17 wd:Q159;    # country Russia
-                wdt:P571 ?inception.# foundation date
-SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
+  ?manufacturer wdt:P31 wd:Q936518;  # is aerospace manufacturer
+                wdt:P17 wd:Q159;     # country Russia
+                wdt:P571 ?inception. # foundation date
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
 }
 ORDER BY ?year
 \end{lstlisting}
-\footnotetext{Получено 15 отечественных авиазаводов с датой основания, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vaH}{https://w.wiki/vaH}.}
+\footnotetext{Получено: 15 отечественных авиазаводов с датой основания на 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vaH}{https://w.wiki/vaH}.}
     
     \small{\AnswerBackref Вопрос на с.~\pageref{aircraft_question_2}.}
 \end{task}
 
 \begin{task}
     \label{answer:aircraft_company_headquarters}
-    \newthought{Штаб-квартира компании <<Камов>> находится в городе Люберцы, <<Авиадвигатель>>~--- в Перми, <<Улан-Удэнский авиационный завод>>~--- в городе Улан-Удэ, <<Сухой>>~--- в Москве. Ответ на вопрос также можно получить, выполнив SPARQL-запрос, представленный на листинге~\ref{lst:aircraft_company_headquarters_lst}}. 
-    
-	\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/t4X}{Штаб-квартиры компаний}\protect\footnotemark}, label=lst:aircraft_company_headquarters_lst, ]
-SELECT ?manufacturer ?manufacturerLabel ?inceptionLabel
-WHERE
+Штаб-квартира компании <<Камов>> находится в городе Люберцы, 
+    <<Авиадвигатель>>~--- в~Перми, 
+    <<Улан-Удэнский авиационный завод>>~--- в городе Улан-Удэ, 
+    <<Сухой>>~--- в Москве. 
+    Ответ на вопрос можно получить, выполнив запрос~\ref{lst:aircraft_company_headquarters_lst}. 
+   
+
+\newpage
+\begin{lstlisting}[ 
+            language=SPARQL, 
+            caption={\href{https://w.wiki/t4X}{Штаб-квартиры компаний}\protect\footnotemark}, 
+            label=lst:aircraft_company_headquarters_lst, 
+            numbers=none,
+                    ]
+SELECT ?manufacturer ?manufacturerLabel ?inceptionLabel WHERE
 {
     ?manufacturer wdt:P31 wd:Q936518. # instance of aerospace manufacturer
   	?manufacturer wdt:P17 wd:Q159. # country Russia
@@ -143,38 +155,41 @@ WHERE
     SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
 }
 \end{lstlisting}
-\footnotetext{Получено 16 российских авиазаводов, имеющих штаб-квартиры, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/t4X}{https://w.wiki/t4X}.}
+\footnotetext{Получено: 16 российских авиазаводов, имеющих штаб-квартиры на~2021~год. Ссылка на SPARQL-запрос: \href{https://w.wiki/t4X}{https://w.wiki/t4X}.}
     
     \small{\AnswerBackref Вопрос на с.~\pageref{aircraft_question_3}.}
 \end{task}
 
+
 \begin{task}
     \label{answer:aircraft_question_airship}
-    \newthought{Воздушным судном, удерживаемым в воздухе огромным баллоном с горючим и смертельно опасным газом, расположенным прямо над головами пассажиров, является дирижабль}. 
+Воздушным судном, удерживаемым в воздухе огромным баллоном 
+    с горючим и смертельно опасным газом, 
+    расположенным прямо над головами пассажиров, является дирижабль. 
     
     \small{\AnswerBackref Вопрос на с.~\pageref{aircraft_question_4}.}
 \end{task}
 
 
+
 % Unknown old Soviet airship on black and white photo
 %
-\begin{marginfigure}[3.2cm]
-\centering\includegraphics[width=7cm]{./chapter/aircraft/airship-SSSR-V6.jpg}
-\caption[Дирижабль СССР--В6 <<Осоавиахим>>.]{Дирижабль \ruwiki{wKY}{СССР--В6 <<Осоавиахим>>} (1934--1938). 
-             Дирижабль В--6 установил мировой рекорд в~1937 году, 
-             пролетев 130 с~половиной часов без посадки.\\
-    }%
-    \label{fig:airship-stamp}%
-\end{marginfigure}
-% 
 \begin{task}
     \label{answer:aircraft_question_airship_2}
-\newthought{Воздушное судно}, изображенное на рис.~\ref{fig:airship-stamp},~--- это дирижабль. 
-    Выполнив SPARQL-запрос, 
-    представленный на листинге~\ref{lst:aircraft_airship_photo_lst}, 
-    можно получить иллюстрации дирижаблей.
+Воздушное судно, 
+    изображенное на~с.~\pageref{fig:airship_question_aircraft},~--- 
+    это дирижабль \ruwiki{wKY}{СССР--В6 <<Осоавиахим>>} (1934--1938), 
+    который установил мировой рекорд в~1937 году, 
+    пролетев 130 с~половиной часов без посадки.
+    Для построения <<плиточки>> (ImageGrid) из иллюстраций дирижаблей 
+    выполните запрос~\ref{lst:aircraft_airship_photo_lst}.
     
-	\begin{lstlisting}[ language=SPARQL, caption={\href{https://w.wiki/t4c}{Изображения дирижаблей}\protect\footnotemark}, label=lst:aircraft_airship_photo_lst, ]
+	\begin{lstlisting}[ 
+            language=SPARQL, 
+            caption={\href{https://w.wiki/t4c}{Изображения дирижаблей}\protect\footnotemark}, 
+            label=lst:aircraft_airship_photo_lst, 
+            numbers=none,
+                    ]
 #defaultView:ImageGrid
 SELECT ?airship ?airshipLabel ?image WHERE
 {
@@ -183,7 +198,7 @@ SELECT ?airship ?airshipLabel ?image WHERE
     SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
 }
 \end{lstlisting}
-\footnotetext{Получено 18 дирижаблей с иллюстрациями, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/t4c}{https://w.wiki/t4c}.}
+\footnotetext{Получено: 18 дирижаблей с иллюстрациями в~2021~году. Ссылка на~SPARQL-запрос: \href{https://w.wiki/t4c}{https://w.wiki/t4c}.}
     
 \small{\AnswerBackref Вопрос на с.~\pageref{fig:airship_question_aircraft}.}
 \end{task}
@@ -197,50 +212,54 @@ SELECT ?airship ?airshipLabel ?image WHERE
 
 
 
-%%%%%%%%%%%%%%% Human_settlements charpter %%%%%%%%%%
+
 \hfil\pgfornament[width=4cm]{80}\hfil%
+\newpage
+%%%%%%%%%%%%%%% Human_settlements charpter %%%%%%%%%%
 
 \begin{task}
 \label{answer:human_settlements_density}
-    \newthought{Плотность населения} у Алейска составляет \num{648} чел./км\textsuperscript{2}, 
-        у~Барабинска~--- \num{413} чел./км\textsuperscript{2}, 
-        то есть у Алейска плотность выше. 
+    Плотность населения в Алейске составляет 648 чел./км\textsuperscript{2}, 
+        в~Барабинске~--- 413 чел./км\textsuperscript{2}, 
+        то есть в Алейске плотность выше. 
 
         Плотность населения по населённым пунктам России можно получить 
         с помощью запроса~\ref{lst:human_settlements_density}. 
 
         Обратите внимание, что площадь может быть задана в разных единицах. 
-        Например, у \wdqName{Алейска}{11304591} площадь в Викиданных указана в гектарах, 
-        у \wdqName{Барабинска}{104609}~--- в квадратных километрах. 
-        Для нормализации данных и перевода площади в метры в 8 строке запроса~\ref{lst:human_settlements_density}
+        Например, у~\wdqName{Алейска}{11304591} площадь в Викиданных указана в гектарах, 
+        у~\wdqName{Барабинска}{104609}~--- в квадратных километрах. 
+        Для нормализации данных и перевода площади в~метры в~строке~8 запроса~\ref{lst:human_settlements_density}
         указан префикс \lstinline|psn:|. 
 
-        Значение переменной \lstinline|?popArea| показывает плотность населения. 
-        Во второй строке делим на миллион, чтобы перевести квадратные метры в километры. 
+        В~строке~2 делим \lstinline|?area| на миллион, чтобы перевести квадратные метры в километры. 
+        Результат деления записываем в~переменную \lstinline|?popArea|, которая показывает плотность населения. 
 
 
-\newpage
 \index{SPARQL!psn:!Нормализация площади населённого пункта}
 \begin{lstlisting}[ language=SPARQL, 
-        caption={\href{https://w.wiki/4duP}{Плотность населения <<населенных пунктов>> России}\protect\footnotemark},
-        label=lst:human_settlements_density
+                    caption={\href{https://w.wiki/6ibN}{Плотность населения <<населенных пунктов>> России}\protect\footnotemark},
+                    label=lst:human_settlements_density,
+                    xleftmargin=18pt, 
                   ]
 # population density of human settlements in Russia
 SELECT ?hum ?humLabel ?population ?area (?population / (?area / 1000000) as ?popArea) 
 WHERE {
-  ?hum wdt:P31 wd:Q486972; # instance of human settlement
-       wdt:P17 wd:Q159; # in Russia
+    ?hum wdt:P31 wd:Q486972; # is human settlement
+         wdt:P17 wd:Q159;    # in Russia
        
-       # Get the area (Use the psn: prefix to normalize the values to a common unit of area)
-       p:P2046/psn:P2046/wikibase:quantityAmount ?area;
+    # The psn: prefix normalizes the values to a common unit of area
+    p:P2046/psn:P2046/wikibase:quantityAmount ?area;  # get the area
        
-       wdt:P1082 ?population. # has ?population
-       FILTER(?population>0 && ?area).
-  SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
+    wdt:P1082 ?population. # has ?population
+    FILTER(?population>0 && ?area).
+    SERVICE wikibase:label{bd:serviceParam wikibase:language "ru,en"}
 }
 ORDER BY DESC (?popArea)
 \end{lstlisting}
-\footnotetext{131 результат на 2021 год. SPARQL-запрос: \href{https://w.wiki/4duP}{https://w.wiki/4duP}.}
+\footnotetext{Получено: 131 населённый пункт в~России с~известной плотностью населения на~2021 год, 
+                        152~--- на~2023 год. 
+              SPARQL-запрос: \href{https://w.wiki/6ibN}{https://w.wiki/6ibN}.}
 
     \small{\AnswerBackref Вопрос на с.~\pageref{ch:human-settlement}.}
 \end{task}
@@ -249,23 +268,24 @@ ORDER BY DESC (?popArea)
 
 \begin{task}
 \label{answer:flag_human_settlements}
-\newthought{На рисунках~\ref{fig:flag_question_human_settlements1}, 
-    \ref{fig:flag_question_human_settlements2} и 
-    \ref{fig:flag_question_human_settlements5}} 
-    изображены гербы отечественных населённых пунктов.
-    Герб на рис.~\ref{fig:flag_question_human_settlements3} 
-    принадлежит населённому пункту \ruwiki{4dUc}{Чехии}, 
-    на рис.~\ref{fig:flag_question_human_settlements4}~--- 
-    \ruwiki{4dUf}{украинскому} населённому пункту. 
+Гербы, изображенные на с.~\pageref{fig:flag_question_human_settlements1}, 
+    с.~\pageref{fig:flag_question_human_settlements2} и 
+    с.~\pageref{fig:flag_question_human_settlements5}, 
+    являются гербами отечественных населённых пунктов. 
+    Герб~на~с.~\pageref{fig:flag_question_human_settlements3} 
+    принадлежит \ruwiki{4dUc}{чешскому} населённому пункту, 
+    герб~на~рис.~\pageref{fig:flag_question_human_settlements4}~--- 
+    \ruwiki{4dUf}{украинскому}. 
 
 Ответ можно получить с помощью запроса~\ref{lst:flag_question_human_settlements}. 
-    Значение свойства \wdProperty{94}{``coat of arms image''} 
+    Значение свойства \wdProperty{94}{coat of arms image} 
     содержит изображение герба населённого пункта.
    
 \index{График!ImageGrid!Гербы населённых пунктов России}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/4e8A}{Гербы населённых пунктов Российской Федерации}\protect\footnotemark},
-                    label=lst:flag_question_human_settlements
+                    label=lst:flag_question_human_settlements,
+                    numbers=none,
                   ]
 # Emblems of human settlements in Russia
 #defaultView:ImageGrid
@@ -273,19 +293,21 @@ SELECT ?hum ?humLabel ?image WHERE {
   ?hum wdt:P31 wd:Q486972; # instance of human settlement
        wdt:P17 wd:Q159;    # in Russia
        wdt:P94 ?image.     # coat of arms
-SERVICE wikibase:label{bd:serviceParam wikibase:language "ru, en"}
+  SERVICE wikibase:label{bd:serviceParam wikibase:language "ru, en"}
 }
 \end{lstlisting}
 
-\footnotetext{148 гербов на 2022 год. SPARQL-запрос: \href{https://w.wiki/4e8A}{https://w.wiki/4e8A}.}
+\footnotetext{Получено: 148 гербов на 2022 год. SPARQL-запрос: \href{https://w.wiki/4e8A}{https://w.wiki/4e8A}.}
 \small{Вопросы на с.~\pageref{fig:flag_question_human_settlements1}, \pageref{fig:flag_question_human_settlements2}, \pageref{fig:flag_question_human_settlements3}, \pageref{fig:flag_question_human_settlements4}, \pageref{fig:flag_question_human_settlements5}.}
 \end{task}
 % eo Human_settlements charpter %%%%%%%%%%%%%%%%%%%%%%
 
 
 
-%%%%%%%%%%%%%% City chapter %%%%%%%%%%%%%%
+
 \hfil\pgfornament[width=4cm]{80}\hfil%
+\newpage
+%%%%%%%%%%%%%% City chapter %%%%%%%%%%%%%%
 
 \begin{task}
     \label{answer:cities_geographic_objects}
@@ -299,20 +321,21 @@ SERVICE wikibase:label{bd:serviceParam wikibase:language "ru, en"}
    
 \index{SPARQL!FILTER!Города, названные в честь географических объектов}
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/otj}{Города, названные в честь географических объектов}\protect\footnotemark},
+                    caption={\href{https://w.wiki/6icv}{Города, названные в честь географических объектов}\protect\footnotemark},
                     label=lst:cities_geographic_objects,
                     xleftmargin=18pt, 
                     ]
-SELECT ?city ?cityLabel ?namedAfterLabel ?whatIsItLabel WHERE {
-    ?city wdt:P31/wdt:P279* wd:Q7930989. # "city/town" subclasses
-    ?city wdt:P138 ?namedAfter.      # with filled property "named after"
-    ?namedAfter wdt:P31 ?whatIsIt.   # which is instance of
-    FILTER(?city = wd:Q1341 || ?city = wd:Q2770 || ?city = wd:Q5655 ||
-           ?city = wd:Q156046 || ?city = wd:Q1957 || ?city = wd:Q175651)
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
+SELECT DISTINCT ?city ?cityLabel ?namedAfter ?namedAfterLabel 
+WHERE {
+  ?city wdt:P31/wdt:P279* wd:Q7930989. # instances/subclasses of "city/town" 
+  ?city wdt:P138 ?namedAfter. # with filled property "named after"
+  FILTER(?city = wd:Q1341 || ?city = wd:Q156046 ||
+         ?city = wd:Q2770 || ?city = wd:Q1957 ||
+         ?city = wd:Q5655 || ?city = wd:Q175651)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
 \end{lstlisting}%
-\marginnote[-4.4cm]{В строке 2 запроса~\ref{lst:cities_geographic_objects} 
+\marginnote[-4.4cm]{В строке 3 запроса~\ref{lst:cities_geographic_objects} 
     после конструкции \lstinline|wdt:P31/wdt:P279*| следует объект Викиданных, 
     объединяющий \wdqName{city}{515} и \wdqName{town}{3957} 
     и называющийся \wdqName{city/town}{7930989}. 
@@ -320,41 +343,54 @@ SELECT ?city ?cityLabel ?namedAfterLabel ?whatIsItLabel WHERE {
     Подробности см. в~главе~<<\nameref{sect:city-completness}>>, 
     в~тексте, предшествующем запросу~\ref{lst:example_subclasses_city} на~с.~\pageref{lst:example_subclasses_city}.
     }
-\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/otj}{https://w.wiki/otj}.}
+\footnotetext{Для 6 городов, заданных в строках 5--7, 
+              получено 6 объектов, в честь которых названы города. 
+              Из них 3 города названы в честь географических объектов (см.~выше), 
+              2~--- в честь известных людей и 
+              один город~--- в честь железнодорожной станции. 
+              Ссылка на SPARQL-запрос: \href{https://w.wiki/6icv}{https://w.wiki/6icv}.}
+
     \small{\AnswerBackref Вопрос на с.~\pageref{lst:population_town}.}
 \end{task}
+
+
 
 \begin{task}
     \label{answer:cities_over_400_age}
     Более 400 лет назад были основаны Казань (1005 год), Москва (1147), 
     Астрахань (1558), Воронеж (1586) и Самара (1586). 
-    Самым молодым городом оказался Саров, основанный в 1691 году. 
+    Самым молодым городом оказался Саров, основанный в~1691 году. 
     Ответ на вопрос можно получить, выполнив запрос~\ref{lst:cities_over_400_age}. 
 
     
     \index{SPARQL!FILTER!Дата основания городов}
     \index{SPARQL!YEAR!Дата основания городов}
     \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/t5u}{Города, основанные более 400 лет назад в России}\protect\footnotemark},
+                    caption={\href{https://w.wiki/6idC}{Города, основанные более 400 лет назад в России}\protect\footnotemark},
                     label=lst:cities_over_400_age,
                     xleftmargin=18pt, 
                     ]
-SELECT ?city ?cityLabel (YEAR(?inceptionDate) AS ?year) WHERE {
-    ?city wdt:P31/wdt:P279* wd:Q7930989. # "city/town" subclasses
-    ?city wdt:P17 wd:Q159. # city in Russia
-    ?city wdt:P571 ?inceptionDate. # with filled property "inception"  
+SELECT ?city ?cityLabel (YEAR(?inceptionDate) AS ?year) 
+WHERE {
+	?city wdt:P31/wdt:P279* wd:Q7930989. # instances of "city/town" subclasses
+    ?city wdt:P17 wd:Q159.               # in Russia
+	?city wdt:P571 ?inceptionDate.       # with filled property "inception"  
     FILTER (YEAR(?inceptionDate) < 1620). # 2020 - 400 years
     FILTER(?city = wd:Q649 || ?city = wd:Q193522 || ?city = wd:Q900 ||
            ?city = wd:Q3927 || ?city = wd:Q894 || ?city = wd:Q3426)
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
+  	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
 GROUP BY ?city ?cityLabel ?inceptionDate
 ORDER BY ASC(?year)
 \end{lstlisting}
-\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/t5u}{https://w.wiki/t5u}.} 
+\footnotetext{Из 6 городов, заданных в строках 7--8, 
+              получено 4 города в России, основанные до 1620 года. 
+              Ссылка на SPARQL-запрос: \href{https://w.wiki/6idC}{https://w.wiki/6idC}.%
+} 
 
 Подумайте, какие строки в~запросе~\ref{lst:cities_over_400_age} нужно закомментировать, 
-    чтобы получить список всех отечественных городов 
+    чтобы получить, во-первых, список всех отечественных городов, 
+    во-вторых, 
     список городов всего мира, основанных более 400 лет назад? 
 
 Как вы думаете, может ли в запросе~\ref{lst:cities_over_400_age} 
@@ -371,7 +407,7 @@ ORDER BY ASC(?year)
     с квалификатором <<самое позднее упоминание>> 
     (\wdProperty{1326}{latest date}), равным 4~апреля 1147 года. 
     Вероятно, по этой причине в~запросе~\ref{lst:cities_over_400_age} 
-    переменная \lstinline|?year| принимает для Москвы пустое значение, 
+    переменная \lstinline|?year| принимает для~Москвы пустое значение, 
     и Москва ошибочно не попадает в список правильных ответов. 
     Таким образом, чтобы извлечь 1147 год, 
     необходимо доработать имеющийся скрипт, что мы и предоставим читателю. 
@@ -396,17 +432,19 @@ ORDER BY ASC(?year)
     \index{SPARQL!FILTER!Флаги городов}
     \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/t5q}{Флаги городов в России}\protect\footnotemark},
-                    label=lst:cities_flags
+                    label=lst:cities_flags,
+                    numbers=none,
                     ]
 #defaultView:ImageGrid
 SELECT ?city ?cityLabel ?flag ?countryLabel WHERE {
-	?city wdt:P31/wdt:P279* wd:Q7930989. # "city/town" subclasses
-	?city wdt:P17 wd:Q159. # city in Russia	
-	?city wdt:P41 ?flag. # with filled property "flag"
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
+    ?city wdt:P31/wdt:P279* wd:Q7930989; # instances/subclasses of "city/town"
+          wdt:P17 wd:Q159;               # in Russia
+          wdt:P41 ?flag.                 # with filled property "flag"
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
 \end{lstlisting}
-\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/t5q}{https://w.wiki/t5q}.}
+\footnotetext{Получено: 980 городов России имеют флаги на 2023 год. 
+              Ссылка на~SPARQL-запрос: \href{https://w.wiki/t5q}{https://w.wiki/t5q}.}
     
     \small{\AnswerBackref Вопрос на с.~\pageref{lst:countries_sister_cities_with_Russia}.}
 \end{task}
@@ -414,18 +452,16 @@ SELECT ?city ?cityLabel ?flag ?countryLabel WHERE {
 
 
 
+\hfil\pgfornament[width=4cm]{80}\hfil%
 \newpage
 %%%%%%%%%%%%%% Country chapter %%%%%%%%%%%%%%
-\hfil\pgfornament[width=4cm]{80}\hfil%
-
 \begin{task}
 	\label{answer:administrative_territorial}
-	\newthought{ 
-		Речь идёт о количестве 
-        административно-территориальных единиц в каждой из стран. 
+Речь идёт о количестве 
+административно-территориальных единиц в~каждой из~стран. 
 		%Количество административно-территориальных единиц у \href{https://w.wiki/mzN}{Латвии}  119, у \href{https://w.wiki/mzP}{Таиланда} 77, у \href{https://w.wiki/mzR}{Дании} 5, а у \href{https://w.wiki/myt}{России} 81. 
-		Количество административно-территориальных единиц по~странам 
-        можно получить с~помощью запроса~\ref{lst:administrative_territorial_entity}.}
+Количество административно-территориальных единиц по~странам 
+    можно получить с~помощью запроса~\ref{lst:administrative_territorial_entity}.
 	
 \begin{lstlisting}[ language=SPARQL, 
 	caption={\href{https://w.wiki/tiN}{
@@ -535,7 +571,7 @@ SELECT ?country ?countryLabel ?flag ?area ?population
 }
 ORDER BY DESC(?populationDensity)
 \end{lstlisting}
-\footnotetext{Получено 53 страны в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/tkD}{https://w.wiki/tkD}.}
+\footnotetext{Получено: 53 страны в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/tkD}{https://w.wiki/tkD}.}
 	
 	
 \newthought{Результаты работы} вы можете увидеть в виде <<плиточки>> из флагов. 
@@ -555,16 +591,17 @@ ORDER BY DESC(?populationDensity)
     и \href{https://w.wiki/myy}{эрзянский} языки. 
     Ответ на вопрос можно проверить, выполнив запрос~\ref{lst:official_languages}.
 	
-	\index{SPARQL!FILTER!Официальные языки в России}
-	\begin{lstlisting}[ language=SPARQL, 
-	caption={\href{https://w.wiki/tky}{Официальные языки в России}\protect\footnotemark},
-	label=lst:official_languages
-	]
+\index{SPARQL!FILTER!Официальные языки в России}
+\begin{lstlisting}[ 
+            language=SPARQL, 
+            caption={\href{https://w.wiki/tky}{Официальные языки в России}\protect\footnotemark},
+            label=lst:official_languages,
+            numbers=none,
+                ]
 # Official languages in Russia
-SELECT ?lanquage ?lanquageLabel
-WHERE
-{ # Russia has the official language
-	wd:Q159 p:P37 [ps:P37 ?lanquage].
+SELECT ?lanquage ?lanquageLabel WHERE
+{ 
+	wd:Q159 p:P37 [ps:P37 ?lanquage]. # Russia has the official language
 	SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
 } ORDER BY ?lanquageLabel
 \end{lstlisting}
@@ -582,7 +619,7 @@ WHERE
 
 \begin{task}
 \label{answer:subjects_of_Russia_3}
-\newthought{Приведённому описанию соответствует} флаг Московской области. 
+Приведённому описанию соответствует флаг Московской области. 
     Иллюстрации флагов для каждого из субъектов России 
     можно получить с помощью запроса~\ref{lst:subjects_of_Russia_3_q}.
 	
@@ -607,7 +644,7 @@ WHERE
   ?subject wdt:P41 ?flag
 }
 \end{lstlisting}
-\footnotetext{Получено 86 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4cPg}{https://w.wiki/4cPg}.} 
+\footnotetext{Получено: 86 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4cPg}{https://w.wiki/4cPg}.} 
 	
 \small{\AnswerBackref Вопрос на с.~\pageref{lst:oblast-of-Russia}.}
 \end{task}
@@ -616,29 +653,21 @@ WHERE
 
 \begin{task}
 \label{answer:subjects_of_Russia_1}
-\newthought{Таким регионом является Карелия}. 
-    Она расположена на северо-западе России, возникла в \num{1920} году. 
+Таким регионом является Карелия. 
+    Она расположена на северо-западе России, возникла в 1920 году. 
     Граничит с Ленинградской, Вологодской, Архангельской и Мурманской областями. 
     Также граничит с Финляндией на западе.  
     Ответ на вопрос можно получить с~помощью запроса~\ref{lst:sharesBorderWith}.
-	
-\begin{marginfigure}[0.0cm]
-\centering\includegraphics[width=5cm]{"chapter/oblast_of_Russia/Flag_of_Karelia.png"}
-\caption [Флаг Карелии, Россия.]{Флаг Карелии.}%
-\label{fig:Flag_of_Karelia}%
-\end{marginfigure}
 
-	
+
+\newpage
 \begin{lstlisting}[ language=SPARQL, numbers=none,
 	caption={\href{https://w.wiki/4cPh}{Границы и дата возникновения субъектов РФ}\protect\footnotemark},
 	label=lst:sharesBorderWith
 	]
 # Borders and date of origin of the subjects of the Russian Federation
-SELECT  ?subject ?subjectLabel 
-        ?sharesBorderWith 
-        ?sharesBorderWithLabel ?year
-WHERE
-{
+SELECT ?subject ?subjectLabel ?sharesBorderWith ?sharesBorderWithLabel ?year 
+WHERE {
   { ?subject wdt:P31 wd:Q835714 } UNION  # Oblast of Russia
   { ?subject wdt:P31 wd:Q41162 } UNION  # Republic of Russia
   { ?subject wdt:P31 wd:Q183342 } UNION  # Federal city of Russia
@@ -649,10 +678,10 @@ WHERE
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
   
   ?subject wdt:P47 ?sharesBorderWith. 
-  ?subject wdt:P571 ?year
+  ?subject wdt:P571 ?year.      # ?year is inception date of ?subject
 }
 \end{lstlisting}
-\footnotetext{Получено 485 записей в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4cPh}{https://w.wiki/4cPh}.} 
+\footnotetext{Получено: 485 пар граничащих друг с другом регионов России в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/6hwN}{https://w.wiki/6hwN}.} 
 	
 \small{\AnswerBackref Вопрос на с.~\pageref{lst:sharesBorderWith-oblast-of-Russia}.}
 \end{task}
@@ -662,7 +691,7 @@ WHERE
 \begin{task}
 	\label{answer:subjects_of_Russia_2}
     \newthought{Сейчас в состав Российской Федерации} входят: Республика Адыгея, 
-    Камчатский край, Чукотский автономный округ, не входит Читинская область. 
+    Камчатский край, Чукотский автономный округ; не входит Читинская область. 
     Ответ на вопрос можно проверить, 
     выполнив запрос~\ref{lst:subjects-of-Russia} на с.~\pageref{lst:subjects-of-Russia}.
 
@@ -671,10 +700,9 @@ WHERE
 
 
 
-
+\hfil\pgfornament[width=4cm]{80}\hfil%
 \newpage
 %%%%%%%%%%%%%% Operating system chapter %%%%%%%%%%%%%%
-\hfil\pgfornament[width=4cm]{80}\hfil%
 
 \begin{task}
 \label{answer:os_base}
@@ -696,7 +724,7 @@ WHERE
 }
 GROUP BY ?baseLabel
 ORDER BY DESC(?count) ASC(?baseLabel)\end{lstlisting}
-\footnotetext{Получено 118 операционных систем на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/uLR}{https://w.wiki/uLR}.}
+\footnotetext{Получено: 118 операционных систем на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/uLR}{https://w.wiki/uLR}.}
 
 \small{\AnswerBackref Вопрос на с.~\pageref{lst:base_of_operating_systems}.}
 \end{task}
@@ -705,7 +733,9 @@ ORDER BY DESC(?count) ASC(?baseLabel)\end{lstlisting}
 
 \begin{task}
 \label{answer:what_system_created}
-\newthought{Компания \href{https://w.wiki/n8S}{Apple}} разработала ОС~\href{https://w.wiki/n8P}{Newton OS}. Ответ на вопрос можно получить, выполнив SPARQL-запрос~\ref{lst:os_creators}.
+Компания \href{https://w.wiki/n8S}{Apple} разработала 
+    операционную систему \href{https://w.wiki/n8P}{Newton~OS}. 
+    Ответ на вопрос можно получить, выполнив запрос~\ref{lst:os_creators}.
 
 \begin{lstlisting}[ language=SPARQL, 
     numbers=none,
@@ -717,7 +747,7 @@ SELECT ?os ?osLabel ?developer ?developerLabel WHERE {
 	SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
 	OPTIONAL { ?os wdt:P178 ?developer. }
 }\end{lstlisting}
-\footnotetext{\num{1115} операционных систем на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/n8a}{https://w.wiki/n8a}.}
+\footnotetext{Получено: 1115 операционных систем с~указанием разработчиков и без них на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/n8a}{https://w.wiki/n8a}.}
 
 \small{\AnswerBackref Вопрос на с.~\pageref{lst:inception_time_of_operating_systems}.}
 \end{task}
@@ -740,9 +770,9 @@ SELECT ?os ?osLabel ?developer ?developerLabel WHERE {
     ?os wdt:P178 ?developer. # os developed by developer
     SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
 }\end{lstlisting}
-\footnotetext{У 548 операционных систем заполнено свойство <<разработчик>> на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vGQ}{https://w.wiki/vGQ}.}
+\footnotetext{Получено: 548 операционных систем с~заполненным свойством <<разработчик>> на~2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vGQ}{https://w.wiki/vGQ}.}
 
-\small{\AnswerBackref Вопрос на с.~\pageref{tasks:operating_system_tasks}.}
+\small{\AnswerBackref Задание 1 на с.~\pageref{tasks:operating_system_tasks}.}
 \end{task}
 
 
@@ -760,18 +790,18 @@ SELECT ?os ?osLabel ?image WHERE {
     ?os wdt:P18 ?image.
     SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
 }\end{lstlisting}
-\footnotetext{У 182 операционных систем заполнено свойство <<логотип>> на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vGQ}{https://w.wiki/vGQ}.}
+\footnotetext{Получено: 182 операционные системы с~заполненным свойством <<логотип>> на 2020 год. Ссылка на~SPARQL-запрос: \href{https://w.wiki/vGQ}{https://w.wiki/vGQ}.}
 
-\small{\AnswerBackref Вопрос на с.~\pageref{tasks:operating_system_tasks}.}
+\small{\AnswerBackref Задание 2 на с.~\pageref{tasks:operating_system_tasks}.}
 \end{task}
 
 \begin{task}
 \label{answer:os_country}
-\newthought{Список стран происхождения операционных систем можно получить с помощью запроса~\ref{lst:os_development_country}.}
+Список стран происхождения операционных систем можно получить с помощью запроса~\ref{lst:os_development_country}.
 
 \begin{lstlisting}[ language=SPARQL, 
     numbers=none,
-    caption={\href{https://w.wiki/vGX}{Логотипы операционных систем}\protect\footnotemark},
+    caption={\href{https://w.wiki/vGX}{Страны происхождения операционных систем}\protect\footnotemark},
 	label=lst:os_development_country
 	]
 SELECT ?os ?osLabel ?country ?countryLabel WHERE {
@@ -779,22 +809,26 @@ SELECT ?os ?osLabel ?country ?countryLabel WHERE {
 	?os wdt:P495 ?country.
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
 }\end{lstlisting}
-\footnotetext{У 10 операционных систем заполнено свойство <<страна происхождения>> на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vGX}{https://w.wiki/vGX}.}
+\footnotetext{Получено: 10 операционных систем с~заполненным свойством <<страна происхождения>> на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vGX}{https://w.wiki/vGX}.}
 
-\small{\AnswerBackref Вопрос на с.~\pageref{tasks:operating_system_tasks}.}
+\small{\AnswerBackref Задание 3 на с.~\pageref{tasks:operating_system_tasks}.}
 \end{task}
 
 
 
+
+\newpage
 \begin{task}
 \label{answer:os_and_bases}
-\newthought{Для получения такого дерева, где операционные системы верхнего уровня дерева  
-основаны на ОС, перечисленных на нижнем уровне, выполните следующий запрос~\ref{lst:os_and_bases}.}
+Для получения такого дерева, где операционные системы верхнего уровня дерева  
+основаны на ОС, перечисленных на нижнем уровне, выполните запрос~\ref{lst:os_and_bases}.
 
-\begin{lstlisting}[ language=SPARQL, caption={
-		\href{https://w.wiki/vGc}{Дерево операционных систем и их основ}\protect\footnotemark},
-	label=lst:os_and_bases
-	]
+\begin{lstlisting}[ 
+        language=SPARQL, 
+        caption={\href{https://w.wiki/vGc}{Дерево операционных систем и их основ}\protect\footnotemark},
+        label=lst:os_and_bases,
+        numbers=none,
+	            ]
 #defaultView:Tree
 SELECT ?base ?baseLabel ?baseImage ?baseLogoImage
 ?os ?osLabel ?osImage ?osLogoImage
@@ -809,39 +843,44 @@ WHERE
 SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
 }
 \end{lstlisting}
-\footnotetext{136 операционных систем имеют предков на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vGc}{https://w.wiki/vGc}.}
+\footnotetext{Получено: 136 операционных систем с~<<предками>> на 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vGc}{https://w.wiki/vGc}.}
 
-\small{\AnswerBackref Вопрос на с.~\pageref{tasks:operating_system_tasks}.}
+\small{\AnswerBackref Задание 4 на с.~\pageref{tasks:operating_system_tasks}.}
 \end{task}
 
 
 
 
+\hfil\pgfornament[width=4cm]{80}\hfil%
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%    Языки программирование
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hfil\pgfornament[width=4cm]{80}\hfil%
 
 \begin{task}
 \label{answer:prog_lang_1}
-\newthought{Язык программирования \href{https://ru.wikipedia.org/wiki/Ада_(язык_программирования)}{Ада}} 
-    был разработан Жан Ишбиа, 
-    \href{https://ru.wikipedia.org/wiki/Форт_(язык_программирования)}{Форт} разработал Чарльз Мур, 
+Язык программирования \href{https://ru.wikipedia.org/wiki/Ада_(язык_программирования)}{Ада} 
+    разработал Жан Ишбиа, 
+    \href{https://ru.wikipedia.org/wiki/Форт_(язык_программирования)}{Форт}~--- Чарльз Мур, 
     а создателем языка \href{https://ru.wikipedia.org/wiki/Erlang}{Erlang} считается Джо Армстронг. 
     Ответ на вопрос можно получить с помощью запроса~\ref{lst:prog_lang_creators}. 
+
 \begin{lstlisting}[
-    language=SPARQL, 
-    caption={{\href{https://w.wiki/v4Q}{Создатели языков программирования}}\protect\footnotemark}, 
-    label=lst:prog_lang_creators
+        language=SPARQL, 
+        caption={{\href{https://w.wiki/v4Q}{Создатели языков программирования}}\protect\footnotemark}, 
+        label=lst:prog_lang_creators,
+        numbers=none,
                 ]
-SELECT ?itemLabel ?developerLabel WHERE {
-    ?item wdt:P31 wd:Q9143
-    ?item wdt:P178 ?developer.
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "en,ru" }
+# Get developers of programming languages
+SELECT ?itemLabel ?developerLabel WHERE 
+{
+  ?item wdt:P31 wd:Q9143;    # is programming language
+        wdt:P178 ?developer. # has developer
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en" }
 }
 ORDER BY DESC (?item_label)
 \end{lstlisting}
-\footnotetext{В 2020 году найдено 520 разработчика. Ссылка на SPARQL-запрос: \href{https://w.wiki/v4Q}{https://w.wiki/v4Q}.}
+\footnotetext{Получено: 520 разработчиков в~2020~году, 553~--- в~2023 году. Ссылка на~SPARQL-запрос: \href{https://w.wiki/6i28}{https://w.wiki/6i28}.}
 
 \small{\AnswerBackref Вопрос на с.~\pageref{question:prog_lang_1}.}
 \end{task}
@@ -853,101 +892,217 @@ ORDER BY DESC (?item_label)
 \newthought{Логотипом языка программирования} 
     \href{https://ru.wikipedia.org/wiki/LOLCODE}{LOLCODE} является третья картинка. 
     Ответ на вопрос также можно получить, выполнив запрос~\ref{lst:prog_lang_logotype}. 
-	\begin{lstlisting}[language=SPARQL, caption={{\href{https://w.wiki/v4U}{Логотипы языков программирования}}\protect\footnotemark}, label=lst:prog_lang_logotype]
+\begin{lstlisting}[
+            language=SPARQL, 
+            caption={{\href{https://w.wiki/v4U}{Логотипы языков программирования}}\protect\footnotemark}, 
+            label=lst:prog_lang_logotype,
+            numbers=none,
+                  ]
 #defaultView:ImageGrid
-SELECT ?itemLabel ?image
-WHERE
+SELECT ?itemLabel ?image WHERE
 {
- SERVICE wikibase:label { bd:serviceParam wikibase:language "en,ru" }
- ?item wdt:P154 ?image. # image
+    ?item wdt:P154 ?image. # image
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en,ru" }
 }
 \end{lstlisting}
-\footnotetext{В 2020 году получено 87066 логотипов. Ссылка на SPARQL-запрос: \href{https://w.wiki/v4U}{https://w.wiki/v4U}.}
+\footnotetext{Получено: \num{87066} логотипов в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/v4U}{https://w.wiki/v4U}.}
 
 \small{\AnswerBackref Вопрос на с.~\pageref{question:prog_lang_2}.}
 \end{task}
 
 
 
+\newpage
 \begin{task}
     \label{answer:prog_langs_4}
-    \newthought{Получить список языков программирования со свойством \href{https://www.wikidata.org/wiki/Property:P822}{<<персонаж-талисман>> (P822)} можно выполнив следующий SPARQL-запрос (листинг \ref{lst:prog_lang_answer_4})}. 
-	\begin{lstlisting}[language=SPARQL, caption={{\href{https://w.wiki/v4e}{<<Персонажи-талисманы>> языков программирования}}\protect\footnotemark}, label=lst:prog_lang_answer_4]
-#List of programming languages with mascot
-SELECT ?lang_name ?mascot_name
+    Список языков программирования со свойством \wdProperty{822}{персонаж-талисман} (маск\'{о}т)
+    можно получить, выполнив запрос~\ref{lst:prog_lang_answer_4}. 
+    Подумайте, как расширить запрос, чтобы увидеть иллюстрации этих маскотов.
+
+\begin{lstlisting}[
+            language=SPARQL, 
+            caption={{\href{https://w.wiki/6i8q}{Персонажи-талисманы языков программирования}}\protect\footnotemark}, 
+            label=lst:prog_lang_answer_4,
+            numbers=none,
+                  ]
+# List of programming languages with mascot
+SELECT ?lang ?langLabel ?mascot ?mascotLabel
 WHERE {
-    ?lang wdt:P31 wd:Q9143 .
-    ?lang wdt:P822 ?mascot .
-    ?lang rdfs:label ?lang_name filter (lang(?lang_name) = "en").
-    ?mascot rdfs:label ?mascot_name filter (lang(?mascot_name) = "en").
+    ?lang wdt:P31 wd:Q9143.
+    ?lang wdt:P822 ?mascot.
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en" }
 }
-	\end{lstlisting}
-\footnotetext{В 2020 году результат запроса~--- три языка программирования. 
-    Ссылка на SPARQL-запрос: \href{https://w.wiki/v4e}{https://w.wiki/v4e}.}
+\end{lstlisting}
+\footnotetext{Получено: 3 языка программирования в 2020 году, 6~--- в 2023 году. 
+        Ссылка на SPARQL-запрос: \href{https://w.wiki/6i8q}{https://w.wiki/6i8q}.}
     
-    \small{Задание на с.~\pageref{prog_lang_test}.}
+    \small{Задание~1 на~с.~\pageref{prog_lang_test}.}
 \end{task}
 
 
 
 
-\newpage
 \begin{task}
     \label{answer:prog_langs_5}
-    \newthought{Получить список языков программирования, основанных ранее 1992 года можно выполнив следующий SPARQL-запрос (листинг \ref{lst:prog_lang_answer_5})}. 
-	\begin{lstlisting}[language=SPARQL, caption={{\href{https://w.wiki/v4f}{Языки программирования, старше 1992 года}}\protect\footnotemark}, label=lst:prog_lang_answer_5]
-#Select langeages older than 1992
-SELECT DISTINCT ?langLabel ?age
-WHERE {
-  ?lang wdt:P31 wd:Q9143 .
-  ?lang wdt:P571 ?age .
-  ?lang rdfs:label ?langLabel FILTER (lang(?langLabel) = "ru").
-  FILTER(year(?age) < 1992)
+Получить список языков программирования, разработанных до 1992 года, 
+    можно с~помощью запроса~\ref{lst:prog_lang_answer_5}. 
+
+	\begin{lstlisting}[
+        language=SPARQL, 
+        caption={{\href{https://w.wiki/v4f}{Языки программирования, появившиеся до 1992 года}}\protect\footnotemark}, 
+        label=lst:prog_lang_answer_5,
+        numbers=none,
+                    ]
+# Programming languages developed before 1992
+SELECT DISTINCT ?lang ?langLabel (year(?inception) as ?year) WHERE 
+{
+  ?lang wdt:P31 wd:Q9143;    # is programming language
+        wdt:P571 ?inception. # date of inception
+  FILTER(year(?inception) < 1992)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en" }
 }
 \end{lstlisting}
-\footnotetext{Результатом запроса в 2020 году были 207 языков. Ссылка на SPARQL-запрос: \href{https://w.wiki/v4f}{https://w.wiki/v4f}.}
+\footnotetext{Получено: 207 языков программирования в~2020 году, 377~--- в 2023 году. 
+              Ссылка на SPARQL-запрос: \href{https://w.wiki/v4f}{https://w.wiki/v4f}.}
     
-\small{Задание на с.~\pageref{prog_lang_test}.}
+\small{Задание~2 на~с.~\pageref{prog_lang_test}.}
 \end{task}
 
+
+
+\newpage
 \begin{task}
     \label{answer:prog_langs_6}
-    \newthought{Для построения столбчатой диаграммы, отражающуей количество известных хештегов в Твиттере для каждого языка программирования используем свойство (листинг \ref{lst:prog_lang_answer_6})}. 
-	\begin{lstlisting}[language=SPARQL, caption={{\href{https://w.wiki/v4h}{Хештеги языков программирования в Твиттере}}\protect\footnotemark}, label=lst:prog_lang_answer_6]
+    Чтобы построить столбчатую диаграмма числа различных хештегов 
+    для~каждого из~языков программирования, 
+    используем свойство \wdProperty{2572}{hashtag} в~запросе~\ref{lst:prog_lang_answer_6}. 
+
+    Отметим, что в 2023 году только два языка имели больше одного хештега: 
+    язык C++ (хештеги cpp и cplusplus) и язык Go (хештеги golang и GoogleGo).
+
+\begin{lstlisting}[
+            language=SPARQL, 
+            caption={{\href{https://w.wiki/v4h}{Число хештегов у языков программирования}}\protect\footnotemark}, 
+            label=lst:prog_lang_answer_6,
+            numbers=none,
+                ]
+# Number of hashtags for programming languages
 #defaultView:BarChart
-#Twitter tags for programming language
-SELECT DISTINCT ?langLabel (count(*) as ?count)
-WHERE
+SELECT DISTINCT ?lang ?langLabel (count(*) as ?count) WHERE
 {
-    ?lang wdt:P31 wd:Q9143 .
-    ?lang wdt:P2572 ?count .
-    ?lang rdfs:label ?langLabel filter (lang(?langLabel) = "ru"). 
+    ?lang wdt:P31 wd:Q9143; # is programming language
+          wdt:P2572 ?count. # has hashtag
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en" }
 } 
-GROUP BY ?langLabel
+GROUP BY ?lang ?langLabel
 ORDER BY DESC(?count)
 \end{lstlisting}
-\footnotetext{Результатом запроса в 2020 году были 3 языка программирования. Ссылка на SPARQL-запрос: \href{https://w.wiki/v4h}{https://w.wiki/v4h}.}
+\footnotetext{Получено: 3 языка программирования с~хештегами в 2020 году, 
+              10~языков~--- в~2023 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/v4h}{https://w.wiki/v4h}.}
     
-\small{Задание на с.~\pageref{prog_lang_test}.}
+\small{Задание~3 на~с.~\pageref{prog_lang_test}.}
 \end{task}
 
+
+
+
+
+\hfil\pgfornament[width=4cm]{80}\hfil%
+\newpage
+%%%%%%%%%%%%%%%%%%%  Ship chapter  %%%%%%%%%%%%%%%%%%
+
+\begin{task}
+\label{answer:ship_Guinness}
+<<Корабли Гиннесса>>. 
+    Выполним поиск выдающихся по каким-либо параметрам кораблей в Викиданных.
+    Например, известно, что \Wikiref{Seawise Giant}~--- это самый длинный нефтяной танкер.
+
+Приведём примеры возможных решений через Викиданные. 
+При этом данные могут неточными из-за неполноты информации об объектах в Викиданных, 
+    см. запросы~\ref{lst:long_ship} и~\ref{lst:wide_ship}.
+
+\begin{lstlisting}[ 
+            language=SPARQL, 
+            caption={{\href{https://w.wiki/3L2R}{Самые длинные корабли}}\protect\footnotemark}, 
+            label=lst:long_ship,
+            numbers=none,
+                ]
+# The ship with maximum length
+SELECT ?ship ?shipLabel ?max_length WHERE {
+{
+    SELECT (MAX(?length) as ?max_length) WHERE
+    {
+        ?ship wdt:P31 wd:Q11446; # is ship
+              wdt:P2043 ?length
+    }
+}
+  {?ship wdt:P31 wd:Q11446; wdt:P2043 ?max_length}
+		
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
+}
+\end{lstlisting}
+\footnotetext{Самым длинным кораблём оказался непостроенный \Wikiref{Хаббакук} длиной 1200 метров. Ссылка на SPARQL-запрос: \wwiki{3L2R}.}
+
+Внутренний \lstinline|SELECT| запроса~\ref{lst:long_ship} находит максимальную длину корабля, 
+а внешний \lstinline|SELECT| находит корабль с такой длиной. 
+
+Более простой и прямолинейный скрипт (URL:~\href{https://w.wiki/6iAd}{https://w.wiki/6iAd}) 
+находит на 2023 год 167 кораблей длиной более 350 метров. 
 
 
 
 
 \newpage
-%%%%%%%%%%%%%%%%%%%  Ship chapter  %%%%%%%%%%%%%%%%%%
-\hfil\pgfornament[width=4cm]{80}\hfil%
+\begin{lstlisting}[ 
+            language=SPARQL, 
+            caption={{\href{https://w.wiki/wKv}{Изображения кораблей, отсортированных по ширине корабля}}\protect\footnotemark}, 
+            label=lst:wide_ship, 
+            numbers=none,
+                  ]
+# List of ships' images sorted by width of ship
+#defaultView:ImageGrid
+SELECT ?ship ?shipLabel ?image ?beam WHERE 
+{
+    ?ship wdt:P31 wd:Q11446; # is ship
+          wdt:P2261 ?beam;   # width of ship is ?beam
+    OPTIONAL { ?ship wdt:P18 ?image }
+    SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
+}
+ORDER BY DESC(?beam)
+\end{lstlisting}
+\footnotetext{Самым широким кораблем также оказался 
+    \href{https://www.wikidata.org/wiki/Q1156392}{проект авианосца Хабаккук} 
+    из льда и опилок, ширина которого составила 180 метров. 
+    Среди реально существовавших кораблей самым широким был норвежский корабль 
+    \href{https://www.wikidata.org/wiki/Q11987454}{M/S Isosaari (Q11987454)} шириной 99 метров. 
+    SPARQL-запрос: \href{https://w.wiki/wKv}{https://w.wiki/wKv}.}
+
+\small{Задание на с.~\pageref{question:ship_Guinness}.}
+\end{task}
+
+
+
 
 \begin{task}
-\label{answer:ship_1}
+\label{answer:ship_stamp}
+На марке изображён советский эсминец~<<\ruwiki{vgE}{Гремящий}>>.
 
-\newthought{Найдём корабли}, снятые в фильмах, с помощью запроса~\ref{lst:cinema_ship}. 
+\small{Задание на с.~\pageref{question:ship_stamp}.}
+\end{task}
+
+
+
+
+\begin{task}
+\label{answer:ship_book}
+
+Найдём корабли, снятые в фильмах, с помощью запроса~\ref{lst:cinema_ship}. 
 
 \begin{lstlisting}[ 
             language=SPARQL, 
             caption={{\href{https://w.wiki/waV}{Изображения кораблей, снятых в фильмах}}\protect\footnotemark}, 
             label=lst:cinema_ship, 
+            numbers=none,
                 ]
 # Images of ships used in movies
 #defaultView:ImageGrid
@@ -966,11 +1121,13 @@ WHERE
 
 
 
-\newthought{Найдём корабли}, описанные в книгах, с помощью запроса~\ref{lst:books_ship}. 
+\newpage
+Найдём корабли, описанные в книгах, с помощью запроса~\ref{lst:books_ship}. 
 \begin{lstlisting}[ 
             language=SPARQL, 
             caption={{\href{https://w.wiki/wXF}{Изображения кораблей, о которых писали в книгах}}\protect\footnotemark}, 
             label=lst:books_ship, 
+            numbers=none,
                 ]
 # Images of ships used in books
 #defaultView:ImageGrid
@@ -985,108 +1142,20 @@ WHERE
 	SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
 }
 \end{lstlisting}
-\footnotetext{Найдено пять изображений кораблей, о которых было написано в книгах, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/wXF}{https://w.wiki/wXF}.}
+\footnotetext{Найдено пять изображений кораблей, о которых было написано в~книгах, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/wXF}{https://w.wiki/wXF}.}
 	
-\small{Задание на с.~\pageref{question:ship_1}.}
+\small{Задание на с.~\pageref{question:ship_book}.}
 \end{task}
 
 
 
 
 
+
+\hfil\pgfornament[width=4cm]{80}\hfil%
 \newpage
-\begin{task}
-На рисунке~\ref{fig:grem_answer} изображён советский эсминец~\ruwiki{vgE}{Гремящий}.
-
-\label{answer:ship_2}
-\begin{marginfigure}[0.0cm]
-		{
-		  \setlength{\fboxsep}{0pt}%
-		  \setlength{\fboxrule}{1pt}%
-		  \fcolorbox{gray}{gray}{\includegraphics[width=7cm]{chapter/ship/Grem_ship_answer.jpg}}
-		}
-        \caption[Эсминец <<Гремящий>>.]{Почтовая марка с изображением эсминца~\ruwiki{vgE}{Гремящий}, почта СССР, 1982 год.}%
-		\label{fig:grem_answer}%
-	  \end{marginfigure}
-
-\small{Задание на с.~\pageref{question:ship_2}.}
-\end{task}
-
-
-
-\begin{task}
-\label{answer:ship_Guinness}
-\newthought{<<Корабли Гиннесса>>}. 
-    Выполним поиск выдающихся по каким-либо параметрам кораблей в Викиданных.
-    Например, известно, что \Wikiref{Seawise Giant}~--- это самый длинный нефтяной танкер.
-
-Приведём примеры возможных решений через Викиданные. 
-При этом данные могут не точными из-за неполноты информации об объектах в Викиданных, 
-    см. запросы~\ref{lst:long_ship} и~\ref{lst:wide_ship}.
-
-\begin{lstlisting}[ 
-            language=SPARQL, 
-            caption={{\href{https://w.wiki/3L2R}{Самые длинные корабли}}\protect\footnotemark}, 
-            label=lst:long_ship,
-                ]
-# The ship with maximum length
-SELECT ?ship ?shipLabel ?max_length WHERE {
-	{
-		SELECT (MAX(?length) as ?max_length)
-		WHERE
-		{
-			?ship wdt:P31 wd:Q11446; # is ship
-				  wdt:P2043 ?length
-		}
-	}
-	{?ship wdt:P31 wd:Q11446; wdt:P2043 ?max_length}
-		
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
-}  
-\end{lstlisting}
-\footnotetext{Самым длинным кораблем оказался \Wikiref{NMS Mircea} длиной в 3600 метров. Ссылка на SPARQL-запрос: \wwiki{3L2R}.}
-
-Внутренний \lstinline|SELECT| запроса~\ref{lst:long_ship} находит максимальную длину корабля, 
-    а внешний \lstinline|SELECT| находит корабль с такой длиной.
-
-
-
-
-\newpage
-\begin{lstlisting}[ 
-            language=SPARQL, 
-            caption={{\href{https://w.wiki/wKv}{Изображения кораблей, отсортированных по ширине корабля}}\protect\footnotemark}, 
-            label=lst:wide_ship, 
-                  ]
-# List of ships' images sorted by width of ship
-#defaultView:ImageGrid
-SELECT ?ship ?shipLabel ?image ?beam WHERE 
-{
-    ?ship wdt:P31 wd:Q11446; # is ship
-          wdt:P2261 ?beam;   # width of ship is ?beam
-    OPTIONAL { ?ship wdt:P18 ?image }
-    SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
-}
-ORDER BY DESC(?beam)
-\end{lstlisting}
-\footnotetext{Самым широким кораблем оказался 
-    незавершённый \href{https://www.wikidata.org/wiki/Q1156392}{проект авианосца Хабаккук} 
-    из льда и опилок, шириной \num{180} метров. 
-    Среди реально существоваших кораблей самым широким был норвежский корабль 
-    \href{https://www.wikidata.org/wiki/Q11987454}{M/S Isosaari (Q11987454)}, 
-    шириной 99 метров. 
-    SPARQL-запрос: \href{https://w.wiki/wKv}{https://w.wiki/wKv}.}
-\label{answer:ship_3}
-
-\small{Задание на с.~\pageref{question:ship_3}.}
-\end{task}
-
-
-
-
 %%%%%%%%%%%%%% spacecraft chapter %%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hfil\pgfornament[width=4cm]{80}\hfil%
 
 \begin{task}
     \label{answer:spacecraft_USSR}
@@ -1099,23 +1168,20 @@ ORDER BY DESC(?beam)
     \begin{lstlisting}[ 
         language=SPARQL, 
         numbers=none, 
-        caption={{\href{https://w.wiki/4eCS}{Набор изображений космических аппаратов СССР}}\protect\footnotemark}, 
+        caption={{\href{https://w.wiki/6iET}{Набор изображений космических аппаратов СССР}}\protect\footnotemark}, 
         label=lst:imageUSSRsc, 
         ]
 # List of images of USSR spacecraft
 #defaultView:ImageGrid
-SELECT ?obj ?name ?img WHERE
+SELECT ?rocket ?rocketLabel ?img WHERE
 {
-    {?obj wdt:P31 wd:Q40218.}          # spacecraft
-    {?obj wdt:P17 wd:Q15180.} UNION       # country
-    {?obj wdt:P495 wd:Q15180.}  # country of origin
-    ?obj wdt:P18 ?img.                       #image
-    OPTIONAL {
-		?obj rdfs:label ?name 
-		FILTER (lang(?name) = "ru")
-	}
+  ?rocket wdt:P31 wd:Q40218; # is spacecraft
+          wdt:P17 wd:Q15180; # from USSR
+          wdt:P18 ?img.      # has image
+  SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
+}
 }\end{lstlisting}
-\footnotetext{Найдено девять результатов в 2022 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4eCS}{https://w.wiki/4eCS}.}
+\footnotetext{Получено: 4 космических корабля в~2023 году. Ссылка на~SPARQL-запрос: \href{https://w.wiki/6iET}{https://w.wiki/6iET}.}
 
 \small{Вопросы на с.~\pageref{question:spacecraft_soyuz19}, 
     \pageref{question:spacecraft_soyuzT} и \pageref{question:spacecraft_lunar}.}
@@ -1123,10 +1189,11 @@ SELECT ?obj ?name ?img WHERE
 
 
 
+\newpage
 \begin{task}
 \label{answer:launches_USSR}
 Запрос~\ref{lst:launch_USSR} строит график запуска отечественных космических аппаратов по десятилетиям.
-    В 1960-е годы совершено 16~запусков, в 1970-е~--- 42 запуска, а в 1980-е~--- 39.% запусков.
+    В 1960-е годы совершено 16~запусков, в~1970-е~--- 42, а~в~1980-е~--- 39~запусков.
 
 \begin{lstlisting}[ 
                 language=SPARQL, 
@@ -1157,24 +1224,31 @@ ORDER BY ?lapse # Order 1960, 1970, 1980, ...
 \end{task}
 
 
+\newpage
 \begin{task}
-    \newthought{Наибольшее число запусков за десятилетие в период с 1970 по 2010 год~--- 121, наименьшее~--- 63.} 
-    Для подсчёта максимума и минимума запусков за 10 лет в период с 1970 по 2010 год удобно использовать скрипт~\ref{lst:launchesWorld10}.
-    \begin{lstlisting}[ language=SPARQL, numbers=none, caption={{\href{https://w.wiki/4dwj}{Максимум и минимум запусков космических кораблей в мире}}\protect\footnotemark}, label=lst:launchesWorld10, ]
-# Check MAX and MIN of launches per 10 years from 1970 to 2010
-SELECT (MAX (?quantity) as ?max) (MIN (?quantity) as ?min)
-WHERE {
-  SELECT (STR(?lapse) AS ?lapse_str) (COUNT(?item) AS ?quantity)
-  WHERE {                  # spacecraft belongs to
-    ?item wdt:P619 ?launch. # date of spacecraft launch (P619)
+    Подсчитаем число запусков ракет за каждые 10 лет в период с~1970 по~2020 год с~помощью запроса~\ref{lst:launchesWorld10}.
+    \begin{lstlisting}[ 
+            language=SPARQL, 
+            numbers=none, 
+            caption={{\href{https://w.wiki/6iFk}{Число запусков космических кораблей в мире по десятилетиям (1970--2020)}}\protect\footnotemark}, 
+            label=lst:launchesWorld10, 
+                      ]
+# Get number of launches for each 10 years from 1970 to 2020
+SELECT (STR(?lapse) AS ?lapse_str) (COUNT(?item) AS ?quantity) 
+WHERE {                  
+    ?item wdt:P619 ?launch.       # date of spacecraft launch
     BIND( YEAR(?launch) AS ?year) 
-    ?item wdt:P17 ?country. # check existing country
+    ?item wdt:P17 ?country.       # check existing country
     BIND(FLOOR(?year/10)*10 AS ?lapse) # count for each 10 years
-    FILTER (?year > 1969 && ?year < 2010) # check date
-  } 
-  GROUP BY ?lapse
-} \end{lstlisting}
-    \footnotetext{Запрос выполнялся в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4dwH}{https://w.wiki/4dwH}}
+    FILTER (?year > 1969 && ?year < 2020) # check date
+} 
+GROUP BY ?lapse
+\end{lstlisting}
+\footnotetext{Получено: в 1970-е годы было запущено минимальное число космических кораблей в мире~--- 70, 
+                        в 2010-е годы максимальное число запусков~--- 337 
+                        по данным на 2023 год. 
+    Ссылка на~SPARQL-запрос: \href{https://w.wiki/6iFk}{https://w.wiki/6iFk}.}
+
     \small{\AnswerBackref Вопрос на с.~\pageref{question:spacecraft_2}.}
 \label{answer:max-min-space-launches}
 \end{task}

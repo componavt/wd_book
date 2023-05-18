@@ -61,7 +61,7 @@ WHERE
 %Почти пустыми и малоинформативными воздушными судами на 2017 год оказались: \href{https://www.wikidata.org/wiki/Q464247}{МиГ-1}, \href{https://www.wikidata.org/wiki/Q2296502}{Су-6}, \href{https://www.wikidata.org/wiki/Q1658673}{Ил-103}.
 На 2020 год малоинформативными воздушными судами оказались: 
 \href{https://www.wikidata.org/wiki/Q820603}{Бе-1} (3 свойства), 
-\href{https://www.wikidata.org/wiki/Q117984}{Литуаника} (4 свойства) и 
+\href{https://www.wikidata.org/wiki/Q117984}{Литуаника} (4~свойства) и 
 \href{https://www.wikidata.org/wiki/Q572762}{Ла-168} (3 свойства).
 
 
@@ -167,7 +167,7 @@ ORDER BY DESC(?planes_produced)
 Для получения нового списка добавим в запрос~\ref{lst:lang3_1} фильтр по количеству выпущенных самолётов.
 
 
-\index{SPARQL!FILTER!Список выпущенных самолётов, в количестве более 10 штук}
+\index{SPARQL!FILTER!Список выпущенных самолётов (> 10)}
 \begin{lstlisting}[ 
             language=SPARQL, 
             caption={\href{https://w.wiki/v4N}{Список, включающий только те самолёты, которые были выпущены в количестве более 10 штук}\protect\footnotemark}, 
@@ -263,7 +263,7 @@ SELECT (SUM(?count) as ?sum) WHERE {
     \setlength{\fboxrule}{1pt}%
     \fcolorbox{gray}{gray}{\includegraphics[width=0.99\linewidth]{./chapter/aircraft/Pareto_principle_diargam.png}}%
 %	\includegraphics{./chapter/aircraft/Number_of_aircraft_produced_ru.png}%
-	\caption{Процентное соотношение количества выпущенных моделей самолётов по $n$ моделям к общему числу выпущенных самолётов за всё время, 2020 год}%
+    \caption[Доля выпущенных моделей самолётов к общему числу самолётов.]{Процентное соотношение количества выпущенных моделей самолётов по $n$ моделям к общему числу выпущенных самолётов за всё время, 2020 год}%
     \label{fig:Pareto_principle_diargam}%
 \end{figure*}
 
@@ -317,14 +317,15 @@ SELECT (SUM(?count) as ?sum) WHERE {
 \end{marginfigure}
 
 
-\index{SPARQL!COUNT!Соотношение количества производителей воздушных судов по странам}
-\index{График!BubbleChart!Соотношение количества производителей воздушных судов по странам}
+\index{SPARQL!COUNT!Количество производителей воздушных судов по странам}
+\index{График!BubbleChart!Количество производителей воздушных судов по странам}
 \begin{lstlisting}[ language=SPARQL, 
                 caption={\href{https://w.wiki/t3v}{Список стран с указанием количества производителей воздушных судов}\protect\footnotemark}, 
-                label=lst:lang5, ]
+                label=lst:lang5, 
+                numbers=none,
+                ]
 #defaultView:BubbleChart
-SELECT ?country ?countryLabel (count(?manufacturer) as ?count)
-WHERE
+SELECT ?country ?countryLabel (count(?manufacturer) as ?count) WHERE
 {
     ?manufacturer wdt:P31 wd:Q936518. # instance of aerospace manufacture
   	?manufacturer wdt:P17 ?country. # belong to country
@@ -494,8 +495,8 @@ GROUP BY ?country ?countryLabel
 
 \section{Упражнения}%
 %\noindent\begin{marginfigure}[4\baselineskip]%
-\marginnote{%
-\MarginQuestion Какое воздушное судно здесь изображено?\\
+\marginnote[0\baselineskip]{%
+    \MarginQuestion Какое воздушное судно здесь изображено?\\
 {%
 \setlength{\fboxsep}{0pt}%
 \setlength{\fboxrule}{1pt}%

@@ -68,7 +68,7 @@ WHERE
 	\fcolorbox{gray}{gray}{\includegraphics[width=0.5\linewidth]{chapter/anime/anime-subclasses-sunburst-diagram-2021.png}}
 }
 \caption%
-[Жанры аниме на круговой диаграмме, 2021 год.\index{Сервисы для анализа данных!Сервисы для визуализации данных!Rawgraphs}]%
+[Жанры аниме на круговой диаграмме, 2021 год.\index{Сервисы для визуализации данных!Rawgraphs}]%
 {%
 Диаграмма <<солнечные лучи>>\index{График!Sunburst diagram!Количество аниме по жанрам} (sunburst diagram) жанров аниме, построенная с помощью сервиса Rawgraphs (\href{https://app.rawgraphs.io}{https://app.rawgraphs.io})}%
 \label{fig:anime_piechart}
@@ -101,7 +101,7 @@ ORDER BY DESC(?count)
 
 Визуализировать распределение аниме по жанрам можно с помощью, 
 например, диаграммы <<солнечные лучи>> 
-(рис.~\ref{fig:anime_piechart})\index{Сервисы для анализа данных!Сервисы для визуализации данных!Rawgraphs}. 
+(рис.~\ref{fig:anime_piechart})\index{Сервисы для визуализации данных!Rawgraphs}. 
 %
 Полученная классификация аниме по жанрам не идеальна, 
 так как есть большое смещение в сторону аниме-сериалов: 
@@ -233,7 +233,7 @@ ORDER BY DESC(?seiyuRoles) # sorting seiyu by number of voice actings
 То,~что, согласно Викиданным, человек за многие годы принял участие в озвучке только одного аниме, 
 может быть связано с отсутствием информации о других его ролях в Викиданных. 
 
-\index{График!LineChart!Число сэйю, озвучивших одно и более аниме}
+\index{График!LineChart!Число сэйю, озвучивших аниме}
 \begin{figure*}[h]
 %    \setlength{\fboxsep}{0pt}%
 %    \setlength{\fboxrule}{1pt}%
@@ -286,8 +286,8 @@ WHERE
 соответствующих некоторым известным сэйю~--- \wdqName{Кадзуэ Комия}{6381410} и другим. 
 Мы выбрали только девять сэйю в иллюстративных целях, поскольку для большего числа сэйю граф стал бы неудобным для восприятия.
 
-\index{SPARQL!BIND!Граф, связывающий сэйю и озвученные ими аниме}
-\index{SPARQL!IF!Граф, связывающий сэйю и озвученные ими аниме}
+\index{SPARQL!BIND!Граф сэйю и аниме}
+\index{SPARQL!IF!Граф сэйю и аниме}
 Конструкция \lstinline|BIND(IF(?toggle, ?anime, ?seiyu)...)| в строке \num{13} 
 позволяет определить тип вершины графа: 
 если \lstinline|?toggle| принимает значение \lstinline|true|, 
@@ -297,7 +297,7 @@ WHERE
 
 \newpage
 \begin{figure*}[h!]
-    \index{График!Graph!Фрагмент графа, связывающего сэйю и озвученные ими аниме}
+    \index{График!Graph!Граф сэйю и аниме}
 %\begin{flushright}
 	\includegraphics[width=0.7\linewidth]{./chapter/anime/Seiyu_graph_2021_ru.jpg}\centering
 %\end{flushright}
@@ -360,7 +360,7 @@ WHERE
 \newpage
 \noindent\begin{marginfigure}%
 {%
-\index{График!Sunburst diagram!Количество ролей, озвученных разными актёрами}%
+\index{График!Sunburst diagram!Количество ролей, озвученных актёрами}%
 %\setlength{\fboxsep}{0pt}%
 %\setlength{\fboxrule}{1pt}%
 %\fcolorbox{gray}{gray}{
@@ -399,7 +399,7 @@ ORDER BY DESC(?count)       # order by number of voiced projects
 \footnotetext{Получено: \num{3965} результатов в 2017 году и \num{14744} результата в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/4aQt}{https://w.wiki/4aQt}.}
 
 
-Круговая диаграмма\index{Сервисы для анализа данных!Сервисы для визуализации данных!Rawgraphs} 
+Круговая диаграмма\index{Сервисы для визуализации данных!Rawgraphs} 
 на~рис.~\ref{fig:roles_piechart}~--- один из вариантов визуализации данных, 
 полученных с~помощью скрипта~\ref{lst:voice_actors_list}. С помощью подобных диаграмм можно, например, оценить, какой актёр внёс наибольший вклад в развитие индустрии озвучивания.
 
@@ -452,7 +452,7 @@ WHERE
 Как и в любой другой профессии, у актёра озвучки есть возраст, 
 когда он находится в~<<расцвете сил>> и может озвучить множество аниме. 
 Использование SPARQL и внешних инструментов для~анализа данных, 
-подобных языку программирования Python\index{Языки программирования!Примеры языков программирования!Python}\footnote[][-1cm]{%
+подобных языку программирования Python\index{Языки программирования!Python}\footnote[][-1cm]{%
     Язык Python~--- интерпретируемый язык программирования, 
     благодаря своей гибкости используемый для решения разнообразных задач. 
     Его можно применять в том числе и для работы с Викиданными: 
@@ -612,10 +612,10 @@ WHERE
     для тех, кто пишет программы на языке Python. 
     URL: \href{https://ru.wikipedia.org/wiki/Pandas}{https://ru.wikipedia.org/wiki/Pandas}, 2021.%
 %
-}\index{Языки программирования!Библиотеки для языков программирования!Pandas} 
+}\index{Языки программирования!Библиотеки!Pandas} 
 и \href{https://ru.wikipedia.org/wiki/Matplotlib}{Matplotlib}\footnote{%[][-0.1cm]{%
 %   
-    \index{Языки программирования!Библиотеки для языков программирования!Matplotlib}
+    \index{Языки программирования!Библиотеки!Matplotlib}
     Библиотека Matplotlib, также написанная на языка Python, 
     позволяет программистам рисовать графики и диаграммы. 
     URL: \href{https://ru.wikipedia.org/wiki/Matplotlib}{https://ru.wikipedia.org/wiki/Matplotlib}, 2021.%
@@ -629,13 +629,13 @@ WHERE
 В результате получим гистограмму, по оси абсцисс которой отложен возраст в годах, 
 а~по~оси ординат~--- суммарное количество ролей, озвученных всеми сэйю такого возраста. Получившаяся гистограмма представлена на рис.~\ref{fig:Seiyu_age_hist_RU}. 
 
-\index{График!Histogram!Число аниме, озвученных сэйю разных возрастов}
+\index{График!Histogram!Аниме, озвученные сэйю разных возрастов}
 \begin{figure*}[h!]
 %    \setlength{\fboxsep}{0pt}%
 %    \setlength{\fboxrule}{1pt}%
 %    \fcolorbox{gray}{gray}{
     \includegraphics[width=\linewidth]{./chapter/anime/Seiyu_age_hist_RU.png}%}
-	\caption[Гистограмма с числом аниме, озвученных сэйю разных возрастов, 2021 года.]{Гистограмма с числом аниме, озвученных сэйю разных возрастов, 2021 год. Гистограмма построена на~основе данных, полученных с помощью запросов~\protect\ref{lst:seiyu_bd_w_service} (или~\protect\ref{lst:seiyu_bd_w_rdfs}), \protect\ref{lst:all_anime_releases} и \protect\ref{lst:link_anime_seiyu}.}%
+	\caption[Гистограмма числа аниме, озвученных сэйю разных возрастов, 2021 года.]{Гистограмма с числом аниме, озвученных сэйю разных возрастов, 2021 год. Гистограмма построена на~основе данных, полученных с помощью запросов~\protect\ref{lst:seiyu_bd_w_service} (или~\protect\ref{lst:seiyu_bd_w_rdfs}), \protect\ref{lst:all_anime_releases} и \protect\ref{lst:link_anime_seiyu}.}%
     \label{fig:Seiyu_age_hist_RU}%
 \end{figure*} 
 
