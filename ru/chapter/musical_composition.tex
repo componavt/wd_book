@@ -21,7 +21,7 @@ WHERE {
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en". }
 }
 \end{lstlisting}%
-\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/5$CG}{SPARQL-запрос}. \num{5494} записи в 2017 году.}
+\footnotetext{Получено: \num{5495} записи на 2017 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/5$CG}{https://w.wiki/5$CG}.}
 
 Наиболее полными и проработанными музыкальными композициями на Викиданных являются: \wdqName{Волшебная флейта}{5064}, \wdqName{К Элизе}{11980}, \wdqName{Реквием}{207875}, \wdqName{Маленькая ночная серенада}{12025}.
 
@@ -45,14 +45,15 @@ SELECT ?type (COUNT(?typeInstance) AS ?count) ?typeLabel WHERE {
 GROUP BY ?type ?typeLabel
 ORDER BY DESC (?count)
 \end{lstlisting}%
-\footnotetext{Ссылка на \href{https://w.wiki/5$BV}{SPARQL-запрос}, \num{161} подкласса музыкальных композиций на 2022 год.}
+\footnotetext{Получено: \num{161} подкласса музыкальных композиций на 2022 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/5$BV}{https://w.wiki/5$BV}.}
 
 Теперь подсчитаем общее суммарное число музыкальных произведений с учётом музыкальных композиций в подклассах. Для этого добавим в наш скрипт команду \lstinline|SUM()| и удалим лишние строки. Получим такой код:
 
 \begin{lstlisting}[ language=SPARQL,
                     caption={\href{https://w.wiki/5$BT}{ Суммарное число музыкальных произведений с учётом музыкальных композиций в подклассах}\protect\footnotemark},
                     label=lst:The_total_number_of_musical_works_for_all_subclasses,
-                    texcl 
+                    texcl,
+	         xleftmargin=18pt
                     ]
 # The total number of musical works for all subclasses 
 SELECT (SUM(?count) AS ?sum) WHERE{
@@ -62,7 +63,7 @@ SELECT (SUM(?count) AS ?sum) WHERE{
   }
 }
 \end{lstlisting}%
-\footnotetext{Ссылка на \href{https://w.wiki/5$BT}{SPARQL-запрос}, \num{145046} музыкальных произведений.}
+\footnotetext{Получено: \num{145046} музыкальных произведений на 2022 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/5$BT}{https://w.wiki/5$BT}.}
 
 Можно записать этот код еще короче. Переменная \lstinline|?type| нам не нужна, поэтому можно обойтись без неё, а 4 и 5 строки поменяем местами.
 
@@ -79,7 +80,7 @@ SELECT (SUM(?count) AS ?sum) WHERE{
   }
 }
 \end{lstlisting}%
-\footnotetext{Ссылка на \href{https://w.wiki/5$BP}{SPARQL-запрос}, на 1 апреля 2022 года запрос выдает \num{145046} музыкальных произведений.}
+\footnotetext{Получено: \num{145046} музыкальных произведений на 2022 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/5$BP}{https://w.wiki/5$BP}.}
 
 По сравнению с 2017 годом \num{5494} записи, число записей увеличилось в несколько раз. Это связано с тем, что за 5 лет было добавлено множество новых музыкальных произведений, а также старых, которые не учли ранее.
 
@@ -107,7 +108,7 @@ SELECT (STR(?date) AS ?date_str) (COUNT(?composition) AS ?count) WHERE {
 GROUP BY ?date
 ORDER BY (?date)
 \end{lstlisting}%
-\footnotetext{Ссылка на \href{https://w.wiki/7wHy}{SPARQL-запрос}}
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/7wHy}{https://w.wiki/7wHy}.}
 
 \begin{marginfigure}[0\baselineskip]
 	\includegraphics[width=1\textwidth]{./chapter/musical_composition/BarChart_of_The_number_of_music_compositions_for_every_10_years.svg.png}
@@ -140,7 +141,7 @@ SELECT ?type (COUNT(?typeInstance) AS ?count) ?typeLabel WHERE {
 GROUP BY ?type ?typeLabel
 ORDER BY DESC (?count)
 \end{lstlisting}%
-\footnotetext{Ссылка на \href{https://w.wiki/6Vx5}{SPARQL-запрос}}
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/6Vx5}{https://w.wiki/6Vx5}.}
 
 
 
@@ -164,7 +165,7 @@ SELECT ?type (COUNT(?typeInstance) AS ?count) ?typeLabel WHERE {
 GROUP BY ?type ?typeLabel
 ORDER BY DESC (?count)
 \end{lstlisting}%
-\footnotetext{Ссылка на \href{https://w.wiki/6Vx6}{SPARQL-запрос}}
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/6Vx6}{https://w.wiki/6Vx6}.}
 
 \begin{marginfigure}[0\baselineskip]
 	\includegraphics[width=1\textwidth]{./chapter/musical_composition/Genre_Chart_2000-2010.png}
@@ -199,7 +200,7 @@ SELECT (STR(?date) AS ?date_str) (COUNT(?composition) AS ?count) WHERE {
 GROUP BY ?date
 ORDER BY (?date)
 \end{lstlisting}%
-\footnotetext{Ссылка на \href{https://w.wiki/6UUF}{SPARQL-запрос}}
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/6UUF}{https://w.wiki/6UUF}.}
 
 \begin{marginfigure}[0\baselineskip]
 	\includegraphics[width=1\textwidth]{./chapter/musical_composition/Barchart_of_The_number_of_music_compositions_in_Russia_and_USSR_every_10_years.svg.png}
@@ -230,7 +231,7 @@ WHERE {
 }
 ORDER BY ASC(?publication)
 \end{lstlisting}%
-\footnotetext{Ссылка на \href{https://w.wiki/5$Bf}{SPARQL-запрос}, 3771 запись.}
+\footnotetext{Получено: \num{3771} записи. Ссылка на SPARQL-запрос: \href{https://w.wiki/5$Bf}{https://w.wiki/5$Bf}.}
 
 
 \subsection{Полнота Викиданных}
@@ -248,7 +249,7 @@ ORDER BY ASC(?publication)
 
 Построим пузырьковую диаграмму композиторов музыкальных композиций.
 
-\footnotetext{Получено \num{773} записи. Ссылка на \href{https://w.wiki/5$CK}{SPARQL-запрос}}
+\footnotetext{Получено: \num{773} записи. Ссылка на SPARQL-запрос: \href{https://w.wiki/5$CK}{https://w.wiki/5$CK}.}
 \begin{lstlisting}[ language=SPARQL, numbers=none,
                     caption={\href{https://w.wiki/5$CK}{ Пузырьковая диаграммп композиторов музыкальных композиций }\protect\footnotemark},
                     label=lst:BubbleChart,
@@ -276,12 +277,12 @@ ORDER BY DESC(?count) ?form
 
 \begin{figure*}
 	\includegraphics[width=\textwidth]{./chapter/musical_composition/Composer_of_musical_compositions_bubble_diagram.png}
-	\caption[Пузырьковая диаграмма композиторов по количеству написанных композиций за 2017 год.]{Пузырьковая диаграмма композиторов по количеству написанных композиций за 2017 год.}%
+	\caption[Пузырьковая диаграмма композиторов по количеству написанных композиций за 2017 год]{Пузырьковая диаграмма композиторов по количеству написанных композиций за 2017 год}%
  	\label{fig:bubbleChart}%
 \end{figure*}
 \begin{figure*}
 	\includegraphics[width=\textwidth]{./chapter/musical_composition/Composer_of_musical_compositions_bubble_diagram.svg.png}
-	\caption[Пузырьковая диаграмма композиторов по количеству написанных композиций за 2022 год.]{Пузырьковая диаграмма композиторов по количеству написанных композиций за 2022 год.}%
+	\caption[Пузырьковая диаграмма композиторов по количеству написанных композиций за 2022 год]{Пузырьковая диаграмма композиторов по количеству написанных композиций за 2022 год}%
 	\label{fig:bubbleChart2}%
 \end{figure*}
 \newpage
@@ -306,11 +307,11 @@ WHERE {
 }
 }
 \end{lstlisting}%
-\footnotetext{\href{https://w.wiki/56Sb}{SPARQL-запрос} на 30 октября 2017 года выдает \num{3965} записей.}
+\footnotetext{Получено:\num{3965} записей на 2017 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/56Sb}{https://w.wiki/56Sb}.}
 
 
 
-\subsection{Будущая работа}
+\subsection{Упражнения}
 \begin{enumerate}
 \item Найти список музыкальных композиций, созданных во время эпохи классицизма (XVII—XVIII века).
 Свойство: \wdProperty{571}{<<дата создания>>}.
