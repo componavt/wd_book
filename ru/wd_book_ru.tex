@@ -1,5 +1,5 @@
 %\documentclass{tufte-book}
-\documentclass[nofonts,justified,nobib,openany]{tufte-book}% good in Ubuntu
+\documentclass[nofonts,justified,nobib,openany,oneside]{tufte-book}% good in Ubuntu
 %                                      'openany' removes blank pages between two chapters, https://stackoverflow.com/a/492148/1173350
 %\documentclass[nofonts,justified, nobib]{tufte-book}
 %                                 tufte-book modifies the \cite-command heavily, you can turn this behavior off, using the nobib-option:  
@@ -84,7 +84,7 @@
 %\usepackage{libertine}
 %\usepackage{paratype}
 
-\usepackage{setspace} % see https://tex.stackexchange.com/a/77910/99685
+%\usepackage{setspace} % see https://tex.stackexchange.com/a/77910/99685
 %\doublespacing
 % \begin{spacing}{2.5} ... \end{spacing}
 
@@ -92,7 +92,7 @@
 % https://tex.stackexchange.com/a/417552/99685
 \usepackage{tuftefoot}
 
-\usepackage[colorinlistoftodos,prependcaption,textsize=large]{todonotes} %see https://tex.stackexchange.com/a/178806/99685
+%\usepackage[colorinlistoftodos,prependcaption,textsize=large]{todonotes} %see https://tex.stackexchange.com/a/178806/99685
 
 \usepackage{bookmark}% http://ctan.org/pkg/bookmark
 
@@ -119,7 +119,6 @@
 
 
 
-
 % documentation: https://mirror.truenetwork.ru/CTAN/macros/latex/contrib/ccaption/ccaption.pdf
 %\newcommand{\captiondelim}[1]{\def\@contdelim{#1}}
 %\captiondelim{--- }
@@ -128,6 +127,7 @@
 \definecolor{LightGray}{rgb}{0.97,0.97,0.97}
 \usepackage{listings} % syntax highlighting
 \usepackage{xparse} % insert code keywords inline, see https://tex.stackexchange.com/a/286097/99685
+
 
 % Listing N: Title -> Query N. Title
 % before \usepackage{listings}
@@ -141,8 +141,8 @@
 \centering%
 #1. #2\par%
 %XX1#1.XX2 YY1#2YY2\par%
-%\vspace{\belowcaptionskip}% too large vertical gap
-\vspace{5pt}%
+\vspace{\belowcaptionskip}% too large vertical gap
+\vspace{5pt}% vertical distance from Request title the source code
 }%
 \makeatother
 
@@ -329,7 +329,7 @@
 %\let\marginnote\someundefinedcommand
 %\usepackage{marginnote}
 
-\newmdenv[skipabove=6mm]{mdfstyle}
+%\newmdenv[skipabove=6mm]{mdfstyle}
 
 \hypersetup{colorlinks}% uncomment this line if you prefer colored hyperlinks (e.g., for onscreen viewing)
 %\usepackage{breakurl}% see https://tex.stackexchange.com/a/21266/99685
@@ -384,7 +384,8 @@
 %    \partname~\thepart%
     \partname~\Roman{part}% without dot at the end: "Part I", not "Part I."
     \newline%
-    \hfil\pgfornament[width=4cm]{75}\hfil%
+%    \hfil\pgfornament[width=4cm]{69}\hfil%
+    \hspace{50pt}\pgfornament[width=4cm]{69}%
     \newline%
     #1%
     }
@@ -392,9 +393,9 @@
 \titleformat% Formatting the part header 
   {\part} % command
   [block] % shape
-  {\bfseries\sc\Huge} % format
+  {\bfseries\sc\Huge} % format todo
   {} % label
-  {0pt} % sep
+  {90pt} % sep - moving "Chapter" to right (to center)
   {\formatpart}
 
 \usepackage{figchild}
@@ -431,17 +432,11 @@
 \setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
 \graphicspath{{graphics/}}
 
-% Do not use package caption in Tufte LaTeX!
-% \captionof in minipage, when Two figures side by side, https://tex.stackexchange.com/a/57436/99685
-%\usepackage{caption}
-
-
-
 
 % The fancyvrb package lets us customize the formatting of verbatim
 % environments.  We use a slightly smaller font.
-\usepackage{fancyvrb}
-\fvset{fontsize=\normalsize}
+% \usepackage{fancyvrb}
+% \fvset{fontsize=\normalsize}
 
 %%
 % Prints argument within hanging parentheses (i.e., parentheses that take
@@ -646,7 +641,9 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 \setlength{\epigraphwidth}{.7\linewidth}
 
 \epigraph{Что может быть проще примитивного нуль-передатчика? Только примитивный нуль-аккумулятор.}%
-{\texttt{Обитаемый остров\\Аркадий и Борис Стругацкие}}
+{\fontfamily{iwona}\selectfont%
+\textit{Обитаемый остров\\Аркадий и Борис Стругацкие}%
+}%eo fontfamily
 
 \vspace{36px}
 
@@ -655,14 +652,18 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 ---~Я всего этого не запомню,~--- скрипуче сказал Электроник. ---~Миллионы цифр! Слишком большое количество информации\dots\\
 Профессор положил руку на его плечо.\\
 ---~Отключись,~--- посоветовал он. ---~Привыкать надо постепенно.}%
-{\texttt{Рэсси~--- неуловимый друг\\Евгений Велтистов}}
-\vspace{42px}
+{\fontfamily{iwona}\selectfont%
+\textit{Рэсси~--- неуловимый друг\\Евгений Велтистов}%
+}%eo fontfamily
+
+    
+\vspace{56px}
 
 
 \setlength{\epigraphrule}{0pt} % rm the rule (line)
 \epigraph{%
 {\fontfamily{iwona}\selectfont%
-\textit{\textbf{Издание посвящается всем изобретателям SPARQL-скриптов~--- программистам будущего, 
+\textit{\textbf{Издание посвящается изобретателям SPARQL-скриптов~--- программистам будущего, 
 а~также OSINT-разведчикам, для которых Викиданные будут школьным полигоном.}}%
 }%eo fontfamily
 }{}
@@ -695,7 +696,7 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 
 \part{Исследуем объекты Викиданных}
 \label{part:research}
-
+\iffalse
 \input{./chapter/aircraft.tex}
 \input{./chapter/anime.tex}
 
@@ -724,7 +725,7 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 \input{./intro/prowd.tex}
 \input{./advanced/page_protection.tex}
 \input{./advanced/bots.tex}
-
+\fi %eo iffalse
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Заключительная часть 
@@ -777,6 +778,8 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 %\printbibliography[heading=bibintoc]
 \end{fullwidth}
 
+
+\pagestyle{plain}% + chapter name in top right in index
 \printindex
 
 \end{document}

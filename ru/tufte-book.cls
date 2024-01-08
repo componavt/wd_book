@@ -31,12 +31,11 @@
   %\pagestyle{plain}%
   \fancyhf{}%
   \ifthenelse{\boolean{@tufte@twoside}}%
-%    {\fancyhead[LE,RO]{\thepage}}%
-%    {\fancyhead[RE,RO]{\thepage}}%
-     {\fancyfoot[REF,ROF]{\thepage}}% page number in first page of Chapter - Footer Right
+    {\fancyhead[LE,RO]{\thepage}}%
+    {\fancyhead[RE,RO]{\thepage}}%
 }
 
-\fancyfoot[REF,ROF]{\thepage}% page number everywhere - Footer Right - Contents, Acknowledgement pages
+\fancyfoot[REF,ROF]{\thepage}% page number in first pages - Footer Right - Contents, Acknowledgement and Preface pages, before Part 1
 
 %%
 % The main matter in Tufte's /Beautiful Evidence/ doesn't restart the page
@@ -54,12 +53,22 @@
       \renewcommand{\chaptermark}[1]{\markboth{##1}{}}%
 %%%      \fancyhead[LE]{\thepage\quad\newlinetospace{\plaintitle}}% book title
 %%%      \fancyhead[RO]{\newlinetospace{\leftmark}\quad\thepage}% chapter title
-      \fancyhead[RO]{\newlinetospace{\leftmark}}% chapter title without page number
-      \fancyfoot[REF,ROF]{\thepage}
+      \fancyhead[RO]{1xxxx\newlinetospace{\leftmark}}% chapter title without page number - only right page
+      \fancyfoot[REF,ROF]{2yyyy\thepage}
 
     }%
     {% one-side
-      \fancyhead[RE,RO]{\newlinetospace{\plaintitle}\quad\thepage}% book title
+
+% italics{ Chapter N. Title of the chapter } in the upper right corner of the sheet 
+\pagestyle{fancy}
+\fancyhead{}
+% \fancyhead[RE,RO]{\newlinetospace{\nouppercase{77777 \leftmark}}}% chapter title without page number - top right page corner
+%\fancyhead[RE,RO]{\newlinetospace{\nouppercase{\fontfamily{droidserif}\selectfont\underline{\leftmark}}}}
+\fancyhead[RE,RO]{\nouppercase{\fontfamily{iwona}\selectfont\textit{\leftmark}}}
+% kurier - без засечек, оригинально - телеграфный шрифт. 
+% iwona - аккуратный чертёжный шрифт 
+% droidserif - little bold
+
       \fancyfoot[REF,ROF]{\thepage}% page number everywhere - Footer Right
     }%
 }
