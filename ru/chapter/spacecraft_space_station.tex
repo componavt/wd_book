@@ -144,15 +144,27 @@ SELECT  ?spacecraft  ?spacecraftLabel WHERE
 
 
 \begin{marginfigure}[0\baselineskip]
-    \MarginQuestion
-    В какой стране спроектирован этот аппарат?
+    \MarginQuestion 
+    \index{SPARQL!квалификатор!of}
+    В предыдущих запросах мы искали экземпляры космических кораблей, 
+    то~есть искали в~Викиданных утверждения ``is instance of spacecraft''. 
+    На рисунке ниже показан вариант утверждения 
+    о~космических кораблях, входящих в~какую-либо линейку, а~именно: 
+    ``is instance of product model of spacecraft''. 
+    Когда есть линейка моделей, в нашем случае~--- серия космических кораблей, 
+    тогда нужен объект \wdqName{product model}{10929058}. 
+    На~рисунке of и spacecraft~--- 
+    это соответственно свойство и значение квалификатора, характеризующего объект \emph{product model} 
+    (см.~справку Викиданных \href{https://www.wikidata.org/?curid=16567549}{Help:Квалификаторы}). 
+    Найдите серии космических кораблей с~использованием квалификаторов. 
 
     \vspace{3pt}
-	\includegraphics[width=0.43\linewidth]{graphics/chapter/spacecraft_space_station/lunar_landler.jpg}
+	\includegraphics[width=0.8\linewidth]{graphics/chapter/spacecraft_space_station/is_product_model_red.png}
 
-    См. ответ~\ref{answer:spacecraft_USSR} на с.~\pageref{answer:spacecraft_USSR}\\
-    \label{question:spacecraft_lunar}
+    См. ответ на с.~\pageref{answer:product_model}\\
+    \label{question:product_model}
 \end{marginfigure}
+%    для серии космических кораблей \wdqName{Союз 7К-Л1}{1959194}. 
 
 
 Временной (с 1960-х годов) 

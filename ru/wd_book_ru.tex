@@ -31,6 +31,8 @@
 
 \usepackage{xurl} % break long url, see https://tex.stackexchange.com/a/407368/99685
 
+\usepackage[unicode]{hyperref}
+
 % + shorttitle if twice of more references to the same biblio reference
 % https://tex.stackexchange.com/a/26084/99685
 \renewbibmacro*{cite:short}{% based on cite:short from verbose.cbx
@@ -66,13 +68,23 @@
 \usepackage{csquotes}
 
 % Select font you like
-\usepackage{paratype} % very good in Ubuntu
+%%%\usepackage{paratype} % very good in Ubuntu
 %\usepackage{libertine} % not bad
-\usepackage{tempora}  % too heavy
+%%%\usepackage{tempora}  % too heavy
+
+
+%\usepackage{erewhon} % good bold
+%\usepackage{XCharter} % 
+\usepackage{cochineal} % good narrow bold best
+%\usepackage{lato} % 
+%\usepackage{cmsrb} % 
+%\usepackage{gentium} % 
+
+
 
 %\usepackage{iwona} % so-so
 %\usepackage{opensans} % so-so
-%\usepackage{droid} % not best
+%\usepackage{droid} % not best - failed
 %\usepackage{kurier} % not best
 %\usepackage{cantarell} % ? 
 %\usepackage{lmodern}
@@ -342,8 +354,18 @@
 \usepackage[linesnumbered,boxed]{algorithm2e}
 \newcommand{\var}{\texttt} % for names of variables in plain text https://tex.stackexchange.com/a/381105/99685
 
+\newtheoremstyle{definition}%
+{}
+{}
+{}%{\itshape}%bodyfont
+{}%indent
+{}%{\bfseries}%headfont
+{}%head punctuation
+{ }% space after head - e.g. \parindent paragraph indent before Answer.
+{}
+
 \theoremstyle{definition}
-\newtheorem{task}{} % numbering of tasks in the section: Answers
+\newtheorem*{task}{} % numbering of tasks in the section: Answers
 
 %%
 % Book metadata
@@ -380,22 +402,28 @@
 % separate page with "Part II \newline ornament \newline The part title
 \usepackage{pgfornament}
 \newcommand{\formatpart}[1]{%
-    \centering%
+    \begin{fullwidth}
+    \centering
 %    \partname~\thepart%
     \partname~\Roman{part}% without dot at the end: "Part I", not "Part I."
-    \newline%
-%    \hfil\pgfornament[width=4cm]{69}\hfil%
-    \hspace{50pt}\pgfornament[width=4cm]{69}%
-    \newline%
+
+    \vspace*{0.2\baselineskip}
+    \pgfornament[width=4cm, color=Sepia]{69}%
+    \vspace*{0.5\baselineskip}
+
     #1%
-    }
+    \end{fullwidth}%
+%    \centering\includegraphics[width=38pt]{./Big-bot-icon.png}
+}
+
+
 
 \titleformat% Formatting the part header 
   {\part} % command
   [block] % shape
   {\bfseries\sc\Huge} % format todo
   {} % label
-  {90pt} % sep - moving "Chapter" to right (to center)
+  {0pt} % sep - moving "Chapter" to right (to center)
   {\formatpart}
 
 \usepackage{figchild}
@@ -684,9 +712,9 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 
 
 
-
-\part{Основы Викиданных}
-\label{part:foundation}
+%\iffalse
+\part{Основы Викиданных}%
+\label{part:foundation}%
 
 \input{./intro/listings_about.tex}
 \input{./review/about_wd.tex}
@@ -696,7 +724,6 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 
 \part{Исследуем объекты Викиданных}
 \label{part:research}
-\iffalse
 \input{./chapter/aircraft.tex}
 \input{./chapter/anime.tex}
 
@@ -711,21 +738,24 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
   \input{./chapter/radio_station.tex}
 }
 
-
 \input{./chapter/oblast_of_Russia.tex}
 
 \input{./chapter/operating_system.tex}
 \input{./chapter/programming_language.tex}
+%\fi %eo iffalse
+
 \input{./chapter/ship.tex}
 
 \input{./chapter/spacecraft_space_station.tex}
 
+
+%\iffalse
 \part{Специальные возможности вики-проектов и Викиданных}
 \label{part:advanced}
 \input{./intro/prowd.tex}
 \input{./advanced/page_protection.tex}
 \input{./advanced/bots.tex}
-\fi %eo iffalse
+%\fi %eo iffalse
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Заключительная часть 

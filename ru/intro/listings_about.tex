@@ -16,12 +16,13 @@
 
 Вот пример SPARQL-скрипта (запрос~\ref{lst:cities}), 
 с помощью которого можно получить из Викиданных список городов, 
-точнее, экземляров объекта\marginnote{%
+точнее, экземпляров объекта\marginnote{%
 %
     \MarginQuestion \label{question:instance-in-OOP-vs-Wikidata}Что такое \emph{экземпляр объекта}? 
     Какая разница между экземпляром объекта 
-    в~объектно-ориентированном программировании и в~Викиданных?
-    См. ответ~\ref{answer:instance-in-OOP-vs-Wikidata} на~с.~\pageref{answer:instance-in-OOP-vs-Wikidata}.
+    в~объектно-ориентированном программировании и в~Викиданных? 
+    См. ответ %~\ref{answer:instance-in-OOP-vs-Wikidata} 
+    на~с.~\pageref{answer:instance-in-OOP-vs-Wikidata}.
     }
 \wdqName{city}{515}:
 
@@ -43,8 +44,9 @@ SELECT ?city ?cityLabel WHERE {
 Мы будем регулярно ссылаться на объекты Викиданных. 
 Например, \wdqName{city}{515}~--- это имя объекта Викиданных. 
 Здесь \emph{city}~--- имя метки объекта (Label), 
-a \emph{Q515}~--- уникальный идентификатор объекта 
-и одновременно название страницы с описанием этого объекта на сайте Викиданных: \href{https://www.wikidata.org/wiki/Q515}{https://www.wikidata.org/wiki/Q515}.
+a \emph{Q515}~--- уникальный идентификатор объекта в базе Викиданных. 
+При этом идентификатор является частью названия страницы сайта Викиданных 
+с~описанием этого объекта: \href{https://www.wikidata.org/wiki/Q515}{https://www.wikidata.org/wiki/Q515}.
 
 \label{WDObjectsNumbering}
 Объекты Викиданных нумеруются последовательно: чем раньше 
