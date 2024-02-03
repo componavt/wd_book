@@ -6,11 +6,12 @@
     \MarginQuestion
     О флаге какого региона идёт речь:
     <<Флаг этого субъекта представляет собой прямоугольное полотнище с~отношением ширины к~длине 2:3, 
-    красного цвета с двусторонним изображением в верхнем 
+    красного цвета с~двусторонним изображением в~верхнем 
     ближнем к~древку углу основного элемента герба этого субъекта~--- 
     развёрнутого к~древку Святого \href{https://ru.wikipedia.org/?curid=151255}{Георгия Победоносца}.
 
-    См. ответ \ref{answer:subjects_of_Russia_3} на с.~\pageref{answer:subjects_of_Russia_3}.%
+    См. ответ %\ref{answer:subjects_of_Russia_3} 
+    на с.~\pageref{answer:subjects_of_Russia_3}.%
 }
 
 
@@ -25,6 +26,7 @@
 Были построены две карты, на которых цветом обозначены граничные регионы и пограничные страны.
 Читатель познакомится с компьютерной обработкой Викиданных и визуализацией 
 информации о~регионах России.
+
 
 
 \section{Экземпляры объекта <<Области России>>}
@@ -51,11 +53,11 @@ SELECT ?region ?regionLabel WHERE
 
 
 \newpage
-В Викиданных больше всего свойств в России и в мире у \wdqName{Ленинградской}{2191} 
-и~\wdqName{Калининградской}{1749} областей, по 43 свойства\autocite{Russia_prowd}. 
-Число свойств у этих областей для России и мира одинаковое, так как и для России, и для мира это одни и те же объекты.
-
-Областями России с наименьшим числом свойств по данным сервиса ProWD оказались: 
+По данным сервиса ProWD, 
+в Викиданных больше всего свойств в~России у~\wdqName{Ленинградской}{2191} 
+и~\wdqName{Калининградской}{1749} областей, по~43 свойства. 
+%
+Областями России с наименьшим числом свойств оказались: 
 \href{http://www.wikidata.org/entity/Q3129}{Орловская} и \href{http://www.wikidata.org/entity/Q3178}{Курская} области (по 31 свойству) и \href{http://www.wikidata.org/entity/Q5851}{Новосибирская область} (32 свойства).
 
 
@@ -130,11 +132,12 @@ SELECT ?subject ?subjectLabel ?typeLabel WHERE
  \vspace{1pt} & \\ % empty line
 \includegraphics[width=3cm]{./chapter/oblast_of_Russia/Flag_of_Karelia.png} 
 & \includegraphics[width=3cm]{./chapter/oblast_of_Russia/Flag_of_Murmansk_Oblast.png} \\
- Карелия & Мурманская область  \\
+ Республика Карелия & Мурманская область  \\
 \end{tabular}
 
 \vspace{5pt}
-    См. ответ \ref{answer:subjects_of_Russia_1} на с.~\pageref{answer:subjects_of_Russia_1}.%
+    См. ответ %\ref{answer:subjects_of_Russia_1} 
+    на с.~\pageref{answer:subjects_of_Russia_1}.%
 }% eo of marginnote
 % eo Упражнение %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -168,13 +171,17 @@ SELECT ?subject ?subjectLabel ?typeLabel WHERE
 Построим граф соседних субъектов России, используя свойство \wdProperty{47}{shares border with}, 
 с~помощью запроса~\ref{lst:sharesBorderWith-oblast-of-Russia}.
 Получено: 467 записей в 2017 году 
-и 482 записи в 2021 году. Ссылку на~SPARQL-запрос не приводим из-за её чрезмерной длины. 
-Вот ссылка на исходный запрос~--- \url{https://w.wiki/4DKD}, 
-от которого мы отталкивались для построения этого огромного запроса. 
+и 482 записи в 2021 году. 
+Ссылку на~SPARQL-запрос не~приводим из-за её чрезмерной длины. 
+Вот ссылка на исходный запрос~--- \href{https://w.wiki/4DKD}
+                                       {https://w.wiki/4DKD}, 
+от~которого мы отталкивались для построения этого огромного запроса. 
 Подумайте, как можно сократить или свернуть 
 этот огромный запрос~~\ref{lst:sharesBorderWith-oblast-of-Russia}, 
 сделать его компактным и элегантным?
 
+\index{SPARQL!SELECT!вложенный}
+\index{SPARQL!UNION}
 \lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
                     caption=Граф соседних субъектов России\protect\footnotemark,
@@ -278,23 +285,35 @@ SELECT * WHERE
 
 
 \newpage
+%% 
+%%  Фрагмент графа соседних субъектов России, 
+%%  построенный по скрипту~\protect\ref{lst:sharesBorderWith-oblast-of-Russia}: 
+%%
 \begin{marginfigure}[0\baselineskip]
 	\includegraphics[width=1\textwidth]{./chapter/oblast_of_Russia/Graph_Subjects_of_Russia_Siberia_and_the_Far_East_2021.png}
-	\caption[Фрагмент графа субъектов России, 2021 год.]{Регионы России в Сибире и на Дальнем Востоке на~2021 год. 
-    Фрагмент графа соседних субъектов России, 
-    построенный по скрипту~\protect\ref{lst:sharesBorderWith-oblast-of-Russia}: 
-	республики~--- вершины зелёного цвета (Якутия); 
-	автономные округа~--- вершины фиолетового цвета (Чукотский автономный округ);
-	края~--- вершины голубого цвета (Хабаровский край);
-	области~--- вершины розового цвета (Амурская область);
-	автономные области~--- вершины салатового цвета (Еврейская автономная область)}%
+	\caption[Фрагмент графа субъектов России, 2021 год.]
+    {Фрагмент графа субъектов России на~2021 год, 
+    включающий регионы в~Сибире и на~Дальнем Востоке, 
+    при этом 
+	республикам соответствуют вершины зелёного цвета (Якутия); 
+	автономным округам~--- фиолетовый (Чукотский автономный округ);
+	краям~--- голубой (Хабаровский край);
+	областям~--- розовый (Амурская область);
+	автономным областям~--- вершины салатового цвета (Еврейская автономная область)}%
       \label{fig:sharesBorderWith-oblast-of-Russia-Kaliningrad-fig}%
 \end{marginfigure}
-%
+
+Результатом работы запроса~\ref{lst:sharesBorderWith-oblast-of-Russia} является граф, 
+отображающий соседние субъекты. 
+Причём разные типы субъектов имеют вершины разного цвета, 
+например республики~--- зелёные, а края~--- голубые. 
+Часть графа представлена на рис.~\ref{fig:sharesBorderWith-oblast-of-Russia-Kaliningrad-fig}.%
+
 %\marginnote[-15\baselineskip]{
-С помощью команды \lstinline|BIND| (строки 83--84) 
+\index{SPARQL!BIND}
+С помощью команды \lstinline|BIND| (строки 83--84 запроса~\ref{lst:sharesBorderWith-oblast-of-Russia}) 
 записываем значения в~переменные \lstinline|?rgb| и~\mbox{\lstinline|?subject|} 
-при условии, что эти переменные были пустыми. 
+при~условии, что эти переменные были пустыми. 
 
 Переменная \lstinline|?oblast| ищется в строках 80--82. 
 Подбирается такой объект \lstinline|?oblast|, 
@@ -309,22 +328,17 @@ SELECT * WHERE
 соответствующая условиям строк 80--82, 
 тогда, во-первых, присваиваем \lstinline|?subject := ?oblast| (строка~84). 
 Во-вторых, если к~тому~же переменная \lstinline|?rgb| ещё пуста, 
-то присваиваем розовый цвет переменной \lstinline|?rgb := "e87b7b"| (строка~83). 
+то~присваиваем розовый цвет переменной \lstinline|?rgb := "e87b7b"| (строка~83). 
 Этот цвет на рис.~\protect~\ref{fig:sharesBorderWith-oblast-of-Russia-Kaliningrad-fig} 
 соответствует трём областям: Амурской, Магаданской и Сахалинской. 
 
 Если переменная \lstinline|?oblast| уже не~пустая, а~цвет ещё не~задан, 
-то выбираем светло-серый цвет \lstinline|?rgb := "FFFFFF"| (строка~83).
+то пишем \lstinline|?rgb := "FFFFFF"| (строка~83), выбирая светло-серый цвет. 
 Если переменная \lstinline|?oblast| найдена, а цвет \lstinline|?rgb| уже задан, 
 то мы его оставляем, то есть перезаписываем \lstinline|?rgb := ?rgb|.
 %}
 
 Количество полученных записей формируется путём сложения количества соседних территорий для всех субъектов России. 
-Результат работы скрипта~--- это граф, 
-отображающий соседние субъекты. 
-Причём разные типы субъектов имеют вершины разного цвета, 
-например республики~--- зелёные, а края~--- голубые. 
-Часть графа представлена на рис.~\ref{fig:sharesBorderWith-oblast-of-Russia-Kaliningrad-fig}.%
 
 
 
@@ -334,6 +348,8 @@ SELECT * WHERE
 Более тёмным цветом обозначены субъекты, у которых большее количество заграничных соседей, 
 более светлым~--- с меньшим количеством (запрос~\ref{lst:sharesBorderWith-subjects-of-Russia}).
 
+\index{SPARQL!FILTER!"!=}
+\index{SPARQL!GROUP BY!HAVING}
 \lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/4e82}{Карта субъектов России, граничащих с зарубежными странами}},
@@ -375,8 +391,8 @@ SELECT ?region ?regionLabel ?count ?shape ?rgb
 %\begin{figure*}%[h]
 \begin{marginfigure}[-42\baselineskip]
 	\includegraphics[width=\textwidth]{./chapter/oblast_of_Russia/Maps_of_the_subjects_of_Russia.png}
-	\caption[Карта пограничных субъектов России, 2021 год.]{Карта субъектов России, 
-            граничащих с зарубежными странами, 2021 год}%. 
+	\caption[Карта пограничных субъектов России, 2021 год.]
+    {Карта пограничных субъектов России, 2021 год}%. 
             %Карта построена с помощью 
             %запроса~\ref{lst:sharesBorderWith-subjects-of-Russia}.}%
             %запроса~\protect\ref{lst:sharesBorderWith-subjects-of-Russia}.}%
@@ -395,7 +411,9 @@ SELECT ?region ?regionLabel ?count ?shape ?rgb
 %\begin{figure*}[h]
 \begin{marginfigure}[0\baselineskip]
 	\includegraphics[width=\textwidth]{./chapter/oblast_of_Russia/Maps_of_the_neighbouring_states_of_Russia.png}
-	\caption[Карта стран, граничащих с Россией, 2021 год.]{Карта стран, граничащих с субъектами России, 2021}%
+	\caption[Карта стран, граничащих с Россией, 2021 год.]
+    {Карта стран, граничащих с Россией, 
+     с учётом числа примыкающих\\пограничных субъектов~РФ, 2021 год}%
       \label{fig:MapsoftheneighbouringstatesofRussia}%
 \end{marginfigure} 
 %\end{figure*}
@@ -407,6 +425,8 @@ SELECT ?region ?regionLabel ?count ?shape ?rgb
 более светлым~--- с~меньшим количеством. 
 Карта построена с помощью запроса~\protect\ref{lst:Maps_of_the_neighbouring_states_of_Russia}.
 
+\index{SPARQL!FILTER!"!=}
+\index{SPARQL!MINUS}
 \lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/4e8T}{Карта стран, граничащих с субъектами России}\protect\footnotemark},
@@ -455,23 +475,26 @@ SPARQL-запрос: \href{https://w.wiki/4e8T}{https://w.wiki/4e8T}.}
     \MarginQuestion
     Какие из перечисленных субъектов входят в состав Российской Федерации, а какие не входят?
 \begin{itemize}
-  \item Республика Адыгея;
-  \item Камчатский край;
-  \item Читинская область;
-  \item Чукотский автономный округ.
+  \item Республика Адыгея
+  \item Камчатский край
+  \item Читинская область
+  \item Чукотский автономный округ
 \end{itemize}
-См. ответ \ref{answer:subjects_of_Russia_2} на с.~\pageref{answer:subjects_of_Russia_2}.
+См. ответ %\ref{answer:subjects_of_Russia_2} 
+на с.~\pageref{answer:subjects_of_Russia_2}.
 }
 
 
 С помощью команды \lstinline|FILTER| (строка 15 запроса~\ref{lst:sharesBorderWith-empty-oblast-of-Russia}) 
-исключаем объекты, которые не~находятся на территории России. 
+исключаем объекты, которые не~находятся на~территории России. 
 Затем с помощью команды \lstinline|MINUS| (строка 18) удаляем из рассмотрения объекты, 
-у которых свойство \wdProperty{47}{<<граничит с>>} заполнено.
+у~которых свойство \wdProperty{47}{<<граничит с>>} заполнено.
 
-Таким образом, на Викиданных для всех субъектов России свойство \wdProperty{47}{<<граничит с>>} заполнено.
+Получено 0 записей, то есть на Викиданных для всех субъектов России свойство \wdProperty{47}{<<граничит с>>} заполнено.
 
 %\marginnote[4.0cm]{Получено 0 записей в 2017 и 2021 годах. SPARQL-запрос: \href{https://w.wiki/5CHV}{https://w.wiki/5CHV}}
+\index{SPARQL!FILTER!EXISTS}
+\index{SPARQL!MINUS}
 \lstset{numbers=left, firstnumber=1, frame=single}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/5CHV}{Список субъектов РФ с пустым свойством \wdProperty{47}{``shares border with''}}\protect\footnotemark},
@@ -515,7 +538,9 @@ WHERE
 Результат работы запроса~\ref{lst:population-map-of-Russia} представлен на рис.~\ref{fig:SubjectsRussiaMap}.
 
 
-\index{График!Map!Карта населения России}
+\index{График!Map}
+\index{SPARQL!UNION}
+\index{SPARQL!BIND}
 \begin{lstlisting}[ language=SPARQL, numbers=none,
                     caption={\href{https://w.wiki/4bHe}{Карта населения России}\protect\footnotemark},
                     label=lst:population-map-of-Russia,

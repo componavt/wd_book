@@ -3,16 +3,16 @@
 
 В главе исследуются свойства языков программирования на основе Викиданных. 
 С помощью SPARQL-запросов, вычисляемых на объектах типа <<язык программирования>>, решён ряд задач. 
-Получены перечени всех языков программирования под пермиссивными лицензиями 
+Получены перечни всех языков программирования под пермиссивными лицензиями 
 и~языков с~закрытыми лицензиями и рассчитано их процентное соотношение. 
-Построена пузырьковая диаграмма по количеству разных расширений файлов для одного языка программирования. 
+Построена пузырьковая диаграмма по~количеству разных расширений файлов для одного языка программирования. 
 Получены карты, отображающие месторасположение учебных заведений и компаний, 
 в которых учились или работали люди, связанные с созданием языков программирования. 
 Построена пузырьковая диаграмма, отображающая популярные профессии среди людей, 
 причастных к созданию и разработке языков программирования. 
 Получен список всех объектно-ориентированных языков программирования 
-и~сделан вывод об исчерпывающей полноте Викиданных относительно них. 
-Проведено сравнение и анализ результатов SPARQL-запросов за разные годы, отмечены основные изменения. 
+и~сделан вывод об~исчерпывающей полноте Викиданных относительно них. 
+Проведены сравнение и анализ результатов SPARQL-запросов за разные годы, отмечены основные изменения. 
 
 %\footnotetext{
 %\marginnote{
@@ -81,10 +81,16 @@ SELECT ?lang ?langLabel WHERE
     SERVICE wikibase:label { bd:serviceParam wikibase:language "ru"}
 }
 \end{lstlisting}
-\footnotetext{Получено: 732 языка программирования в~2017 году, 1422 в~2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/uGs}{https://w.wiki/uGs}.}
+\footnotetext{Получено: 732 языка программирования в~2017 году и 1422 языка в~2020 году. 
+Ссылка на~SPARQL-запрос: \href{https://w.wiki/uGs}{https://w.wiki/uGs}.}
 
-На 2020 год наиболее проработанными на Викиданных языками программирования были: \href{https://www.wikidata.org/wiki/Q2407}{C++} (26 свойств), \href{https://www.wikidata.org/wiki/Q251}{Java} (26 свойств), \href{https://www.wikidata.org/wiki/Q2005}{JavaScript} (25 свойств), \href{https://www.wikidata.org/wiki/Q206904}{R} (25 свойств).
-Почти пустыми и малоинформативными языками на 2020 год оказались\autocite{prowd_langs_link}: 
+На 2020 год наиболее проработанными на Викиданных языками программирования были: 
+\href{https://www.wikidata.org/wiki/Q2407}{C++} (26 свойств), 
+\href{https://www.wikidata.org/wiki/Q251}{Java} (26 свойств), 
+\href{https://www.wikidata.org/wiki/Q2005}{JavaScript} (25 свойств), 
+\href{https://www.wikidata.org/wiki/Q206904}{R} (25 свойств). 
+По данным ProWD, 
+почти пустыми и~малоинформативными языками на 2020 год оказались: % \autocite{prowd_langs_link}: 
 \href{https://www.wikidata.org/wiki/Q3991643}{Tiny}, 
 \href{https://www.wikidata.org/wiki/Q3924253}{Proteus}, 
 \href{https://www.wikidata.org/wiki/Q21524853}{Comfy}~--- всего по одному свойству.
@@ -133,7 +139,8 @@ SELECT ?lang ?lang_label WHERE {
 нужно выполнить операции над множествами с~помощью команд \texttt{UNION} и \texttt{MINUS}. 
 
 
-\index{SPARQL!MINUS!Список свободных ЯП}
+\index{SPARQL!MINUS}
+\index{SPARQL!UNION}
 \begin{lstlisting}[
 	language=SPARQL,
 	label=lst:free_license_languages,
@@ -151,7 +158,7 @@ SELECT DISTINCT ?prog ?progLabel WHERE
     { ?prog wdt:P737 wd:Q251 } UNION # influenced by Java
     { ?prog wdt:P31 wd:Q341 } # is free software
   } MINUS
-  { #developer
+  {         # developer
     { ?prog wdt:P178 wd:Q14647 } UNION # developer Sun Microsystems
     { ?prog wdt:P178 wd:Q208371 } # developer Lyndon Johnson Space Center
   }
@@ -199,9 +206,9 @@ SELECT DISTINCT ?lang ?langLabel WHERE
 }
 \end{lstlisting}
 \footnotetext{%
-    Получено: в~2017 году 37 языков программирования, находящихся под пермиссивными лицензиями,  
-              в~2020 году~--- 83 языка. 
-              В этот список из 83 <<свободных>>  языков попали, например, 
+    Получено: 37 языков программирования, находящихся под пермиссивными лицензиями, в~2017 году 
+              и 83 языка в~2020 году. 
+              В этот список из~83 <<свободных>>  языков попали, например, 
               \href{https://ru.wikipedia.org/wiki/CoffeeScript}{CoffeeScript}, 
               \href{https://ru.wikipedia.org/wiki/Go}{Go}, 
               \href{https://ru.wikipedia.org/wiki/Haml}{Haml}. 
@@ -240,7 +247,8 @@ SELECT DISTINCT ?lang ?langLabel WHERE
 	\end{tabular}
 
     \vspace{5pt}
-    См. ответ~\ref{answer:prog_lang_2} на с.~\pageref{answer:prog_lang_2}.
+    См. ответ %~\ref{answer:prog_lang_2} 
+    на с.~\pageref{answer:prog_lang_2}.
 }
 %\footnotetext[1???][-3cm]{Todo test
 %}
@@ -248,8 +256,9 @@ SELECT DISTINCT ?lang ?langLabel WHERE
 	language=SPARQL,
 	label=lst:license_compare,
 	caption={\href{https://w.wiki/v3B}{Расчёт отношения числа свободных языков к~числу закрытых}\protect\footnotemark},
-	texcl
-]
+	texcl,
+    xleftmargin=18pt, 
+    numbers=left]
 #The script calculates the percentage of programming languages 
 #with a free license in relation to languages with a closed license
 SELECT (COUNT(?not_free)* 100 / (COUNT(?free)) as ?total) WHERE
@@ -300,10 +309,10 @@ SELECT (COUNT(?not_free)* 100 / (COUNT(?free)) as ?total) WHERE
 \begin{marginfigure}
 \centering
 	\includegraphics[width=0.7\linewidth]{./chapter/programming_language/File_extensions_quantity_of_source_code_2017.png}
-    \caption[Число форматов файлов для языков программирования, 2017 год.]{Пузырьковая диаграмма 
-            с числом форматов файлов исходного кода для разных языков программирования, 2017 год. 
-            Размер пузырька соответствует числу форматов для одного языка. 
-            Ссылка на~SPARQL-запрос: \href{https://w.wiki/uGQ}{https://w.wiki/uGQ}}
+    \caption[Число форматов файлов для языков программирования, 2017 год.]
+    {Соотношение числа разных форматов файлов исходного кода\\по языкам программирования, 2017 год}
+%            Размер пузырька соответствует числу форматов для одного языка. 
+%            Ссылка на~SPARQL-запрос: \href{https://w.wiki/uGQ}{https://w.wiki/uGQ}}
 	\label{fig:source-format-2017}
 \end{marginfigure}
 %
@@ -340,7 +349,9 @@ ORDER BY DESC(?count)
 \begin{marginfigure}[2\baselineskip]
 \centering
 	\includegraphics[width=0.74\linewidth]{./chapter/programming_language/File_extensions_quantity_of_source_code_2020.png}
-	\caption[Число форматов файлов для языков программирования, 2020 год.]{Пузырьковая диаграмма с числом форматов файлов исходного кода для 108 языков программирования, 2020 год. Размер пузырька соответствует числу форматов для одного языка. Ссылка на~SPARQL-запрос: \href{https://w.wiki/uGQ}{https://w.wiki/uGQ}}
+	\caption[Число форматов файлов для языков программирования, 2020 год.]
+    {Соотношение числа разных форматов файлов исходного кода\\для 108 языков программирования, 2020 год}
+%    {Пузырьковая диаграмма с числом форматов файлов исходного кода для 108 языков программирования, 2020 год. Размер пузырька соответствует числу форматов для одного языка. Ссылка на~SPARQL-запрос: \href{https://w.wiki/uGQ}{https://w.wiki/uGQ}}
 	\label{fig:source-format-2020}
 \end{marginfigure}
 
@@ -367,8 +378,9 @@ ORDER BY DESC(?count)
 \begin{marginfigure}%[2\baselineskip]
 \centering
 	\includegraphics[width=1.0\linewidth]{./chapter/programming_language/residence_of_Einstein_2023.png}
-	\caption[Место жительства Альберта Эйнштейна.]{
-Альберт Эйнштейн жил в городке Капут в Германии с 1929 по 1932 год, данные о месте жительства учёного в~Викиданных, фрагмент страницы объекта \wdqName{Albert Einstein}{937}, 2023 год}
+	\caption[Место жительства Альберта Эйнштейна.]
+    {Место жительства Альберта Эйнштейна, 
+     фрагмент страницы объекта \wdqName{Albert Einstein}{937}, 2023 год}
 	\label{fig:Einstein-residence}
 \end{marginfigure}
 %
@@ -387,11 +399,17 @@ ORDER BY DESC(?count)
 (свойство: \href{https://www.wikidata.org/wiki/Property:P19}{place of birth (P19)}). 
 
 Более точным подходом было бы использование не только места рождения, но и тех мест, где человек живёт. 
-На~Викиданных это описывается свойством~\wdProperty{551}{residence}. 
-Трудность в том, что это свойство редакторы Викиданных достаточно редко заполняют, 
+В~Викиданных это описывается свойством~\wdProperty{551}{residence}. 
+%
+Например, фрагмент страницы Альберта Эйнштейна  
+со свойством \emph{residence} в~Викиданных (рис.~\ref{fig:Einstein-residence}) 
+можно перевести на человеческий язык так: 
+<<Альберт Эйнштейн жил в городке Капут в Германии с 1929 по 1932 год>>. 
+
+Трудность в том, что это свойство \emph{residence} редакторы Викиданных достаточно редко заполняют, 
 сейчас его можно увидеть только у самых известных людей с наиболее проработанными объектами, 
-например эти данные заполнены на странице Альберта Эйнштейна (рис.~\ref{fig:Einstein-residence}). 
-Поэтому в~запросе~\ref{lst:countries_map} мы ограничились учётом только места рождения. 
+например у Альберта Эйнштейна. 
+Поэтому в~запросе~\ref{lst:countries_map} мы учитываем только место рождения. 
 
 \index{График!Map!Место жительства/работы разработчиков ЯП}
 \begin{lstlisting}[
@@ -416,23 +434,27 @@ WHERE
 \footnotetext{Результатом запроса является карта, где красными точками указаны места проживания людей или штабы фирм, причастных к разработке языков программирования. На рис.~\ref{fig:countries_2017} изображен результат запроса на 2017 год, а на рис.~\ref{fig:countries_2020} показаны аналогичные данные на 2020 год.}
 
 
-По рис.~\ref{fig:countries_2017} и \ref{fig:countries_2020} можно сделать вывод, 
+По рис.~\ref{fig:countries_2017} и~\ref{fig:countries_2020} можно сделать вывод, 
 что наиболее благоприятными местами для~разработки языков программирования являются 
-Восточное побережье \href{https://en.wikipedia.org/wiki/USA}{США}, 
-\href{https://ru.wikipedia.org/wiki/Центральная_Европа}{Центральная Европа} и 
-\href{https://ru.wikipedia.org/wiki/Великобритания}{Великобритания}.
+Восточное побережье США, Центральная Европа и Великобритания.
 
 
 \begin{figure}[h]
 \centering
 	\includegraphics[width=1\textwidth]{./chapter/programming_language/Map_showing_contries_2017.png}
-	\caption[Страны, в которых живут люди или расположены организации, связанные с созданием языков программирования, 2017 год.]{Страны, в которых живут люди или расположены организации, связанные с созданием языков программирования, 2017 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/v3b}{https://w.wiki/v3b}}
+	\caption[Страны, в которых живут люди или расположены организации, связанные с созданием языков программирования, 2017 год.]
+    {Страны, в которых живут люди или расположены организации, 
+     связанные с~созданием языков программирования, 2017 год}
+    %. Ссылка на SPARQL-запрос: \href{https://w.wiki/v3b}{https://w.wiki/v3b}}
 	\label{fig:countries_2017}
 \end{figure}
 \begin{figure}
 \centering
 	\includegraphics[width=1\textwidth]{./chapter/programming_language/Map_showing_contries_2020.png}
-	\caption[Страны, в которых живут люди или расположены организации, связанные с созданием языков программирования, 2020 год.]{Страны, в которых живут люди или расположены организации, связанные с созданием языков программирования, 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/v3b}{https://w.wiki/v3b}}
+	\caption[Страны, в которых живут люди или расположены организации, связанные с созданием языков программирования, 2020 год.]
+    {Страны, в которых живут люди или расположены организации, 
+    связанные с~созданием языков программирования, 2020 год}
+    %Ссылка на SPARQL-запрос: \href{https://w.wiki/v3b}{https://w.wiki/v3b}}
 	\label{fig:countries_2020}
 \end{figure}
 
@@ -445,7 +467,7 @@ WHERE
 
 
 С помощью запроса~\ref{lst:countries_bubble} 
-построим пузырьковую диаграмму стран  
+построим пузырьковую диаграмму стран, 
 наиболее благоприятных для~размещения штаб-квартир и/или 
 рождения разработчиков языков программирования. 
 Видим на~рис.~\ref{fig:countries_2_2020}, 
@@ -465,12 +487,12 @@ WHERE
 
     \item язык программирования \wdqName{Аналитик}{4064746} 
         был разработан также в 1968 году в Институте кибернетики АН УССР 
-        под руководством В. М. Глушкова; Виктор Михайлович Глушков родился в Ростове-на-Дону;
+        под руководством В. М. Глушкова, родившегося в~Ростове-на-Дону;
 
 	\item встроенный язык программирования \wdqName{1С:Предприятие}{65065977} начали разрабатывать в 1996 году, 
         штаб-квартира компании 1C находится в Москве; 
 
-    \item языка программирования \wdqName{Factor}{1391724}
+    \item язык программирования \wdqName{Factor}{1391724}
         придуман и разрабатывается С. Пестовым, родившемся в Томске.
 \end{compactitemize}
 
@@ -524,34 +546,52 @@ ORDER BY DESC(?count)
 \begin{marginfigure}[3\baselineskip]
 \centering
 	\includegraphics[width=1\textwidth]{./chapter/programming_language/Map_showing_educational_institutes_2017.png}
-	\caption[Учебные заведения, в которых учились разработчики языков программирования, 2017 год.]{Учебные заведения, в которых учились разработчики языков программирования, 2017 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/uGb}{https://w.wiki/uGb}}
+	\caption[Учебные заведения, в которых учились разработчики языков программирования, 2017 год.]
+    {Учебные заведения, в которых учились разработчики языков программирования, 2017 год}
 	\label{fig:universities_2017}
 \end{marginfigure}
 
 
+\index{SPARQL![]!безымянная переменная}
 \index{График!Map!Университеты разработчиков ЯП}
 \begin{lstlisting}[
 	language=SPARQL,
 	label=lst:developer_university,
-	caption={\href{https://w.wiki/v3v}{Карта с указанием университетов, в которых учились разработчики языков программирования}\protect\footnotemark},
-    numbers=none,
-	texcl
-]
+	caption={\href{https://w.wiki/94Ac}
+    {Карта с указанием университетов, в которых учились разработчики языков программирования}\protect\footnotemark},
+	texcl,
+    xleftmargin=18pt,
+    numbers=left]
 #defaultView:Map
-SELECT ?langLabel ?developerLabel ?educational_institutionLabel ?coord WHERE {
-  ?lang wdt:P31 wd:Q9143.    # instances of programming language
-  ?lang wdt:P178 ?developer. # developer
-  ?developer wdt:P69 ?educational_institution. # educated at
-  ?educational_institution wdt:P625 ?coord. # coordinate location
+SELECT ?langLabel ?developerLabel ?eduLabel ?coord WHERE {
+  ?lang wdt:P31 wd:Q9143;    # instances of programming language
+        wdt:P178 ?developer. # developed by developer
+  ?developer wdt:P69 [wdt:P625 ?coord].   # who educated at ?edu
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en" }
 }
 \end{lstlisting}
-\footnotetext{Результатом запроса будет карта, на которой красными точками отмечены места расположения университетов, в которых учились люди, создавшие языки программирования. На 2017 год получено 142 университета, к 2020 число записей увеличилось до 282.}
+\footnotetext{Результатом запроса будет карта, 
+    на которой красными точками отмечены места расположения университетов, 
+    в~которых учились люди, создавшие языки программирования. 
+    На 2017 год получено 142 университета, к 2020 число записей увеличилось до 282.
+    Ссылка на~SPARQL-запрос: \href{https://w.wiki/94Ac}
+                                  {https://w.wiki/94Ac}.}
+
+\index{SPARQL![]!безымянная переменная}
+Запрос~\ref{lst:developer_university} интересен использованием безымянной переменной 
+в~строке~5 в~квадратных скобках. 
+Развернём её и получим более простой запрос в два шага: 
+(1) заменим квадратные скобки какой-либо переменной, обозначающей университет, например \lstinline|?edu|; 
+(2) добавим после строки~5 утверждение, которое даёт нам координаты университета. 
+Вот эти две строки вместо строки~5:\\
+\lstinline|?developer wdt:P69 ?edu.|\\
+\lstinline|?edu wdt:P625 ?coord.|
 
 \begin{marginfigure}[1\baselineskip]
 \centering
 	\includegraphics[width=1\textwidth]{./chapter/programming_language/Map_showing_educational_institutes_2020.png}
-	\caption[Учебные заведения, в которых учились разработчики языков программирования, 2020 год.]{Учебные заведения, в которых учились разработчики языков программирования, 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/uGb}{https://w.wiki/uGb}}
+	\caption[Учебные заведения, в которых учились разработчики языков программирования, 2020 год.]
+    {Учебные заведения, в которых учились разработчики языков программирования, 2020 год}
 	\label{fig:universities_2020}
 \end{marginfigure}
 
@@ -570,8 +610,8 @@ SELECT ?langLabel ?developerLabel ?educational_institutionLabel ?coord WHERE {
 
     \item снова В.~Ф.~Турчин, разработавший \wdqName{РЕФАЛ}{2626418};
 
-    \item снова В. М. Глушков, под чьим руководством был разработан 
-        язык программирования \wdqName{Аналитик}{4064746}.
+    \item снова В. М. Глушков, под чьим руководством разработан 
+        язык \wdqName{Аналитик}{4064746}.
 \end{itemize}
 Таким образом, в этот достойный список университетов попал МГУ, 
 на 2023 год в список входит 191 вуз мира.

@@ -9,9 +9,12 @@
 
 % https://tex.stackexchange.com/a/45949/99685 switch from natbib to biblatex 
 \usepackage{hyphenat}
+
 \usepackage[
-  citestyle=gost-footnote-min,
+% citestyle=gost-footnote-min, % wo URL in autocite
+  citestyle=gost-footnote, % wo URL in autocite
   bibstyle=gost-footnote,
+  citeurl=true,% footnotes and sidenotes with URL
 %
 %  style=verbose, citepages=omit, % too long title at margins
 %  style=authoryear, % e.g. Кузьмина 2021 or Магера 2018.
@@ -20,10 +23,15 @@
 %
 %% style=authortitle-ibid,
 %%  dashed=false, % in Bibliography dash if authors repeated
+%%%%  autolang=other,% multilingual bibliography
   autocite=footnote, 
 %%  autopunct=false, % see https://ctan.math.illinois.edu/macros/latex/contrib/biblatex/doc/biblatex.pdf
 %                  % a trailing punctuation mark will not be moved against footnote mark
+  babel=other, % H. Turki [и др.] -> [et al.]
+%  movenames=true, % or false, see https://ctan.math.illinois.edu/macros/latex/contrib/biblatex-contrib/biblatex-gost/doc/biblatex-gost.pdf, page 20
 %%  maxcitenames=1,
+%  maxbibnames=99, % displaying all authors of multi-author works in the bibliography
+  otherlangs=true,
   backend=biber
 ]{biblatex}
 \addbibresource{wd_references.bib}
@@ -104,6 +112,9 @@
 % https://tex.stackexchange.com/a/417552/99685
 \usepackage{tuftefoot}
 
+% русскоязычные источники предшествовали остальным в Литературе 
+\usepackage{biblio-gost-ru-before-en}
+
 %\usepackage[colorinlistoftodos,prependcaption,textsize=large]{todonotes} %see https://tex.stackexchange.com/a/178806/99685
 
 \usepackage{bookmark}% http://ctan.org/pkg/bookmark
@@ -162,6 +173,7 @@
 %\renewcommand\lstlistingname{Запрос}
 
 \lstdefinelanguage{SPARQL}{%
+  texcl=true,
   basicstyle=\small\ttfamily,
   backgroundcolor=\color{LightGray},
   columns=fullflexible,
@@ -589,6 +601,7 @@ $\blackinwhitediamond$ %
 \makeindex
 
 \begin{document}
+\sisetup{mode=text} % Trying to get the same font when using SI units in text and math mode 
 
 % Front matter
 %\frontmatter
@@ -712,26 +725,28 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 
 
 
-%\iffalse
 \part{Основы Викиданных}%
 \label{part:foundation}%
 
+
+\iffalse
 \input{./intro/listings_about.tex}
 \input{./review/about_wd.tex}
 \input{./intro/buckets_and_balls.tex}
 
 
-
 \part{Исследуем объекты Викиданных}
 \label{part:research}
 \input{./chapter/aircraft.tex}
+%%%\fi %eo iffalse index check
 \input{./chapter/anime.tex}
 
 \input{./chapter/human_settlement.tex}
 \input{./chapter/city.tex}
-
+\fi %eo iffalse
 \input{./chapter/country.tex}
 
+\iffalse
 \ifnumequal{\value{draft}}{1}{%
   \input{./chapter/musical_composition.tex}
   \input{./chapter/national_park.tex}
@@ -740,22 +755,23 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 
 \input{./chapter/oblast_of_Russia.tex}
 
+\fi %eo iffalse
 \input{./chapter/operating_system.tex}
+
 \input{./chapter/programming_language.tex}
-%\fi %eo iffalse
+\iffalse
 
 \input{./chapter/ship.tex}
 
 \input{./chapter/spacecraft_space_station.tex}
 
 
-%\iffalse
 \part{Специальные возможности вики-проектов и Викиданных}
 \label{part:advanced}
 \input{./intro/prowd.tex}
 \input{./advanced/page_protection.tex}
 \input{./advanced/bots.tex}
-%\fi %eo iffalse
+\fi %eo iffalse
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Заключительная часть 
@@ -765,10 +781,13 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 
 % "Заключительная часть" without "Часть III"
 \renewcommand{\formatpart}[1]{%
+    \begin{fullwidth}
     \centering%
-    \hfil\pgfornament[width=4cm]{75}\hfil%
-    \newline%
+    \pgfornament[width=4cm, color=Sepia]{69}%
+    \vspace*{0.5\baselineskip}
+
     #1%
+    \end{fullwidth}%
     }
 \titleformat% Formatting the part header 
   {\part} % command
@@ -791,13 +810,13 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 %\cleardoublepage
 
 \begin{fullwidth}
-\phantomsection
-\addcontentsline{toc}{chapter}{\listfigurename}
-\listoffigures
+%\phantomsection
+%\addcontentsline{toc}{chapter}{\listfigurename}
+%\listoffigures
 
-\phantomsection
-\addcontentsline{toc}{chapter}{\listtablename}
-\listoftables
+%\phantomsection
+%\addcontentsline{toc}{chapter}{\listtablename}
+%\listoftables
 
 % source biblatex-gost URL: page 24, https://ctan.math.illinois.edu/macros/latex/contrib/biblatex-contrib/biblatex-gost/doc/biblatex-gost.pdf
 \newrefcontext[sorting=ntvy]

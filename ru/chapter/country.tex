@@ -1,4 +1,4 @@
-\chapter[Анализ стран: возраст, формы правления и этнохоронимы]{Анализ трёх аспектов современных стран по Викиданным:\\возраст стран, популярные формы правления и этнохоронимы}
+\chapter{Анализ стран: возраст, формы правления и этнохоронимы}
 \label{ch:country}
 
 Глава посвящена исследованию стран на основе Викиданных. 
@@ -19,9 +19,9 @@
     \includegraphics[width=0.8\linewidth]{chapter/country/ProWD_country.png}
     \caption[Степень заполненности свойств стран на Викиданных]%
 	{%
-    Высокая степень заполнения по числу свойств объекта Викиданных \href{https://www.wikidata.org/wiki/Q6256}{страна (Q6256)}. 
-    Данные получены с помощью сервиса \href{https://prowd.id/dashboards/86b6f91a8131/profile}{ProWD.id}, 2020 год.\\ 
-    Коэффициент Джини равен \num{0.091}
+    Высокая степень заполненности свойств стран на Викиданных 
+    по данным сервиса ProWD.id на 2020 год
+% badlink    \href{https://prowd.id/dashboards/86b6f91a8131/profile}{ProWD.id}, 2020 год.\\
 	}%
 	\label{fig:ProWD_country}%
 \end{marginfigure}
@@ -29,7 +29,11 @@
 
 \section{Список стран и степень полноты информации ряда стран}
 
-Построим список всех стран на английском и русском языках (листинг~\ref{lst:country}).
+Анализ объекта \href{https://www.wikidata.org/wiki/Q6256}{страна (Q6256)} 
+показал, что страны хорошо проработаны в~Викиданных 
+и имеют большое количество заполненных свойств (рис.~\ref{fig:ProWD_country}), 
+что показывает высокое значение (0.091) коэффициента Джини. 
+Построим список всех стран на английском и русском языках (запрос~\ref{lst:country}).
 
 \begin{lstlisting}[ language=SPARQL, 
     caption={\href{https://w.wiki/k6L}{Экземпляры объекта <<страна>>}\protect\footnotemark},
@@ -63,17 +67,21 @@ SELECT ?country ?label_en ?label_ru WHERE
 \marginnote{%
     \MarginQuestion
 %	Какое количество административных единиц имеют следующие страны:
-	У \href{https://w.wiki/mzN}{Латвии} их 119, у \href{https://w.wiki/mzP}{Таиланда} 77, у \href{https://w.wiki/mzR}{Дании} 5, а у \href{https://w.wiki/myt}{России} 81. О количестве чего идет речь?
+	У \href{https://w.wiki/mzN}{Латвии} их 119, у \href{https://w.wiki/mzP}{Таиланда} 77, 
+    у \href{https://w.wiki/mzR}{Дании} 5, а у \href{https://w.wiki/myt}{России} 81.\\ 
+    О~количестве чего идет речь?
 	\begin{itemize}
-		\item Количество городов с населением более миллиона человек?
-		\item Количество высших учебных заведений?
-		\item Количество административных единиц?
-		\item Количество официальных языков?
+		\item Количество городов с населением более миллиона человек
+		\item Количество высших учебных заведений
+		\item Количество административных единиц
+		\item Количество официальных языков
 	\end{itemize}
-	См. ответ~\ref{answer:administrative_territorial} на с.~\pageref{answer:administrative_territorial}.
+	См. ответ %~\ref{answer:administrative_territorial} 
+    на с.~\pageref{answer:administrative_territorial}.
 }
 
-Построим список стран, отсортированных по дате основания страны, то есть по первому упоминанию о стране (листинг~\ref{lst:age_of_country}).
+Построим список стран, отсортированных по дате основания, 
+то есть по первому упоминанию о~ней (запрос~\ref{lst:age_of_country}).
 
 \begin{lstlisting}[ language=SPARQL, 
     caption={\href{https://w.wiki/suP}{Даты основания стран}\protect\footnotemark},
@@ -99,20 +107,23 @@ ORDER BY (?inception)
 
 Решение и ответ на этот вопрос были найдены на странице Wikidata:Request a query%
 \sidenote{%
-    На странице Викиданных \href{https://w.wiki/LX}{Request a query} 
-    (\href{https://w.wiki/tLm}{https://w.wiki/tLm}) 
+    На странице Викиданных ``\href{https://w.wiki/LX}{Request a query}'' 
     одни редакторы задают вопросы, как написать тот или иной скрипт, 
-    а другие редакторы отвечают. Пользуйтесь этим форумом.%
+    а~другие редакторы им отвечают. Пользуйтесь этим форумом. 
+    Вот ссылка с~ответом на~наш вопрос на~этом форуме: 
+    \href{https://w.wiki/tLm}{https://w.wiki/tLm}, 
+    см.~раздел ``List of countries''.%
 %
 }. Дело~в~том, что конструкция wdt позволяет находить только истинные значения. 
 Для~России предпочтительным ответом (англ. preferred value) 
-в поле \lstinline|instance of| указано <<суверенное государство>>, а не <<страна>>. 
+\index{SPARQL!Preferred value}
+в~поле\, \lstinline|instance of| указано <<суверенное государство>>, а не <<страна>>. 
 Чтобы проверить все варианты, представленные в поле \lstinline|instance of| России, 
 нужно использовать конструкцию \lstinline|p:/ps:|.
 
 Таким образом, запрос~\ref{lst:list_of_country_instance_of} 
 позволяет получить больше стран, отсортированных по дате создания. 
-В 2020 году было получено 235~стран, в 2022~--- 246~стран.
+В~2020 году было получено 235~стран, в 2022~--- 246~стран.
 
 
 \newpage
@@ -137,7 +148,7 @@ ORDER BY ?min_year
 Чтобы убрать из этого списка уже не существующие страны, 
 то есть экземпляры объекта \wdqName{historical country}{3024240}, 
 используем оператор \lstinline|MINUS|. 
-С помощью запроса~\ref{lst:list_of_country_instance_of_} получили список действующих, 
+С помощью запроса~\ref{lst:list_of_country_instance_of_} получим список действующих, 
 то есть неисторических, стран с известной датой основания.
 
 \begin{lstlisting}[ language=SPARQL, 
@@ -158,7 +169,7 @@ GROUP BY ?country ?countryLabel
 ORDER BY ?min_year
 \end{lstlisting}
 
-\footnotetext{Получено: 211 стран в 2020 году и 212 в 2022 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/5BCP}{https://w.wiki/5BCP}.}
+\footnotetext{Получено: 211 стран в 2020 году и 212 стран в 2022 году. Ссылка на~SPARQL-запрос: \href{https://w.wiki/5BCP}{https://w.wiki/5BCP}.}
 
 Например, первое упоминание о~\wdqName{Франции}{142} было в~463~году, 
 о~\wdqName{России}{159}~--- в~862-м, 
@@ -172,7 +183,7 @@ ORDER BY ?min_year
 Выведем список стран с пустым свойством <<дата основания>> (листинг~\ref{lst:without_inception}). 
 Такие некомплектные объекты Викиданных могли быть созданы по ошибке или могут содержать какие-то дефекты. 
 Можно посмотреть историю правок объекта и обратиться с~вопросом к~редакторам этой статьи. 
-Подробнее о том, что такое <<история правок>> в~вики-проектах 
+Подробнее о~том, что такое <<история правок>> в~вики-проектах 
 и как~с~ней работать см. в~учебнике\sidenote{\fullcite{Krizhanovsky2015}.}.
 
 \begin{lstlisting}[ language=SPARQL, 
@@ -196,14 +207,26 @@ SELECT ?country ?countryLabel WHERE
 \subsection{Объём Викиданных по современным и историческим странам}
 
 Проанализируем полноту Викиданных на примере исторических и~современных стран. 
-По данным <<Общероссийского классификатора стран мира>>\autocite{oksm},
-на Земле существует 251~страна. 
+По данным <<Общероссийского классификатора стран мира>> 
+на Земле существует 253~страны\sidenote{%
+%
+    URL: \href{https://classifikators.ru/oksm}
+                  {https://classifikators.ru/oksm}.%
+%
+}.\, % eo sidenote
+Авторы статьи Википедии 
+<<\href{https://ru.wikipedia.org/?curid=52627}{Список государств}>> 
+не~смогли указать какое-то одно число. 
+Статья Английской Вики\-педии 
+``\href{https://en.wikipedia.org/?curid=68253}{List of sovereign states}'' 
+содержит список из~205 стран. 
+
 Отдельного анализа заслуживают древние, уже не существующие государства, 
 например \wdqName{Ассирия}{41137}. 
 Объекты таких стран на Викиданных являются экземплярами не~объекта country, 
 а~объекта historical country (историческая страна). 
-
-С помощью скрипта~\ref{lst:List_of_historical_countries} построим список исторических государств. 
+%
+С помощью запроса~\ref{lst:List_of_historical_countries} построим список исторических государств. 
 Таких бывших государств на 2020 год оказалось 3~тыс., что на порядок больше числа современных государств.
 %
 %%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%%
@@ -211,10 +234,12 @@ SELECT ?country ?countryLabel WHERE
     \MarginQuestion
     %	Какое количество административных единиц имеют следующие страны:
     Напишите запрос, чтобы найти государства, существовавшие дольше всех.\\
-    См. ответ~\ref{answer:old_countries} на с.~\pageref{answer:old_countries}.
+    См. ответ %~\ref{answer:old_countries} 
+    на с.~\pageref{answer:old_countries}.
 }
 
 
+\index{SPARQL!p:[ps:]!instance of}
 \begin{lstlisting}[ language=SPARQL, 
     caption={\href{https://w.wiki/tQN}{Список исторических стран}\protect\footnotemark},
     label=lst:List_of_historical_countries, 
@@ -222,8 +247,7 @@ SELECT ?country ?countryLabel WHERE
 ]
 # List of historical countries
 SELECT ?country ?countryLabel WHERE
-{
-    ?country p:P31 [ps:P31 wd:Q3024240].    # instance of a historical country 
+{   ?country p:P31 [ps:P31 wd:Q3024240].    # instance of a historical country
     SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en"} 
 }
 \end{lstlisting}
@@ -231,16 +255,14 @@ SELECT ?country ?countryLabel WHERE
 
 %Отметим, что количество бывших стран (165 на 2020 год) меньше существующих ныне стран.
 
-По данным статьи <<Список государств>>\autocite{list_of_sovereign_states} Русской Википедии 
-и статьи List of sovereign states\autocite{list_of_sovereign_states_en} Английской Википедии, 
-существует 208 стран.
 
 
+\newpage
 %%%%%%%%%%%%%%%% Упражнение 3 %%%%%%%%%%%%%%%%
 \marginnote[\baselineskip]
 {%
     \MarginQuestion
-    Определите по флагам страны Азии и перечислите их\\в порядке возрастания плотности населения. 
+    Определите по флагам страны Азии и перечислите их\\в~порядке возрастания плотности населения. 
 
 \vspace{3pt}
 %    \centering
@@ -262,7 +284,8 @@ SELECT ?country ?countryLabel WHERE
 
 
     \vspace{3pt}
-    См. ответ~\ref{answer:population_density} на с.~\pageref{answer:population_density}.
+    См. ответ %~\ref{answer:population_density} 
+    на с.~\pageref{answer:population_density}.
 }
 
 %        \includegraphics[width=3cm]{./chapter/country/256px-Flag_of_South_Korea.png}
@@ -312,7 +335,7 @@ SELECT ?country ?countryLabel WHERE
 \section{Этнохоронимы стран на русском языке}
 
 Этнохороним~--- это название жителей определённой местности, соотнесённое с топонимом. 
-Например, этнохронимами для России будут россияне, россиянин, россиянка, 
+Например, этнохоронимами для России будут россияне, россиянин, россиянка, 
 для~Чехии~--- чехи, чех, чешка.
 
 Помимо географического фактора, новые лексемы, 
@@ -361,12 +384,13 @@ GROUP BY ?country ?countryLabel
     \href{https://w.wiki/myy}{эрзянский}, \href{https://w.wiki/myz}{белорусский}~--- 
     являются официальными в \href{https://w.wiki/myt}{России}? 
 
-    \noindent См. ответ~\ref{answer:official_language} на с.~\pageref{answer:official_language}.
+    \noindent См. ответ %~\ref{answer:official_language} 
+    на с.~\pageref{answer:official_language}.
 }
 
 Построим список этнохоронимов стран на русском языке (запрос~\ref{lst:list_demonym}).
 
-\index{SPARQL!FILTER!Cписок этнохоронимов}
+\index{SPARQL!FILTER}
 \begin{lstlisting}[ language=SPARQL, 
     caption={\href{https://w.wiki/teg}{Cписок этнохоронимов}\protect\footnotemark},
     label=lst:list_demonym, 
@@ -391,14 +415,16 @@ WHERE
 \subsection{Страны с незаполненными этнохоронимами}
 
 Построим список стран, у которых нет этнохоронимов на русском языке (запрос~\ref{lst:without_demonym}). 
-Этот список может быть полезен редактору для добавления этнохоронимов в Викиданные. 
+Этот список может быть полезен редактору для добавления этнохоронимов в~Викиданные. 
 
+\index{SPARQL!MINUS}
 Благодаря конструкции MINUS в~строках 5--7 запроса~\ref{lst:without_demonym} 
 в итоговый список не попали страны, имеющие этнохоронимы на русском языке.
 
 \newpage
-\index{SPARQL!FILTER!Страны без русских этнохоронимов}
-\index{SPARQL!MINUS!Страны без русских этнохоронимов}
+\index{SPARQL!FILTER}
+\index{SPARQL!MINUS}
+\index{SPARQL!LANG}
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/teo}{Страны с незаполненными этнохоронимами на русском языке}\protect\footnotemark},
 label=lst:without_demonym, 
@@ -406,11 +432,11 @@ label=lst:without_demonym,
 # List of countries without demonyms in Russian
 SELECT ?country ?countryLabel WHERE
 {
-	?country p:P31 [ps:P31 wd:Q6256].       # instance of a country
-	MINUS { ?country wdt:P1549 ?demonym.    # without demonyms
-        FILTER((LANG(?demonym)) = "ru")     # in Russian
-	}
-	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
+  ?country p:P31 [ps:P31 wd:Q6256].       # instance of a country
+  MINUS { ?country wdt:P1549 ?demonym.    # without demonyms
+          FILTER((LANG(?demonym)) = "ru") # in Russian
+        }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
 GROUP BY ?country ?countryLabel
 \end{lstlisting}
@@ -424,9 +450,9 @@ GROUP BY ?country ?countryLabel
 \subsection{Количество заполненных этнохоронимов у стран}
 
 У одной страны может быть от нуля (если данные не заполнены) до трёх-четырёх этнохоронимов. 
-Например, у Турции есть три названия жителей: турок, тарчанка, турки, 
+Например, у Турции есть три названия жителей: турок, турчанка, турки, 
 у~Эфиопии~--- четыре: эфиоп, эфиопка, эфиопы, эфиопки.
-Получим список стран, упорядоченный по количеству заполненных в Викиданных этнохоронимов 
+Получим список стран, упорядоченный по количеству заполненных в~Викиданных этнохоронимов 
 на разных языках (запрос~\ref{lst:count_demonym}). 
 
 %\begin{marginfigure}[-5\baselineskip]
@@ -475,21 +501,20 @@ ORDER BY DESC(?demonyms)
     Какая строка в запросе~\ref{lst:form_of_government} является лишней? То есть её можно удалить и~результат не~изменится. 
     Речь идёт не~о~первой строке с~комментарием.%
 }
-\index{График!BubbleChart!Страны с разными формами правления}
+\index{График!BubbleChart}
+\index{SPARQL!OPTIONAL!FILTER}
 \begin{lstlisting}[ language=SPARQL, 
 caption={\href{https://w.wiki/5BVh}{Число стран с разными формами правления}\protect\footnotemark},
 label=lst:form_of_government, 
 ]
 # Forms of government ordered by number of countries
 #defaultView:BubbleChart
-SELECT ?bfog ?form (COUNT(*) AS ?countries)
-WHERE 
-{
-  ?country p:P31 [ps:P31 wd:Q6256]; # instance of a country
+SELECT ?bfog ?form (COUNT(*) AS ?countries) WHERE 
+{ ?country p:P31 [ps:P31 wd:Q6256]; # instance of a country
            p:P122 [ps:P122 ?bfog].  # basic form of government
-  OPTIONAL {
-    ?bfog rdfs:label ?form
-	FILTER (LANG(?form) = "ru")
+  OPTIONAL 
+  { ?bfog rdfs:label ?form
+    FILTER (LANG(?form) = "ru")
   }
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru"}
 }
@@ -499,12 +524,13 @@ ORDER BY DESC(?countries) ASC(?form)
 \footnotetext{Получено: 30 форм правления на 2017 год и 41 форма правления на 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/5BVh}{https://w.wiki/5BVh}.}
 
 
-
+\index{SPARQL!ORDER BY!ASC}
+\index{SPARQL!ORDER BY!DESC}
 Переменная \lstinline|bfog| (сокращение от basic form of government) 
 содержит форму правления, например <<республику>>. 
-Последняя строчка в~запросе~\ref{lst:form_of_government} содержит команды упорядочения 
-сначала по~убыванию (DESC) и затем по возрастанию (ASC). 
-Таким образом, формы правления сначала сортируются по числу стран \lstinline|?countries|. 
+Последняя строка в~запросе~\ref{lst:form_of_government} содержит команды упорядочения 
+сначала по~убыванию (DESC), затем по возрастанию (ASC). 
+Таким образом, формы правления сначала сортируются по~числу стран \lstinline|?countries|. 
 Затем, если стран оказалось поровну, то формы правления сортируются лексикографически\footnote{%
 %
 Лексикографический (словарный) порядок~--- это способ упорядочивания и сортировки слов, 
@@ -512,25 +538,27 @@ ORDER BY DESC(?countries) ASC(?form)
 например: А < АА < ААА < ААБ < ААВ < АБ < Б < … < ЯЯЯ.%
 }.
 
-В результате выполнения запроса мы получаем пузырьковую диаграмму с наиболее распространенными формами правления в странах на 2017 год (рис.~\ref{fig:bubble_chart_forms_of_government_countries_2017}) и на 2020 год (рис.~\ref{fig:bubble_chart_forms_of_government_countries_2020}).
-Видим, что с~2017 по~2020 год 
-форма правления <<республика>> стала более <<популярной>> 
-(размер кружка относительно других стал больше). 
-Значительно уменьшилось количество стран, имеющих форму  <<смешанная республика>>.
 
-\begin{figure*}
-    \centering
-    \includegraphics[width=0.66\linewidth]{./chapter/country/Bubble_chart_forms_of_government_countries_according_to_Wikidata.png}
-    \caption[Формы правления стран, 2017 год.]{Пузырьковая диаграмма форм правления стран, 2017 год. Основные формы правления стран: республика (20~стран), конституционная монархия (18 стран), федеративная республика (18), парламентская республика (17), президентская республика (12~стран).} 
-	\label{fig:bubble_chart_forms_of_government_countries_2017}%
-\end{figure*} 
+Результаты запроса~\ref{lst:form_of_government} 
+показали, что если на~2017 год основными формами правления были 
+республика (20~стран), конституционная монархия (18 стран), федеративная республика (18), парламентская республика (17), президентская республика (12~стран), 
+то на~2020 год показатели таковы: республика (41~страна), конституционная монархия (32), федеративная республика (19), парламентская республика (22), президентская республика (14 стран). 
+%
+Отметим, что с~2017 по~2020 год 
+форма правления \emph{республика} стала более популярной (20 и 41 страна). 
+
+Результатом выполнения запроса~\ref{lst:form_of_government} является 
+пузырьковая диаграмма с наиболее распространенными формами правления 
+(рис.~\ref{fig:bubble_chart_forms_of_government_countries_2020}).
 
 
 \begin{figure*}
     \centering
     \includegraphics[width=0.66\linewidth]{./chapter/country/Bubble_chart_forms_of_government_countries_according_to_Wikidata_2020.png}
-    \caption[Формы правления стран, 2020 год.]{Пузырьковая диаграмма форм правления стран, 2020 год.
-	Основные формы правления стран: республика (41~страна), конституционная монархия (32), федеративная республика (19), парламентская республика (22), президентская республика (14 стран).} 
+    \caption[Формы правления стран, 2020 год.]
+    {Соотношение числа разных форм правления по~странам мира на~2020 год}
+%    {Пропорции распространённости форм правления по~всем странам\\на~2020 год}
+%Основные формы правления стран: республика (41~страна), конституционная монархия (32), федеративная республика (19), парламентская республика (22), президентская республика (14 стран).
 	\label{fig:bubble_chart_forms_of_government_countries_2020}%
 \end{figure*} 
 
@@ -602,7 +630,7 @@ ORDER BY DESC(?countries) ASC(?form)
 \href{https://www.wikidata.org/wiki/Property:P47}{shares border with (P47)}. 
 Используя его, построим граф соседних стран (запрос~\ref{lst:neighboring_countries}).
 
-\index{График!Graph!Соседние стран}
+\index{График!Graph}
 \begin{lstlisting}[ language=SPARQL, 
     caption={\href{https://w.wiki/5Bsy}{Соседние страны}\protect\footnotemark},
     label=lst:neighboring_countries, 
@@ -623,7 +651,7 @@ SELECT DISTINCT ?country ?countryLabel ?border ?sharesBorderWith WHERE
 (рис.~\ref{fig:neighboring_countries_2017}) 
 и 912 ребрами на 2021 год (рис.~\ref{fig:neighboring_countries_2020}), 
 где ребро указывает на общую границу двух стран. 
-Граф представляет из себя несколько связных компонент, 
+Граф представляет из~себя несколько связных компонент, 
 так как есть островные страны, у которых нет соседей 
 (например, \href{https://w.wiki/vC7}{Маврикий} и \href{https://w.wiki/vC8}{Мальдивы}). 
 Также стоит упомянуть, что теперь свойство {\textit{shares border with}} 
@@ -633,7 +661,7 @@ SELECT DISTINCT ?country ?countryLabel ?border ?sharesBorderWith WHERE
 Обратите внимание, что полученный граф (рис.~\ref{fig:neighboring_countries_2017}) 
 включает также исторические страны, например СССР. 
 Постройте аналогичный граф, но только с современными странами. 
-Для этого посмотрите на запрос~\ref{lst:list_of_country_instance_of_}, где показано, 
+Для этого посмотрите на~запрос~\ref{lst:list_of_country_instance_of_}, где показано, 
 как <<выключить>> исторические страны и оставить только действующие. 
 
 \begin{marginfigure}
@@ -674,7 +702,8 @@ SELECT DISTINCT ?country ?countryLabel ?border ?sharesBorderWith WHERE
 \wdqName{Япония}{17}, \wdqName{Норвегия}{20}, \wdqName{США}{30}, \wdqName{Финляндия}{33}, \wdqName{Швеция}{34}, \wdqName{Польша}{36}, \wdqName{Литва}{37}, \wdqName{Китайская Народная Республика}{148}, \wdqName{Белоруссия}{184}, \wdqName{Эстония}{191}, \wdqName{Латвия}{211}, \wdqName{Украина}{212}, \wdqName{Азербайджан}{227}, \wdqName{Грузия}{230}, \wdqName{Казахстан}{232}, \wdqName{КНДР}{423} и \wdqName{Монголия}{711}.
 
 
-\index{График!Map!Соседние страны России}
+\index{График!Map}
+\index{SPARQL!Свойство!geoshape}
 \begin{lstlisting}[ language=SPARQL, 
     caption={\href{https://w.wiki/tg3}{Соседние страны России}\protect\footnotemark},
     label=lst:neighboring_countries_ru, 
@@ -682,10 +711,10 @@ SELECT DISTINCT ?country ?countryLabel ?border ?sharesBorderWith WHERE
 # Map of neighboring countries of Russia
 #defaultView:Map
 SELECT ?border_country ?border_countryLabel ?coords ?layer WHERE 
-{                                         # border_country
+{                                         # border\_country
 	?border_country p:P47 [ps:P47 wd:Q159]. #   has border with Russia
 	?border_country p:P31 [ps:P31 wd:Q6256].#   is a country
-	OPTIONAL {?border_country wdt:P3896 ?coords.}
+	OPTIONAL {?border_country wdt:P3896 ?coords.} # geoshape
 	BIND (?coords AS ?layer)
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru". }
 }

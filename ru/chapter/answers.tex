@@ -240,7 +240,7 @@ SELECT ?airship ?airshipLabel ?image WHERE
         Результат деления записываем в~переменную \lstinline|?popArea|, которая показывает плотность населения. 
 
 
-\index{SPARQL!psn:!Нормализация площади населённого пункта}
+\index{SPARQL!psn:!нормализация площади}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/6ibN}{Плотность населения <<населенных пунктов>> России}\protect\footnotemark},
                     label=lst:human_settlements_density,
@@ -287,7 +287,7 @@ ORDER BY DESC (?popArea)
     содержит изображение герба населённого пункта.
 
 \newpage
-\index{График!ImageGrid!Гербы населённых пунктов России}
+\index{График!ImageGrid}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/4e8A}{Гербы населённых пунктов Российской Федерации}\protect\footnotemark},
                     label=lst:flag_question_human_settlements,
@@ -323,8 +323,8 @@ SELECT ?hum ?humLabel ?image WHERE {
     Значение свойства \wdProperty{138}{named after} 
     показывает, в честь какого объекта Викиданных был назван город.
    
-\index{SPARQL!FILTER!Города, названные в честь географических объектов}
-\index{SPARQL!поиск подклассов!wdt:P31/wdt:P279*}
+\index{SPARQL!FILTER}
+\index{SPARQL!Поиск подклассов!wdt:P31/wdt:P279*}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/6icv}{Города, названные в честь географических объектов}\protect\footnotemark},
                     label=lst:cities_geographic_objects,
@@ -369,8 +369,8 @@ WHERE {
 
    
     \newpage
-    \index{SPARQL!FILTER!Дата основания городов}
-    \index{SPARQL!YEAR!Дата основания городов}
+    \index{SPARQL!FILTER!OR}
+    \index{SPARQL!YEAR}
     \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/6idC}{Города, основанные более 400 лет назад в России}\protect\footnotemark},
                     label=lst:cities_over_400_age,
@@ -403,7 +403,7 @@ ORDER BY ASC(?year)
     переменная \lstinline|?year| принимать отрицательные значения? 
     Если <<да>>, то почему?
 
-    \index{SPARQL!unknown value}
+    \index{SPARQL!Unknown value}
     Обычно значение свойства 
     \wdProperty{571}{inception} 
     содержит дату%
@@ -436,7 +436,7 @@ ORDER BY ASC(?year)
     содержит изображение флага города.
     
     \newpage
-    \index{SPARQL!FILTER!Флаги городов}
+    \index{SPARQL!Поиск подклассов!wdt:P31/wdt:P279*}
     \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/8orr}{Флаги городов России}\protect\footnotemark},
                     label=lst:cities_flags,
@@ -507,7 +507,8 @@ ORDER BY DESC(?count)
 
 
 \newpage
-\index{SPARQL!FILTER EXISTS!Страны, упорядоченные по дате основания}
+\index{SPARQL!FILTER!EXISTS}
+\index{SPARQL!OPTIONAL}
 \begin{lstlisting}[ 
         language=SPARQL, 
 	    caption={\href{https://w.wiki/tYc}{Список исторических стран, упорядоченных по дате основания}\protect\footnotemark},
@@ -591,7 +592,8 @@ ORDER BY DESC(?populationDensity)
     \AnswerBackref Вопрос на с.~\pageref{lst:List_of_historical_countries}.
 
 
-\index{SPARQL![ps:P37 \ldots]!официальный язык}
+\index{SPARQL!p:[ps:]!not only preferred rank}
+\index{SPARQL!p:[ps:]!official language}
 Официальными языками России являются 
     \href{https://w.wiki/myv}{абазинский}, 
     \href{https://w.wiki/myx}{мокшанский} 
@@ -601,8 +603,15 @@ ORDER BY DESC(?populationDensity)
     Сначала свойство \lstinline|p:P37| позволяет извлечь у объекта \wdqName{России}{159} конструкцию, 
     описывающую официальный язык. 
     Затем с~помощью строки \lstinline|[ps:P37 ?lanquage]| мы извлекаем из~этой конструкции сам язык.
-	
-\index{SPARQL!FILTER!Официальные языки в России}
+
+    Если~бы в~строке~4 запроса~\ref{lst:official_languages} 
+    было записано обычное выражение с отношением \lstinline|wdt:P|\sidenote{%
+%
+        Выражение: \lstinline|wd:Q159 wdt:P37 ?lanquage.|
+%
+},  то~результатом запроса был~бы один язык~--- русский~--- поскольку 
+    он имеет преимущество в ранжировании (preferred rank), 
+    а~у~остальных официальных языков объекта Россия указан обычный ранг (normal rank). 
 \begin{lstlisting}[ 
             language=SPARQL, 
             caption={\href{https://w.wiki/tky}{Официальные языки в России}\protect\footnotemark},
@@ -627,7 +636,6 @@ SELECT ?lanquage ?lanquageLabel WHERE
 \hfil\pgfornament[width=4cm]{80}\hfil%
 
 
-\newpage
 \begin{task}
 \label{answer:subjects_of_Russia_3}
     \AnswerBackref Вопрос на с.~\pageref{lst:oblast-of-Russia}.
@@ -1152,12 +1160,12 @@ SELECT DISTINCT ?film ?filmLabel ?ship ?shipLabel ?image WHERE
 \end{lstlisting}
 \footnotetext{Найдено 11 кораблей, снятых в кинолентах, при этом 9 из них имеют изображения, по~данным на~2024 год. Ссылка на~SPARQL-запрос: \href{https://w.wiki/8qat}{https://w.wiki/8qat}.}
 
-    \index{SPARQL!свойство!main subject}
+    \index{SPARQL!Свойство!main subject}
     В~строке~8 запроса~\ref{lst:cinema_ship} используется свойства \wdProperty{921}{main subject}, 
     то есть основной или главной темой фильма должен быть указан корабль 
     (переменная \lstinline|?ship|). 
 
-    \index{SPARQL!квантификатор!+}
+    \index{SPARQL!Квантификатор!+}
     В~строке~9 запроса~\ref{lst:cinema_ship} знак + аналогичен квантификаторам регулярного выражения и означает, 
     что свойство \wdProperty{31}{is~instance} может повториться один или более раз. 
     То есть \lstinline|wdt:P31+| можно раскрыть как \lstinline|wdt:P31| (переменная \lstinline|?ship| является экземпляром корабля) 
@@ -1177,7 +1185,7 @@ SELECT DISTINCT ?film ?filmLabel ?ship ?shipLabel ?image WHERE
     для~которых существуют в Викиданных и объект-корабль, и объект-книг. Таких пар не может быть много. 
 
 
-\index{SPARQL!анонимная переменная}
+\index{SPARQL!Анонимная переменная}
     В~строке~9 запроса~\ref{lst:books_ship} предложен следующий \emph{путь поиска}: 
     у книги в качестве главной темы (\wdProperty{921}{main subject}) 
     указан некоторый объект Викиданных (квадратные скобки здесь~--- это \emph{анонимная переменная}), 
@@ -1237,7 +1245,7 @@ SELECT ?book ?bookLabel ?ship ?shipLabel ?image WHERE
     с.~\pageref{question:spacecraft_soyuzT} (<<Союз-Т>>), принадлежат СССР. 
     Убедиться в этом можно, выполнив запрос~\ref{lst:imageUSSRsc}.
 
-    \index{SPARQL!квантификатор!+}
+    \index{SPARQL!Квантификатор!+}
     \begin{lstlisting}[ 
         language=SPARQL, 
         numbers=none, 
@@ -1281,7 +1289,7 @@ SELECT ?rocket ?rocketLabel ?img WHERE
     В~строке~8 проверяем, что квалификатор \wdProperty{642}{of} имеет значение \wdqName{spacecraft}{40218}. 
 
 \newpage
-    \index{SPARQL!квантификатор!+}
+    \index{SPARQL!Квантификатор!+}
     \begin{lstlisting}[ 
         language=SPARQL, 
         caption={{\href{https://w.wiki/8xzi}{Серии космических кораблей}}\protect\footnotemark}, 

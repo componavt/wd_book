@@ -5,15 +5,15 @@
 соответствующих четырём объектам Викиданных,~--- 
 <<малый город>>, <<город>>, <<большой город>> и <<города-миллионеры>>. 
 В ходе исследования с использованием SPARQL-запросов получены данные 
-о количестве экземпляров исследуемых объектов, а также рассмотрены вопросы, 
+о количестве экземпляров исследуемых объектов, а~также рассмотрены вопросы, 
 связанные со свойствами population (численность населения) и sister city (город-побратим) этих объектов Викиданных. 
 Подсчитана и проанализирована численность населения разных типов городов; 
-найдено числа городов без побратимов; построен список городов, упорядоченных по числу побратимов; 
+найдено число городов без побратимов; построен список городов, упорядоченных по числу побратимов; 
 найдено число городов с определённым числом побратимов; 
 определены страны с наибольшим числом побратимов; 
 найдены ближайшие соседи России по числу городов-побратимов. 
 В~заключение дана оценка полноты данных, представленных в Википедии и Викиданных, 
-и перечислены проблемы и сложности, возникшие при~изучении разных типов городов в этих проектах.
+и перечислены проблемы и сложности, возникшие при~изучении разных типов городов в~этих проектах.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Списки разных типов городов}
 
@@ -40,7 +40,7 @@ SELECT ?city ?cityLabel WHERE {
 \footnotetext{Получено: \num{13800} <<малых городов>> в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/t4o}{https://w.wiki/t4o}.}
 
 Среди отечественных <<городов>> в Викиданных больше всего свойств 
-у \wdqName{Новороссийска}{15760}~--- 31 свойство\autocite{city_prowd}. 
+у \wdqName{Новороссийска}{15760}~--- 31. %deadlink \autocite{city_prowd}. 
 Лидером по <<городам>> всего мира является \wdqName{Сингапур}{334}~--- 104 свойства.
 
 \begin{lstlisting}[ language=SPARQL, 
@@ -56,7 +56,7 @@ SELECT ?city ?cityLabel WHERE {
 \footnotetext{Получено: \num{20800} <<городов>> в 2017 году, \num{9260} <<городов>> в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/t4q}{https://w.wiki/t4q}.}
 
 Среди отечественных <<больших городов>> в Викиданных больше всего свойств 
-у \wdqName{Москвы}{649}~--- 76 свойств\autocite{big_city_prowd}. 
+у \wdqName{Москвы}{649}~--- 76. %deadlink \autocite{big_city_prowd}. 
 Лидером по <<большим городам>> всего мира снова является \wdqName{Сингапур}{334}~--- 104~свойства.
 
 \begin{lstlisting}[ language=SPARQL, 
@@ -120,7 +120,8 @@ SELECT ?city ?cityLabel WHERE { # Selecting items which are ...
 \item \href{https://w.wiki/oL2}{Вологда}
 \item \href{https://w.wiki/oK$}{Обнинск}
 \end{itemize}
-См. ответ~\ref{answer:cities_geographic_objects} на с.~\pageref{answer:cities_geographic_objects}.
+См. ответ %~\ref{answer:cities_geographic_objects} 
+на с.~\pageref{answer:cities_geographic_objects}.
 }
 
 Ниже представлены SPARQL-запросы для нахождения суммарной численности населения по всем типам городов: 
@@ -136,8 +137,10 @@ SELECT ?city ?cityLabel WHERE { # Selecting items which are ...
 
 
 \newpage
-\index{SPARQL!REPLACE!Численность населения <<малых городов>>}
-\index{SPARQL!STR!Численность населения <<малых городов>>}
+\index{SPARQL!STR!REPLACE}
+\index{SPARQL!MAX}
+\index{SPARQL!xsd:integer}
+\index{SPARQL!STR}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/jgX}{Численность населения <<малых городов>>}\protect\footnotemark},
                     label=lst:population_town,
@@ -163,11 +166,17 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
 например строка <<1.000.000>> преобразуется в <<1000000>>.
 }
 
-\index{SPARQL!MAX!Численность населения <<городов>>}
-\begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/jgY}{Численность населения <<городов>>}\protect\footnotemark},
-                    label=lst:population_city,
-                    framexleftmargin=12pt,
+\vspace{-2pt}
+\index{SPARQL!STR!REPLACE}
+\index{SPARQL!MAX}
+\index{SPARQL!xsd:integer}
+\index{SPARQL!STR}
+\begin{lstlisting}[ 
+    language=SPARQL, 
+    caption={\href{https://w.wiki/jgY}{Численность населения <<городов>>}\protect\footnotemark},
+    label=lst:population_city,
+    xleftmargin=18pt, 
+    numbers=left,
                     ]
 # Selecting total population of items which are ...
 SELECT (SUM(?population_city) as ?sum) WHERE {                    
@@ -180,7 +189,13 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
 }\end{lstlisting}
 \footnotetext{Получено: sum = \num{1133,56} млн чел. в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/jgY}{https://w.wiki/jgY}}
 
-\index{SPARQL!SUM!Численность населения <<больших городов>>}
+
+\vspace{-2pt}
+\index{SPARQL!SUM}
+\index{SPARQL!STR!REPLACE}
+\index{SPARQL!MAX}
+\index{SPARQL!xsd:integer}
+\index{SPARQL!STR}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/jga}{Численность населения <<больших городов>>}\protect\footnotemark},
                     label=lst:population_big_city,
@@ -210,7 +225,9 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
 соответствующих различным годам. Для выбора одного из значений свойства можно использовать агрегирующие функции, 
 например \href{https://en.wikibooks.org/wiki/SPARQL/Expressions\_and\_Functions\#COUNT,\_MIN,\_MAX,\_AVG\_and\_SUM}{MIN, MAX, AVG}. 
 
-Отметим, что последнее по времени значение свойства, например <<численность населения>>, обычно имеет пометку preferred value. 
+\index{SPARQL!Preferred value}
+Отметим, что последнее по времени значение свойства, например <<численность населения>>, 
+обычно имеет пометку \emph{preferred value}. 
 Это означает, что при обращении к свойству будет возвращено именно такое <<предпочтительное>> значение, 
 например число жителей по данным последней переписи. 
 В этом случае агрегирующие функции не~нужны. 
@@ -266,7 +283,7 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
 а разделители разрядов используются исключительно для упрощения чтения.
 
 В табл.~\ref{tab:population} приведена сводная информация о численности населения разных типов городов, 
-а также рассчитана доля населения, приходящегося на каждый тип города, 
+а~также рассчитана доля населения, приходящегося на каждый тип города, 
 от~общего \href{https://w.wiki/oL7}{населения Земли}, 
 достигшего примерно \href{https://bit.ly/3mPOhDi}{\num{7,8} млрд человек на 2020 год}\autocite{Salkova2020}. 
 Согласно Викиданным, почти три четверти населения планеты проживает в городах.
@@ -276,8 +293,13 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
 \section{Города-побратимы}
 
 %\index{Город!Города-побратимы / Определение}
-\href{https://w.wiki/pRe}{Города-побратимы (породнённые города)} -- это города различных государств, установившие между собой постоянные дружественные связи с целью укрепления международных отношений в областях культуры, экономики, создания и управления городской инфраструктурой, 
-функционирования гражданского общества и~т.~д.\autocite{sister_city}
+\href{https://w.wiki/pRe}{Города-побратимы (породнённые города)}~--- это города различных государств, установившие между собой постоянные дружественные связи с целью укрепления международных отношений в областях культуры, экономики, создания и управления городской инфраструктурой, 
+функционирования гражданского общества и~т.~д.\sidenote{%   \autocite{sister_city}
+%
+    Международная ассоциация <<Породнённые города>>. 
+    URL: \href{https://bit.ly/3qs2JUt}
+              {https://bit.ly/3qs2JUt}.%
+}% eo sidenote
 
 
 
@@ -285,11 +307,16 @@ SELECT (SUM(?population_city) as ?sum) WHERE {
 
 Запрос~\ref{lst:without_sister_cities} подсчитывает число городов, не имеющих побратимов.
 
-\index{SPARQL!COUNT!Количество городов без побратимов}
+\index{SPARQL!COUNT}
+\index{SPARQL!UNION}
+\index{SPARQL!FILTER!NOT EXISTS}
+\index{SPARQL![]}
 \begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/jgv}{Количество городов, не имеющих побратимов}\protect\footnotemark},
-                    label=lst:without_sister_cities
-                    ]
+    caption={\href{https://w.wiki/jgv}{Количество городов, не имеющих побратимов}\protect\footnotemark},
+    label=lst:without_sister_cities,
+    xleftmargin=18pt, 
+    numbers=left,
+    ]
 # Counting items which are ... 
 SELECT (COUNT(?city) as ?count) WHERE {                             
 	{ ?city wdt:P31 wd:Q3957 } UNION # instances of "town"          
@@ -305,7 +332,7 @@ SELECT (COUNT(?city) as ?count) WHERE {
 Таким образом, только для 20\,\% городов известны города-побратимы.
 
 Обратите внимание на то, что в строках 3--6 запроса~\ref{lst:without_sister_cities} 
-части конструкции \href{https://en.wikibooks.org/wiki/SPARQL/UNION}{UNION} заключены в фигурные скобки. 
+части конструкции \href{https://en.wikibooks.org/wiki/SPARQL/UNION}{UNION} заключены в~фигурные скобки. 
 В противном случае SPARQL-запрос не~будет скомпилирован.
 
 
@@ -316,9 +343,11 @@ SELECT (COUNT(?city) as ?count) WHERE {
 Далее представлен запрос~\ref{lst:ordered_by_sister_cities} 
 для получения списков всех городов 
 и~запрос~\ref{lst:ordered_by_sister_cities_Russia} для получения городов России, 
-при этом все они упорядочен по числу побратимов.
+при этом все они упорядочены по числу побратимов.
 
-\index{SPARQL!COUNT!Список городов по числу побратимов}
+\index{SPARQL!COUNT}
+\index{SPARQL!UNION}
+\index{SPARQL!AS}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/sY4}{Упорядоченный список городов по числу побратимов}\protect\footnotemark},
                     label=lst:ordered_by_sister_cities,
@@ -338,6 +367,9 @@ ORDER BY DESC(?sisterCount) # Sorting by number of sister cities
 \end{lstlisting}
 \footnotetext{Получено: \num{4046} городов мира с побратимами в 2020 году. Ссылка на~SPARQL-запрос: \href{https://w.wiki/sY4}{https://w.wiki/sY4}.}
 
+\index{SPARQL!COUNT}
+\index{SPARQL!VALUES}
+\index{SPARQL!AS}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/t4A}{Упорядоченный список городов России по числу побратимов}\protect\footnotemark},
                     label=lst:ordered_by_sister_cities_Russia,
@@ -367,8 +399,9 @@ ORDER BY DESC(?sisterCount) # Sorting by number of sister cities
 \subsection{Число городов с определённым числом побратимов}
 
 Ниже представлены SPARQL-запросы для получения числа городов (N) 
-с определённым числом побратимов (S) для всех городов известных Викиданным 
-(запрос~\ref{lst:city_relation_S_N}) и~для~городов России (запрос~\ref{lst:city_relation_Russia_S_N}).
+с определённым числом побратимов (S) для всех городов, известных Викиданным 
+(запрос~\ref{lst:city_relation_S_N}), 
+и~для~городов России (запрос~\ref{lst:city_relation_Russia_S_N}).
 
 Строка \lstinline|#defaultView:LineChart| 
 в начале скрипта~\ref{lst:city_relation_S_N} не является комментарием. 
@@ -382,14 +415,18 @@ ORDER BY DESC(?sisterCount) # Sorting by number of sister cities
 \label{fig:city_relation_S_N}
 \end{marginfigure}
 
-\index{SPARQL!COUNT!Число городов с побратимами}
-\index{График!LineChart!Число городов мира по числу побратимов}
-\begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/pM9}{Число городов с определённым числом побратимов}\protect\footnotemark},
-                    label=lst:city_relation_S_N
-                    ]
+\index{SPARQL!COUNT}
+\index{График!LineChart}
+\index{SPARQL!SELECT!вложенный}
+\begin{lstlisting}[ 
+    language=SPARQL, 
+    caption={\href{https://w.wiki/pM9}{Число городов с определённым числом побратимов}\protect\footnotemark},
+    label=lst:city_relation_S_N,
+    xleftmargin=18pt, 
+    numbers=left,
+    ]
+# Count number of cities having sister cities and number of sister cities themselves
 #defaultView:LineChart
-# Count number of cities having sister cities & number of sister cities themselves
 SELECT ?sisterCount (COUNT(?sisterCount) AS ?FreqNSister) WHERE {                                                                         
 	{ # Count sister cities of cities which are ...
 		SELECT (COUNT(?sister) AS ?sisterCount) WHERE {        
@@ -409,15 +446,16 @@ ORDER BY DESC(?sisterCount) # Order by number of sister cities
 
 \begin{marginfigure}[8pt]
 \includegraphics[width=1\linewidth]{./chapter/city/Logarithm_of_the_number_of_cities_having_given_number_of_sister_cities_according_to_Wikidata,_2020.png}%
-    \caption[Зависимость числа городов от числа имеющихся побратимов на логарифмической шкале, 2020 год.]{Зависимость числа городов мира (N) от числа побратимов (S) \mbox{на логарифмической шкале}, 2020 год}%
+    \caption[Зависимость числа городов от числа имеющихся побратимов на логарифмической шкале, 2020 год.]
+    {Зависимость числа городов мира (N) от числа имеющихся побратимов~(S) на~логарифмической шкале, 2020 год}%
 \label{fig:city_ln_relation_S_N}%
 \end{marginfigure}
 
 Результаты SPARQL-запроса для всех городов отображены на рис.~\ref{fig:city_relation_S_N}. 
 Максимальное значение N (\num{1224} города) наблюдается при S, равном единице, 
-затем следует резкое уменьшение числа городов с увеличением числа имеющихся у них побратимов. 
-На рис.~\ref{fig:city_ln_relation_S_N} представлены те же данные, но в логарифмической шкале. 
-Так, чуть более 4 тыс. городов (\num{4046} городов) побратались хотя~бы с~одним~городом, из~них:
+затем следует резкое уменьшение числа городов с~увеличением числа имеющихся у них побратимов. 
+На рис.~\ref{fig:city_ln_relation_S_N} представлены те же данные, но в~логарифмической шкале. 
+Так, чуть более 4 тыс. городов (\num{4046}) побратались хотя~бы с~одним~городом, из~них:
 %
 \begin{itemize}
 \item 32\,\% (\num{1314} городов) связаны братскими отношениями более чем с пятью городами;
@@ -428,7 +466,7 @@ ORDER BY DESC(?sisterCount) # Order by number of sister cities
 
 На основании построенного тренда можно сделать предположение, 
 что зависимость числа городов от числа имеющихся у этих городов побратимов 
-имеет распределение близкое к степенному.
+имеет распределение, близкое к~степенному.
 
 %
 %%%%%%%%%%%%%%%% Упражнение 3 %%%%%%%%%%%%%%%%
@@ -441,10 +479,15 @@ ORDER BY DESC(?sisterCount) # Order by number of sister cities
     \href{https://w.wiki/oLB}{Астрахань}, 
     \href{https://w.wiki/oLC}{Самара}, 
     \href{https://w.wiki/oLD}{Воронеж}?
-См. ответ~\ref{answer:cities_over_400_age} на с.~\pageref{answer:cities_over_400_age}.
+
+См. ответ %~\ref{answer:cities_over_400_age} 
+на с.~\pageref{answer:cities_over_400_age}.
 }
 
-\index{График!LineChart!Зависимость числа городов России от числа побратимов}
+\index{График!LineChart}
+\index{SPARQL!COUNT}
+\index{SPARQL!GROUP BY}
+\index{SPARQL!AS}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/pMA}{Число городов России с определённым числом побратимов}\protect\footnotemark},
                     label=lst:city_relation_Russia_S_N,
@@ -476,7 +519,8 @@ ORDER BY DESC(?sisterCount) # Order by number of sister cities
 
 \begin{marginfigure}[18pt]
     \includegraphics[width=1.0\linewidth]{./chapter/city/Number_of_Russian_cities_having_given_number_of_sister_cities_according_to_Wikidata,_2020.png}
-  \caption[Зависимость числа городов России от числа побратимов, 2020 год.]{Зависимость числа городов России (N) от числа имеющихся у этих городов побратимов (S), 2020 год}
+  \caption[Зависимость числа городов России от числа побратимов, 2020 год.]
+    {Зависимость числа городов России (N) от числа побратимов (S), 2020 год}
   \label{fig:city_relation_Russia_S_N}
 \end{marginfigure}
 
@@ -490,8 +534,10 @@ ORDER BY DESC(?sisterCount) # Order by number of sister cities
 пузырьковую диаграмму (рис.~\ref{fig:Bubble_countries_sister_cities}), 
 показывающую соотношение количества городов-побратимов между странами.
 
-\index{SPARQL!COUNT!Список стран по числу побратимов}
-\index{График!BubbleChart!Число побратимов у страны}
+\index{График!BubbleChart}
+\index{SPARQL!GROUP BY}
+\index{SPARQL!ORDER BY!DESC}
+
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/5At7}{Пузырьковая диаграмма стран мира, упорядоченных по количеству городов-побратимов}\protect\footnotemark},
                     label=lst:countries_sister_cities,
@@ -511,13 +557,7 @@ ORDER BY DESC(?sisterCount)
 \end{lstlisting}
 \footnotetext[19][-6.1cm]{Получено: 208 стран в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/5At7}{https://w.wiki/5At7}.}
 
-На 2020 год больше всего побратимов имела Германия (\num{1375} городов). 
-В~2022 году у~Германии было уже 1703 побратима, 
-а~на~первое место вышел Китай с 2542 побратимами. 
-Полный список стран, с которыми Германия имеет города-побратимы, можно получить с помощью запроса~\ref{lst:sister_cities_with_Germany}. 
-В~табл.~\ref{tab:germany_sister_cities} приведен список из первых 10 стран.
-%имеющих наибольшее количество побратимов с городами Германии на 2020 год. 
-%
+
 \begin{marginfigure}[-1.5cm]
 %{
 %\setlength{\fboxsep}{0pt}%
@@ -526,14 +566,19 @@ ORDER BY DESC(?sisterCount)
     \includegraphics[width=\linewidth]{./chapter/city/Bubble_chart_number_of_sister_cities_of_countries_according_to_Wikidata,_2020_(RU).png}
 %}%
 %}
-\caption[Пузырьковая диаграмма стран мира по числу побратимов у городов, 2020 год.]{Пузырьковая диаграмма стран мира, размер шарика~--- это число \mbox{побратимов} у городов страны, 2020 год}%
+\caption[Пузырьковая диаграмма стран мира по числу побратимов у городов, 2020 год.]
+    {Пузырьковая диаграмма стран мира по числу побратимов у городов страны, 2020 год}%
   \label{fig:Bubble_countries_sister_cities}%
 \end{marginfigure}
 
 
 
 % # List of countries that have sister cities with cities in Germany
-\index{SPARQL!COUNT!Страны с побратимами в Германии}
+\index{SPARQL!COUNT}
+\index{SPARQL!DISTINCT}
+\index{SPARQL!GROUP BY}
+\index{SPARQL!ORDER BY!DESC}
+\index{SPARQL!VALUES}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/5As4}{Список стран, имеющих города-побратимы с городами Германии}\protect\footnotemark},
                     label=lst:sister_cities_with_Germany,
@@ -554,6 +599,17 @@ ORDER BY DESC(?sisterCount)\end{lstlisting}%
               SPARQL-запрос: \href{https://w.wiki/5As4}{https://w.wiki/5As4}.}
 
 
+На пузырьковой диаграмме (рис.~\ref{fig:Bubble_countries_sister_cities}) 
+размер шарика соответствует числу побратимов у городов страны. 
+На 2020 год больше всего побратимов имела Германия (\num{1375} городов). 
+В~2022 году у~Германии было уже 1703 побратима, 
+а~на~первое место вышел Китай с 2542 побратимами. 
+Полный список стран, с которыми Германия имеет города-побратимы, 
+можно получить с помощью запроса~\ref{lst:sister_cities_with_Germany}.
+
+В~табл.~\ref{tab:germany_sister_cities} приведен список из первых 10 стран, 
+имеющих наибольшее количество побратимов с~городами Германии на 2020 и 2022 годы. 
+
 
 
 
@@ -562,7 +618,9 @@ ORDER BY DESC(?sisterCount)\end{lstlisting}%
 %% Но эта таблица из предыдущего раздела, для оформления перенесена сюда
 \begin{margintable} 
     \vspace{14pt}
-    \caption[Страны с наибольшим числом побратимов с городами Германии, 2020 год.]{Количество городов-побратимов в различных странах\\с городами Германии на 2020 и 2022 годы\vspace{3pt}}
+    \caption[Страны с наибольшим числом побратимов с городами Германии, 2020 год.]
+    {Страны с наибольшим числом побратимов из Германии,\\2020 и 2022 годы}
+%   {Количество городов-побратимов в различных странах\\с городами Германии на 2020 и 2022 годы\vspace{3pt}}
     \label{tab:germany_sister_cities}
 %  \centering
 %\raggedright
@@ -596,12 +654,14 @@ ORDER BY DESC(?sisterCount)\end{lstlisting}%
 \marginnote[5\baselineskip]{%
     \MarginQuestion
     Какому городу России принадлежит этот флаг?
-    \vspace{3pt}
+    \vspace{5pt}
 
 %\begin{marginfigure}[0.0cm]
 \includegraphics[width=5cm]{./chapter/city/Flag_of_Karabulak_(Ingushetia).png}%
 
-См. ответ~\ref{answer:cities_flags} на~с.~\pageref{answer:cities_flags}.
+\vspace{2pt}
+См. ответ %~\ref{answer:cities_flags} 
+на~с.~\pageref{answer:cities_flags}.
 %  \caption{Какому городу России принадлежит этот флаг?\\См. ответ~\ref{answer:cities_flags} на~с.~\pageref{answer:cities_flags}.}
 %  \label{fig:flag_question_city}%
 %\end{marginfigure}
@@ -612,13 +672,13 @@ ORDER BY DESC(?sisterCount)\end{lstlisting}%
 Польша (24), Франция (23) и~Италия~(22).
 
 
-\index{SPARQL!COUNT!Соседи России по числу побратимов}
-\index{SPARQL!NOT IN!Соседи России по числу побратимов}
-\index{SPARQL!FILTER!Соседи России по числу побратимов}
-\index{SPARQL!OPTIONAL!Соседи России по числу побратимов}
-\index{SPARQL!BIND!Соседи России по числу побратимов}
-\index{SPARQL!IF!Соседи России по числу побратимов}
-\index{График!Map!Соседи России по числу побратимов}
+\index{SPARQL!COUNT}
+\index{SPARQL!NOT IN}
+\index{SPARQL!FILTER}
+\index{SPARQL!OPTIONAL}
+\index{SPARQL!BIND}
+\index{SPARQL!IF}
+\index{График!Map}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/q5Z}{Ближайшие соседи России по числу побратимов}\protect\footnotemark},
                     label=lst:countries_sister_cities_with_Russia,
@@ -658,7 +718,7 @@ SELECT ?country ?countryLabel ?sisterCount ?shape ?layer WHERE {
 \setlength{\fboxrule}{1pt}%
 \fcolorbox{gray}{gray}{\includegraphics[width=0.96\linewidth]{./chapter/city/Map_of_closest_neighbours_of_Russia_by_number_of_sister_cities,_2020.png}}
 }
-	\caption{Карта ближайших соседей России по числу городов-побратимов, 2020 год}
+	\caption{Карта ближайших соседей России по числу городов-побратимов,\\2020 год}
 	\label{fig:Map_closest_neighbours_Russia}
 \end{figure*}
 
@@ -686,7 +746,8 @@ SELECT ?country ?countryLabel ?sisterCount ?shape ?layer WHERE {
 Некоторые страны и вовсе не применяют понятие города. 
 Так, во Франции используется только одна географическая единица подобного рода~--- коммуна, 
 вне зависимости от количества проживающих в ней людей и рода их деятельности. 
-Поэтому чётко определить, какой населённый пункт относить к~городам, а~какой~нет, может быть затруднительно.
+Поэтому чётко определить, какой населённый пункт относить к~городам, а~какой~нет, 
+может быть затруднительно.
 
 На практике некоторые объекты Викиданных могут одновременно являться экземплярами городов разных типов. 
 Например, \wdqName{Шанхай}{8686} отнесен к трём исследуемым объектам: 
@@ -695,19 +756,21 @@ SELECT ?country ?countryLabel ?sisterCount ?shape ?layer WHERE {
 Например, 
 при~использовании конструкции \href{https://en.wikibooks.org/wiki/SPARQL/UNION}{UNION}\footnote[][-15pt]{%
 %
+    \index{SPARQL!UNION}
     Более подробно о~команде~\texttt{UNION} 
     см.~в~Английском Викиучебнике SPARQL по~ссылке: \href{https://en.wikibooks.org/wiki/SPARQL/UNION}{https://en.wikibooks.org/wiki/SPARQL/UNION}.%
 } %
 в~результатах запроса~\ref{lst:different_city_types} 
 объект \lstinline|Шанхай| встречается три раза вместо одного. 
 
+\index{SPARQL!Свойство!subclass of}
 Викиданные имеют механизм наследования, 
 выражающийся в свойстве \href{https://www.wikidata.org/wiki/Property:P279}{subclass of}. 
-Заключается этот механизм в том, что если объект является экземпляром \lstinline{big city}, 
+Заключается этот механизм в том, что если объект является экземпляром\, \lstinline{big city}, 
 то он является и экземпляром объекта \lstinline{city}, 
-так как \lstinline|big city|~--- это~подкласс~\lstinline|city|. 
+так как\, \lstinline|big city|~--- это~подкласс~\lstinline|city|. 
 Таким образом, описанную выше ситуацию с~\lstinline|Шанхаем| можно разрешить, 
-оставив только один класс, например \mbox{\lstinline{city with millions of inhabitants}}. 
+оставив только один класс, например\, \mbox{\lstinline{city with millions of inhabitants}}. 
 Стоит отметить, что замена конструкции 
 с~использованием \lstinline|UNION| (запрос~\ref{lst:example_union_city}) 
 на конструкцию с учётом подклассов (запрос~\ref{lst:example_subclasses_city})
@@ -742,7 +805,7 @@ SELECT ?city ?cityLabel WHERE {
                     numbers=none,
                     ]
 SELECT ?city ?cityLabel WHERE {
-    ?city wdt:P31/wdt:P279* wd:Q515 # instances of "city" subclasses
+    ?city wdt:P31/wdt:P279* wd:Q515 # instances of city subclasses
     SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
 \end{lstlisting}
@@ -761,14 +824,34 @@ SELECT ?city ?cityLabel WHERE {
 }.
 
 
-По данным \href{https://bit.ly/2JPL34b}{Всероссийской переписи населения 2010 года}\autocite{city_perepis_2010} 
-и \href{https://bit.ly/2Lflc6F}{переписи населения в~Крымском федеральном округе 2014 года}\autocite{city_perepis_2014}, 
-суммарное число городов России составило \num{1117} на~2014 год. 
-Все \href{https://w.wiki/oLE}{города России} имеют страницу как в Русской, так и в Английской Википедии.
-
-С другой стороны, число объектов Викиданных, являющихся российскими городами, 
-составляет \href{https://w.wiki/jyP}{\num{1126}}. 
-Можно сделать вывод, что Викиданные полностью покрывают как минимум российские города. 
+По данным переписи населения России 2010 года\sidenote{% \autocite{city_perepis_2010}
+%
+    Число районов, городских и сельских населенных пунктов по субъектам Российской Федерации. 
+    Всероссийская перепись населения 2010 года. 
+    URL: \href{https://bit.ly/2JPL34b}
+              {https://bit.ly/2JPL34b}. 
+%
+} % eo sidenote
+и переписи населения Крыма 2014 года\sidenote{%   \autocite{city_perepis_2014}
+%
+    Итоги переписи населения в Крымском федеральном округе. 
+    Федеральная служба государственной статистики. 2015. 
+    URL: \href{https://bit.ly/2Lflc6F}
+              {https://bit.ly/2Lflc6F}. 
+%             
+}, число городов составило соответственно 1100 и 17. 
+Все города России перечислены на~страницах 
+как Русской 
+    (см.~<<\href{https://ru.wikipedia.org/?curid=951219}{Список городов России}>>), 
+так и Английской Википедии 
+    (см.~``\href{https://en.wikipedia.org/?curid=171916}{List of cities and towns in Russia}'').
+С~другой стороны, Викиданные содержат 1108 российских городов на~2024 год\sidenote{%
+%   
+    Ссылка на SPARQL-запрос для подсчёта числа российских городов:
+    \href{https://w.wiki/jyP}
+         {https://w.wiki/jyP}.
+%
+}. То есть Викиданные почти полностью покрывают российские города. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Упражнения}

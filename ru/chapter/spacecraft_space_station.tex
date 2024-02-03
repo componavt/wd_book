@@ -130,12 +130,12 @@ SELECT  ?spacecraft  ?spacecraftLabel WHERE
 В советской энциклопедии <<Космонавтика>> от 1985 года упоминаются 
 94 космических корабля и орбитальных станции СССР и США, 
 запущенных с 1961 по 1983 год, 
-из~них 51 корабль принадлежит СССР\autocite[498]{spacecraftCosmonavtika}. 
+из~них 51 корабль принадлежит СССР\autocite[498]{spacecraftCosmonavtika}.\, 
 Это означает, что в Викиданных представлено менее половины советских космических кораблей. 
 В американском справочнике по космонавтике и астрономии 
-приведены 10 советских и российских запусков космических станций\autocite[296]{spacecraftSAA}, 
-126 запусков шаттла НАСА с 1981 по 2008 год\autocite[288]{spacecraftSAA} 
-и характеристики 31 ракеты-носителя\autocite[290--291]{spacecraftSAA}. 
+приведены 10 советских и российских запусков космических станций, %\autocite[296]{spacecraftSAA}, 
+126 запусков шаттла НАСА с~1981 по~2008 год %\autocite[288]{spacecraftSAA} 
+и характеристики 31 ракеты-носителя\autocite{spacecraftSAA}.   %\autocite[290--291]{spacecraftSAA}. 
 
 
 
@@ -366,7 +366,7 @@ WHERE
     { 
       VALUES ?naut_seed {wd:Q313815}.  # Sergei Krikalev
       ?s wdt:P1029 ?naut_seed, ?naut;  
-    }       # ?naut_seed & ?naut are member of a same crew
+    }       # ?naut\_seed and ?naut are member of a same crew
   }
   ?s  wdt:P31/wdt:P279* wd:Q40218; # spacecraft and subclasses
       wdt:P31/wdt:P279* wd:Q752783;# human spaceflight and subclasses
@@ -379,7 +379,7 @@ WHERE
   ?naut wdt:P27 ?country. # astronaut is citizen of country 
   # ?toggle = true then spacecraft node
   # ?toggle = false then astronaut node
-  BIND(             # Soviet & Russian astronauts have red nodes
+  BIND(             # Soviet and Russian astronauts have red nodes
     IF(!?toggle && (?country=wd:Q15180||?country=wd:Q159),"FF0000",
     IF(!?toggle && ?country=wd:Q30,"FF00FF",  # USA - fuchsia
     IF(!?toggle && ?country=wd:Q183,"C0C0C0", # Germany - silver

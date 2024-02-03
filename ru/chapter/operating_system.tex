@@ -12,7 +12,7 @@
 написанных на том или ином языке программирования с~указанием операционной системы. 
 У большого количества ОС в Викиданных не указан язык программирования, 
 на котором она разрабатывалась, а именно: 
-на 2020 год это свойство указано всего у 29\,\% из общего количества систем. 
+на 2020 год это свойство указано лишь у~29\,\% из общего количества систем. 
 Викиданные стремительно пополняются новой информацией, что особенно отрадно, 
 поскольку они играют большую роль в документировании программного обеспечения.
 
@@ -32,21 +32,21 @@ SELECT ?os ?osLabel WHERE
     SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en"}
 }
 \end{lstlisting}
-\footnotetext{Получено: 510 операционных систем в 2017 году и 1086 в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/n89}{https://w.wiki/n89}.}
+\footnotetext{Получено: 510 операционных систем в 2017 году и 1086 систем в~2020 году. Ссылка на~SPARQL-запрос: \href{https://w.wiki/n89}{https://w.wiki/n89}.}
 %\end{marginfigure}
 
 
-Наиболее полными и проработанными операционными системами на Викиданных оказались 
+Наиболее полными и проработанными операционными системами в~Викиданных на~2021 год были 
 \wdqName{Microsoft Windows}{1406}, 
 \wdqName{Windows 8}{5046}, 
 \wdqName{GNU}{44571}, 
-\wdqName{Windows 10}{18168774}, имеющие по 24 заполненных свойства\autocite{prowd_os_link}.
+\wdqName{Windows 10}{18168774}, имеющие по~24 заполненных свойства. % \autocite{prowd_os_link}.
 Почти пустыми и малоинформативными операционными системами на~2021 год были: 
 \wdqName{MagiC}{1884068}, \wdqName{KallistiOS}{1722492}, \wdqName{Novell DOS}{3345389} и ряд других. 
-У этих систем было заполнено всего одно свойство\autocite{prowd_os_link}.
-
+У~этих систем было заполнено лишь одно свойство. % \autocite{prowd_os_link}.
+%
 По данным ProWD, у единственной в Викиданных отечественной ОС 
-\wdqName{Miraculix}{4044344} заполнено 10 свойств\autocite{prowd_os_link_ru}.
+\wdqName{Miraculix}{4044344} заполнено 10 свойств. % \autocite{prowd_os_link_ru}.
 
 
 
@@ -61,14 +61,15 @@ SELECT ?os ?osLabel WHERE
 
 \marginnote[3\baselineskip]{
     \MarginQuestion
-	На основе какой из операционных систем
+	На основе какой из операционных систем~--- 
 	\href{https://w.wiki/n8U}{Debian}, 
 	\href{https://w.wiki/n8V}{Android}, 
 	\href{https://w.wiki/n8W}{Ubuntu}, 
-	\href{https://w.wiki/n8X}{ядро Linux} 
+	\href{https://w.wiki/n8X}{ядро Linux}~---  
 	было создано больше всего других операционных систем?
 
-	См. ответ~\ref{answer:os_base} на с.~\pageref{answer:os_base}.
+	См. ответ %~\ref{answer:os_base} 
+    на с.~\pageref{answer:os_base}.
 }
 
 \begin{lstlisting}[ language=SPARQL, 
@@ -83,7 +84,8 @@ SELECT ?os ?osLabel ?base ?baseLabel WHERE
     SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
 }
 \end{lstlisting}
-\footnotetext{Получено: 47 базовых операционных систем в 2017 году и 118 в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/5CKF}{https://w.wiki/5CKF}.}
+\footnotetext{Получено: 47 базовых операционных систем в 2017 году и 118 систем в~2020 году. 
+Ссылка на~SPARQL-запрос: \href{https://w.wiki/5CKF}{https://w.wiki/5CKF}.}
 
 
 
@@ -95,21 +97,23 @@ SELECT ?os ?osLabel ?base ?baseLabel WHERE
 %
 \marginnote[3\baselineskip]{%
     \MarginQuestion
-    Какую из операционных систем 
+    Какую из операционных систем~--- 
     \href{https://w.wiki/n8P}{Newton OS}, 
     \href{https://w.wiki/n8Q}{Ubuntu Touch} или 
-    \href{https://w.wiki/n8R}{JavaOS} 
+    \href{https://w.wiki/n8R}{JavaOS}~--- 
     разработала компания \href{https://w.wiki/n8S}{Apple}?
 
-    См. ответ~\ref{answer:what_system_created} на с.~\pageref{answer:what_system_created}.%
+    См. ответ %~\ref{answer:what_system_created} 
+    на с.~\pageref{answer:what_system_created}.%
 }
 
-\index{SPARQL!hide!ОС с датами создания}
-\index{График!Timeline!ОС с датами создания}
+\index{SPARQL!YEAR}
+\index{График!Timeline!hide}
 \begin{lstlisting}[ language=SPARQL, 
 	caption={\href{https://w.wiki/5CKS}{Список операционных систем с датой их создания}\protect\footnotemark},
 	label=lst:inception_time_of_operating_systems,
     numbers=none,
+    texcl=false,
 	]
 #defaultView:Timeline{"hide": "?when"}
 SELECT DISTINCT ?os ?osLabel ?when (YEAR(?when) as ?date) ?pic WHERE
@@ -120,12 +124,14 @@ SELECT DISTINCT ?os ?osLabel ?when (YEAR(?when) as ?date) ?pic WHERE
     SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
 }
 \end{lstlisting}
-\footnotetext{Получено: 30 дат создания ОС в 2017 году, 238~--- в 2020 году. 
+\footnotetext{Получено: 30 дат создания ОС в 2017 году и 238~дат в~2020 году. 
     Ссылка на SPARQL-запрос: \href{https://w.wiki/5CKS}{https://w.wiki/5CKS}.}
 
 
 \newpage
-Команда \lstinline|#defaultView:Timeline| в первой строке 
+\index{График!Timeline}
+\index{График!Timeline!hide}
+Команда \lstinline|#defaultView:Timeline| в строке~1 
 запроса~\ref{lst:inception_time_of_operating_systems} 
 похожа на комментарий, 
 а~в~действительности является инструкцией для сервиса WDQS\footnote{%
@@ -134,13 +140,13 @@ SELECT DISTINCT ?os ?osLabel ?when (YEAR(?when) as ?date) ?pic WHERE
 Эта инструкция позволяет получить диаграмму на~рис.~\ref{fig:os_creation} 
 в виде временной шкалы.
 
-В первой строке запроса~\ref{lst:inception_time_of_operating_systems} 
+В этой строке 1 запроса~\ref{lst:inception_time_of_operating_systems} 
 параметры \lstinline|{"hide": "?when"}| 
 команды \lstinline|#defaultView:Timeline| позволяют скрыть вывод переменной \lstinline|?when|, 
 оставив от даты только год (функция \lstinline|YEAR()|) 
 и название ОС (переменная \lstinline|?osLabel|). 
 Благодаря этому мы видим в центре рис.~\ref{fig:os_creation} 
-под изображением смартфона не <<1 January 1993>>, а только <<1993>>. 
+под изображением смартфона \mbox{не ``1 January 1993''}, а~только ``1993''. 
 
 Таким образом, результатом запроса~\ref{lst:inception_time_of_operating_systems} 
 является временная шкала (англ. \textit{timeline}) создания (точнее, выпуска\sidenote[][-8pt]{%
@@ -152,14 +158,22 @@ SELECT DISTINCT ?os ?osLabel ?when (YEAR(?when) as ?date) ?pic WHERE
 ) %
 операционных систем (рис.~\ref{fig:os_creation}). 
 Кроме временной шкалы, есть много других способов представления результатов запросов 
-в графической форме, описанных в документации\autocite{WQSResultViews}. 
-Количество полученных результатов запроса~\ref{lst:inception_time_of_operating_systems} 
+в графической форме, описанных в документации\sidenote{%  \autocite{WQSResultViews}
+%
+    См. справочную страницу на~сайте Викиданных 
+    ``Wikidata:SPARQL query ser\-vice/Wikidata Query Help/Result Views'' 
+    о~вариантах представления результатов SPARQL-запросов 
+    по~ссылке: \href{https://www.wikidata.org/?curid=29285671}
+                                        {https://www.wikidata.org/?curid=29285671}.%
+%
+}.\, Количество полученных результатов запроса~\ref{lst:inception_time_of_operating_systems} 
 составляет только 238 операционных систем (то есть 22\,\% от всего количества ОС) на 2020 год. 
 Связано это с тем, что у 78\,\% ОС поле <<дата создания>> не заполнено.
 
 \begin{figure*}[h!]
 	\includegraphics{./chapter/operating_system/os-creation.png}
-    \caption[Часть временной шкалы с датами выпуска ОС.]{Часть временной шкалы с датами выпуска операционных систем с~1955 по~2020 год}%
+    \caption[Часть временной шкалы с датами выпуска ОС.]{
+        Часть временной шкалы с датами выпуска операционных систем\\с~1955 по~2020 год}%
     %Шкала построена по запросу~\protect\ref{lst:inception_time_of_operating_systems}.}
 	\label{fig:os_creation}
 \end{figure*}
@@ -170,9 +184,11 @@ SELECT DISTINCT ?os ?osLabel ?when (YEAR(?when) as ?date) ?pic WHERE
 
 \section{Количество операционных систем, написанных на языках программирования}
 
-В листинге~\ref{lst:count_os_on_languages} представлен SPARQL-запрос для получения списка языков программирования с выводом количества написанных на них ОС.
+В листинге~\ref{lst:count_os_on_languages} представлен SPARQL-запрос для получения 
+списка языков программирования с~выводом количества написанных на~них ОС.
 
-\index{SPARQL!COUNT!ЯП и число ОС}
+\index{SPARQL!COUNT}
+\index{SPARQL!ORDER BY!двойная сортировка}
 \begin{lstlisting}[ language=SPARQL, 
 	caption={\href{https://w.wiki/uat}{Список языков программирования и количество написанных на них операционных систем}\protect\footnotemark},
     numbers=none,
@@ -190,8 +206,8 @@ ORDER BY DESC(?countOS) ASC(?langLabel)
 \end{lstlisting}
 \footnotetext{Получено: 24 языка программирования с количеством 
 написанных на~них операционных систем в 2017 году 
-и 36 языков~--- в 2021 году. 
-Ссылка на SPARQL-запрос: \href{https://w.wiki/uat}{https://w.wiki/uat}.}
+и 36 языков в~2021 году. 
+Ссылка на~SPARQL-запрос: \href{https://w.wiki/uat}{https://w.wiki/uat}.}
 
 
 
@@ -204,9 +220,11 @@ ORDER BY DESC(?countOS) ASC(?langLabel)
 	\label{fig:prog_lang_os}%
 \end{marginfigure}
 %
+
+\index{SPARQL!ORDER BY!двойная сортировка}
 Команда \lstinline|ORDER BY DESC(?countOS) ASC(?langLabel)| в~запросе~\ref{lst:count_os_on_languages} 
 используется для двойной сортировки значений в таблице. 
-Все языки программирования в этой таблице сначала сортируются по убыванию количества операционных систем, 
+Все языки программирования в этой таблице сначала сортируются по~убыванию количества операционных систем, 
 которые написаны на них. Затем, если для каких-либо языков это число совпадает, 
 то сортировка идёт по именам языков.
 
@@ -221,7 +239,7 @@ ORDER BY DESC(?countOS) ASC(?langLabel)
 В этом дереве каждая строчка~--- это язык программирования. 
 По щелчку мыши можно развернуть язык и увидеть список операционных систем, 
 написанных с использованием этого языка. 
-Если язык или система имеют рисунок или логотип в Викиданных, 
+Если язык или система имеют рисунок или логотип в~Викиданных, 
 то они используются в качестве иконок.
 \marginnote[1\baselineskip]{
     \MarginQuestion
@@ -239,8 +257,8 @@ ORDER BY DESC(?countOS) ASC(?langLabel)
     При <<разворачивании>> мы должны видеть список языков, на которых написана система.%
 }
 
-\index{SPARQL!OPTIONAL!ЯП и написанные на них ОС}
-\index{График!Tree!Дерево ЯП и написанные на них ОС}
+\index{SPARQL!OPTIONAL}
+\index{График!Tree}
 \begin{lstlisting}[ language=SPARQL, 
 	caption={\href{https://w.wiki/ucB}{Список языков программирования и написанных на них операционных систем}\protect\footnotemark},
     numbers=none,
@@ -273,14 +291,16 @@ SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
 
 \newpage
 \section{Полнота данных}
-По данным сайта \texttt{www.operating-system.org}, 
-существует 613 операционных систем\autocite{list_operating_systems}. 
-Викиданные на 2017 год содержали информацию лишь о 510 операционных системах 
-(не~считая \num{667} дистрибутивов Linux\autocite{list_operating_systems}). 
-При просмотре полученных результатов 
-запросов~\ref{lst:inception_time_of_operating_systems} и~\ref{lst:count_os_on_languages} видно, 
+
+По данным сайта \href{https://www.operating-system.org/}
+                             {www.operating-system.org}, 
+существует 613 операционных систем. 
+Викиданные на~2017 год содержали информацию лишь о 510 операционных системах. 
+Результаты запросов~\ref{lst:inception_time_of_operating_systems} 
+                  и~\ref{lst:count_os_on_languages} показывают, 
 что многие объекты ОС плохо заполнены, а то и вовсе практически пусты 
-(например, у систем \wdqName{Novell DOS}{3345389} и \wdqName{MagiC}{1884068} заполнено всего одно свойство\autocite{prowd_os_link}).
+(например, у~систем \wdqName{Novell DOS}{3345389} и \wdqName{MagiC}{1884068} 
+заполнено всего одно свойство).
 
 В 2020 году Викиданные содержали информацию о 1086 операционных системах 
 (запрос~\ref{lst:all_operating_systems}), что свидетельствует о значительных изменениях, 
@@ -295,7 +315,7 @@ SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
 
 \section{Языки программирования, используемые для написания операционных систем}
 %
-\index{График!BarChart!Количество ОС по ЯП}
+\index{График!BarChart}
 %\begin{figure}[h]
 \begin{marginfigure}[0\baselineskip]
 	\includegraphics{./chapter/operating_system/count-os-written-on-languages.png}
@@ -304,7 +324,7 @@ SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
 \end{marginfigure}
 
 Если взглянуть на количество операционных систем, для которых указано свойство <<язык программирования>>, 
-    то можно увидеть что это свойство заполнено лишь у 116 из 1086 объектов. 
+    то можно увидеть, что это свойство заполнено лишь у 116 из 1086 объектов. 
     По~данным на 2020 год (рис.~\ref{fig:count-os-written-on-languages}), 
     больше всего операционных систем, а именно 44, написано на~языке программирования Cи.
 
@@ -316,7 +336,7 @@ SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
 
 Запрос~\ref{lst:count_soft_on_os} позволяет подсчитать количество программ, 
 написанных для каждой операционной системы.
-Лидером среди операционных систем по количеству написанных программ 
+Лидером среди операционных систем по количеству написанных для~них программ 
     является \wdqName{Linux}{388}~--- система, для которой написано \num{9223} программы. 
     Для операционных систем \wdqName{Microsoft Windows}{1406} и~\wdqName{AIX}{269856} 
     (операционная система производства компании \href{https://www.wikidata.org/wiki/Q37156}{IBM}) 
@@ -325,7 +345,8 @@ SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
 
 \newpage
 %\begin{marginfigure}[-3\baselineskip]
-\index{SPARQL!COUNT!Список ОС с количеством программ}
+\index{SPARQL!COUNT}
+\index{SPARQL!p:[ps:]!operating system}
 \begin{lstlisting}[ language=SPARQL, 
                     caption={\href{https://w.wiki/ugp}{Количество программ для каждой операционной системы}\protect\footnotemark},
                     numbers=none,
@@ -348,7 +369,7 @@ ORDER BY DESC(?softCounter)
 
 
 
-\section{Сколько компьютерных программ было написано для операционной системы с~использованием того или иного языка программирования}
+\section{Сколько компьютерных программ было написано для операционной системы\\с~использованием того или иного языка программирования}
 
 С помощью запроса~\ref{lst:count_soft_on_os_with_lang} можно увидеть для каждой операционной системы, 
 какова доля вклада разных языков программирования, использованных в программах для этих систем. 
@@ -358,18 +379,19 @@ ORDER BY DESC(?softCounter)
 \href{https://www.wikidata.org/wiki/Q15777}{Си} (276 программ), 
 \href{https://www.wikidata.org/wiki/Q28865}{Python} (107 программ).
 Программы для системы \href{https://www.wikidata.org/wiki/Q94}{Android} пишут 
-на языках \href{https://www.wikidata.org/wiki/Q2407}{C++} (107 программ) 
+на~языках \href{https://www.wikidata.org/wiki/Q2407}{C++} (107 программ) 
 и \href{https://www.wikidata.org/wiki/Q251}{Java} (80 программ).
 Под \href{https://www.wikidata.org/wiki/Q48493}{iOS} большинство программ 
 написано на \href{https://www.wikidata.org/wiki/Q2407}{C++} (63 программы).
 
 \marginnote[2.3cm]{%
     \MarginQuestion
+    \index{SPARQL![]!безымянная переменная}
     Вопрос на внимание. Зачем нужна строка~6 в~запросе~\ref{lst:count_soft_on_os_with_lang}, 
     если переменная \texttt{?osLang} используется в~скрипте только в~этой строке? 
-Можно ли её заменить на безымянную переменную?%
+Можно ли её заменить на~безымянную переменную?%
 }% 
-\index{SPARQL!COUNT!ОС и количество программ на ЯП}
+\index{SPARQL!COUNT}
 \begin{lstlisting}[ language=SPARQL, 
 	caption={\href{https://w.wiki/vDv}{Гистограмма операционных систем с~количеством программ, написанных на~каком-либо языке программирования}\protect\footnotemark},
 	label=lst:count_soft_on_os_with_lang
@@ -385,17 +407,46 @@ SELECT ?os ?osLabel (COUNT(*) AS ?softCount) ?softLang ?softLangLabel WHERE
 GROUP BY ?os ?osLabel ?softLang ?softLangLabel
 ORDER BY DESC(?count) DESC(?osLabel)
 \end{lstlisting}
-\footnotetext{704 компьютерные программы были написаны для какой-либо операционной системы с~использованием того или иного языка программирования в 2020 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/vDv}{https://w.wiki/vDv}.}
+\footnotetext{704 компьютерные программы были написаны для какой-либо операционной системы с~использованием того или иного языка программирования в 2020 году. 
+Ссылка на SPARQL-запрос: \href{https://w.wiki/93xD}
+                              {https://w.wiki/93xD}.}
 
 
 
 \newpage
-Гистограмма на рис.~\ref{fig:count-software-written-on-languages} позволяет увидеть для каждого языка программирования количество программ, которые были на нём написаны, а также под какими ОС работают данные программы. Из графика видно, что наибольшее число программ пишется на языках \href{https://www.wikidata.org/wiki/Q15777}{Си} (2566 программ), \href{https://www.wikidata.org/wiki/Q2407}{C++} (2503 программы), \href{https://www.wikidata.org/wiki/Q251}{Java} (799 программ), \href{https://www.wikidata.org/wiki/Q28865}{Python} (717 программ) и \href{https://www.wikidata.org/wiki/Q2005}{JavaScript} (344 программы).
+При построении гистограммы на рис.~\ref{fig:count-software-written-on-languages} 
+использовался запрос аналогичный запросу~\ref{lst:count_soft_on_os_with_lang}, 
+разница только в строке~2, сравните эту строку в старом и новом запросе 
+(всего лишь переставлены переменные):\\ 
+\lstinline|SELECT ?os ?osLabel (COUNT(*) AS ?softCount) ?softLang ?softLangLabel WHERE|\\
+\lstinline|SELECT ?softLang ?softLangLabel (COUNT(*) AS ?softCount) ?os ?osLabel WHERE|. 
+
+Запрос~\ref{lst:count_soft_on_os_with_lang} строит <<столбики>> ОС, 
+    состоящие из <<кирпичиков>> языков программирования, на которых пишут программы для этих ОС.\, 
+А~новый запрос\sidenote{URL: \href{https://w.wiki/93xM}
+                                  {https://w.wiki/93xM}.} 
+    строит <<столбики>> языков программирования, 
+    состоящие из <<кирпичиков>>~--- тех ОС, 
+                                    для которых пишут программы на этих языках 
+                                    (рис.~\ref{fig:count-software-written-on-languages}). 
+
+Итак, гистограмма на рис.~\ref{fig:count-software-written-on-languages} 
+построена с~помощью нового запроса \href{https://w.wiki/93xM}
+                                 {https://w.wiki/93xM}. 
+Этот рисунок 
+позволяет увидеть для каждого языка программирования количество программ, 
+которые были на нём написаны, а также под какими ОС работают данные программы. 
+Из графика видно, что наибольшее число программ пишется на языках \href{https://www.wikidata.org/wiki/Q15777}{Си} (2566 программ), \href{https://www.wikidata.org/wiki/Q2407}{C++} (2503 программы), \href{https://www.wikidata.org/wiki/Q251}{Java} (799 программ), \href{https://www.wikidata.org/wiki/Q28865}{Python} (717 программ) и \href{https://www.wikidata.org/wiki/Q2005}{JavaScript} (344 программы).
 
 %\begin{figure}[h]
 \begin{marginfigure}[0\baselineskip]
 	\includegraphics{./chapter/operating_system/Programming-languages-and-count-of-programms-written-on-them-and-OS-2020.png}
-    \caption[Число программ с разбивкой по языкам и ОС, 2020 год.]{Число программ с разбивкой по языкам программирования и операционным системам, 2020 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/4c7d}{https://w.wiki/4c7d}}
+
+    \vspace{-5pt}
+    \caption[Число программ с разбивкой по языкам и ОС, 2020 год.]
+    {Число программ с разбивкой по языкам программирования\\и операционным системам, 2020 год}
+% TODO uncomment
+%    Ссылка на SPARQL-запрос: \href{https://w.wiki/4c7d}{https://w.wiki/4c7d}}
 	\label{fig:count-software-written-on-languages}
 %\end{figure}
 \end{marginfigure}
@@ -426,7 +477,7 @@ JavaScript используется для написания клиентско
 Этот язык используется в том числе для написания веб-приложений и анализа данных.
 
 Гистограмма на~рис.~\ref{fig:count-software-written-on-languages} показывает, 
-что каждый из рассмотренных языков занял свою <<нишу>> в области разработки программ 
+что каждый из рассмотренных языков занял свою <<нишу>> в~области разработки программ 
 и применяется для определённого круга задач. 
 Отметим, что большая часть программ пишется под macOS (900 программ), Windows (1500 программ), Linux (1200 программ) или Андроид (300 программ), как это можно увидеть в результате скрипта~\ref{lst:count_soft_on_os}.
 
