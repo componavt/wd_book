@@ -323,7 +323,7 @@ SELECT (COUNT(?not_free)* 100 / (COUNT(?free)) as ?total) WHERE
 
 На рис.~\ref{fig:source-format-2017} видно, что на 2017 год самыми исторически богатыми на форматы и расширения файлов оказались такие языки программирования, как: \href{https://en.wikipedia.org/wiki/C++}{C++} (10 форматов), \href{https://en.wikipedia.org/wiki/Geometric_Description_Language}{Geometric Description Language} (8 форматов), \href{https://en.wikipedia.org/wiki/Racket_(programming_language)}{Racket} (7 форматов). Таким образом, одному языку программирования может соответствовать больше одного расширения имени файла. Например, файлы с программой на языке \href{https://en.wikipedia.org/wiki/Racket_(programming_language)}{Racket} могут иметь расширения rkt, rktl, rktd, scrbl, plt, ss или scm.
 
-\index{График!BubbleChart!Форматы файлов кода}
+\index{График!BubbleChart}
 \begin{lstlisting}[
 	language=SPARQL,
 	label=lst:source_formats,
@@ -411,7 +411,7 @@ ORDER BY DESC(?count)
 например у Альберта Эйнштейна. 
 Поэтому в~запросе~\ref{lst:countries_map} мы учитываем только место рождения. 
 
-\index{График!Map!Место жительства/работы разработчиков ЯП}
+\index{График!Map}
 \begin{lstlisting}[
 	language=SPARQL,
 	label=lst:countries_map,
@@ -460,7 +460,8 @@ WHERE
 
 \begin{marginfigure}
 \includegraphics[width=\linewidth]{./chapter/programming_language/The_most_favorable_countries_for_the_emergence_of_people_capable_of_developing_programming_languages_2020_RU.png}
-  \caption[Наиболее благоприятные страны для разработчиков языков программирования, 2020 год.]{Наиболее благоприятные страны для появления людей, способных к разработке языков программирования, 2020 год. Размер пузырька соответствует числу людей в стране, причастных к разработке языков программирования. Ссылка на SPARQL-запрос: \href{https://w.wiki/6fxx}{https://w.wiki/6fxx}}%
+  \caption[Наиболее благоприятные страны для разработчиков языков программирования, 2020 год.]
+    {Наиболее благоприятные страны для разработчиков языков\\программирования, 2020 год}%
   \label{fig:countries_2_2020}%
 \end{marginfigure}
 
@@ -469,9 +470,12 @@ WHERE
 С помощью запроса~\ref{lst:countries_bubble} 
 построим пузырьковую диаграмму стран, 
 наиболее благоприятных для~размещения штаб-квартир и/или 
-рождения разработчиков языков программирования. 
+рождения разработчиков языков программирования (рис.~\ref{fig:countries_2_2020}). 
+Размер пузырька на~такой диаграмме соответствует числу людей в стране, причастных к разработке языков программирования.
+
+
 Видим на~рис.~\ref{fig:countries_2_2020}, 
-что такой страной оказались, в первую очередь, 
+что такой благоприятной страной оказались, в первую очередь, 
 \href{https://en.wikipedia.org/wiki/USA}{Соединённые Штаты Америки} (241 штаб-квартира и/или человек). 
 Далее (около двух дюжин штаб-квартир и/или человек) идут 
 Швейцария, Великобритания и Франция.  
@@ -499,33 +503,34 @@ WHERE
 
 \marginnote[4\baselineskip]{
     \MarginQuestion
-    Сколько языков программирования появилось за последние три года? 
+    Сколько языков программирования появилось за последние три года?\\
     В~каком году было изобретено максимальное число языков?%
 }
 
-\index{График!BubbleChart!Благоприятные страны для разработчиков ЯП}
+\index{График!BubbleChart}
 \begin{lstlisting}[
 	language=SPARQL,
-	caption={\href{https://w.wiki/6fxx}{Пузырьковая диаграмма благоприятных стран для появления разработчиков языков программирования}},
+	caption={\href{https://w.wiki/94QJ}
+                  {Пузырьковая диаграмма благоприятных стран для появления разработчиков 
+                   языков программирования}\protect\footnotemark},
 	label=lst:countries_bubble,
     numbers=none,
 	texcl
 ]
 #defaultView:BubbleChart
-SELECT ?stateLabel (count(*) as ?count) WHERE {
-  ?lang wdt:P31 wd:Q9143. # instances of programming language
-  ?lang wdt:P178 ?developer. # developer
-  	
+SELECT ?countryLabel (count(*) as ?count) WHERE 
+{ ?lang wdt:P31 wd:Q9143;    # instance of programming language
+        wdt:P178 ?developer. # developer of language
   { ?developer wdt:P159 ?location. } UNION # headquarters location
-  { ?developer wdt:P19 ?location. } # place of birth
-  
-  ?location wdt:P17 ?state.
+  { ?developer wdt:P19  ?location. }       # place of birth
+  ?location wdt:P17 ?country. # location in country
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" } 	
 }
-GROUP BY ?stateLabel
+GROUP BY ?countryLabel
 ORDER BY DESC(?count)
 \end{lstlisting}
-
+\footnotetext{Ссылка на~SPARQL-запрос: \href{https://w.wiki/94QJ}
+                                            {https://w.wiki/94QJ}.}
 
 
 
@@ -536,37 +541,38 @@ ORDER BY DESC(?count)
 \section{Университеты, в которых учились разработчики языков программирования}
 %%
 
-
-Отобразим (запрос~\ref{lst:developer_university}) на карте учебные заведения, в которых учились студенты, впоследствии разработавшие языки программирования.
-По рис.~\ref{fig:universities_2017} и~\ref{fig:universities_2020} видно, 
-что большая часть людей, 
-причастных к созданию языков программирования, 
-учились в Европе или в~США и динамика не~сильно изменилась за три года.
+Запрос~\ref{lst:developer_university} строит карту учебных заведений, 
+в~которых учились студенты, впоследствии разработавшие языки программирования. 
+По~рис.~\ref{fig:universities_2017} и~\ref{fig:universities_2020} видно, 
+что большая часть разработчиков языков программирования училась в~Европе и~США и~в~2017, и~в~2020 году.
 %
 \begin{marginfigure}[3\baselineskip]
 \centering
 	\includegraphics[width=1\textwidth]{./chapter/programming_language/Map_showing_educational_institutes_2017.png}
+    \vspace{-12pt}
 	\caption[Учебные заведения, в которых учились разработчики языков программирования, 2017 год.]
-    {Учебные заведения, в которых учились разработчики языков программирования, 2017 год}
+    {Учебные заведения, в которых учились разработчики языков\\программирования, 2017 год}
 	\label{fig:universities_2017}
 \end{marginfigure}
 
 
-\index{SPARQL![]!безымянная переменная}
-\index{График!Map!Университеты разработчиков ЯП}
+\index{График!Map}
+\lstset{escapeinside={(*@}{@*)}}
+\sethlcolor{pink}% lime
 \begin{lstlisting}[
-	language=SPARQL,
-	label=lst:developer_university,
-	caption={\href{https://w.wiki/94Ac}
-    {Карта с указанием университетов, в которых учились разработчики языков программирования}\protect\footnotemark},
-	texcl,
+    language=SPARQL,
+    label=lst:developer_university,
+    caption={\href{https://w.wiki/94hh}
+{Карта с указанием университетов, в которых учились разработчики языков программирования}\protect\footnotemark},
+    texcl,
     xleftmargin=18pt,
     numbers=left]
 #defaultView:Map
-SELECT ?langLabel ?developerLabel ?eduLabel ?coord WHERE {
+SELECT ?langLabel ?developerLabel (*@\hl{?eduLabel}@*) ?coord WHERE {
   ?lang wdt:P31 wd:Q9143;    # instances of programming language
         wdt:P178 ?developer. # developed by developer
-  ?developer wdt:P69 [wdt:P625 ?coord].   # who educated at ?edu
+ (*@ \hl{?developer wdt:P69 ?edu.} @*)  # who educated at ?edu
+                    (*@ \hl{?edu wdt:P625 ?coord.} @*) # coordinates of ?edu (university)
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en" }
 }
 \end{lstlisting}
@@ -574,37 +580,76 @@ SELECT ?langLabel ?developerLabel ?eduLabel ?coord WHERE {
     на которой красными точками отмечены места расположения университетов, 
     в~которых учились люди, создавшие языки программирования. 
     На 2017 год получено 142 университета, к 2020 число записей увеличилось до 282.
-    Ссылка на~SPARQL-запрос: \href{https://w.wiki/94Ac}
-                                  {https://w.wiki/94Ac}.}
+    Ссылка на~SPARQL-запрос: \href{https://w.wiki/94hh}
+                                  {https://w.wiki/94hh}.}
 
-\index{SPARQL![]!безымянная переменная}
-Запрос~\ref{lst:developer_university} интересен использованием безымянной переменной 
-в~строке~5 в~квадратных скобках. 
-Развернём её и получим более простой запрос в два шага: 
-(1) заменим квадратные скобки какой-либо переменной, обозначающей университет, например \lstinline|?edu|; 
-(2) добавим после строки~5 утверждение, которое даёт нам координаты университета. 
-Вот эти две строки вместо строки~5:\\
-\lstinline|?developer wdt:P69 ?edu.|\\
-\lstinline|?edu wdt:P625 ?coord.|
 
 \begin{marginfigure}[1\baselineskip]
 \centering
 	\includegraphics[width=1\textwidth]{./chapter/programming_language/Map_showing_educational_institutes_2020.png}
+    \vspace{-12pt}
 	\caption[Учебные заведения, в которых учились разработчики языков программирования, 2020 год.]
-    {Учебные заведения, в которых учились разработчики языков программирования, 2020 год}
+    {Учебные заведения, в которых учились разработчики языков\\программирования, 2020 год}
 	\label{fig:universities_2020}
 \end{marginfigure}
 
 
+\index{SPARQL![]!безымянная переменная}
+\index{График!Map}
+\begin{lstlisting}[
+	language=SPARQL,
+	label=lst:developer_edu_coord,
+	caption={\href{https://w.wiki/94hY}
+    {Карта с указанием координат университетов разработчиков языков программирования}\protect\footnotemark},
+	texcl,
+    xleftmargin=18pt,
+    numbers=left]
+#defaultView:Map
+SELECT ?langLabel ?developerLabel ?coord WHERE {
+  ?lang wdt:P31 wd:Q9143;    # instances of programming language
+        wdt:P178 ?developer. # developed by developer
+  (*@ \hl{?developer wdt:P69 [wdt:P625 ?coord].} @*)# who educated at somewhere with coordinates
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en" }
+}
+\end{lstlisting}
+\footnotetext{Результатом запроса будет та~же карта, что и в предыдущем запросе, 
+    но при наведении курсора на красную точку название университета не показывается, 
+    поскольку переменной \texttt{?eduLabel} нет в~запрашиваемых результатах этого запроса.
+    Ссылка на~SPARQL-запрос: \href{https://w.wiki/94hY}
+                                  {https://w.wiki/94hY}.}
 
+\index{SPARQL![]!безымянная переменная}
+Мы привели два запроса~\ref{lst:developer_university} и~\ref{lst:developer_edu_coord} 
+и выдели в~них соответственно строки 5--6 и~5, 
+чтобы показать~--- как можно сворачивать код за счёт использования безымянной переменной. 
+
+Безымянной переменной в~запросе~\ref{lst:developer_edu_coord} в~строке~5 
+соответствует переменная с~именем \lstinline|?edu| в~запросе~\ref{lst:developer_university}. 
+К~сожалению, конкретно в~этом примере <<сворачивание>> утрачивает переменную \lstinline|?eduLabel| 
+и при~наведении курсора на~точку на~карте окошечко с~информацией всплывает, но~без~названия университета.
+
+
+
+
+
+\newpage
+\begin{marginfigure}[0pt]
+\includegraphics[width=0.8\textwidth]{./chapter/programming_language/Bubble_chart_showing_the_quantity_of_professions_people_,creating_programming_languages,_have_2017.png}
+  \caption[Профессии разработчиков языков программирования, 2017 год.]
+    {Профессии разработчиков языков программирования, 2017 год}
+  \label{fig:2017_profession}
+\end{marginfigure}
+%
 Построим пузырьковую диаграмму (запрос~\ref{lst:developer_universities_bubble}) 
 по самым популярным среди будущих создателей языков программирования учебным заведениям. 
 На первых местах по числу обучающихся разработчиков оказались: 
 \href{https://www.wikidata.org/wiki/Q21578}{Принстонский университет} и 
 \href{https://www.wikidata.org/wiki/Q41506}{Стэнфордский университет} (по 8 студентов). 
-В~\href{https://ru.wikipedia.org/wiki/Московский_государственный_университет}{Московском государственном университете} 
-учились три таких студента 
-(см. ссылку на~SPARQL-запрос: \href{https://w.wiki/6gC3}{https://w.wiki/6gC3}):
+Отметим, что в этот достойный список университетов попал 
+\href{https://www.wikidata.org/wiki/Q13164}{Московский государственный университет}. 
+В~МГУ учились три таких студента 
+(см. запрос: \href{https://w.wiki/6gC3}{https://w.wiki/6gC3}):
+%(см. ссылку на~SPARQL-запрос: \href{https://w.wiki/6gC3}{https://w.wiki/6gC3}):
 \begin{itemize}
     \item \wdqName{Энтони Ричард Хоар}{92602}, разработавший язык \wdqName{ALGOL W}{1538458} в 1958 году;
 
@@ -613,14 +658,11 @@ SELECT ?langLabel ?developerLabel ?eduLabel ?coord WHERE {
     \item снова В. М. Глушков, под чьим руководством разработан 
         язык \wdqName{Аналитик}{4064746}.
 \end{itemize}
-Таким образом, в этот достойный список университетов попал МГУ, 
-на 2023 год в список входит 191 вуз мира.
 
 
 
-\newpage
 %\begin{marginfigure}[-12\baselineskip]
-\index{График!BubbleChart!Университеты разработчиков ЯП}
+\index{График!BubbleChart}
 \begin{lstlisting}[
 	language=SPARQL,
 	label=lst:developer_universities_bubble,
@@ -640,8 +682,9 @@ WHERE {
 GROUP BY ?eduInstitutionLabel
 ORDER BY DESC(?count)
 \end{lstlisting}
-\footnotetext{Получено: 168 университетов в 2022 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/5CMt}{https://w.wiki/5CMt}.}
-
+\footnotetext{Получено: 168 университетов в 2022 году и 396 университетов в~2024 году. 
+    Ссылка на~SPARQL-запрос: \href{https://w.wiki/5CMt}{https://w.wiki/5CMt}.%
+}
 
 
 
@@ -650,48 +693,56 @@ ORDER BY DESC(?count)
 %%
 \section{Профессии создателей языков программирования}
 
-\begin{marginfigure}[0pt]
-\includegraphics[width=0.8\textwidth]{./chapter/programming_language/Bubble_chart_showing_the_quantity_of_professions_people_,creating_programming_languages,_have_2017.png}
-  \caption[Профессии разработчиков языков программирования, 2017 год.]{Профессии разработчиков языков программирования, 2017 год. Размер пузырька показывает число разработчиков с соответствующей профессией\\}
-  \label{fig:2017_profession}
-\end{marginfigure}
-
 С помощью запроса~\ref{lst:developer_profession} 
 построим пузырьковую диаграмму, отображающую информацию о~том, 
 какие профессии преобладают среди людей, разрабатывающих языки программирования. 
 Результаты этого запроса в 2017 и 2020 годах можно видеть 
-на~рис.~\ref{fig:2017_profession} и~\ref{fig:2020_profession} соответственно.
+на~рис.~\ref{fig:2017_profession} и~\ref{fig:2020_profession} соответственно. 
+Размер пузырька на~рисунках показывает число разработчиков с соответствующей профессией.
 
 
-\index{График!BubbleChart!Профессии создателей ЯП}
+\newpage
+%
+\marginnote[4\baselineskip]{
+    \MarginQuestion
+    В~этом запросе переменная \lstinline|?developer| нужна только как~мостик, 
+    чтобы соединить язык программирования (\mbox{\lstinline|?lang|}) 
+    и~профессию разработчика (\mbox{\lstinline|?occupation|}). 
+    По аналогии с~запросами~\ref{lst:developer_university} и~\ref{lst:developer_edu_coord} 
+    преобразуйте этот запрос так, 
+    чтобы сохранить упомянутый мостик, 
+    но убрать переменную \mbox{\lstinline|?developer|}, 
+    то~есть сделать её безымянной. 
+    При этом запрос станет короче на~одну строчку.
+}
+%
+\index{График!BubbleChart}
 \begin{lstlisting}[
 	language=SPARQL,
 	label=lst:developer_profession,
-	caption={\href{https://w.wiki/v42}{Профессии создателей языков программирования}\protect\footnotemark},
+	caption={\href{https://w.wiki/94jS}{Профессии создателей языков программирования}\protect\footnotemark},
     numbers=none,
 	texcl
 ]
 #defaultView:BubbleChart
-SELECT ?occupationLabel (count(*) as ?occupation)
-WHERE {
-  ?lang wdt:P31 wd:Q9143. # instances of programming language 
-  ?lang wdt:P178 ?developer. # developer
-  ?developer wdt:P106 ?occupation. # occupation
+SELECT ?occupationLabel (count(*) as ?occupation) WHERE 
+{ ?lang wdt:P31 wd:Q9143;          # instances of programming language 
+        wdt:P178 (*@\hl{?developer.}@*)       # developed by developer
+                 (*@\hl{?developer wdt:P106 ?occupation.}@*) # with occupation
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
 GROUP BY ?occupationLabel 
 ORDER BY DESC(?count)
 \end{lstlisting}
 \footnotetext{Получено: 48 профессий в~2017 году и 74~профессии в 2020 году. 
-              Ссылка на SPARQL-запрос: \href{https://w.wiki/v42}{https://w.wiki/v42}.}
+              Ссылка на~SPARQL-запрос: \href{https://w.wiki/94jS}{https://w.wiki/94jS}.}
 
 
-
-
-\newpage
 \begin{marginfigure}[0pt]
-    \includegraphics[width=1.0\textwidth]{./chapter/programming_language/Bubble_chart_showing_the_quantity_of_professions_people,_creating_programming_languages_RU_2020.png}
-    \caption[Профессии разработчиков языков программирования, 2020 год.]{Профессии разработчиков языков программирования, 2020 год. Размер пузырька показывает число разработчиков с соответствующей профессией\\ \\}
+    \includegraphics[width=0.8\textwidth]{./chapter/programming_language/Bubble_chart_showing_the_quantity_of_professions_people,_creating_programming_languages_RU_2020.png}
+    \vspace{-5pt}
+    \caption[Профессии разработчиков языков программирования, 2020 год.]
+    {Профессии разработчиков языков программирования, 2020 год}
     \label{fig:2020_profession}
 \end{marginfigure}
 
@@ -706,6 +757,7 @@ ORDER BY DESC(?count)
 разработчик \href{https://en.wikipedia.org/wiki/Information_Processing_Language}{Языка обработки информации (IPL)}. 
 На 2020 год среди разработчиков языков программирования оказалось больше всего специалистов 
 в области компьютерных наук (172 человека), а также 96 инженеров, 57 учителей, 56 программистов и 43 математика.
+
 
 
 
@@ -737,8 +789,9 @@ WHERE {
 \end{lstlisting}
 %\footnotetext[11][-3cm]
 \footnotetext{Получено: 116 объектно-ориентированных языков программирования на~2017 год, 
-                        118~--- на~2020 год. 
+                        и~118 языков на~2020 год. 
               Ссылка на SPARQL-запрос: \href{https://w.wiki/v47}{https://w.wiki/v47}.}
+
 
 
 
@@ -764,11 +817,14 @@ WHERE {
 
 
 
-\newpage
 %%
 % Степень заполненности объектов
 %%
 \section{Степень заполненности имён разработчиков языков программирования на~русском языке}
+
+\index{SPARQL!Label!SERVICE}
+\index{SPARQL!Label!serviceParam}
+\index{SPARQL!Label!rdfs:label}
 
 Сравним конструкции \texttt{serviceParam} и \texttt{rdfs:label}, 
 с~помощью которых можно получить метки (имена) объектов. 
@@ -781,16 +837,17 @@ WHERE {
 и 150 разработчиков с~именами на~русском языке. 
 %
 Таким образом, если метка на русском языке не~заполнена, 
-то конструкция \texttt{serviceParam} возвращает безымянный объект, с~номером объекта вместо имени. 
+то конструкция \texttt{serviceParam} возвращает безымянный объект с~номером объекта вместо имени. 
 Запросы с~конструкциями \texttt{rdfs:label} являются более строгими и пропускают 
-объекты без меток на заданном языке. 
+объекты без~меток на~заданном языке. 
 
 
 \begin{lstlisting}[
 	language=SPARQL,
 	label=lst:serviceParam,
-	caption={\href{https://w.wiki/6gDu}{Список названий языков программирования и их разработчиков, 
-    найденных с~помощью сервиса serviceParam}\protect\footnotemark},
+	caption={\href{https://w.wiki/6gDu}
+    {Список названий языков программирования и их разработчиков, 
+    найденных с~помощью конструкции serviceParam}\protect\footnotemark},
     numbers=none,
 	texcl
 ]
@@ -802,7 +859,7 @@ SELECT ?lang ?langLabel ?developer ?developerLabel WHERE {
 }
 \end{lstlisting}
 \footnotetext{Получено: 261 разработчик в~2023 году. 
-              Ссылка на SPARQL-запрос: \href{https://w.wiki/6gDu}{https://w.wiki/6gDu}.}
+              Ссылка на~SPARQL-запрос: \href{https://w.wiki/6gDu}{https://w.wiki/6gDu}.}
 
 \begin{lstlisting}[
 	language=SPARQL,
@@ -820,7 +877,11 @@ SELECT ?lang ?langLabel ?developer ?developerLabel WHERE {
   ; rdfs:label ?developerLabel FILTER (LANG(?developerLabel) = "ru").
 }
 \end{lstlisting}
-\footnotetext{Получено: 150 разработчиков с~именами на~русском языке в~2023 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/6gDx}{https://w.wiki/6gDx}.}
+\footnotetext{Получено: 150 разработчиков с~именами на~русском языке в~2023 году. 
+              Ссылка на~SPARQL-запрос: \href{https://w.wiki/6gDx}{https://w.wiki/6gDx}.}
+
+
+
 
 
 %%
@@ -835,14 +896,15 @@ SELECT ?lang ?langLabel ?developer ?developerLabel WHERE {
 	\item Подчитать количество языков программирования, созданных ранее 1992 года (используйте свойство: <<\href{https://www.wikidata.org/wiki/Property:P571}{дата-основания/создания (P571)}>>).
 Ответ на~с.~\pageref{answer:prog_langs_4}.
 
-\marginnote[21pt]{%
-        \index{Информатика!Хештег}Хештег (\#)~--- 
-        ключевое слово, 
-        используемое в микроблогах и социальных сетях, 
-        облегчающее поиск сообщений по теме или содержанию 
-        и начинающееся со знака решётки.}
+	\item Построить столбчатую диаграмму, отражающую количество известных хештегов\sidenote{%
+%            
+                \index{Информатика!Хештег}
+                Хештег (\#)~--- ключевое слово, используемое в~микроблогах и~социальных сетях, 
+                облегчающее поиск сообщений по~теме или~содержанию 
+                и~начинающееся со~знака решётки.%
 %
-	\item Построить столбчатую диаграмму, отражающую количество известных хештегов в Твиттере 
-        для~каждого языка программирования (свойство: <<\href{https://www.wikidata.org/wiki/Property:P2572}{хештег Твиттера (P2572)}>>).
-Ответ на~с.~\pageref{answer:prog_langs_4}.
+        } в~Твиттере 
+        для~каждого языка программирования 
+        (используйте свойство <<\href{https://www.wikidata.org/wiki/Property:P2572}{хештег Твиттера (P2572)}>>).
+        Ответ на~с.~\pageref{answer:prog_langs_4}.
 \end{enumerate}
