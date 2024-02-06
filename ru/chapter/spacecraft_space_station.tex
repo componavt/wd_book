@@ -32,8 +32,8 @@
 Нам потребуются объекты \wdqName{космическая станция}{25956}, 
 \wdqName{космический корабль}{40218} и отношение \wdProperty{31}{экземпляр}. 
 
-\index{SPARQL!VALUES!Список кораблей и станций}
-\index{SPARQL!SERVICE!Список кораблей и станций}
+\index{SPARQL!VALUES}
+\index{SPARQL!SERVICE}
 \begin{lstlisting}[ language=SPARQL, numbers=none, caption={{\href{https://w.wiki/4d4f}{Список кораблей и станций}}\protect\footnotemark}, label=lst:spaceships, ]
 # List of spacecraft (Q40218) and space station (Q25956)
 SELECT  ?s ?sLabel ?typeLabel WHERE {
@@ -92,7 +92,7 @@ SELECT  ?s ?sLabel ?typeLabel WHERE {
 Найдём корабли и станции, сконструированные в СССР или России, 
 с помощью запроса~\ref{lst:spaceshipsUSSR}.
 
-\index{SPARQL!SERVICE!Список отечественных кораблей}
+\index{SPARQL!SERVICE}
 \begin{lstlisting}[ language=SPARQL, 
                     numbers=none, 
                     caption={{\href{https://w.wiki/4d9c}{Список отечественных кораблей}}\protect\footnotemark}, 
@@ -145,7 +145,7 @@ SELECT  ?spacecraft  ?spacecraftLabel WHERE
 
 \begin{marginfigure}[0\baselineskip]
     \MarginQuestion 
-    \index{SPARQL!квалификатор!of}
+    \index{SPARQL!Квалификатор!of}
     В предыдущих запросах мы искали экземпляры космических кораблей, 
     то~есть искали в~Викиданных утверждения ``is instance of spacecraft''. 
     На рисунке ниже показан вариант утверждения 
@@ -205,7 +205,7 @@ SELECT  ?spacecraft  ?spacecraftLabel WHERE
 
 
 \begin{figure*}[h!]
-    \index{График!BarChart!Запуски космических кораблей в России}
+    \index{График!BarChart}
     \includegraphics[width=\linewidth]{graphics/chapter/spacecraft_space_station/Visualization of the number of spacecraft launches in USSR and Russia per 5 years 2022.png}
     \caption[График запусков космических кораблей в СССР и России, 2022 год.]{Диаграмма количества запусков космических кораблей в СССР и России по пятилеткам}%
     \label{fig:launchesRussia5years}%
@@ -246,14 +246,14 @@ SELECT  ?spacecraft  ?spacecraftLabel WHERE
         См. ответ~\ref{answer:launches_USSR} на с.~\pageref{answer:launches_USSR}.%
 }
 
-\index{SPARQL!STR!Запуски космических кораблей в России}
-\index{SPARQL!BIND!Запуски космических кораблей в России}
-\index{SPARQL!YEAR!Запуски космических кораблей в России}
-\index{SPARQL!FLOOR!Запуски космических кораблей в России}
-\index{SPARQL!UNION!Запуски космических кораблей в России}
-\index{SPARQL!COUNT!Запуски космических кораблей в России}
-\index{SPARQL!GROUP BY!Запуски космических кораблей в России}
-\index{SPARQL!ORDER BY!Запуски космических кораблей в России}
+\index{SPARQL!STR}
+\index{SPARQL!BIND}
+\index{SPARQL!YEAR}
+\index{SPARQL!FLOOR}
+\index{SPARQL!UNION}
+\index{SPARQL!COUNT}
+\index{SPARQL!GROUP BY}
+\index{SPARQL!ORDER BY}
 \begin{lstlisting}[ language=SPARQL, 
     caption={{\href{https://w.wiki/4eGg}{Запуски космических кораблей в СССР и России}}\protect\footnotemark}, 
     label=lst:launchesRussia5years,
@@ -281,11 +281,11 @@ ORDER BY ?lapse # Order 1970, 1975, 1980, ...
 
 
 
-\index{SPARQL!COUNT!Запуски космических кораблей в мире}
-\index{SPARQL!YEAR!Запуски космических кораблей в мире}
-\index{SPARQL!BIND!Запуски космических кораблей в мире}
-\index{SPARQL!SERVICE!Запуски космических кораблей в мире}
-\index{SPARQL!GROUP BY!Запуски космических кораблей в мире}
+\index{SPARQL!COUNT}
+\index{SPARQL!YEAR}
+\index{SPARQL!BIND}
+\index{SPARQL!SERVICE}
+\index{SPARQL!GROUP BY}
 \begin{lstlisting}[ language=SPARQL, 
                     numbers=none, 
                     caption={{\href{https://w.wiki/4bEu}{Запуски космических кораблей в мире по годам и странам}}\protect\footnotemark}, 
@@ -316,7 +316,7 @@ GROUP BY ?year ?country ?countryLabel
 
 \newpage
 
-\index{График!BarChart!Запуски космических кораблей по годам и странам}
+\index{График!BarChart}
 \begin{figure*}[h!]
   \includegraphics[width=\linewidth]{graphics/chapter/spacecraft_space_station/Visualization of the number of spacecraft launches by year and country 2021.png}
   \caption[График запусков космических кораблей в мире по годам и странам, 2021 год.]{Диаграмма ежегодного суммарного количества запусков космических кораблей по всем странам}
@@ -345,10 +345,10 @@ GROUP BY ?year ?country ?countryLabel
 Запрос~\ref{lst:internationalFlights} строит граф~\ref{fig:internationalFlights} 
 c~вершинами типа <<ракеты>> и <<космонавты>> с~раскраской по~странам.
 
-\index{SPARQL!DISTINCT!Космонавты в международных полётах}
-\index{SPARQL!SERVICE!Космонавты в международных полётах}
-\index{SPARQL!BIND!Космонавты в международных полётах}
-\index{SPARQL!VALUES!Космонавты в международных полётах}
+\index{SPARQL!DISTINCT}
+\index{SPARQL!SERVICE}
+\index{SPARQL!BIND}
+\index{SPARQL!VALUES}
 
 \footnote[17][2\baselineskip]{Получено: 68 результатов в 2022 году. Ссылка на SPARQL-запрос: \href{https://clck.ru/agioQ}{https://clck.ru/agioQ}.}
 \begin{lstlisting}[ language=SPARQL, caption={{\href{https://clck.ru/agioQ}{Космонавты в международных полётах}}\protect\footnotemark}, 
@@ -432,7 +432,7 @@ WHERE
 
 
 
-\index{График!Graph!Космонавты в международных полётах}
+\index{График!Graph}
 \begin{figure*}[h]
 %  \setlength{\fboxsep}{0pt}%
 %  \setlength{\fboxrule}{1pt}%

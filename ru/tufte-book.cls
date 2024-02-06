@@ -79,9 +79,9 @@
 % biliographies, list of contributors, illustration credits, etc.
 \renewcommand\backmatter{%
   \if@openright%
-    \cleardoublepage%
+    %\clearpage%    \cleardoublepage%
   \else%
-    \clearpage%
+    %\clearpage%
   \fi%
   \@mainmatterfalse%
 }

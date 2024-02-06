@@ -705,7 +705,7 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 \epigraph{%
 {\fontfamily{iwona}\selectfont%
 \textit{\textbf{Издание посвящается изобретателям SPARQL-скриптов~--- программистам будущего, 
-а~также OSINT-разведчикам, для которых Викиданные будут школьным полигоном.}}%
+а~также OSINT-разведчикам, для которых Викиданные будут школьным полигоном}}%
 }%eo fontfamily
 }{}
 \end{fullwidth}
@@ -729,7 +729,7 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 \label{part:foundation}%
 
 
-\iffalse
+%%%%\iffalse
 \input{./intro/listings_about.tex}
 \input{./review/about_wd.tex}
 \input{./intro/buckets_and_balls.tex}
@@ -742,9 +742,10 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 
 \input{./chapter/human_settlement.tex}
 \input{./chapter/city.tex}
-\fi %eo iffalse
+%%%%\fi %eo iffalse
 
 \input{./chapter/country.tex}
+%%%%\iffalse
 \input{./chapter/oblast_of_Russia.tex}
 
 \ifnumequal{\value{draft}}{1}{%
@@ -753,13 +754,12 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
   \input{./chapter/radio_station.tex}
 }
 
-%%%\iffalse
 \input{./chapter/operating_system.tex}
 \input{./chapter/programming_language.tex}
 
-%%%\fi %eo iffalse
+%%%%\fi %eo iffalse
 \input{./chapter/ship.tex}
-\iffalse
+%%%%\iffalse
 
 \input{./chapter/spacecraft_space_station.tex}
 
@@ -769,7 +769,7 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 \input{./intro/prowd.tex}
 \input{./advanced/page_protection.tex}
 \input{./advanced/bots.tex}
-\fi %eo iffalse
+%%%%\fi %eo iffalse
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Заключительная часть 
@@ -802,9 +802,7 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 
 %%
 % The back matter contains appendices, bibliographies, indices, glossaries, etc.
-
-\backmatter
-
+\backmatter % \clearpage
 %\cleardoublepage
 
 \begin{fullwidth}
@@ -818,7 +816,8 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 
 % source biblatex-gost URL: page 24, https://ctan.math.illinois.edu/macros/latex/contrib/biblatex-contrib/biblatex-gost/doc/biblatex-gost.pdf
 \newrefcontext[sorting=ntvy]
-\printbibliography[env=gostbibliography]
+\printbibliography[env=gostbibliography,
+                   heading=bibintoc]
 
 %\bibliographystyle{plainnat}
 %\bibliography{wd_references}
