@@ -24,11 +24,10 @@
 с~помощью сервиса ProWD в~2020 году показал, 
 что индекс Джини равен 0.239 (рис.~\ref{fig:prowd_ships-unbalanced}). 
 %
-Сравнение <<кораблей>> со <<странами>> 
+Сравнение кораблей со странами в Викиданных 
 (у стран индекс Джини равен 0.091, см. рис.~\ref{fig:ProWD_country} 
                                   на~с.~\pageref{fig:ProWD_country}) 
-говорит, что среди кораблей <<нет равенства>> в~отличие от~стран, 
-а~есть низкая равномерность заполнения свойств~--- 
+говорит, что корабли не так хорошо и равномерно заполнены, как~страны, 
 есть достаточно кораблей как с~большим количеством заполненных свойств, 
 так и с малым.
 
@@ -68,9 +67,9 @@ SELECT ?ship ?shipLabel WHERE {
 а~принадлежность некоторому оператору. 
 Чаще всего это какая-либо организация, 
 например 
-\href{https://www.wikidata.org/wiki/Q465283}{Военно-морской Флот Российской Федерации (Q465283)}. 
+\wdqName{Военно-морской флот Российской Федерации}{465283}.\, 
 Составим список кораблей, 
-операторы которых находятся или находились в России, СССР или Российской империи 
+операторы которых находятся или~находились в России, СССР или Российской империи 
 (см. запрос~\ref{lst:ships_with_ru_op}). 
 
 \marginnote{%
@@ -80,16 +79,17 @@ SELECT ?ship ?shipLabel WHERE {
     Например, напишите скрипт для поиска самого большого, самого длинного 
     или самого вместительного корабля.
 
-    Ответ на с.~\pageref{answer:ship_Guinness}.
+    См. ответ на с.~\pageref{answer:ship_Guinness}.
 }
 
 
 \begin{lstlisting}[ 
     language=SPARQL, 
-    caption={\href{https://w.wiki/6gHD}{Cписок кораблей, операторы которых находятся или находились в России, 
-            СССР или Российской империи}\protect\footnotemark}, 
-    label=lst:ships_with_ru_op 
-                  ]
+    caption={\href{https://w.wiki/6gHD}
+                  {Cписок кораблей с~отечественными операторами}\protect\footnotemark}, 
+    label=lst:ships_with_ru_op,
+    xleftmargin=18pt, 
+    numbers=left  ]
 # List of ships from Russia, Soviet Union and Russian Empire
 SELECT ?ship ?shipLabel WHERE {
   VALUES ?country {wd:Q34266 # Russian Empire
@@ -102,6 +102,9 @@ SELECT ?ship ?shipLabel WHERE {
 \end{lstlisting}
 \footnotetext{Получено: 107 кораблей в 2017 году, 578 кораблей в 2021 году. Ссылка на~SPARQL-запрос: \href{https://w.wiki/6gHD}{https://w.wiki/6gHD}.}
 
+\index{SPARQL!Свойство!operator}
+\index{SPARQL!Свойство!country}
+\index{SPARQL![]!безымянная переменная~--- последовательность свойств}
 Обратите внимание на~строку~7 в~запросе~\ref{lst:ships_with_ru_op}. 
 В~этой строке записаны последовательно два свойста \texttt{wdt:P137/wdt:P17}:
 \begin{itemize}
@@ -128,21 +131,27 @@ SELECT ?ship ?shipLabel WHERE {
 
 Поиск точного количества кораблей в мире~--- трудная задача. 
 Ведь данные о~некоторых из~них являются совершенно секретными, 
-другие~--- частные судна, информации о~них тоже нет. 
+другие~--- частные суда, информации о~них тоже нет.\, 
 Предположим, что общее число кораблей примерно равно \num{1600000}, 
 как указано в базе данных судов\sidenote{%
 %
     FleetMon Tracking the Seven Seas. URL: \href{https://www.fleetmon.com/vessels/}
                                                 {https://www.fleetmon.com/vessels/}
 }. % eo sidenote
-На 2021 год Викиданные содержали только 71206 кораблей, 
+На 2021 год Викиданные содержали только \num{71206} кораблей, 
 что составило 4,5\,\% от~их~общего числа.
 
 
 Что касается российских кораблей, 
-то~в~состав российский военных и гражданских флотов входит \num{17657} кораблей~\autocite{RussianShips}. 
+то~в~состав российского военного и гражданского флотов входит 
+\num{17657} кораблей\sidenote{% \autocite{RussianShips}
+%
+%   Волков Р., Бричевский А. RussianShips.info. 
+    URL: \href{http://russianships.info/today/}
+              {http://russianships.info/today/}
+}. % eo sidenote
 В это же время запрос~\ref{lst:ships_with_ru_op} возвращает лишь 578 кораблей, 
-что составляет 3,27\,\% от общего числа российских кораблей. 
+что составляет 3,27\,\% от~общего числа российских кораблей. 
 
 В обоих случаях разница между фактическим количеством кораблей и результатом запросов огромная, что говорит о неполноте Викиданных.
 
@@ -152,10 +161,11 @@ SELECT ?ship ?shipLabel WHERE {
     На марке, выпущенной в 1982 году, изображён самый известный советский эсминец \ruwiki{vgC}{проекта~7}, 
     удостоенный звания <<Гвардейский>>. Назовите его.
     
-    \vspace{4pt}
+    \vspace{5pt}
     \includegraphics[width=0.93\linewidth]{chapter/ship/Secret_Grem_ship.jpg}
+    \vspace{2pt}
 
-    Ответ на с.~\pageref{answer:ship_stamp}.\\
+    См. ответ на с.~\pageref{answer:ship_stamp}.\\
 }
 
 
@@ -183,7 +193,7 @@ WHERE
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
 }
 \end{lstlisting}
-\footnotetext{Получено: 1400 кораблей в 2017 году, 3567~--- в 2021 году. Ссылка на~SPARQL-запрос: \href{https://w.wiki/vum}{https://w.wiki/vum}.}
+\footnotetext{Получено: 1400 кораблей в 2017 году, 3567 кораблей в~2021 году. Ссылка на~SPARQL-запрос: \href{https://w.wiki/vum}{https://w.wiki/vum}.}
 
 
 
