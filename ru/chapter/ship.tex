@@ -20,6 +20,7 @@
 
 \section{Список кораблей}
 
+\index{Коэффициент Джини}
 Анализ экземпляров объекта \wdqName{корабль}{11446} 
 с~помощью сервиса ProWD в~2020 году показал, 
 что индекс Джини равен 0.239 (рис.~\ref{fig:prowd_ships-unbalanced}). 
@@ -104,7 +105,7 @@ SELECT ?ship ?shipLabel WHERE {
 
 \index{SPARQL!Свойство!operator}
 \index{SPARQL!Свойство!country}
-\index{SPARQL![]!безымянная переменная~--- последовательность свойств}
+\index{SPARQL![]!/ последовательность свойств}
 Обратите внимание на~строку~7 в~запросе~\ref{lst:ships_with_ru_op}. 
 В~этой строке записаны последовательно два свойста \texttt{wdt:P137/wdt:P17}:
 \begin{itemize}
@@ -127,7 +128,7 @@ SELECT ?ship ?shipLabel WHERE {
 
 
 \newpage
-\section{Полнота Викиданных}
+\section{Полнота Викиданных по числу кораблей}
 
 Поиск точного количества кораблей в мире~--- трудная задача. 
 Ведь данные о~некоторых из~них являются совершенно секретными, 
@@ -257,15 +258,21 @@ WHERE
 
 
 
-\newpage
 Составим список отечественных кораблей, 
 участвовавших в каких-либо военных конфликтах, 
-с~помощью скрипта~\ref{lst:ships_in_war_ru}.
+с~помощью запроса~\ref{lst:ships_in_war_ru}.
 
-\begin{lstlisting}[ language=SPARQL, 
-        caption={{\href{https://w.wiki/97Dq}
-                 {Список отечественных кораблей, участвовавших в каких-либо военных конфликтах}}\protect\footnotemark}, 
-        label=lst:ships_in_war_ru ]
+\newpage
+\begin{lstlisting}[ 
+    language=SPARQL, 
+    caption={{\href{https://w.wiki/97Dq}
+                   {Список отечественных кораблей, 
+                    участвовавших в каких-либо военных конфликтах,\\
+                    использовано <<угасающее>> свойство ``operator''}}\protect\footnotemark}, 
+    label=lst:ships_in_war_ru,
+    xleftmargin=18pt, 
+    numbers=left,
+    ]
 # List of ship with countries and war conflicts
 SELECT ?ship ?shipLabel ?countryLabel ?conflict ?conflictLabel WHERE
 {
@@ -282,28 +289,73 @@ SELECT ?ship ?shipLabel ?countryLabel ?conflict ?conflictLabel WHERE
             Ссылка на SPARQL-запрос: \href{https://w.wiki/97Dq}{https://w.wiki/97Dq}.}
 
 Особенность результатов запроса~\ref{lst:ships_in_war_ru} в том, 
-что полученные корабли не обязательно связаны только с Российской империей, 
+что полученные корабли не обязательно связаны \emph{только} с Российской империей, 
 СССР или Россией. 
 Например, корабль \href{https://www.wikidata.org/wiki/Q653477}{Kasato Maru (Q653477)}~--- японский. 
 Дело в том, что этот корабль принадлежал России в 1900--1905 годах, а Японии~--- с 1906 года.
 
 В сноске к запросу~\ref{lst:ships_in_war_ru} видно, 
-что число воевавших кораблей неуклонно снижается. 
-По закону сохранения (Вики)данных, который мы не формулировали, 
-уже добавленные объекты редко куда исчезают. 
-Чаще дело бывает в~том, что создаётся новое (другое или более точное) свойство, 
-которое замещает старое свойство Викиданных. 
-Соответственно скрипты нужно менять с~учётом этих замещений. 
+что число воевавших кораблей, имеющих свойство \emph{operator}, 
+неуклонно снижается, корабли \mbox{куда-то} пропадают. 
+Предложим читателям гипотезу, почему кораблей с каждым годом становится меньше. 
 
-В нашем случае с кораблями свойство \wdProperty{137}{operator} (строка~8 \TODO в~запросе~\ref{lst:ships_in_war_ru}) 
-было успешно заменено новым 
-свойством \wdProperty{8047}{country of registry} (строка~\TODO в~запросе~\TODO
-\href{https://w.wiki/97F7}{https://w.wiki/97F7} - 109 results
-). 
+В~2020 году было создано свойство \emph{country of registry}. 
+В~этом свойстве у~кораблей указывают страну, к которой приписано судно. 
+С~2020 года редакторы Викиданных постепенно заполняют это свойство у~кораблей, 
+удаляя свойство \emph{operator}.
+%
+Идя в~ногу со~временем, мы заменим у~кораблей свойство \wdProperty{137}{operator} 
+(строка~8 в~запросе~\ref{lst:ships_in_war_ru}) 
+на~свойство \wdProperty{8047}{country of registry} (строка~7 в~запросе~\ref{lst:ships_in_war_ru_registry}). 
+И~сразу число кораблей вырастет и~с~учётом новых данных станет даже больше того, что было в~2017 году. 
 
-В~свойстве ``country of registry'' у~кораблей указывают страну, к которой приписано (зарегистрировано) судно. 
-Это свойство было создано в~2020 году и~с~тех~пор редакторы Викиданных постепенно заполняли это свойство, 
-удаляя свойство ``operator''. 
+\index{SPARQL!Закон сохранения Викиданных}
+Эти рассуждения позволяют сформулировать следующий \emph{закон сохранения Викиданных}: 
+уже добавленные объекты \emph{массово} не~исчезают. 
+Новые свойства Викиданных дополняют или заменяют старые свойства. 
+Нужно менять и~уточнять старые SPARQL-запросы, чтобы число находимых объектов не~уменьшалось.
+
+\index{SPARQL!UNION}
+Обратите внимание на утверждения в строках~10--11 запроса~\ref{lst:ships_in_war_ru_registry}, 
+объединённые командой \lstinline{UNION}. 
+Этим объединением мы смогли собрать и~экземпляры объекта ``ship'', 
+и~экземпляры объекта ``ship type'' в~переменную \lstinline|?ship|.
+
+
+\index{SPARQL!Свойство!country of registry}
+\index{SPARQL!UNION}
+\begin{lstlisting}[ 
+    language=SPARQL, 
+    caption={{\href{https://w.wiki/97TG}
+                   {Список отечественных кораблей, 
+                    участвовавших в военных конфликтах,\\
+                    использовано новое свойство ``country of registry''}}\protect\footnotemark}, 
+    label=lst:ships_in_war_ru_registry,
+    xleftmargin=18pt, 
+    numbers=left,
+    ]
+# List of Russian ships registered in countries and engaged in war conflicts
+SELECT ?ship ?shipLabel ?countryLabel ?conflict ?conflictLabel WHERE
+{
+  VALUES ?country {wd:Q34266 # Russian Empire
+                   wd:Q15180 # Soviet Union
+                   wd:Q159}  # Russia
+  ?ship wdt:P8047 ?country;  # country of registry of this ship
+        wdt:P607 ?conflict.  # engaged in some conflict
+  
+  {?ship wdt:P31 wd:Q11446.} UNION     # instance of ship
+  {?ship wdt:P31/wdt:P31 wd:Q2235308.} # instance of ship type
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
+}
+\end{lstlisting}
+\footnotetext{Получено: 122 корабля в 2024 году. 
+            Ссылка на SPARQL-запрос: \href{https://w.wiki/97TG}{https://w.wiki/97TG}.}
+
+
+
+
+
 
 
 
@@ -314,27 +366,48 @@ SELECT ?ship ?shipLabel ?countryLabel ?conflict ?conflictLabel WHERE
 
 \section{Корабли-музеи в странах мира}
 
-\wdqName{Корабль-музей}{575727}~--- это корабль, на котором размещена музейная экспозиция, посвященная истории корабля. Такие корабли используются в общеобразовательных и мемориальных целях. Участие корабля в \href{https://www.wikidata.org/wiki/Q180684}{военном конфликте (Q180684)} может послужить поводом для создания корабля-музея в память о прошедших событиях. 
+\begin{marginfigure}[0\baselineskip]
+  \includegraphics[width=0.9\linewidth]{chapter/ship/double_ring_UK_museum_ships_2024.png}
+  \caption{Двойное кольцо кораблей-музеев Великобритании, 
+           фрагмент графа стран и~кораблей-музеев, 2024 год}
+  \label{fig:double-ring-UK-museum-ships}%
+\end{marginfigure}%
 
-Построим граф кораблей-музеев и стран, в которых эти корабли находятся. 
-Вершинами графа будут \href{https://www.wikidata.org/wiki/Q6256}{страны (Q6256)} и 
-\href{https://www.wikidata.org/wiki/Q575727}{корабли-музеи (Q575727)}. 
-Ребро между кораблём и страной означает, что корабль находится в этой стране. 
-А ребро между двумя странами означает, 
-что эти страны участвовали в одних и тех же конфликтах, число которых равно весу ребра. 
-Запрос~\ref{lst:museum_graph} строит граф по описанным выше правилам.
+\wdqName{Корабль-музей}{575727}~--- это корабль, 
+на котором размещена музейная экспозиция, посвященная истории корабля. 
+Такие корабли используются в~общеобразовательных и~мемориальных целях. 
+Участие корабля в~\wdqName{военном конфликте}{180684} может послужить поводом 
+для~создания корабля-музея в~память о~прошедших событиях. 
 
+Чтобы понять большой и~сложный запрос~\ref{lst:museum_graph}, 
+рассмотрим сначала строки~21--32 этого запроса как~отдельный скрипт, 
+который можно запустить по~ссылке: \href{https://w.wiki/984K}
+                                        {https://w.wiki/984K}. 
+В~этом фрагменте запроса строятся связи между кораблём-музеем и страной, где расположен музей. 
+На рис.~\ref{fig:double-ring-UK-museum-ships} представлен фрагмент графа 
+со~страной, имеющей больше всего кораблей-музеев. Конечно, это Великобритания. 
+
+
+
+                                        
+
+
+\newpage
 %\begin{minipage}{\linewidth}
 \begin{lstlisting}[ language=SPARQL, 
-        caption={{\href{https://w.wiki/wz8}{Граф кораблей-музеев и стран, в которых они находятся (фрагмент скрипта)}}\protect\footnotemark}, 
-        label=lst:museum_graph ]
+    caption={{\href{https://w.wiki/wz8}
+                   {Граф кораблей-музеев и стран, 
+                   в которых они находятся (фрагмент скрипта)}}\protect\footnotemark}, 
+    label=lst:museum_graph,
+    xleftmargin=18pt, 
+    numbers=left,
+    ]
 #defaultView:Graph    
 SELECT ?v1 ?v1Label ?v2 ?v2Label ?edgeLabel ?img 
 WHERE {
   {SELECT ?c ?cLabel ?v1 ?v1Label ?v2 ?v2Label (STR(COUNT(?c)) as ?edgeLabel) 
    WHERE
-   {
-     VALUES ?cTypes 
+   { VALUES ?cTypes 
             {wd:Q180684 # conflict
              wd:Q831663 # military campaign
              wd:Q645883 # military operation
@@ -370,39 +443,61 @@ WHERE {
 
 \newpage
 %\marginnote[-7.3cm]{%
-    При определении \wdqName{страны}{6256} для переменных $v1$ и $v2$ 
-    в~строках 26 и 29 запроса~\ref{lst:museum_graph} 
+%
+\begin{marginfigure}
+%\begin{figure}[h]
+  \includegraphics[width=0.83\linewidth]{chapter/ship/aurora_graph_crop.jpg}
+  \caption{Граф свойств крейсера <<Аврора>>, 2021 год}%
+  \label{fig:aurora_graph}%
+%\end{figure}
+\end{marginfigure}
+
+Рассмотрим теперь запрос~\ref{lst:museum_graph} в~целом. 
+Построим граф кораблей-музеев и воевавших стран 
+(рис.~\ref{fig:aurora_graph} и~рис.~\ref{fig:museum_graph}). 
+Вершинами графа будут \wdqName{страны}{6256} 
+                    и~\wdqName{корабли-музеи}{575727}. 
+Ребро между кораблём и~страной означает, что корабль-музей находится в этой стране. 
+А ребро между двумя странами означает, 
+что эти страны участвовали в одних и тех же конфликтах, число которых равно весу ребра 
+(вес подписан на~рёбрах, соединяющих страны). 
+Итак, запрос~\ref{lst:museum_graph} строит граф по описанным выше правилам. 
+
+    \index{SPARQL!p:[ps:]!country}
+    При определении \emph{страны} для переменных $v1$ и $v2$ 
+    посредством свойства \wdProperty{17}{государство} 
+    в~строках 25 и 28 запроса~\ref{lst:museum_graph} 
     используется конструкция \texttt{p:/ps:} (точнее: \texttt{\{?v2 p:P17 [ps:P17 ?v1]\}}). 
     Это нужно потому, что у стран в поле 
     \href{https://www.wikidata.org/wiki/Property:P31}{экземпляр (P31)}, 
     кроме значения <<страна>>, могут быть и другие значения. 
     Эта конструкция позволяет перебрать все значения поля P31 и найти значение <<страна>>.
-    См. подробности в главе~\ref{ch:RussiaNotCountryPPS} на с.~\pageref{ch:RussiaNotCountryPPS}.
+    См.~подробности в главе~\ref{ch:RussiaNotCountryPPS} на с.~\pageref{ch:RussiaNotCountryPPS}.
 
 %}\marginnote[-1.7cm]{%
     Функция \lstinline|FILTER|
-    в~строке 16 запроса~\ref{lst:museum_graph} 
+    в~строке 15 запроса~\ref{lst:museum_graph} 
     \mbox{(\lstinline|FILTER (?v1 != ?v2 && STR(?v1) < STR(?v2))|)} 
     позволяет избежать появления петель и дублирующих рёбер на графе.
 %}
 
 Из фрагмента графа на рис.~\ref{fig:museum_graph} видно, 
-что корабли-музеи по большей части принадлежат Германии, США и Японии. 
-Такая <<корреляция>> вполне логична, так как данные страны имеют длительную историю, 
-за которую они поучаствовали во многих военных конфликтах. 
-Также эти страны имеют выход к морю, что исторически обуславливает наличие у них флота, 
-в котором могут найтись корабли для создания музея.
+что корабли-музеи есть у России и~США. 
+Эти страны участвовали в~военных конфликтах и они имеют флот, 
+а значит, и корабли для создания музеев.
+
 
 %\begin{figure}[h]
 \begin{figure*}[h!]
   \includegraphics[width=0.74\linewidth]{chapter/ship/museum-graph-Russia-USA.png}
-  \caption[Граф стран и кораблей-музеев, 2021 год.]{Фрагмент графа стран, участвовавших в войнах, включает ряд кораблей-музеев России и США}%
+  \caption[Граф стран и кораблей-музеев, 2021 год.]
+          {Фрагмент графа стран, участвовавших в войнах, и~кораблей-музеев России и США, 2021 год}%
   \label{fig:museum_graph}%
 \end{figure*}
 %\end{figure}
 
 При просмотре полного графа (и даже на фрагменте, рис.~\ref{fig:museum_graph}) 
-видна уникальность научно-исследовательского судна \wdqName{Витязь}{1516653}. 
+видна уникальность научно-иссле\-до\-ва\-тель\-ского судна \wdqName{Витязь}{1516653}. 
 По Викиданным (запрос~\ref{lst:museum_graph}), 
 это единственный музей-корабль России, связывающий Россию с другими странами. 
 Изначально этот теплоход был построен и находился на службе в~Германии, 
@@ -412,20 +507,17 @@ WHERE {
 
 Вершины графа на рис.~\ref{fig:museum_graph} кликабельны. 
 Например, можно кликнуть на \href{https://www.wikidata.org/wiki/Q168713}{крейсер Аврора (Q168713)}, 
-тогда появятся дополнительные вершины, соответствующие свойствам этого крейсера, см. рис.~\ref{fig:aurora_graph}.
-
-\newpage
-\begin{figure*}[h!]
-%\begin{figure}[h]
-  \includegraphics[width=0.83\linewidth]{chapter/ship/aurora_graph.jpg}
-  \caption[Граф свойств Авроры, 2021 год.]{Граф свойств \href{https://www.wikidata.org/wiki/Q168713}{крейсера Аврора (Q168713)} на 2021 год}%
-  \label{fig:aurora_graph}%
-%\end{figure}
-\end{figure*}
+тогда появятся дополнительные вершины, соответствующие свойствам этого крейсера (рис.~\ref{fig:aurora_graph}).
 
 
-
-
+\section{Упражнения}
+\begin{enumerate}
+  \item Измените запрос~\ref{lst:museum_graph} так, 
+      чтобы граф не содержал вершин-стран без кораблей-музеев. 
+  
+  \item Измените запрос~\ref{lst:museum_graph} так, чтобы граф содержал 
+      только те~страны, которые участвовали больше, чем в~одном конфликте.
+\end{enumerate}
 
 
 % last figure

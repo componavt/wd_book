@@ -49,15 +49,16 @@ WHERE
 %Результатом запроса~\ref{lst:aircraftList} (на английском языке) является список всех воздушных судов. На 2017 год список содержал \num{1564} записи, а к 2020 году число записей увеличилось до \num{3325}.
 %На руском языке на 2017 год результат запроса~\ref{lst:aircraftList} содержал 153 записи, а к 2020 году их число увиличилось до 299 записей.
 
-Наиболее полными и проработанными воздушными судами на Викиданных по числу свойств 
-на~2017 год являются: \href{https://www.wikidata.org/wiki/Q271446}{МиГ-3}, 
+По данным сервиса ProWD, 
+наиболее полными по числу свойств 
+на~2017 год были объекты следующих воздушных судов: 
+\href{https://www.wikidata.org/wiki/Q271446}{МиГ-3}, 
 \href{https://www.wikidata.org/wiki/Q1349098}{Як-36}, 
 \href{https://www.wikidata.org/wiki/Q429839}{Mitsubishi A5M}. 
 На 2020 год~--- \href{https://www.wikidata.org/wiki/Q770863}{Sopwith Triplane} (18 свойств), 
 \href{https://www.wikidata.org/wiki/Q1658673}{Ил-103} (14~свойств) и 
 \href{https://www.wikidata.org/wiki/Q665071}{Martin 2-0-2} (14~свойств).
-Количество свойств было получено с помощью сервиса~\href{https://prowd.id/dashboards/972cd00ce110/profile}{ProWD}\autocite{aircraft_prowd}, 
-анализирующем заданный объект Викиданных.
+%
 %Почти пустыми и малоинформативными воздушными судами на 2017 год оказались: \href{https://www.wikidata.org/wiki/Q464247}{МиГ-1}, \href{https://www.wikidata.org/wiki/Q2296502}{Су-6}, \href{https://www.wikidata.org/wiki/Q1658673}{Ил-103}.
 На 2020 год малоинформативными воздушными судами оказались: 
 \href{https://www.wikidata.org/wiki/Q820603}{Бе-1} (3 свойства), 
@@ -450,7 +451,12 @@ GROUP BY ?country ?countryLabel
 
 Согласно сайту \href{https://www.aviationfanatic.com/}{aviationfanatic.com} 
 существовало около \num{1700} производителей воздушных судов 
-на~2017~год и 1939~судов на~2020~год\autocite{count_of_aircraft_manufactures}, 
+на~2017~год и 1939~судов на~2020~год\sidenote{%
+%
+    Aviation Fanatic~--- Free online aviation encyclopedia and pilot logbook. 
+    List of all Manufacturers. URL: \href{https://www.aviationfanatic.com/ent\_list.php?ent=3}
+                                         {https://www.aviationfanatic.com/ent\_list.php?ent=3}.
+},\, % eo sidenote
 но SPARQL-запрос~\ref{lst:lang2} вернул всего 300 авиазаводов в~Вики\-дан\-ных в 2017 году 
 и 595 авиазаводов в 2020 году. Из этого можно сделать вывод о~неполноте Викиданных.  
 
@@ -475,7 +481,12 @@ GROUP BY ?country ?countryLabel
 и 62 заводов, институтов и корпораций, связанных с~самолётостроением, в 2020 году, 
 но в то же время на сайте \href{https://www.aviationfanatic.com/}{aviationfanatic.com} 
 указано наличие 61 завода в~2017 году 
-и 71 предприятия в 2020 году\autocite{count_plants_of_aircrafts}.\, 
+и 71 предприятия в 2020 году\sidenote{%
+%
+    Aviation Fanatic~--- Free online aviation encyclopedia and pilot logbook. 
+    List of all Manufacturers. URL: \href{https://www.aviationfanatic.com/ent\_list.php?ent=3\&MAN\_Country=RU}
+                                         {https://www.aviationfanatic.com/ent\_list.php?ent=3\&MAN\_Country=RU}.
+}.\, % eo sidenote
 Среди авиастроительных компаний России 
 представлены такие компании, как \ruwiki{vNY}{Иркут}, \ruwiki{vDw}{МиГ}, \ruwiki{vDy}{Туполев}.
 

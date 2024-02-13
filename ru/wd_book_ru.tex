@@ -219,6 +219,7 @@
 \input{listings-python.prf}
 \lstset{%
    language=Python,
+   texcl=true,
    extendedchars=\true,
    keepspaces=true,
    frame=bt,
@@ -350,6 +351,7 @@
 
 % how to use `\marginnote` in `mdframed` environment?, see https://tex.stackexchange.com/a/412839/99685
 \usepackage[framemethod=TikZ]{mdframed}
+\usepackage{twemojis}% used in items in Chapter. Advanced. Защита страниц
 %\let\marginnote\someundefinedcommand
 %\usepackage{marginnote}
 
@@ -729,23 +731,23 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 \label{part:foundation}%
 
 
-\iffalse
+%%%\iffalse
 \input{./intro/listings_about.tex}
 \input{./review/about_wd.tex}
 \input{./intro/buckets_and_balls.tex}
-
+%%%\fi %eo iffalse
 
 \part{Исследуем объекты Викиданных}
 \label{part:research}
 \input{./chapter/aircraft.tex}
+
+%%%\iffalse
 \input{./chapter/anime.tex}
 
 \input{./chapter/human_settlement.tex}
 \input{./chapter/city.tex}
-%%%%\fi %eo iffalse
 
 \input{./chapter/country.tex}
-%%%%\iffalse
 \input{./chapter/oblast_of_Russia.tex}
 
 \ifnumequal{\value{draft}}{1}{%
@@ -757,19 +759,16 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 \input{./chapter/operating_system.tex}
 \input{./chapter/programming_language.tex}
 
-\fi %eo iffalse
+%fi %eo iffalse
 \input{./chapter/ship.tex}
-\iffalse
-
 \input{./chapter/spacecraft_space_station.tex}
-
 
 \part{Специальные возможности вики-проектов и Викиданных}
 \label{part:advanced}
 \input{./intro/prowd.tex}
 \input{./advanced/page_protection.tex}
 \input{./advanced/bots.tex}
-\fi %eo iffalse
+%%%\fi %eo iffalse
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Заключительная часть 
