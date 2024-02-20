@@ -161,7 +161,7 @@ SELECT DISTINCT ?os ?osLabel ?when (YEAR(?when) as ?date) ?pic WHERE
 в графической форме, описанных в документации\sidenote{%  \autocite{WQSResultViews}
 %
     См. справочную страницу на~сайте Викиданных 
-    ``Wikidata:SPARQL query ser\-vice/Wikidata Query Help/Result Views'' 
+    \emph{Wikidata:SPARQL query ser\-vice/Wikidata Query Help/Result Views} 
     о~вариантах представления результатов SPARQL-запросов 
     по~ссылке: \href{https://www.wikidata.org/?curid=29285671}
                                         {https://www.wikidata.org/?curid=29285671}.%
@@ -190,7 +190,8 @@ SELECT DISTINCT ?os ?osLabel ?when (YEAR(?when) as ?date) ?pic WHERE
 \index{SPARQL!COUNT}
 \index{SPARQL!ORDER BY!двойная сортировка}
 \begin{lstlisting}[ language=SPARQL, 
-	caption={\href{https://w.wiki/uat}{Список языков программирования и количество написанных на них операционных систем}\protect\footnotemark},
+	caption={\href{https://w.wiki/uat}
+            {Список языков программирования и количество написанных на них\\операционных систем}\protect\footnotemark},
     numbers=none,
 	label=lst:count_os_on_languages
 	]
@@ -226,7 +227,7 @@ ORDER BY DESC(?countOS) ASC(?langLabel)
 используется для двойной сортировки значений в таблице. 
 Все языки программирования в этой таблице сначала сортируются по~убыванию количества операционных систем, 
 которые написаны на них. Затем, если для каких-либо языков это число совпадает, 
-то сортировка идёт по именам языков.
+сортировка идёт по именам языков.
 
 Результат SPARQL-запроса \ref{lst:count_os_on_languages} показывает, 
 что преимущественно ОС пишут на языках Си (известно 46 операционных систем, написанных на языке Си) и ассемблер (42 ОС). 
@@ -255,6 +256,7 @@ ORDER BY DESC(?countOS) ASC(?langLabel)
     то есть строчки верхнего уровня пусть содержат не языки программирования, 
     а операционные системы. 
     При <<разворачивании>> мы должны видеть список языков, на которых написана система.%
+    \newline
 }
 
 \index{SPARQL!OPTIONAL}
@@ -267,7 +269,7 @@ ORDER BY DESC(?countOS) ASC(?langLabel)
 # Languages and operating systems written in these languages
 #defaultView:Tree
 SELECT ?lang ?image ?logoImage ?langLabel 
-?os ?osImage ?osLogoImage ?osLabel 
+       ?os ?osImage ?osLogoImage ?osLabel 
 WHERE 
 {
 	?os wdt:P31 wd:Q9135. # is instance of operating system
@@ -276,7 +278,7 @@ WHERE
 	OPTIONAL { ?lang wdt:P154 ?logoImage. }
 	OPTIONAL { ?os wdt:P18 ?osImage. }
 	OPTIONAL { ?os wdt:P154 ?osLogoImage. }
-SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
+    SERVICE wikibase:label {bd:serviceParam wikibase:language "ru, en"}
 }
 \end{lstlisting}
 \footnotetext{Получено: 146 языков программирования с написанными на них операционными системами в 2021 году. Ссылка на SPARQL-запрос: \href{https://w.wiki/ucB}{https://w.wiki/ucB}.}
@@ -393,10 +395,13 @@ ORDER BY DESC(?softCounter)
 Можно ли её заменить на~безымянную переменную?%
 }% 
 \index{SPARQL!COUNT}
-\begin{lstlisting}[ language=SPARQL, 
-	caption={\href{https://w.wiki/vDv}{Гистограмма операционных систем с~количеством программ, написанных на~каком-либо языке программирования}\protect\footnotemark},
-	label=lst:count_soft_on_os_with_lang
-	]
+\begin{lstlisting}[ 
+    language=SPARQL, 
+	caption={\href{https://w.wiki/vDv}
+                  {Гистограмма операционных систем с~количеством программ, написанных на~каком-либо языке программирования}\protect\footnotemark},
+	label=lst:count_soft_on_os_with_lang,
+    xleftmargin=18pt, 
+    numbers=left]
 #defaultView:BarChart
 SELECT ?os ?osLabel (COUNT(*) AS ?softCount) ?softLang ?softLangLabel WHERE
 {
@@ -416,7 +421,7 @@ ORDER BY DESC(?count) DESC(?osLabel)
 
 \newpage
 При построении гистограммы на рис.~\ref{fig:count-software-written-on-languages} 
-использовался запрос аналогичный запросу~\ref{lst:count_soft_on_os_with_lang}, 
+использовался запрос, аналогичный запросу~\ref{lst:count_soft_on_os_with_lang}, 
 разница только в строке~2, сравните эту строку в старом и новом запросе 
 (всего лишь переставлены переменные):\\ 
 \lstinline|SELECT ?os ?osLabel (COUNT(*) AS ?softCount) ?softLang ?softLangLabel WHERE|\\

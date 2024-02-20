@@ -180,6 +180,13 @@ SELECT ?subject ?subjectLabel ?typeLabel WHERE
 этот огромный запрос~~\ref{lst:sharesBorderWith-oblast-of-Russia}, 
 сделать его компактным и элегантным?
 
+
+\footnotetext[3][3\baselineskip]{Получено: 467 записей в 2017 году 
+и 482 записи в 2021 году. Ссылку на~SPARQL-запрос не приводим из-за её чрезмерной длины. 
+Вот ссылка на исходный запрос (\url{https://w.wiki/4DKD}), 
+от которого мы отталкивались для построения этого мегазапроса. 
+Подумайте, как можно сократить или свернуть этот огромный запрос, сделать его компактным и элегантным?%
+}
 \index{SPARQL!SELECT!вложенный}
 \index{SPARQL!UNION}
 \lstset{numbers=left, firstnumber=1, frame=single}
@@ -293,12 +300,12 @@ SELECT * WHERE
 	\includegraphics[width=1\textwidth]{./chapter/oblast_of_Russia/Graph_Subjects_of_Russia_Siberia_and_the_Far_East_2021.png}
 	\caption[Фрагмент графа субъектов России, 2021 год.]
     {Фрагмент графа субъектов России на~2021 год, 
-    включающий регионы в~Сибире и на~Дальнем Востоке, 
+    включающий регионы Сибири и Дальнего Востока, 
     при этом 
 	республикам соответствуют вершины зелёного цвета (Якутия); 
-	автономным округам~--- фиолетовый (Чукотский автономный округ);
-	краям~--- голубой (Хабаровский край);
-	областям~--- розовый (Амурская область);
+	автономным округам~--- фиолетового (Чукотский автономный округ);
+	краям~--- голубого (Хабаровский край);
+	областям~--- розового (Амурская область);
 	автономным областям~--- вершины салатового цвета (Еврейская автономная область)}%
       \label{fig:sharesBorderWith-oblast-of-Russia-Kaliningrad-fig}%
 \end{marginfigure}
@@ -463,7 +470,7 @@ SPARQL-запрос: \href{https://w.wiki/4e8T}{https://w.wiki/4e8T}.}
 
 
 \newpage
-\subsection{Полнота Викиданных}
+\section{Полнота Викиданных по числу субъектов, имеющих границу с кем-либо} 
 
 С помощью запроса~\ref{lst:sharesBorderWith-empty-oblast-of-Russia} 
 построим список субъектов России 
@@ -496,11 +503,14 @@ SPARQL-запрос: \href{https://w.wiki/4e8T}{https://w.wiki/4e8T}.}
 \index{SPARQL!FILTER!EXISTS}
 \index{SPARQL!MINUS}
 \lstset{numbers=left, firstnumber=1, frame=single}
-\begin{lstlisting}[ language=SPARQL, 
-                    caption={\href{https://w.wiki/5CHV}{Список субъектов РФ с пустым свойством \wdProperty{47}{``shares border with''}}\protect\footnotemark},
-                    label=lst:sharesBorderWith-empty-oblast-of-Russia,
-                    texcl 
-                    ]
+\begin{lstlisting}[ 
+    language=SPARQL, 
+    caption={\href{https://w.wiki/5CHV}
+                  {Список субъектов РФ с пустым свойством 
+                   \wdProperty{47}{\emph{shares border with}}}\protect\footnotemark},
+    label=lst:sharesBorderWith-empty-oblast-of-Russia,
+    texcl 
+]
 # List of `subjects of Russia` without `shares border with`. 
 SELECT 
     ?subject ?subjectLabel 

@@ -1,6 +1,7 @@
 \chapter{Корзины и мячи}
 \label{ch:BucketsAndBalls}
-\marginnote[-6\baselineskip]{Глава основана на статье~--- \cite{bucketsAndBalls}~--- с~разрешения автора.}
+\marginnote[-6\baselineskip]{%
+    {$\star$} Глава основана на статье~--- \cite{bucketsAndBalls}~--- с~разрешения автора.}
 
 Понятие <<связанные данные>> (Linked Data) по-прежнему недопонято и недооценено. 
 Возможно, эти данные кажутся слишком сложными. 
@@ -185,7 +186,8 @@ SELECT DISTINCT ?region ?head ?image
 		\setlength{\fboxrule}{1pt}%
 		\fcolorbox{gray}{gray}{\includegraphics[width=0.3\linewidth]{./intro/bucketsAndBalls/WDQS_drop_down_result_type.PNG}}
 	}
-    \caption[Выбор отображения результатов запроса в виде сетки изображений.]{Выбор отображения результатов запроса в виде \textit{image grid} (сетки изображений)}
+    \caption[Выбор отображения результатов запроса в виде сетки изображений.]
+            {Выбор отображения результатов запроса в виде \textit{image grid}\\(сетки изображений)}
 	\label{fig:WDQS_drop_down_result_type}
 \end{marginfigure}
 
@@ -197,7 +199,7 @@ SELECT DISTINCT ?region ?head ?image
 
 \begin{marginfigure}
 \includegraphics[width=0.99\linewidth]{./intro/bucketsAndBalls/Query_in_basket_and_balls_notation_with_ids.png}
-\caption{Запрос в нотации <<Корзины и мячи>> с~номерами свойств и~объектов Викиданных}
+\caption{Запрос в нотации <<Корзины и мячи>> с~номерами свойств\\и~объектов Викиданных}
 \label{fig:Query_in_basket_and_balls_notation_with_ids}
 \end{marginfigure}
 
@@ -254,7 +256,7 @@ SELECT DISTINCT ?region ?regionLabel ?head ?headLabel ?image
 \includegraphics[width=0.9\linewidth]{./intro/bucketsAndBalls/result_of_request_for_photos_of_heads_of_government.png}
     \caption[Сетка фотографий руководителей областей.]
     {Сетка фотографий руководителей областей 
-        с~названиями файлов с~фотографиями, 
+        с~названиями файлов\\фотографий, 
         с именами руководителей 
         и названиями областей}
         %Руководители областей: их имена и фотографии, названия областей. Результат запроса~\protect\ref{lst:regionsOfHeads} в виде сетки изображений}

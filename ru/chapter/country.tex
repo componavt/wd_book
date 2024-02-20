@@ -107,12 +107,12 @@ ORDER BY (?inception)
 
 Решение и ответ на этот вопрос были найдены на странице Wikidata:Request a query%
 \sidenote{%
-    На странице Викиданных ``\href{https://w.wiki/LX}{Request a query}'' 
+    На странице сайта Викиданных \emph{\href{https://w.wiki/LX}{Request a query}} 
     одни редакторы задают вопросы, как написать тот или иной скрипт, 
     а~другие редакторы им отвечают. Пользуйтесь этим форумом. 
     Вот ссылка с~ответом на~наш вопрос на~этом форуме: 
     \href{https://w.wiki/tLm}{https://w.wiki/tLm}, 
-    см.~раздел ``List of countries''.%
+    см.~раздел \emph{List of countries}.%
 %
 }. Дело~в~том, что конструкция wdt позволяет находить только истинные значения. 
 Для~России предпочтительным ответом (англ. preferred value) 
@@ -152,7 +152,9 @@ ORDER BY ?min_year
 то есть неисторических, стран с известной датой основания.
 
 \begin{lstlisting}[ language=SPARQL, 
-    caption={\href{https://w.wiki/5BCP}{Список стран, отсортированных по дате основания, не включающий исторические страны}\protect\footnotemark},
+    caption={\href{https://w.wiki/5BCP}
+                  {Список стран, отсортированных по дате основания, не включающий\\
+                   исторические страны}\protect\footnotemark},
     label=lst:list_of_country_instance_of_, 
     numbers=none,
 ]
@@ -168,11 +170,10 @@ SELECT ?country ?countryLabel (MIN(?year) AS ?min_year) WHERE
 GROUP BY ?country ?countryLabel
 ORDER BY ?min_year
 \end{lstlisting}
-
 \footnotetext{Получено: 211 стран в 2020 году и 212 стран в 2022 году. Ссылка на~SPARQL-запрос: \href{https://w.wiki/5BCP}{https://w.wiki/5BCP}.}
 
 Например, первое упоминание о~\wdqName{Франции}{142} было в~463~году, 
-о~\wdqName{России}{159}~--- в~862-м, 
+о~\wdqName{России}{159}~--- \mbox{в~862-м}, 
 о~\wdqName{Республике~Косово}{1246}~--- в~2008-м, 
 о~\wdqName{Южном~Судане}{958}~--- в~2011~году. 
 Наибольшее количество стран появилось в 1960 году (16 стран), 
@@ -204,7 +205,7 @@ SELECT ?country ?countryLabel WHERE
 
 
 
-\subsection{Объём Викиданных по современным и историческим странам}
+\section{Полнота Викиданных по современным и историческим странам}
 
 Проанализируем полноту Викиданных на примере исторических и~современных стран. 
 По данным <<Общероссийского классификатора стран мира>> 
@@ -218,16 +219,16 @@ SELECT ?country ?countryLabel WHERE
 <<\href{https://ru.wikipedia.org/?curid=52627}{Список государств}>> 
 не~смогли указать какое-то одно число. 
 Статья Английской Вики\-педии 
-``\href{https://en.wikipedia.org/?curid=68253}{List of sovereign states}'' 
+\emph{\href{https://en.wikipedia.org/?curid=68253}{List of sovereign states}} 
 содержит список из~205 стран. 
 
 Отдельного анализа заслуживают древние, уже не существующие государства, 
-например \wdqName{Ассирия}{41137}. 
-Объекты таких стран на Викиданных являются экземплярами не~объекта country, 
+например страна \wdqName{Ассирия}{41137}. 
+Объекты таких стран в~Викиданных являются экземплярами не~объекта country, 
 а~объекта historical country (историческая страна). 
 %
-С помощью запроса~\ref{lst:List_of_historical_countries} построим список исторических государств. 
-Таких бывших государств на 2020 год оказалось 3~тыс., что на порядок больше числа современных государств.
+С помощью запроса~\ref{lst:List_of_historical_countries} построим список исторических стран, 
+таких на~2020~год оказалось 3~тыс., что на порядок больше числа современных стран.
 %
 %%%%%%%%%%%%%%%% Упражнение 2 %%%%%%%%%%%%%%%%
 \marginnote{%
@@ -337,7 +338,6 @@ SELECT ?country ?countryLabel WHERE
 Этнохороним~--- это название жителей определённой местности, соотнесённое с топонимом. 
 Например, этнохоронимами для России будут россияне, россиянин, россиянка, 
 для~Чехии~--- чехи, чех, чешка.
-
 Помимо географического фактора, новые лексемы, 
     используемые для определения происхождения либо принадлежности, 
     происходят также от этнических, политических, религиозных характеристик людей\autocite{Zhuravleva2012}. 
@@ -347,10 +347,7 @@ SELECT ?country ?countryLabel WHERE
     Также обозначение места происхождения людей может зависеть от политико-административного деления. 
     Например, для обозначения гражданства: Таиланд~--- таиландцы, Канада~--- канадцы. 
     Внутригосударственное деление также может породить новые наименования: Крым~--- крымчане.
-
-
-
-\newpage
+%\newpage
 Построим список стран, у которых есть этнохоронимы на русском языке (запрос~\ref{lst:demonym}).
 
 
@@ -361,8 +358,7 @@ SELECT ?country ?countryLabel WHERE
 ]
 # List of countries with demonyms in Russian
 SELECT ?country ?countryLabel WHERE
-{
-	?country p:P31 [ps:P31 wd:Q6256]. # instance of a country
+{	?country p:P31 [ps:P31 wd:Q6256]. # instance of a country
 	?country wdt:P1549 ?demonym .     # has demonym
 	FILTER((LANG(?demonym)) = "ru")
 	SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
@@ -375,7 +371,7 @@ GROUP BY ?country ?countryLabel
 
 
 
-\subsection{Cписок этнохоронимов стран}
+\section{Cписок этнохоронимов стран}
 
 %%%%%%%%%%%%%%%% Упражнение 4 %%%%%%%%%%%%%%%%
 \marginnote{%
@@ -412,7 +408,7 @@ WHERE
 
 
 
-\subsection{Страны с незаполненными этнохоронимами}
+\section{Страны с незаполненными этнохоронимами}
 
 Построим список стран, у которых нет этнохоронимов на русском языке (запрос~\ref{lst:without_demonym}). 
 Этот список может быть полезен редактору для добавления этнохоронимов в~Викиданные. 
@@ -421,14 +417,17 @@ WHERE
 Благодаря конструкции MINUS в~строках 5--7 запроса~\ref{lst:without_demonym} 
 в итоговый список не попали страны, имеющие этнохоронимы на русском языке.
 
-\newpage
+%\newpage
 \index{SPARQL!FILTER}
 \index{SPARQL!MINUS}
 \index{SPARQL!LANG}
-\begin{lstlisting}[ language=SPARQL, 
-caption={\href{https://w.wiki/teo}{Страны с незаполненными этнохоронимами на русском языке}\protect\footnotemark},
-label=lst:without_demonym, 
-]
+\begin{lstlisting}[ 
+    language=SPARQL, 
+    caption={\href{https://w.wiki/teo}
+                  {Страны с незаполненными этнохоронимами на русском языке}\protect\footnotemark},
+    label=lst:without_demonym, 
+    xleftmargin=18pt, 
+    numbers=left]
 # List of countries without demonyms in Russian
 SELECT ?country ?countryLabel WHERE
 {
@@ -440,18 +439,19 @@ SELECT ?country ?countryLabel WHERE
 }
 GROUP BY ?country ?countryLabel
 \end{lstlisting}
-\footnotetext{Получено: 170 стран на 2017 год и 105 стран на 2021 год. Ссылка на~SPARQL-запрос: \href{https://w.wiki/teo}{https://w.wiki/teo}.}
+\footnotetext{Получено: 170 стран на 2017 год и 105 стран на 2021 год.\\Ссылка на~SPARQL-запрос: \href{https://w.wiki/teo}{https://w.wiki/teo}.}
 
 
 
 
 
 
-\subsection{Количество заполненных этнохоронимов у стран}
+\section{Количество заполненных этнохоронимов у стран}
 
 У одной страны может быть от нуля (если данные не заполнены) до трёх-четырёх этнохоронимов. 
 Например, у Турции есть три названия жителей: турок, турчанка, турки, 
 у~Эфиопии~--- четыре: эфиоп, эфиопка, эфиопы, эфиопки.
+
 Получим список стран, упорядоченный по количеству заполненных в~Викиданных этнохоронимов 
 на разных языках (запрос~\ref{lst:count_demonym}). 
 
@@ -459,14 +459,17 @@ GROUP BY ?country ?countryLabel
 % # List of countries ordered by number of demonyms
 \begin{lstlisting}[ 
     language=SPARQL, 
-    caption={\href{https://w.wiki/5BX5}{Список стран, упорядоченный по количеству заполненных этнохоронимов}},%\protect\footnotemark},
-    label=lst:count_demonym, 
+    caption={\href{https://w.wiki/5BX5}
+                  {Список стран, упорядоченный по количеству заполненных этнохоронимов}\protect\footnotemark},
+    label=lst:count_demonym,
     numbers=none,
 ]
-SELECT ?country ?countryLabel (COUNT(*) AS ?demonyms) WHERE
+SELECT ?country ?countryLabel (COUNT(*) AS ?demonyms) 
+WHERE
 {
   ?country p:P31 [ps:P31 wd:Q6256]; # instance of a country
            p:P1549 [ps:P1549 []].   # has demonym
+
   SERVICE wikibase:label {bd:serviceParam wikibase:language "ru"}
 }
 GROUP BY ?country ?countryLabel 
@@ -480,19 +483,21 @@ ORDER BY DESC(?demonyms)
 По данным на 2017 год, больше всего этнохоронимов у~Соединённых Штатов Америки (41~этнохороним), 
 затем идут Великобритания (40), 
 Германия (40) и Канада (36). 
+
 В~2021~году лидером стала Германия с 64 этнохоронимами, 
 затем идут Россия~(61 этнохороним), Канада~(60) и~США~(60). 
 Таким образом, с 2017 по 2021 год добавилось примерно по~20~этнохоронимов на одну страну.
 
 
 
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \vbox{%
 \section{Формы правления стран}
 %\vspace{-\baselineskip}
 
 Построим пузырьковую диаграмму форм правления стран (запрос~\ref{lst:form_of_government}), 
-где размер пузырка будет соответствовать числу стран с той или иной формой правления.
+где размер пузырька будет соответствовать числу стран с той или иной формой правления.
 }
 
 %%%%%%%%%%%%%%%% Упражнение 4 (TODO: добавить ответ) %%%%%%%%%%%%%%%%
@@ -612,14 +617,17 @@ ORDER BY DESC(?countries) ASC(?form)
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Граф соседних стран}
+%\section{Граф и карта соседних стран}
+\section[Граф и карта соседних стран]{Граф соседних стран}
 %
 \begin{marginfigure}%[7\baselineskip]
-	{
-		\setlength{\fboxsep}{0pt}%
-		\setlength{\fboxrule}{1pt}%
-		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/Neighboring_countries_graph_in_russian_according_to_Wikidata_2017.png}}%
-	}
+%{
+%	\setlength{\fboxsep}{0pt}%
+%	\setlength{\fboxrule}{1pt}%
+%	\fcolorbox{gray}{gray}{
+    \includegraphics[width=\linewidth]{./chapter/country/Neighboring_countries_graph_in_russian_according_to_Wikidata_2017.png}%}%
+%}
+    \vspace{-12pt}
     \caption[Фрагмент графа соседних стран, 2017 год.]{Фрагмент графа соседних стран, в центре Россия, 2017 год}
 	\label{fig:neighboring_countries_2017}%
 \end{marginfigure}
@@ -665,11 +673,13 @@ SELECT DISTINCT ?country ?countryLabel ?border ?sharesBorderWith WHERE
 как <<выключить>> исторические страны и оставить только действующие. 
 
 \begin{marginfigure}
-	{
-		\setlength{\fboxsep}{0pt}%
-		\setlength{\fboxrule}{1pt}%
-		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/Neighboring_countries_graph_in_russian_according_to_Wikidata_2020.png}}%
-	}
+%	{
+%		\setlength{\fboxsep}{0pt}%
+%		\setlength{\fboxrule}{1pt}%
+%		\fcolorbox{gray}{gray}{
+    \includegraphics[width=\linewidth]{./chapter/country/Neighboring_countries_graph_in_russian_according_to_Wikidata_2020.png}%}%
+%	}
+    \vspace{-12pt}
     \caption[Фрагмент графа соседних стран, 2020 год.]{Фрагмент графа соседних стран, в центре Россия, 2020 год}
 	\label{fig:neighboring_countries_2020}%
 \end{marginfigure}
@@ -680,11 +690,13 @@ SELECT DISTINCT ?country ?countryLabel ?border ?sharesBorderWith WHERE
 \subsection{Карта соседних стран России}
 %
 \begin{marginfigure}[2\baselineskip]
-	{
-		\setlength{\fboxsep}{0pt}%
-		\setlength{\fboxrule}{1pt}%
-		\fcolorbox{gray}{gray}{\includegraphics[width=\linewidth]{./chapter/country/Map_of_neighboring_countries_of_Russia_ru.png}}%
-	}
+%	{
+%		\setlength{\fboxsep}{0pt}%
+%		\setlength{\fboxrule}{1pt}%
+%		\fcolorbox{gray}{gray}{
+    \includegraphics[width=\linewidth]{./chapter/country/Map_of_neighboring_countries_of_Russia_ru.png}%}%
+%	}
+    \vspace{-12pt}
     \caption[Карта соседних стран России, 2021 год.]{Карта соседних стран России, включающая 17~стран, 2021 год}
 	\label{fig:neighboring_countries_ru_2020}%
 \end{marginfigure}

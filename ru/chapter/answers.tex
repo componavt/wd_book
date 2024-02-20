@@ -14,7 +14,9 @@
 \chapter*{Ответы}
 \markboth{Ответы}{} % remove "Chapter" numbering in headline (top right)
 \label{ch:answers}
-\addcontentsline{toc}{chapter}{Ответы}
+\addcontentsline{toc}{chapter}{Ответы}% add line to toc but without the number of chapter
+	
+\setcounter{footnote}{0}% restart footnotes
 
 %\TODO uncomment
 %\epigraph{%
@@ -82,7 +84,7 @@
     \AnswerBackref Вопрос на с.~\pageref{lst:lang2}.
 
     Веб-сайты есть у следующих российских производителей: 
-    МиГ, Туполев и Сухой. 
+    <<МиГ>>, <<Туполев>> и <<Сухой>>. 
     Эти сайты можно получить с~помощью запроса~\ref{lst:aircraft_manufactures_lst}. 
 
 \begin{lstlisting}[ 
@@ -274,12 +276,12 @@ ORDER BY DESC (?popArea)
     Вопросы на с.~\pageref{fig:flag_question_human_settlements1}, \pageref{fig:flag_question_human_settlements2}, \pageref{fig:flag_question_human_settlements3}, \pageref{fig:flag_question_human_settlements4}, \pageref{fig:flag_question_human_settlements5}.
 
 Гербы, изображенные на с.~\pageref{fig:flag_question_human_settlements1}, 
-    с.~\pageref{fig:flag_question_human_settlements2} и 
-    с.~\pageref{fig:flag_question_human_settlements5}, 
+    \pageref{fig:flag_question_human_settlements2} и 
+    \pageref{fig:flag_question_human_settlements5}, 
     являются гербами отечественных населённых пунктов. 
     Герб~на~с.~\pageref{fig:flag_question_human_settlements3} 
     принадлежит \ruwiki{4dUc}{чешскому} населённому пункту, 
-    герб~на~рис.~\pageref{fig:flag_question_human_settlements4}~--- 
+    герб~на~с.~\pageref{fig:flag_question_human_settlements4}~--- 
     \ruwiki{4dUf}{украинскому}. 
 
 Ответ можно получить с~помощью запроса~\ref{lst:flag_question_human_settlements}. 
@@ -322,7 +324,10 @@ SELECT ?hum ?humLabel ?image WHERE {
     Ответ на~вопрос можно получить, выполнив запрос~\ref{lst:cities_geographic_objects}. 
     Значение свойства \wdProperty{138}{named after} 
     показывает, в честь какого объекта Викиданных был назван город.
-   
+
+\lstset{escapeinside={(*@}{@*)}}
+\sethlcolor{pink}
+%
 \index{SPARQL!FILTER}
 \index{SPARQL!Поиск подклассов!wdt:P31/wdt:P279*}
 \begin{lstlisting}[ language=SPARQL, 
@@ -332,18 +337,21 @@ SELECT ?hum ?humLabel ?image WHERE {
                     ]
 SELECT DISTINCT ?city ?cityLabel ?namedAfter ?namedAfterLabel 
 WHERE {
-  ?city wdt:P31/wdt:P279* wd:Q7930989. # instances/subclasses of "city/town" 
-  ?city wdt:P138 ?namedAfter. # with filled property "named after"
+  ?city wdt:P31/wdt:P279* (*@\hl{wd:Q7930989}@*). # instances/subclasses of "city/town" 
+  ?city wdt:P138 ?namedAfter.          # with filled property "named after"
   FILTER(?city = wd:Q1341 || ?city = wd:Q156046 ||
          ?city = wd:Q2770 || ?city = wd:Q1957 ||
          ?city = wd:Q5655 || ?city = wd:Q175651)
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru" }
 }
 \end{lstlisting}%
-\marginnote[-4.4cm]{В строке 3 запроса~\ref{lst:cities_geographic_objects} 
+\marginnote[-4.4cm]{
+    $\twemoji[width=24pt]{cityscape}$\,\,
+    В строке 3 запроса~\ref{lst:cities_geographic_objects} 
     после конструкции \lstinline|wdt:P31/wdt:P279*| следует объект Викиданных, 
     объединяющий \wdqName{city}{515} и \wdqName{town}{3957} 
-    и называющийся \wdqName{city/town}{7930989}. 
+    и называющийся \hl{{\wdqName{city/town}{7930989}}}. 
+%                         \wdqName{city/town}{7930989}. 
     Такой поиск с~помощью подклассов позволяет найти экземпляры сразу обоих типов городов. 
     Подробности см. в~главе~<<\nameref{sect:city-completness}>>, 
     в~тексте, предшествующем запросу~\ref{lst:example_subclasses_city} на~с.~\pageref{lst:example_subclasses_city}.
@@ -390,7 +398,7 @@ GROUP BY ?city ?cityLabel ?inceptionDate
 ORDER BY ASC(?year)
 \end{lstlisting}
 \footnotetext{Из 6 городов, заданных в строках 7--8, 
-              получено 4 города в России, основанные до 1620 года. 
+              получено 4 города в России, основанные до~1620 года. 
               Ссылка на SPARQL-запрос: \href{https://w.wiki/6idC}{https://w.wiki/6idC}.%
 } 
 
@@ -880,7 +888,8 @@ SELECT ?base ?baseLabel ?baseImage ?baseLogo
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
 }
 \end{lstlisting}
-\footnotetext{Получено: 363 операционных систем с~<<предками>> на 2024 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/8pfp}{https://w.wiki/8pfp}.}
+\footnotetext{Получено: 363 операционные системы с~<<предками>> на 2024 год.\newline 
+              Ссылка на SPARQL-запрос: \href{https://w.wiki/8pfp}{https://w.wiki/8pfp}.}
 \end{task}
 
 
@@ -898,7 +907,8 @@ SELECT ?base ?baseLabel ?baseImage ?baseLogo
     Язык программирования \href{https://ru.wikipedia.org/?curid=4500}{Ада} 
     разработали Жан Ишбиа и С.\,Такер Тафт, 
     язык \href{https://ru.wikipedia.org/?curid=11379}{Форт}~--- Чарльз Мур, 
-    а~создателями языка \href{https://ru.wikipedia.org/wiki/Erlang}{Erlang} считаются Джо Армстронг, Роберт Вирдинг 
+    а~создателями языка \href{https://ru.wikipedia.org/wiki/Erlang}{Erlang} 
+    считаются Джо Армстронг, Роберт Вирдинг 
     и шведская компания Ericsson. 
     Ответ на~вопрос можно получить с~помощью запроса~\ref{lst:prog_lang_creators}. 
 
@@ -1066,20 +1076,22 @@ ORDER BY DESC(?count)
             numbers=none,
                 ]
 # The ship with maximum length
-SELECT ?ship ?shipLabel ?max_length WHERE {
+SELECT ?ship ?shipLabel ?max_length WHERE 
 {
-    SELECT (MAX(?length) as ?max_length) WHERE
+  { SELECT (MAX(?length) as ?max_length) WHERE
     {
         ?ship wdt:P31 wd:Q11446; # is ship
               wdt:P2043 ?length
     }
-}
-  {?ship wdt:P31 wd:Q11446; wdt:P2043 ?max_length}
+  }
+  {?ship wdt:P31 wd:Q11446;      # is ship
+         wdt:P2043 ?max_length}
 		
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
 }
 \end{lstlisting}
-\footnotetext{Самым длинным кораблём оказался непостроенный \href{https://ru.wikipedia.org/?curid=2150815}{Хаббакук} длиной 1200~метров 
+\footnotetext{Самым длинным кораблём оказался непостроенный 
+    \href{https://ru.wikipedia.org/?curid=2150815}{<<Хабаккук>>} длиной 1200~метров 
               (проект британских кораблестроителей). 
               Ссылка на SPARQL-запрос: \wwiki{3L2R}.}
 
@@ -1111,8 +1123,8 @@ SELECT ?ship ?shipLabel ?image ?beam WHERE
 ORDER BY DESC(?beam)
 \end{lstlisting}
 \footnotetext{Самым широким кораблем также оказался 
-    \href{https://www.wikidata.org/wiki/Q1156392}{проект авианосца Хабаккук} 
-    из льда и опилок, ширина которого составила 180 метров. 
+    \href{https://www.wikidata.org/wiki/Q1156392}{проект авианосца <<Хабаккук>>} 
+    из льда и~опилок, ширина которого составила 180 метров. 
     Среди реально существовавших кораблей самым широким был норвежский корабль 
     \href{https://www.wikidata.org/wiki/Q11987454}{M/S Isosaari (Q11987454)} шириной 99 метров. 
     SPARQL-запрос: \href{https://w.wiki/wKv}{https://w.wiki/wKv}.}
@@ -1165,8 +1177,10 @@ SELECT DISTINCT ?film ?filmLabel ?ship ?shipLabel ?image WHERE
     то есть основной или главной темой фильма должен быть указан корабль 
     (переменная \lstinline|?ship|). 
 
+    \newpage
     \index{SPARQL!Квантификатор!+}
-    В~строке~9 запроса~\ref{lst:cinema_ship} знак + аналогичен квантификаторам регулярного выражения и означает, 
+    В~строке~9 запроса~\ref{lst:cinema_ship} знак + 
+    аналогичен квантификаторам регулярного выражения и означает, 
     что свойство \wdProperty{31}{is~instance} может повториться один или более раз. 
     То есть \lstinline|wdt:P31+| можно раскрыть как \lstinline|wdt:P31| (переменная \lstinline|?ship| является экземпляром корабля) 
     или \mbox{\lstinline|wdt:P31\\wdt:P31|} (переменная \lstinline|?ship| является экземпляром некоторого объекта, который является экземпляром корабля) 
@@ -1180,9 +1194,10 @@ SELECT DISTINCT ?film ?filmLabel ?ship ?shipLabel ?image WHERE
 
 
 Найдём корабли, о~которых написано в~книгах, с~помощью запроса~\ref{lst:books_ship}. 
-    Поясним для этого и предыдущего скрипта, 
+    Поясним для этого и~предыдущего скрипта, 
     что будут найдены только такие пары корабль-книга (корабль-фильм), 
-    для~которых существуют в Викиданных и объект-корабль, и объект-книг. Таких пар не может быть много. 
+    для~которых существуют в Викиданных и объект-корабль, и объект-книга. 
+    Таких пар не может быть много. 
 
 
 \index{SPARQL!Анонимная переменная}
@@ -1274,7 +1289,7 @@ SELECT ?rocket ?rocketLabel ?img WHERE
     используется в разных областях. 
     На~2024 год с~помощью запроса~\ref{lst:product_model} 
     была найдена только одна серия космических кораблей, 
-    а именно: серия кораблей \wdqName{Союз 7К-Л1}{1959194}, 
+    а именно: серия кораблей \wdqName{<<Союз 7К-Л1>>}{1959194}, 
     разрабатываемых для~полёта к~Луне. 
     Обратите внимание, что в~запросе~\ref{lst:product_model} нет ограничений на~страну. 
     Полагаем, что с~ростом Викиданных серий будет становиться больше. 

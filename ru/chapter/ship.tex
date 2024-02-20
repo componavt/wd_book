@@ -13,7 +13,8 @@
 
 \begin{marginfigure}[0.0cm]
   \includegraphics[width=0.9\linewidth]{chapter/ship/Russian_ships_topic_imbalance.png}
-  \caption{Индекс Джини~--- равномерность заполнения свойств <<кораблей>>, 2020 год}
+  \caption{Индекс Джини~--- равномерность заполнения свойств <<кораблей>>,\\
+           2020 год}
   \label{fig:prowd_ships-unbalanced}%
 \end{marginfigure}
 
@@ -59,9 +60,9 @@ SELECT ?ship ?shipLabel WHERE {
 
 \newpage
 По данным ProWD, больше всего свойств (34 свойства) имеет 
-\href{https://www.wikidata.org/wiki/Q281147}{ледокол Красин (Q281147)}, 
+\href{https://www.wikidata.org/wiki/Q281147}{ледокол <<Красин>> (Q281147)}, 
 а~меньше всего, по~пять свойств, у~кораблей 
-\href{https://www.wikidata.org/wiki/Q99198666}{Ливень (Q99198666)} и 
+\href{https://www.wikidata.org/wiki/Q99198666}{<<Ливень>> (Q99198666)} и 
 \href{https://www.wikidata.org/wiki/Q28155282}{Dispatch (Q28155282)}.
 
 В Викиданных, как правило, записывается не прямая принадлежность корабля стране, 
@@ -106,12 +107,13 @@ SELECT ?ship ?shipLabel WHERE {
 \index{SPARQL!Свойство!operator}
 \index{SPARQL!Свойство!country}
 \index{SPARQL![]!/ последовательность свойств}
-Обратите внимание на~строку~7 в~запросе~\ref{lst:ships_with_ru_op}. 
-В~этой строке записаны последовательно два свойста \texttt{wdt:P137/wdt:P17}:
+\noindent Обратите внимание на~строку~7 в~запросе~\ref{lst:ships_with_ru_op}. 
+В~этой строке записаны последовательно два свойства \texttt{wdt:P137/wdt:P17}:
 \begin{itemize}
 	\item \texttt{wdt:P137}~--- свойство \wdProperty{137}{operator} связывает корабль и оператора судов;
 	\item \texttt{wdt:P17}~--- свойство \wdProperty{17}{country} связывает оператора судов и страну.
 \end{itemize}
+
 Таким образом, эта строка позволяет кратко и напрямую задать страну для корабля 
 посредством свойства <<оператор>>. 
 Такое последовательное указание свойств (\texttt{wdt:P137/wdt:P17}) 
@@ -137,7 +139,7 @@ SELECT ?ship ?shipLabel WHERE {
 как указано в базе данных судов\sidenote{%
 %
     FleetMon Tracking the Seven Seas. URL: \href{https://www.fleetmon.com/vessels/}
-                                                {https://www.fleetmon.com/vessels/}
+                                                {https://www.fleetmon.com/vessels/}.
 }. % eo sidenote
 На 2021 год Викиданные содержали только \num{71206} кораблей, 
 что составило 4,5\,\% от~их~общего числа.
@@ -149,7 +151,7 @@ SELECT ?ship ?shipLabel WHERE {
 %
 %   Волков Р., Бричевский А. RussianShips.info. 
     URL: \href{http://russianships.info/today/}
-              {http://russianships.info/today/}
+              {http://russianships.info/today/}.
 }. % eo sidenote
 В это же время запрос~\ref{lst:ships_with_ru_op} возвращает лишь 578 кораблей, 
 что составляет 3,27\,\% от~общего числа российских кораблей. 
@@ -204,11 +206,12 @@ WHERE
 \href{https://www.wikidata.org/wiki/Property:P607}{conflict (P607)} (война/сражение). 
 В~то~же время военные конфликты и военные операции, 
 которые являются частью войн,~--- это разные понятия. 
-Корабли на Викиданных можно условно поделить на два типа:
+Корабли в~Викиданных можно условно поделить на два типа:
 
 \begin{enumerate}
   \item Корабли, у которых военные операции перечисляются в~одном ряду с~военными конфликтами. 
-      Например, у~\href{https://www.wikidata.org/wiki/Q4148613}{эсминца Гремящий (Q4148613)} 10 войн/сражений, 
+      Например, у~\href{https://www.wikidata.org/wiki/Q4148613}{эсминца <<Гремящий>> (Q4148613)} 
+        10 войн/сражений, 
         см. запрос~\ref{lst:grem_wars}. 
         Такое большое число связано с тем, 
         что корабль принял участие во многих 
@@ -228,7 +231,7 @@ WHERE
         участие в военной кампании и арктическом конвое указаны как часть Второй мировой войны 
         с помощью квалификатора 
         \href{https://www.wikidata.org/wiki/Property:P1012}{including (P1012)}. 
-        Таким образом, в Викиданных у этого крейсера указана одна война/сра\-жение.
+        Таким образом, в~Викиданных у~этого крейсера указана одна война/сра\-жение.
 \end{enumerate}
 
 У кораблей первого типа при поиске по свойству~\wdProperty{607}{conflict} 
@@ -237,12 +240,13 @@ WHERE
 
 
 \begin{lstlisting}[ 
-        language=SPARQL, 
-        caption={{\href{https://w.wiki/vuo}
-                 {Военные конфликты, в которых участвовали эсминец Гремящий\\и HMS Trinidad}}\protect\footnotemark}, 
-            label=lst:grem_wars, 
-            numbers=none,
-            ]
+    language=SPARQL, 
+    caption={{\href{https://w.wiki/vuo}
+                   {Военные конфликты, в которых участвовали эсминец <<Гремящий>>\\
+                    и~крейсер HMS Trinidad}}\protect\footnotemark}, 
+    label=lst:grem_wars, 
+    numbers=none,
+]
 # List of military conflicts of the two ships 
 SELECT ?ship ?shipLabel ?conflict ?conflictLabel
 WHERE
@@ -253,7 +257,11 @@ WHERE
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
 }
 \end{lstlisting}
-\footnotetext{Получено: 10 конфликтов у \href{https://www.wikidata.org/wiki/Q4148613}{эсминца Гремящий (Q4148613)} и один конфликт у крейсера \href{https://www.wikidata.org/wiki/Q1565575}{HMS Trinidad (Q1565575)}, 2021 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/vuo}{https://w.wiki/vuo}.}
+\footnotetext{Получено: 
+    10 конфликтов у \href{https://www.wikidata.org/wiki/Q4148613}{эсминца <<Гремящий>> (Q4148613)} 
+    и~один конфликт у~крейсера \href{https://www.wikidata.org/wiki/Q1565575}{HMS Trinidad (Q1565575)}, 
+    2021 год. 
+    Ссылка на SPARQL-запрос: \href{https://w.wiki/vuo}{https://w.wiki/vuo}.}
 
 
 
@@ -497,16 +505,16 @@ WHERE {
 %\end{figure}
 
 При просмотре полного графа (и даже на фрагменте, рис.~\ref{fig:museum_graph}) 
-видна уникальность научно-иссле\-до\-ва\-тель\-ского судна \wdqName{Витязь}{1516653}. 
+видна уникальность научно-иссле\-до\-ва\-тель\-ского судна \wdqName{<<Витязь>>}{1516653}. 
 По Викиданным (запрос~\ref{lst:museum_graph}), 
-это единственный музей-корабль России, связывающий Россию с другими странами. 
-Изначально этот теплоход был построен и находился на службе в~Германии, 
-что отражено в свойстве Витязя 
+это единственный музей-корабль России, связывающий её с другими странами. 
+Изначально этот теплоход был построен и находился на~службе в~Германии, 
+что отражено в свойстве <<Витязя>> 
 \href{https://www.wikidata.org/wiki/Property:P137}{operator (P137)}=``Кригсма\-рине'' 
 (это название военно-морских сил в Третьем рейхе).
 
 Вершины графа на рис.~\ref{fig:museum_graph} кликабельны. 
-Например, можно кликнуть на \href{https://www.wikidata.org/wiki/Q168713}{крейсер Аврора (Q168713)}, 
+Например, можно кликнуть на \href{https://www.wikidata.org/wiki/Q168713}{крейсер <<Аврора>> (Q168713)}, 
 тогда появятся дополнительные вершины, соответствующие свойствам этого крейсера (рис.~\ref{fig:aurora_graph}).
 
 
@@ -516,7 +524,7 @@ WHERE {
       чтобы граф не содержал вершин-стран без кораблей-музеев. 
   
   \item Измените запрос~\ref{lst:museum_graph} так, чтобы граф содержал 
-      только те~страны, которые участвовали больше, чем в~одном конфликте.
+      только те~страны, которые участвовали больше чем в~одном конфликте.
 \end{enumerate}
 
 

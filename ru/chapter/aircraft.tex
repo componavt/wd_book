@@ -71,10 +71,10 @@ WHERE
 \marginnote{\MarginQuestion У каких из представленных ниже российских производителей самолётов есть веб-сайты?%}
 \begin{itemize}
 %\item \href{https://w.wiki/vDw}{МиГ}
-\item \ruwiki{vDw}{МиГ}
+\item \ruwiki{vDw}{<<МиГ>>}
 \item \ruwiki{vDx}{Саратовский авиационный завод}
-\item \ruwiki{vDy}{Туполев}
-\item \ruwiki{vDz}{Сухой}
+\item \ruwiki{vDy}{<<Туполев>>}
+\item \ruwiki{vDz}{<<Сухой>>}
 \end{itemize}
 См. ответ %~\ref{answer:aircraft_manufacturers} 
 на с.~\pageref{answer:aircraft_manufacturers}.
@@ -112,10 +112,10 @@ GROUP BY ?manufacture ?manufactureLabel
 
 \begin{tabular}{ l | l }
 Компания & Дата основания \\ \hline
-\ruwiki{vDw}{МиГ} & 1939 \\
-\ruwiki{vE4}{Вымпел} & 18 ноября 1949 \\
-\ruwiki{vDy}{Туполев} & 8 декабря 1939 \\
-\ruwiki{vDz}{Сухой} & 22 октября 1922 \\
+\ruwiki{vDw}{<<МиГ>>} & 1939 \\
+\ruwiki{vE4}{<<Вымпел>>} & 18 ноября 1949 \\
+\ruwiki{vDy}{<<Туполев>>} & 8 декабря 1939 \\
+\ruwiki{vDz}{<<Сухой>>} & 22 октября 1922 \\
 \end{tabular}
 
 \vspace{5pt}
@@ -174,7 +174,7 @@ ORDER BY DESC(?planes_produced)
 \index{SPARQL!FILTER!>}
 \begin{lstlisting}[ 
             language=SPARQL, 
-            caption={\href{https://w.wiki/v4N}{Список, включающий только те самолёты, которые были выпущены в количестве более 10~штук}\protect\footnotemark}, 
+caption={\href{https://w.wiki/v4N}{Список, включающий только те самолёты, которые были выпущены в количестве\\более 10~штук}\protect\footnotemark}, 
             label=lst:lang3_1, 
             xleftmargin=18pt, 
             numbers=left,
@@ -211,10 +211,10 @@ ORDER BY (?planes_produced)
 
 \begin{tabular}{ l | l }
 Компания & Штаб-квартира \\ \hline
-\ruwiki{vEP}{Камов} & Улан-Удэ \\
-\ruwiki{vER}{Авиадвигатель} & Пермь \\
+\ruwiki{vEP}{<<Камов>>} & Улан-Удэ \\
+\ruwiki{vER}{<<Авиадвигатель>>} & Пермь \\
 \ruwiki{vEL}{Улан-Удэнский завод} & Москва \\
-\ruwiki{vDz}{Сухой} & Люберцы \\
+\ruwiki{vDz}{<<Сухой>>} & Люберцы \\
 \end{tabular}
 
 \vspace{5pt}
@@ -250,7 +250,7 @@ SELECT (SUM(?count) as ?sum) WHERE {
   
   \item По оси $X$ отложить число рассматриваемых моделей самолётов 
       (то есть при $x = 1$ мы рассматриваем число выпущенных самолётов первой модели, 
-        при $x = 2$~--- число выпущенных самолётов первой и второй модели и так далее). 
+        при $x = 2$~--- число выпущенных самолётов первой и~второй модели и так далее). 
         По оси $Y$ взять значение $F(n) = \sum\limits_{i=1}^n f(i)$, 
         где $f(i)$~--- число выпущенных самолётов модели $i$. 
         При этом выполняется условие $f(i) > f(j)$, при $i < j$, 
