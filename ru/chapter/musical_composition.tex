@@ -1,6 +1,11 @@
 \chapter{Музыкальные композиции}
 \label{ch:musical-composition}
-Глава посвящена исследованию музыкальных композиций на основе Викиданных. С помощью SPARQL-запросов, вычисляемых на объектах типа <<музыкальная композиция>> в~Викиданных получены списки: всех музыкальных композиций, музыкальных композиций, имеющих композиторов, музыкальных композиций, объединённых по жанрам и по годам, также построена пузырьковая диаграмма, показывающая композиторов с наибольшим количеством композиций. Найден список музыкальных произведений в Викиданных, для которых будет законно зарузить их аудиозапись на Викисклад, поскольку истек их копирайт.
+Глава посвящена исследованию музыкальных композиций. 
+С помощью SPARQL-запросов, вычисляемых на объектах типа <<музыкальная композиция>> в~Викиданных, 
+получены списки музыкальных композиций, список наиболее плодовитых композиторов, 
+найдены популярные музыкальные жанры. 
+Получен список музыкальных произведений в Викиданных, 
+для которых будет законно зарузить их аудиозапись на Викисклад, поскольку истек срок копирайта.
 
 \section{Число <<Музыкальных композиций>> и жанры}
 
@@ -9,12 +14,13 @@
 
 Построим список всех музыкальных композиций с помощью запроса~\ref{lst:musical_composition}.
 
-\begin{lstlisting}[ language=SPARQL,
-                    caption={\href{https://w.wiki/85dR}{Список всех  музыкальных композиций}\protect\footnotemark},
-                    label=lst:musical_composition,
-                    texcl,
-	         numbers=none
-                    ]
+\begin{lstlisting}[ 
+    language=SPARQL,
+    caption={\href{https://w.wiki/85dR}{Список всех  музыкальных композиций}\protect\footnotemark},
+    label=lst:musical_composition,
+    texcl,
+    numbers=none
+    ]
 # List of all musical compositions
 SELECT ?composition ?compositionLabel 
 WHERE {
@@ -22,12 +28,34 @@ WHERE {
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en" }
 }
 \end{lstlisting}%
-\footnotetext{Получено: \num{5495} записей на 2017 год и \num{150,5} тыс. записей на~2023 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/85dR}{https://w.wiki/85dR}.}
+\footnotetext{Получено: \num{5495} записей на 2017 год и \num{150,5} тыс. записей на~2023 год. 
+        Ссылка на~SPARQL-запрос: \href{https://w.wiki/85dR}{https://w.wiki/85dR}.}
 
 Наиболее полными и проработанными примерами музыкальных композиций на Викиданных являются: <<\wdqName{Волшебная флейта}{5064}>>, <<\wdqName{К Элизе}{11980}>>, <<\wdqName{Реквием}{207875}>>, <<\wdqName{Маленькая ночная серенада}{12025}>>, <<\wdqName{Соната си синор}{63681379}>>.
 
-В 2022 году по запросу~\ref{lst:musical_composition} найдено \num{106,7} тыс. музыкальных композиций, а в 2023~--- \num{150,5} тыс. музыкальных композиций, вместо \num{5,5} тыс. в 2017 году. Увеличение числа композиций связано с тем, что эти объекты Викиданных являются теперь не экземплярами объекта «музыкальное произведение», а экземплярами различных подклассов «музыкальное произведение». При поиске подклассов объекта «музыкальное произведение» можно найти такие жанры: <<\wdqName{песня}{7366}>>, <<\wdqName{духовная песня}{856713}>>, <<\wdqName{гимн}{484692}>>. Более подробно анализ музыкальных жанров будет представлен в разделе <<Количество музыкальных произведений по~жанрам>> на стр. 96.
+В 2022 году по запросу~\ref{lst:musical_composition} найдено \num{106,7} тыс. музыкальных композиций, 
+а~в~2023~--- \num{150,5} тыс., вместо \num{5,5} тыс. в~2017 году. 
+Увеличение числа композиций связано с тем, что эти объекты Викиданных являются теперь не экземплярами объекта «музыкальное произведение», а экземплярами различных подклассов «музыкальное произведение». При поиске подклассов объекта «музыкальное произведение» можно найти такие жанры: <<\wdqName{песня}{7366}>>, <<\wdqName{духовная песня}{856713}>>, <<\wdqName{гимн}{484692}>>. Более подробно анализ музыкальных жанров будет представлен в разделе <<Количество музыкальных произведений по~жанрам>> на стр. 96.
 
+\TODO Владимир, так не годится писать плейнтекстом: <<на стр. 96>>, 
+поскольку, например, в этом PDF-файле всего 49 страниц. 
+Используйте команду \verb|\pageref| с аргументом label, 
+который задаётся в~начале того раздела, на который Вы хотите сослаться. 
+И между предлогом и словом нужен неразрывный пробел. 
+Тогда получится, например так: 
+\begin{verbatim}
+на~с.~\pageref{ch:BucketsAndBalls}. 
+\end{verbatim}
+Здесь в начале метки ``ch:BucketsAndBalls'' стоит ``ch''~--- это сокращение от chapter (глава), 
+чтобы не путать с другими метками (таблицами, рисунками). 
+
+
+\TODO Добавьте описание к рис.~\ref{fig:hier-music}.
+\begin{marginfigure}[0\baselineskip]
+	\includegraphics[width=1\textwidth]{./chapter/musical_composition/hierarchy_of_music_classes_WD_2023.png}
+	\caption[Иерархия музыкальных классов]{Фрагмент иерархии музыкальных классов в Викиданных, 2023 год}%
+	\label{fig:hier-music}%
+\end{marginfigure}
 Найдём количество музыкальных композиций в каждом жанре с помощью запроса~\ref{lst:music _in_each_subclass}.
 
 \begin{lstlisting}[ language=SPARQL,
@@ -46,14 +74,32 @@ ORDER BY DESC (?count)
 \end{lstlisting}%
 \footnotetext{Получено: \num{161} подкласс музыкальных композиций на 2022 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/8PzR}{https://w.wiki/8PzR}.}
 
+\TODO Постарайтесь, чтобы комментарии (в коде выше) не вылезали за серый фон. 
+Или пишите более кратко или перенесите комментарий на новую строку.
+
+\TODO После предыдущего запроса~\ref{lst:music _in_each_subclass} 
+обратите внимание читателя, 
+что в этом запросе используется только левая часть рис.~\ref{fig:hier-music}, 
+а именно:  ``musical work/composition (Q105543609)''. 
+Поэтому в подклассах нет ни сонаты, ни серенады. 
+Владимир, предлагаю Вам добавить в запрос объект ``type of musical work/composition (Q107487333)'' 
+и искать в том числе и по подклассам этого объекта, то есть результатов должно стать больше. 
+В результатах должны появиться жанры: соната и серенада.
+
+\TODO Общее пожелание. Добавьте к запросам, которые возвращают числа~--- данные за 2024 год, 
+при этом оставляйте данные (число результатов) за предыдущие годы.
+
 Теперь подсчитаем общее суммарное число музыкальных произведений с учётом музыкальных композиций в подклассах. Для этого добавим в~запрос~\ref{lst:music _in_each_subclass} команду \lstinline|SUM()| в~строку~2 и удалим лишние строки, чтобы получить запрос~\ref{lst:The_total_number_of_musical_works_for_all_subclasses}.
 
-\begin{lstlisting}[ language=SPARQL,
-                    caption={\href{https://w.wiki/5$BT}{ Суммарное число музыкальных произведений с учётом музыкальных композиций в подклассах}\protect\footnotemark},
-                    label=lst:The_total_number_of_musical_works_for_all_subclasses,
-                    texcl,
-	         xleftmargin=18pt
-                    ]
+
+\begin{lstlisting}[ 
+    language=SPARQL,
+    caption={\href{https://w.wiki/5$BT}
+                  {Суммарное число музыкальных произведений с~учётом музыкальных композиций в~подклассах}\protect\footnotemark},
+    label=lst:The_total_number_of_musical_works_for_all_subclasses,
+    texcl,  
+    xleftmargin=18pt
+    ]
 # The total number of musical works for all subclasses 
 SELECT (SUM(?count) AS ?sum) WHERE{
   SELECT (COUNT(?music) AS ?count) WHERE {
@@ -62,16 +108,20 @@ SELECT (SUM(?count) AS ?sum) WHERE{
   }
 }
 \end{lstlisting}%
-\footnotetext{Получено: \num{145046} музыкальных произведений на 2022 год и \num{164} тыс. на 2023 год. Ссылка на~SPARQL-запрос: \href{https://w.wiki/5$BT}{https://w.wiki/5\$BT}.}
+\footnotetext{Получено: 145~тыс. музыкальных произведений на 2022 год и 164~тыс. на 2023 год. Ссылка на~SPARQL-запрос: \href{https://w.wiki/5$BT}{https://w.wiki/5\$BT}.}
 
-Можно записать этот код еще короче. Переменная \lstinline|?type| нам не нужна, поэтому можно обойтись без неё, а 4 и 5 строки поменяем местами, получаем запрос~\ref{lst:The_total_number_of_musical_works_for_all_subclasses_up}.
+Можно записать этот код еще короче. 
+Переменная \lstinline|?type| нам не нужна, поэтому можно обойтись без неё, 
+а~строки 4 и 5 поменяем местами, получаем запрос~\ref{lst:The_total_number_of_musical_works_for_all_subclasses_up}.
 
-\begin{lstlisting}[ language=SPARQL,
-                    caption={\href{https://w.wiki/5$BP}{ Суммарное число музыкальных произведений с учётом музыкальных композиций в подклассах}\protect\footnotemark},
-                    label=lst:The_total_number_of_musical_works_for_all_subclasses_up,
-                    texcl,
-	         numbers=none
-                    ]
+\begin{lstlisting}[ 
+    language=SPARQL,
+    caption={\href{https://w.wiki/5$BP}
+                  {Суммарное число музыкальных произведений с~учётом музыкальных композиций в~подклассах}\protect\footnotemark},
+    label=lst:The_total_number_of_musical_works_for_all_subclasses_up,
+    texcl,
+    numbers=none
+    ]
 # The total number of musical works for all subclasses 
 SELECT (SUM(?count) AS ?sum) WHERE{
   SELECT (COUNT(?music) AS ?count) WHERE {
@@ -85,37 +135,78 @@ SELECT (SUM(?count) AS ?sum) WHERE{
 По сравнению с 2017 годом, когда было получено \num{5494} записи, число записей увеличилось в десятки раз. Это связано с тем, что за 5 лет было добавлено множество новых музыкальных произведений, а также старых, которые не были учтены ранее.
 Напишем скрипт~\ref{lst:Musical_comp_2018--2023} и посмотрим сколько новых и старых (то есть созданных до 2018 года) музыкальных произведений было добавлено в~Викиданные за~период с~2018 года по~2023 год.
 
-\begin{lstlisting}[ language=SPARQL,
-                    caption={\href{https://w.wiki/8P$N}{ Количество музыкальных композиций в период 2018--2023 годы}\protect\footnotemark},
-                    label=lst:Musical_comp_2018--2023,
-                    texcl,
-	         xleftmargin=18pt
-                    ]
+\begin{lstlisting}[ 
+    language=SPARQL,
+    caption={\href{https://w.wiki/9RYq}{ Количество музыкальных композиций в период 2018--2023 годы}\protect\footnotemark},
+    label=lst:Musical_comp_2018--2023,
+    xleftmargin=18pt,
+    numbers=left,
+    ]
 # The total number of musical works for all subclasses 
 SELECT (SUM(?count) AS ?sum) WHERE{
-  SELECT (COUNT(?composition) AS ?count) WHERE{
-    ?composition wdt:P31 wd:Q105543609;  # subclass of musical composition
-     wdt:P577 ?publication.                # composition has a publication date
-  BIND(YEAR(?publication) AS ?year)
-  FILTER(?publication > "2018-01-01T00:00:00Z"^^xsd:dateTime)
-    }
+  SELECT (COUNT(?music) AS ?count) WHERE{
+    ?music wdt:P31 wd:Q105543609;  # subclass of musical composition
+           wdt:P577 ?publication.  # has a publication date
+    BIND(YEAR(?publication) AS ?year)
+    FILTER(?publication > "2018-01-01T00:00:00Z"^^xsd:dateTime)
+  }
 }
 \end{lstlisting}%
-\footnotetext{Получено: \num{3234} музыкальных произведений за 2018--2023 годы. Ссылка на SPARQ-запрос: \href{https://w.wiki/8P$N}{https://w.wiki/8P\$N}.}
+\footnotetext{Получено: \num{3234} музыкальных произведений за 2018--2023 годы. Ссылка на SPARQ-запрос: \href{https://w.wiki/9RYq}{https://w.wiki/9RYq}.}
 
-За пять лет было добавлено \num{159} тыс. произведений, из них всего \num{3234} были написаны композиторами за 2018--2023 годы, что составляет 2\,\% от всех добавленных произведений. Остальные \num{156} тыс. произведений были написаны до 2018 года, а добавлены в Викиданные после 2017 года.
+\TODO Владимир, я вернул в запрос~\ref{lst:Musical_comp_2018--2023} нумерацию строк. 
+Владимир, я не понял, почему Вы удалили нумерацию. 
+Можете посмотреть сканы в ТГ от 13 декабря, которые я Вам присылал, насчитал там 6 скриптов с нумерацией. 
+Прошу вернуть нумерацию строк в те скрипты, на номера строк которых есть отсылки из текста. 
 
-Сравнив результаты запросов~\ref{lst:Musical_comp_2018--2023} и~\ref{lst:The_total_number_of_musical_works_for_all_subclasses_up} мы не учли следующую проблему: если не учитывать строку 7 в запросе~\ref{lst:Musical_comp_2018--2023}, то получим \num{51} тыс. музыкальных произведений, что почти в~три раза меньше, чем \num{159} тыс. проиведений. Связано это с тем, что в запросе~\ref{lst:Musical_comp_2018--2023} мы учитываем условие <<\wdProperty{577}{дата публикации}>>, из-за чего получаем список только тех музыкальных произведений, у которых заполнено это условие. В запросе~\ref{lst:The_total_number_of_musical_works_for_all_subclasses_up} условие  <<\wdProperty{577}{дата публикации}>> не учитывается, следовательно, у музыкальных произведений в результате этого запроса~\ref{lst:The_total_number_of_musical_works_for_all_subclasses_up}, условие <<\wdProperty{577}{дата публикации}>> может быть не заполнено. Тогда будет корректно сравнить результаты запроса~\ref{lst:Musical_comp_2018--2023} со cтрокой 7 и без нее. За всё время было добавлено \num{51090} музыкальных произведений с заполненным условием <<\wdProperty{577}{дата публикации}>>, из них всего \num{3234} были написаны за 2018--2023 годы, что составляет 6,3\,\%.
+\TODO Владимир, в запросе~\ref{lst:Musical_comp_2018--2023} 
+есть такая строка \lstinline|BIND(YEAR(?publication) AS ?year)|. 
+Забавно, но переменная ?year, задаваемая в этой строке, в скрипте не используется. 
+Перепишите строку 7 с командой FILTER, чтобы использовалась переменная ?year. 
+В тексте после запроса с помощью конструкции lstinline напишите, что 
+можно использовать такую тяжёлую конструкцию 
+\lstinline|FILTER(?publication > "2018-01-01T00:00:00Z"^^xsd:dateTime)|, 
+но зато не нужна строка 6 с командой \lstinline|BIND|, 
+либо более читаемый код с командой \lstinline|BIND| и переменной \lstinline|?year|. 
+
+
+
+Запрос~\ref{lst:The_total_number_of_musical_works_for_all_subclasses_up} 
+возвращает 164 тыс. музыкальных произведений, которые могут иметь или не~иметь дату публикации. 
+В~запросе~\ref{lst:Musical_comp_2018--2023} в~строке~5 
+мы требуем обязательного наличия свойства <<\wdProperty{577}{дата публикации}>> у музыкального произведения.
+Таких произведений с заполненной датой публикации 
+(и выключенной, 
+ то есть закомментированной строкой~7 в~запросе~\ref{lst:Musical_comp_2018--2023}) найдено 51 тыс., 
+то есть примерно в~3~раза меньше. 
+Если фильтрация в~строка~7 запроса~\ref{lst:Musical_comp_2018--2023} включена, 
+то получаем 3.2 тыс. новых произведений, опубликованных не~ранее 2018 года. 
+Получается, что таких достоверно <<новых>> музыкальных произведений 
+около 2\,\% (3.2 тыс.) от всех музыкальных произведений в Викиданных (164 тыс.).
+
+
+
+
+
 
 \section{Количество музыкальных произведений по годам}
-Посчитаем количество музыкальных произведений написанных в каждом десятилетии со второй половины XIX века до настоящего времени. Получим запрос~\ref{lst:The_number_of_musical_compositions_for_every_10_years} и рис. к нему~\ref{fig:diagram_10_years}.
 
-\begin{lstlisting}[ language=SPARQL,
-                    caption={\href{https://w.wiki/7wHy}{ Количество музыкальных композиций написанных за каждые 10 лет}\protect\footnotemark},
-                    label=lst:The_number_of_musical_compositions_for_every_10_years,
-                    texcl,
-	         numbers=none
-                    ]
+Подсчитаем количество музыкальных произведений 
+со второй половины XIX века до настоящего времени 
+с~помощью запроса~\ref{lst:The_number_of_musical_compositions_for_every_10_years}. 
+Этот запрос строит рис.~\ref{fig:diagram_10_years}, где 
+указано число созданных произведений по десятилетиям. 
+
+
+\index{SPARQL!wikibase!isSomeValue}
+\begin{lstlisting}[ 
+    language=SPARQL,
+    caption={\href{https://w.wiki/7wHy}
+                  {Количество музыкальных произведений, создаваемых каждое десятилетие}\protect\footnotemark},
+    label=lst:The_number_of_musical_compositions_for_every_10_years,
+    texcl,
+    numbers=none
+    ]
 # The number of musical compositions for every 10 years
 #defaultView:BarChart
 SELECT (STR(?date) AS ?date_str) (COUNT(?composition) AS ?count) WHERE {
@@ -133,21 +224,52 @@ ORDER BY (?date)
 \end{lstlisting}%
 \footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/7wHy}{https://w.wiki/7wHy}.}
 
-\begin{marginfigure}[0\baselineskip]
-	\includegraphics[width=1\textwidth]{./chapter/musical_composition/BarChart_of_The_number_of_music_compositions_for_every_10_years.svg.png}
-	\caption[Гистограмма количества музыкальных композиций за каждые 10 лет с XIX века до настоящего времени]{Гистограмма количества музыкальных композиций за каждые 10 лет со второй половины XIX века до настоящего времени}%
+\begin{marginfigure}[-5\baselineskip]
+    \includegraphics[width=1\textwidth]{./chapter/musical_composition/BarChart_of_The_number_of_music_compositions_for_every_10_years.svg.png}a
+    \vspace{-7pt}
+	\caption{Гистограмма количества музыкальных произведений, 
+             создаваемых каждое десятилетие со второй половины XIX века до настоящего времени}%
 	\label{fig:diagram_10_years}%
 \end{marginfigure}
-Из графика~\ref{fig:diagram_10_years} можно увидеть, что до 1890 года (1850--1890 годы) количество написанных музыкальных произведений невелико. После 1890 года (1890--1970 годы) начинается резкий подъем и продолжается до нашего времени. Такое увеличение музыкальных произведений можно объяснить тем, что со временем появляются новые жанры и новые устройства для записи. На гистограмме~\ref{fig:diagram_10_years} видим два пика: 1960-е--1980-е, 2000-е и 2010-е.
+%
+Рис.~\ref{fig:diagram_10_years} показывает, что до 1890 года (1850--1890 годы) 
+количество написанных музыкальных произведений невелико. 
+После 1890 года (1890--1970 годы) начинается резкий подъём числа новых произведений 
+и продолжается до нашего времени. 
+Такое увеличение музыкальных произведений можно объяснить тем, 
+что со временем появляются новые жанры и новые устройства для записи. 
+На гистограмме (рис.~\ref{fig:diagram_10_years}) видим два пика: 1960--1980-е, 2000-е и 2010-е.
+
+\TODO Владимир, у скриншота (рис.~\ref{fig:diagram_10_years}) изначально низкое качество, 
+переснимите, пожалуйста, с большим разрешением. 
+Владимир, 
+на рис.~\ref{fig:diagram_10_years} должны быть крупные подписи по обеим осям. 
+Можете доработать в графическом редакторе. 
+Не забудьте новые версии рисунков загружать на Викисклад 
+(можно поверх старых, чтобы не писать заново описание файла) 
+и включать рисунки в свою страницу в Викиверситете: 
+\textit{Программирование Викиданных/Музыкальные композиции}. 
 
 
+
+
+
+
+\newpage
 \section{Количество музыкальных произведений по жанрам}
-Найдём, в каких жанрах были написаны музыкальные произведения в пиках графика~\ref{fig:diagram_10_years} и изобразим жанры на круговой диаграмме~\ref{fig:Genre_Chart_1960_—_1980} полученной по запросу~\ref{lst:count_of_pieces_of_music_in_each_subclass}. Рассмотрим первый пик: 1960-е--1980-е назовем этот пик (<<Первая волна>>).
+
+Найдём, в каких жанрах были написаны музыкальные произведения 
+в пиках графика (рис.~\ref{fig:diagram_10_years}) 
+и~изобразим жанры на~круговой диаграмме (рис.~\ref{fig:Genre_Chart_1960_—_1980}), 
+полученной по запросу~\ref{lst:count_of_pieces_of_music_in_each_subclass}. 
+Рассмотрим первый пик, приходящийся на~1960--1980-е годы, назовём этот пик <<Первая волна>>.
+
 \begin{marginfigure}[0\baselineskip]
 	\includegraphics[width=1\textwidth]{./chapter/musical_composition/Genre_Chart_1960_—_1980.png}
 	\caption[Круговая диаграмма музыкальных жанров за 1960--1980 годы во всем мире]{Круговая диаграмма музыкальных жанров за 1960--1980 годы во всем мире. Ссылка на SPARQL-запрос: \href{https://w.wiki/6Vx5}{https://w.wiki/6Vx5}.}%
 	\label{fig:Genre_Chart_1960_—_1980}%
 \end{marginfigure}
+
 \begin{lstlisting}[ language=SPARQL,
                     caption={\href{https://w.wiki/6Vx5}{ Количество музыкальных произведений в каждом жанре}\protect\footnotemark},
                     label=lst:count_of_pieces_of_music_in_each_subclass,
@@ -169,6 +291,14 @@ ORDER BY DESC (?count)
 \footnotetext{Получено: \num{27} подклассов на 2023 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/6Vx5}{https://w.wiki/6Vx5}.}
 
 Строки 7 и 8 в запросе~\ref{lst:count_of_pieces_of_music_in_each_subclass} определяют промежуток времени с 1960 года до 1990 год, который является <<первой волной>>, в этом промежутке будет производиться поиск музыкальных произведений по дате их публикации.
+
+\TODO В запросах ранее было написано wdt:P279* без всяких круглых скобок. Зачем здесь скобки?
+
+\TODO Владимир, с помощью функции YEAR() перейдите от ?publication к переменной ?year 
+и сделайте запись в строках FILTER запроса более компактными и читабельными. 
+
+\TODO В следующем запросе нужны аналогичные изменения. 
+
 
 
 Теперь рассмотрим второй пик графика~\ref{fig:diagram_10_years}: 2000-е и 2010-е (<<вторая волна>>) рис.~\ref{fig:Genre_Chart_2000_—_2010}, пользуясь запросом~\ref{lst:count_of_pieces_of_music_in_each_subclass_2}.
@@ -272,7 +402,7 @@ ORDER BY ASC(?publication)
 \footnotetext{Ссылка на статью: \href{https://ru.wikipedia.org/?curid=31363}{https://ru.wikipedia.org/wiki/Общественное\_достояние\#Общественное\_достояние\_в\_России}.}
 
 \section{Полнота Викиданных}
-Проанализируем полноту Викиданных. Сравним количесво уникальных композиторов, предоставленных в Викиданных, с числом композиторов по другим источникам. Так же проверим, как изменяется полнота Викиданных со временем, сравнив результаты запроса~\ref{lst:BubbleChart} за~2017 год, рис.~\ref{fig:bubbleChart} и за~2022 год, рис.~\ref{fig:bubbleChart2}.
+Проанализируем полноту Викиданных. Сравним количесво уникальных композиторов, предоставленных в Викиданных, с числом композиторов по другим источникам. Так же проверим, как изменяется полнота Викиданных со временем, сравнив результаты запроса~\ref{lst:BubbleChart} за~2017 год, рис.~\ref{fig:Composers2017} и за~2022 год, рис.~\ref{fig:Composers2023}.
 
 По данным \href{https://ru.wikipedia.org/wiki/Музыкальный_словарь_Гроува}{<<Музыкального словаря Гроува>>} за всю историю человечества существовало \num{20374} композиторов.
 
@@ -288,9 +418,16 @@ ORDER BY ASC(?publication)
 
 Количество музыкальных композиций с заполненным свойством <<\wdProperty{86}{композитор}>> равно \num{3862}, что показывает нам запрос \href{https://w.wiki/56Rc}{https://w.wiki/56Rc}, и это с учётом того, что один композитор мог написать несколько музыкальных произведений. Например, \href{https://ru.wikipedia.org/wiki/Моцарт,_Вольфганг_Амадей}{Вольфганг Амадей Моцарт} написал \num{95} произведений, что существенно снижает количество уникальных композиторов. Полученное число \num{3862}, из результатов запроса \href{https://w.wiki/56Rc}{https://w.wiki/56Rc}, меньше, чем количество композиторов из Русской и Английской Википедии и существенно меньше, чем количество композиторов из \href{https://ru.wikipedia.org/wiki/Музыкальный_словарь_Гроува}{<<Музыкального словаря Гроува>>}, что говорит нам о неполноте Викиданных.
 
+\begin{marginfigure}[1\baselineskip]
+  \includegraphics[width=\textwidth]{./chapter/musical_composition/Composer_all_2017.png}
+  \vspace{-7pt}
+  \caption[Пузырьковая диаграмма композиторов по количеству написанных композиций на~2017 год]{Пузырьковая диаграмма композиторов по количеству написанных композиций на~2017 год}%
+  \label{fig:Composers2017}%
+\end{marginfigure}
+
 Запрос \href{https://w.wiki/56Rj}{https://w.wiki/56Rj} по композициям с заполненным свойством <<\wdProperty{86}{композитор}>> и свойством <<\wdProperty{495}{страна происхождения}>>, имеющим значения <<\wdqName{Российская империя}{34266}>>, <<\wdqName{СССР}{15180}>> или <<\wdqName{Россия}{159}>>, выдал всего лишь \num{8} произведений, что говорит о~невозможности анализа русских музыкальных произведений в связи с недостатком данных.
 
-Построим  две пузырьковые диаграммы композиторов с музыкальными произведениями за 2017 год, рис.~\ref{fig:bubbleChart} и за~2023 год, рис.~\ref{fig:bubbleChart2}.
+Построим  две пузырьковые диаграммы композиторов с музыкальными произведениями за 2017 год, рис.~\ref{fig:Composers2017} и за~2023 год, рис.~\ref{fig:Composers2023}.
 
 \footnotetext{Получено: \num{773} записи. Ссылка на SPARQL-запрос: \href{https://w.wiki/85oS}{https://w.wiki/85oS}.}
 \begin{lstlisting}[ language=SPARQL, numbers=none,
@@ -310,31 +447,33 @@ GROUP BY ?composer ?composerLabel
 ORDER BY DESC(?count) ?composerLabel
 \end{lstlisting}%
 
-Запрос~\ref{lst:BubbleChart} выдает пузырьковую диаграмму изображенную на рис.~\ref{fig:bubbleChart} и рис.~\ref{fig:bubbleChart2}.
+
+Запрос~\ref{lst:BubbleChart} выдает пузырьковую диаграмму изображенную на рис.~\ref{fig:Composers2017} и рис.~\ref{fig:Composers2023}.
 
 Размер круга означает количество написанных музыкальных композиций. Диаграмма показывает, что у одних композиторов значительно больше композиций чем у других. В~первую пятерку входят \href{https://ru.wikipedia.org/wiki/Гаде,_Нильс}{Нильс Гаде} (\num{173} композиции), \href{https://ru.wikipedia.org/wiki/Бах,_Иоганн_Себастьян}{Иоганн Себастьян Бах} (\num{155} композиций), \href{https://ru.wikipedia.org/wiki/Синдинг,_Кристиан_Август}{Кристиан Август Синдинг} (\num{125} композиций), \href{https://ru.wikipedia.org/wiki/Хальворсен,_Юхан}{Юхан Хальворсен} (\num{121} композиция), \href{https://ru.wikipedia.org/wiki/Хованесс,_Алан}{Алан Хованесс} (\num{108} композиций).
 
-Диаграмма~\ref{fig:bubbleChart2} за 2023 год позывает, как изменилось количество написанных композиций у различный композиторов. Что бы рассмотреть подробнее, добавим в конец запроса~\ref{lst:BubbleChart} строку  \lstinline|LIMIT 12|, чтобы ограничить количество записей до 12, получим следующий запрос \href{https://w.wiki/8A2h}{https://w.wiki/8A2h}, результат на рис.~\ref{fig:bubbleChart3}. Теперь сравним результаты за~2017 год и за~2023 год.
-По сравнению с 2017 годом в первую пятёрку входят \href{https://ca.wikipedia.org/wiki/Tomàs_Gil_i_Membrado}{Томас Хиль Мембрадо} (\num{1437} композиций), \href{https://ru.wikipedia.org/wiki/Гендель,_Георг_Фридрих}{Гендель Георг Фридрих} (\num{1251} композиция), \href{https://ru.wikipedia.org/wiki/Маклауд,_Кевин}{Маклауд Кевин} (\num{1237} композиций), \href{https://en.wikipedia.org/wiki/R._D._Burman}{Рахул Дев Бурман} (\num{744} композиции), \href{https://ru.wikipedia.org/wiki/Моцарт,_Вольфганг_Амадей}{Вольфганг Амадей Моцарт} (\num{703} композиции). Исходя из данных диаграмм~\ref{fig:bubbleChart} и ~\ref{fig:bubbleChart2}, можно сделать вывод, что появились новые композиторы, которые имеют значительно больше композиций. Так же можно наблюдать имена классических композиторов, например \href{https://ru.wikipedia.org/wiki/Бах,_Иоганн_Себастьян}{Иоганн Себастьян Бах} (\num{566} композиций), тоже с существенным приростом в 411 опубликованных композиций, что говорит о дополнении Викиданных ранее неучтёнными произведениями.
+%
+%
+\begin{marginfigure}
+  \includegraphics[width=\textwidth]{./chapter/musical_composition/Composer_all_2023_box.png}
+  \vspace{-7pt}
+  \caption[Пузырьковая диаграмма композиторов по количеству написанных композиций на~2023 год]
+    {Фрагмент диаграммы композиторов по количеству написанных произведений на~2023 год}%
+  \label{fig:Composers2023}%
+\end{marginfigure}
 
-\begin{figure*}
-	\includegraphics[width=\textwidth]{./chapter/musical_composition/Composer_of_musical_compositions_bubble_diagram.png}
-	\caption[Пузырьковая диаграмма композиторов по количеству написанных композиций на~2017 год]{Пузырьковая диаграмма композиторов по количеству написанных композиций на~2017 год}%
- 	\label{fig:bubbleChart}%
-\end{figure*}
-\begin{figure*}
-	\includegraphics[width=\textwidth]{./chapter/musical_composition/Composer_of_musical_compositions_bubble_diagram.svg.png}
-	\caption[Пузырьковая диаграмма композиторов по количеству написанных композиций на~2023 год]{Пузырьковая диаграмма композиторов по количеству написанных композиций на~2023 год}%
-	\label{fig:bubbleChart2}%
-\end{figure*}
+Диаграмма~\ref{fig:Composers2023} за 2023 год позывает, как изменилось количество написанных композиций у различный композиторов. Что бы рассмотреть подробнее, добавим в конец запроса~\ref{lst:BubbleChart} строку  \lstinline|LIMIT 12|, чтобы ограничить количество записей до 12, получим следующий запрос \href{https://w.wiki/8A2h}{https://w.wiki/8A2h}, результат на рис.~\ref{fig:bubbleChart3}. Теперь сравним результаты за~2017 год и за~2023 год.
+По сравнению с 2017 годом в первую пятёрку входят \href{https://ca.wikipedia.org/wiki/Tomàs_Gil_i_Membrado}{Томас Хиль Мембрадо} (\num{1437} композиций), \href{https://ru.wikipedia.org/wiki/Гендель,_Георг_Фридрих}{Гендель Георг Фридрих} (\num{1251} композиция), \href{https://ru.wikipedia.org/wiki/Маклауд,_Кевин}{Маклауд Кевин} (\num{1237} композиций), \href{https://en.wikipedia.org/wiki/R._D._Burman}{Рахул Дев Бурман} (\num{744} композиции), \href{https://ru.wikipedia.org/wiki/Моцарт,_Вольфганг_Амадей}{Вольфганг Амадей Моцарт} (\num{703} композиции). Исходя из данных диаграмм~\ref{fig:bubbleChart} и ~\ref{fig:Composers2023}, можно сделать вывод, что появились новые композиторы, которые имеют значительно больше композиций. Так же можно наблюдать имена классических композиторов, например \href{https://ru.wikipedia.org/wiki/Бах,_Иоганн_Себастьян}{Иоганн Себастьян Бах} (\num{566} композиций), тоже с существенным приростом в 411 опубликованных композиций, что говорит о дополнении Викиданных ранее неучтёнными произведениями.
 
-\begin{figure*}
-	\includegraphics[width=\textwidth]{./chapter/musical_composition/Composer_of_musical_compositions_bubble_diagram.svg_2.png}
-	\caption[Пузырьковая диаграмма композиторов с наибольшим количеством написанных музыкальных композиций на~2023 год]{Пузырьковая диаграмма композиторов с наибольшим количеством написанных музыкальных композиций на~2023 год}%
-	\label{fig:bubbleChart3}%
-\end{figure*}
 
 \newpage
+\begin{marginfigure}
+  \includegraphics[width=\textwidth]{./chapter/musical_composition/Composers_12_at_2023.png}
+  \caption[Диаграмма 12 композиторов с наибольшим количеством написанных музыкальных композиций на~2023 год]
+          {Пузырьковая диаграмма 12 композиторов с наибольшим количеством написанных музыкальных композиций на~2023 год}%
+  \label{fig:bubbleChart3}%
+\end{marginfigure}
+
 
 \section{Упражнения}
 \begin{enumerate}
@@ -347,12 +486,13 @@ ORDER BY DESC(?count) ?composerLabel
 
 Получим следующий запрос.
 
-\begin{lstlisting}[ language=SPARQL, numbers=none,
-                    caption={\href{https://w.wiki/9Luc}{Количество музыкальных композиций The Beatles по годам издания}\protect\footnotemark},
-                    label=lst:TheBeatles,
-                    texcl,
-	         numbers=none
-                    ]
+\begin{lstlisting}[ 
+    language=SPARQL, 
+    numbers=none,
+    caption={\href{https://w.wiki/9Luc}{Количество композиций группы The Beatles по годам издания}\protect\footnotemark},
+    label=lst:TheBeatles,
+    texcl,
+]
 #number of musical compositions by The Beatles by year of publication
 #defaultView:BarChart
 SELECT  (STR(?date) AS ?date_str) (COUNT(?composition) AS ?count)  
@@ -374,9 +514,9 @@ GROUP BY ?date
 
 В запросе~\ref{lst:TheBeatles} мы используем свойство <<\wdProperty{175}{исполнитель}>>, вместо привычного <<\wdProperty{86}{композитор}>>. Это связано с тем, что свойство <<\wdProperty{86}{композитор}>> выдает композиторов написавших музыкальное произведение, в нашем случае нужно найти музыкальные произведения исполненные группой The Beatles.
 
-\begin{figure*}
+\begin{marginfigure}
 	\includegraphics[width=\textwidth]{./chapter/musical_composition/BarChart_of_The_number_of_musical_comp_by The Beatles by year of publication .png}
-	\caption[Гистограмма количества музыкальных композиций The Beatles по годам издания]{Гистограмма количества музыкальных композиций The Beatles по годам издания}%
+	\caption[Гистограмма количества музыкальных композиций The Beatles по годам издания]{Ежегодное количество музыкальных композиций, выпускаемых группой The Beatles}%
  	\label{fig:ThebeatlesBubbleChart}%
-\end{figure*}
+\end{marginfigure}
 \end{enumerate}
