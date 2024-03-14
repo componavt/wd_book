@@ -16,20 +16,20 @@
 
 \begin{lstlisting}[ 
     language=SPARQL,
-    caption={\href{https://w.wiki/85dR}{Список всех  музыкальных композиций}\protect\footnotemark},
+    caption={\href{https://w.wiki/9TcJ}{Список всех  музыкальных композиций}\protect\footnotemark},
     label=lst:musical_composition,
     texcl,
     numbers=none
     ]
 # List of all musical compositions
-SELECT ?composition ?compositionLabel 
+SELECT ?composition ?compositionLabel
 WHERE {
-  ?composition wdt:P31 wd:Q105543609. # instance of musical work
+  ?composition wdt:P31 wd:Q105543609. # instance of musical work/composition
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en" }
 }
 \end{lstlisting}%
 \footnotetext{Получено: \num{5495} записей на 2017 год и \num{150,5} тыс. записей на~2023 год. 
-        Ссылка на~SPARQL-запрос: \href{https://w.wiki/85dR}{https://w.wiki/85dR}.}
+        Ссылка на~SPARQL-запрос: \href{https://w.wiki/9TcJ}{https://w.wiki/9TcJ}.}
 
 Наиболее полными и проработанными примерами музыкальных композиций на Викиданных являются: <<\wdqName{Волшебная флейта}{5064}>>, <<\wdqName{К Элизе}{11980}>>, <<\wdqName{Реквием}{207875}>>, <<\wdqName{Маленькая ночная серенада}{12025}>>, <<\wdqName{Соната си синор}{63681379}>>.
 
@@ -37,7 +37,7 @@ WHERE {
 а~в~2023~--- \num{150,5} тыс., вместо \num{5,5} тыс. в~2017 году. 
 Увеличение числа композиций связано с тем, что эти объекты Викиданных являются теперь не экземплярами объекта «музыкальное произведение», а экземплярами различных подклассов «музыкальное произведение». При поиске подклассов объекта «музыкальное произведение» можно найти такие жанры: <<\wdqName{песня}{7366}>>, <<\wdqName{духовная песня}{856713}>>, <<\wdqName{гимн}{484692}>>. Более подробно анализ музыкальных жанров будет представлен в разделе <<Количество музыкальных произведений по~жанрам>> на стр. 96.
 
-\todo[inline]{\TODO Владимир, так не годится писать плейнтекстом: <<на стр. 96>>, 
+\todoVlad{\TODO Владимир, так не годится писать плейнтекстом: <<на стр. 96>>, 
 поскольку, например, в этом PDF-файле всего 49 страниц. 
 Используйте команду pageref с аргументом label, 
 который задаётся в~начале того раздела, на который Вы хотите сослаться. 
@@ -46,11 +46,20 @@ WHERE {
 \begin{verbatim}
 на~с.~\pageref{ch:BucketsAndBalls}. 
 \end{verbatim}
-\todo[inline]{\TODO Здесь в начале метки ``ch:BucketsAndBalls'' стоит ``ch''~--- это сокращение от chapter (глава), 
+\todoVladWithoutCounter{Здесь в начале метки ``ch:BucketsAndBalls'' стоит ``ch''~--- 
+это сокращение от chapter (глава), 
 чтобы не путать с другими метками (таблицами, рисунками).}
 
+\todoVlad{Добавьте здесь текстовое описание к рис.~\ref{fig:hier-music}.  
+\newline 
+\newline
+P.S. Владимир, не удаляйте эти задания из текста.}
 
-\todo[inline]{\TODO Добавьте здесь описание к рис.~\ref{fig:hier-music}.}
+\answerVlad{Владимир, а в таких блоках текста, когда задание выполнено, 
+то пишите, пожалуйста, <<Готово>> или <<Сделано>>. 
+Либо напишите пояснение, что не сделано и объясните~--- почему.}
+
+
 \begin{marginfigure}[0\baselineskip]
 	\includegraphics[width=1\textwidth]{./chapter/musical_composition/hierarchy_of_music_classes_WD_2023.png}
 	\caption[Иерархия музыкальных классов]{Фрагмент иерархии музыкальных классов в Викиданных, 2023 год}%
@@ -58,15 +67,17 @@ WHERE {
 \end{marginfigure}
 Найдём количество музыкальных композиций в каждом жанре с помощью запроса~\ref{lst:music _in_each_subclass}.
 
-\begin{lstlisting}[ language=SPARQL,
-                    caption={\href{https://w.wiki/8PzR}{ Количество музыкальных композиций в каждом подклассе}\protect\footnotemark},
-                    label=lst:music _in_each_subclass,
-                    texcl
-                    ]
+\begin{lstlisting}[ 
+    language=SPARQL,
+    caption={\href{https://w.wiki/8PzR}
+                  {Количество музыкальных композиций в каждом подклассе}\protect\footnotemark},
+    label=lst:music _in_each_subclass,
+    texcl
+    ]
 # Count of pieces of music in each subclass
 SELECT ?type (COUNT(?typeInstance) AS ?count) ?typeLabel WHERE {
-  ?type wdt:P279* wd:Q105543609.      # subclass of musical composition
-  ?typeInstance wdt:P31 ?type.  # instance  of that class of which this subject is a particular example and member
+  ?type wdt:P279* wd:Q105543609.    # subclass of musical composition
+  ?typeInstance wdt:P31 ?type.      # instance of this subclass 
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
 }
 GROUP BY ?type ?typeLabel
@@ -74,28 +85,27 @@ ORDER BY DESC (?count)
 \end{lstlisting}%
 \footnotetext{Получено: \num{161} подкласс музыкальных композиций на 2022 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/8PzR}{https://w.wiki/8PzR}.}
 
-\TODO Постарайтесь, чтобы комментарии (в коде выше) не вылезали за серый фон. 
-Или пишите более кратко или перенесите комментарий на новую строку.
 
-\TODO После предыдущего запроса~\ref{lst:music _in_each_subclass} 
+\todoVlad{После предыдущего запроса~\ref{lst:music _in_each_subclass} 
 обратите внимание читателя, 
 что в этом запросе используется только левая часть рис.~\ref{fig:hier-music}, 
 а именно:  ``musical work/composition (Q105543609)''. 
 Поэтому в подклассах нет ни сонаты, ни серенады. 
 Владимир, предлагаю Вам добавить в запрос объект ``type of musical work/composition (Q107487333)'' 
 и искать в том числе и по подклассам этого объекта, то есть результатов должно стать больше. 
-В результатах должны появиться жанры: соната и серенада.
+В результатах должны появиться жанры: соната и серенада~--- проверьте это.}
 
-\TODO Общее пожелание. Добавьте к запросам, которые возвращают числа~--- данные за 2024 год, 
-при этом оставляйте данные (число результатов) за предыдущие годы.
+\todoVlad{Общее пожелание. Добавьте к запросам, которые возвращают числа~--- данные за 2024 год, 
+при этом оставляйте данные (число результатов) за предыдущие годы.}
 
 Теперь подсчитаем общее суммарное число музыкальных произведений с учётом музыкальных композиций в подклассах. Для этого добавим в~запрос~\ref{lst:music _in_each_subclass} команду \lstinline|SUM()| в~строку~2 и удалим лишние строки, чтобы получить запрос~\ref{lst:The_total_number_of_musical_works_for_all_subclasses}.
 
 
 \begin{lstlisting}[ 
     language=SPARQL,
-    caption={\href{https://w.wiki/5$BT}
-                  {Суммарное число музыкальных произведений с~учётом музыкальных композиций в~подклассах}\protect\footnotemark},
+    caption={\href{https://w.wiki/9Tc3}
+                  {Суммарное число музыкальных произведений 
+                   с~учётом музыкальных композиций в~подклассах}\protect\footnotemark},
     label=lst:The_total_number_of_musical_works_for_all_subclasses,
     texcl,  
     xleftmargin=18pt
@@ -103,37 +113,48 @@ ORDER BY DESC (?count)
 # The total number of musical works for all subclasses 
 SELECT (SUM(?count) AS ?sum) WHERE{
   SELECT (COUNT(?music) AS ?count) WHERE {
-    ?type wdt:P279* wd:Q105543609.  # subclass of musical composition
-    ?music wdt:P31 ?type  # instance  of that class of which this subject is a particular example and member
-  }
+                         # subclass of musical work/composition
+                   ?type wdt:P279* wd:Q105543609.
+    ?music wdt:P31 ?type
+  }        # instance of this subclass
 }
 \end{lstlisting}%
-\footnotetext{Получено: 145~тыс. музыкальных произведений на 2022 год и 164~тыс. на 2023 год. Ссылка на~SPARQL-запрос: \href{https://w.wiki/5$BT}{https://w.wiki/5\$BT}.}
+\footnotetext{Получено: 145~тыс. музыкальных произведений на 2022 год, 
+    164~тыс. на 2023 год и 170~тыс. на 2024 год. 
+    Ссылка на~SPARQL-запрос: \href{https://w.wiki/9Tc3}
+                                  {https://w.wiki/9Tc3}.}
 
-Можно записать этот код еще короче. 
-Переменная \lstinline|?type| нам не нужна, поэтому можно обойтись без неё, 
-а~строки 4 и 5 поменяем местами, получаем запрос~\ref{lst:The_total_number_of_musical_works_for_all_subclasses_up}.
+Можно записать этот код ещё короче. 
+Переменная \lstinline|?type| нам не нужна, 
+поэтому заменим её на \emph{безымянную переменную}, \index{SPARQL![]!безымянная переменная}
+а~строки 5 и 6 поменяем местами, 
+получаем запрос~\ref{lst:The_total_number_of_musical_works_for_all_subclasses_up}.
 
 \begin{lstlisting}[ 
     language=SPARQL,
-    caption={\href{https://w.wiki/5$BP}
-                  {Суммарное число музыкальных произведений с~учётом музыкальных композиций в~подклассах}\protect\footnotemark},
+    caption={\href{https://w.wiki/9Td7}
+                  {Суммарное число музыкальных произведений с~учётом музыкальных композиций 
+                  в~подклассах (безымянная переменная)}\protect\footnotemark},
     label=lst:The_total_number_of_musical_works_for_all_subclasses_up,
     texcl,
     numbers=none
     ]
-# The total number of musical works for all subclasses 
+# Total number of musical works for all subclasses
 SELECT (SUM(?count) AS ?sum) WHERE{
   SELECT (COUNT(?music) AS ?count) WHERE {
     ?music wdt:P31   # instance of
-          [ wdt:P279* wd:Q105543609 ]. # subclass of musical composition
-  }
+          [wdt:P279* wd:Q105543609].
+  }        # subclass of musical work/composition
 }
 \end{lstlisting}%
-\footnotetext{Получено: \num{164} тыс. музыкальных произведений на 2023 год. Ссылка на~SPARQL-запрос: \href{https://w.wiki/5$BP}{https://w.wiki/5\$BP}.}
+\footnotetext{Идентичный запрос предыдущем, то же число результатов. Ссылка на~SPARQL-запрос: \href{https://w.wiki/9Td7}{https://w.wiki/9Td7}.}
 
 По сравнению с 2017 годом, когда было получено \num{5494} записи, число записей увеличилось в десятки раз. Это связано с тем, что за 5 лет было добавлено множество новых музыкальных произведений, а также старых, которые не были учтены ранее.
 Напишем скрипт~\ref{lst:Musical_comp_2018--2023} и посмотрим сколько новых и старых (то есть созданных до 2018 года) музыкальных произведений было добавлено в~Викиданные за~период с~2018 года по~2023 год.
+
+\todoVlad{Раз мы добрались до этого года в нашей работе, то замените, пожалуйста, 
+2023 на 2024 и обновите здесь и далее результаты. 
+Выше тогда напишите <<за 6 лет>>, а не за пять лет.}
 
 \begin{lstlisting}[ 
     language=SPARQL,
@@ -154,20 +175,24 @@ SELECT (SUM(?count) AS ?sum) WHERE{
 \end{lstlisting}%
 \footnotetext{Получено: \num{3234} музыкальных произведений за 2018--2023 годы. Ссылка на SPARQ-запрос: \href{https://w.wiki/9RYq}{https://w.wiki/9RYq}.}
 
-\TODO Владимир, я вернул в запрос~\ref{lst:Musical_comp_2018--2023} нумерацию строк. 
+\todoVlad{Владимир, я вернул в запрос~\ref{lst:Musical_comp_2018--2023} нумерацию строк. 
 Владимир, я не понял, почему Вы удалили нумерацию. 
 Можете посмотреть сканы в ТГ от 13 декабря, которые я Вам присылал, насчитал там 6 скриптов с нумерацией. 
-Прошу вернуть нумерацию строк в те скрипты, на номера строк которых есть отсылки из текста. 
+Прошу вернуть нумерацию строк в те скрипты, на номера строк которых есть отсылки из текста.}
 
-\TODO Владимир, в запросе~\ref{lst:Musical_comp_2018--2023} 
+\todoVlad{Владимир, в запросе~\ref{lst:Musical_comp_2018--2023} 
 есть такая строка \lstinline|BIND(YEAR(?publication) AS ?year)|. 
 Забавно, но переменная ?year, задаваемая в этой строке, в скрипте не используется. 
-Перепишите строку 7 с командой FILTER, чтобы использовалась переменная ?year. 
-В тексте после запроса с помощью конструкции \verb|\lstinline| напишите, что 
-можно использовать такую тяжёлую конструкцию 
+Перепишите строку 7 с командой FILTER, чтобы использовалась переменная ?year (вариант без FILTER). 
+В тексте после запроса напишите, что\newline 
+(1: вариант с FILTER) можно использовать такую тяжёлую конструкцию 
 \lstinline|FILTER(?publication > "2018-01-01T00:00:00Z"^^xsd:dateTime)|, 
-но зато не нужна строка 6 с командой \lstinline|BIND|, 
-либо более читаемый код с командой \lstinline|BIND| и переменной \lstinline|?year|. 
+но зато не нужна строка 6 с командой \lstinline|BIND|,\newline 
+либо\newline
+(2: вариант без FILTER) более читаемый код с командой \lstinline|BIND| 
+и переменной \lstinline|?year|. \newline
+В листинге будет только вариант (2), в тексте~--- оба. 
+В тексте пишите строчки кода или команды SPARQL с помощью конструкции lstinline.}
 
 
 
@@ -240,15 +265,15 @@ ORDER BY (?date)
 что со временем появляются новые жанры и новые устройства для записи. 
 На гистограмме (рис.~\ref{fig:diagram_10_years}) видим два пика: 1960--1980-е, 2000-е и 2010-е.
 
-\TODO Владимир, у скриншота (рис.~\ref{fig:diagram_10_years}) изначально низкое качество, 
+\todoVlad{Владимир, у скриншота (рис.~\ref{fig:diagram_10_years}) низкое качество 
+(то есть текст размытый при увеличении), 
 переснимите, пожалуйста, с большим разрешением. 
-Владимир, 
-на рис.~\ref{fig:diagram_10_years} должны быть крупные подписи по обеим осям. 
+На рис.~\ref{fig:diagram_10_years} нужно сделать крупные подписи по обеим осям (название оси и числа). 
 Можете доработать в графическом редакторе. 
 Не забудьте новые версии рисунков загружать на Викисклад 
 (можно поверх старых, чтобы не писать заново описание файла) 
-и включать рисунки в свою страницу в Викиверситете: 
-\textit{Программирование Викиданных/Музыкальные композиции}. 
+и новые рисунки включайте в свою страницу в Викиверситете, то есть сюда: 
+\textit{Программирование Викиданных/Музыкальные композиции}.}
 
 
 
@@ -292,12 +317,12 @@ ORDER BY DESC (?count)
 
 Строки 7 и 8 в запросе~\ref{lst:count_of_pieces_of_music_in_each_subclass} определяют промежуток времени с 1960 года до 1990 год, который является <<первой волной>>, в этом промежутке будет производиться поиск музыкальных произведений по дате их публикации.
 
-\TODO В запросах ранее было написано wdt:P279* без всяких круглых скобок. Зачем здесь скобки?
+\todoVlad{В запросах ранее было написано wdt:P279* без всяких круглых скобок. Зачем здесь скобки?}
 
-\TODO Владимир, с помощью функции YEAR() перейдите от ?publication к переменной ?year 
-и сделайте запись в строках FILTER запроса более компактными и читабельными. 
+\todoVlad{Владимир, с помощью функции YEAR() перейдите от ?publication к переменной ?year 
+и сделайте записи в строках FILTER запроса более компактными и читабельными.}
 
-\TODO В следующем запросе нужны аналогичные изменения. 
+\todoVlad{В следующем запросе нужны аналогичные изменения.}
 
 
 

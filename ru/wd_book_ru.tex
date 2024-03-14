@@ -115,7 +115,26 @@
 % русскоязычные источники предшествовали остальным в Литературе 
 \usepackage{biblio-gost-ru-before-en}
 
-\usepackage[colorinlistoftodos,prependcaption,textsize=large]{todonotes} %see https://tex.stackexchange.com/a/178806/99685
+
+% %%%%%%%%%%%%%%%%%%
+% todonotes block
+
+\usepackage{xargs} % \newcommandx - see below - Use more than one optional parameter in a new commands
+
+\newcounter{todocounter} 
+
+%see https://tex.stackexchange.com/a/178806/99685
+\usepackage[colorinlistoftodos,prependcaption,textsize=large]{todonotes}
+\setuptodonotes{inline} % only inline todo notes, without remarks and references at margins
+
+\newcommandx{\todoVlad}[2][1=]{\stepcounter{todocounter}\todo[backgroundcolor=Apricot!25,bordercolor=red,#1]{\thetodocounter: #2}}
+\newcommandx{\todoVladWithoutCounter}[2][1=]{\todo[backgroundcolor=Apricot!25,bordercolor=red,#1]{#2}}
+
+\newcommandx{\answerVlad}[2][1=]{\todo[backgroundcolor=Green!25,bordercolor=violet,#1]{#2}}
+
+% eo todonotes block
+% %%%%%%%%%%%%%%%%%%
+
 
 \usepackage{bookmark}% http://ctan.org/pkg/bookmark
 
