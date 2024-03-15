@@ -16,20 +16,20 @@
 
 \begin{lstlisting}[ 
     language=SPARQL,
-    caption={\href{https://w.wiki/9TcJ}{Список всех  музыкальных композиций}\protect\footnotemark},
+    caption={\href{https://w.wiki/9U7i}{Список всех  музыкальных композиций}\protect\footnotemark},
     label=lst:musical_composition,
     texcl,
     numbers=none
     ]
 # List of all musical compositions
-SELECT ?composition ?compositionLabel
-WHERE {
-  ?composition wdt:P31 wd:Q105543609. # instance of musical work/composition
+SELECT ?music ?musicLabel WHERE
+{        # instance of musical work/composition
+  ?music wdt:P31 wd:Q105543609. 
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en" }
 }
 \end{lstlisting}%
 \footnotetext{Получено: \num{5495} записей на 2017 год и \num{150,5} тыс. записей на~2023 год. 
-        Ссылка на~SPARQL-запрос: \href{https://w.wiki/9TcJ}{https://w.wiki/9TcJ}.}
+        Ссылка на~SPARQL-запрос: \href{https://w.wiki/9U7i}{https://w.wiki/9U7i}.}
 
 Наиболее полными и проработанными примерами музыкальных композиций на Викиданных являются: <<\wdqName{Волшебная флейта}{5064}>>, <<\wdqName{К Элизе}{11980}>>, <<\wdqName{Реквием}{207875}>>, <<\wdqName{Маленькая ночная серенада}{12025}>>, <<\wdqName{Соната си синор}{63681379}>>.
 
@@ -65,47 +65,78 @@ P.S. Владимир, не удаляйте эти задания из текс
 	\caption[Иерархия музыкальных классов]{Фрагмент иерархии музыкальных классов в Викиданных, 2023 год}%
 	\label{fig:hier-music}%
 \end{marginfigure}
-Найдём количество музыкальных композиций в каждом жанре с помощью запроса~\ref{lst:music _in_each_subclass}.
+Найдём количество музыкальных композиций в каждом жанре с помощью запроса~\ref{lst:music_in_each_subclass}.
 
 \begin{lstlisting}[ 
     language=SPARQL,
-    caption={\href{https://w.wiki/8PzR}
+    caption={\href{https://w.wiki/9U7w}
                   {Количество музыкальных композиций в каждом подклассе}\protect\footnotemark},
-    label=lst:music _in_each_subclass,
+    label=lst:music_in_each_subclass,
     texcl
     ]
-# Count of pieces of music in each subclass
-SELECT ?type (COUNT(?typeInstance) AS ?count) ?typeLabel WHERE {
-  ?type wdt:P279* wd:Q105543609.    # subclass of musical composition
-  ?typeInstance wdt:P31 ?type.      # instance of this subclass 
+# Number of musical works in each subclass
+SELECT ?type (COUNT(?music) AS ?count) ?typeLabel WHERE 
+{                      # subclass of musical composition
+                 ?type wdt:P279* wd:Q105543609.      
+  ?music wdt:P31 ?type.
+         # instance of this subclass
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
 }
 GROUP BY ?type ?typeLabel
 ORDER BY DESC (?count)
 \end{lstlisting}%
-\footnotetext{Получено: \num{161} подкласс музыкальных композиций на 2022 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/8PzR}{https://w.wiki/8PzR}.}
+\footnotetext{Получено: 9 подклассов музыкальных композиций на 2024 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/9U7w}{https://w.wiki/9U7w}.}
 
 
 \todoVlad{
-Если взять и упростить запрос~\ref{lst:music _in_each_subclass} 
-так, чтобы он выводил получаемые музыкальные композиции, 
-то получим неприятную вещь, а именно в результаты попали 
-экземпляры объекта ``incipit (Q1161138)'', поскольку он является подклассом ``musical work/composition''. 
-Нужно добавить исключение из результатов экземпляров этого класса. 
+\emph{Задача с исключением~--- на поля и в <<Ответы>>.}\\
+В 9 подклассов ``musical work/composition'', 
+полученных в запросе~\ref{lst:music_in_each_subclass},
+входит объекта ``incipit (Q1161138)'' (<<начальные слова>>) 
+и объект Маска (wd:Q1907293), то есть это не музыкальные вещи. 
+Нужно добавить в запрос исключение этих двух объектов, 
+вижу два варианта: или функция FILTER (неравенство) или MINUS. Примеры скриптов с MINUS 
+посмотрите на странице ВВ \href{https://ru.wikiversity.org/?curid=23632}
+                               {Программирование Викиданных/Страны}. 
+Отмечу, что в результатах есть ещё <<маска>> с маленькой буквы~--- 
+это музыкальный жанр, его не нужно исключать.  
+\\
+На полях напишите это задание (исключение). 
+В раздел <<Ответы>> добавьте свой вариант с решением.}
 
-    После предыдущего запроса~\ref{lst:music _in_each_subclass} 
-обратите внимание читателя, 
+
+\todoVlad{
+\emph{Добавление.}\\
+После запроса~\ref{lst:music_in_each_subclass} 
+также обратите внимание читателя, 
 что в этом запросе используется только левая часть рис.~\ref{fig:hier-music}, 
 а именно:  ``musical work/composition (Q105543609)''. 
 Поэтому в подклассах нет ни сонаты, ни серенады. 
-Владимир, предлагаю Вам добавить в запрос объект ``type of musical work/composition (Q107487333)'' 
-и искать в том числе и по подклассам этого объекта, то есть результатов должно стать больше. 
-В результатах должны появиться жанры: соната и серенада~--- проверьте это.}
+
+Теперь напишем запрос, в котором будут искаться экземпляры объектов 
+``type of musical work/composition (Q107487333)'' и ``music genre (Q188451)''.
+В результатах тогда появятся жанры: соната и серенада.
+
+\vspace{12pt}
+Предлагаю такой запрос \url{https://w.wiki/9U8o}, 
+в этом запросе ищутся экземпляры ``type of musical work (Q107487333)'',  
+получаем 280 типов муз. работ. 
+
+\vspace{12pt}
+С помощью запроса \url{https://w.wiki/9UAP} получаем 5800 музыкальных жанров, 
+это экземпляры объекта ``music genre (Q188451)''.
+
+\vspace{12pt}
+Объединим типы музыкальных работ и музыкальные жанры, получаем запрос: \url{https://w.wiki/9UAX}, 
+получаем 6083 музыкальных типов и жанров. Приведите с пояснениями листинг этого запроса в тексте. 
+Теперь Ваша задача, Владимир, дописать этот запрос, чтобы он подсчитал число 
+музыкальных произведений (без дубликатов), которые имеют такой музыкальный тип или жанр. 
+}
 
 \todoVlad{Общее пожелание. Добавьте к запросам, которые возвращают числа~--- данные за 2024 год, 
 при этом оставляйте данные (число результатов) за предыдущие годы.}
 
-Теперь подсчитаем общее суммарное число музыкальных произведений с учётом музыкальных композиций в подклассах. Для этого добавим в~запрос~\ref{lst:music _in_each_subclass} команду \lstinline|SUM()| в~строку~2 и удалим лишние строки, чтобы получить запрос~\ref{lst:The_total_number_of_musical_works_for_all_subclasses}.
+Теперь подсчитаем общее суммарное число музыкальных произведений с учётом музыкальных композиций в подклассах. Для этого добавим в~запрос~\ref{lst:music_in_each_subclass} команду \lstinline|SUM()| в~строку~2 и удалим лишние строки, чтобы получить запрос~\ref{lst:The_total_number_of_musical_works_for_all_subclasses}.
 
 
 \begin{lstlisting}[ 
