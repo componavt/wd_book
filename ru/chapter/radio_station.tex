@@ -1,31 +1,44 @@
 \chapter[Радиостанции]{Радиостанции}
 \label{ch:radio-station}
 
-Радиостанции — комплекс устройств и сооружений, служащих для подготовки программ радиовещания. Данная статья посвящена исследованию радиостанций на основе Викиданных. Для исследования спроектированы SPARQL-запросы, работающие с объектами Викиданных типа “radio stations”. Получен список всех радиостанций, описанных в Викиданных.
+Радиостанции — комплекс устройств и сооружений, служащих для подготовки программ радиовещания. Эта глава посвящена исследованию радиостанций на основе Викиданных. Для исследования спроектированы SPARQL-запросы, работающие с объектами Викиданных типа “radio stations”. Получен список всех радиостанций, описанных в Викиданных. Проведено исследования для получения количества радиостанций у различных стран, а также для определения подклассов радиостанций. Проделана работа для поиска радиостанций, вещательных каналов и СМИ по России, и по СССР, их тематик и аккаунтов в социальных сетях.
 
 \marginnote{Используемые в запросах объекты: \wdqName {<<радиостанции>>}{Q14350};
 Используемое свойство: \wdProperty{31}{<<экземпляр>>}}
 
-\subsection{Список количества радиостанций}
+\section{Список количества радиостанций}
 
-\begin{lstlisting}
+Построим список всех радиостанций на английском и русском языках~\ref{lst:all_radio_stations}.
+\begin{lstlisting}[ 
+    language=SPARQL,
+    caption={\href{https://w.wiki/5unA}{Cписок всех радиостанций на английском и русском языках}\protect\footnotemark},
+    label=lst:all_radio_stations,
+    texcl,
+    numbers=none
+    ]
+# List of all radio stations in all languages.
 SELECT ?radioLabel ?countryLabel WHERE
 {
     ?radio wdt:P31 wd:Q14350. # instance of radio station
     ?radio wdt:P495 ?country. # country of origin
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en,[AUTO_LANGUAGE]" }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en" }
 }
 \end{lstlisting}%
-
 \footnotetext{Получено: \num{113} результатов на 2022 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/5unA}{SPARQL-запрос}.}
 
 \newpage
 
 Посмотрим количество радиостанций у разных стран.
 
-Количество радиостанций у разных стран.
+Количество радиостанций у разных стран~\ref{lst:number_of_radio_stations}.
 
-\begin{lstlisting}
+\begin{lstlisting}}[ 
+    language=SPARQL,
+    caption={\href{https://w.wiki/62MJ}{Количество радиостанций у разных стран}\protect\footnotemark},
+    label=lst:number_of_radio_stations,
+    texcl
+    ]
+# Number of radio stations for each country
 SELECT (COUNT(?radio) as ?sumRadio) ?countryLabel
 WHERE {
   ?radio wdt:P31 wd:Q14350; # instance of radio station
@@ -35,7 +48,6 @@ WHERE {
 GROUP BY ?countryLabel
 ORDER BY DESC (?sumRadio)
 \end{lstlisting}%
-
 \footnotetext{Получено: \num{29} результатов на 2022 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/62MJ}{SPARQL-запрос}.}
 
 \begin{table}[ht]
