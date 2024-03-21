@@ -1801,8 +1801,8 @@
 \RequirePackage{multicol}
 \renewenvironment{theindex}{%
   \ifthenelse{\equal{\@tufte@class}{book}}%
-    {\chapter{\indexname}}%
-    {\section*{\indexname}}%
+    {\chapter*{\indexname}}%                        * means - do not add to TOC
+    {\section*{\indexname}}%                        this line does not work
   \begin{fullwidth}%
   \small%
   \parskip0pt%

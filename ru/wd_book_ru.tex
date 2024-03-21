@@ -39,7 +39,17 @@
 
 \usepackage{xurl} % break long url, see https://tex.stackexchange.com/a/407368/99685
 
+%\usepackage[pdftex,pdfpagelabels,hyperindex,hyperfigures]{hyperref}.
 \usepackage[unicode]{hyperref}
+\hypersetup{bookmarks=true,
+            pdfpagelabels=true,
+            hyperindex=true,
+            hyperfigures=true,
+            pdfauthor={Крижановский и др.},
+            pdftitle={Программирование Викиданных},
+            pdfsubject={Wikidata Programming},
+            pdfkeywords={Wikidata, SPARQL, Wikidata Query Service, WDQS},
+            }
 
 % + shorttitle if twice of more references to the same biblio reference
 % https://tex.stackexchange.com/a/26084/99685
@@ -307,7 +317,7 @@
 %\renewcommand{\sfdefault}{phv}
 %\renewcommand{\ttdefault}{pcr}
 
-
+\usepackage{pdfpages}
 
 
 %%% Draft (debug) or release version of the book
@@ -405,7 +415,7 @@
 %%
 % Book metadata
 \title{Программирование \\Викиданных}% \\для школьников \\и студентов}
-\author[Крижановский и др.]{Крижановский Андрей, Балакирева Мария, Меньшикова Екатерина, \mbox{Паренченков Евгений}, Потес Артём, Трубина Елизавета, \mbox{Обрегон Анхель}}
+\author[Крижановский и др.]{Крижановский Андрей, Балакирева Мария, Меньшикова Екатерина, \mbox{Паренченков Евгений}, Потес Артём, Трубина Елизавета, \mbox{Обрегон Сьерра Анхель}}
 %\author[Крижановский А. А., Балакирева М. С., Меньшикова Е. А., Паренченков Е. О., Потес А. С., Трубина Е. Д.]{Крижановский Андрей, Балакирева Мария, Меньшикова Екатерина, Паренченков Евгений, Потес Артём, Трубина Елизавета}
 %\author[Крижановский Андрей, Иванов Иван]{Крижановский Андрей,\ Иванов Иван,\ добавьте свою фамилию и имя ...}
 \publisher{Петрозаводский государственный университет,\\Карельский научный центр РАН}
@@ -624,7 +634,12 @@ $\blackinwhitediamond$ %
 \makeindex
 
 \begin{document}
+\renewcommand\indexname{Ключевые слова и понятия}
 \sisetup{mode=text} % Trying to get the same font when using SI units in text and math mode 
+
+%%%\includepdf[pages={1},noautoscale]{./page1.pdf}
+%%%\includepdf[pages={1-3},noautoscale]{./page2-4Sierra.pdf}
+%%%\iffalse
 
 % Front matter
 %\frontmatter
@@ -678,7 +693,7 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 
 \end{fullwidth}
 \newpage
-%\fi 
+%%%\fi %eo iffalse
 \begin{fullwidth}
 % eo of commented out page
 %%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -686,6 +701,7 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 
 
 % r.5 contents
+\pdfbookmark[1]{Оглавление}{SomeAnchor}
 \tableofcontents
 
 \end{fullwidth}
@@ -752,7 +768,7 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 \label{part:foundation}%
 
 
-\iffalse
+%%%\iffalse
 \input{./intro/listings_about.tex}
 \input{./review/about_wd.tex}
 \input{./intro/buckets_and_balls.tex}
@@ -771,14 +787,14 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 \input{./chapter/country.tex}
 \input{./chapter/oblast_of_Russia.tex}
 
-\fi %eo iffalse
+%%%\fi %eo iffalse
 \ifnumequal{\value{draft}}{1}{%
   \input{./chapter/musical_composition.tex}
   \input{./chapter/national_park.tex}
   \input{./chapter/radio_station.tex}
 }
 
-\iffalse
+%%%\iffalse
 \input{./chapter/operating_system.tex}
 \input{./chapter/programming_language.tex}
 
@@ -791,7 +807,7 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 \input{./intro/prowd.tex}
 \input{./advanced/page_protection.tex}
 \input{./advanced/bots.tex}
-\fi %eo iffalse
+%%%\fi %eo iffalse
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Заключительная часть 
@@ -849,6 +865,6 @@ Copyleft \textcopyleft\ \the\year\ \thanklessauthor
 
 \pagestyle{plain}% + chapter name in top right in index
 \printindex
+\addcontentsline{toc}{chapter}{\indexname} % see tufte-common.def
 
 \end{document}
-
