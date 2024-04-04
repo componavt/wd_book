@@ -1400,3 +1400,117 @@ GROUP BY ?lapse
                         по~данным на~2024 год. 
     Ссылка на~SPARQL-запрос: \href{https://w.wiki/6iFk}{https://w.wiki/6iFk}.}
 \end{task}
+
+
+
+\hfil\pgfornament[width=4cm]{80}\hfil%
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%   musical composition
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{task}
+Добавим в запрос~\ref{lst:music_in_each_subclass} команду \lstinline|FILTER (?type != wd:Q1161138 && ?type != wd:Q1907293)| исключающий объекты ``incipit (wd:Q1161138)'' и ``Маска (wd:Q1907293)''.
+ \begin{lstlisting}[ 
+            language=SPARQL, 
+            numbers=none, 
+            caption={\href{https://w.wiki/9XVJ}
+		     {Количество музыкальных композиций в каждом подклассе}\protect\footnotemark}, 
+            label=lst:music_in_each_subclas_2, 
+                      ]
+# Number of musical works in each subclass
+SELECT ?type (COUNT(?music) AS ?count) ?typeLabel WHERE 
+{                      # subclass of musical composition
+                 ?type wdt:P279* wd:Q105543609.      
+  ?music wdt:P31 ?type.
+         # instance of this subclass
+  FILTER (?type != wd:Q1161138 && ?type != wd:Q1907293)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
+}
+GROUP BY ?type ?typeLabel
+ORDER BY DESC (?count)
+\end{lstlisting}
+\footnotetext{Получено: 7 подклассов музыкальных композиций на 2024 год. Ссылка на~SPARQL-запрос: \href{https://w.wiki/9XVJ}{https://w.wiki/9XVJ}.}
+
+    \small{\AnswerBackref Вопрос на с.~\pageref{question:music_comp}.}
+\label{answer:music_in_each_subclas_filter}
+\end{task}
+
+
+
+
+\newpage
+\begin{task}
+    Добавим в запрос~\ref{lst:The_number_of_musical_compositions_in_Russia_for_every_10_years} ключевое слово \lstinline|DISTINCT|.
+    \begin{lstlisting}[ 
+            language=SPARQL, 
+            numbers=none, 
+            caption={{\href{https://w.wiki/9Udc}{Количество уникальных музыкальных композиций в России каждые 10 лет}}\protect\footnotemark}, 
+            label=lst:Number_of_unique_musical_compositions, 
+                      ]
+# Number of unique musical compositions in Russia every 10 years
+SELECT DISTINCT ?music ?musicLabel (STR(?year10) AS ?date_str) WHERE {
+        {?music wdt:P17 wd:Q15180}    # country = USSR
+  UNION {?music wdt:P17 wd:Q159}      # country = Russia
+  UNION {?music wdt:P495 wd:Q159}     # country of origin = Russia
+  UNION {?music wdt:P495 wd:Q15180}.  # country of origin =  USSR
+  ?music wdt:P31 wd:Q105543609;  # is musical work/composition
+         wdt:P86 ?composer;      # written by composer
+         wdt:P577 ?date.         # has publication date
+
+  FILTER (!wikibase:isSomeValue(?date)) # field "date" must be filled
+  BIND(YEAR(?date) AS ?year)
+  BIND((FLOOR(?year / 10 )) * 10  AS ?year10)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
+}
+\end{lstlisting}
+\footnotetext{Получено: 87 уникальных композиций на 2024 год. 
+    Ссылка на~SPARQL-запрос: \href{https://w.wiki/9Udc}{https://w.wiki/9Udc}.}
+
+    \small{\AnswerBackref Вопрос на с.~\pageref{question:music_unique}.}
+\label{answer:music_unique_answ}
+\end{task}
+
+
+\newpage
+\begin{task}
+    Получим следующий запрос.~\ref{lst:TheBeatles}.
+\begin{lstlisting}[ 
+    language=SPARQL, 
+    numbers=none,
+    caption={\href{https://w.wiki/9eSL}{Количество композиций группы The Beatles с 1960 по 1970 годы}\protect\footnotemark},
+    label=lst:TheBeatles,
+    texcl,
+]
+#number of musical compositions by The Beatles by year of publication
+#defaultView:BarChart
+SELECT  (STR(?date) AS ?date_str) (COUNT(?music) AS ?count)  
+WHERE {
+  ?music wdt:P31 wd:Q105543609; # instance of musical work
+   wdt:P175 ?executor;        # composition has a executor
+  wdt:P577 ?publication.      # composition has a publication date
+  FILTER (?executor = wd:Q1299).  # executor = The Beatles
+  BIND(YEAR(?publication) AS ?date)
+  BIND(FLOOR(?date)AS ?year)
+  FILTER(?year > 1959)
+  FILTER(?year < 1971) 
+  FILTER (!wikibase:isSomeValue(?date)) # field "date" must be filled
+}
+GROUP BY ?date
+\end{lstlisting}%
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/9eSL}{https://w.wiki/9eSL}.}
+
+Запрос~\ref{lst:TheBeatles} выдает диаграмму изображенную на рис.~\ref{fig:ThebeatlesBubbleChart}.
+
+В запросе~\ref{lst:TheBeatles} мы используем свойство <<\wdProperty{175}{исполнитель}>>, вместо привычного <<\wdProperty{86}{композитор}>>. Это связано с тем, что свойство <<\wdProperty{86}{композитор}>> выдает композиторов написавших музыкальное произведение, в нашем случае нужно найти музыкальные произведения исполненные группой The Beatles.
+
+Мы установили промежуток с 1960 по 1970, потому что это основные годы активности группы The Beatles/
+
+\begin{marginfigure}
+	\includegraphics[width=\textwidth]{./chapter/musical_composition/BarChart_of_The_number_of_musical_comp_by The Beatles by year of publication .png}
+	\caption[Гистограмма количества музыкальных композиций The Beatles с 1960 по 1970 годы]{Ежегодное количество музыкальных композиций, выпускаемых группой The Beatles с 1960 по 1970 годы}%
+ 	\label{fig:ThebeatlesBubbleChart}%
+\end{marginfigure}
+
+    \small{\AnswerBackref Вопрос на с.~\pageref{question:TheBeatles_quest}.}
+\label{answer:TheBeatles_answ}
+\end{task}
