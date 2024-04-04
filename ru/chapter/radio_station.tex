@@ -151,8 +151,7 @@ WHERE
 
 \newpage
 
-Расширен предыдущий запрос~\ref{lst:radio_stations_broadcasting_and_mass_media_in_Russia}. В обновленном запросе~\ref{lst:Russia_and_USSR_radio_stations_broadcasting_and_mass_media} используется функция VALUES.  Функция VALUES позволяет нам объединить свойства и уменьшить величину кода, что можно увидеть в строке №10 \lstinline|VALUES ?ruCountries {wd:Q15180 wd:Q159}|. С использованием функции UNION приходится для каждого подсвойства повторять конструкцию \lstinline|?radio wdt:P17|, что приводит к увеличению объема кода \lstinline| {?radio wdt:P17 wd:Q159.} UNION 
-    {?radio wdt:P17 wd:Q15180}|.
+Расширен предыдущий запрос~\ref{lst:radio_stations_broadcasting_and_mass_media_in_Russia}. В обновленном запросе~\ref{lst:Russia_and_USSR_radio_stations_broadcasting_and_mass_media} используется функция VALUES.  Функция VALUES позволяет нам объединить свойства и уменьшить величину кода, что можно увидеть в строке №10 \lstinline|VALUES ?ruCountries {wd:Q15180 wd:Q159}|. С использованием функции UNION приходится для каждого подсвойства повторять конструкцию \lstinline|?radio wdt:P17|, что приводит к увеличению объема кода \lstinline| {?radio wdt:P17 wd:Q159.} UNION {?radio wdt:P17 wd:Q15180}|.
 
 \begin{lstlisting}[ 
     language=SPARQL,
@@ -210,7 +209,7 @@ WHERE
 
 \footnotetext{Получено: \num{74} результатов на 2023 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/9bPn}{https://w.wiki/9bPn}. }
 
-В запросе \ref{lst:main_topics_of_radio_stations_broadcasting _and_mass_media} используется функция GROUP_CONCAT. Она складывает (как строки) содержимое одного поля из разных строк, вставляя между ними разделитель (по умолчанию это запятая). К примеру, можно получить список всех выбранных имен через запятую или другой разделитель.
+В запросе \ref{lst:main_topics_of_radio_stations_broadcasting _and_mass_media} используется функция \lstinline|GROUP_CONCAT|. Она складывает (как строки) содержимое одного поля из разных строк, вставляя между ними разделитель (по умолчанию это запятая). К примеру, можно получить список всех выбранных имен через запятую или другой разделитель.
 
 \newpage
 
