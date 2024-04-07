@@ -37,7 +37,7 @@ SELECT ?music ?musicLabel WHERE
 а~в~2023~--- \num{150,5} тыс., вместо \num{5,5} тыс. в~2017 году. 
 Увеличение числа композиций связано с тем, что эти объекты Викиданных являются теперь не экземплярами объекта «музыкальное произведение», а экземплярами различных подклассов «музыкальное произведение». При поиске подклассов объекта «музыкальное произведение» можно найти такие жанры: <<\wdqName{песня}{7366}>>, <<\wdqName{духовная песня}{856713}>>, <<\wdqName{гимн}{484692}>>. Более подробно анализ музыкальных жанров будет представлен в разделе <<Количество музыкальных произведений по~жанрам>> на~с.~\pageref{chapter:Number-of-musical-works-by-genre}.
 
-Диаграмма~\ref{fig:heir-music} показывает, как различные музыкальные классы связаны друг с другом и как они организованы в Викиданных. Это помогает пользователям лучше понять структуру и организацию информации о музыкальных классах в Викиданных.
+Диаграмма~\ref{fig:hier-music} показывает, как различные музыкальные классы связаны друг с другом и как они организованы в Викиданных. Это помогает пользователям лучше понять структуру и организацию информации о музыкальных классах в Викиданных.
 
 \todoVlad{\TODO Владимир, так не годится писать плейнтекстом: <<на стр. 96>>, 
 поскольку, например, в этом PDF-файле всего 49 страниц. 
@@ -100,9 +100,9 @@ ORDER BY DESC (?count)
         См. ответ~\ref{lst:music_in_each_subclas_2} на с.~\pageref{answer:music_in_each_subclas_filter}.
 }
 
-В этом запросе~\ref{lst:music_in_each_subcluss} мы используем только левую часть рис.~\ref{fig:heir-music}, а именно объект  <<\wdqName{musical work/composition}{105543609}>>. Поэтому в подклассах нет ни сонаты, ни серенады.
+В этом запросе~\ref{lst:music_in_each_subclass} мы используем только левую часть рис.~\ref{fig:hier-music}, а именно объект  <<\wdqName{musical work/composition}{105543609}>>. Поэтому в подклассах нет ни сонаты, ни серенады.
 
-Теперь напишем два запроса таким образом, чтобы запрос~\ref{lst:Number_of_types_of_musical_works_1} выявлял экземпляры объекта типа <<\wdqName{type of musical work/composition}{107487333}>>,а запрос~\ref{lst:Number_of_types_of_musical_works_2} экземпляры объекта <<\wdqName{music genre}{188451}>>. Эти запросы задействуют правую часть рис.~\ref{fig:heir-music}. В результате мы увидим такие жанры, как соната и серенада.
+Теперь напишем два запроса таким образом, чтобы запрос~\ref{lst:Number_of_types_of_musical_works_1} выявлял экземпляры объекта типа <<\wdqName{type of musical work/composition}{107487333}>>,а запрос~\ref{lst:Number_of_types_of_musical_works_2} экземпляры объекта <<\wdqName{music genre}{188451}>>. Эти запросы задействуют правую часть рис.~\ref{fig:hier-music}. В результате мы увидим такие жанры, как соната и серенада.
 
 \begin{lstlisting}[ 
     language=SPARQL,
@@ -317,12 +317,12 @@ SELECT (SUM(?count) AS ?sum) WHERE{
 
 В альтернативном (нашем) варианте мы получаем более читаемый код с использованием команды \lstinline|BIND| в строке 6 и переменной \lstinline|?year| в строке 7.
 
-\todoVlad{Владимир, я вернул в запрос~\ref{lst:Musical_comp_2018--2023} нумерацию строк. 
+\todoVlad{Владимир, я вернул в запрос~\ref{lst:Musical_comp_2018--2024} нумерацию строк. 
 Не понял, почему Вы удалили нумерацию. 
 Можете посмотреть сканы в ТГ от 13 декабря, которые я Вам присылал, насчитал там 6 скриптов с нумерацией. 
 Прошу вернуть нумерацию строк в те скрипты, на номера строк которых есть отсылки из текста.}
 \answerVlad{Готово.}
-\todoVlad{Владимир, в запросе~\ref{lst:Musical_comp_2018--2023} 
+\todoVlad{Владимир, в запросе~\ref{lst:Musical_comp_2018--2024} 
 есть такая строка \lstinline|BIND(YEAR(?date) AS ?year)|. 
 Забавно, но переменная ?year, задаваемая в этой строке, в скрипте не используется. 
 Перепишите строку 7 с командой FILTER, чтобы использовалась переменная ?year. 
@@ -353,123 +353,7 @@ SELECT (SUM(?count) AS ?sum) WHERE{
 
 
 
-
-
 \newpage
-\section{Количество музыкальных произведений по жанрам}
-\label{chapter:Number-of-musical-works-by-genre}
-
-Найдём, в каких жанрах были написаны музыкальные произведения 
-в пиках графика (рис.~\ref{fig:diagram_10_years}) 
-и~изобразим жанры на~круговой диаграмме (рис.~\ref{fig:Genre_Chart_1960_—_1990}), 
-полученной по запросу~\ref{lst:music_in_genres_1960-1990}. 
-Рассмотрим первый пик, приходящийся на~1960--1990-е годы, назовём этот пик <<Первая волна>>.
-
-\begin{marginfigure}[0\baselineskip]
-	\includegraphics[width=1\textwidth]{./chapter/musical_composition/Genre_Chart_1960_—_1990.png}
-	\caption{Круговая диаграмма музыкальных жанров за 1960--1990 годы во всем мире}%
-	\label{fig:Genre_Chart_1960_—_1990}%
-\end{marginfigure}
-
-\begin{lstlisting}[ 
-    language=SPARQL,
-    caption={\href{https://w.wiki/9aGd}
-                  {Количество музыкальных произведений в каждом жанре в промежутке с 1960 по 1990 годы.}\protect\footnotemark},
-    label=lst:music_in_genres_1960-1990,
-    xleftmargin=18pt,
-    numbers=left,
-    ]
-# Count of pieces of music in each subclass
-SELECT ?type (COUNT(?music) AS ?count) ?typeLabel WHERE {
-  {?type wdt:P31 wd:Q107487333} UNION 
-  {?type wdt:P31 wd:Q188451} . # subclass of composed musical work
-  ?music wdt:P31 ?type;     # is instance of this subclass
-         wdt:P577 ?date;    # has publication date
-         wdt:P86 ?composer. # written by composer
-  BIND(YEAR(?date) AS ?year)
-  FILTER(?year > 1960)        
-  FILTER(?year < 1990)
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
-}
-GROUP BY ?type ?typeLabel
-ORDER BY DESC (?count)
-\end{lstlisting}%
-\footnotetext{Получено: \num{15} подклассов на 2024 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/9aGd}{https://w.wiki/9aGd}.}
-
-Строки 7 и 8 в запросе~\ref{lst:music_in_genres_1960-1990} определяют промежуток времени с 1960 года до 1990 год, который является <<первой волной>>, в этом промежутке будет производиться поиск музыкальных произведений по дате их публикации.
-
-\todoVlad{В запросах ранее было написано wdt:P279* без всяких круглых скобок. Зачем здесь скобки?}
-
-\todoVlad{Владимир, с помощью функции YEAR() перейдите от ?publication к переменной ?year 
-и сделайте записи в строках FILTER запроса более краткими.}
-
-\todoVlad{С учётом моего замечания выше (4: Добавление) замените в запросе  
-свойство (P279 wd:Q207628. --- subclass of composed musical work) 
-на поиск экземпляров (P31) для двух объектов: 
-“type of musical work/composition (Q107487333)” и “music genre (Q188451)”, 
-тогда должно быть порядка 6083 музыкальных типов и жанров. 
-Возможно, тогда рисунок тоже станет интереснее, сейчас 5 жанров вместо нескольких тысяч.}
-
-\todoVlad{В следующем запросе нужны аналогичные изменения. 
-И переменные хорошо бы также назвать.}
-\answerVlad{Готово.}
-
-
-Теперь рассмотрим второй пик графика~\ref{fig:diagram_30_years}: 2000-е и 2030-е (<<вторая волна>>) рис.~\ref{fig:Genre_Chart_2000_—_2030}, пользуясь запросом~\ref{lst:music_in_genres_after2020}.
-
-\begin{lstlisting}[ language=SPARQL,
-                    caption={\href{https://w.wiki/9aJC}{ Количество музыкальных произведений в каждом жанре в промежутке с 2000 по 2030 годы.}\protect\footnotemark},
-                    label=lst:music_in_genres_after2020,
-                    texcl 
-                    ]
-# Count of pieces of music in each subclass
-SELECT ?type (COUNT(?music) AS ?count) ?typeLabel WHERE {
-  {?type wdt:P31 wd:Q107487333} UNION 
-  {?type wdt:P31 wd:Q188451} . # subclass of composed musical work
-  ?music wdt:P31 ?type;    # is instance of this subclass
-         wdt:P577 ?date;    # has publication date
-         wdt:P86 ?composer.  # written by composer
-    BIND(YEAR(?date) AS ?year)
-  FILTER(?year > 2000)        
-  FILTER(?year < 2030)
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en". }
-}
-GROUP BY ?type ?typeLabel
-ORDER BY DESC (?count)
-\end{lstlisting}%
-\footnotetext{Получено: \num{21} подкласс на 2024 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/9aJC}{https://w.wiki/9aJC}.}
-
-\begin{marginfigure}[0\baselineskip]
-	\includegraphics[width=1\textwidth]{./chapter/musical_composition/Genre_Chart_2000-2030.png}
-	\caption{Круговая диаграмма числа музыкальных жанров за 2000--2030 годы во всем мире.}%
-	\label{fig:Genre_Chart_2000_—_2030}%
-\end{marginfigure}
-
-Из результатов запроса~\ref{lst:music_in_genres_1960-1990} 
-и~запроса~\ref{lst:music_in_genres_after2020}, можем сделать вывод, 
-что жанры музыкальных произведений первого пика, не отличаются от жанров второго. 
-На второй диаграмме~\ref{fig:Genre_Chart_2000_—_2030}, видим, что 95,5\,\% музыкальных произведений написаны в жанре <<песня>>. В жанре <<духовная песня>> количество музыкальных произведений по сравнению с рис.~\ref{fig:Genre_Chart_1960_—_1990} уменьшилось почти в 4 раза. А такие музыкальные жанры, как: <<гимн>> и <<музыкальная тема>> на диаграмме~\ref{fig:Genre_Chart_2000_—_2030} по сравнению с диаграммой~\ref{fig:Genre_Chart_1960_—_1990} пропали.
-
-\todoVlad{После предложенных изменений 
-запросов~\ref{lst:music_in_genres_1960-1990} 
-       и~\ref{lst:music_in_genres_after2020} 
-этот абзац с анализом выше нужно будет переработать. И ещё вопросы.\\
-1) Если это разные скрипты, то у них это должно быть отражено в названии. Сейчас они совпадают.\\
-2) Несправедливое сравнение, поскольку в первом скрипте 1960--1990 (30 лет), 
-а во втором только 20 лет (2000--2020). 
-Предлагаю увеличить срок во втором скрипте: 2000--2030. 
-Почти половина десятилетия уже прошла, это будет более честно сравнивать.}
-
-\todoVlad{Вопросы по~рис.~\ref{fig:Genre_Chart_2000_—_2010}:\\
-1) Почему в подписи написано про 10 лет (2000--2010)?\\
-2) По запросу~\ref{lst:music_in_genres_after2020} 
-не получается построить этот рис.}
-\answerVlad{Готово.}
-
-
-
-
-
 \section{Количество музыкальных произведений по годам}
 
 Подсчитаем количество музыкальных произведений 
@@ -678,6 +562,119 @@ ORDER BY ?year10
 
 
 \newpage
+\section{Количество музыкальных произведений по жанрам}
+\label{chapter:Number-of-musical-works-by-genre}
+
+Найдём, в каких жанрах были написаны музыкальные произведения 
+в пиках графика (рис.~\ref{fig:diagram_10_years}) 
+и~изобразим жанры на~круговой диаграмме (рис.~\ref{fig:Genre_Chart_1960_—_1990}), 
+полученной по запросу~\ref{lst:music_in_genres_1960-1990}. 
+Рассмотрим первый пик, приходящийся на~1960--1990-е годы, назовём этот пик <<Первая волна>>.
+
+\begin{marginfigure}[0\baselineskip]
+	\includegraphics[width=1\textwidth]{./chapter/musical_composition/Genre_Chart_1960_—_1990.png}
+	\caption{Круговая диаграмма музыкальных жанров за 1960--1990 годы во всем мире}%
+	\label{fig:Genre_Chart_1960_—_1990}%
+\end{marginfigure}
+
+\begin{lstlisting}[ 
+    language=SPARQL,
+    caption={\href{https://w.wiki/9aGd}
+                  {Количество музыкальных произведений в каждом жанре в промежутке с 1960 по 1990 годы.}\protect\footnotemark},
+    label=lst:music_in_genres_1960-1990,
+    xleftmargin=18pt,
+    numbers=left,
+    ]
+# Count of pieces of music in each subclass
+SELECT ?type (COUNT(?music) AS ?count) ?typeLabel WHERE {
+  {?type wdt:P31 wd:Q107487333} UNION 
+  {?type wdt:P31 wd:Q188451} . # subclass of composed musical work
+  ?music wdt:P31 ?type;     # is instance of this subclass
+         wdt:P577 ?date;    # has publication date
+         wdt:P86 ?composer. # written by composer
+  BIND(YEAR(?date) AS ?year)
+  FILTER(?year > 1960)        
+  FILTER(?year < 1990)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
+}
+GROUP BY ?type ?typeLabel
+ORDER BY DESC (?count)
+\end{lstlisting}%
+\footnotetext{Получено: \num{15} подклассов на 2024 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/9aGd}{https://w.wiki/9aGd}.}
+
+Строки 7 и 8 в запросе~\ref{lst:music_in_genres_1960-1990} определяют промежуток времени с 1960 года до 1990 год, который является <<первой волной>>, в этом промежутке будет производиться поиск музыкальных произведений по дате их публикации.
+
+\todoVlad{В запросах ранее было написано wdt:P279* без всяких круглых скобок. Зачем здесь скобки?}
+
+\todoVlad{Владимир, с помощью функции YEAR() перейдите от ?publication к переменной ?year 
+и сделайте записи в строках FILTER запроса более краткими.}
+
+\todoVlad{С учётом моего замечания выше (4: Добавление) замените в запросе  
+свойство (P279 wd:Q207628. --- subclass of composed musical work) 
+на поиск экземпляров (P31) для двух объектов: 
+“type of musical work/composition (Q107487333)” и “music genre (Q188451)”, 
+тогда должно быть порядка 6083 музыкальных типов и жанров. 
+Возможно, тогда рисунок тоже станет интереснее, сейчас 5 жанров вместо нескольких тысяч.}
+
+\todoVlad{В следующем запросе нужны аналогичные изменения. 
+И переменные хорошо бы также назвать.}
+\answerVlad{Готово.}
+
+
+Теперь рассмотрим второй пик графика~\ref{fig:diagram_10_years}: 2000-е и 2030-е (<<вторая волна>>) рис.~\ref{fig:Genre_Chart_2000_—_2030}, пользуясь запросом~\ref{lst:music_in_genres_after2020}.
+
+\begin{lstlisting}[ language=SPARQL,
+                    caption={\href{https://w.wiki/9aJC}{ Количество музыкальных произведений в каждом жанре в промежутке с 2000 по 2030 годы.}\protect\footnotemark},
+                    label=lst:music_in_genres_after2020,
+                    texcl 
+                    ]
+# Count of pieces of music in each subclass
+SELECT ?type (COUNT(?music) AS ?count) ?typeLabel WHERE {
+  {?type wdt:P31 wd:Q107487333} UNION 
+  {?type wdt:P31 wd:Q188451} . # subclass of composed musical work
+  ?music wdt:P31 ?type;    # is instance of this subclass
+         wdt:P577 ?date;    # has publication date
+         wdt:P86 ?composer.  # written by composer
+    BIND(YEAR(?date) AS ?year)
+  FILTER(?year > 2000)        
+  FILTER(?year < 2030)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en". }
+}
+GROUP BY ?type ?typeLabel
+ORDER BY DESC (?count)
+\end{lstlisting}%
+\footnotetext{Получено: \num{21} подкласс на 2024 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/9aJC}{https://w.wiki/9aJC}.}
+
+\begin{marginfigure}[0\baselineskip]
+	\includegraphics[width=1\textwidth]{./chapter/musical_composition/Genre_Chart_2000-2030.png}
+	\caption{Круговая диаграмма числа музыкальных жанров за 2000--2030 годы во всем мире.}%
+	\label{fig:Genre_Chart_2000_—_2030}%
+\end{marginfigure}
+
+Из результатов запроса~\ref{lst:music_in_genres_1960-1990} 
+и~запроса~\ref{lst:music_in_genres_after2020}, можем сделать вывод, 
+что жанры музыкальных произведений первого пика, не отличаются от жанров второго. 
+На второй диаграмме~\ref{fig:Genre_Chart_2000_—_2030}, видим, что 95,5\,\% музыкальных произведений написаны в жанре <<песня>>. В жанре <<духовная песня>> количество музыкальных произведений по сравнению с рис.~\ref{fig:Genre_Chart_1960_—_1990} уменьшилось почти в 4 раза. А такие музыкальные жанры, как: <<гимн>> и <<музыкальная тема>> на диаграмме~\ref{fig:Genre_Chart_2000_—_2030} по сравнению с диаграммой~\ref{fig:Genre_Chart_1960_—_1990} пропали.
+
+\todoVlad{После предложенных изменений 
+запросов~\ref{lst:music_in_genres_1960-1990} 
+       и~\ref{lst:music_in_genres_after2020} 
+этот абзац с анализом выше нужно будет переработать. И ещё вопросы.\\
+1) Если это разные скрипты, то у них это должно быть отражено в названии. Сейчас они совпадают.\\
+2) Несправедливое сравнение, поскольку в первом скрипте 1960--1990 (30 лет), 
+а во втором только 20 лет (2000--2020). 
+Предлагаю увеличить срок во втором скрипте: 2000--2030. 
+Почти половина десятилетия уже прошла, это будет более честно сравнивать.}
+
+\todoVlad{Вопросы по~рис.~\ref{fig:Genre_Chart_2000_—_2030}:\\
+1) Почему в подписи написано про 10 лет (2000--2010)?\\
+2) По запросу~\ref{lst:music_in_genres_after2020} 
+не получается построить этот рис.}
+\answerVlad{Готово.}
+
+
+
+\newpage
 \section{Поиск музыкальных лакун в общественном достоянии}
 
 Задача состоит в том, чтобы найти такие музыкальные произведения, 
@@ -865,7 +862,7 @@ ORDER BY DESC(?count) ?composerLabel
         группы The Beatles по году публикации.
         Используйте свойства: <<\wdProperty{175}{исполнитель}>>, <<\wdProperty{577}{дата публикации}>>.
 
-        \label{question:TheBeatkes_quest}
+        \label{question:TheBeatles_quest}
         См. ответ~\ref{lst:TheBeatles} на с.~\pageref{answer:TheBeatles_answ}.
 
 
@@ -876,5 +873,5 @@ ORDER BY DESC(?count) ?composerLabel
         В тексте поясните, почему именно эти годы 
         (кстати, это хорошо видно, если снять ограничение по годам). 
 } 
-\answerVlad{Диаграмму оставить в этом файле? Я не нашел папку для рисунков для добавления их в раздел ответы.}
+\answerVlad{Готово.}
 \end{enumerate}
