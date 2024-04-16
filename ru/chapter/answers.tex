@@ -1404,18 +1404,26 @@ GROUP BY ?lapse
 
 
 \hfil\pgfornament[width=4cm]{80}\hfil%
-\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%   musical composition
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{task}
-Добавим в запрос~\ref{lst:music_in_each_subclass} команду \lstinline|FILTER (?type != wd:Q1161138 && ?type != wd:Q1907293)| исключающий объекты ``incipit (wd:Q1161138)'' и ``Маска (wd:Q1907293)''.
- \begin{lstlisting}[ 
+    \label{answer:music_in_each_subclas_filter}
+    \AnswerBackref Вопрос на с.~\pageref{question:music_comp}.
+    
+    Добавим в запрос~\ref{lst:music_in_each_subclass} команду 
+    \lstinline|FILTER| (строка~7) для исключения 
+    объектов ``incipit (wd:Q1161138)'' и ``Masque (wd:Q1907293)'' из результатов. 
+    Ответом является запрос~\ref{lst:music_in_each_subclas_2}. 
+    \index{SPARQL!FILTER!AND}
+    \begin{lstlisting}[ 
             language=SPARQL, 
             numbers=none, 
             caption={\href{https://w.wiki/9XVJ}
-		     {Количество музыкальных композиций в каждом подклассе}\protect\footnotemark}, 
+		     {Количество музыкальных композиций в каждом подклассе с~фильтрацией}\protect\footnotemark}, 
             label=lst:music_in_each_subclas_2, 
+            xleftmargin=18pt,
+            numbers=left,
                       ]
 # Number of musical works in each subclass
 SELECT ?type (COUNT(?music) AS ?count) ?typeLabel WHERE 
@@ -1430,9 +1438,6 @@ GROUP BY ?type ?typeLabel
 ORDER BY DESC (?count)
 \end{lstlisting}
 \footnotetext{Получено: 7 подклассов музыкальных композиций на 2024 год. Ссылка на~SPARQL-запрос: \href{https://w.wiki/9XVJ}{https://w.wiki/9XVJ}.}
-
-    \small{\AnswerBackref Вопрос на с.~\pageref{question:music_comp}.}
-\label{answer:music_in_each_subclas_filter}
 \end{task}
 
 
@@ -1440,6 +1445,9 @@ ORDER BY DESC (?count)
 
 \newpage
 \begin{task}
+    \AnswerBackref Вопрос на с.~\pageref{question:music_unique}.
+    \label{answer:music_unique_answ}
+
     Добавим в запрос~\ref{lst:The_number_of_musical_compositions_in_Russia_for_every_10_years} ключевое слово \lstinline|DISTINCT|.
     \begin{lstlisting}[ 
             language=SPARQL, 
@@ -1465,14 +1473,14 @@ SELECT DISTINCT ?music ?musicLabel (STR(?year10) AS ?date_str) WHERE {
 \end{lstlisting}
 \footnotetext{Получено: 87 уникальных композиций на 2024 год. 
     Ссылка на~SPARQL-запрос: \href{https://w.wiki/9Udc}{https://w.wiki/9Udc}.}
-
-    \small{\AnswerBackref Вопрос на с.~\pageref{question:music_unique}.}
-\label{answer:music_unique_answ}
 \end{task}
 
 
-\newpage
+
 \begin{task}
+    \AnswerBackref Вопрос на с.~\pageref{question:TheBeatles_quest}.
+    \label{answer:TheBeatles_answ}
+
     Получим следующий запрос.~\ref{lst:TheBeatles}.
 \begin{lstlisting}[ 
     language=SPARQL, 
@@ -1503,14 +1511,14 @@ GROUP BY ?date
 
 В запросе~\ref{lst:TheBeatles} мы используем свойство <<\wdProperty{175}{исполнитель}>>, вместо привычного <<\wdProperty{86}{композитор}>>. Это связано с тем, что свойство <<\wdProperty{86}{композитор}>> выдает композиторов написавших музыкальное произведение, в нашем случае нужно найти музыкальные произведения исполненные группой The Beatles.
 
-Мы установили промежуток с 1960 по 1970, потому что это основные годы активности группы The Beatles/
+    Основные годы творчества музыкантов группы The Beatles~--- это годы с~1960 по~1970. 
+    Именно эти границы были заданы в~запросе~\ref{lst:TheBeatles} 
+    для отрисовывания рис.~\ref{fig:ThebeatlesBubbleChart}.
 
 \begin{marginfigure}
-	\includegraphics[width=\textwidth]{./chapter/musical_composition/BarChart_of_The_number_of_musical_comp_by The Beatles by year of publication .png}
-	\caption[Гистограмма количества музыкальных композиций The Beatles с 1960 по 1970 годы]{Ежегодное количество музыкальных композиций, выпускаемых группой The Beatles с 1960 по 1970 годы}%
+	\includegraphics[width=\textwidth]{./chapter/musical_composition/BarChart_number_of_musical_Beatles_by_year_of_publication.png}
+	\caption[Гистограмма количества музыкальных композиций The Beatles с 1960 по 1970 годы]
+    {Ежегодное количество музыкальных композиций, созданных группой The Beatles с 1960 по 1970 годы}%
  	\label{fig:ThebeatlesBubbleChart}%
 \end{marginfigure}
-
-    \small{\AnswerBackref Вопрос на с.~\pageref{question:TheBeatles_quest}.}
-\label{answer:TheBeatles_answ}
 \end{task}
