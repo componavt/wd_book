@@ -1408,13 +1408,15 @@ GROUP BY ?lapse
 %%%   musical composition
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{task}
+        \lstset{escapeinside={(*@}{@*)}}
+        \sethlcolor{pink}
     \label{answer:music_in_each_subclas_filter}
     \AnswerBackref Вопрос на с.~\pageref{question:music_comp}.
     
-    Добавим в запрос~\ref{lst:music_in_each_subclass} команду 
-    \lstinline|FILTER| (строка~7) для исключения 
-    объектов ``incipit (wd:Q1161138)'' и ``Masque (wd:Q1907293)'' из результатов. 
-    Ответом является запрос~\ref{lst:music_in_each_subclas_2}. 
+    Для исключения двух объектов ``incipit (wd:Q1161138)'' и ``Masque (wd:Q1907293)'' 
+    из результатов запроса~\ref{lst:music_in_each_subclass}, 
+    создадим новый запрос~\ref{lst:music_in_each_subclas_2}, в котором 
+    для исключения добавим команду \lstinline|FILTER| (строка~7).
     \index{SPARQL!FILTER!AND}
     \begin{lstlisting}[ 
             language=SPARQL, 
@@ -1431,7 +1433,7 @@ SELECT ?type (COUNT(?music) AS ?count) ?typeLabel WHERE
                  ?type wdt:P279* wd:Q105543609.      
   ?music wdt:P31 ?type.
          # instance of this subclass
-  FILTER (?type != wd:Q1161138 && ?type != wd:Q1907293)
+  (*@\hl{FILTER (?type != wd:Q1161138 \&\& ?type != wd:Q1907293)}@*)
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
 }
 GROUP BY ?type ?typeLabel
@@ -1518,7 +1520,7 @@ GROUP BY ?date
 \begin{marginfigure}
 	\includegraphics[width=\textwidth]{./chapter/musical_composition/BarChart_number_of_musical_Beatles_by_year_of_publication.png}
 	\caption[Гистограмма количества музыкальных композиций The Beatles с 1960 по 1970 годы]
-    {Ежегодное количество музыкальных композиций, созданных группой The Beatles с 1960 по 1970 годы}%
+    {Ежегодное количество музыкальных композиций, созданных группой The~Beatles с 1960 по 1970 годы}%
  	\label{fig:ThebeatlesBubbleChart}%
 \end{marginfigure}
 \end{task}

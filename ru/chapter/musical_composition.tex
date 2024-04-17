@@ -112,10 +112,10 @@ ORDER BY DESC (?count)
 \marginnote[1\baselineskip]{%
         \label{question:music_comp}
         \MarginQuestion
-        В 9 подклассов <<\wdqName{musical work/composition}{105543609}>>, 
-        полученных в запросе~\ref{lst:music_in_each_subclass}, 
+        В 9 подклассов <<\wdqName{музыкальных композиций}{105543609}>>, 
+        полученных по~запросу~\ref{lst:music_in_each_subclass}, 
         входят объекты \wdqName{incipit}{1161138}>> (<<начальные слова>>) 
-             и объект  \wdqName{Masque}{1907293} (<<маска>>), то есть это не~музыкальные вещи. 
+                     и~\wdqName{Masque}{1907293} (<<маска>>), то есть это не~музыкальные вещи. 
         Как исключить эти <<слова>> и <<маску>> и оставить только музыкальные объекты?
 
         См. ответ %~\ref{lst:music_in_each_subclas_2} 
@@ -128,18 +128,20 @@ ORDER BY DESC (?count)
 Поэтому в подклассах нет ни сонаты, ни серенады.
 
 Теперь напишем два запроса таким образом, 
-чтобы запрос~\ref{lst:Number_of_types_of_musical_works_1} выявлял экземпляры объекта типа 
-\wdqName{type of musical work/composition}{107487333}, 
-а~запрос~\ref{lst:Number_of_types_of_musical_works_2}~--- 
-экземпляры объекта \wdqName{music genre}{188451}. 
-Эти запросы задействуют правую часть рис.~\ref{fig:hier-music}. В результате мы увидим такие жанры, как соната и серенада.
+чтобы по~запросу~\ref{lst:Number_of_types_of_musical_works_1} получить 
+список <<\wdqName{типов музыкальных произведений}{107487333}>>, 
+а~по~запросу~\ref{lst:Number_of_types_of_musical_works_2}~--- 
+список <<\wdqName{музыкальных жанров}{188451}>>. 
+Эти запросы задействуют правую часть рис.~\ref{fig:hier-music}. 
+В~соответствии с~этим рисунком в~результатах обоих запросов будут присутствовать такие 
+музыкальные жанры, как соната и~серенада.
 
 \begin{lstlisting}[ 
     language=SPARQL,
     caption={\href{https://w.wiki/9U8o}
-                  {Экземпляры объекта ``\wdqName{type of musical work/composition}{107487333}''}\protect\footnotemark},
+                  {Список <<\wdqName{типов музыкальных произведений}{107487333}>>}\protect\footnotemark},
     label=lst:Number_of_types_of_musical_works_1,
-    texcl
+    texcl,
     ]
 # Number of types of musical works
 SELECT ?type ?typeLabel WHERE 
@@ -153,9 +155,9 @@ SELECT ?type ?typeLabel WHERE
 \begin{lstlisting}[ 
     language=SPARQL,
     caption={\href{https://w.wiki/9UAP}
-                  { Экземпляры объекта <<\wdqName{music genre}{188451}>>}\protect\footnotemark},
+                  {Список <<\wdqName{музыкальных жанров}{188451}>>}\protect\footnotemark},
     label=lst:Number_of_types_of_musical_works_2,
-    texcl
+    texcl,
     ]
 # Number of types of musical works
 SELECT ?type ?typeLabel WHERE 
@@ -167,28 +169,35 @@ SELECT ?type ?typeLabel WHERE
 \end{lstlisting}%
 \footnotetext{Получено: 5809 музыкальных жанров на 2024 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/9UAP}{https://w.wiki/9UAP}.}
 
-Объединим типы музыкальных работ и музыкальные жанры, получаем запрос~\ref{lst:Number_of_genres_and_types_of_musical_works}.
+Объединим типы музыкальных работ и музыкальные жанры 
+в~запросе~\ref{lst:Number_of_genres_and_types_of_musical_works}. 
+Для объединения утверждений в~строках 4~и~5~служит команда \lstinline|UNION|. 
+Чтобы объекты не~повторялись, 
+укажем в~команде \lstinline|SELECT| параметр \lstinline|DISTINCT| (строка~2). 
+Дубликатов оказалось полтора процента. 
 
+        \lstset{escapeinside={(*@}{@*)}}
+        \sethlcolor{pink}
+        \index{SPARQL!DISTINCT}
+        \index{SPARQL!UNION}
 \begin{lstlisting}[ 
     language=SPARQL,
-    caption={\href{https://w.wiki/9UAX}
+    caption={\href{https://w.wiki/9nSA}
                   {Суммарное число музыкальных композиций в подклассах}\protect\footnotemark},
     label=lst:Number_of_genres_and_types_of_musical_works,
     xleftmargin=18pt,
     numbers=left,
     ]
-# Number of genres and types of musical works
-SELECT ?type ?typeLabel WHERE 
+# List of genres and types of musical works
+SELECT (*@\hl{DISTINCT}@*) ?type ?typeLabel WHERE 
 {                # type of musical work/composition
-  {?type wdt:P31 wd:Q107487333} UNION 
+  {?type wdt:P31 wd:Q107487333} (*@\hl{UNION}@*)
   {?type wdt:P31 wd:Q188451} .
                  # music genre
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
 }
 \end{lstlisting}%
-\footnotetext{Получено:  6089 музыкальных типов и жанров на 2024 год. Ссылка на~SPARQL-запрос: \href{https://w.wiki/9UAX}{https://w.wiki/9UAX}.}
-
-Мы ищем объекты, которые являются либо экземплярами <<\wdqName{type of musical work/composition}{107487333}>>, либо <<\wdqName{music genre}{188451}>>. В запросе~\ref{lst:Number_of_genres_and_types_of_musical_works} мы используем команду \lstinline|UNION| в~строке~4, чтобы объединить результаты поиска обоих типов объектов.
+\footnotetext{Получено: 6017 музыкальных типов и жанров на 2024 год. Ссылка на~SPARQL-запрос: \href{https://w.wiki/9nSA}{https://w.wiki/9nSA}.}
 
 Допишем запрос~\ref{lst:Number_of_genres_and_types_of_musical_works}, чтобы он подсчитал число музыкальных произведений (без дубликатов), которые имеют такой музыкальный тип или жанр. Получим следующий запрос~\ref{lst:The_total_number_of_musical_works_for_subclasses}.
 \begin{lstlisting}[ 
@@ -196,7 +205,7 @@ SELECT ?type ?typeLabel WHERE
     caption={\href{https://w.wiki/9XWq}
                   {Суммарное число музыкальных композиций в подклассах}\protect\footnotemark},
     label=lst:The_total_number_of_musical_works_for_subclasses,
-    texcl
+    texcl,
     ]
 SELECT (SUM(?numberOfmusic) AS ?totalNumberOfmusic) WHERE {
   {
@@ -211,23 +220,6 @@ SELECT (SUM(?numberOfmusic) AS ?totalNumberOfmusic) WHERE {
 \end{lstlisting}%
 \footnotetext{Получено: 8327 музыкальных произведений на 2024 год. Ссылка на~SPARQL-запрос: \href{https://w.wiki/9XWq}{https://w.wiki/9XWq}.}
 
-\todoVlad{
-\emph{Задача с исключением~--- на поля и в <<Ответы>>.}\\
-В 9 подклассов ``musical work/composition'', 
-полученных в запросе~\ref{lst:music_in_each_subclass},
-входят объекты ``incipit (Q1161138)'' (<<начальные слова>>) 
-и объект Маска (wd:Q1907293), то есть это не~музыкальные вещи. 
-Нужно добавить в запрос исключение этих двух объектов, 
-вижу два варианта: или функция FILTER (неравенство) или MINUS. 
-Примеры скриптов с~MINUS 
-посмотрите на странице ВВ \href{https://ru.wikiversity.org/?curid=23632}
-                               {Программирование Викиданных/Страны}. 
-Отмечу, что в результатах есть ещё <<маска>> с маленькой буквы~--- 
-это музыкальный жанр, его не нужно исключать.  
-\\
-На полях напишите это задание (исключение). 
-В раздел <<Ответы>> добавьте свой вариант с решением.}
-\answerVlad{Готово.}
 
 \todoVlad{
 \emph{Добавление.}\\
@@ -400,7 +392,7 @@ SELECT (SUM(?count) AS ?sum) WHERE{
                   {Количество музыкальных произведений, создаваемых каждое десятилетие}\protect\footnotemark},
     label=lst:The_number_of_musical_compositions_for_every_10_years,
     texcl,
-    numbers=none
+    numbers=none,
     ]
 # The number of musical compositions for every 10 years
 #defaultView:BarChart
@@ -463,7 +455,7 @@ ORDER BY (?date)
                   {Количество музыкальных произведений в Росии и СССР 
                    за каждые 10 лет}\protect\footnotemark},
     label=lst:The_number_of_musical_compositions_in_Russia_for_every_10_years,
-    texcl 
+    texcl,
     ]
 # Number of musical compositions in Russia every 10 years
 #defaultView:BarChart
