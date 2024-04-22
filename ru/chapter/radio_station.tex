@@ -1,56 +1,83 @@
 \chapter[Радиостанции]{Радиостанции}
 \label{ch:radio-station}
 
-Радиостанции --- комплекс устройств и сооружений, служащих для подготовки программ радиовещания. Эта глава посвящена исследованию программ радиовещния на основе Викиданных. Для исследования спроектированы SPARQL-запросы, работающие с объектами Викиданных типа <<\wdqName {радиостанции} {14350}>> и свойством <<\wdProperty{экземпляр}{31}>>. Получен список всех радиостанций, описанных в Викиданных. С помощью запросов получено количество радиостанций у различных стран, а также для определения подклассов радиостанций. Проделана работа для поиска радиостанций, вещательных каналов и СМИ по России, и по СССР, их тематик и аккаунтов в социальных сетях.
+Радиостанции --- комплекс устройств и сооружений, служащих для подготовки программ радиовещания. 
+Эта глава посвящена исследованию программ радиовещания, 
+анализируется объект Викиданных \wdqName {<<вещательная радиостанция>>}{14350} и его свойства. 
+Получен список всех радиостанций, описанных в Викиданных. 
+С помощью запросов получено количество радиостанций у различных стран, 
+определены подклассы радиостанций. 
+Найдены радиостанции, вещательные каналы и~СМИ в~СССР и~России, 
+выделены группы тематической направленности, 
+представлены аккаунты в~социальных сетях.
 
-\section{Список количества радиостанций по странам}
+\section{Число радиостанций по странам}
 
-Построим список всех радиостанций на английском и русском языках в запросе~\ref{lst:all_radio_stations}.
+Получим список всех радиостанций с~указанием страны, к которой они относятся, 
+посредством свойства \wdProperty{495}{<<страна происхождения>>}. 
+Запрос~\ref{lst:all_radio_stations} вернул около 100 станций, 
+что является недостаточным числом для радиовещательных программ всего мира, представленных в Викиданных.
+
 \begin{lstlisting}[ 
     language=SPARQL,
-    caption={\href{https://w.wiki/5unA}{Cписок всех радиостанций на английском и русском языках}\protect\footnotemark},
+    caption={\href{https://w.wiki/5unA}{Cписок всех радиостанций со свойством <<страна происхождения>>}\protect\footnotemark},
     label=lst:all_radio_stations,
     texcl,
     numbers=none
     ]
-# List of all radio stations in all languages.
-SELECT ?radioLabel ?countryLabel WHERE
+# List of radio stations and country
+SELECT ?radio ?radioLabel ?countryLabel WHERE
 {
-    ?radio wdt:P31 wd:Q14350. # instance of radio station
-    ?radio wdt:P495 ?country. # country of origin
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en" }
-}
-\end{lstlisting}%
-\footnotetext{Получено: \num{118} результатов на 2024 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/9hkz}{https://w.wiki/9hkz}.}
-
-\newpage
-
-\subsection{Посмотрим количество радиостанций у разных стран в запросе~\ref{lst:number_of_radio_stations}. }
-
-\begin{lstlisting}[ 
-    language=SPARQL,
-    caption={\href{https://w.wiki/62MJ}{Количество радиостанций по странам}\protect\footnotemark},
-    label=lst:number_of_radio_stations,
-    xleftmargin=18pt,
-    numbers=left,
-    ]
-# Number of radio stations for each country
-SELECT (COUNT(?radio) as ?sumRadio) ?countryLabel
-WHERE {
   ?radio wdt:P31 wd:Q14350; # instance of radio station
          wdt:P495 ?country. # country of origin
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en" }
 }
-GROUP BY ?countryLabel
+\end{lstlisting}%
+\footnotetext{Получено: 118 результатов на 2024 год. 
+              Ссылка на SPARQL-запрос: \href{https://w.wiki/9qag}{https://w.wiki/9qag}.}
+
+
+Посмотрим количество радиостанций у~разных стран в~запросе~\ref{lst:number_of_radio_stations}.
+Суммируем число станций в~переменную \lstinline|?sumRadio| 
+с~помощью команды \lstinline|COUNT()| в~строке~2. 
+Сгруппируем станции по~странам с~помощью команды \lstinline|GROUP BY| в~строке~7.
+
+
+        \lstset{escapeinside={(*@}{@*)}}
+        \sethlcolor{pink}
+
+\begin{lstlisting}[ 
+    language=SPARQL,
+    caption={\href{https://w.wiki/9qau}
+                  {Количество радиостанций со свойством <<страна происхождения>>
+                   по странам}\protect\footnotemark},
+    label=lst:number_of_radio_stations,
+    xleftmargin=18pt,
+    numbers=left,
+    ]
+# Number of radio stations for each country 
+SELECT ((*@\hl{COUNT}@*)(?radio) as (*@\hl{?sumRadio}@*)) ?countryLabel WHERE {
+  ?radio wdt:P31 wd:Q14350; # is radio station
+         wdt:P495 ?country. # has country of origin
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en" }
+}
+(*@\hl{GROUP BY}@*) ?countryLabel
 ORDER BY DESC (?sumRadio)
 \end{lstlisting}%
-\footnotetext{Получено: 31 результат на 2024 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/9hm7}{https://w.wiki/9hm7}.}
+\footnotetext{Получено: 31 страна с радиостанциями на 2024 год. 
+              Ссылка на SPARQL-запрос: \href{https://w.wiki/9qau}{https://w.wiki/9qau}.}
 
-Всего в мире около двухсот стран (смотри главу <<\nameref{ch:country}>> на странице~\pageref{ch:RussiaNotCountryPPS}), но запрос~\ref{lst:number_of_radio_stations} нашёл только 31 страну, в которых есть радиостанции. Поскольку радиостанции есть в каждой стране мира, то результаты запроса говорят о неполноте Викиданных.
+Всего в мире около двухсот стран (смотри главу <<\nameref{ch:country}>> 
+на странице~\pageref{ch:RussiaNotCountryPPS}), 
+но запрос~\ref{lst:number_of_radio_stations} нашёл только 31 страну с~радиостанциями. 
+Поскольку радиостанции есть в каждой стране мира, то что-то здесь не так. 
+По-видимому, свойство \wdProperty{495}{<<страна происхождения>>} больше подходит для~указания 
+<<страны происхождения творческого произведения или другого продукта>>, 
+что и~указано в~Викиданных в~описании этого свойства. 
 
-\newpage
-
-Мы переделали запрос~\ref{lst:number_of_radio_stations}, изменив в нём <<\wdProperty{495}{страна происхождения}>> на <<\wdProperty{17}{государство}>> в запросе~\ref{lst:number_of_radio_stations_for_each_country}. Изменения были внесены, потому что <<\wdProperty{495}{страна происхождения}>> совсем не подходит для поиска стран, с помощью этого свойства находятся музыкальные композиции, виды спорта и тд. 
+Заменив свойство вещательных радиостанций <<страна происхождения>> 
+на~свойство <<\wdProperty{17}{государство}>>, 
+получим запрос~\ref{lst:number_of_radio_stations_for_each_country}. 
 
 \begin{lstlisting}[ 
     language=SPARQL,
