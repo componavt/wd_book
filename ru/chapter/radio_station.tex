@@ -37,7 +37,7 @@ SELECT ?radio ?radioLabel ?countryLabel WHERE
               Ссылка на SPARQL-запрос: \href{https://w.wiki/9qag}{https://w.wiki/9qag}.}
 
 
-Посмотрим количество радиостанций у~разных стран в~запросе~\ref{lst:number_of_radio_stations}.
+Посмотрим количество радиостанций у~разных стран в~запросе~\ref{lst:NStationsCountryP495}.
 Суммируем число станций в~переменную \lstinline|?sumRadio| 
 с~помощью команды \lstinline|COUNT()| в~строке~2. 
 Сгруппируем станции по~странам с~помощью команды \lstinline|GROUP BY| в~строке~7.
@@ -51,7 +51,7 @@ SELECT ?radio ?radioLabel ?countryLabel WHERE
     caption={\href{https://w.wiki/9qau}
                   {Количество радиостанций со свойством <<страна происхождения>>
                    по странам}\protect\footnotemark},
-    label=lst:number_of_radio_stations,
+    label=lst:NStationsCountryP495,
     xleftmargin=18pt,
     numbers=left,
     ]
@@ -68,45 +68,18 @@ ORDER BY DESC (?sumRadio)
               Ссылка на SPARQL-запрос: \href{https://w.wiki/9qau}{https://w.wiki/9qau}.}
 
 Всего в мире около двухсот стран (смотри главу <<\nameref{ch:country}>> 
-на странице~\pageref{ch:RussiaNotCountryPPS}), 
-но запрос~\ref{lst:number_of_radio_stations} нашёл только 31 страну с~радиостанциями. 
-Поскольку радиостанции есть в каждой стране мира, то что-то здесь не так. 
+на~с.~\pageref{ch:RussiaNotCountryPPS}), 
+но запрос~\ref{lst:NStationsCountryP495} нашёл только 31 страну с~радиостанциями. 
 По-видимому, свойство \wdProperty{495}{<<страна происхождения>>} больше подходит для~указания 
 <<страны происхождения творческого произведения или другого продукта>>, 
-что и~указано в~Викиданных в~описании этого свойства. 
+что и~указано в~описании этого свойства. 
 
-Заменив свойство вещательных радиостанций <<страна происхождения>> 
-на~свойство <<\wdProperty{17}{государство}>>, 
-получим запрос~\ref{lst:number_of_radio_stations_for_each_country}. 
-
-\begin{lstlisting}[ 
-    language=SPARQL,
-    caption={\href{https://w.wiki/66bR}{Количество радиостанций у разных стран}\protect\footnotemark},
-    label=lst:number_of_radio_stations_for_each_country,
-    xleftmargin=18pt,
-    numbers=left,
-    ]
-# Number of radio stations for each country 
-SELECT (COUNT(?radio) as ?sumRadio) ?countryLabel
-WHERE {
-  ?radio wdt:P31 wd:Q14350; # instance of radio station
-         wdt:P17 ?country. # country of origin
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en" }
-}
-GROUP BY ?countryLabel
-ORDER BY DESC (?sumRadio)
-\end{lstlisting}%
-
-\footnotetext{Получено: \num{209} результатов на 2024 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/9hmS}{https://w.wiki/9hmS}. }
-
-В итоге мы нашли \num{209} стран, имеющие радиостанции (таблица~\ref{tab:number_of_radio_stations} была построена на основе запроса~\ref{lst:number_of_radio_stations_for_each_country}). В ней указаны топ-10 стран по количеству радиостанций, а также добавлены Россия и Нидерланды.
 
 \begin{margintable}
-\caption{Количество радиостанций по убыванию у 12 стран на 2024 год.}
+\caption{Страны с наибольшим числом радиостанций на 2024 год}
 \begin{tabular}{|c|c|c|}
 \hline
-Номер & Количество радиостанций по & Страна \\
- & <<\wdProperty{495}{страна происхождения}>> & \\
+\textnumero & Количество & Страна \\
 \hline
 1 & 15847 & США \\
 2 & 1567 & Мексика \\
@@ -118,37 +91,77 @@ ORDER BY DESC (?sumRadio)
 8 & 464 & Австралия \\
 9 & 427 & Франция \\
 10 & 371 & Индия \\
-... & ... & ... \\
+\ldots & \ldots & \ldots \\
 23 & 87 & Россия \\
-... & ... & ... \\
+\ldots & \ldots & \ldots \\
 32 & 55 & Нидерланды \\
+\ldots & \ldots & \ldots \\
 \hline
 \end{tabular}
 \label{tab:number_of_radio_stations}
 \end{margintable}
 
-\section{Подклассы радиостанций}
 
-Получим запрос~\ref{lst:subclasses_of_radio_stations}, который выводит список подклассов радиостанций. Для каждого подкласса укажем число его экземпляров.
+Заменив свойство радиостанций <<страна происхождения>> 
+на~свойство <<\wdProperty{17}{государство}>> 
+в~строке~4 запроса~\ref{lst:NStationsCountryP17}, 
+получим уже больше двухсот стран. 
 
 \begin{lstlisting}[ 
     language=SPARQL,
-    caption={\href{https://w.wiki/62ML}{Список подклассов радиостанций}\protect\footnotemark},
+    caption={\href{https://w.wiki/9qdC}
+                  {Количество радиостанций со свойством <<государство>>
+                   по~странам}\protect\footnotemark},
+    label=lst:NStationsCountryP17,
+    xleftmargin=18pt,
+    numbers=left,
+    ]
+# Number of radio stations for each country 
+SELECT (COUNT(?radio) as ?sumRadio) ?countryLabel WHERE {
+  ?radio wdt:P31 wd:Q14350; # is radio station
+         (*@\hl{wdt:P17}@*) ?country.  # from country
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en" }
+}
+GROUP BY ?countryLabel
+ORDER BY DESC (?sumRadio)
+\end{lstlisting}%
+\footnotetext{Получено: 209 стран с~радиостанциями~на 2024 год. 
+              Ссылка на SPARQL-запрос: \href{https://w.wiki/9qdC}{https://w.wiki/9qdC}.}
+
+Из~этих двухсот стран в~табл.~\ref{tab:number_of_radio_stations} 
+представлены страны с наибольшим числом станций. 
+В Нидерландах по~запросу~\ref{lst:NStationsCountryP495} есть 69 станций 
+(в~остальных 30 странах меньше десяти станций), 
+а~по~запросу~\ref{lst:NStationsCountryP17}~---  всего 55 радиостанций.
+
+
+
+\section{Подклассы радиостанций}
+
+Найдём список подклассов радиостанций и размер подкласса 
+с~помощью запроса~\ref{lst:subclasses_of_radio_stations}.
+
+\begin{lstlisting}[ 
+    language=SPARQL,
+    caption={\href{https://w.wiki/9qej}
+                  {Список подклассов радиостанций и размер подклассов}\protect\footnotemark},
     label=lst:subclasses_of_radio_stations,
     xleftmargin=18pt,
     numbers=left,
     ]
-# List of subclasses of radio stations  
-SELECT ?subRadio ?subRadioLabel (COUNT(?r) AS ?count) WHERE
+# List of radio subclasses and subclass sizes
+SELECT ?subRadio ?subRadioLabel (COUNT(?r) AS ?count) WHERE 
 {
   ?subRadio wdt:P279* wd:Q14350. # subclass of radio station
-  ?r wdt:P31 ?subRadio # instance of subclass of radio station 
+  ?r wdt:P31 ?subRadio.          # instance of this subclass
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en" }
 }
 GROUP BY ?subRadio ?subRadioLabel
-ORDER BY DESC(?count)\end{lstlisting}%
+ORDER BY DESC(?count)
+\end{lstlisting}%
 
-\footnotetext{Получено: \num{23} результата на 2024 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/9hmw}{https://w.wiki/9hmw}. }
+\footnotetext{Получено: 23 подкласса радиостанций на 2024 год. 
+              Ссылка на SPARQL-запрос: \href{https://w.wiki/9qej}{https://w.wiki/9qej}.}
 
 Из запроса~\ref{lst:subclasses_of_radio_stations} мы получили встречаемые подклассы радиостанций, что помогло нам понять какой подкласс наиболее актуален. 
 
