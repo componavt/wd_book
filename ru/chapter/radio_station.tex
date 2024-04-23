@@ -1,4 +1,4 @@
-\chapter[Радиостанции]{Радиостанции}
+\chapter{Тематика и социальные сети радиостанций}
 \label{ch:radio-station}
 
 Радиостанции --- комплекс устройств и сооружений, служащих для подготовки программ радиовещания. 
@@ -165,106 +165,206 @@ ORDER BY DESC(?count)
 
 Из запроса~\ref{lst:subclasses_of_radio_stations} мы получили встречаемые подклассы радиостанций, что помогло нам понять какой подкласс наиболее актуален. 
 
+\todoVlad{
+Егор, Вы мне задали правильный вопрос, почему в списке подклассов радиостанции мы 
+опять получаем радиостанцию, причём это самый большой подкласс, содержит около 30 тыс. объектов.\\
+
+\vspace{12pt}
+Напишите на полях этот вопрос
+(см. как это сделано в главе про музыку у Владимира, 
+ищите команду 
+{\textbackslash}MarginQuestion 
+ в коде его главе, она отрисовывает настольную лампу).\\ 
+И дополните этот вопрос просьбой к читателю, 
+чтобы он исправил запрос~\ref{lst:subclasses_of_radio_stations} так, 
+чтобы сам класс не попадал в свои подклассы.\\ 
+Подсказка: нужно использовать квантификатор +, а не звёздочку *.\\
+
+\vspace{12pt}
+И второе, Егор, в разделе <<Ответы>> в конце книги (файл answers) 
+напишите ответ на этот вопрос и на эту просьбу (напишите правильный запрос).\\ 
+Должны быть перекрёстные ссылки: с вопроса на ответ и обратно. 
+Посмотрите, как это сделано у Владимира. }
+\answerVlad{Ответ: ... (Егор, здесь пишите мне ответ, что всё сделано, или пишите в чём загвоздка).
+(Моё задание выше оставляйте, не стирайте, чтобы я видел, что было задано.)}
+
+
+
+
 \newpage
+\section{Отечественные радиостанции, СМИ и вещательные каналы: UNION против VALUES}
 
-\section{Радиостанции, СМИ и вещательные каналы России}
+Найдём радиостанции, вещательные каналы и СМИ в СССР и России 
+с~помощью запроса~\ref{lst:radioRussiaUNION}. 
+Радиостанции не повторяются благодаря команде \lstinline|DISTINCT| в~строке~2. 
 
-Ниже представлен запрос~\ref{lst:radio_stations_broadcasting_and_mass_media_in_Russia}, который ведёт поиск радиостанций, вещательных каналов и СМИ по России, и по СССР без использования VALUES.
+Запрос получился достаточно громоздкий из-за использования команды \lstinline|UNION|. 
+Перепишем скрипт с~использованием команды \lstinline|VALUES|, 
+объединяющей значения (объекты Викиданных) в массив. 
+Обычно код с командой \lstinline|VALUES| становится компактнее. 
+Запрос~\ref{lst:radioRussiaVALUES} получился короче на одну строку, 
+но кажется более простым для понимания, поскольку вся соль скрипта заключена 
+в строках 7 и 8. 
+
 
 \begin{lstlisting}[ 
     language=SPARQL,
-    caption={\href{https://w.wiki/6Lup}{Список радиостанций, вещательных каналов и СМИ в России, и СССР}\protect\footnotemark},
-    label=lst:radio_stations_broadcasting_and_mass_media_in_Russia,
+    caption={\href{https://w.wiki/9qst}{Список радиостанций, вещательных каналов и СМИ в России, и СССР}\protect\footnotemark},
+    label=lst:radioRussiaUNION,
     xleftmargin=18pt,
     numbers=left,
     ]
 # List of radio stations, broadcasting and mass media in Russia 
-SELECT ?radio ?radioLabel
-WHERE
+SELECT (*@\hl{DISTINCT}@*) ?radio ?radioLabel WHERE
 {
-    {?radio wdt:P31 wd:Q14350.} UNION # instance of radio station
-    {?radio wdt:P31 wd:Q15265344.} UNION # instance of broadcasting
-    {?radio wdt:P31 wd:Q11033.} # instance of mass media
+  {?radio wdt:P31 wd:Q14350}    UNION # is radio station OR
+  {?radio wdt:P31 wd:Q15265344} UNION # is broadcasting OR
+  {?radio wdt:P31 wd:Q11033}          # is mass media
     
-    {?radio wdt:P17 wd:Q159.} UNION # in Russia
-    {?radio wdt:P17 wd:Q15180.} # in USSR
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en". }
-}\end{lstlisting}%
+  {?radio wdt:P17 wd:Q15180} UNION    # in USSR OR
+  {?radio wdt:P17 wd:Q159}            # in Russia
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en" }
+}
+\end{lstlisting}%
+\footnotetext{Получено: 120 радиостанций на 2024 год. 
+              Ссылка на SPARQL-запрос: \href{https://w.wiki/9qst}{https://w.wiki/9qst}. }
 
-\footnotetext{Получено: \num{117} результатов на 2023 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/9iPm}{https://w.wiki/9iPm}. }
-
-\newpage
-
-Расширен предыдущий запрос~\ref{lst:radio_stations_broadcasting_and_mass_media_in_Russia}. В обновленном запросе~\ref{lst:Russia_and_USSR_radio_stations_broadcasting_and_mass_media} используется функция VALUES.  Функция VALUES позволяет нам объединить свойства и уменьшить величину кода, что можно увидеть в строке №10 \lstinline|VALUES ?ruCountries {wd:Q15180 wd:Q159}|. С использованием функции UNION приходится для каждого подсвойства повторять конструкцию \lstinline|?radio wdt:P17|, что приводит к увеличению объема кода \lstinline| {?radio wdt:P17 wd:Q159.} UNION {?radio wdt:P17 wd:Q15180}|.
 
 \begin{lstlisting}[ 
     language=SPARQL,
-    caption={\href{https://w.wiki/6LU7}{Радиостанции, вещательные каналы и СМИ по России, и по СССР}\protect\footnotemark},
-    label=lst:Russia_and_USSR_radio_stations_broadcasting_and_mass_media,
+    caption={\href{https://w.wiki/9quA}{Радиостанции, вещательные каналы и СМИ по России, и по СССР}\protect\footnotemark},
+    label=lst:radioRussiaVALUES,
     xleftmargin=18pt,
     numbers=left,
     ]
-# List of Russian and USSR radio stations, broadcastings and mass media
-SELECT  ?radio  ?radioLabel
-WHERE
-{
-  {?radio wdt:P31 wd:Q14350.} UNION # instance of radio station
-  {?radio wdt:P31 wd:Q15265344.} UNION # instance of broadcasting
-  {?radio wdt:P31 wd:Q11033.} #instance of mass media
-  
-  # Soviet Union and Russia
-  VALUES ?ruCountries {wd:Q15180 wd:Q159}
-  ?radio wdt:P17 ?ruCountries. # related to Russian countries
-  
-  SERVICE wikibase:label {bd:serviceParam wikibase:language "ru,en"}
-}\end{lstlisting}%
+# List of radio stations, broadcasting and mass media in Russia 
+SELECT DISTINCT ?radio ?radioLabel ?mediaTypeLabel ?countryLabel WHERE
+{           # radio station, broadcasting, mass media
+  VALUES ?mediaType {wd:Q14350 wd:Q15265344 wd:Q11033}
+  VALUES ?country {wd:Q15180 wd:Q159} 
+              # Soviet Union, Russia
+  ?radio wdt:P31 ?mediaType; # is one of mass media
+         wdt:P17 ?country.   # related to Soviet Union or Russia
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en" }
+}
+\end{lstlisting}%
+\footnotetext{Получено: 128 радиостанций на 2024 год. 
+              Ссылка на SPARQL-запрос: \href{https://w.wiki/9quA}{https://w.wiki/9quA}. }
 
-\footnotetext{Получено: \num{117} результатов на 2023 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/6LU7}{https://w.wiki/6LU7}. }
+
+Одним из преимуществ такого подхода с использованием команды \lstinline|VALUES| 
+стало то, что мы можем воспользоваться именами массивов \lstinline|?mediaType| и \lstinline|?country|, 
+чтобы вывести на печать вид медиа и страну 
+(\lstinline|?mediaTypeLabel| и \lstinline|?countryLabel|) 
+в~строке~2 запроса~\ref{lst:radioRussiaVALUES}.
+
+
+\todoVlad{
+Егор, в запросе~\ref{lst:radioRussiaUNION} с~UNION было 120 станций. 
+А после замены на VALUES в запросе~\ref{lst:radioRussiaVALUES}
+стало 128 станций.\\
+Напишите на поля вопрос об этом (с лампочкой).\\
+
+\vspace{12pt}
+В ответе в главе <<Ответы>> попробуйте это объяснить. 
+Чтобы понять, в чём дело: найдите примеры станций, которые появляются во втором случае, 
+посмотрите на их свойства на Викиданных.}
+\answerVlad{Ответ: ... }
+
+
+
+
 
 \newpage
+\section{Темы отечественных радиостанций и конкатенация строк}
 
-\section{Тематика радиостанций России и СССР}
+Попробуем понять, какие темы представлены на радиостанциях, СМИ и~вещательных каналах в~СССР и~России 
+с~помощью запроса~\ref{lst:SubjRadio}. 
 
-Данный запрос~\ref{lst:main_topics_of_radio_stations_broadcasting _and_mass_media} предназначен для поиска тематик радиостанций, СМИ и вещательных каналов.
+Главные темы радиостанций и других объектов задаются свойством \wdProperty{921}{<<основная тема>>}. 
+У~одной станции может быть указано несколько тем, 
+см. столбец <<Тема (mainSubject)>> в~табл.~\ref{tab:CONCAT}. 
+В этой таблице приведены примеры главных тем для <<Радио Звезда>> и <<Марий Эл Радио>>.
+
+Функция \lstinline|GROUP_CONCAT| (строка~3 запроса~\ref{lst:SubjRadio}) 
+объединяет (конкатенирует) строки \lstinline|?subjName|, <<склеивая>> их разделителем, 
+здесь~--- запятой с пробелом. 
+
+
+\begin{margintable}
+\centering
+\caption{Две радиостанции с примером использования функции \lstinline|GROUP\_CONCAT|, 
+         результат записан в переменную ?mainSubject}
+%\begin{tabular}{|p{14em}|p{10em}|p{10em}|}
+\begin{tabular}{|p{64pt}|p{62pt}|p{96pt}|}
+\hline
+Объект (radio) & Метка (radioName) & Тема (mainSubject) \\
+\hline
+\wdqName{Radio Zvezda}{4387399} & Радио Звезда & война, политика, экономика, вооружённые силы, новости, patriot \\
+\hline
+\wdqName{Mari~El Radio}{30909585}
+    \href{Q30909585} & Марий Эл Радио & музыка, комедия, интервью \\
+\hline
+\end{tabular}
+\label{tab:CONCAT}
+\end{margintable}
+
 
 \begin{lstlisting}[ 
     language=SPARQL,
-    caption={\href{https://w.wiki/6b7P}{Поиск тематик радиостанций, СМИ и вещательных каналов}\protect\footnotemark},
-    label=lst:main_topics_of_radio_stations_broadcasting _and_mass_media,
+    caption={\href{https://w.wiki/9qwk}
+                  {Список тематик радиостанций, СМИ и вещательных каналов}\protect\footnotemark},
+    label=lst:SubjRadio,
     xleftmargin=18pt,
     numbers=left,
     ]
 # List of the main topics of radio stations, media and mass media
-SELECT ?radio ?radioName (GROUP_CONCAT(DISTINCT ?mainSubjectLabel;separator=", ") AS ?mainSubjects) 
-WHERE
-{
-  {?radio wdt:P31 wd:Q14350.} UNION # instance of radio station
-  {?radio wdt:P31 wd:Q15265344.} UNION # instance of broadcasting
-  {?radio wdt:P31 wd:Q11033.} #instance of mass media
+SELECT ?radio ?radioName
+       ((*@\hl{GROUP\_CONCAT}@*)(DISTINCT ?subjName;separator=", ") AS ?mainSubjects) WHERE 
+{           # radio station, broadcasting, mass media
+  VALUES ?mediaType {wd:Q14350 wd:Q15265344 wd:Q11033}
+  VALUES ?country {wd:Q15180 wd:Q159} 
+              # Soviet Union, Russia
   
-  # Soviet Union and Russia
-  VALUES ?ruCountries {wd:Q15180 wd:Q159}
-  ?radio wdt:P17 ?ruCountries. # related to Russian countries
-  
-  ?radio wdt:P921 ?mainSubject.
+  ?radio wdt:P31 ?mediaType; # is one of mass media
+         wdt:P17 ?country;   # in country  
+         wdt:P921 ?subj.     # has main topic
   
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en".
-                         ?radio rdfs:label ?radioName .
-                         ?mainSubject rdfs:label ?mainSubjectLabel .}
-} GROUP BY ?radio ?radioName\end{lstlisting}%
+                           ?radio rdfs:label ?radioName.
+                           ?subj  rdfs:label ?subjName. }
+} GROUP BY ?radio ?radioName
+\end{lstlisting}%
+\footnotetext{Получено: 73 тематические группы на 2024 год. 
+              Ссылка на SPARQL-запрос: \href{https://w.wiki/9qwk}{https://w.wiki/9qwk}.}
 
-\footnotetext{Получено: \num{74} результатов на 2023 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/9bPn}{https://w.wiki/9bPn}. }
 
-В запросе \ref{lst:main_topics_of_radio_stations_broadcasting _and_mass_media} используется функция \lstinline|GROUP_CONCAT|. Она складывает (как строки) содержимое одного поля из разных строк, вставляя между ними разделитель (по умолчанию это запятая). К примеру, можно получить список всех выбранных имен через запятую или другой разделитель.
 
-\newpage
+
+
+
+\todoVlad{
+Егор, напишите на поля вопрос (с лампочкой) о том, чтобы читатель построил такой запрос, 
+чтобы можно было создать граф с вершинами двух типов:\\ 
+(1) вершина соответствует ровно одной главной теме, например, <<медицина>> или <<здоровье>>, или <<юмор>>.\\
+(2) вершина~--- это радиостанция. 
+Ребро между радиостанцией и какой-либо темой отрисовывается, 
+если эта тема указана в свойствах объекта этого радио на сайте Викиданных. 
+
+\vspace{12pt}
+Ответ в главе <<Ответы>> не требуется.}
+\answerVlad{Ответ: ... }
+
+
+
+
 
 \begin{margintable}
 \caption{Количество тематик у радиостанций, СМИ и вещательных каналов по убыванию на 2023 год}
 \begin{tabular}{|c|c|}
 \hline
 Количество тематик по & Название тематики \\
- <<\wdProperty{921}{основная тема}>> & \\
+ \wdProperty{921}{<<основная тема>>} & \\
 \hline
 44 & музыка \\
 5 & поп-музыка \\
@@ -294,37 +394,56 @@ WHERE
 \label{tab:number_of_topics}
 \end{margintable}
 
-Данная таблица даёт нам представление какие тематики более востребованы у слушателей. Как мы видим наиболее востребованы: <<\wdqName{музыка}{638}>>, <<\wdqName{новости}{38926}>> и <<\wdqName{политика}{7163}>>.
+Данная таблица даёт нам представление того, 
+какие темы более популярны на радиостациях, а~именно:
+\wdqName{музыка}{638}, 
+\wdqName{новости}{38926} и \wdqName{политика}{7163}.
+
+
+\todoVlad{
+    Егор, получилась отличная таблица. Добавьте к ней следующий запрос (вместе с листингом), 
+    чтобы объяснить откуда она появилась:
+\url{https://w.wiki/9rLD}.\\
+Обновите данные в таблице в соответствии с этим запросом, возможно где-то цифры немного изменились. 
+
+\vspace{12pt}
+Закомментируйте строки 5 и 9 в этом листинге, связанные с Россией, и подсчитайте 
+то же самое по всем странам мира. 
+Добавьте в эту таблицу последний (третий) столбец с числами тематик по всему миру.\\ 
+Поменяйте местами первый и второй столбец. То есть порядок столбцов будет такой:
+(1) Название, (2) в России, (3) в мире. 
+
+\vspace{12pt}
+Сейчас в таблице темы разделены на три логических блока. Это хорошая идея. 
+Здесь текстом напишите пояснение - что это за блоки, какие темы являются лидерами в блоке, 
+на скольких радиостанциях есть такие темы. 
+
+\vspace{12pt}
+Не нужно писать <<Данная таблица>>. Пишите с помощью команды ref - 
+также как Вы это делаете при ссылках на запросы или рисунку. Т.е. будет:
+<<В табл. N.N ...>>
+}
+\answerVlad{Ответ: ... }
+
+
+
+
+
+
+
+
+
+
 
 \newpage
-
-В запросе выше~\ref{lst:main_topics_of_radio_stations_broadcasting _and_mass_media} функция GROUP\_CONCAT объединяет (конкатенация строк) содержимое меток (rdfs:label) главных тем (wdt:P921) радиостанций. Эта функция объединяет строки, вставляя между ними разделитель (по умолчанию разделитель -- запятая). В таблице~\ref{tab:number_of_topics} приведены пример конкатенации главных тем для <<Радио Звезда>> и газеты <<Молодой дальневосточник>>. Данная таблица содержит номер страницы радиостанции в Викиданных, её название (radioName) и тематику (mainSubject).
-
-\begin{table}[ht]
-\centering
-\caption{Пример использования функции GROUP\_CONCAT}
-\begin{tabular}{|p{14em}|p{10em}|p{10em}|}
-\hline
-radio & radioName & mainSubject \\
-\hline
-\href{Q4387399} & Радио Звезда & война, политика, экономика, вооружённые силы, новости, patriot \\
-\hline
-\href{Q30909585} & Общественно-политический еженедельник Молодой дальневосточник XXI век & война, спорт, экономика, реклама, новости, путешествие \\
-\hline
-\end{tabular}
-\label{tab:example_of_using_the_function}
-\end{table}
-
-\newpage
-
 \section{Радиостанции, СМИ и вещательные каналы в социальных сетях}
 
-Данный запрос~\ref{lst:counts_the_number_of_radios_with_social_media_accounts} находит аккаунты радиостанций, СМИ и вещательных каналов в социальных сетях.
+Данный запрос~\ref{lst:socialNetBubbles} находит аккаунты радиостанций, СМИ и вещательных каналов в социальных сетях.
 
 \begin{lstlisting}[ 
     language=SPARQL,
     caption={\href{https://w.wiki/6fKb}{Аккаунты радиостанций, СМИ и вещательных каналов в социальных сетях}\protect\footnotemark},
-    label=lst:counts_the_number_of_radios_with_social_media_accounts,
+    label=lst:socialNetBubbles,
     xleftmargin=18pt,
     numbers=left,
     ]
@@ -347,7 +466,7 @@ ORDER BY DESC(?sumNetwork)\end{lstlisting}%
 
 \footnotetext{Получено: \num{12} результатов на 2023 год. Ссылка на SPARQL-запрос: \href{https://w.wiki/6fKb}{https://w.wiki/6fKb}. }
 
-Объясним строку №12 \lstinline|?netID wikibase:directClaim ?netRelation| и необходимость использования предиката wikibase:directClaim в запросе~\ref{lst:counts_the_number_of_radios_with_social_media_accounts}.
+Объясним строку 12 \lstinline|?netID wikibase:directClaim ?netRelation| и необходимость использования предиката wikibase:directClaim в запросе~\ref{lst:socialNetBubbles}.
 
 Для этого нужно начать с объяснения того, что радиостанции соответствует объект и страница на Викиданных. На этой странице есть подраздел Идентификаторы (Identifiers). В этом подразделе перечислены, в том числе, социальные сети, в которых зарегистрирован объект (здесь радиостанция). Два следующих утверждених из запроса выше (на примере ВКонтакте, которому соответствует идентификатор-свойство P3185):
 
@@ -360,11 +479,17 @@ ORDER BY DESC(?sumNetwork)\end{lstlisting}%
 
 Проблема в том, что мы не можем получить имя \lstinline|?netRelationLabel|, поскольку конструкция \lstinline|SERVICE wikibase| не работает для свойств, а только для объектов. Нам помогает свойство \lstinline|wikibase:directClaim|, которое возвращает имя \lstinline|?netID| по свойству \lstinline|?netRelation|.
 
-\newpage
 
-Пузырьковая диаграмма~\ref{fig:radio_station_acc} построенная запросом~\ref{lst:counts_the_number_of_radios_with_social_media_accounts}, показывает количество аккаунтов СМИ и радиостанций в социальных сетях. То есть на рисунке показаны социальные сети, размер круга пропорционален количеству зарегистрированных в них аккаунтов СМИ и радиостанций.
+Пузырьковая диаграмма~\ref{fig:radio_station_acc} построенная запросом~\ref{lst:socialNetBubbles}, показывает количество аккаунтов СМИ и радиостанций в социальных сетях. То есть на рисунке показаны социальные сети, размер круга пропорционален количеству зарегистрированных в них аккаунтов СМИ и радиостанций.
 
-Популярными социальными сетями среди радиостанций, СМИ и вещательных каналов на 2024 год стали: № 1 ВКонтакте — 28 аккаунтов; № 2 Instagram — 26 аккаунтов; № 3 Facebook — 25 аккаунтов; № 4 YouTube — 24 аккаунта; № 5 Twitter — 21 аккаунт; № 6 Telegram — 20 аккаунтов. Таким образом, самой популярной социальной сетью для СМИ стал ВКонтакте.
+Популярными социальными сетями среди радиостанций, СМИ и вещательных каналов на 2024 год стали: 
+ВКонтакте~--- 28 аккаунтов; 
+Instagram~--- 26 аккаунтов; 
+Facebook~--- 25 аккаунтов; 
+YouTube~--- 24 аккаунта; 
+Twitter~--- 21 аккаунт; 
+Telegram~--- 20 аккаунтов. 
+Таким образом, самой популярной социальной сетью для СМИ стал ВКонтакте.
 
 \index{График!Sunburst diagram}
 \begin{marginfigure}[1\baselineskip]
@@ -374,4 +499,17 @@ ORDER BY DESC(?sumNetwork)\end{lstlisting}%
 \label{fig:radio_station_acc}
 \end{marginfigure}
 
-%
+
+\todoVlad{
+Егор, сделайте второй рисунок, 
+закомментировав строчку в~запросе~\ref{lst:socialNetBubbles} 
+о принадлежности радио к России.\\
+Добавьте этот второй рисунок сюда. Напишите словами о разнице между этими двумя диаграммами: про число аккаунтов отечественных радиостанций в соцсетях относительно числа аккаунтов радио всего мира.\\
+Второй листинг делать не надо, поскольку он отличается только одной строчкой - 
+достаточно в тексте написать - номер строки, которую комментируете.
+
+\vspace{12pt}
+Не забудьте при создании картинки отредактировать SVG-файл, чтобы был крупный шрифт для надписей внутри кружков.
+}
+\answerVlad{Ответ: ... }
+
