@@ -165,6 +165,14 @@ ORDER BY DESC(?count)
 
 Из запроса~\ref{lst:subclasses_of_radio_stations} мы получили встречаемые подклассы радиостанций, что помогло нам понять какой подкласс наиболее актуален. 
 
+\marginnote[1\baselineskip]{%
+        \label{question:radio}
+        \MarginQuestion
+        Запрос~\ref{lst:subclasses_of_radio_stations} написан с ошибкой, потому что в результате поиска подклассов радиостанций мы получаем сами \wdqName{<<вещательные радиостанции>>}{14350} . Так почему в списке подклассов мы получаем сами радиостанции? И что необходимо исправить в запросе~\ref{lst:subclasses_of_radio_stations}, чтобы сам класс не попадал в свои подклассы? 
+        
+        См. ответ на~с.~\pageref{answer:radio_station}.
+}
+
 \todoVlad{
 Егор, Вы мне задали правильный вопрос, почему в списке подклассов радиостанции мы 
 опять получаем радиостанцию, причём это самый большой подкласс, содержит около 30 тыс. объектов.\\
@@ -185,8 +193,7 @@ ORDER BY DESC(?count)
 напишите ответ на этот вопрос и на эту просьбу (напишите правильный запрос).\\ 
 Должны быть перекрёстные ссылки: с вопроса на ответ и обратно. 
 Посмотрите, как это сделано у Владимира. }
-\answerVlad{Ответ: ... (Егор, здесь пишите мне ответ, что всё сделано, или пишите в чём загвоздка).
-(Моё задание выше оставляйте, не стирайте, чтобы я видел, что было задано.)}
+\answerVlad{Ответ: сделано }
 
 
 
@@ -226,7 +233,7 @@ SELECT (*@\hl{DISTINCT}@*) ?radio ?radioLabel WHERE
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en" }
 }
 \end{lstlisting}%
-\footnotetext{Получено: 120 радиостанций на 2024 год. 
+\footnotetext{Получено: 121 радиостанция на 2024 год. 
               Ссылка на SPARQL-запрос: \href{https://w.wiki/9qst}{https://w.wiki/9qst}. }
 
 
@@ -248,7 +255,7 @@ SELECT DISTINCT ?radio ?radioLabel ?mediaTypeLabel ?countryLabel WHERE
   SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en" }
 }
 \end{lstlisting}%
-\footnotetext{Получено: 128 радиостанций на 2024 год. 
+\footnotetext{Получено: 129 радиостанций на 2024 год. 
               Ссылка на SPARQL-запрос: \href{https://w.wiki/9quA}{https://w.wiki/9quA}. }
 
 
@@ -257,6 +264,17 @@ SELECT DISTINCT ?radio ?radioLabel ?mediaTypeLabel ?countryLabel WHERE
 чтобы вывести на печать вид медиа и страну 
 (\lstinline|?mediaTypeLabel| и \lstinline|?countryLabel|) 
 в~строке~2 запроса~\ref{lst:radioRussiaVALUES}.
+
+\marginnote[1\baselineskip]{%
+        \label{question:radio2}
+        \MarginQuestion
+	 В выводе запроса~\ref{lst:radioRussiaUNION} мы можем видеть 121 радиостанцию, а в запросе~\ref{lst:radioRussiaVALUES} 129 радиостанций.
+        Исходя из результатов можно задаться вопросом: почему имеются различия в запросах, если они выполняют идентичную задачу? 
+        
+        См. ответ на~с.~\pageref{answer:radio_station2}.
+}
+ 
+
 
 
 \todoVlad{
@@ -269,7 +287,7 @@ SELECT DISTINCT ?radio ?radioLabel ?mediaTypeLabel ?countryLabel WHERE
 В ответе в главе <<Ответы>> попробуйте это объяснить. 
 Чтобы понять, в чём дело: найдите примеры станций, которые появляются во втором случае, 
 посмотрите на их свойства на Викиданных.}
-\answerVlad{Ответ: ... }
+\answerVlad{Ответ: сделано }
 
 
 
@@ -338,6 +356,41 @@ SELECT ?radio ?radioName
 \footnotetext{Получено: 73 тематические группы на 2024 год. 
               Ссылка на SPARQL-запрос: \href{https://w.wiki/9qwk}{https://w.wiki/9qwk}.}
 
+\marginnote[1\baselineskip]{%
+        \label{question:radio3}
+        \MarginQuestion
+	 В запросе~\ref{lst:SubjRadio} вёлся поиск тематик радиостанций, СМИ и вещательных каналов. Далее была построена таблица~\ref{tab:number_of_topics}. Возможно ли создать граф с вершинами двух типов? Первый тип вершин: вершина соответствует ровно одной главной теме, например, «медицина» или «здоровье», или «юмор».  Второй тип вершин: вершина — это радиостанция. Ребро между радиостанцией и какой-либо темой отрисовывается, если эта тема указана в свойствах объекта этого радио на сайте Викиданных.
+
+
+
+
+\begin{lstlisting}[ 
+    language=SPARQL,
+    caption={\href{https://w.wiki/9qwk}
+                  {Список тематик радиостанций, СМИ и вещательных каналов в разных странах}\protect\footnotemark},
+    label=lst:SubjRadio_all_countries,
+    xleftmargin=18pt,
+    numbers=left,
+    ]
+# List of the main topics of radio stations, media and mass media
+SELECT ?radio ?radioName
+       ((*@\hl{GROUP\_CONCAT}@*)(DISTINCT ?subjName;separator=", ") AS ?mainSubjects) WHERE 
+{           # radio station, broadcasting, mass media
+  VALUES ?mediaType {wd:Q14350 wd:Q15265344 wd:Q11033}
+  VALUES ?country {wd:Q15180 wd:Q159} 
+              # Soviet Union, Russia
+  
+  ?radio wdt:P31 ?mediaType; # is one of mass media
+         wdt:P17 ?country;   # in country  
+         wdt:P921 ?subj.     # has main topic
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en".
+                           ?radio rdfs:label ?radioName.
+                           ?subj  rdfs:label ?subjName. }
+} GROUP BY ?radio ?radioName
+\end{lstlisting}%        
+        
+
 
 
 
@@ -353,7 +406,7 @@ SELECT ?radio ?radioName
 
 \vspace{12pt}
 Ответ в главе <<Ответы>> не требуется.}
-\answerVlad{Ответ: ... }
+\answerVlad{Ответ: сделано }
 
 
 
@@ -394,7 +447,7 @@ SELECT ?radio ?radioName
 \label{tab:number_of_topics}
 \end{margintable}
 
-Данная таблица даёт нам представление того, 
+Таблица~\ref{tab:number_of_topics} даёт нам представление того, 
 какие темы более популярны на радиостациях, а~именно:
 \wdqName{музыка}{638}, 
 \wdqName{новости}{38926} и \wdqName{политика}{7163}.
@@ -423,7 +476,7 @@ SELECT ?radio ?radioName
 также как Вы это делаете при ссылках на запросы или рисунку. Т.е. будет:
 <<В табл. N.N ...>>
 }
-\answerVlad{Ответ: ... }
+\answerVlad{Ответ: после комментирования строк, результат изменился незначительно (на 9, 3 и меньше).  Может быть я что-то не так сделал, но это маловероятно }
 
 
 
@@ -482,14 +535,29 @@ ORDER BY DESC(?sumNetwork)\end{lstlisting}%
 
 Пузырьковая диаграмма~\ref{fig:radio_station_acc} построенная запросом~\ref{lst:socialNetBubbles}, показывает количество аккаунтов СМИ и радиостанций в социальных сетях. То есть на рисунке показаны социальные сети, размер круга пропорционален количеству зарегистрированных в них аккаунтов СМИ и радиостанций.
 
-Популярными социальными сетями среди радиостанций, СМИ и вещательных каналов на 2024 год стали: 
+Популярными социальными сетями среди радиостанций, СМИ и вещательных каналов в России на 2024 год стали: 
 ВКонтакте~--- 28 аккаунтов; 
 Instagram~--- 26 аккаунтов; 
 Facebook~--- 25 аккаунтов; 
 YouTube~--- 24 аккаунта; 
 Twitter~--- 21 аккаунт; 
 Telegram~--- 20 аккаунтов. 
-Таким образом, самой популярной социальной сетью для СМИ стал ВКонтакте.
+Таким образом, самой популярной социальной сетью для СМИ в России стал ВКонтакте.
+
+Следующим шагом будет проведено сравнение количества аккаунтов радиостанций, СМИ и вещательных каналов России и всех стран в социальных сетях. Для этого необходимо закомментировать строку 9~\lstline|wdt:P17 wd:Q159| в запросе~\ref{lst:socialNetBubbles}, которая нужна нам для поиска в России.  Аналогично будет построена пузырьковая диаграмма для всех стран, которую построил запрос~\ref{lst:socialNetBubbles} с закомментированной строкой, о которой говорилось ранее. 
+
+Популярными социальными сетями среди радиостанций, СМИ и вещательных каналов во всех странах на 2024 год стали:
+Twitter~---4835 аккаунтов;
+Facebook~---2044 аккаунтов;
+Instagram~---1514 аккаунтов;
+Youtube~---397 аккаунтов;
+Telegram~---51 аккаунт;
+Вконтакте~---44 аккаунта.
+Таким образом, самой популярной социальной сетью для СМИ всех стран стал Twitter.
+
+Глядя на результаты двух диаграмм можно сделать вывод о том, что в шестерка популярных социальных сетей осталась почти неизменной, изменились только позиции. Таким образом во второй диаграмме~\ref{fig:radio_station_acc_all_countries}  верхние строчки заняли социальные сети, имеющие большую популярность во всем мире. Социальные сети, которые разработаны в России заняли места ниже в этой шестерке. 
+
+
 
 \index{График!Sunburst diagram}
 \begin{marginfigure}[1\baselineskip]
@@ -497,6 +565,14 @@ Telegram~--- 20 аккаунтов.
 \vspace{-7pt}
 \caption{Пузырьковая диаграмма популярности социальных сетей по числу в них аккаунтов радиостанций, СМИ и вещательных каналов на 2024 год}%
 \label{fig:radio_station_acc}
+\end{marginfigure}
+
+\index{График!Sunburst diagram}
+\begin{marginfigure}[1\baselineskip]
+{\includegraphics[width=1\linewidth]{chapter/radio_station/Number_of_social_media_accounts_in_all_countries.png}}
+\vspace{-7pt}
+\caption{Пузырьковая диаграмма популярности социальных сетей по числу в них аккаунтов радиостанций, СМИ и вещательных каналов во всех странах на 2024 год}%
+\label{fig:radio_station_acc_all_countries}
 \end{marginfigure}
 
 
@@ -511,5 +587,4 @@ Telegram~--- 20 аккаунтов.
 \vspace{12pt}
 Не забудьте при создании картинки отредактировать SVG-файл, чтобы был крупный шрифт для надписей внутри кружков.
 }
-\answerVlad{Ответ: ... }
-
+\answerVlad{Ответ: сделано }
