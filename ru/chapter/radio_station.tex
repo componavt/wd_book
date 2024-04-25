@@ -360,40 +360,7 @@ SELECT ?radio ?radioName
         \label{question:radio3}
         \MarginQuestion
 	 В запросе~\ref{lst:SubjRadio} вёлся поиск тематик радиостанций, СМИ и вещательных каналов. Далее была построена таблица~\ref{tab:number_of_topics}. Возможно ли создать граф с вершинами двух типов? Первый тип вершин: вершина соответствует ровно одной главной теме, например, «медицина» или «здоровье», или «юмор».  Второй тип вершин: вершина — это радиостанция. Ребро между радиостанцией и какой-либо темой отрисовывается, если эта тема указана в свойствах объекта этого радио на сайте Викиданных.
-
-
-
-
-\begin{lstlisting}[ 
-    language=SPARQL,
-    caption={\href{https://w.wiki/9qwk}
-                  {Список тематик радиостанций, СМИ и вещательных каналов в разных странах}\protect\footnotemark},
-    label=lst:SubjRadio_all_countries,
-    xleftmargin=18pt,
-    numbers=left,
-    ]
-# List of the main topics of radio stations, media and mass media
-SELECT ?radio ?radioName
-       ((*@\hl{GROUP\_CONCAT}@*)(DISTINCT ?subjName;separator=", ") AS ?mainSubjects) WHERE 
-{           # radio station, broadcasting, mass media
-  VALUES ?mediaType {wd:Q14350 wd:Q15265344 wd:Q11033}
-  VALUES ?country {wd:Q15180 wd:Q159} 
-              # Soviet Union, Russia
-  
-  ?radio wdt:P31 ?mediaType; # is one of mass media
-         wdt:P17 ?country;   # in country  
-         wdt:P921 ?subj.     # has main topic
-  
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en".
-                           ?radio rdfs:label ?radioName.
-                           ?subj  rdfs:label ?subjName. }
-} GROUP BY ?radio ?radioName
-\end{lstlisting}%        
-        
-
-
-
-
+}
 
 
 \todoVlad{
