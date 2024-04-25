@@ -1524,3 +1524,55 @@ GROUP BY ?date
  	\label{fig:ThebeatlesBubbleChart}%
 \end{marginfigure}
 \end{task}
+
+
+
+\newpage
+\hfil\pgfornament[width=4cm]{80}\hfil%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%   radio stations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{task}
+        \lstset{escapeinside={(*@}{@*)}}
+        \sethlcolor{pink}
+    \label{answer:radio_stations}
+
+    \AnswerBackref Вопрос на с.~\pageref{question:radio}. 
+
+Вопрос заключался в проблеме вывода результата запроса~\ref{lst:subclasses_of_radio_stations}. Запрос выводил исследуемый объект \wdqName{<<вещательные радиостанции>>}{14350} вместо его подклассов. Проблема заключалась в строке~\lstinline|?subRadio wdt:P279* wd:Q14350|, а именно в символе <<*>>. Это происходит, потому что данный символ объявляет, что нужно учитывать все косвенные подклассы объекта \wdqName{<<вещательные радиостанции>>}{14350} . Если удалить звездочку, то запрос~\ref{lst:subclasses_of_radio_stations} выдаст только непосредственные подклассы \wdqName{<<вещательных радиостанций>>}{14350} без дополнительных уровней вложенности. Исправить ошибку можно путем замены символа <<*>> на символ <<+>>, либо удалением символа <<*>>. Запрос~\ref{lst:subclasses_of_radio_stations} перестанет выводить исследуемый объект и выведет его подклассы.
+
+Ниже представлен исправленный листинг для поиска подклассов~\ref{lst:subclasses_of_radio_stations_fixed} .
+
+\begin{lstlisting}[ 
+    language=SPARQL,
+    caption={\href{https://w.wiki/9sL8}
+                  {Список подклассов радиостанций и размер подклассов}\protect\footnotemark},
+    label=lst:subclasses_of_radio_stations_fixed,
+    xleftmargin=18pt,
+    numbers=left,
+    ]
+# List of radio subclasses and subclass sizes
+SELECT ?subRadio ?subRadioLabel (COUNT(?r) AS ?count) WHERE 
+{
+  ?subRadio wdt:P279+ wd:Q14350. # subclass of radio station
+  ?r wdt:P31 ?subRadio.          # instance of this subclass
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en" }
+}
+GROUP BY ?subRadio ?subRadioLabel
+ORDER BY DESC(?count)
+\end{lstlisting}%
+
+\footnotetext{Получено: 22 подкласса радиостанций на 2024 год. 
+              Ссылка на SPARQL-запрос: \href{https://w.wiki/9sL8}{https://w.wiki/9sL8}.}
+\end{task}
+
+\begin{task}
+        \lstset{escapeinside={(*@}{@*)}}
+        \sethlcolor{pink}
+    \label{answer:radio_stations2}
+
+    \AnswerBackref Вопрос на с.~\pageref{question:radio2}.
+
+В запросах~\ref{lst:radioRussiaUNION} и~\ref{lst:radioRussiaVALUES} мы наблюдали различие в выводе результатов. Ответ кроется в том, что функция UNION и функция VALUES различаются в различии фильтрации данных. Функция UNION не допускает дубликатов, потому что берет одно значение из рассматриваемого свойства (в нашем случае свойство \wdProperty{17}{<<государство>>}). Функция VALUES берет все значения рассматриваемого свойства и выводит их, поэтому в выводе встречаются дубликаты радиостанций. Далее будет приведен пример дубликатов: \wdqName{4729846}{<<Радио-1>>}, \wdqName{3919668}{<<Радио Юность>>}, \wdqName{1589584}{<<Европа плюс>>}. Как мы можем видеть в свойстве \wdProperty{17}{<<государство>>} указаны две страны \wdqName{159}{<<Россия>>} и \wdqName{15180}{<<СССР>>}.
+
+\end{task}
