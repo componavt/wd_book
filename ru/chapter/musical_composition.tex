@@ -15,20 +15,21 @@
 
 \begin{lstlisting}[ 
     language=SPARQL,
-    caption={\href{https://w.wiki/9U7i}{Список всех  музыкальных композиций}\protect\footnotemark},
+    caption={\href{https://w.wiki/9ttv}{Список всех  музыкальных композиций}\protect\footnotemark},
     label=lst:musical_composition,
     texcl,
     numbers=none
     ]
 # List of all musical compositions
-SELECT ?music ?musicLabel WHERE
-{        # instance of musical work/composition
-  ?music wdt:P31 wd:Q105543609. 
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru,en" }
+SELECT (COUNT(?music) AS ?count)
+WHERE
+{
+  ?music wdt:P31 wd:Q105543609.
+}
 }
 \end{lstlisting}%
 \footnotetext{Получено: \num{5495} записей на 2017 год и \num{150,5} тыс. записей на~2023 год. 
-        Ссылка на~SPARQL-запрос: \href{https://w.wiki/9U7i}{https://w.wiki/9U7i}.}
+        Ссылка на~SPARQL-запрос: \href{https://w.wiki/9ttv}{https://w.wiki/9ttv}.}
 
 Наиболее полными и проработанными примерами музыкальных композиций на Викиданных являются: 
 \wdqName{<<Волшебная флейта>>}{5064}, 
@@ -39,13 +40,13 @@ SELECT ?music ?musicLabel WHERE
 
 В~2017 году по запросу~\ref{lst:musical_composition} найдено \num{5,5} тыс. музыкальных композиций, 
 в 2022 году~--- 107 тыс., в~2023~--- 150 тыс. 
-Увеличение числа композиций связано с тем, 
-что эти объекты Викиданных являются теперь не экземплярами объекта <<музыкальное произведение>>, 
-а~экземплярами различных подклассов <<музыкальное произведение>>. 
+Увеличение числа композиций в 2022 году, по сравнению с 2017 годом связано с тем, 
+что эти объекты Викиданных являются не экземплярами объекта <<музыкальное произведение>>, как это бы ло в 2017 году, 
+а~экземплярами объекта <<музыкальное произведение/композиция>>. 
 При поиске подклассов объекта <<музыкальное произведение>> можно найти такие жанры, как: 
-\wdqName{песня}{7366}, 
+\wdqName{<<песня>>}{7366}, 
 \wdqName{<<духовная песня>>}{856713}, 
-\wdqName{гимн}{484692}. 
+\wdqName{<<гимн>>}{484692}. 
 Более подробно анализ музыкальных жанров представлен в~разделе 
 <<Количество музыкальных произведений по~жанрам>> на~с.~\pageref{chapter:Number-of-musical-works-by-genre}.
 
@@ -89,7 +90,8 @@ SELECT ?music ?musicLabel WHERE
 но такое объяснение (почему их становится больше) не годится.\\
 И главное, предложите оптимизацию скрипта, может, через COUNT(), сейчас он виснет из-за большого числа объектов.
 }
-\answerVlad{Место для ответа...}
+\answerVlad{Ответ: Я оптимизировал скрипт. Теперь место списка мы получаем количество музыкальных композиций. 
+Исправил объяснение и добавил пояснение про какое именно увеличение идет речь (результаты запроса за 2017 и за 2022 год). }
 
 С помощью запроса~\ref{lst:music_in_each_subclass} найдём количество объектов 
 в~каждом подклассе объекта \wdqName{<<музыкальная композиция>>}{105543609}. 
@@ -120,7 +122,7 @@ ORDER BY DESC (?count)
         \MarginQuestion
         В 9 подклассов \wdqName{<<музыкальных композиций>>}{105543609}, 
         полученных по~запросу~\ref{lst:music_in_each_subclass}, 
-        входят объекты \wdqName{incipit}{1161138}>> (<<начальные слова>>) 
+        входят объекты \wdqName{incipit}{1161138} (<<начальные слова>>) 
                      и~\wdqName{Masque}{1907293} (<<маска>>), то есть это не~музыкальные вещи. 
         Как исключить эти <<слова>> и <<маску>> и оставить только музыкальные объекты?
 
@@ -293,7 +295,7 @@ SELECT ((*@\hl{SUM}@*)(?num) AS (*@\hl{?total}@*)) WHERE {
 
 \begin{lstlisting}[ 
     language=SPARQL,
-    caption={\href{https://w.wiki/9Tc3}
+    caption={\href{https://w.wiki/9tua}
                   {Суммарное число музыкальных произведений 
                    с~учётом музыкальных композиций в~подклассах}\protect\footnotemark},
     label=lst:TotalMusicAllSubclasses,
@@ -302,17 +304,23 @@ SELECT ((*@\hl{SUM}@*)(?num) AS (*@\hl{?total}@*)) WHERE {
     ]
 # The total number of musical works for all subclasses 
 SELECT (SUM(?count) AS ?sum) WHERE{
-  SELECT (COUNT(?music) AS ?count) WHERE {
-                         # subclass of musical work/composition
-                   ?type wdt:P279* wd:Q105543609.
-    ?music wdt:P31 ?type
-  }        # instance of this subclass
+  SELECT (COUNT(?music) AS ?count) WHERE {               
+    ?type wdt:P279* wd:Q105543609. # subclass of musical work/composition
+       ?music wdt:P31 ?type		        # instance of this subclass
+	FILTER (?type != wd:Q1161138 && ?type != wd:Q1907293)
+  }       
 }
 \end{lstlisting}%
 \footnotetext{Получено: 145~тыс. музыкальных произведений на 2022 год, 
     164~тыс. на 2023 год и 170~тыс. на 2024 год. 
-    Ссылка на~SPARQL-запрос: \href{https://w.wiki/9Tc3}
-                                  {https://w.wiki/9Tc3}.}
+    Ссылка на~SPARQL-запрос: \href{https://w.wiki/9tua}
+                                  {https://w.wiki/9tua}.}
+
+Как и в задаче на с.~\pageref{question:music_comp}, нам необходимо исключить появление 
+объектов ``incipit (wd:Q1161138)'' и ``Masque (wd:Q1907293)'' в результатах запроса. 
+Для этого воспользуемся ответом на с.~\pageref{answer:music_in_each_subclas_filter}. 
+С помощью строки 6 в запросе~\ref{lst:TotalMusicAllSubclasses} мы избавимся от нежелательных результатов. 
+Всего таких оказалось 10. 
 
 Можно записать этот код ещё короче. 
 Переменная \lstinline|?type| нам не нужна, 
@@ -333,8 +341,8 @@ SELECT (SUM(?count) AS ?sum) WHERE{
 SELECT (SUM(?count) AS ?sum) WHERE{
   SELECT (COUNT(?music) AS ?count) WHERE {
     ?music wdt:P31   # instance of
-          [wdt:P279* wd:Q105543609].
-  }        # subclass of musical work/composition
+          [wdt:P279* wd:Q105543609].  # subclass of musical work/composition
+  }       
 }
 \end{lstlisting}%
 \footnotetext{Этот запрос идентичен предыдущему по результатам, то~же число результатов. 
@@ -374,7 +382,9 @@ SELECT (SUM(?count) AS ?sum) WHERE{
 Очевидно, что тот же FILTER понадобится, уже без доп. пояснений в следующий 
 запрос~\ref{lst:TotalMusicAllSubclasses_up}.
 }
-\answerVlad{Ответ: ...}
+\answerVlad{Ответ: Добваил в запрос~\ref{lst:TotalMusicAllSubclasses} фильтрацию и пояснение. 
+Добавляя фильтрацию в запрос~\ref{lst:TotalMusicAllSubclasses_up}, ответ не меняется. 
+У меня получился такой запрос: \url{https://w.wiki/9vci}. Я не стал пока заменять запрос в тектсе.}
 
 
 
@@ -442,7 +452,7 @@ SELECT (SUM(?count) AS ?sum) WHERE{
 Сравните в тексте их результаты. 
 Какой из этих двух запросов даст большее число, с тем запросом дальше и работаем. 
 }
-\answerVlad{Ответ: ...}
+\answerVlad{Ответ: У меня получились следующие запросы: \url{https://w.wiki/9uPM} с результатом 4266 и \url{https://w.wiki/9uPS} с результатом 1029. Разница результатов мала, а во втором запросе даже меньше. Правильно ли составлены запросы?.}
 
 
 \newpage
@@ -534,7 +544,7 @@ ORDER BY (?date)
 и продолжается до нашего времени. 
 Такое увеличение музыкальных произведений можно объяснить тем, 
 что со временем появляются новые жанры и новые устройства для записи. 
-На гистограмме (рис.~\ref{fig:diagram_10_years}) видим два пика: 1960--1990-е, 2000-е и 2020-е.
+На гистограмме (рис.~\ref{fig:diagram_10_years}) видим два пика: 1960--1990-е и 2000--2010-е.
 
 \todoVlad{Владимир, на рис.~\ref{fig:diagram_10_years} Вы пишите 
 <<видим два пика>>, а перечисляете три:\\
@@ -569,32 +579,130 @@ ORDER BY (?date)
 
 \begin{lstlisting}[ 
     language=SPARQL,
-    caption={\href{https://w.wiki/9UR2}
+    caption={\href{https://w.wiki/9q9m}
                   {Количество музыкальных произведений в Росии и СССР 
                    за каждые 10 лет}\protect\footnotemark},
     label=lst:MusicRussia10Years,
     texcl,
     ]
-# Number of musical compositions in Russia every 10 years
+# List of music written in Russia by composer with date of publication
+SELECT DISTINCT ?music ?musicLabel ?year ?year10 ?countryLabel ?composer ?composerLabel WHERE {
+    
+                  # Russian Empire, USSR, Russia
+    VALUES ?country {wd:Q34266 wd:Q15180 wd:Q159}
+    ?music wdt:P17|wdt:P495 ?country. # has country or country of origin  
+    
+           # instance of subclasses of musical work/composition
+    ?music wdt:P31 [wdt:P279* wd:Q105543609];
+           wdt:P86 ?composer;  # written by composer
+           wdt:P577 ?date.     # has publication date
+    
+    BIND(YEAR(?date) AS ?year)
+    BIND((FLOOR(?year / 10)) * 10  AS ?year10)
+    
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
+}
+\end{lstlisting}%
+\footnotetext{Получено: 125 русских композиций с указанием композитора, 145 - без автора. 
+Ссылка на SPARQL-запрос: \href{https://w.wiki/9q9m}{https://w.wiki/9q9m}.}
+
+В запрсое~\ref{lst:MusicRussia10Years} мы используем \lstinline{wdt:P17|wdt:P495} в строке 6, 
+для выполнения операции <<или>> между условиями. В вашем запросе \lstinline{wdt:P17|wdt:P495} 
+означает, что мы хотим выбрать все музыкальные композиции, у которых указано значение свойства \wdProperty{17}{<<государство>>}, 
+или значение свойства \wdProperty{495}{<<страна происхождения>>}, равное одному из значений, 
+указанных в строке 5 (VALUES ?country {wd:Q34266 wd:Q15180 wd:Q159}).\\ 
+\wdProperty{17}{<<государство>>}: Это свойство указывает на текущее местоположение объекта 
+или его принадлежность к определенной стране.\\ 
+\wdProperty{495}{<<страна происхождения>>}: Это свойство обычно относится к объектам, 
+которые могут иметь исторические или культурные ассоциации с определенной страной, 
+независимо от их текущего местоположения или принадлежности.
+
+Теперь с помощью запроса~\ref{lst:MusicRussia10YearsGraph} получим график российской музыки.
+
+\begin{lstlisting}[ 
+    language=SPARQL,
+    caption={\href{https://w.wiki/9qAY}
+                  {График количества музыкальных произведений в Росии и СССР 
+                   за каждые 10 лет}\protect\footnotemark},
+    label=lst:MusicRussia10YearsGraph,
+    texcl,
+    ]
+# Chart of music written in Russia by composer with date of publication
 #defaultView:BarChart
 SELECT (STR(?year10) AS ?date_str) (COUNT(?music) AS ?count) WHERE {
-        {?music wdt:P17 wd:Q15180}    # country = USSR
-  UNION {?music wdt:P17 wd:Q159}      # country = Russia
-  UNION {?music wdt:P495 wd:Q159}     # country of origin = Russia
-  UNION {?music wdt:P495 wd:Q15180}.  # country of origin =  USSR
-  ?music wdt:P31 wd:Q105543609;  # is musical work/composition
-         wdt:P86 ?composer;      # written by composer
-         wdt:P577 ?date.         # has publication date
-
-  FILTER (!wikibase:isSomeValue(?date)) # field "date" must be filled
-  BIND(YEAR(?date) AS ?year)
-  BIND((FLOOR(?year / 10 )) * 10  AS ?year10)
+                  # Russian Empire, USSR, Russia
+    VALUES ?country {wd:Q34266 wd:Q15180 wd:Q159}
+    ?music wdt:P17|wdt:P495 ?country. # has country or country of origin  
+    
+           # instance of subclasses of musical work/composition
+    ?music wdt:P31 [wdt:P279* wd:Q105543609];
+           wdt:P86 ?composer;  # written by composer
+           wdt:P577 ?date.     # has publication date
+    
+    BIND(YEAR(?date) AS ?year)
+    BIND((FLOOR(?year / 10)) * 10  AS ?year10)
 }
 GROUP BY ?year10
 ORDER BY ?year10
 \end{lstlisting}%
-\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/9UR2}{https://w.wiki/9UR2}.}
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/9qAY}{https://w.wiki/9qAY}.}
 
+\begin{marginfigure}[0\baselineskip]
+	\includegraphics[width=1\textwidth]{./chapter/musical_composition/Graph_music_in_Russia_10.png}
+    \vspace{-7pt}
+	\caption{Гистограмма количества музыкальных произведений, 
+             создаваемых каждое десятилетие в России и СССР с~XIX века до~настоящего времени}%
+	\label{fig:diagram_10_yearsRussia}%
+
+\end{marginfigure}
+
+Далее построим график музыки, написанной российскими и советскими авторами с помощью запроса~\ref{lst:AutorRussia10YearsGraph}
+
+\begin{lstlisting}[ 
+    language=SPARQL,
+    caption={\href{https://w.wiki/9qB7}
+                  {Количество музыкальных произведений, написанных композиторами из Росии и СССР 
+                   за каждые 10 лет}\protect\footnotemark},
+    label=lst:AutorRussia10YearsGraph,
+    texcl,
+    ]
+# Chart of music written by Russian composer with date of publication
+#defaultView:BarChart
+SELECT (STR(?year10) AS ?date_str) (COUNT(?music) AS ?count) WHERE {
+    
+           # instance of subclasses of musical work/composition
+    ?music wdt:P31 [wdt:P279* wd:Q105543609];
+           wdt:P86 ?composer;  # written by composer
+           wdt:P577 ?date.     # has publication date
+    
+                  # Russian Empire, USSR, Russia
+    VALUES ?country {wd:Q34266 wd:Q15180 wd:Q159}.
+    ?composer wdt:P27 ?country. # citizenship is Russian
+  
+    BIND(YEAR(?date) AS ?year)
+    BIND((FLOOR(?year / 10)) * 10  AS ?year10)
+}
+GROUP BY ?year10
+ORDER BY ?year10
+\end{lstlisting}%
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/9qB7}{https://w.wiki/9qB7}.}
+
+В запросах~\ref{lst:MusicRussia10YearsGraph} и~\ref{lst:MusicRussia10Years} мы выбирали музыку со свойством <<Россия>>, 
+а в запросе~\ref{lst:AutorRussia10YearsGraph} мы выбираем любую музыку, но с композитором, у которого свойство, 
+что он гражданин Российской Империи, СССР или России.
+
+\begin{marginfigure}[0\baselineskip]
+	\includegraphics[width=1\textwidth]{./chapter/musical_composition/Graph_music_by_composers_from Russia_10.png}
+    \vspace{-7pt}
+	\caption{График количества музыкальных произведений, написанных композиторами из Росии и СССР 
+                   за каждые 10 лет}%
+	\label{fig:diagram_10_yearsRussia}%
+
+\end{marginfigure}
+
+Можем увидить, что количество музыкальных произведений, написанных композиторами из Росии и СССР за каждые 10 лет 
+на графике~\ref{fig:diagram_10_years_comp_in_Russia}, сильно превосходит количество музыкальных произведений в Росии и СССР за каждые 10 лет 
+на графике~\ref{fig:diagram_10_yearsRussia}.
 
 \todoVlad{
 Доработал запрос~\ref{lst:MusicRussia10Years} (точнее доработал URL-запрос с нулём результатов 
@@ -632,33 +740,21 @@ ORDER BY ?year10
 в старом запросе~\ref{lst:MusicRussia10Years} не нужна, 
 поскольку строка \lstinline|wdt:P577 ?date| и так требует наличия даты публикации у музыки. 
 }
+\answerVlad{Ответ: Добавил три листинга и обновил рисунки.}
 
-
-
-\newpage
-
-\begin{marginfigure}[0\baselineskip]
-	\includegraphics[width=1\textwidth]{./chapter/musical_composition/Barchart_of_The_number_of_music_compositions_in_Russia_and_USSR_every_10_years.svg.png}
-    \vspace{-7pt}
-	\caption{Гистограмма количества музыкальных произведений, 
-             создаваемых каждое десятилетие в России и СССР с~XIX века до~настоящего времени}%
-	\label{fig:diagram_10_yearsRussia}%
-
-\end{marginfigure}
-
-Количество музыкальных произведений в России и СССР очень мало (97). 
+Количество музыкальных произведений в России и СССР очень мало (125). 
 Проанализировав несколько песен, написанных в России, таких как: 
 \wdqName{<<Песня без слов (Кино)}{101001315}, 
 \wdqName{<<Музыка нас связала}{105724079}, 
 \wdqName{<<Розовое вино}{57744615}, 
-не~попавших в данный скрипт, стало понятно, 
-что у~этих произведений отсутствует свойство \wdProperty{495}{<<Cтрана происхождения>>}.
+не~попавших в запрос~\ref{lst:MusicRussia10Years}, стало понятно, 
+что у~этих произведений отсутствует свойство \wdProperty{495}{<<Cтрана происхождения>>} и свойство \wdProperty{17}{<<государство>>}.
 
-Строка~9 запроса~\ref{lst:MusicRussia10Years}~---  
+Строка~10 запроса~\ref{lst:MusicRussia10Years}~---  
 \lstinline|wdt:P86 ?composer;|~--- 
 требует наличия композитора у музыкального произведения. 
-Если убрать эту строку (модифицированный запрос \href{https://w.wiki/9Ud9}
-                                                     {https://w.wiki/9Ud9}), 
+Если убрать эту строку (модифицированный запрос \href{https://w.wiki/9vh2}
+                                                     {https://w.wiki/9vh2}), 
 то получим произведения как с~композиторами, так и~без~них. 
 
 Сравним результаты обоих скриптов на рис.~\ref{fig:CompareRuMusComposerWithout}. 
@@ -668,10 +764,13 @@ ORDER BY ?year10
 что логично, потому что модифицированный запрос не имеет обязательного условия наличия композитора. 
 
 Но есть исключения, например: 1880-е, 1960-е. 
-Посмотрим список музыкальных композиции с~помощью запроса \href{https://w.wiki/9UdP}
-                                                               {https://w.wiki/9UdP}. 
-За 1880 год этот запрос выдает 5~результатов: 
+Посмотрим список музыкальных композиции с~помощью запроса \href{https://w.wiki/9vi8}
+                                                               {https://w.wiki/9vi8}. 
+За 1880 год этот запрос выдает 8~результатов: 
 \wdqName{<<Всенощное бдение>>}{16002554} (1 раз), 
+\wdqName{<<Ромео и Джульетта>>}{763716} (1 раз), 
+\wdqName{<<Реве та стогне Дніпр широкий>>}{12147183} (1 раз), 
+\wdqName{<<Молитва за Украину>>}{7239019} (1 раз), 
 \wdqName{String Quartet on the Theme B-la-F}{18660379} (4 раза). 
 Вторая композиция повторяется 4 раза, поскольку в этом музыкальном объекте указаны 4~композитора. 
 
@@ -687,7 +786,7 @@ ORDER BY ?year10
 Поскольку запрос~\ref{lst:MusicRussia10Years} выше должен измениться, 
 то и скрипт в ответах, вероятно, изменится. Проверьте, пожалуйста. 
 }
-\answerVlad{Ответ: ...}
+\answerVlad{Ответ: Готово.}
 
 \todoVlad{
 Полагаю, что из-за изменения скриптов и результатов нужно будет обновить рисунки 
@@ -695,7 +794,7 @@ ORDER BY ?year10
  \ref{fig:diagram_10_yearsRussia}, 
  \ref{fig:CompareRuMusComposerWithout}.  
 }
-\answerVlad{Ответ: ...}
+\answerVlad{Ответ: Готово.}
 
 
 \begin{marginfigure}[0\baselineskip]
