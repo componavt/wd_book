@@ -1450,34 +1450,39 @@ ORDER BY DESC (?count)
     \AnswerBackref Вопрос на с.~\pageref{question:music_unique}.
     \label{answer:music_unique_answ}
 
-    Добавим в запрос~\ref{lst:MusicRussia10Years} ключевое слово \lstinline|DISTINCT|.
+   Добавим в запрос~\ref{lst:MusicRussia10Years} ключевое слово \lstinline|SAMPLE|.
     \begin{lstlisting}[ 
             language=SPARQL, 
             numbers=none, 
-            caption={{\href{https://w.wiki/9Udc}{Количество уникальных музыкальных композиций в России каждые 10 лет}}\protect\footnotemark}, 
+            caption={{\href{https://w.wiki/9vjf}{Количество уникальных музыкальных композиций в России каждые 10 лет}}\protect\footnotemark}, 
             label=lst:Number_of_unique_musical_compositions, 
                       ]
-# Number of unique musical compositions in Russia every 10 years
-SELECT DISTINCT ?music ?musicLabel (STR(?year10) AS ?date_str) WHERE {
-        {?music wdt:P17 wd:Q15180}    # country = USSR
-  UNION {?music wdt:P17 wd:Q159}      # country = Russia
-  UNION {?music wdt:P495 wd:Q159}     # country of origin = Russia
-  UNION {?music wdt:P495 wd:Q15180}.  # country of origin =  USSR
-  ?music wdt:P31 wd:Q105543609;  # is musical work/composition
-         wdt:P86 ?composer;      # written by composer
-         wdt:P577 ?date.         # has publication date
-
-  FILTER (!wikibase:isSomeValue(?date)) # field "date" must be filled
-  BIND(YEAR(?date) AS ?year)
-  BIND((FLOOR(?year / 10 )) * 10  AS ?year10)
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
+# List of music written in Russia by composer with date of publication
+SELECT DISTINCT ?music ?musicLabel ?year ?year10 ?countryLabel (SAMPLE(?composer) AS ?composer) WHERE {
+    
+                  # Russian Empire, USSR, Russia
+    VALUES ?country {wd:Q34266 wd:Q15180 wd:Q159}
+    ?music wdt:P17|wdt:P495 ?country. # has country or country of origin  
+    
+           # instance of subclasses of musical work/composition
+    ?music wdt:P31 [wdt:P279* wd:Q105543609];
+           wdt:P86 ?composer;  # written by composer
+           wdt:P577 ?date.     # has publication date
+    
+    BIND(YEAR(?date) AS ?year)
+    BIND((FLOOR(?year / 10)) * 10  AS ?year10)
+    
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
 }
+GROUP BY ?music ?musicLabel ?year ?year10 ?countryLabel
 \end{lstlisting}
-\footnotetext{Получено: 87 уникальных композиций на 2024 год. 
-    Ссылка на~SPARQL-запрос: \href{https://w.wiki/9Udc}{https://w.wiki/9Udc}.}
+\footnotetext{Получено: 119 уникальных композиций на 2024 год. 
+    Ссылка на~SPARQL-запрос: \href{https://w.wiki/9vjf}{https://w.wiki/9vjf}.}
+    
+В контексте нашего запроса, \lstinline|SAMPLE| используется для выбора одного из композиторов для каждого музыкального произведения. 
+Это позволяет нам получить одного представителя (пример) для каждого музыкального произведения в результате запроса.
+
 \end{task}
-
-
 
 \begin{task}
     \AnswerBackref Вопрос на с.~\pageref{question:TheBeatles_quest}.
