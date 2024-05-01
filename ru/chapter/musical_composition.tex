@@ -346,63 +346,38 @@ SELECT (SUM(?count) AS ?sum) WHERE{
 старых, то есть созданных до 2018 года, и новых, созданных в 2018--2024 годах, 
 музыкальных произведений присутствует в~Викиданных.
 
+В первой версии запроса~\ref{lst:music2018-2024} 
+(см. запрос \href{https://w.wiki/9pxA}{https://w.wiki/9pxA}) 
+мы использовали вместо строк 6--7 тяжёлую конструкцию, но в одну строчку: 
+\lstinline|FILTER(?date > "2018-01-01T00:00:00Z"^^xsd:dateTime)|. 
+%
+В варианте кода, представленном в листинге запроса~\ref{lst:music2018-2024}, 
+мы получаем более читаемый код с~использованием команды \lstinline|BIND| в строке 6 
+и~переменной \lstinline|?year| в строках 6--7.
+
+
+\newpage
 \begin{lstlisting}[ 
     language=SPARQL,
-    caption={\href{https://w.wiki/9aHW}{ Количество музыкальных композиций в период 2018--2024 годы}\protect\footnotemark},
+    caption={\href{https://w.wiki/9wHp}
+                  {Количество музыкальных композиций, созданных в 2018--2024 годы}\protect\footnotemark},
     label=lst:music2018-2024,
     xleftmargin=18pt,
     numbers=left,
     ]
-# The total number of musical works for all subclasses 
+# Number of musical compositions created in 2018-2024
 SELECT (SUM(?count) AS ?sum) WHERE{
   SELECT (COUNT(?music) AS ?count) WHERE{
     ?music wdt:P31 wd:Q105543609;  # is musical work/composition
            wdt:P577 ?date.         # has a publication date
     (*@\hl{BIND}@*)(YEAR(?date) AS (*@\hl{?year}@*))
-    FILTER((*@\hl{?year}@*)) > 2018)
+    FILTER((*@\hl{?year}@*)) > 2017)
   }
 }
 \end{lstlisting}%
-\footnotetext{Получено: \num{4183} музыкальных произведений за 2018--2024 годы. Ссылка на SPARQ-запрос: \href{https://w.wiki/9aHW}{https://w.wiki/9aHW}.}
+\footnotetext{Получено: \num{5403} музыкальных произведений за 2018--2024 годы. Ссылка на SPARQ-запрос: \href{https://w.wiki/9wHp}{https://w.wiki/9wHp}.}
 
 
-В первой версии запроса~\ref{lst:music2018-2024} 
-(см. запрос \href{https://w.wiki/9pxA}{https://w.wiki/9pxA}) 
-мы использовали вместо строк 6--7 тяжёлую конструкцию, но в одну строчку: 
-\lstinline|FILTER(?date > "2018-01-01T00:00:00Z"^^xsd:dateTime)|. 
-
-В варианте кода, представленном в листинге запроса~\ref{lst:music2018-2024}, 
-мы получаем более читаемый код с~использованием команды \lstinline|BIND| в строке 6 
-и~переменной \lstinline|?year| в строках 6--7.
-
-\todoVlad{Владимир, в запросе~\ref{lst:music2018-2024} есть серьёзная ошибка, 
-которая продолжает быть и в последующих скриптах и, возможно, в рисунках. Итак, в чём ошибка.\\
-
-См. вывод предыдущего подраздела со слов "Таким образом...". 
-В этом выводе мы подытоживаем, что получили два прекрасных запроса для получения 
-большой кучи музыкальных объектов:\\ 
-(1) 30 тыс. штук через экземпляры музыкальных жанров и типов в~запросе~\ref{lst:TotalPiecesMusicAllGenres},\\ 
-(2) 170 тыс. через экземпляры подклассов музыкальных композиций 
-в~запросе~\ref{lst:TotalMusicAllSubclasses_up}.\\ 
-
-\vspace{12pt}
-Здесь же в запросе~\ref{lst:music2018-2024} мы проигнорировали наши же достижения и 
-получаем музыкальные объекты как экземпляры муз. композиций - как это мы делали в самом начале, 
-то есть в запросе~\ref{lst:musical_composition}. Скорее всего мы недополучили музыкальных объектов, а жаль.\\ 
-
-
-\vspace{12pt}
-Моё предложение. Вместо запроса~\ref{lst:music2018-2024} напишите два запроса. 
-Замените в запросе~\ref{lst:music2018-2024} строку 4 на соответствующие строки 
-в запросах~\ref{lst:TotalPiecesMusicAllGenres} и~\ref{lst:TotalMusicAllSubclasses_up} 
-(в \ref{lst:TotalMusicAllSubclasses_up} ещё должен появиться FILTER). 
-Сравните в тексте их результаты. 
-Какой из этих двух запросов даст большее число, с тем запросом дальше и работаем. 
-}
-\answerVlad{Ответ: У меня получились следующие запросы: \url{https://w.wiki/9uPM} с результатом 4266 и \url{https://w.wiki/9uPS} с результатом 1029. Разница результатов мала, а во втором запросе даже меньше. Правильно ли составлены запросы?.}
-
-
-\newpage
 Запрос~\ref{lst:TotalMusicAllSubclasses_up} 
 возвращает 170 тыс. музыкальных произведений, которые могут иметь или не~иметь дату публикации. 
 В~запросе~\ref{lst:music2018-2024} в~строке~5 
@@ -413,26 +388,15 @@ SELECT (SUM(?count) AS ?sum) WHERE{
 найдено 55 тыс., 
 то есть примерно в~3~раза меньше. 
 Если включена фильтрация на~год публикации (строка~7), 
-то получаем 4.2 тыс. новых произведений, опубликованных в~2018--2024 годах. 
+то получаем 5.4 тыс. новых произведений, созданных в~2018--2024 годах, имеющих объекты в Викиданных. 
 Получается, что <<новых>> музыкальных произведений, созданных после 2017 года,  
-около 2\,\% (4.2 тыс.) от всех музыкальных произведений в Викиданных (170 тыс.).
-
-
-\todoVlad{Владимир, сейчас в этом абзаце некорректное сравнение двух запросов, 
-см. моё замечание об ошибке выше. 
-
-\vspace{12pt}
-После исправления этой ошибки числа в абзаце нужно будет обновить.
-}
-\answerVlad{Ответ: ...}
+около 3\,\% (5.4 тыс.) от всех музыкальных произведений в Викиданных (170 тыс.).
 
 
 
 
 
 
-
-\newpage
 \section{Количество музыкальных произведений по годам}
 
 Подсчитаем количество музыкальных произведений 
@@ -445,7 +409,7 @@ SELECT (SUM(?count) AS ?sum) WHERE{
 \index{SPARQL!wikibase!isSomeValue}
 \begin{lstlisting}[ 
     language=SPARQL,
-    caption={\href{https://w.wiki/9aHU}
+    caption={\href{https://w.wiki/9wJC}
                   {Количество музыкальных произведений, создаваемых каждое десятилетие}\protect\footnotemark},
     label=lst:MusicEvery10Years,
     xleftmargin=18pt,
@@ -454,29 +418,20 @@ SELECT (SUM(?count) AS ?sum) WHERE{
 # The number of musical compositions for every 10 years
 #defaultView:BarChart
 SELECT (STR(?date) AS ?date_str) (COUNT(?composition) AS ?count) WHERE {
-  ?composition wdt:P31 wd:Q105543609;     # instance of compostion
-    wdt:P86 ?composer;                    # composition has a composer
-    wdt:P577 ?publication.                # composition has a publication date
+  ?composition wdt:P31 wd:Q105543609; # is musical work/composition
+               wdt:P86 ?composer;     # has a composer
+               wdt:P577 ?publication. # has a publication date
   BIND(YEAR(?publication) AS ?date)
   BIND((FLOOR(?date / 10 )) * 10  AS ?year)
-  FILTER(?year > 1850)
-  FILTER(?year < 2030) 
+  FILTER(1850 < ?year && ?year < 2030)
   FILTER (!wikibase:isSomeValue(?publication)) # field "date" must be filled
 }
 GROUP BY ?date
 ORDER BY (?date)
 \end{lstlisting}%
-\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/9aHU}{https://w.wiki/9aHU}.}
+\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/9wJC}{https://w.wiki/9wJC}.}
 
 
-\todoVlad{Строка 4 в этом запросе~\ref{lst:MusicEvery10Years} 
-должна измениться в соответствие с замечанием об ошибке выше. 
-Вероятно, рис.~\ref{fig:diagram_10_years} тоже изменится. 
-}
-\answerVlad{Ответ: ...}
-
-
-\newpage
 \begin{marginfigure}[-5\baselineskip]
     \includegraphics[width=1\textwidth]{./chapter/musical_composition/BarChart_of_The_number_of_music_compositions_for_every_10_years.svg.png}
     \vspace{-7pt}
@@ -493,13 +448,7 @@ ORDER BY (?date)
 что со временем появляются новые жанры и новые устройства для записи. 
 На гистограмме (рис.~\ref{fig:diagram_10_years}) видим два пика: 1960--1990-е и 2000--2010-е.
 
-\todoVlad{Владимир, на рис.~\ref{fig:diagram_10_years} Вы пишите 
-<<видим два пика>>, а перечисляете три:\\
-<<1960--1990-е, 2000-е и 2020-е>>.\\ 
-Я вижу сейчас два пика: 1960--1990-е, 2000--2010-е. 
-Возможно, в следующей версии будут другие пики, но сейчас так.\\
-
-\vspace{12pt}
+\todoVlad{
 На рис.~\ref{fig:diagram_10_years} нужно сделать крупные подписи по обеим осям (название оси и числа). 
 Можете доработать в графическом редакторе. 
 Не забудьте новые версии рисунков загружать на Викисклад 
@@ -519,25 +468,28 @@ ORDER BY (?date)
 
 Добавим в запрос~\ref{lst:MusicEvery10Years} страну происхождения 
 музыкальных произведений (Российская империя, СССР и Россия), 
-а~ограничение по годам в строках 9--10 уберём. 
+а~ограничение по годам в строке 9 уберём. 
 Получим запрос~\ref{lst:MusicRussia10Years}, 
 подсчитывающий сколько отечественных музыкальных произведений было написано 
 в каждом десятилетии с середины XIX века до настоящего времени.
 
+
+\newpage
 \begin{lstlisting}[ 
     language=SPARQL,
     caption={\href{https://w.wiki/9q9m}
-                  {Количество музыкальных произведений в Росии и СССР 
-                   за каждые 10 лет}\protect\footnotemark},
+                  {Подекадное количество отечественных музыкальных произведений\\
+                   с~известным автором}\protect\footnotemark},
     label=lst:MusicRussia10Years,
-    texcl,
+    xleftmargin=18pt,
+    numbers=left,
     ]
 # List of music written in Russia by composer with date of publication
 SELECT DISTINCT ?music ?musicLabel ?year ?year10 ?countryLabel ?composer ?composerLabel WHERE {
     
                   # Russian Empire, USSR, Russia
     VALUES ?country {wd:Q34266 wd:Q15180 wd:Q159}
-    ?music wdt:P17|wdt:P495 ?country. # has country or country of origin  
+    ?music (*@\hl{wdt:P17|wdt:P495}@*) ?country. # has country or country of origin  
     
            # instance of subclasses of musical work/composition
     ?music wdt:P31 [wdt:P279* wd:Q105543609];
@@ -550,27 +502,33 @@ SELECT DISTINCT ?music ?musicLabel ?year ?year10 ?countryLabel ?composer ?compos
     SERVICE wikibase:label { bd:serviceParam wikibase:language "ru, en" }
 }
 \end{lstlisting}%
-\footnotetext{Получено: 125 русских композиций с указанием композитора, 145 - без автора. 
+\footnotetext{Получено: 125 русских композиций с~известным автором, 145~--- без автора. 
 Ссылка на SPARQL-запрос: \href{https://w.wiki/9q9m}{https://w.wiki/9q9m}.}
 
-В запрсое~\ref{lst:MusicRussia10Years} мы используем \lstinline{wdt:P17|wdt:P495} в строке 6, 
-для выполнения операции <<или>> между условиями. В вашем запросе \lstinline{wdt:P17|wdt:P495} 
-означает, что мы хотим выбрать все музыкальные композиции, у которых указано значение свойства \wdProperty{17}{<<государство>>}, 
-или значение свойства \wdProperty{495}{<<страна происхождения>>}, равное одному из значений, 
-указанных в строке 5 (VALUES ?country {wd:Q34266 wd:Q15180 wd:Q159}).\\ 
-\wdProperty{17}{<<государство>>}: Это свойство указывает на текущее местоположение объекта 
-или его принадлежность к определенной стране.\\ 
-\wdProperty{495}{<<страна происхождения>>}: Это свойство обычно относится к объектам, 
-которые могут иметь исторические или культурные ассоциации с определенной страной, 
-независимо от их текущего местоположения или принадлежности.
+В запросе~\ref{lst:MusicRussia10Years} в строке 6 
+есть интересная конструкция \lstinline{wdt:P17|wdt:P495}, состоящая из трёх частей:
+\begin{enumerate}
+\item свойство \wdProperty{17}{<<государство>>}; 
+\item свойство \wdProperty{495}{<<страна происхождения>>}; 
+\item вертикальная палочка (\emph{пайп}, англ. pipe), выполняющая роль союза <<или>>. 
+    Палочка означает, что должно выполняться хотя бы одно из разделяемых ею свойств.
+\end{enumerate}
+\index{SPARQL!pipe (или)}%      \index{SPARQL!\Vert pipe}
 
-Теперь с помощью запроса~\ref{lst:MusicRussia10YearsGraph} получим график российской музыки.
+То есть эта конструкция требует от переменной \lstinline|?music|, 
+чтобы <<страной происхождения>> музыкальной композиции была Россия или её предшественники, 
+или чтобы она имела отношение к~России посредством свойства <<государство>>. 
+
+Теперь с помощью запроса~\ref{lst:MusicRussia10YearsGraph} увидим на рис.~\ref{fig:RussianMusic10years} 
+количество музыкальных произведений, 
+создаваемых каждое десятилетие в~России и СССР с~XIX века до~настоящего времени, 
+достойных упоминания в энциклопедии. 
 
 \begin{lstlisting}[ 
     language=SPARQL,
     caption={\href{https://w.wiki/9qAY}
-                  {График количества музыкальных произведений в Росии и СССР 
-                   за каждые 10 лет}\protect\footnotemark},
+                  {График количества отечественных музыкальных произведений\\
+                   с~известным автором за каждые 10 лет}\protect\footnotemark},
     label=lst:MusicRussia10YearsGraph,
     texcl,
     ]
@@ -592,15 +550,15 @@ SELECT (STR(?year10) AS ?date_str) (COUNT(?music) AS ?count) WHERE {
 GROUP BY ?year10
 ORDER BY ?year10
 \end{lstlisting}%
-\footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/9qAY}{https://w.wiki/9qAY}.}
+\footnotetext{Получено: 19 декад с числом музыкальных произведений. 
+    Ссылка на SPARQL-запрос: \href{https://w.wiki/9qAY}{https://w.wiki/9qAY}.}
 
 \begin{marginfigure}[0\baselineskip]
 	\includegraphics[width=1\textwidth]{./chapter/musical_composition/Graph_music_in_Russia_10.png}
     \vspace{-7pt}
 	\caption{Гистограмма количества музыкальных произведений, 
              создаваемых каждое десятилетие в России и СССР с~XIX века до~настоящего времени}%
-	\label{fig:diagram_10_yearsRussia}%
-
+	\label{fig:RussianMusic10years}%
 \end{marginfigure}
 
 Далее построим график музыки, написанной российскими и советскими авторами с помощью запроса~\ref{lst:AutorRussia10YearsGraph}
@@ -641,15 +599,16 @@ ORDER BY ?year10
 \begin{marginfigure}[0\baselineskip]
 	\includegraphics[width=1\textwidth]{./chapter/musical_composition/Graph_music_by_composers_from Russia_10.png}
     \vspace{-7pt}
-	\caption{График количества музыкальных произведений, написанных композиторами из Росии и СССР 
-                   за каждые 10 лет}%
-	\label{fig:diagram_10_yearsRussia}%
+	\caption{Подекадный график количества музыкальных произведений, написанных отечественными авторами}%
+	\label{fig:RussianComposers10years}%
 
 \end{marginfigure}
 
-Можем увидить, что количество музыкальных произведений, написанных композиторами из Росии и СССР за каждые 10 лет 
+Можем увидеть, что количество музыкальных произведений, написанных композиторами из Росии и СССР за каждые 10 лет 
 на графике~\ref{fig:diagram_10_years_comp_in_Russia}, сильно превосходит количество музыкальных произведений в Росии и СССР за каждые 10 лет 
-на графике~\ref{fig:diagram_10_yearsRussia}.
+на графике~\ref{fig:RussianComposers10years}.
+
+Ещё есть график~\ref{fig:RussianMusic10years}
 
 \todoVlad{
 Доработал запрос~\ref{lst:MusicRussia10Years} (точнее доработал URL-запрос с нулём результатов 
@@ -738,7 +697,7 @@ ORDER BY ?year10
 \todoVlad{
 Полагаю, что из-за изменения скриптов и результатов нужно будет обновить рисунки 
  \ref{fig:diagram_10_years},  
- \ref{fig:diagram_10_yearsRussia}, 
+ \ref{fig:RussianMusic10years}, 
  \ref{fig:CompareRuMusComposerWithout}.  
 }
 \answerVlad{Ответ: Готово.}
