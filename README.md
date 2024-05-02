@@ -7,6 +7,7 @@ Petrozavodsk State University (PetrSU), Internet-mathematics course.
 
 See the [latest Russian and English PDF files](https://www.dropbox.com/sh/0ujam53seriygmg/AAA83UtcAA5dCL2LpQ4ueOQGa).
 
+The textbook [“Wikidata Programming”](https://commons.wikimedia.org/wiki/File:Wd_book_ru_2024.pdf) was published in 2024 in Russian.
 
 # Wikidata programming book (in English)
 
