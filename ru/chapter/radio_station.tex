@@ -168,7 +168,12 @@ ORDER BY DESC(?count)
 \marginnote[1\baselineskip]{%
         \label{question:radio}
         \MarginQuestion
-        Запрос~\ref{lst:subclasses_of_radio_stations} написан с ошибкой, потому что в результате поиска подклассов радиостанций мы получаем сами \wdqName{<<вещательные радиостанции>>}{14350} . Так почему в списке подклассов мы получаем сами радиостанции? И что необходимо исправить в запросе~\ref{lst:subclasses_of_radio_stations}, чтобы сам класс не попадал в свои подклассы? 
+        Запрос~\ref{lst:subclasses_of_radio_stations} написан с ошибкой, 
+        потому что в результате поиска подклассов радиостанций 
+        мы получаем сами \wdqName{<<вещательные радиостанции>>}{14350}. 
+        Так почему в списке подклассов мы получаем сами радиостанции? 
+        И что необходимо исправить в запросе~\ref{lst:subclasses_of_radio_stations}, 
+        чтобы сам класс не попадал в свои подклассы? 
         
         См. ответ на~с.~\pageref{answer:radio_stations}.
 }
@@ -457,7 +462,13 @@ SELECT ?radio ?radioName
 <<В табл. N.N ...>>
 }
 \answerVlad{Ответ: после комментирования строк, результат изменился незначительно (на 9, 3 и меньше).  Может быть я что-то не так сделал, но это маловероятно }
-
+\todoVlad{
+    Егор, если я закомментирую строку 9, то получаю запрос  
+\url{https://w.wiki/9wwU}.\\
+Этот запрос даёт по всему миру: музыка 90 (в таблице по России --- 44), 
+новости 60 (в таблице по России --- 30) и так далее.\\
+Эти данные по всему миру я предлагаю выше добавить в третий столбец этой же таблицы.
+}
 
 
 
@@ -538,7 +549,6 @@ Telegram~---51 аккаунт;
 Глядя на результаты двух диаграмм можно сделать вывод о том, что в шестерка популярных социальных сетей осталась почти неизменной, изменились только позиции. Таким образом во второй диаграмме~\ref{fig:radio_station_acc_all_countries}  верхние строчки заняли социальные сети, имеющие большую популярность во всем мире. Социальные сети, которые разработаны в России заняли места ниже в этой шестерке. 
 
 
-
 \index{График!Sunburst diagram}
 \begin{marginfigure}[1\baselineskip]
 {\includegraphics[width=1\linewidth]{chapter/radio_station/Number_of_social_media_accounts_2.png}}
@@ -547,6 +557,9 @@ Telegram~---51 аккаунт;
 \label{fig:radio_station_acc}
 \end{marginfigure}
 
+
+
+\newpage
 \index{График!Sunburst diagram}
 \begin{marginfigure}[1\baselineskip]
 {\includegraphics[width=1\linewidth]{chapter/radio_station/Number_of_social_media_accounts_in_all_countries.png}}
