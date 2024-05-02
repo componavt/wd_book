@@ -457,8 +457,8 @@ ORDER BY (?date)
 \textit{Программирование Викиданных/Музыкальные композиции}.
 
 \vspace{12pt}
-Сейчас на этом рисунке есть тонкая полоса слева и небольшие полоски вверху, 
-сделайте crop, пожалуйста, в итоговой картинке. 
+Сейчас на этом рисунке есть тонкая полоса слева.  
+Сделайте crop, пожалуйста, в итоговой картинке. 
 }
 \answerVlad{...}
 
@@ -475,6 +475,14 @@ ORDER BY (?date)
 
 
 \newpage
+
+\marginnote[4\baselineskip]{%
+        \label{question:music_unique}
+        \MarginQuestion
+       Как избавится от дубликатов в запросе~\ref{lst:MusicRussia10Years}, то есть чтобы независимо от числа композиторов, музыкальные произведения не повторялись. 
+        См. ответ~\ref{lst:Number_of_unique_musical_compositions} на с.~\pageref{answer:music_unique_answ}.
+}
+
 \begin{lstlisting}[ 
     language=SPARQL,
     caption={\href{https://w.wiki/9q9m}
@@ -485,9 +493,9 @@ ORDER BY (?date)
     numbers=left,
     ]
 # List of music written in Russia by composer with date of publication
-SELECT DISTINCT ?music ?musicLabel ?year ?year10 ?countryLabel ?composer ?composerLabel WHERE {
-    
-                  # Russian Empire, USSR, Russia
+SELECT DISTINCT ?music ?musicLabel ?year ?year10 ?countryLabel 
+       ?composer ?composerLabel WHERE 
+{                  # Russian Empire, USSR, Russia
     VALUES ?country {wd:Q34266 wd:Q15180 wd:Q159}
     ?music (*@\hl{wdt:P17|wdt:P495}@*) ?country. # has country or country of origin  
     
@@ -521,8 +529,9 @@ SELECT DISTINCT ?music ?musicLabel ?year ?year10 ?countryLabel ?composer ?compos
 
 Теперь с помощью запроса~\ref{lst:MusicRussia10YearsGraph} увидим на рис.~\ref{fig:RussianMusic10years} 
 количество музыкальных произведений, 
-создаваемых каждое десятилетие в~России и СССР с~XIX века до~настоящего времени, 
-достойных упоминания в энциклопедии. 
+создаваемых каждое десятилетие в~России и СССР с~XIX века до~настоящего времени. 
+В~основном это только те~композиции, о~которых есть статьи в~Википедии на~каком-либо языке. 
+
 
 \begin{lstlisting}[ 
     language=SPARQL,
@@ -547,28 +556,69 @@ SELECT (STR(?year10) AS ?date_str) (COUNT(?music) AS ?count) WHERE {
     BIND(YEAR(?date) AS ?year)
     BIND((FLOOR(?year / 10)) * 10  AS ?year10)
 }
-GROUP BY ?year10
-ORDER BY ?year10
+GROUP BY ?year10 ORDER BY ?year10
 \end{lstlisting}%
 \footnotetext{Получено: 19 декад с числом музыкальных произведений. 
     Ссылка на SPARQL-запрос: \href{https://w.wiki/9qAY}{https://w.wiki/9qAY}.}
 
 \begin{marginfigure}[0\baselineskip]
 	\includegraphics[width=1\textwidth]{./chapter/musical_composition/Graph_music_in_Russia_10.png}
-    \vspace{-7pt}
+    \vspace{-10pt}
 	\caption{Гистограмма количества музыкальных произведений, 
              создаваемых каждое десятилетие в России и СССР с~XIX века до~настоящего времени}%
 	\label{fig:RussianMusic10years}%
 \end{marginfigure}
 
-Далее построим график музыки, написанной российскими и советскими авторами с помощью запроса~\ref{lst:AutorRussia10YearsGraph}
+
+Если в~запросе~\ref{lst:MusicRussia10Years} мы получаем список требуемых композиций, 
+то   в~запросе~\ref{lst:MusicRussia10YearsGraph} это те же композиции, но уже безымянные, 
+разбитые по~десятилетиям, и всё, что нас интересует для построения рис.~\ref{fig:RussianMusic10years},~--- 
+это число композиций за десять лет. 
+В~этих двух запросах мы искали <<российскую музыку>>, то есть композиции со свойствами 
+\wdProperty{17}{<<государство>>} или 
+\wdProperty{495}{<<страна происхождения>>}, имеющими значение <<Россия>>. 
+Получилось мало, всего 125 музыкальных композиций. 
+
+Проанализировав несколько отечественных песен, таких как: 
+\wdqName{<<Песня без слов (Кино)}{101001315}, 
+\wdqName{<<Музыка нас связала}{105724079}, 
+\wdqName{<<Розовое вино}{57744615}, 
+не~попавших в~результаты запроса~\ref{lst:MusicRussia10Years}, стало понятно, 
+что у~этих произведений отсутствует свойство \wdProperty{495}{<<Cтрана происхождения>>} и свойство \wdProperty{17}{<<государство>>}. 
+То~есть далеко не~у~всех композиций заполнены свойства, 
+связанные со~страной. 
+Предположим, что для увеличения музыкального охвата нужно перейти от~<<государственности>> музыки 
+к~гражданству автора музыки. 
+То есть строим последовательность: музыка $\rightarrow$ композитор $\rightarrow$ 
+гражданство $\rightarrow$ Российская Империя или СССР, или Россия.
+В~соответствии с этой последовательностью построили запрос \href{https://w.wiki/9wcE}
+                                                                {https://w.wiki/9wcE}, 
+который нашёл в дюжину раз больше музыкальных композиций~--- 1552 по~данным на~2024 году. 
+Преобразуем запрос \href{https://w.wiki/9wcE}
+                        {https://w.wiki/9wcE} в запрос~\ref{lst:RussianComposers10years} 
+для рисования гистограммы подекадного числа музыкальных композиций, 
+написанных отечественными авторами (рис.~\ref{fig:RussianComposers10years}). 
+
+Предположение оправдалось, количество композиций отечественных авторов 
+(рис.~\ref{fig:RussianComposers10years}) 
+по~некоторым декадам в~десятки раз превосходит 
+количество отечественных музыкальных произведений (рис.~\ref{fig:RussianMusic10years}).
+
+
+\begin{marginfigure}[0\baselineskip]
+	\includegraphics[width=1\textwidth]{./chapter/musical_composition/Graph_music_by_composers_from Russia_10.png}
+    \vspace{-7pt}
+	\caption{Подекадный график количества музыкальных произведений, написанных отечественными авторами}%
+	\label{fig:RussianComposers10years}%
+\end{marginfigure}
+
 
 \begin{lstlisting}[ 
     language=SPARQL,
     caption={\href{https://w.wiki/9qB7}
                   {Количество музыкальных произведений, написанных композиторами из Росии и СССР 
                    за каждые 10 лет}\protect\footnotemark},
-    label=lst:AutorRussia10YearsGraph,
+    label=lst:RussianComposers10years,
     texcl,
     ]
 # Chart of music written by Russian composer with date of publication
@@ -592,69 +642,17 @@ ORDER BY ?year10
 \end{lstlisting}%
 \footnotetext{Ссылка на SPARQL-запрос: \href{https://w.wiki/9qB7}{https://w.wiki/9qB7}.}
 
-В запросах~\ref{lst:MusicRussia10YearsGraph} и~\ref{lst:MusicRussia10Years} мы выбирали музыку со свойством <<Россия>>, 
-а в запросе~\ref{lst:AutorRussia10YearsGraph} мы выбираем любую музыку, но с композитором, у которого свойство, 
-что он гражданин Российской Империи, СССР или России.
+
+
+
+\newpage
 
 \begin{marginfigure}[0\baselineskip]
-	\includegraphics[width=1\textwidth]{./chapter/musical_composition/Graph_music_by_composers_from Russia_10.png}
-    \vspace{-7pt}
-	\caption{Подекадный график количества музыкальных произведений, написанных отечественными авторами}%
-	\label{fig:RussianComposers10years}%
-
+	\includegraphics[width=1\textwidth]{./chapter/musical_composition/graph_of_comparison_of_readings.png}
+	\caption{Сравнение числа музыкальных композиций по десятилетиям в России,  
+             с~указанием композитора и~с~неизвестным автором}%
+	\label{fig:CompareRuMusComposerWithout}%
 \end{marginfigure}
-
-Можем увидеть, что количество музыкальных произведений, написанных композиторами из Росии и СССР за каждые 10 лет 
-на графике~\ref{fig:diagram_10_years_comp_in_Russia}, сильно превосходит количество музыкальных произведений в Росии и СССР за каждые 10 лет 
-на графике~\ref{fig:RussianComposers10years}.
-
-Ещё есть график~\ref{fig:RussianMusic10years}
-
-\todoVlad{
-Доработал запрос~\ref{lst:MusicRussia10Years} (точнее доработал URL-запрос с нулём результатов 
-\href{https://w.wiki/9f8B}{https://w.wiki/9f8B}), 
-    получилось три запроса:\\ 
-(1) запрос \href{https://w.wiki/9q9m}{https://w.wiki/9q9m}, 
-чтобы увидеть список муз. композиций, год написания музыки, страна, автор музыкальной композиции.\\ 
-125 русских композиций с указанием композитора,\\ 
-145 - без автора.\\
-
-\vspace{12pt}
-(2) запрос \href{https://w.wiki/9qAY}{https://w.wiki/9qAY} --- 
-график российской музыки, получилось чуть больше, чем на рис.~\ref{fig:CompareRuMusComposerWithout}.
-То есть (2) - это тот же запрос (1), но мы получаем не список музык, а график.\\
-
-\vspace{12pt}
-(3) запрос \href{https://w.wiki/9qB7}{https://w.wiki/9qB7} --- 
-график музыки, написанной российскими и советскими авторами. Самый лучший результат, 
-намного больше, чем на рис.~\ref{fig:CompareRuMusComposerWithout}.\\ 
-То есть в (1), (2) мы выбирали музыку со свойством <<Россия>>, а в (3) мы выбираем 
-любую музыку, но с таким композитором, у которого свойство, что он гражданин Рос. Имп., СССР или России.\\ 
-Но есть проблема, в (3) на графике десятилетия сортируются по убыванию числа композиций. 
-Возможно, придётся сохранить CSV-файл с результатами и затем рисовать график в Excel'e.\\
-
-\vspace{12pt}
-Приведите три листинга вместо запроса~\ref{lst:MusicRussia10Years}, 
-укажите кратко после каждого запроса его особенности, которые видите. \\
-Например, объясните в тексте вот эту конструкцию в строке 6:\\
-\lstinline{wdt:P17|wdt:P495}.
-
-Обратите внимание, что здесь даны три страны, чтобы указать Россию.\\ 
-
-\vspace{12pt}
-Кстати, строка \lstinline|FILTER (!wikibase:isSomeValue(?date))| 
-в старом запросе~\ref{lst:MusicRussia10Years} не нужна, 
-поскольку строка \lstinline|wdt:P577 ?date| и так требует наличия даты публикации у музыки. 
-}
-\answerVlad{Ответ: Добавил три листинга и обновил рисунки.}
-
-Количество музыкальных произведений в России и СССР очень мало (125). 
-Проанализировав несколько песен, написанных в России, таких как: 
-\wdqName{<<Песня без слов (Кино)}{101001315}, 
-\wdqName{<<Музыка нас связала}{105724079}, 
-\wdqName{<<Розовое вино}{57744615}, 
-не~попавших в запрос~\ref{lst:MusicRussia10Years}, стало понятно, 
-что у~этих произведений отсутствует свойство \wdProperty{495}{<<Cтрана происхождения>>} и свойство \wdProperty{17}{<<государство>>}.
 
 Строка~10 запроса~\ref{lst:MusicRussia10Years}~---  
 \lstinline|wdt:P86 ?composer;|~--- 
@@ -669,6 +667,31 @@ ORDER BY ?year10
 как и~исходный запрос~\ref{lst:MusicRussia10Years}, 
 что логично, потому что модифицированный запрос не имеет обязательного условия наличия композитора. 
 
+
+\todoVlad{
+    Мы перешли от запроса~\ref{lst:MusicRussia10Years} к запросу~\ref{lst:RussianComposers10years} 
+    (от рис.~\ref{fig:RussianMusic10years} к рис.~\ref{fig:RussianComposers10years}) 
+    и десятикратно увеличили число музыкальных композиций за декаду 
+    (не 1--24, а больше 100). 
+
+
+    В начале этой страницы написано: 
+    <<Строка~10 запроса~\ref{lst:MusicRussia10Years}~---  \lstinline|wdt:P86 ?composer;|~---...>>. 
+    Всё верно, но я предлагаю для рисования рис.~\ref{fig:CompareRuMusComposerWithout} 
+    взять запрос~\ref{lst:RussianComposers10years}. 
+
+    То есть рис.~\ref{fig:CompareRuMusComposerWithout} должен существенно вырасти по вертикали 
+    и запрос для его создания должен измениться 
+    (т. е. не отечественные композиции, а отечественные авторы музыки). 
+
+    Два абзаца выше немного обновятся. 
+
+    Кстати, оставьте рис.~\ref{fig:CompareRuMusComposerWithout}, 
+    а новый (с б\'{о}льшими значениями) добавьте ниже. 
+    Будет интересно сравнить - изменятся ли пики и волны? 
+}
+\answerVlad{Ответ: ...}
+
 Но есть исключения, например: 1880-е, 1960-е. 
 Посмотрим список музыкальных композиции с~помощью запроса \href{https://w.wiki/9vi8}
                                                                {https://w.wiki/9vi8}. 
@@ -680,35 +703,6 @@ ORDER BY ?year10
 \wdqName{String Quartet on the Theme B-la-F}{18660379} (4 раза). 
 Вторая композиция повторяется 4 раза, поскольку в этом музыкальном объекте указаны 4~композитора. 
 
-\marginnote[0\baselineskip]{%
-        \label{question:music_unique}
-        \MarginQuestion
-       Как избавится от дубликатов в запросе~\ref{lst:MusicRussia10Years}, то есть чтобы независимо от числа композиторов, музыкальные произведения не повторялись. 
-        См. ответ~\ref{lst:Number_of_unique_musical_compositions} на с.~\pageref{answer:music_unique_answ}.
-}
-
-\todoVlad{На поля Вы добавили вопрос о том, 
-как избавиться от дубликатов, и добавили  ответ в раздел <<Ответы>>. 
-Поскольку запрос~\ref{lst:MusicRussia10Years} выше должен измениться, 
-то и скрипт в ответах, вероятно, изменится. Проверьте, пожалуйста. 
-}
-\answerVlad{Ответ: Готово.}
-
-\todoVlad{
-Полагаю, что из-за изменения скриптов и результатов нужно будет обновить рисунки 
- \ref{fig:diagram_10_years},  
- \ref{fig:RussianMusic10years}, 
- \ref{fig:CompareRuMusComposerWithout}.  
-}
-\answerVlad{Ответ: Готово.}
-
-
-\begin{marginfigure}[0\baselineskip]
-	\includegraphics[width=1\textwidth]{./chapter/musical_composition/graph_of_comparison_of_readings.png}
-	\caption{Сравнение числа музыкальных композиций по десятилетиям в России,  
-             с~указанием композитора и~с~неизвестным автором}%
-	\label{fig:CompareRuMusComposerWithout}%
-\end{marginfigure}
 
 
 
@@ -758,20 +752,23 @@ ORDER BY DESC (?count)
 Строки 7 и 8 в запросе~\ref{lst:music_in_genres_1960-1990} определяют промежуток времени с 1960 года до 1990 год, который является <<первой волной>>, в этом промежутке будет производиться поиск музыкальных произведений по дате их публикации.
 
 \todoVlad{
-Поскольку 
-у нас изменится запрос~\ref{lst:MusicEvery10Years}, 
-по которому строится рис.~\ref{fig:diagram_10_years}, 
-то и запрос~\ref{lst:music_in_genres_1960-1990} должен соответственно измениться.\\ 
-И главная странность: на круговой диаграмме (рис.~\ref{fig:Genre_Chart_1960_—_1990}) 
-видно 4 жанра. Мало. Поскольку ранее  
-в запросе~\ref{lst:NPiecesOfMusicForEachGenre} было получено не 4, 
-а 254 жанра и типа музыкальных произведений.\\
+Зачем в запросе~\ref{lst:music_in_genres_1960-1990} есть строка
+\lstinline|wdt:P86 ?composer|? 
+Если её убрать, то результатов будет больше. 
 
-То же замечание к следующему запросу и к следующей круговой диаграмме.\\ 
+\vspace{12pt}
+Меня смущало, что на этом <<кружке>> есть духовные песни, а всякого панка, рока и джаза нет. 
+Странно. Я взял любую известную рок-музыку, посмотрел её свойства, и у меня получился такой 
+весёлый скрипт: \href{https://w.wiki/9wuk}
+                     {https://w.wiki/9wuk}. Этот запрос работает долго, но со второй попытки выдал результат.\\
+Если сможете, то ускорьте его работу.\\
+Если сможете, то объедините его с запросом~\ref{lst:music_in_genres_1960-1990}. 
+
+То же замечание к следующему запросу и к следующей круговой диаграмме 
+(там где второй пик графика).\\ 
 Кстати, если следующий запрос меняется только в двух строчках, то сократите листинг, 
 оставьте только эти две строчки, а выше и ниже сделайте по одной строчке с многоточием.
 } 
-
 \answerVlad{Ответ: ...}
 
 
@@ -830,8 +827,8 @@ ORDER BY DESC (?count)
 \begin{lstlisting}[ 
     language=SPARQL,
     caption={\href{https://w.wiki/9qGu}
-                  {Отсутствующие аудиозаписи музыкальных произведений, авторы которых умерли 
-                   более 70 лет назад }\protect\footnotemark},
+                  {Отсутствующие аудиозаписи музыкальных произведений,\\
+                  авторы которых умерли более 70 лет назад }\protect\footnotemark},
     label=lst:music_gaps_in_public_domain,
     texcl,
     numbers=none
@@ -896,12 +893,6 @@ ORDER BY ASC(?date)
 Английской Википедии существует \num{4958} композиторов\sidenote{%
                     URL: \href{https://en.wikipedia.org/?curid=6921880}
                               {https://en.wikipedia.org/?curid=6921880}.}.
-\todoVlad{Нужно обновить данные по словарю Гроува, я по ссылке не нашёл этого числа. 
-Или загляните в сам словарь Гроува...\\
-Обновите число <<4685 композиторов>> по Английской Википедии~--- нужно подсчитать как-то 
-это число по странице, куда ведёт ссылка.} 
-\answerVlad{Я не нашел иформации по поводу кличества композиторов по ссылке на словарь Гроува. Но в тексте говорится про онлайн-версию этого словаря, которую до сих пор дополняют. Нашел ссылку на этот словарь и нашел следующую страницу \href{https://www.oxfordmusiconline.com/page/about-gmo/about-grove-music-online}{https://www.oxfordmusiconline.com/page/about-gmo/about-grove-music-online}, на ней гооврится о 33000 биографических статей. Мне добавить это значение с ссылкой на данную страницу? }
-\todoVlad{Спасибо за ссылку, добавил число и ссылку.}
 
 Количество музыкальных композиций с заполненным свойством \wdProperty{86}{композитор} равно \num{3862}, 
 что показывает нам запрос \href{https://w.wiki/56Rc}{https://w.wiki/56Rc}, 
@@ -914,7 +905,6 @@ ORDER BY ASC(?date)
 чем количество композиторов из \href{https://ru.wikipedia.org/wiki/Музыкальный_словарь_Гроува}{<<Музыкального словаря Гроува>>}, что говорит нам о неполноте Викиданных.
 
 
-\newpage
 \todoVlad{Скрипты и числа выше устарели. Возможно, скрипты потребуют переделки.}
 \answerVlad{Не получается исправить скрипты. Поменял \wdqName{<<музыкальная композиция>>}{207628} 
 на \wdqName{<<музыкальное произведение/композиция>>}{105543609}>>. 
@@ -1011,16 +1001,23 @@ ORDER BY DESC(?count) ?composerLabel
 
 \section{Упражнения}
 \begin{enumerate}
-\item Найти список музыкальных композиций, созданных во время эпохи классицизма (XVII--XVIII века).
+    \item Найти список музыкальных композиций, созданных во время эпохи классицизма (XVII--XVIII века).
 Используйте свойство \wdProperty{571}{<<дата создания>>}.
-\item Найти композитора, который написал больше симфоний, чем остальные. 
+    \item Найти композитора, который написал больше симфоний, чем остальные. 
     Используйте свойства \wdProperty{31}{экземпляр}, \wdProperty{86}{композитор}
         и объект \wdqName{симфония}{9734}.
-\item Построить гистограмму, на которой отображается количество музыкальных композиций 
+    item Построить гистограмму, на которой отображается количество музыкальных композиций 
         группы The Beatles по году публикации.
         Используйте свойства: <<\wdProperty{175}{исполнитель}>>, <<\wdProperty{577}{дата публикации}>>. 
 %        
         \label{question:TheBeatles_quest}
         (См. ответ %~\ref{lst:TheBeatles} 
          на с.~\pageref{answer:TheBeatles_answ}).
+
+     \item Найти список музыкальных жанров, которые входили в семёрку первых 
+         (по количеству музыкальных композиций) хотя бы для одного 
+         десятилетия на протяжении всей истории. 
+         Подсчитать число музыкальных композиций по этим жанрам для всех десятилетий, 
+         представить это на графике. 
+         Этот график будет показывать расцвет и падение различных музыкальных жанров. 
 \end{enumerate}
